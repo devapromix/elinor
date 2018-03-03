@@ -1,10 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.117,=C:\Users\User\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2018.03.03 08:47:06.097,=C:\Users\User\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2018.03.03 08:48:43.041,D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.MainForm.pas=C:\Users\User\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2018.03.03 08:48:43.041,D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.MainForm.dfm=C:\Users\User\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2018.03.03 08:48:56.098,D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.dproj=C:\Users\User\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.429,=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.470,D:\dev\github-disciples-rl\trunk\sources\Unit1.pas=D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.Resources.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.491,=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.973,D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.Scene.Map.pas=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.058,D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.Leader.pas=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.740,=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.647,D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.Scenes.pas=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.032,=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.317,=D:\dev\github-disciples-rl\trunk\sources\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.016,D:\dev\github-disciples-rl\trunk\sources\Unit1.pas=D:\dev\github-disciples-rl\trunk\sources\DisciplesRL.Map.pas</Transaction>
   </Transactions>
 </BorlandProject>
