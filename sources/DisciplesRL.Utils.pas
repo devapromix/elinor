@@ -1,4 +1,4 @@
-unit uUtils;
+unit DisciplesRL.Utils;
 
 interface
 
@@ -8,6 +8,7 @@ uses
 type
   Utils = class(TObject)
   public
+    class function GetDist(X1, Y1, X2, Y2: Single): Word;
     class function GetPath(SubDir: string): string;
     class function ShowForm(const Form: TForm): Integer;
   end;
@@ -15,6 +16,11 @@ type
 implementation
 
 uses SysUtils;
+
+class function Utils.GetDist(X1, Y1, X2, Y2: Single): Word;
+begin
+  Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
+end;
 
 class function Utils.GetPath(SubDir: string): string;
 begin
