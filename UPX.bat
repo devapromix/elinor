@@ -1,0 +1,2 @@
+upx DisciplesRL.exe
+pause

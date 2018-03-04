@@ -93,6 +93,8 @@
         <DCCReference Include="DisciplesRL.Map.pas"/>
         <DCCReference Include="DisciplesRL.Resources.pas"/>
         <DCCReference Include="DisciplesRL.Player.pas"/>
+        <DCCReference Include="DisciplesRL.Creatures.pas"/>
+        <DCCReference Include="DisciplesRL.Party.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

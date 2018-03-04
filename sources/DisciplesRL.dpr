@@ -8,7 +8,9 @@ uses
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
-  DisciplesRL.Player in 'DisciplesRL.Player.pas';
+  DisciplesRL.Player in 'DisciplesRL.Player.pas',
+  DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
+  DisciplesRL.Party in 'DisciplesRL.Party.pas';
 
 {$R *.res}
 
