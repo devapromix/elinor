@@ -5,7 +5,7 @@ interface
 uses DisciplesRL.Creatures;
 
 type
-  TRace = (rcTheEmpire, rcNeutrals);
+  TRaceEnum = (reTheEmpire, reNeutrals);
 
 type
   TPosition = 0 .. 5;
@@ -13,7 +13,7 @@ type
 type
   TParty = class(TObject)
   private
-    FOwner: TRace;
+    FOwner: TRaceEnum;
     FCreature: array [TPosition] of TCreature;
     procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
     function GetCreature(APosition: TPosition): TCreature;
@@ -21,7 +21,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    property Owner: TRace read FOwner write FOwner;
+    property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
     procedure Clear;
     function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
@@ -52,7 +52,7 @@ end;
 constructor TParty.Create;
 begin
   Self.Clear;
-  Owner := rcNeutrals;
+  Owner := reNeutrals;
 end;
 
 destructor TParty.Destroy;
@@ -124,6 +124,5 @@ begin
           else
             HitPoints := MaxHitPoints;
 end;
-
 
 end.

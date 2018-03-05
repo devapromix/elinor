@@ -5,34 +5,75 @@ interface
 type
   TPlayer = record
     X, Y: Integer;
-    Rad: Integer;
+    Radius: Integer;
+    Turn: Integer;
   end;
 
 var
   Player: TPlayer;
 
 procedure Init;
-procedure RefreshRad;
+procedure Move(const AX, AY: ShortInt);
+procedure PutAt(const AX, AY: ShortInt);
+procedure RefreshRadius;
 
 implementation
 
-uses DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils;
+uses DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.Party;
 
 procedure Init;
 begin
-  Player.Rad := 2;
-  RefreshRad;
+  Player.Turn := 0;
+  Player.Radius := 41;
+  RefreshRadius;
 end;
 
-procedure RefreshRad;
-var
-  X, Y: Integer;
+procedure Move(const AX, AY: ShortInt);
 begin
-  for Y := -(Player.Rad + 2) to Player.Rad + 2 do
-    for X := -(Player.Rad + 2) to Player.Rad + 2 do
-      if (Utils.GetDist(Player.X + X, Player.Y + Y, Player.X, Player.Y) <= Player.Rad) and
-        DisciplesRL.Map.InMap(Player.X + X, Player.Y + Y) then
-        MapDark[Player.X + X, Player.Y + Y] := reNone;
+  PutAt(Player.X + AX, Player.Y + AY);
+end;
+
+procedure PutAt(const AX, AY: ShortInt);
+var
+  X, Y, I: Integer;
+begin
+  if not InMap(AX, AY) then Exit;
+  if (MapObj[AX, AY] = reMountain) then Exit;
+  Inc(Player.Turn);
+  for I := 0 to High(City) do
+  begin
+    if (City[I].Owner = reTheEmpire) then
+      if (City[I].CurLevel < City[I].MaxLevel) then
+      begin
+        Inc(City[I].CurLevel);
+        DisciplesRL.City.UpdateRadius(I);
+      end;
+  end;
+  Player.X := AX;
+  Player.Y := AY;
+  RefreshRadius;
+  case MapObj[Player.X, Player.Y] of
+    reBag:
+      begin
+        MapObj[Player.X, Player.Y] := reNone;
+      end;
+    reEnemies:
+      begin
+        MapObj[Player.X, Player.Y] := reNone;
+      end;
+    end;
+  case MapTile[Player.X, Player.Y] of
+    reNeutralCity:
+      begin
+        MapTile[Player.X, Player.Y] := reEmpireCity;
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X, Player.Y));
+      end;
+  end;
+end;
+
+procedure RefreshRadius;
+begin
+  DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius, MapDark, reNone);
 end;
 
 end.

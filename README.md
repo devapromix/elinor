@@ -2,31 +2,31 @@
 Simple roguelike game based on Disciples.
 
 ## Screenshots
-### Day 1
+### Day 1 [3.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_1.png)
 
-### Day 2
+### Day 2 [4.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_2.png)
 
-### Day 3
+### Day 3 [5.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_3.png)
 
-### Day 4
+### Day 4 [6.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_4.png)
 
-### Day 5
+### Day 5 [7.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_5.png)
 
-### Day 6
+### Day 6 [8.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_6.png)
 
-### Day 7
+### Day 7 [9.03.2018]
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_day_7.png)
 

@@ -9,5 +9,6 @@ del /s *.otares
 del /s *.local
 del /s *.cfg
 del /s *.ddp
-del /s *.o
 del /s *.a
+del /S *.*proj.local
+del /S *.tvsconfig

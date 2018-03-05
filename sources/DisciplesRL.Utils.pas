@@ -5,30 +5,26 @@ interface
 uses
   Forms;
 
-type
-  Utils = class(TObject)
-  public
-    class function GetDist(X1, Y1, X2, Y2: Single): Word;
-    class function GetPath(SubDir: string): string;
-    class function ShowForm(const Form: TForm): Integer;
-  end;
+function GetDist(X1, Y1, X2, Y2: Single): Word;
+function GetPath(SubDir: string): string;
+function ShowForm(const Form: TForm): Integer;
 
 implementation
 
 uses SysUtils;
 
-class function Utils.GetDist(X1, Y1, X2, Y2: Single): Word;
+function GetDist(X1, Y1, X2, Y2: Single): Word;
 begin
   Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
 end;
 
-class function Utils.GetPath(SubDir: string): string;
+function GetPath(SubDir: string): string;
 begin
   Result := ExtractFilePath(ParamStr(0));
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
 end;
 
-class function Utils.ShowForm(const Form: TForm): Integer;
+function ShowForm(const Form: TForm): Integer;
 begin
   with Form do
   begin

@@ -33,13 +33,18 @@ uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Pla
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
+  Top := 0;
+  Left := 0;
   Randomize;
-  DisciplesRL.Scenes.Init;
   // Test
   DisciplesRL.Resources.Init;
   DisciplesRL.Map.Init;
   DisciplesRL.Map.Gen;
   DisciplesRL.Player.Init;
+  //
+  ClientWidth := MapWidth * TileSize;
+  ClientHeight := MapHeight * TileSize;
+  DisciplesRL.Scenes.Init;
 end;
 
 procedure TMainForm.FormPaint(Sender: TObject);

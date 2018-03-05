@@ -18,6 +18,12 @@ uses System.SysUtils, System.Math, System.Types, Vcl.Imaging.PNGImage, Disciples
   DisciplesRL.Player,
   DisciplesRL.Utils;
 
+const
+  K_RIGHT = 39;
+  K_LEFT = 37;
+  K_DOWN = 40;
+  K_UP = 38;
+
 var
   LastMousePos, MousePos: TPoint;
 
@@ -41,19 +47,28 @@ begin
     begin
       if (MapDark[X, Y] = reDark) then
         Continue;
-      DrawImage(X, Y, ResImage[reGrass]);
-      F := (Utils.GetDist(X, Y, Player.X, Player.Y) > Player.Rad) and (MapDark[X, Y] = reNone);
+      case MapTile[X, Y] of
+        reEmpireTerrain, reEmpireCapital, reEmpireCity:
+          DrawImage(X, Y, ResImage[reEmpireTerrain]);
+      else
+        DrawImage(X, Y, ResImage[reNeutral]);
+      end;
+      F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and
+        not(MapTile[X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and (MapDark[X, Y] = reNone);
+      // Capital and Cities
+      if (ResBase[MapTile[X, Y]].ResType in [teCapital, teCity]) then
+        DrawImage(X, Y, ResImage[MapTile[X, Y]]);
       //
-      if (ResBase[MapTile[X, Y]].ResType in [teEnemy, teBag]) then
+      if (ResBase[MapObj[X, Y]].ResType in [teEnemy, teBag]) then
         if F then
           DrawImage(X, Y, ResImage[reUnk])
         else
-          DrawImage(X, Y, ResImage[MapTile[X, Y]]);
-      if (ResBase[MapTile[X, Y]].ResType in [teCapital, teCity, teObject]) then
-        DrawImage(X, Y, ResImage[MapTile[X, Y]]);
-      // Leader
-      if (X = Player.X) and (Y = Player.Y) then
-        DrawImage(X, Y, ResImage[rePlayer]);
+          DrawImage(X, Y, ResImage[MapObj[X, Y]])
+      else if (MapObj[X, Y] <> reNone) then
+          DrawImage(X, Y, ResImage[MapObj[X, Y]]);
+        // Leader
+        if (X = Player.X) and (Y = Player.Y) then
+          DrawImage(X, Y, ResImage[rePlayer]);
       // Fog
       if F then
         DrawImage(X, Y, ResImage[reDark]);
@@ -70,14 +85,7 @@ end;
 procedure MouseClick;
 begin
   if DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
-  begin
-    Player.X := MousePos.X;
-    Player.Y := MousePos.Y;
-    DisciplesRL.Player.RefreshRad;
-    if (MapTile[Player.X, Player.Y] in [reBag, reEnemies]) then
-      MapTile[Player.X, Player.Y] := reNone;
-
-  end;
+    DisciplesRL.Player.PutAt(MousePos.X, MousePos.Y);
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -93,7 +101,16 @@ end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
-
+  case Key of
+    K_UP:
+      DisciplesRL.Player.Move(0, -1);
+    K_DOWN:
+      DisciplesRL.Player.Move(0, 1);
+    K_LEFT:
+      DisciplesRL.Player.Move(-1, 0);
+    K_RIGHT:
+      DisciplesRL.Player.Move(1, 0);
+  end;
 end;
 
 procedure Free;

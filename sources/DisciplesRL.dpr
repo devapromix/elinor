@@ -10,7 +10,9 @@ uses
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
   DisciplesRL.Player in 'DisciplesRL.Player.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
-  DisciplesRL.Party in 'DisciplesRL.Party.pas';
+  DisciplesRL.Party in 'DisciplesRL.Party.pas',
+  DisciplesRL.City in 'DisciplesRL.City.pas',
+  DisciplesRL.PathFind in 'DisciplesRL.PathFind.pas';
 
 {$R *.res}
 
