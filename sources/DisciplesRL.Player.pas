@@ -24,7 +24,7 @@ uses DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City
 procedure Init;
 begin
   Player.Turn := 0;
-  Player.Radius := 41;
+  Player.Radius := 1;
   RefreshRadius;
 end;
 
