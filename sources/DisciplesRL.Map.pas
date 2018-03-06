@@ -5,8 +5,8 @@ interface
 uses DisciplesRL.Resources;
 
 var
-  MapWidth: Integer = 40;
-  MapHeight: Integer = 20;
+  MapWidth: Integer = 40 + 2;
+  MapHeight: Integer = 20 + 2;
 
 const
   TileSize = 32;
@@ -30,6 +30,10 @@ procedure Gen;
 function InMap(X, Y: Integer): Boolean;
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum;
   IgnoreRes: TIgnoreRes = []);
+function GetDistToCapital(const AX, AY: Integer): Integer;
+
+var
+  GoldMines: Integer = 0;
 
 implementation
 
@@ -46,6 +50,11 @@ begin
   for L := Low(TLayerEnum) to High(TLayerEnum) do
     Clear(L);
   DisciplesRL.City.Init;
+end;
+
+function GetDistToCapital(const AX, AY: Integer): Integer;
+begin
+  Result := GetDist(City[0].X, City[0].Y, AX, AY);
 end;
 
 procedure Clear(const L: TLayerEnum);
@@ -79,16 +88,27 @@ begin
     for X := 0 to MapWidth - 1 do
     begin
       MapTile[X, Y] := reNeutral;
-      MapObj[X, Y] := reMountain;
+      if (X = 0) or (X = MapWidth - 1) or (Y = 0) or (Y = MapHeight - 1) then
+      begin
+        MapObj[X, Y] := reMountain;
+        Continue;
+      end;
+      case RandomRange(0, 5) of
+        0:
+          MapObj[X, Y] := reTreePine;
+        1:
+          MapObj[X, Y] := reTreeOak;
+      else
+        MapObj[X, Y] := reMountain;
+      end;
+
     end;
-  // Bags
-  // for X := 0 to 5 do
-  // MapObj[RandomRange(0, MapWidth), RandomRange(0, MapHeight)] := reBag;
   // Capital and Cities
   DisciplesRL.City.Gen;
   X := City[0].X;
   Y := City[0].Y;
   for I := 1 to High(City) do
+  begin
     repeat
       if PathFind(X, Y, City[I].X, City[I].Y, ChTile, RX, RY) then
       begin
@@ -105,6 +125,19 @@ begin
           MapObj[X, Y] := reNone;
       end;
     until ((X = City[I].X) and (Y = City[I].Y));
+  end;
+  // Golds and Bags
+  for I := 0 to High(City) div 2 do
+  begin
+    repeat
+      X := RandomRange(2, MapWidth - 2);
+      Y := RandomRange(2, MapHeight - 2);
+    until (MapTile[X, Y] = reNeutral) and (MapObj[X, Y] = reNone);
+    if (GetDistToCapital(X, Y) <= 15) and (RandomRange(0, 9) > 2) then
+      MapObj[X, Y] := reGold
+    else
+      MapObj[X, Y] := reBag;
+  end;
   // Enemies
   for I := 0 to High(City) do
   begin
@@ -132,7 +165,12 @@ begin
         if (MapLayer[AX + X, AY + Y] in IgnoreRes) then
           Continue
         else
+        begin
+          if (MapLayer = MapTile) and (MapObj[AX + X, AY + Y] = reMine) and (MapTile[AX + X, AY + Y] = reNeutral)
+          then
+            Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
+        end;
 end;
 
 end.

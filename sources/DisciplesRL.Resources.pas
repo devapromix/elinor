@@ -5,12 +5,12 @@ interface
 uses Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
-  rePlayer, reDark, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reMountain);
+  TResEnum = (reNone, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark, reGold, reBag,
+    reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain);
 
 type
-  TResTypeEnum = (teNone, teTile, teGUI, tePath, teObject, teEnemy, teBag,
-  teCapital, teCity, teRuin);
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity,
+    teRuin, teTower, teMine);
 
 type
   TResBase = record
@@ -36,14 +36,26 @@ const
     (FileName: 'player.png'; ResType: teObject;),
     // Fog
     (FileName: 'transparent.png'; ResType: teGUI;),
+    // Gold
+    (FileName: 'gold.png'; ResType: teRes;),
     // Bag
     (FileName: 'chest.png'; ResType: teBag;),
-    // City
+    // Neutral City
     (FileName: 'city.png'; ResType: teCity;),
-    // City
+    // Empire City
     (FileName: 'city.png'; ResType: teCity;),
-    // Capital
+    // Empire Capital
     (FileName: 'castle.png'; ResType: teCapital;),
+    // Ruin
+    (FileName: 'ruin.png'; ResType: teRuin;),
+    // Tower
+    (FileName: 'tower.png'; ResType: teTower;),
+    // Pine
+    (FileName: 'tree.pine.png'; ResType: teTree;),
+    // Oak
+    (FileName: 'tree.oak.png'; ResType: teTree;),
+    // Mine
+    (FileName: 'mine.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;)
     //

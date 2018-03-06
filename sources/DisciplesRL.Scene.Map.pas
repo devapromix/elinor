@@ -15,8 +15,7 @@ procedure Free;
 implementation
 
 uses System.SysUtils, System.Math, System.Types, Vcl.Imaging.PNGImage, DisciplesRL.Map, DisciplesRL.Resources,
-  DisciplesRL.Player,
-  DisciplesRL.Utils;
+  DisciplesRL.Player, Vcl.Dialogs, DisciplesRL.Utils;
 
 const
   K_RIGHT = 39;
@@ -55,8 +54,8 @@ begin
       end;
       F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and
         not(MapTile[X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and (MapDark[X, Y] = reNone);
-      // Capital and Cities
-      if (ResBase[MapTile[X, Y]].ResType in [teCapital, teCity]) then
+      // Capital, Cities, Ruins and Tower
+      if (ResBase[MapTile[X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
         DrawImage(X, Y, ResImage[MapTile[X, Y]]);
       //
       if (ResBase[MapObj[X, Y]].ResType in [teEnemy, teBag]) then
@@ -65,10 +64,10 @@ begin
         else
           DrawImage(X, Y, ResImage[MapObj[X, Y]])
       else if (MapObj[X, Y] <> reNone) then
-          DrawImage(X, Y, ResImage[MapObj[X, Y]]);
-        // Leader
-        if (X = Player.X) and (Y = Player.Y) then
-          DrawImage(X, Y, ResImage[rePlayer]);
+        DrawImage(X, Y, ResImage[MapObj[X, Y]]);
+      // Leader
+      if (X = Player.X) and (Y = Player.Y) then
+        DrawImage(X, Y, ResImage[rePlayer]);
       // Fog
       if F then
         DrawImage(X, Y, ResImage[reDark]);
