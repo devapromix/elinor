@@ -5,7 +5,7 @@ interface
 uses Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark, reGold, reBag,
+  TResEnum = (reNone, reLogo, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark, reGold, reBag,
     reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain);
 
 type
@@ -22,6 +22,8 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
+    // Logo
+    (FileName: 'disciplesrl.png'; ResType: teGUI;),
     // Neutral
     (FileName: 'dirt.png'; ResType: teTile;),
     // Empire terrain
