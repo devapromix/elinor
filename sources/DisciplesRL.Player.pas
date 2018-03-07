@@ -11,6 +11,7 @@ type
 
 var
   Player: TPlayer;
+  Wizard: Boolean;
 
 procedure Init;
 procedure Move(const AX, AY: ShortInt);
@@ -24,7 +25,7 @@ uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, Disci
 procedure Init;
 begin
   Player.Turn := 0;
-  Player.Radius := 91;
+  Player.Radius := 1;
   RefreshRadius;
 end;
 
@@ -40,6 +41,8 @@ begin
   if not InMap(AX, AY) then
     Exit;
   if (MapObj[AX, AY] = reMountain) then
+    Exit;
+  if (MapDark[AX, AY] = reDark) then
     Exit;
   Inc(Player.Turn);
   for I := 0 to High(City) do

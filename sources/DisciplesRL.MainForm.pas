@@ -32,6 +32,8 @@ implementation
 uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player;
 
 procedure TMainForm.FormCreate(Sender: TObject);
+var
+  I: Integer;
 begin
   Top := 0;
   Left := 0;
@@ -45,6 +47,11 @@ begin
   ClientWidth := MapWidth * TileSize;
   ClientHeight := MapHeight * TileSize;
   DisciplesRL.Scenes.Init;
+  for I := 1 to ParamCount do
+  begin
+    if (LowerCase(ParamStr(I)) = '-w') then
+      Wizard := True;
+  end;
 end;
 
 procedure TMainForm.FormPaint(Sender: TObject);

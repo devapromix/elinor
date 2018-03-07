@@ -144,7 +144,7 @@ begin
     repeat
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
-    until (MapObj[X, Y] = reNone);
+    until (MapObj[X, Y] = reNone) and (MapTile[X, Y] = reNeutral) and (GetDistToCapital(X, Y) >= 3);
     MapObj[X, Y] := reEnemies;
   end;
 end;
@@ -166,8 +166,7 @@ begin
           Continue
         else
         begin
-          if (MapLayer = MapTile) and (MapObj[AX + X, AY + Y] = reMine) and (MapTile[AX + X, AY + Y] = reNeutral)
-          then
+          if (MapLayer = MapTile) and (MapObj[AX + X, AY + Y] = reMine) and (MapTile[AX + X, AY + Y] = reNeutral) then
             Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;

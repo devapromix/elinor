@@ -83,7 +83,7 @@ end;
 
 procedure MouseClick;
 begin
-  if DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
+  if Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
     DisciplesRL.Player.PutAt(MousePos.X, MousePos.Y);
 end;
 
