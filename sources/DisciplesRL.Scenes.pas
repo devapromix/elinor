@@ -5,11 +5,11 @@ interface
 uses Vcl.Graphics, System.Types, System.Classes;
 
 type
-  TSceneEnum = (scMenu, scMap);
+  TSceneEnum = (scMenu, scVictory, scDefeat, scMap);
 
 var
   Surface: TBitmap;
-  CurrentScene: TSceneEnum = scMenu;
+  CurrentScene: TSceneEnum = scDefeat;
 
 procedure Init;
 procedure Render;
@@ -21,7 +21,8 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, DisciplesRL.Scene.Menu;
+uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, DisciplesRL.Scene.Menu,
+  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat;
 
 procedure Init;
 begin
@@ -31,6 +32,10 @@ begin
   case CurrentScene of
     scMenu:
       DisciplesRL.Scene.Menu.Init;
+    scVictory:
+      DisciplesRL.Scene.Victory.Init;
+    scDefeat:
+      DisciplesRL.Scene.Defeat.Init;
     scMap:
       DisciplesRL.Scene.Map.Init;
   end;
@@ -43,6 +48,10 @@ begin
   case CurrentScene of
     scMenu:
       DisciplesRL.Scene.Menu.Render;
+    scVictory:
+      DisciplesRL.Scene.Victory.Render;
+    scDefeat:
+      DisciplesRL.Scene.Defeat.Render;
     scMap:
       DisciplesRL.Scene.Map.Render;
   end;
@@ -54,6 +63,10 @@ begin
   case CurrentScene of
     scMenu:
       DisciplesRL.Scene.Menu.Timer;
+    scVictory:
+      DisciplesRL.Scene.Victory.Timer;
+    scDefeat:
+      DisciplesRL.Scene.Defeat.Timer;
     scMap:
       DisciplesRL.Scene.Map.Timer;
   end;
@@ -64,6 +77,10 @@ begin
   case CurrentScene of
     scMenu:
       DisciplesRL.Scene.Menu.MouseClick;
+    scVictory:
+      DisciplesRL.Scene.Victory.MouseClick;
+    scDefeat:
+      DisciplesRL.Scene.Defeat.MouseClick;
     scMap:
       DisciplesRL.Scene.Map.MouseClick;
   end;
@@ -73,6 +90,12 @@ end;
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
   case CurrentScene of
+    scMenu:
+      DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
+    scVictory:
+      DisciplesRL.Scene.Victory.MouseMove(Shift, X, Y);
+    scDefeat:
+      DisciplesRL.Scene.Defeat.MouseMove(Shift, X, Y);
     scMap:
       DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
   end;
@@ -83,6 +106,10 @@ begin
   case CurrentScene of
     scMenu:
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
+    scVictory:
+      DisciplesRL.Scene.Victory.KeyDown(Key, Shift);
+    scDefeat:
+      DisciplesRL.Scene.Defeat.KeyDown(Key, Shift);
     scMap:
       DisciplesRL.Scene.Map.KeyDown(Key, Shift);
   end;
@@ -94,6 +121,10 @@ begin
   case CurrentScene of
     scMenu:
       DisciplesRL.Scene.Menu.Free;
+    scVictory:
+      DisciplesRL.Scene.Victory.Free;
+    scDefeat:
+      DisciplesRL.Scene.Defeat.Free;
     scMap:
       DisciplesRL.Scene.Map.Free;
   end;
