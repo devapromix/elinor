@@ -89,6 +89,10 @@ begin
       begin
         DisciplesRL.Scenes.CurrentScene := scCapital;
       end;
+    reTower:
+      begin
+        DisciplesRL.Scenes.CurrentScene := scVictory;
+      end;
   end;
 end;
 

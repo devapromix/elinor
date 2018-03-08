@@ -39,26 +39,29 @@ begin
 end;
 
 procedure Init;
+var
+  I: TSceneEnum;
 begin
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;
   Surface.Height := MainForm.ClientHeight;
-  case CurrentScene of
-    scMenu:
-      DisciplesRL.Scene.Menu.Init;
-    scVictory:
-      DisciplesRL.Scene.Victory.Init;
-    scDefeat:
-      DisciplesRL.Scene.Defeat.Init;
-    scMap:
-      DisciplesRL.Scene.Map.Init;
-    scBattle:
-      DisciplesRL.Scene.Battle.Init;
-    scCapital:
-      DisciplesRL.Scene.Capital.Init;
-    scCity:
-      DisciplesRL.Scene.City.Init;
-  end;
+  for I := Low(TSceneEnum) to High(TSceneEnum) do
+    case I of
+      scMenu:
+        DisciplesRL.Scene.Menu.Init;
+      scVictory:
+        DisciplesRL.Scene.Victory.Init;
+      scDefeat:
+        DisciplesRL.Scene.Defeat.Init;
+      scMap:
+        DisciplesRL.Scene.Map.Init;
+      scBattle:
+        DisciplesRL.Scene.Battle.Init;
+      scCapital:
+        DisciplesRL.Scene.Capital.Init;
+      scCity:
+        DisciplesRL.Scene.City.Init;
+    end;
 end;
 
 procedure Render;
@@ -167,23 +170,26 @@ begin
 end;
 
 procedure Free;
+var
+  I: TSceneEnum;
 begin
-  case CurrentScene of
-    scMenu:
-      DisciplesRL.Scene.Menu.Free;
-    scVictory:
-      DisciplesRL.Scene.Victory.Free;
-    scDefeat:
-      DisciplesRL.Scene.Defeat.Free;
-    scMap:
-      DisciplesRL.Scene.Map.Free;
-    scBattle:
-      DisciplesRL.Scene.Battle.Free;
-    scCapital:
-      DisciplesRL.Scene.Capital.Free;
-    scCity:
-      DisciplesRL.Scene.City.Free;
-  end;
+  for I := Low(TSceneEnum) to High(TSceneEnum) do
+    case I of
+      scMenu:
+        DisciplesRL.Scene.Menu.Free;
+      scVictory:
+        DisciplesRL.Scene.Victory.Free;
+      scDefeat:
+        DisciplesRL.Scene.Defeat.Free;
+      scMap:
+        DisciplesRL.Scene.Map.Free;
+      scBattle:
+        DisciplesRL.Scene.Battle.Free;
+      scCapital:
+        DisciplesRL.Scene.Capital.Free;
+      scCity:
+        DisciplesRL.Scene.City.Free;
+    end;
   FreeAndNil(Surface);
 end;
 
