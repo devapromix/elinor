@@ -18,7 +18,8 @@ uses
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
   DisciplesRL.Scene.Capital in 'DisciplesRL.Scene.Capital.pas',
-  DisciplesRL.Scene.City in 'DisciplesRL.Scene.City.pas';
+  DisciplesRL.Scene.City in 'DisciplesRL.Scene.City.pas',
+  DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas';
 
 {$R *.res}
 

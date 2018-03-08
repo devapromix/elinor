@@ -1,4 +1,6 @@
-# DisciplesRL (7DRL2018)
+![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/disciplesrl.png)
+
+
 Simple roguelike game based on Disciples.
 
 ## Screenshots
