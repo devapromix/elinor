@@ -24,6 +24,9 @@ end;
 procedure Render;
 begin
   RenderDark;
+
+  CenterTextOut(100, 'CAPITAL');
+  CenterTextOut(Surface.Height - 100, '[ESC] Close');
 end;
 
 procedure Timer;

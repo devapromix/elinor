@@ -36,6 +36,7 @@ procedure Render;
 begin
   Surface.Canvas.Draw(Left, Top, ResImage[reLogo]);
   NewGameButton.Render;
+  CenterTextOut(Surface.Height - 50, '2018 by Apromix')
 end;
 
 procedure Timer;

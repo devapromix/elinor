@@ -29,7 +29,7 @@ implementation
 
 {$R *.dfm}
 
-uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player;
+uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player, DisciplesRL.Game;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var

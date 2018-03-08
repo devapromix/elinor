@@ -32,12 +32,9 @@ procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const
   IgnoreRes: TIgnoreRes = []);
 function GetDistToCapital(const AX, AY: Integer): Integer;
 
-var
-  GoldMines: Integer = 0;
-
 implementation
 
-uses System.Math, DisciplesRL.Player, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.PathFind;
+uses System.Math, DisciplesRL.Player, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.PathFind, DisciplesRL.Game;
 
 procedure Init;
 var

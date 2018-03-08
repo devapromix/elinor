@@ -19,7 +19,8 @@ uses
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
   DisciplesRL.Scene.Capital in 'DisciplesRL.Scene.Capital.pas',
   DisciplesRL.Scene.City in 'DisciplesRL.Scene.City.pas',
-  DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas';
+  DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
+  DisciplesRL.Game in 'DisciplesRL.Game.pas';
 
 {$R *.res}
 

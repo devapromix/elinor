@@ -103,6 +103,15 @@ begin
   case Key of
     K_ESCAPE:
       DisciplesRL.Scenes.CurrentScene := scMenu;
+    K_ENTER:
+      begin
+        case MapTile[Player.X, Player.Y] of
+          reEmpireCapital:
+            begin
+              DisciplesRL.Scenes.CurrentScene := scCapital;
+            end;
+        end;
+      end;
     K_UP:
       DisciplesRL.Player.Move(0, -1);
     K_DOWN:

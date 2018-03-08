@@ -13,6 +13,7 @@ var
   Surface: TBitmap;
   CurrentScene: TSceneEnum = scMenu;
 
+procedure CenterTextOut(const AY: Integer; AText: string);
 procedure RenderDark;
 procedure Init;
 procedure Render;
@@ -32,6 +33,14 @@ uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, Di
   DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle, DisciplesRL.Scene.Capital,
   DisciplesRL.Scene.City, DisciplesRL.Resources;
 
+procedure CenterTextOut(const AY: Integer; AText: string);
+var
+  S: Integer;
+begin
+  S := Surface.Canvas.TextWidth(AText);
+  Surface.Canvas.TextOut((Surface.Width div 2) - (S div 2), AY, AText);
+end;
+
 procedure RenderDark;
 begin
   DisciplesRL.Scene.Map.Render;
@@ -45,6 +54,8 @@ begin
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;
   Surface.Height := MainForm.ClientHeight;
+  Surface.Canvas.Font.Size := 20;
+  Surface.Canvas.Font.Color := clGreen;
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
       scMenu:

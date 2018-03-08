@@ -6,7 +6,6 @@ type
   TPlayer = record
     X, Y: Integer;
     Radius: Integer;
-    Turn: Integer;
   end;
 
 var
@@ -22,11 +21,10 @@ implementation
 
 uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
   DisciplesRL.Party,
-  DisciplesRL.Scenes;
+  DisciplesRL.Scenes, DisciplesRL.Game;
 
 procedure Init;
 begin
-  Player.Turn := 0;
   Player.Radius := 1;
   RefreshRadius;
 end;
@@ -46,7 +44,7 @@ begin
     Exit;
   if (MapDark[AX, AY] = reDark) then
     Exit;
-  Inc(Player.Turn);
+  Inc(Days);
   for I := 0 to High(City) do
   begin
     if (City[I].Owner = reTheEmpire) then

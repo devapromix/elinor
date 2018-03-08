@@ -28,7 +28,7 @@ begin
   Left := (Surface.Width div 2) - (ResImage[reVictory].Width div 2);
   ButTop := ((Surface.Height div 3) * 2) - (ResImage[reButtonDef].Height div 2);
   ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  VictoryButton := TButton.Create(ButLeft, ButTop, Surface.Canvas, reMNewGame);
+  VictoryButton := TButton.Create(ButLeft, ButTop, Surface.Canvas, reMVictory);
   VictoryButton.Sellected := True;
 end;
 
