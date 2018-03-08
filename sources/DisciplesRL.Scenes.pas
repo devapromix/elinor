@@ -5,7 +5,7 @@ interface
 uses Vcl.Graphics, System.Types, System.Classes;
 
 type
-  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scCapital, scBattle, scCity);
+  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scCapital, scBattle, scCity, scItem);
 
   // https://opengameart.org/content/ui-button
 
@@ -31,7 +31,7 @@ implementation
 
 uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle, DisciplesRL.Scene.Capital,
-  DisciplesRL.Scene.City, DisciplesRL.Resources;
+  DisciplesRL.Scene.City, DisciplesRL.Resources, DisciplesRL.Scene.Item;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
@@ -72,6 +72,8 @@ begin
         DisciplesRL.Scene.Capital.Init;
       scCity:
         DisciplesRL.Scene.City.Init;
+      scItem:
+        DisciplesRL.Scene.Item.Init;
     end;
 end;
 
@@ -94,6 +96,8 @@ begin
       DisciplesRL.Scene.Capital.Render;
     scCity:
       DisciplesRL.Scene.City.Render;
+    scItem:
+      DisciplesRL.Scene.Item.Render;
   end;
   MainForm.Canvas.Draw(0, 0, Surface);
 end;
@@ -115,6 +119,8 @@ begin
       DisciplesRL.Scene.Capital.Timer;
     scCity:
       DisciplesRL.Scene.City.Timer;
+    scItem:
+      DisciplesRL.Scene.Item.Timer;
   end;
 end;
 
@@ -135,6 +141,8 @@ begin
       DisciplesRL.Scene.Capital.MouseClick;
     scCity:
       DisciplesRL.Scene.City.MouseClick;
+    scItem:
+      DisciplesRL.Scene.Item.MouseClick;
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -156,6 +164,8 @@ begin
       DisciplesRL.Scene.Capital.MouseMove(Shift, X, Y);
     scCity:
       DisciplesRL.Scene.City.MouseMove(Shift, X, Y);
+    scItem:
+      DisciplesRL.Scene.Item.MouseMove(Shift, X, Y);
   end;
 end;
 
@@ -176,6 +186,8 @@ begin
       DisciplesRL.Scene.Capital.KeyDown(Key, Shift);
     scCity:
       DisciplesRL.Scene.City.KeyDown(Key, Shift);
+    scItem:
+      DisciplesRL.Scene.Item.KeyDown(Key, Shift);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -200,6 +212,8 @@ begin
         DisciplesRL.Scene.Capital.Free;
       scCity:
         DisciplesRL.Scene.City.Free;
+      scItem:
+        DisciplesRL.Scene.Item.Free;
     end;
   FreeAndNil(Surface);
 end;

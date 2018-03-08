@@ -20,7 +20,8 @@ uses
   DisciplesRL.Scene.Capital in 'DisciplesRL.Scene.Capital.pas',
   DisciplesRL.Scene.City in 'DisciplesRL.Scene.City.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
-  DisciplesRL.Game in 'DisciplesRL.Game.pas';
+  DisciplesRL.Game in 'DisciplesRL.Game.pas',
+  DisciplesRL.Scene.Item in 'DisciplesRL.Scene.Item.pas';
 
 {$R *.res}
 

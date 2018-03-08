@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.City;
+unit DisciplesRL.Scene.Item;
 
 interface
 
@@ -14,7 +14,7 @@ procedure Free;
 
 implementation
 
-uses DisciplesRL.Scenes, DisciplesRL.Scene.Map;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game;
 
 procedure Init;
 begin
@@ -25,7 +25,8 @@ procedure Render;
 begin
   RenderDark;
 
-  CenterTextOut(100, 'CITY');
+  CenterTextOut(100, 'ITEMS');
+  CenterTextOut(200, 'GOLD ' + IntToStr(Gold));
   CenterTextOut(Surface.Height - 100, '[ESC] Close');
 end;
 

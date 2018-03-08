@@ -61,10 +61,14 @@ begin
     reGold:
       begin
         MapObj[Player.X, Player.Y] := reNone;
+        Inc(Gold, GetDistToCapital(Player.X, Player.Y));
+        DisciplesRL.Scenes.CurrentScene := scItem;
       end;
     reBag:
       begin
         MapObj[Player.X, Player.Y] := reNone;
+        Inc(Gold, GetDistToCapital(Player.X, Player.Y));
+        DisciplesRL.Scenes.CurrentScene := scItem;
       end;
     reEnemies:
       begin

@@ -14,7 +14,7 @@ procedure Free;
 
 implementation
 
-uses DisciplesRL.Scenes;
+uses DisciplesRL.Scenes, DisciplesRL.Scene.Item, DisciplesRL.Map, DisciplesRL.Game, DisciplesRL.Player;
 
 procedure Init;
 begin
@@ -46,7 +46,10 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE:
-      DisciplesRL.Scenes.CurrentScene := scMap;
+      begin
+        Inc(Gold, GetDistToCapital(Player.X, Player.Y));
+        DisciplesRL.Scenes.CurrentScene := scItem;
+      end;
   end;
 end;
 

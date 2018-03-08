@@ -14,7 +14,7 @@ procedure Free;
 
 implementation
 
-uses DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Resources;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Resources, DisciplesRL.Game;
 
 procedure Init;
 begin
@@ -25,7 +25,10 @@ procedure Render;
 begin
   RenderDark;
 
-  CenterTextOut(100, 'CAPITAL');
+  CenterTextOut(100, 'THE EMPIRE CAPITAL');
+  CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
+  Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
+  Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CAPITAL DEFENSES');
   CenterTextOut(Surface.Height - 100, '[ESC] Close');
 end;
 

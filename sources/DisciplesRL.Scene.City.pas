@@ -14,7 +14,7 @@ procedure Free;
 
 implementation
 
-uses DisciplesRL.Scenes, DisciplesRL.Scene.Map;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game;
 
 procedure Init;
 begin
@@ -26,6 +26,9 @@ begin
   RenderDark;
 
   CenterTextOut(100, 'CITY');
+  CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
+  Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
+  Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CITY DEFENSES');
   CenterTextOut(Surface.Height - 100, '[ESC] Close');
 end;
 
