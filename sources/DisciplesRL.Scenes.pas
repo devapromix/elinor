@@ -7,9 +7,11 @@ uses Vcl.Graphics, System.Types, System.Classes;
 type
   TSceneEnum = (scMenu, scVictory, scDefeat, scMap);
 
+  // https://opengameart.org/content/ui-button
+
 var
   Surface: TBitmap;
-  CurrentScene: TSceneEnum = scDefeat;
+  CurrentScene: TSceneEnum = scMenu;
 
 procedure Init;
 procedure Render;
