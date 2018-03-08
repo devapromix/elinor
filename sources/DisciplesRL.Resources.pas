@@ -7,7 +7,7 @@ uses Vcl.Imaging.PNGImage;
 type
   TResEnum = (reNone, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer,
     reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
-    reMountain, reNewGame, reButtonDef, reButtonAct);
+    reMountain, reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin,
@@ -65,8 +65,12 @@ const
     (FileName: 'mine.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
-    // New Game
+    // Text "New Game"
     (FileName: 'newgame.png'; ResType: teGUI;),
+    // Text "Victory"
+    (FileName: 'mvictory.png'; ResType: teGUI;),
+    // Text "Defeat"
+    (FileName: 'mdefeat.png'; ResType: teGUI;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button
