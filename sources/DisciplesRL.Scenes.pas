@@ -5,7 +5,7 @@ interface
 uses Vcl.Graphics, System.Types, System.Classes;
 
 type
-  TSceneEnum = (scMenu, scVictory, scDefeat, scMap);
+  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scCapital, scBattle, scCity);
 
   // https://opengameart.org/content/ui-button
 
@@ -13,6 +13,7 @@ var
   Surface: TBitmap;
   CurrentScene: TSceneEnum = scMenu;
 
+procedure RenderDark;
 procedure Init;
 procedure Render;
 procedure Timer;
@@ -21,10 +22,21 @@ procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure Free;
 
+const
+  K_ESCAPE = 27;
+  K_ENTER = 13;
+
 implementation
 
 uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, DisciplesRL.Scene.Menu,
-  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat;
+  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle, DisciplesRL.Scene.Capital,
+  DisciplesRL.Scene.City, DisciplesRL.Resources;
+
+procedure RenderDark;
+begin
+  DisciplesRL.Scene.Map.Render;
+  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height), ResImage[reDark]);
+end;
 
 procedure Init;
 begin
@@ -40,6 +52,12 @@ begin
       DisciplesRL.Scene.Defeat.Init;
     scMap:
       DisciplesRL.Scene.Map.Init;
+    scBattle:
+      DisciplesRL.Scene.Battle.Init;
+    scCapital:
+      DisciplesRL.Scene.Capital.Init;
+    scCity:
+      DisciplesRL.Scene.City.Init;
   end;
 end;
 
@@ -56,6 +74,12 @@ begin
       DisciplesRL.Scene.Defeat.Render;
     scMap:
       DisciplesRL.Scene.Map.Render;
+    scBattle:
+      DisciplesRL.Scene.Battle.Render;
+    scCapital:
+      DisciplesRL.Scene.Capital.Render;
+    scCity:
+      DisciplesRL.Scene.City.Render;
   end;
   MainForm.Canvas.Draw(0, 0, Surface);
 end;
@@ -71,6 +95,12 @@ begin
       DisciplesRL.Scene.Defeat.Timer;
     scMap:
       DisciplesRL.Scene.Map.Timer;
+    scBattle:
+      DisciplesRL.Scene.Battle.Timer;
+    scCapital:
+      DisciplesRL.Scene.Capital.Timer;
+    scCity:
+      DisciplesRL.Scene.City.Timer;
   end;
 end;
 
@@ -85,6 +115,12 @@ begin
       DisciplesRL.Scene.Defeat.MouseClick;
     scMap:
       DisciplesRL.Scene.Map.MouseClick;
+    scBattle:
+      DisciplesRL.Scene.Battle.MouseClick;
+    scCapital:
+      DisciplesRL.Scene.Capital.MouseClick;
+    scCity:
+      DisciplesRL.Scene.City.MouseClick;
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -100,6 +136,12 @@ begin
       DisciplesRL.Scene.Defeat.MouseMove(Shift, X, Y);
     scMap:
       DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
+    scBattle:
+      DisciplesRL.Scene.Battle.MouseMove(Shift, X, Y);
+    scCapital:
+      DisciplesRL.Scene.Capital.MouseMove(Shift, X, Y);
+    scCity:
+      DisciplesRL.Scene.City.MouseMove(Shift, X, Y);
   end;
 end;
 
@@ -114,6 +156,12 @@ begin
       DisciplesRL.Scene.Defeat.KeyDown(Key, Shift);
     scMap:
       DisciplesRL.Scene.Map.KeyDown(Key, Shift);
+    scBattle:
+      DisciplesRL.Scene.Battle.KeyDown(Key, Shift);
+    scCapital:
+      DisciplesRL.Scene.Capital.KeyDown(Key, Shift);
+    scCity:
+      DisciplesRL.Scene.City.KeyDown(Key, Shift);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -129,6 +177,12 @@ begin
       DisciplesRL.Scene.Defeat.Free;
     scMap:
       DisciplesRL.Scene.Map.Free;
+    scBattle:
+      DisciplesRL.Scene.Battle.Free;
+    scCapital:
+      DisciplesRL.Scene.Capital.Free;
+    scCity:
+      DisciplesRL.Scene.City.Free;
   end;
   FreeAndNil(Surface);
 end;

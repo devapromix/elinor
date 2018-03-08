@@ -36,7 +36,7 @@ begin
     City[I].X := 0;
     City[I].Y := 0;
     City[I].CurLevel := 0;
-    City[I].MaxLevel := 3;
+    City[I].MaxLevel := 0;
     City[I].Owner := reNeutrals;
   end;
 end;

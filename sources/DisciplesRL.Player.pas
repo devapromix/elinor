@@ -20,7 +20,9 @@ procedure RefreshRadius;
 
 implementation
 
-uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.Party;
+uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
+  DisciplesRL.Party,
+  DisciplesRL.Scenes;
 
 procedure Init;
 begin
@@ -68,8 +70,9 @@ begin
       end;
     reEnemies:
       begin
+        DisciplesRL.Scenes.CurrentScene := scBattle;
         MapObj[Player.X, Player.Y] := reNone;
-        ShowMessage(IntToStr(GetDistToCapital(Player.X, Player.Y)));
+        // ShowMessage(IntToStr(GetDistToCapital(Player.X, Player.Y)));
       end;
   end;
   case MapTile[Player.X, Player.Y] of
@@ -77,6 +80,14 @@ begin
       begin
         MapTile[Player.X, Player.Y] := reEmpireCity;
         DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X, Player.Y));
+      end;
+    reEmpireCity:
+      begin
+        DisciplesRL.Scenes.CurrentScene := scCity;
+      end;
+    reEmpireCapital:
+      begin
+        DisciplesRL.Scenes.CurrentScene := scCapital;
       end;
   end;
 end;

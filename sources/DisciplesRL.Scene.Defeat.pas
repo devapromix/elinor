@@ -57,7 +57,7 @@ end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
-  if Key = 13 then
+  if Key = K_ENTER then
     DisciplesRL.MainForm.MainForm.Close;
 end;
 
