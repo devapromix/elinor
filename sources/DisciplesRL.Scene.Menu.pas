@@ -28,7 +28,7 @@ begin
   Left := (Surface.Width div 2) - (ResImage[reLogo].Width div 2);
   ButTop := ((Surface.Height div 3) * 2) - (ResImage[reButtonDef].Height div 2);
   ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  NewGameButton := TButton.Create(ButLeft, ButTop, Surface.Canvas, reTower);
+  NewGameButton := TButton.Create(ButLeft, ButTop, Surface.Canvas, reNewGame);
   NewGameButton.Sellected := True;
 end;
 

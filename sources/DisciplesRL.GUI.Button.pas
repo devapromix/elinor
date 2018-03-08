@@ -18,8 +18,8 @@ type
     FCanvas: TCanvas;
     FState: TButtonState;
     FText: TResEnum;
-    FTextLeft: Integer; 
-    FTextTop: Integer; 
+    FTextLeft: Integer;
+    FTextTop: Integer;
     FSurface: array [TButtonState] of TPNGImage;
     procedure Refresh;
   public
@@ -49,7 +49,7 @@ begin
   FLeft := ALeft;
   FCanvas := ACanvas;
   FSellected := False;
-  FText:= TResEnum;
+  FText := ARes;
   for I := Low(TButtonState) to High(TButtonState) do
   begin
     FSurface[I] := TPNGImage.Create;
@@ -64,6 +64,8 @@ begin
         FSurface[I].Assign(ResImage[reButtonAct]);
     end;
   end;
+  FTextLeft := FLeft + ((ResImage[reButtonDef].Width div 2) - (ResImage[ARes].Width div 2));
+  FTextTop := FTop + ((ResImage[reButtonDef].Height div 2) - (ResImage[ARes].Height div 2));
 end;
 
 destructor TButton.Destroy;

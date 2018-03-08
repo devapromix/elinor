@@ -5,12 +5,13 @@ interface
 uses Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark, reGold, reBag,
-    reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct);
+  TResEnum = (reNone, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer,
+    reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
+    reMountain, reNewGame, reButtonDef, reButtonAct);
 
 type
-  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity,
-    teRuin, teTower, teMine);
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin,
+    teTower, teMine);
 
 type
   TResBase = record
@@ -64,6 +65,8 @@ const
     (FileName: 'mine.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
+    // New Game
+    (FileName: 'newgame.png'; ResType: teGUI;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button

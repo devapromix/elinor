@@ -101,6 +101,8 @@ end;
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
+    27:
+      DisciplesRL.Scenes.CurrentScene := scMenu;
     K_UP:
       DisciplesRL.Player.Move(0, -1);
     K_DOWN:
