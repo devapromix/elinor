@@ -57,13 +57,15 @@ end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
-  if Key = K_ENTER then
-    DisciplesRL.MainForm.MainForm.Close;
+  case Key of
+    K_ESCAPE, K_ENTER:
+      DisciplesRL.MainForm.MainForm.Close;
+  end;
 end;
 
 procedure Free;
 begin
-FreeAndNil(DefeatButton);
+  FreeAndNil(DefeatButton);
 end;
 
 end.

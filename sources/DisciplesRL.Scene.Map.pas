@@ -110,6 +110,10 @@ begin
             begin
               DisciplesRL.Scenes.CurrentScene := scCapital;
             end;
+          reEmpireCity:
+            begin
+              DisciplesRL.Scenes.CurrentScene := scCity;
+            end;
         end;
       end;
     K_UP:

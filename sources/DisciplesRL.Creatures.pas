@@ -3,7 +3,7 @@ unit DisciplesRL.Creatures;
 interface
 
 type
-  TCreatureEnum = (crNone, crLeader, crGoblin, crWolf, crOrc);
+  TCreatureEnum = (crNone, crMyzrael, crLeader, crGoblin, crWolf, crOrc);
 
 type
   TCreature = record
@@ -29,6 +29,8 @@ const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
     (HitPoints: 0; Level: 0; Damage: 0; Armor: 0),
+    // Myzrael
+    (HitPoints: 900; Level: 1; Damage: 250; Armor: 50),
     // Leader
     (HitPoints: 150; Level: 1; Damage: 12; Armor: 5),
     // Goblin

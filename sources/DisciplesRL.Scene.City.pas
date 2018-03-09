@@ -14,7 +14,8 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game, DisciplesRL.Scene.Party,
+  DisciplesRL.Map, DisciplesRL.City, DisciplesRL.Player;
 
 procedure Init;
 begin
@@ -27,28 +28,13 @@ var
 begin
   RenderDark;
 
-  CenterTextOut(100, 'CITY');
+  CenterTextOut(100, Format('CITY (Level %d)', [City[GetCityIndex(Player.X, Player.Y)].MaxLevel + 1]));
   CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
   Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
   Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CITY DEFENSES');
-  CenterTextOut(Surface.Height - 100, '[ESC] Close');
-
-  X4 := Surface.Width div 4;
-  Y := 220;
-  for I := 0 to 5 do
-  begin
-    case I of
-      0, 2, 4:
-        begin
-          Surface.Canvas.TextOut(X4, Y, Format('%d', [I]));
-        end;
-      1, 3, 5:
-        begin
-          Surface.Canvas.TextOut(0, Y, Format('%d', [I]));
-        end;
-    end;
-    Inc(Y, 40);
-  end;
+  RenderParty(psLeft, LeaderParty);
+  RenderParty(psRight, Party[GetPartyIndex(Player.X, Player.Y)]);
+  CenterTextOut(Surface.Height - 100, '[ENTER][ESC] Close');
 end;
 
 procedure Timer;
@@ -69,7 +55,7 @@ end;
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
-    K_ESCAPE:
+    K_ESCAPE, K_ENTER:
       DisciplesRL.Scenes.CurrentScene := scMap;
   end;
 end;

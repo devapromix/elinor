@@ -59,7 +59,7 @@ begin
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, MapTile, reEmpireTerrain,
     [reEmpireCity, reNeutralCity, reEmpireCapital, reRuin, reTower]);
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, MapDark, reNone);
-  City[AID].Owner := reTheEmpire;
+  City[AID].Owner := reEmpire;
 end;
 
 function GetRadius(const N: Integer): Integer;
@@ -127,25 +127,24 @@ begin
           ClearObj(City[I].X, City[I].Y);
           UpdateRadius(I);
           // Party
-          CapitalParty.X := Player.X;
-          CapitalParty.Y := Player.Y;
-          CapitalParty.AddCreature(crLeader, 2);
+          CapitalParty.SetPoint(Player.X, Player.Y);
+          CapitalParty.AddCreature(crMyzrael, 3);
         end;
       1 .. NCity: // City
         begin
           MapTile[City[I].X, City[I].Y] := reNeutralCity;
           ClearObj(City[I].X, City[I].Y);
-          MapObj[City[I].X, City[I].Y] := reEnemies;
+          AddPartyAt(City[I].X, City[I].Y);
         end;
       NCity + 1: // Tower
         begin
           MapTile[City[I].X, City[I].Y] := reTower;
-          MapObj[City[I].X, City[I].Y] := reEnemies;
+          AddPartyAt(City[I].X, City[I].Y);
         end
     else // Ruin
       begin
         MapTile[City[I].X, City[I].Y] := reRuin;
-        MapObj[City[I].X, City[I].Y] := reEnemies;
+        AddPartyAt(City[I].X, City[I].Y);
       end;
     end;
     // Mine

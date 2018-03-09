@@ -39,8 +39,9 @@ var
 
 procedure PartyInit(const AX, AY: Integer);
 procedure PartyFree;
-function PartyCount: Integer;
-function PartyID(const AX, AY: Integer): Integer;
+function GetPartyCount: Integer;
+function GetPartyIndex(const AX, AY: Integer): Integer;
+procedure AddPartyAt(const AX, AY: Integer);
 
 implementation
 
@@ -59,8 +60,8 @@ begin
     Clear(L);
   DisciplesRL.City.Init;
   //
-  LeaderParty := TParty.Create;
-  CapitalParty := TParty.Create;
+  LeaderParty := TParty.Create(Player.X,Player.Y);
+  CapitalParty := TParty.Create(Player.X,Player.Y);
 end;
 
 function GetDistToCapital(const AX, AY: Integer): Integer;
@@ -156,8 +157,7 @@ begin
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
     until (MapObj[X, Y] = reNone) and (MapTile[X, Y] = reNeutral) and (GetDistToCapital(X, Y) >= 3);
-    MapObj[X, Y] := reEnemies;
-    PartyInit(X, Y);
+    AddPartyAt(X, Y);
   end;
   // Leader's party
   DisciplesRL.Player.Gen;
@@ -191,9 +191,9 @@ var
   L: Integer;
 begin
   L := GetDistToCapital(AX, AY);
-  SetLength(Party, PartyCount + 1);
-  Party[PartyCount - 1] := TParty.Create;
-  with Party[PartyCount - 1] do
+  SetLength(Party, GetPartyCount + 1);
+  Party[GetPartyCount - 1] := TParty.Create(AX, AY);
+  with Party[GetPartyCount - 1] do
   begin
     AddCreature(crGoblin, 2);
   end;
@@ -203,26 +203,32 @@ procedure PartyFree;
 var
   I: Integer;
 begin
-  for I := 0 to PartyCount - 1 do
+  for I := 0 to GetPartyCount - 1 do
     FreeAndNil(Party[I]);
 end;
 
-function PartyCount: Integer;
+function GetPartyCount: Integer;
 begin
   Result := Length(Party);
 end;
 
-function PartyID(const AX, AY: Integer): Integer;
+function GetPartyIndex(const AX, AY: Integer): Integer;
 var
   I: Integer;
 begin
   Result := -1;
-  for I := 0 to PartyCount - 1 do
+  for I := 0 to GetPartyCount - 1 do
     if (Party[I].X = AX) and (Party[I].Y = AY) then
     begin
       Result := I;
       Exit;
     end;
+end;
+
+procedure AddPartyAt(const AX, AY: Integer);
+begin
+  MapObj[AX, AY] := reEnemies;
+  PartyInit(AX, AY);
 end;
 
 end.

@@ -21,13 +21,15 @@ uses
   DisciplesRL.Scene.City in 'DisciplesRL.Scene.City.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
   DisciplesRL.Game in 'DisciplesRL.Game.pas',
-  DisciplesRL.Scene.Item in 'DisciplesRL.Scene.Item.pas';
+  DisciplesRL.Scene.Item in 'DisciplesRL.Scene.Item.pas',
+  DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.Title := 'DisciplesRL';
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.

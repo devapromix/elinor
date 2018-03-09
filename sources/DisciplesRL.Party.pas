@@ -5,7 +5,7 @@ interface
 uses DisciplesRL.Creatures;
 
 type
-  TRaceEnum = (reTheEmpire, reNeutrals);
+  TRaceEnum = (reEmpire, reNeutrals);
 
 type
   TPosition = 0 .. 5;
@@ -13,20 +13,23 @@ type
 type
   TParty = class(TObject)
   private
+    FX, FY: Integer;
     FOwner: TRaceEnum;
     FCreature: array [TPosition] of TCreature;
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
   public
-    X, Y: Integer;
-    constructor Create;
+    constructor Create(const AX, AY: Integer);
     destructor Destroy; override;
     procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
+    property X: Integer read FX;
+    property Y: Integer read FY;
     property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
     procedure Clear;
     function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
+    procedure SetPoint(const AX, AY: Integer);
     procedure Heal(const APosition: TPosition);
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
@@ -50,8 +53,10 @@ begin
     ClearCreature(FCreature[I]);
 end;
 
-constructor TParty.Create;
+constructor TParty.Create(const AX, AY: Integer);
 begin
+  FX := AX;
+  FY := AY;
   Self.Clear;
   Owner := reNeutrals;
 end;
@@ -99,6 +104,12 @@ end;
 procedure TParty.SetCreature(APosition: TPosition; const Value: TCreature);
 begin
   FCreature[APosition] := Value;
+end;
+
+procedure TParty.SetPoint(const AX, AY: Integer);
+begin
+  FX := AX;
+  FY := AY;
 end;
 
 procedure TParty.TakeDamage(const ADamage: Integer; const APosition: TPosition);

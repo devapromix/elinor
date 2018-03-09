@@ -25,7 +25,7 @@ uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, Disci
 
 procedure Init;
 begin
-  Player.Radius := 1;
+  Player.Radius := 91;
   RefreshRadius;
 end;
 
@@ -47,7 +47,7 @@ begin
   Inc(Days);
   for I := 0 to High(City) do
   begin
-    if (City[I].Owner = reTheEmpire) then
+    if (City[I].Owner = reEmpire) then
       if (City[I].CurLevel < City[I].MaxLevel) then
       begin
         Inc(City[I].CurLevel);
@@ -74,7 +74,6 @@ begin
       begin
         DisciplesRL.Scenes.CurrentScene := scBattle;
         MapObj[Player.X, Player.Y] := reNone;
-        // ShowMessage(IntToStr(GetDistToCapital(Player.X, Player.Y)));
       end;
   end;
   case MapTile[Player.X, Player.Y] of
@@ -91,10 +90,6 @@ begin
       begin
         DisciplesRL.Scenes.CurrentScene := scCapital;
       end;
-    reTower:
-      begin
-        DisciplesRL.Scenes.CurrentScene := scVictory;
-      end;
   end;
 end;
 
@@ -105,8 +100,7 @@ end;
 
 procedure Gen;
 begin
-  LeaderParty.X := Player.X;
-  LeaderParty.Y := Player.Y;
+  LeaderParty.SetPoint(Player.X, Player.Y);
   LeaderParty.AddCreature(crLeader, 2);
 end;
 

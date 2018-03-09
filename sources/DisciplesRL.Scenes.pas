@@ -26,6 +26,8 @@ procedure Free;
 const
   K_ESCAPE = 27;
   K_ENTER = 13;
+  K_V = ord('V');
+  K_D = ord('D');
 
 implementation
 
