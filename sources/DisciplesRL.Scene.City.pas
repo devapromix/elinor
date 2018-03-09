@@ -14,8 +14,11 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game, DisciplesRL.Scene.Party,
+uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game, DisciplesRL.Scene.Party,
   DisciplesRL.Map, DisciplesRL.City, DisciplesRL.Player;
+
+var
+  MX, MY: Integer;
 
 procedure Init;
 begin
@@ -27,7 +30,6 @@ var
   I, Y, X4: Integer;
 begin
   RenderDark;
-
   CenterTextOut(100, Format('CITY (Level %d)', [City[GetCityIndex(Player.X, Player.Y)].MaxLevel + 1]));
   CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
   Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
@@ -44,12 +46,13 @@ end;
 
 procedure MouseClick;
 begin
-
+//  ShowMessage(IntToStr(GetPartyPosition(MX, MY)));
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-
+  MX := X;
+  MY := Y;
 end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);

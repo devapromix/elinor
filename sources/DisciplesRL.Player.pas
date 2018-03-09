@@ -101,7 +101,9 @@ end;
 procedure Gen;
 begin
   LeaderParty.SetPoint(Player.X, Player.Y);
+  LeaderParty.AddCreature(crSquire, 0);
   LeaderParty.AddCreature(crLeader, 2);
+  LeaderParty.AddCreature(crSquire, 4);
 end;
 
 end.

@@ -3,7 +3,7 @@ unit DisciplesRL.Creatures;
 interface
 
 type
-  TCreatureEnum = (crNone, crMyzrael, crLeader, crGoblin, crWolf, crOrc);
+  TCreatureEnum = (crNone, crMyzrael, crLeader, crSquire, crGoblin, crWolf, crOrc);
 
 type
   TCreature = record
@@ -33,6 +33,8 @@ const
     (HitPoints: 900; Level: 1; Damage: 250; Armor: 50),
     // Leader
     (HitPoints: 150; Level: 1; Damage: 12; Armor: 5),
+    // Squire
+    (HitPoints: 100; Level: 1; Damage: 25; Armor: 0),
     // Goblin
     (HitPoints: 40; Level: 1; Damage: 8; Armor: 2),
     // Wolf

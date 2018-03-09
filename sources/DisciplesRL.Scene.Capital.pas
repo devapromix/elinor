@@ -28,7 +28,6 @@ end;
 procedure Render;
 begin
   RenderDark;
-
   CenterTextOut(100, Format('THE EMPIRE CAPITAL (Level %d)', [City[0].MaxLevel + 1]));
   CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
   Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
@@ -48,7 +47,7 @@ end;
 
 procedure MouseClick;
 begin
-  ShowMessage(IntToStr(GetPartyPosition(MX, MY)));
+//  ShowMessage(IntToStr(GetPartyPosition(MX, MY)));
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);

@@ -26,6 +26,7 @@ type
     property Y: Integer read FY;
     property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
+    procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
     function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
@@ -110,6 +111,11 @@ procedure TParty.SetPoint(const AX, AY: Integer);
 begin
   FX := AX;
   FY := AY;
+end;
+
+procedure TParty.SetState(const APosition: TPosition; const Flag: Boolean);
+begin
+  FCreature[APosition].Active := Flag;
 end;
 
 procedure TParty.TakeDamage(const ADamage: Integer; const APosition: TPosition);

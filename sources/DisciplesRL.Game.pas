@@ -41,7 +41,9 @@ begin
   Party[GetPartyCount - 1] := TParty.Create(AX, AY);
   with Party[GetPartyCount - 1] do
   begin
+    AddCreature(crGoblin, 0);
     AddCreature(crGoblin, 2);
+    AddCreature(crGoblin, 4);
   end;
 end;
 
