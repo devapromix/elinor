@@ -38,20 +38,20 @@ begin
   Top := 0;
   Left := 0;
   Randomize;
-  // Test
-  DisciplesRL.Resources.Init;
-  DisciplesRL.Map.Init;
-  DisciplesRL.Map.Gen;
-  DisciplesRL.Player.Init;
-  //
-  ClientWidth := MapWidth * TileSize;
-  ClientHeight := MapHeight * TileSize;
-  DisciplesRL.Scenes.Init;
   for I := 1 to ParamCount do
   begin
     if (LowerCase(ParamStr(I)) = '-w') then
       Wizard := True;
   end;
+  ClientWidth := MapWidth * TileSize;
+  ClientHeight := MapHeight * TileSize;
+  //
+  DisciplesRL.Game.Init;
+  DisciplesRL.Resources.Init;
+  DisciplesRL.Map.Init;
+  DisciplesRL.Map.Gen;
+  DisciplesRL.Player.Init;
+  DisciplesRL.Scenes.Init;
 end;
 
 procedure TMainForm.FormPaint(Sender: TObject);
@@ -71,6 +71,7 @@ end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
+  DisciplesRL.Game.Free;
   DisciplesRL.Resources.Free;
   DisciplesRL.Scenes.Free;
 end;

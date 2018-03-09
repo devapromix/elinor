@@ -15,7 +15,10 @@ procedure Free;
 implementation
 
 uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Resources, DisciplesRL.Game,
-  DisciplesRL.Party, DisciplesRL.Map, DisciplesRL.City, DisciplesRL.Scene.Party, DisciplesRL.Player;
+  DisciplesRL.Party, Vcl.Dialogs, DisciplesRL.Map, DisciplesRL.City, DisciplesRL.Scene.Party, DisciplesRL.Player;
+
+var
+  MX, MY: Integer;
 
 procedure Init;
 begin
@@ -31,7 +34,9 @@ begin
   Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
   Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CAPITAL DEFENSES');
   if (GetDistToCapital(Player.X, Player.Y) = 0) then
-    RenderParty(psLeft, LeaderParty) else RenderParty(psLeft, nil);
+    RenderParty(psLeft, LeaderParty)
+  else
+    RenderParty(psLeft, nil);
   RenderParty(psRight, CapitalParty);
   CenterTextOut(Surface.Height - 100, '[ENTER][ESC] Close');
 end;
@@ -43,12 +48,13 @@ end;
 
 procedure MouseClick;
 begin
-
+  ShowMessage(IntToStr(GetPartyPosition(MX, MY)));
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-
+  MX := X;
+  MY := Y;
 end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);

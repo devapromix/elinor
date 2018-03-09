@@ -25,7 +25,8 @@ procedure Gen;
 
 implementation
 
-uses System.Math, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.Player, DisciplesRL.Creatures;
+uses System.Math, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.Player, DisciplesRL.Creatures,
+  DisciplesRL.Game;
 
 procedure Init;
 var

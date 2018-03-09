@@ -7,6 +7,7 @@ uses DisciplesRL.Party;
 type
   TPartySide = (psLeft, psRight);
 
+function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
 
 implementation
@@ -15,7 +16,51 @@ uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Creatures, DisciplesRL.Res
 
 const
   Top = 220;
-  Left = 10;
+  Left = 15;
+
+function MouseOver(AX, AY, MX, MY: Integer): Boolean;
+begin
+  Result := (MX > AX) and (MX < AX + ResImage[reFrame].Width) and (MY > AY) and (MY < AY + ResImage[reFrame].Height);
+end;
+
+function GetPartyPosition(const MX, MY: Integer): Integer;
+var
+  I, X, Y, X4: Integer;
+  F: Boolean;
+begin
+  Result := -1;
+  X4 := Surface.Width div 4;
+
+  if MouseOver(Left + X4, Top, MX, MY) then
+    Result := 0;
+  if MouseOver(Left, Top, MX, MY) then
+    Result := 1;
+
+  if MouseOver(Left + X4, Top + 120, MX, MY) then
+    Result := 2;
+  if MouseOver(Left, Top + 120, MX, MY) then
+    Result := 3;
+
+  if MouseOver(Left + X4, Top + 240, MX, MY) then
+    Result := 4;
+  if MouseOver(Left, Top + 240, MX, MY) then
+    Result := 5;
+
+  if MouseOver(Left + (X4 * 3), Top, MX, MY) then
+    Result := 7;
+  if MouseOver(Left + (X4 * 2), Top, MX, MY) then
+    Result := 6;
+
+  if MouseOver(Left + (X4 * 3), Top + 120, MX, MY) then
+    Result := 9;
+  if MouseOver(Left + (X4 * 2), Top + 120, MX, MY) then
+    Result := 8;
+
+  if MouseOver(Left + (X4 * 3), Top + 240, MX, MY) then
+    Result := 11;
+  if MouseOver(Left + (X4 * 2), Top + 240, MX, MY) then
+    Result := 10;
+end;
 
 procedure RenderFrame(const AX, AY: Integer);
 begin
@@ -28,9 +73,9 @@ begin
   begin
     if Active then
     begin
-      Surface.Canvas.TextOut(AX + 15, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
-      Surface.Canvas.TextOut(AX + 15, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
-      Surface.Canvas.TextOut(AX + 15, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]));
+      Surface.Canvas.TextOut(AX + Left, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
+      Surface.Canvas.TextOut(AX + Left, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
+      Surface.Canvas.TextOut(AX + Left, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]));
     end;
   end;
 end;

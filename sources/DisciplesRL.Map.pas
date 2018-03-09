@@ -32,17 +32,6 @@ procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const
   IgnoreRes: TIgnoreRes = []);
 function GetDistToCapital(const AX, AY: Integer): Integer;
 
-var
-  Party: array of TParty;
-  LeaderParty: TParty;
-  CapitalParty: TParty;
-
-procedure PartyInit(const AX, AY: Integer);
-procedure PartyFree;
-function GetPartyCount: Integer;
-function GetPartyIndex(const AX, AY: Integer): Integer;
-procedure AddPartyAt(const AX, AY: Integer);
-
 implementation
 
 uses System.Math, System.SysUtils, DisciplesRL.Player, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.PathFind,
@@ -184,51 +173,6 @@ begin
             Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
-end;
-
-procedure PartyInit(const AX, AY: Integer);
-var
-  L: Integer;
-begin
-  L := GetDistToCapital(AX, AY);
-  SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(AX, AY);
-  with Party[GetPartyCount - 1] do
-  begin
-    AddCreature(crGoblin, 2);
-  end;
-end;
-
-procedure PartyFree;
-var
-  I: Integer;
-begin
-  for I := 0 to GetPartyCount - 1 do
-    FreeAndNil(Party[I]);
-end;
-
-function GetPartyCount: Integer;
-begin
-  Result := Length(Party);
-end;
-
-function GetPartyIndex(const AX, AY: Integer): Integer;
-var
-  I: Integer;
-begin
-  Result := -1;
-  for I := 0 to GetPartyCount - 1 do
-    if (Party[I].X = AX) and (Party[I].Y = AY) then
-    begin
-      Result := I;
-      Exit;
-    end;
-end;
-
-procedure AddPartyAt(const AX, AY: Integer);
-begin
-  MapObj[AX, AY] := reEnemies;
-  PartyInit(AX, AY);
 end;
 
 end.

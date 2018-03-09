@@ -58,6 +58,7 @@ begin
   Surface.Height := MainForm.ClientHeight;
   Surface.Canvas.Font.Size := 20;
   Surface.Canvas.Font.Color := clGreen;
+  Surface.Canvas.Brush.Style := bsClear;
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
       scMenu:

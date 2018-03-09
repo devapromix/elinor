@@ -20,12 +20,12 @@ procedure Gen;
 
 implementation
 
-uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
+uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
   DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures;
 
 procedure Init;
 begin
-  Player.Radius := 91;
+  Player.Radius := IfThen(Wizard, 99, 1);
   RefreshRadius;
 end;
 
