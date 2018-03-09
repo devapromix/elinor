@@ -2,7 +2,7 @@ unit DisciplesRL.Map;
 
 interface
 
-uses DisciplesRL.Resources;
+uses DisciplesRL.Resources, DisciplesRL.Party;
 
 var
   MapWidth: Integer = 40 + 2;
@@ -32,9 +32,20 @@ procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const
   IgnoreRes: TIgnoreRes = []);
 function GetDistToCapital(const AX, AY: Integer): Integer;
 
+var
+  Party: array of TParty;
+  LeaderParty: TParty;
+  CapitalParty: TParty;
+
+procedure PartyInit(const AX, AY: Integer);
+procedure PartyFree;
+function PartyCount: Integer;
+function PartyID(const AX, AY: Integer): Integer;
+
 implementation
 
-uses System.Math, DisciplesRL.Player, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.PathFind, DisciplesRL.Game;
+uses System.Math, System.SysUtils, DisciplesRL.Player, DisciplesRL.Utils, DisciplesRL.City, DisciplesRL.PathFind,
+  DisciplesRL.Game, DisciplesRL.Creatures;
 
 procedure Init;
 var
@@ -47,6 +58,9 @@ begin
   for L := Low(TLayerEnum) to High(TLayerEnum) do
     Clear(L);
   DisciplesRL.City.Init;
+  //
+  LeaderParty := TParty.Create;
+  CapitalParty := TParty.Create;
 end;
 
 function GetDistToCapital(const AX, AY: Integer): Integer;
@@ -143,7 +157,10 @@ begin
       Y := RandomRange(1, MapHeight - 1);
     until (MapObj[X, Y] = reNone) and (MapTile[X, Y] = reNeutral) and (GetDistToCapital(X, Y) >= 3);
     MapObj[X, Y] := reEnemies;
+    PartyInit(X, Y);
   end;
+  // Leader's party
+  DisciplesRL.Player.Gen;
 end;
 
 function InMap(X, Y: Integer): Boolean;
@@ -167,6 +184,45 @@ begin
             Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
+end;
+
+procedure PartyInit(const AX, AY: Integer);
+var
+  L: Integer;
+begin
+  L := GetDistToCapital(AX, AY);
+  SetLength(Party, PartyCount + 1);
+  Party[PartyCount - 1] := TParty.Create;
+  with Party[PartyCount - 1] do
+  begin
+    AddCreature(crGoblin, 2);
+  end;
+end;
+
+procedure PartyFree;
+var
+  I: Integer;
+begin
+  for I := 0 to PartyCount - 1 do
+    FreeAndNil(Party[I]);
+end;
+
+function PartyCount: Integer;
+begin
+  Result := Length(Party);
+end;
+
+function PartyID(const AX, AY: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := -1;
+  for I := 0 to PartyCount - 1 do
+    if (Party[I].X = AX) and (Party[I].Y = AY) then
+    begin
+      Result := I;
+      Exit;
+    end;
 end;
 
 end.

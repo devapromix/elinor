@@ -47,7 +47,7 @@ end;
 procedure MouseClick;
 begin
   if NewGameButton.MouseDown then
-    DisciplesRL.Scenes.CurrentScene := scMap;
+    DisciplesRL.Scenes.CurrentScene := scCapital;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -59,7 +59,7 @@ end;
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   if Key = K_ENTER then
-    DisciplesRL.Scenes.CurrentScene := scMap;
+    DisciplesRL.Scenes.CurrentScene := scCapital;
 end;
 
 procedure Free;

@@ -25,7 +25,7 @@ procedure Gen;
 
 implementation
 
-uses System.Math, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.Player;
+uses System.Math, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.Player, DisciplesRL.Creatures;
 
 procedure Init;
 var
@@ -110,7 +110,7 @@ end;
 
 procedure Gen;
 var
-  X, Y,DX, DY, I: Integer;
+  X, Y, DX, DY, I: Integer;
 begin
   for I := 0 to High(City) do
   begin
@@ -126,6 +126,10 @@ begin
           MapTile[City[I].X, City[I].Y] := reEmpireCapital;
           ClearObj(City[I].X, City[I].Y);
           UpdateRadius(I);
+          // Party
+          CapitalParty.X := Player.X;
+          CapitalParty.Y := Player.Y;
+          CapitalParty.AddCreature(crLeader, 2);
         end;
       1 .. NCity: // City
         begin

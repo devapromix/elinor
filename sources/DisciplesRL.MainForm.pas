@@ -83,7 +83,7 @@ end;
 procedure TMainForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 begin
   DisciplesRL.Scenes.MouseMove(Shift, X, Y);
-  Caption := Format('DisciplesRL (%d:%d) [m:%d]', [X, Y, GoldMines]);
+  Caption := Format('DisciplesRL (%d:%d) [m:%d]', [X, Y, Gold]);
 end;
 
 end.

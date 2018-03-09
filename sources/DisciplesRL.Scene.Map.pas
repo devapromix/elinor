@@ -125,7 +125,9 @@ end;
 
 procedure Free;
 begin
-
+  PartyFree;
+  FreeAndNil(LeaderParty);
+  FreeAndNil(CapitalParty);
 end;
 
 end.

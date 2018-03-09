@@ -16,12 +16,12 @@ procedure Init;
 procedure Move(const AX, AY: ShortInt);
 procedure PutAt(const AX, AY: ShortInt);
 procedure RefreshRadius;
+procedure Gen;
 
 implementation
 
 uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
-  DisciplesRL.Party,
-  DisciplesRL.Scenes, DisciplesRL.Game;
+  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures;
 
 procedure Init;
 begin
@@ -101,6 +101,13 @@ end;
 procedure RefreshRadius;
 begin
   DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius, MapDark, reNone);
+end;
+
+procedure Gen;
+begin
+  LeaderParty.X := Player.X;
+  LeaderParty.Y := Player.Y;
+  LeaderParty.AddCreature(crLeader, 2);
 end;
 
 end.

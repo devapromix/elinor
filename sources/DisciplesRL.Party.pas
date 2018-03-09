@@ -15,12 +15,13 @@ type
   private
     FOwner: TRaceEnum;
     FCreature: array [TPosition] of TCreature;
-    procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
   public
+    X, Y: Integer;
     constructor Create;
     destructor Destroy; override;
+    procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
     procedure Clear;
