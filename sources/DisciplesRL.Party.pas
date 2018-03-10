@@ -35,6 +35,8 @@ type
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
+    procedure Swap(Party: TParty; A, B: Integer); overload;
+    procedure Swap(A, B: Integer); overload;
   end;
 
 implementation
@@ -116,6 +118,24 @@ end;
 procedure TParty.SetState(const APosition: TPosition; const Flag: Boolean);
 begin
   FCreature[APosition].Active := Flag;
+end;
+
+procedure TParty.Swap(Party: TParty; A, B: Integer);
+var
+  Cr: TCreature;
+begin
+  Cr := Party.Creature[B];
+  Party.Creature[B] := FCreature[A];
+  FCreature[A] := Cr;
+end;
+
+procedure TParty.Swap(A, B: Integer);
+var
+  Cr: TCreature;
+begin
+  Cr := FCreature[B];
+  FCreature[B] := FCreature[A];
+  FCreature[A] := Cr;
 end;
 
 procedure TParty.TakeDamage(const ADamage: Integer; const APosition: TPosition);

@@ -15,8 +15,7 @@ procedure Free;
 implementation
 
 uses Vcl.Dialogs, System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Item, DisciplesRL.Map, DisciplesRL.Game,
-  DisciplesRL.Player,
-  DisciplesRL.Party, DisciplesRL.Scene.Party;
+  DisciplesRL.Player, DisciplesRL.Party, DisciplesRL.Scene.Party;
 
 var
   MX, MY: Integer;
@@ -64,7 +63,7 @@ begin
     begin
       Party[I].TakeDamage(25, N - 6);
       Party[I].SetState(N - 6, (Party[I].Creature[N - 6].HitPoints > 0));
-      Render;
+      DisciplesRL.Scenes.Render;
       for J := 0 to 5 do
         if Party[I].Creature[J].Active then
           Exit;

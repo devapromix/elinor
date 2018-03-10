@@ -10,6 +10,9 @@ type
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
 
+var
+  ActivePosition: Integer = 2;
+
 implementation
 
 uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Creatures, DisciplesRL.Resources;
@@ -62,9 +65,20 @@ begin
     Result := 10;
 end;
 
-procedure RenderFrame(const AX, AY: Integer);
+procedure RenderFrame(const V: TPartySide; const I, AX, AY: Integer);
+var
+  J: Integer;
 begin
-  Surface.Canvas.Draw(AX + 6, AY, ResImage[reFrame]);
+  case V of
+    psLeft:
+      J := I;
+  else
+    J := I + 6;
+  end;
+  if (ActivePosition = J) then
+    Surface.Canvas.Draw(AX + 6, AY, ResImage[reActFrame])
+  else
+    Surface.Canvas.Draw(AX + 6, AY, ResImage[reFrame]);
 end;
 
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer);
@@ -111,8 +125,8 @@ begin
           F := True;
         end;
     end;
-    RenderFrame(X, Y);
-    if Party <> nil then
+    RenderFrame(V, I, X, Y);
+    if (Party <> nil) then
       RenderUnit(I, Party, X, Y);
     if F then
     begin

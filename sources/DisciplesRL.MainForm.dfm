@@ -17,6 +17,7 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
+  OnMouseDown = FormMouseDown
   OnMouseMove = FormMouseMove
   OnPaint = FormPaint
   PixelsPerInch = 96

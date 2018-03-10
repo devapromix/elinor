@@ -2,7 +2,7 @@ unit DisciplesRL.Scenes;
 
 interface
 
-uses Vcl.Graphics, System.Types, System.Classes;
+uses Vcl.Graphics, System.Types, System.Classes, Vcl.Controls;
 
 type
   TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scCapital, scBattle, scCity, scItem);
@@ -21,6 +21,7 @@ procedure Timer;
 procedure MouseClick;
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure Free;
 
 const
@@ -191,6 +192,29 @@ begin
       DisciplesRL.Scene.City.KeyDown(Key, Shift);
     scItem:
       DisciplesRL.Scene.Item.KeyDown(Key, Shift);
+  end;
+  DisciplesRL.Scenes.Render;
+end;
+
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  case CurrentScene of
+    { scMenu:
+      DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
+      scVictory:
+      DisciplesRL.Scene.Victory.KeyDown(Key, Shift);
+      scDefeat:
+      DisciplesRL.Scene.Defeat.KeyDown(Key, Shift);
+      scMap:
+      DisciplesRL.Scene.Map.KeyDown(Key, Shift);
+      scBattle:
+      DisciplesRL.Scene.Battle.KeyDown(Key, Shift); }
+    scCapital:
+      DisciplesRL.Scene.Capital.MouseDown(Button, Shift, X, Y);
+    { scCity:
+      DisciplesRL.Scene.City.KeyDown(Key, Shift);
+      scItem:
+      DisciplesRL.Scene.Item.KeyDown(Key, Shift); }
   end;
   DisciplesRL.Scenes.Render;
 end;

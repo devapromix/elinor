@@ -12,10 +12,11 @@ type
     procedure FormPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure FormClick(Sender: TObject);
     procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure Timer1Timer(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure FormClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,6 +31,11 @@ implementation
 {$R *.dfm}
 
 uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player, DisciplesRL.Game;
+
+procedure TMainForm.FormClick(Sender: TObject);
+begin
+  DisciplesRL.Scenes.MouseClick;
+end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
@@ -64,11 +70,6 @@ begin
   DisciplesRL.Scenes.Timer;
 end;
 
-procedure TMainForm.FormClick(Sender: TObject);
-begin
-  DisciplesRL.Scenes.MouseClick;
-end;
-
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   DisciplesRL.Game.Free;
@@ -79,6 +80,11 @@ end;
 procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   DisciplesRL.Scenes.KeyDown(Key, Shift);
+end;
+
+procedure TMainForm.FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  DisciplesRL.Scenes.MouseDown(Button, Shift, X, Y);
 end;
 
 procedure TMainForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
