@@ -77,7 +77,7 @@ begin
     Enum := ACreatureEnum;
     Name := StringReplace(GetEnumName(P, Ord(Enum)), 'cr', '', [rfReplaceAll]);
     MaxHitPoints := CreatureBase[ACreatureEnum].HitPoints;
-    HitPoints := CreatureBase[ACreatureEnum].HitPoints;
+    HitPoints := 1;//CreatureBase[ACreatureEnum].HitPoints;
     Level := CreatureBase[ACreatureEnum].Level;
     Damage := CreatureBase[ACreatureEnum].Damage;
     Armor := CreatureBase[ACreatureEnum].Armor;

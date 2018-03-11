@@ -11,7 +11,8 @@ function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
 
 var
-  ActivePosition: Integer = 2;
+  ActivePartyPosition: Integer = 2;
+  CurrentPartyPosition: Integer = 2;
 
 implementation
 
@@ -75,7 +76,7 @@ begin
   else
     J := I + 6;
   end;
-  if (ActivePosition = J) then
+  if (ActivePartyPosition = J) then
     Surface.Canvas.Draw(AX + 6, AY, ResImage[reActFrame])
   else
     Surface.Canvas.Draw(AX + 6, AY, ResImage[reFrame]);

@@ -28,6 +28,7 @@ type
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
+    function IsClear: Boolean;
     function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
     procedure SetPoint(const AX, AY: Integer);
@@ -37,6 +38,7 @@ type
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
+    procedure ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
   end;
 
 implementation
@@ -46,6 +48,40 @@ implementation
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
 begin
   AssignCreature(FCreature[APosition], ACreatureEnum);
+end;
+
+procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
+begin
+  if (CurPosition < 0) then
+    Exit;
+  case CurPosition of
+    0 .. 5:
+      case ActPosition of
+        0 .. 5:
+          Self.Swap(CurPosition, ActPosition);
+        6 .. 11:
+          Self.Swap(Party, CurPosition, ActPosition - 6);
+      end;
+    6 .. 11:
+      case ActPosition of
+        0 .. 5:
+          Party.Swap(Self, CurPosition - 6, ActPosition);
+        6 .. 11:
+          Party.Swap(CurPosition - 6, ActPosition - 6);
+      end;
+  end;
+  CurPosition := ActPosition;
+end;
+
+function TParty.IsClear: Boolean;
+var
+  I: TPosition;
+begin
+  Result := False;
+  for I := Low(TPosition) to High(TPosition) do
+    if (Creature[I].HitPoints > 0) then
+      Exit;
+  Result := True;
 end;
 
 procedure TParty.Clear;

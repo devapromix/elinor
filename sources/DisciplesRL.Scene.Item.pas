@@ -24,7 +24,7 @@ end;
 
 procedure Render;
 begin
-  RenderDark;
+//  RenderDark;
 
   CenterTextOut(100, 'ITEMS');
   CenterTextOut(200, 'GOLD ' + IntToStr(Gold));

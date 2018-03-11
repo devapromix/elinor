@@ -206,15 +206,15 @@ begin
       scDefeat:
       DisciplesRL.Scene.Defeat.KeyDown(Key, Shift);
       scMap:
-      DisciplesRL.Scene.Map.KeyDown(Key, Shift);
-      scBattle:
-      DisciplesRL.Scene.Battle.KeyDown(Key, Shift); }
+      DisciplesRL.Scene.Map.KeyDown(Key, Shift); }
+    scBattle:
+      DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
     scCapital:
       DisciplesRL.Scene.Capital.MouseDown(Button, Shift, X, Y);
-    { scCity:
-      DisciplesRL.Scene.City.KeyDown(Key, Shift);
-      scItem:
-      DisciplesRL.Scene.Item.KeyDown(Key, Shift); }
+    scCity:
+      DisciplesRL.Scene.City.MouseDown(Button, Shift, X, Y);
+    { scItem:
+      DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y); }
   end;
   DisciplesRL.Scenes.Render;
 end;
