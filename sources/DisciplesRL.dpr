@@ -17,12 +17,11 @@ uses
   DisciplesRL.Scene.Victory in 'DisciplesRL.Scene.Victory.pas',
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
-  DisciplesRL.Scene.Capital in 'DisciplesRL.Scene.Capital.pas',
-  DisciplesRL.Scene.City in 'DisciplesRL.Scene.City.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
   DisciplesRL.Game in 'DisciplesRL.Game.pas',
   DisciplesRL.Scene.Item in 'DisciplesRL.Scene.Item.pas',
-  DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas';
+  DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas',
+  DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas';
 
 {$R *.res}
 

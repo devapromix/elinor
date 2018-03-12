@@ -22,6 +22,7 @@ const
   Top = 220;
   Left = 15;
 
+
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
   Result := (MX > AX) and (MX < AX + ResImage[reFrame].Width) and (MY > AY) and (MY < AY + ResImage[reFrame].Height);

@@ -15,7 +15,7 @@ procedure Free;
 implementation
 
 uses System.SysUtils, System.Math, System.Types, Vcl.Imaging.PNGImage, DisciplesRL.Map, DisciplesRL.Resources,
-  DisciplesRL.Player, Vcl.Dialogs, DisciplesRL.Utils;
+  DisciplesRL.Player, Vcl.Dialogs, DisciplesRL.Utils, DisciplesRL.Scene.Settlement;
 
 const
   K_RIGHT = 39;
@@ -108,11 +108,11 @@ begin
         case MapTile[Player.X, Player.Y] of
           reEmpireCapital:
             begin
-              DisciplesRL.Scenes.CurrentScene := scCapital;
+              DisciplesRL.Scene.Settlement.Show(stCapital);
             end;
           reEmpireCity:
             begin
-              DisciplesRL.Scenes.CurrentScene := scCity;
+              DisciplesRL.Scene.Settlement.Show(stCity);
             end;
         end;
       end;

@@ -15,7 +15,7 @@ procedure Free;
 implementation
 
 uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game, DisciplesRL.Map,
-  DisciplesRL.Resources, DisciplesRL.Player;
+  DisciplesRL.Resources, DisciplesRL.Player, DisciplesRL.Scene.Settlement;
 
 procedure Init;
 begin
@@ -24,7 +24,7 @@ end;
 
 procedure Render;
 begin
-//  RenderDark;
+  // RenderDark;
 
   CenterTextOut(100, 'ITEMS');
   CenterTextOut(200, 'GOLD ' + IntToStr(Gold));
@@ -54,9 +54,9 @@ begin
         DisciplesRL.Scenes.CurrentScene := scMap;
         case MapTile[Player.X, Player.Y] of
           reTower:
-              DisciplesRL.Scenes.CurrentScene := scVictory;
+            DisciplesRL.Scenes.CurrentScene := scVictory;
           reEmpireCity:
-              DisciplesRL.Scenes.CurrentScene := scCity;
+            DisciplesRL.Scene.Settlement.Show(stCity);
         end;
       end;
   end;

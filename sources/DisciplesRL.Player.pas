@@ -21,7 +21,7 @@ procedure Gen;
 implementation
 
 uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
-  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures;
+  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures, DisciplesRL.Scene.Settlement;
 
 procedure Init;
 begin
@@ -84,11 +84,11 @@ begin
       end;
     reEmpireCity:
       begin
-        DisciplesRL.Scenes.CurrentScene := scCity;
+        DisciplesRL.Scene.Settlement.Show(stCity);
       end;
     reEmpireCapital:
       begin
-        DisciplesRL.Scenes.CurrentScene := scCapital;
+        DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
   end;
 end;

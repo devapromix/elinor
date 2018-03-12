@@ -14,28 +14,47 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.GUI.Button;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.GUI.Button, DisciplesRL.Scene.Settlement,
+  DisciplesRL.MainForm;
+
+type
+  TButtonEnum = (btNew, btQuit);
 
 var
   Top, Left: Integer;
-  NewGameButton: TButton;
+  Button: array [TButtonEnum] of TButton;
 
 procedure Init;
 var
-  ButTop, ButLeft: Integer;
+  L, T, H: Integer;
+  I: TButtonEnum;
 begin
   Top := (Surface.Height div 3) - (ResImage[reLogo].Height div 2);
   Left := (Surface.Width div 2) - (ResImage[reLogo].Width div 2);
-  ButTop := ((Surface.Height div 3) * 2) - (ResImage[reButtonDef].Height div 2);
-  ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  NewGameButton := TButton.Create(ButLeft, ButTop, Surface.Canvas, reMNewGame);
-  NewGameButton.Sellected := True;
+  L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
+  H := ResImage[reButtonDef].Height + 10;
+  T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
+    Inc(T, H);
+    if (I = btNew) then
+      Button[I].Sellected := True;
+  end;
+end;
+
+procedure RenderButtons;
+var
+  I: TButtonEnum;
+begin
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[I].Render;
 end;
 
 procedure Render;
 begin
   Surface.Canvas.Draw(Left, Top, ResImage[reLogo]);
-  NewGameButton.Render;
+  RenderButtons;
   CenterTextOut(Surface.Height - 50, '2018 by Apromix')
 end;
 
@@ -46,25 +65,35 @@ end;
 
 procedure MouseClick;
 begin
-  if NewGameButton.MouseDown then
-    DisciplesRL.Scenes.CurrentScene := scCapital;
+  if Button[btNew].MouseDown then
+    DisciplesRL.Scene.Settlement.Show(stCapital);
+  if Button[btQuit].MouseDown then
+    DisciplesRL.MainForm.MainForm.Close;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
 begin
-  NewGameButton.MouseMove(X, Y);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[I].MouseMove(X, Y);
   Render;
 end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
-  if Key = K_ENTER then
-    DisciplesRL.Scenes.CurrentScene := scCapital;
+  case Key of
+    K_ESCAPE, K_ENTER:
+      DisciplesRL.Scene.Settlement.Show(stCapital);
+  end;
 end;
 
 procedure Free;
+var
+  I: TButtonEnum;
 begin
-  FreeAndNil(NewGameButton);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[I]);
 end;
 
 end.

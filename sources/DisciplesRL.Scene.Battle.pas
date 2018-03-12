@@ -103,7 +103,12 @@ var
   N, I, J: Integer;
 begin
   N := GetPartyPosition(X, Y);
-  if N < 0 then
+  if (N < 0) then
+    Exit;
+  if LeaderParty.IsClear then
+    Exit;
+  I := GetPartyIndex(Player.X, Player.Y);
+  if Party[I].IsClear then
     Exit;
   case N of
     0 .. 5: // Leader
@@ -111,13 +116,12 @@ begin
         LeaderParty.TakeDamage(25, N);
         DisciplesRL.Scenes.Render;
       end;
-  else // Enemy
-    begin
-      I := GetPartyIndex(Player.X, Player.Y);
-      Party[I].TakeDamage(25, N - 6);
-      Party[I].SetState(N - 6, (Party[I].Creature[N - 6].HitPoints > 0));
-      DisciplesRL.Scenes.Render;
-    end;
+    6 .. 11: // Enemy
+      begin
+        Party[I].TakeDamage(25, N - 6);
+        Party[I].SetState(N - 6, (Party[I].Creature[N - 6].HitPoints > 0));
+        DisciplesRL.Scenes.Render;
+      end;
   end;
 end;
 

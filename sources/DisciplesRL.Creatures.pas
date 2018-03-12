@@ -12,6 +12,7 @@ type
     Name: string;
     MaxHitPoints: Integer;
     HitPoints: Integer;
+    Leader: Boolean;
     Level: Integer;
     Damage: Integer;
     Armor: Integer;
@@ -20,6 +21,7 @@ type
 type
   TCreatureBase = record
     HitPoints: Integer;
+    Leader: Boolean;
     Level: Integer;
     Damage: Integer;
     Armor: Integer;
@@ -28,19 +30,19 @@ type
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (HitPoints: 0; Level: 0; Damage: 0; Armor: 0),
+    (HitPoints: 0; Leader: False; Level: 0; Damage: 0; Armor: 0),
     // Myzrael
-    (HitPoints: 900; Level: 1; Damage: 250; Armor: 50),
+    (HitPoints: 900; Leader: True; Level: 1; Damage: 250; Armor: 50),
     // Leader
-    (HitPoints: 150; Level: 1; Damage: 12; Armor: 5),
+    (HitPoints: 150; Leader: True; Level: 1; Damage: 12; Armor: 5),
     // Squire
-    (HitPoints: 100; Level: 1; Damage: 25; Armor: 0),
+    (HitPoints: 100; Leader: False; Level: 1; Damage: 25; Armor: 0),
     // Goblin
-    (HitPoints: 40; Level: 1; Damage: 8; Armor: 2),
+    (HitPoints: 40; Leader: False; Level: 1; Damage: 8; Armor: 2),
     // Wolf
-    (HitPoints: 100; Level: 1; Damage: 15; Armor: 3),
+    (HitPoints: 100; Leader: False; Level: 1; Damage: 15; Armor: 3),
     // Orc
-    (HitPoints: 180; Level: 1; Damage: 18; Armor: 5)
+    (HitPoints: 180; Leader: False; Level: 1; Damage: 18; Armor: 5)
     //
     );
 
@@ -60,6 +62,7 @@ begin
     Name := '';
     MaxHitPoints := 0;
     HitPoints := 0;
+    Leader := False;
     Level := 0;
     Damage := 0;
     Armor := 0;
@@ -77,12 +80,12 @@ begin
     Enum := ACreatureEnum;
     Name := StringReplace(GetEnumName(P, Ord(Enum)), 'cr', '', [rfReplaceAll]);
     MaxHitPoints := CreatureBase[ACreatureEnum].HitPoints;
-    HitPoints := 1;//CreatureBase[ACreatureEnum].HitPoints;
+    HitPoints := CreatureBase[ACreatureEnum].HitPoints;
+    Leader := CreatureBase[ACreatureEnum].Leader;
     Level := CreatureBase[ACreatureEnum].Level;
     Damage := CreatureBase[ACreatureEnum].Damage;
     Armor := CreatureBase[ACreatureEnum].Armor;
   end;
 end;
-
 
 end.

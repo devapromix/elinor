@@ -5,7 +5,7 @@ interface
 uses Vcl.Graphics, System.Types, System.Classes, Vcl.Controls;
 
 type
-  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scCapital, scBattle, scCity, scItem);
+  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem);
 
   // https://opengameart.org/content/ui-button
 
@@ -33,8 +33,8 @@ const
 implementation
 
 uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, DisciplesRL.Scene.Menu,
-  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle, DisciplesRL.Scene.Capital,
-  DisciplesRL.Scene.City, DisciplesRL.Resources, DisciplesRL.Scene.Item;
+  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle, DisciplesRL.Scene.Settlement,
+  DisciplesRL.Resources, DisciplesRL.Scene.Item;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
@@ -72,10 +72,8 @@ begin
         DisciplesRL.Scene.Map.Init;
       scBattle:
         DisciplesRL.Scene.Battle.Init;
-      scCapital:
-        DisciplesRL.Scene.Capital.Init;
-      scCity:
-        DisciplesRL.Scene.City.Init;
+      scSettlement:
+        DisciplesRL.Scene.Settlement.Init;
       scItem:
         DisciplesRL.Scene.Item.Init;
     end;
@@ -96,10 +94,8 @@ begin
       DisciplesRL.Scene.Map.Render;
     scBattle:
       DisciplesRL.Scene.Battle.Render;
-    scCapital:
-      DisciplesRL.Scene.Capital.Render;
-    scCity:
-      DisciplesRL.Scene.City.Render;
+    scSettlement:
+      DisciplesRL.Scene.Settlement.Render;
     scItem:
       DisciplesRL.Scene.Item.Render;
   end;
@@ -119,10 +115,8 @@ begin
       DisciplesRL.Scene.Map.Timer;
     scBattle:
       DisciplesRL.Scene.Battle.Timer;
-    scCapital:
-      DisciplesRL.Scene.Capital.Timer;
-    scCity:
-      DisciplesRL.Scene.City.Timer;
+    scSettlement:
+      DisciplesRL.Scene.Settlement.Timer;
     scItem:
       DisciplesRL.Scene.Item.Timer;
   end;
@@ -141,10 +135,8 @@ begin
       DisciplesRL.Scene.Map.MouseClick;
     scBattle:
       DisciplesRL.Scene.Battle.MouseClick;
-    scCapital:
-      DisciplesRL.Scene.Capital.MouseClick;
-    scCity:
-      DisciplesRL.Scene.City.MouseClick;
+    scSettlement:
+      DisciplesRL.Scene.Settlement.MouseClick;
     scItem:
       DisciplesRL.Scene.Item.MouseClick;
   end;
@@ -164,10 +156,8 @@ begin
       DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
     scBattle:
       DisciplesRL.Scene.Battle.MouseMove(Shift, X, Y);
-    scCapital:
-      DisciplesRL.Scene.Capital.MouseMove(Shift, X, Y);
-    scCity:
-      DisciplesRL.Scene.City.MouseMove(Shift, X, Y);
+    scSettlement:
+      DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
     scItem:
       DisciplesRL.Scene.Item.MouseMove(Shift, X, Y);
   end;
@@ -186,10 +176,8 @@ begin
       DisciplesRL.Scene.Map.KeyDown(Key, Shift);
     scBattle:
       DisciplesRL.Scene.Battle.KeyDown(Key, Shift);
-    scCapital:
-      DisciplesRL.Scene.Capital.KeyDown(Key, Shift);
-    scCity:
-      DisciplesRL.Scene.City.KeyDown(Key, Shift);
+    scSettlement:
+      DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
     scItem:
       DisciplesRL.Scene.Item.KeyDown(Key, Shift);
   end;
@@ -209,10 +197,8 @@ begin
       DisciplesRL.Scene.Map.KeyDown(Key, Shift); }
     scBattle:
       DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
-    scCapital:
-      DisciplesRL.Scene.Capital.MouseDown(Button, Shift, X, Y);
-    scCity:
-      DisciplesRL.Scene.City.MouseDown(Button, Shift, X, Y);
+    scSettlement:
+      DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
     { scItem:
       DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y); }
   end;
@@ -235,10 +221,8 @@ begin
         DisciplesRL.Scene.Map.Free;
       scBattle:
         DisciplesRL.Scene.Battle.Free;
-      scCapital:
-        DisciplesRL.Scene.Capital.Free;
-      scCity:
-        DisciplesRL.Scene.City.Free;
+      scSettlement:
+        DisciplesRL.Scene.Settlement.Free;
       scItem:
         DisciplesRL.Scene.Item.Free;
     end;
