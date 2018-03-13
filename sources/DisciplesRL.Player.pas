@@ -21,7 +21,8 @@ procedure Gen;
 implementation
 
 uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
-  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures, DisciplesRL.Scene.Settlement;
+  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures, DisciplesRL.Scene.Settlement,
+  DisciplesRL.PascalScript.Battle;
 
 procedure Init;
 begin
@@ -32,6 +33,11 @@ end;
 procedure Move(const AX, AY: ShortInt);
 begin
   PutAt(Player.X + AX, Player.Y + AY);
+end;
+
+procedure InitParty(const X, Y: Integer);
+begin
+
 end;
 
 procedure PutAt(const AX, AY: ShortInt);
@@ -72,6 +78,9 @@ begin
       end;
     reEnemies:
       begin
+        Run('Init.pas');
+        InitParty(Player.X, Player.Y);
+        Run('Start.pas');
         DisciplesRL.Scenes.CurrentScene := scBattle;
         MapObj[Player.X, Player.Y] := reNone;
       end;

@@ -25,7 +25,14 @@ object MainForm: TMainForm
   object Timer1: TTimer
     Interval = 100
     OnTimer = Timer1Timer
-    Left = 8
-    Top = 8
+    Left = 32
+    Top = 24
+  end
+  object AutoTimer: TTimer
+    Enabled = False
+    Interval = 1500
+    OnTimer = AutoTimerTimer
+    Left = 72
+    Top = 24
   end
 end

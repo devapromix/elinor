@@ -21,7 +21,9 @@ uses
   DisciplesRL.Game in 'DisciplesRL.Game.pas',
   DisciplesRL.Scene.Item in 'DisciplesRL.Scene.Item.pas',
   DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas',
-  DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas';
+  DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas',
+  DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
+  DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas';
 
 {$R *.res}
 

@@ -9,6 +9,7 @@ uses
 type
   TMainForm = class(TForm)
     Timer1: TTimer;
+    AutoTimer: TTimer;
     procedure FormPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -17,6 +18,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure FormClick(Sender: TObject);
+    procedure AutoTimerTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,7 +32,16 @@ implementation
 
 {$R *.dfm}
 
-uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player, DisciplesRL.Game;
+uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player, DisciplesRL.Game,
+  DisciplesRL.PascalScript.Battle;
+
+procedure TMainForm.AutoTimerTimer(Sender: TObject);
+begin
+  ClearMessages;
+  FlagEnabled := True;
+  AutoTimer.Enabled := False;
+  Run(ATimerScript);
+end;
 
 procedure TMainForm.FormClick(Sender: TObject);
 begin
