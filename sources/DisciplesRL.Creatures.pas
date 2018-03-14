@@ -40,7 +40,7 @@ const
     // Myzrael
     (ResEnum: reDragon; HitPoints: 900; Leader: True; Level: 1; Value: 250; Armor: 50),
     // Leader
-    (ResEnum: reDragon; HitPoints: 100; Leader: True; Level: 1; Value: 10; Armor: 0),
+    (ResEnum: reCorpse; HitPoints: 100; Leader: True; Level: 1; Value: 10; Armor: 0),
     // Squire
     (ResEnum: reDragon; HitPoints: 100; Leader: False; Level: 1; Value: 25; Armor: 0),
     // Goblin
