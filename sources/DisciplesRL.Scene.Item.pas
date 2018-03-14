@@ -15,11 +15,32 @@ procedure Free;
 implementation
 
 uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game, DisciplesRL.Map,
-  DisciplesRL.Resources, DisciplesRL.Player, DisciplesRL.Scene.Settlement;
+  DisciplesRL.Resources, DisciplesRL.Player, DisciplesRL.Scene.Settlement, DisciplesRL.GUI.Button;
+
+var
+  Button: TButton;
+
+procedure Action;
+begin
+  begin
+    DisciplesRL.Scenes.CurrentScene := scMap;
+    case MapTile[Player.X, Player.Y] of
+      reTower:
+        DisciplesRL.Scenes.CurrentScene := scVictory;
+      reEmpireCity:
+        DisciplesRL.Scene.Settlement.Show(stCity);
+    end;
+  end;
+end;
 
 procedure Init;
+var
+  ButTop, ButLeft: Integer;
 begin
-
+  ButTop := ((Surface.Height div 3) * 2) - (ResImage[reButtonDef].Height div 2);
+  ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
+  Button := TButton.Create(ButLeft, ButTop, Surface.Canvas, reMVictory);
+  Button.Sellected := True;
 end;
 
 procedure Render;
@@ -28,7 +49,7 @@ begin
 
   CenterTextOut(100, 'ITEMS');
   CenterTextOut(200, 'GOLD ' + IntToStr(Gold));
-  CenterTextOut(Surface.Height - 100, '[ENTER][ESC] Close');
+  Button.Render;
 end;
 
 procedure Timer;
@@ -38,33 +59,27 @@ end;
 
 procedure MouseClick;
 begin
-
+  if Button.MouseDown then
+    Action;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-
+  Button.MouseMove(X, Y);
+  Render;
 end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE, K_ENTER:
-      begin
-        DisciplesRL.Scenes.CurrentScene := scMap;
-        case MapTile[Player.X, Player.Y] of
-          reTower:
-            DisciplesRL.Scenes.CurrentScene := scVictory;
-          reEmpireCity:
-            DisciplesRL.Scene.Settlement.Show(stCity);
-        end;
-      end;
+      Action;
   end;
 end;
 
 procedure Free;
 begin
-
+  FreeAndNil(Button);
 end;
 
 end.
