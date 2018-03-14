@@ -1,31 +1,31 @@
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/disciplesrl.png)
 
 
-Для компиляции нужно доустановить компонент PascalScript.
+Р”Р»СЏ РєРѕРјРїРёР»СЏС†РёРё РЅСѓР¶РЅРѕ РґРѕСѓСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕРјРїРѕРЅРµРЅС‚ PascalScript.
 
-## Установка очень простая:
+## РЈСЃС‚Р°РЅРѕРІРєР° РѕС‡РµРЅСЊ РїСЂРѕСЃС‚Р°СЏ:
 
-Берем PascalScript на GitHub'e. Закрываем текущий проект. Запускаем в папке Source для своей версии Дельфи нужный проект PascalScript'а (пример для Delphi XE5).
+Р‘РµСЂРµРј PascalScript РЅР° GitHub'e https://github.com/remobjects/pascalscript. Р—Р°РєСЂС‹РІР°РµРј С‚РµРєСѓС‰РёР№ РїСЂРѕРµРєС‚. Р—Р°РїСѓСЃРєР°РµРј РІ РїР°РїРєРµ Source РґР»СЏ СЃРІРѕРµР№ РІРµСЂСЃРёРё Р”РµР»СЊС„Рё РЅСѓР¶РЅС‹Р№ РїСЂРѕРµРєС‚ PascalScript'Р° (РїСЂРёРјРµСЂ РґР»СЏ Delphi XE5).
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_1.png)
 
 
-Устанавливаем.
+РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј.
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_2.png)
 
 
-Если все прошло хорошо, должна появиться новая вкладка - Pascal Script.
+Р•СЃР»Рё РІСЃРµ РїСЂРѕС€Р»Рѕ С…РѕСЂРѕС€Рѕ, РґРѕР»Р¶РЅР° РїРѕСЏРІРёС‚СЊСЃСЏ РЅРѕРІР°СЏ РІРєР»Р°РґРєР° - Pascal Script.
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_4.png)
 
-Указываем путь к сорцам PascalScript'а в Tools -> Options -> Library -> Library Path.
+РЈРєР°Р·С‹РІР°РµРј РїСѓС‚СЊ Рє СЃРѕСЂС†Р°Рј PascalScript'Р° РІ Tools -> Options -> Library -> Library Path.
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_3.png)
 
 
 
-Готово.
+Р“РѕС‚РѕРІРѕ.
 
 
 
