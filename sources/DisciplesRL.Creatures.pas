@@ -2,47 +2,55 @@ unit DisciplesRL.Creatures;
 
 interface
 
+uses DisciplesRL.Resources;
+
 type
-  TCreatureEnum = (crNone, crMyzrael, crLeader, crSquire, crGoblin, crWolf, crOrc);
+  TCreatureEnum = (crNone, crMyzrael, crLeader, crSquire, crGoblin, crSpider, crWolf, crOrc);
 
 type
   TCreature = record
     Active: Boolean;
     Enum: TCreatureEnum;
+    ResEnum: TResEnum;
     Name: string;
     MaxHitPoints: Integer;
     HitPoints: Integer;
     Leader: Boolean;
     Level: Integer;
-    Damage: Integer;
+    Value: Integer;
     Armor: Integer;
+    RaceClass: Integer;
   end;
 
 type
   TCreatureBase = record
+    ResEnum: TResEnum;
     HitPoints: Integer;
     Leader: Boolean;
     Level: Integer;
-    Damage: Integer;
+    Value: Integer;
     Armor: Integer;
+    RaceClass: Integer;
   end;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (HitPoints: 0; Leader: False; Level: 0; Damage: 0; Armor: 0),
+    (ResEnum: reNone; HitPoints: 0; Leader: False; Level: 0; Value: 0; Armor: 0),
     // Myzrael
-    (HitPoints: 900; Leader: True; Level: 1; Damage: 250; Armor: 50),
+    (ResEnum: reDragon; HitPoints: 900; Leader: True; Level: 1; Value: 250; Armor: 50),
     // Leader
-    (HitPoints: 150; Leader: True; Level: 1; Damage: 12; Armor: 5),
+    (ResEnum: reDragon; HitPoints: 100; Leader: True; Level: 1; Value: 10; Armor: 0),
     // Squire
-    (HitPoints: 100; Leader: False; Level: 1; Damage: 25; Armor: 0),
+    (ResEnum: reDragon; HitPoints: 100; Leader: False; Level: 1; Value: 25; Armor: 0),
     // Goblin
-    (HitPoints: 40; Leader: False; Level: 1; Damage: 8; Armor: 2),
+    (ResEnum: reGoblin; HitPoints: 30; Leader: False; Level: 1; Value: 10; Armor: 0),
+    // Spider
+    (ResEnum: reSpider; HitPoints: 100; Leader: False; Level: 1; Value: 15; Armor: 0),
     // Wolf
-    (HitPoints: 100; Leader: False; Level: 1; Damage: 15; Armor: 3),
+    (ResEnum: reUnk; HitPoints: 100; Leader: False; Level: 1; Value: 15; Armor: 0),
     // Orc
-    (HitPoints: 180; Leader: False; Level: 1; Damage: 18; Armor: 5)
+    (ResEnum: reUnk; HitPoints: 180; Leader: False; Level: 1; Value: 18; Armor: 0)
     //
     );
 
@@ -59,13 +67,15 @@ begin
   begin
     Active := False;
     Enum := crNone;
+    ResEnum := reNone;
     Name := '';
     MaxHitPoints := 0;
     HitPoints := 0;
     Leader := False;
     Level := 0;
-    Damage := 0;
+    Value := 0;
     Armor := 0;
+    RaceClass := 0;
   end;
 end;
 
@@ -78,13 +88,15 @@ begin
   begin
     Active := True;
     Enum := ACreatureEnum;
+    ResEnum := CreatureBase[ACreatureEnum].ResEnum;
     Name := StringReplace(GetEnumName(P, Ord(Enum)), 'cr', '', [rfReplaceAll]);
     MaxHitPoints := CreatureBase[ACreatureEnum].HitPoints;
     HitPoints := CreatureBase[ACreatureEnum].HitPoints;
     Leader := CreatureBase[ACreatureEnum].Leader;
     Level := CreatureBase[ACreatureEnum].Level;
-    Damage := CreatureBase[ACreatureEnum].Damage;
+    Value := CreatureBase[ACreatureEnum].Value;
     Armor := CreatureBase[ACreatureEnum].Armor;
+    RaceClass := CreatureBase[ACreatureEnum].RaceClass;
   end;
 end;
 

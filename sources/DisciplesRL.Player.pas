@@ -16,17 +16,19 @@ procedure Init;
 procedure Move(const AX, AY: ShortInt);
 procedure PutAt(const AX, AY: ShortInt);
 procedure RefreshRadius;
+procedure RefreshParties;
 procedure Gen;
 
 implementation
 
-uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
+uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils,
+  DisciplesRL.City,
   DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures, DisciplesRL.Scene.Settlement,
-  DisciplesRL.PascalScript.Battle;
+  DisciplesRL.PascalScript.Battle, DisciplesRL.PascalScript.Vars, DisciplesRL.Scene.Battle;
 
 procedure Init;
 begin
-  Player.Radius := IfThen(Wizard, 99, 1);
+  Player.Radius := IfThen(Wizard, 9, 1);
   RefreshRadius;
 end;
 
@@ -35,9 +37,94 @@ begin
   PutAt(Player.X + AX, Player.Y + AY);
 end;
 
-procedure InitParty(const X, Y: Integer);
+procedure RefreshParties;
+var
+  I, J: Integer;
 begin
+  for I := 0 to 11 do
+  begin
+    case I of
+      0 .. 5:
+        begin
+          LeaderParty.SetHitPoints(I, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+        end;
+      6 .. 11:
+        begin
+          J := GetPartyIndex(Player.X, Player.Y);
+          Party[J].SetHitPoints(I - 6, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+        end;
+    end;
+  end;
+end;
 
+procedure InitParty(const X, Y: Integer);
+var
+  I, J: Integer;
+  T: string;
+begin
+  for I := 0 to 11 do
+  begin
+    T := 'Slot' + IntToStr(TransformTo(I)) + 'Type';
+    case I of
+      0 .. 5:
+        begin
+          if LeaderParty.Creature[I].Active then
+            V.SetInt(T, Ord(LeaderParty.Creature[I].Enum))
+          else
+            V.SetInt(T, 0);
+        end;
+      6 .. 11:
+        begin
+          J := GetPartyIndex(Player.X, Player.Y);
+          if Party[J].Creature[I - 6].Active then
+            V.SetInt(T, Ord(Party[J].Creature[I - 6].Enum))
+          else
+            V.SetInt(T, 0);
+        end;
+    end;
+  end;
+end;
+
+procedure FullParty(const X, Y: Integer);
+var
+  I, J: Integer;
+  S: string;
+begin
+  for I := 0 to 11 do
+  begin
+    S := 'Slot' + IntToStr(TransformTo(I));
+    case I of
+      0 .. 5:
+        begin
+          with LeaderParty.Creature[I] do
+            if Active then
+            begin
+              V.SetStr(S + 'Name', Name);
+              V.SetInt(S + 'MHP', MaxHitPoints);
+              V.SetInt(S + 'HP', HitPoints);
+              V.SetInt(S + 'INI', 50);
+              V.SetInt(S + 'Use', Value);
+              V.SetInt(S + 'TCH', 75);
+              V.SetInt(S + 'Class', 2);
+            end;
+        end;
+      6 .. 11:
+        begin
+          J := GetPartyIndex(Player.X, Player.Y);
+          with Party[J].Creature[I - 6] do
+            if Active then
+            begin
+              V.SetStr(S + 'Name', Name);
+              V.SetInt(S + 'MHP', MaxHitPoints);
+              V.SetInt(S + 'HP', HitPoints);
+              V.SetInt(S + 'INI', 60);
+              V.SetInt(S + 'Use', Value);
+              V.SetInt(S + 'TCH', 75);
+              V.SetInt(S + 'Class', 2);
+            end;
+        end;
+    end;
+  end;
 end;
 
 procedure PutAt(const AX, AY: ShortInt);
@@ -78,9 +165,23 @@ begin
       end;
     reEnemies:
       begin
-        Run('Init.pas');
+        // Нейтралы (средняя партия)
+        { V.SetInt('Slot7Type', 102);
+          V.SetInt('Slot8Type', 101);
+          V.SetInt('Slot9Type', 102);
+          V.SetInt('Slot10Type', 0);
+          V.SetInt('Slot11Type', 0);
+          V.SetInt('Slot12Type', 0); }
+
         InitParty(Player.X, Player.Y);
-        Run('Start.pas');
+        Run('Battles\BattleInit.pas');
+        FullParty(Player.X, Player.Y);
+        Run('Battles\Start.pas');
+
+        { InitParty(Player.X, Player.Y);
+          Run('Init.pas');
+          FullParty(Player.X, Player.Y);
+          Run('Start.pas'); }
         DisciplesRL.Scenes.CurrentScene := scBattle;
         MapObj[Player.X, Player.Y] := reNone;
       end;
@@ -110,9 +211,8 @@ end;
 procedure Gen;
 begin
   LeaderParty.SetPoint(Player.X, Player.Y);
-  LeaderParty.AddCreature(crSquire, 0);
   LeaderParty.AddCreature(crLeader, 2);
-  LeaderParty.AddCreature(crSquire, 4);
+  LeaderParty.AddCreature(crSquire, 3);
 end;
 
 end.

@@ -16,10 +16,11 @@ var
 
 implementation
 
-uses System.SysUtils, System.Classes, DisciplesRL.Scenes, DisciplesRL.MainForm, DisciplesRL.Utils;
+uses System.SysUtils, System.Classes, DisciplesRL.Scenes, DisciplesRL.MainForm, DisciplesRL.Utils, DisciplesRL.Player,
+  DisciplesRL.Creatures;
 
 const
-  ScriptPath = 'resources\scripts\battle';
+  ScriptPath = 'resources\scripts';
 
 procedure ClearMessages;
 var
@@ -119,6 +120,11 @@ begin
   UnitMessageColor[A] := C;
 end;
 
+procedure _Refresh;
+begin
+  RefreshParties;
+end;
+
 procedure _Render;
 begin
   DisciplesRL.Scenes.Render;
@@ -152,7 +158,10 @@ begin
     Sender.AddDelphiFunction('procedure Run(Script: string);');
     Sender.AddDelphiFunction('procedure DisplayMsg(A, C: Integer; S: string);');
     Sender.AddDelphiFunction('procedure UseTimer(Interval: Integer; Script: string);');
+    Sender.AddDelphiFunction('procedure Refresh;');
     Sender.AddDelphiFunction('procedure Render;');
+    //
+    Sender.AddVariableN('HP', 'Integer');
     //
     Result := True;
   end
@@ -202,9 +211,11 @@ begin
       SL.LoadFromFile(S, TEncoding.ANSI);
     end;
     SL.Insert(0, 'begin');
-    SL.Insert(0, 'I, J: Integer;');
-    SL.Insert(0, 'P, S: string;');
-    SL.Insert(0, 'B, F: Boolean;');
+    SL.Insert(0, '  AX, AY: ShortInt;');
+    SL.Insert(0, '  HX, HY, BX, BY: Integer;');
+    SL.Insert(0, '  A, B, C, D, E, F, I, J, H: Integer;  ');
+    SL.Insert(0, '  U: Boolean;  ');
+    SL.Insert(0, '  S: String; ');
     SL.Insert(0, 'var');
     SL.Append('end.');
     Compiler := TPSPascalCompiler.Create;
@@ -237,6 +248,7 @@ begin
     Exec.RegisterDelphiFunction(@_Run, 'RUN', cdRegister);
     Exec.RegisterDelphiFunction(@_UseTimer, 'USETIMER', cdRegister);
     Exec.RegisterDelphiFunction(@_DisplayMsg, 'DISPLAYMSG', cdRegister);
+    Exec.RegisterDelphiFunction(@_Refresh, 'REFRESH', cdRegister);
     Exec.RegisterDelphiFunction(@_Render, 'RENDER', cdRegister);
     //
     if not Exec.LoadData(Data) then

@@ -5,9 +5,10 @@ interface
 uses Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer,
-    reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
-    reMountain, reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct);
+  TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies,
+    reCursor, rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower,
+    reTreePine, reTreeOak, reMine, reMountain, reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reDragon,
+    reGoblin, reSpider);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin,
@@ -78,7 +79,13 @@ const
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button
-    (FileName: 'buttonact.png'; ResType: teGUI;)
+    (FileName: 'buttonact.png'; ResType: teGUI;),
+    // Dragon
+    (FileName: 'dragon.png'; ResType: teGUI;),
+    // Goblin
+    (FileName: 'goblin.png'; ResType: teGUI;),
+    // Spider
+    (FileName: 'spider.png'; ResType: teGUI;)
     //
     );
 

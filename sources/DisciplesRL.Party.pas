@@ -26,6 +26,7 @@ type
     property Y: Integer read FY;
     property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
+    procedure SetHitPoints(const APosition: TPosition; const AHP: Integer);
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
     function IsClear: Boolean;
@@ -143,6 +144,11 @@ end;
 procedure TParty.SetCreature(APosition: TPosition; const Value: TCreature);
 begin
   FCreature[APosition] := Value;
+end;
+
+procedure TParty.SetHitPoints(const APosition: TPosition; const AHP: Integer);
+begin
+  FCreature[APosition].HitPoints := AHP;
 end;
 
 procedure TParty.SetPoint(const AX, AY: Integer);

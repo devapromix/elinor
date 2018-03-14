@@ -57,7 +57,7 @@ begin
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;
   Surface.Height := MainForm.ClientHeight;
-  Surface.Canvas.Font.Size := 20;
+  Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
   for I := Low(TSceneEnum) to High(TSceneEnum) do

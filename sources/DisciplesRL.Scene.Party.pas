@@ -2,13 +2,14 @@ unit DisciplesRL.Scene.Party;
 
 interface
 
-uses DisciplesRL.Party;
+uses DisciplesRL.Party, DisciplesRL.Resources;
 
 type
   TPartySide = (psLeft, psRight);
 
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
+procedure DisplayUnit(AResEnum: TResEnum; const AX, AY: Integer);
 
 var
   ActivePartyPosition: Integer = 2;
@@ -16,12 +17,11 @@ var
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Creatures, DisciplesRL.Resources;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Creatures;
 
 const
   Top = 220;
   Left = 15;
-
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
@@ -83,15 +83,22 @@ begin
     Surface.Canvas.Draw(AX + 6, AY, ResImage[reFrame]);
 end;
 
+procedure DisplayUnit(AResEnum: TResEnum; const AX, AY: Integer);
+begin
+  Surface.Canvas.Draw(AX, AY, ResImage[AResEnum]);
+end;
+
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer);
 begin
   with Party.Creature[I] do
   begin
     if Active then
     begin
-      Surface.Canvas.TextOut(AX + Left, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
-      Surface.Canvas.TextOut(AX + Left, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
-      Surface.Canvas.TextOut(AX + Left, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]));
+      DisplayUnit(ResEnum, AX + Left - 2, AY + 7);
+
+      Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
+      Surface.Canvas.TextOut(AX + Left + 64, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
+      Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Value %d Armor %d', [Value, Armor]));
     end;
   end;
 end;
