@@ -10,8 +10,8 @@ var
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
 
-  //HUMAN, UNDEAD, HERETIC, DWARF
-  //FIGHTER, ARCHER, MAGE
+  // HUMAN, UNDEAD, HERETIC, DWARF
+  // FIGHTER, ARCHER, MAGE
 
 var
   Party: array of TParty;
@@ -28,7 +28,7 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map, DisciplesRL.Resources;
+uses System.Math, System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map, DisciplesRL.Resources;
 
 procedure Init;
 begin
@@ -46,8 +46,14 @@ begin
   begin
     AddCreature(crGoblin, 0);
     AddCreature(crGoblin, 2);
-    AddCreature(crGoblin_Archer, 3);
     AddCreature(crGoblin, 4);
+    if (RandomRange(0, 3) = 0) then
+      AddCreature(crGoblin_Archer, 3);
+    if (RandomRange(0, 5) = 0) then
+    begin
+      AddCreature(crGoblin_Archer, 1);
+      AddCreature(crGoblin_Archer, 5);
+    end;
   end;
 end;
 
