@@ -46,6 +46,7 @@ begin
   begin
     AddCreature(crGoblin, 0);
     AddCreature(crGoblin, 2);
+    AddCreature(crGoblin_Archer, 3);
     AddCreature(crGoblin, 4);
   end;
 end;

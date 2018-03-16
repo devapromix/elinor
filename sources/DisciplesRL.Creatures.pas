@@ -5,10 +5,13 @@ interface
 uses DisciplesRL.Resources;
 
 type
-  TCreatureEnum = (crNone, crMyzrael, crLeader, crSquire, crGoblin, crSpider, crWolf, crOrc);
+  TCreatureEnum = (crNone, crMyzrael, crPegasus_Knight, crSquire, crArcher, crGoblin, crGoblin_Archer, crSpider, crWolf, crOrc);
 
 type
-  TReachEnum = (reAnyUnit, reAdjacentUnits);
+  TReachEnum = (reAny, reAdj, reAll);
+
+type
+  TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth, seFire, seWater);
 
 type
   TCreature = record
@@ -24,6 +27,7 @@ type
     Level: Integer;
     Value: Integer;
     Armor: Integer;
+    SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
     Targets: Integer;
   end;
@@ -38,6 +42,7 @@ type
     Level: Integer;
     Value: Integer;
     Armor: Integer;
+    SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
     Targets: Integer;
   end;
@@ -46,28 +51,34 @@ const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
     (ResEnum: reNone; HitPoints: 0; Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Value: 0; Armor: 0;
-    ReachEnum: reAdjacentUnits; Targets: 0;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 0;),
     // Myzrael
     (ResEnum: reDragon; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Value: 250; Armor: 50;
-    ReachEnum: reAnyUnit; Targets: 6;),
-    // Leader
+    SourceEnum: seWeapon; ReachEnum: reAll; Targets: 6;),
+    // Pegasus Knight
     (ResEnum: reCorpse; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Value: 50; Armor: 0;
-    ReachEnum: reAnyUnit; Targets: 1;),
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Squire
     (ResEnum: reDragon; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 25; Armor: 0;
-    ReachEnum: reAdjacentUnits; Targets: 1;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    // Archer
+    (ResEnum: reDragon; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 25; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Goblin
     (ResEnum: reGoblin; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 15; Armor: 0;
-    ReachEnum: reAdjacentUnits; Targets: 1;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    // Goblin Archer
+    (ResEnum: reGoblin; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 15; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Spider
     (ResEnum: reSpider; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 130; Armor: 0;
-    ReachEnum: reAdjacentUnits; Targets: 1;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Wolf
     (ResEnum: reUnk; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 55; Armor: 0;
-    ReachEnum: reAdjacentUnits; Targets: 1;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Orc
     (ResEnum: reUnk; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 55; Armor: 0;
-    ReachEnum: reAdjacentUnits; Targets: 1;)
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;)
     //
     );
 
@@ -94,7 +105,8 @@ begin
     Level := 0;
     Value := 0;
     Armor := 0;
-    ReachEnum := reAdjacentUnits;
+    SourceEnum := seWeapon;
+    ReachEnum := reAdj;
     Targets := 1;
   end;
 end;
@@ -118,6 +130,7 @@ begin
     Level := CreatureBase[ACreatureEnum].Level;
     Value := CreatureBase[ACreatureEnum].Value;
     Armor := CreatureBase[ACreatureEnum].Armor;
+    SourceEnum := CreatureBase[ACreatureEnum].SourceEnum;
     ReachEnum := CreatureBase[ACreatureEnum].ReachEnum;
     Targets := CreatureBase[ACreatureEnum].Targets;
   end;

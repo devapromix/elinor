@@ -88,14 +88,17 @@ end;
 function GetClass(ReachEnum: TReachEnum; Targets: Integer): Integer;
 begin
   case ReachEnum of
-    reAnyUnit:
+    reAny:
       case Targets of
         1: // Ranger
           Result := 4;
-      else // Mage
-        Result := 2;
       end;
-    reAdjacentUnits:
+    reAll:
+      case Targets of
+        6: // Mage
+          Result := 2;
+      end;
+    reAdj:
       case Targets of
         1: // Warrior
           Result := 1;
@@ -229,8 +232,10 @@ end;
 procedure Gen;
 begin
   LeaderParty.SetPoint(Player.X, Player.Y);
-  LeaderParty.AddCreature(crLeader, 2);
-  LeaderParty.AddCreature(crSquire, 3);
+  LeaderParty.AddCreature(crSquire, 0);
+  LeaderParty.AddCreature(crPegasus_Knight, 2);
+  LeaderParty.AddCreature(crArcher, 3);
+  LeaderParty.AddCreature(crSquire, 4);
 end;
 
 end.
