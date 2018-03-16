@@ -88,7 +88,8 @@ begin
 
   if (P = 4) then
     Result := 0;
-  // if (P = 1) then Result := 1;
+  if (P = 1) then
+    Result := 1;
   if (P = 5) then
     Result := 2;
   if (P = 2) then
@@ -102,7 +103,8 @@ begin
     Result := 6;
   if (P = 10) then
     Result := 7;
-  // if (P = 8) then Result := 8;
+  if (P = 8) then
+    Result := 8;
   if (P = 11) then
     Result := 9;
   if (P = 9) then
