@@ -1,4 +1,4 @@
-// Â»Ñ‰ÐµÐ¼ ÑŽÐ½Ð¸Ñ‚ Ñ ÑÐ°Ð¼Ð¾Ð¹ Ð²Ñ‹ÑÐ¾ÐºÐ¾Ð¹ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ñ‚Ð¸Ð²Ð¾Ð¹
+// »ùåì þíèò ñ ñàìîé âûñîêîé èíèöèàòèâîé
 A := 0;
 B := 0;
 case Rand(1, 2) of
@@ -21,12 +21,12 @@ case Rand(1, 2) of
 end;
 //
 FlagFalse('UseSlot' + IntToStr(B));
-// â€”Ð»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ñ€Ð°ÑƒÐ½Ð´
+// —ëåäóþùèé ðàóíä
 if (B = 0) then begin
   Run('Battles\StartRound.pas');
   Run('Battles\SetIni.pas');
 end;
-// Ñ˜Ð²Ñ‚Ð¾Ñ…Ð¾Ð´
+// ¼âòîõîä
 if (GetInt('ActiveCell') > 6) then UseTimer(1000, 'Battles\AI\Auto.pas');
 
 

@@ -186,23 +186,11 @@ begin
       end;
     reEnemies:
       begin
-        // Нейтралы (средняя партия)
-        { V.SetInt('Slot7Type', 102);
-          V.SetInt('Slot8Type', 101);
-          V.SetInt('Slot9Type', 102);
-          V.SetInt('Slot10Type', 0);
-          V.SetInt('Slot11Type', 0);
-          V.SetInt('Slot12Type', 0); }
-
         InitParty(Player.X, Player.Y);
         Run('Battles\BattleInit.pas');
         FullParty(Player.X, Player.Y);
         Run('Battles\Start.pas');
 
-        { InitParty(Player.X, Player.Y);
-          Run('Init.pas');
-          FullParty(Player.X, Player.Y);
-          Run('Start.pas'); }
         DisciplesRL.Scenes.CurrentScene := scBattle;
         MapObj[Player.X, Player.Y] := reNone;
       end;

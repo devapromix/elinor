@@ -365,8 +365,7 @@ begin
   case Button of
     mbLeft:
       begin
-        N := TransformTo(N);
-        V.SetInt('SlotClick', N);
+        V.SetInt('SlotClick', TransformTo(N));
         Run('Battles\SlotClick.pas');
         DisciplesRL.Scenes.Render;
       end;

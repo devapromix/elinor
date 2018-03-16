@@ -1,8 +1,8 @@
-// Р›РµС‡РµРЅРёРµ РџР°СЂС‚РёРё
+// Лечение Партии
 if (GetInt('ActiveCell') <= 6) then begin A := 1; B := 6; end else begin A := 7; B := 12; end;
 // 
 for I := A to B do
-  // Р•СЃР»Рё Р°С‚Р°РєСѓСЋС‰РёР№ РѕСЃР»РµРїР»РµРЅ
+  // Если атакующий ослеплен
   if (Flag('SlepotaSlot' + GetStr('ActiveCell')) and (Rand(0, 100) <= 75)) then
   begin
     FlagTrue('MissSlot' + IntToStr(I));

@@ -1,4 +1,4 @@
-// Р›РµС‡РµРЅРёРµ РѕРґРЅРѕРіРѕ РІРѕРёРЅР°
+// Лечение одного воина
 if (Flag('SlepotaSlot' + GetStr('ActiveCell')) and (Rand(0, 100) <= 75)) then
   begin
     FlagTrue('MissSlot' + GetStr('SlotClick'));
