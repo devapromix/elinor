@@ -166,7 +166,8 @@ procedure TParty.Swap(Party: TParty; A, B: Integer);
 var
   Cr: TCreature;
 begin
-  if Party.Creature[B].Leader or Creature[A].Leader or (Party = nil) then Exit;
+  if (Party.Creature[B].Leadership > 0) or (Creature[A].Leadership > 0) or (Party = nil) then
+    Exit;
   Cr := Party.Creature[B];
   Party.Creature[B] := FCreature[A];
   FCreature[A] := Cr;

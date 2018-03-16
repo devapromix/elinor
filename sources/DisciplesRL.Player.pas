@@ -85,6 +85,24 @@ begin
   end;
 end;
 
+function GetClass(ReachEnum: TReachEnum; Targets: Integer): Integer;
+begin
+  case ReachEnum of
+    reAnyUnit:
+      case Targets of
+        1: // Ranger
+          Result := 4;
+      else // Mage
+        Result := 2;
+      end;
+    reAdjacentUnits:
+      case Targets of
+        1: // Warrior
+          Result := 1;
+      end;
+  end;
+end;
+
 procedure FullParty(const X, Y: Integer);
 var
   I, J: Integer;
@@ -102,10 +120,10 @@ begin
               V.SetStr(S + 'Name', Name);
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
-              V.SetInt(S + 'INI', 50);
+              V.SetInt(S + 'INI', Initiative);
               V.SetInt(S + 'Use', Value);
-              V.SetInt(S + 'TCH', 75);
-              V.SetInt(S + 'Class', 2);
+              V.SetInt(S + 'TCH', ChancesToHit);
+              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets));
             end;
         end;
       6 .. 11:
@@ -117,10 +135,10 @@ begin
               V.SetStr(S + 'Name', Name);
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
-              V.SetInt(S + 'INI', 60);
+              V.SetInt(S + 'INI', Initiative);
               V.SetInt(S + 'Use', Value);
-              V.SetInt(S + 'TCH', 75);
-              V.SetInt(S + 'Class', 2);
+              V.SetInt(S + 'TCH', ChancesToHit);
+              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets));
             end;
         end;
     end;

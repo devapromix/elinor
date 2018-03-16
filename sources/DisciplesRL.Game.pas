@@ -10,6 +10,9 @@ var
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
 
+  //HUMAN, UNDEAD, HERETIC, DWARF
+  //FIGHTER, ARCHER, MAGE
+
 var
   Party: array of TParty;
   LeaderParty: TParty;
