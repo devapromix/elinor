@@ -223,11 +223,11 @@ begin
         L := V.GetInt('Slot' + I.ToString + 'HP');
         if (L <= 0) then
           Continue;
-        if (UnitMessage[I] <> '') then
-        begin
+        { if (UnitMessage[I] <> '') then
+          begin
           L := (64 div 2) - (TextWidth(UnitMessage[I]) div 2) + 7;
           TextOut(P[I].X + L, P[I].Y + 50, UnitMessage[I]);
-        end;
+          end; }
         //
         Surface.Canvas.Font.Color := clGreen;
       end;
@@ -365,7 +365,8 @@ begin
   case Button of
     mbLeft:
       begin
-        V.SetInt('SlotClick', TransformTo(N));
+        N := TransformTo(N);
+        V.SetInt('SlotClick', N);
         Run('Battles\SlotClick.pas');
         DisciplesRL.Scenes.Render;
       end;
