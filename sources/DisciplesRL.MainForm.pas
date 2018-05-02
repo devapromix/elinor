@@ -3,8 +3,9 @@ unit DisciplesRL.MainForm;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.ExtCtrls;
 
 type
   TMainForm = class(TForm)
@@ -16,7 +17,8 @@ type
     procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure Timer1Timer(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FormClick(Sender: TObject);
     procedure AutoTimerTimer(Sender: TObject);
   private
@@ -32,7 +34,8 @@ implementation
 
 {$R *.dfm}
 
-uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map, DisciplesRL.Player, DisciplesRL.Game,
+uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map,
+  DisciplesRL.Player, DisciplesRL.Game,
   DisciplesRL.PascalScript.Battle;
 
 procedure TMainForm.AutoTimerTimer(Sender: TObject);
@@ -88,17 +91,20 @@ begin
   DisciplesRL.Scenes.Free;
 end;
 
-procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
   DisciplesRL.Scenes.KeyDown(Key, Shift);
 end;
 
-procedure TMainForm.FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TMainForm.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
   DisciplesRL.Scenes.MouseDown(Button, Shift, X, Y);
 end;
 
-procedure TMainForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+procedure TMainForm.FormMouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
 begin
   DisciplesRL.Scenes.MouseMove(Shift, X, Y);
   Caption := Format('DisciplesRL (%d:%d) [m:%d]', [X, Y, 9]);

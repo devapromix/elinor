@@ -28,7 +28,8 @@ procedure Free;
 
 implementation
 
-uses System.Math, System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map, DisciplesRL.Resources;
+uses System.Math, System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map,
+  DisciplesRL.Resources;
 
 procedure Init;
 begin
@@ -44,20 +45,20 @@ begin
   Party[GetPartyCount - 1] := TParty.Create(AX, AY);
   with Party[GetPartyCount - 1] do
   begin
-//    AddCreature(crGoblin_Archer, 1);
-//    AddCreature(crGoblin_Archer, 3);
+    // AddCreature(crGoblin_Archer, 1);
+    // AddCreature(crGoblin_Archer, 3);
     AddCreature(crGoblin_Archer, 5);
 
-//    AddCreature(crGoblin, 0);
-//    AddCreature(crGoblin, 2);
-//    AddCreature(crGoblin, 4);
-    {if (RandomRange(0, 3) = 0) then
+    // AddCreature(crGoblin, 0);
+    // AddCreature(crGoblin, 2);
+    // AddCreature(crGoblin, 4);
+    { if (RandomRange(0, 3) = 0) then
       AddCreature(crGoblin_Archer, 3);
-    if (RandomRange(0, 4) = 0) then
-    begin
+      if (RandomRange(0, 4) = 0) then
+      begin
       AddCreature(crGoblin_Archer, 1);
       AddCreature(crGoblin_Archer, 5);
-    end; }
+      end; }
   end;
 end;
 

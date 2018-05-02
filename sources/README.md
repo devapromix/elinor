@@ -1,7 +1,7 @@
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/disciplesrl.png)
 
 
-Для компиляции нужно доустановить компонент PascalScript.
+Для компиляции нужно установить компонент PascalScript.
 
 ## Установка очень простая:
 
@@ -19,10 +19,10 @@
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_4.png)
 
-Указываем путь к сорцам PascalScript'а в Tools -> Options -> Library -> Library Path.
+
+Указываем путь к сорцам PascalScript'а в Tools -> Options -> Library -> Library Path. Для каждой из платформ.
 
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/screenshots/screenshot_3.png)
-
 
 
 Готово.
