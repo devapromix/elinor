@@ -105,7 +105,7 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMenu;
     K_ENTER:
       begin
-        case MapTile[Player.X, Player.Y] of
+        case PlayerTile of
           reEmpireCapital:
             begin
               DisciplesRL.Scene.Settlement.Show(stCapital);

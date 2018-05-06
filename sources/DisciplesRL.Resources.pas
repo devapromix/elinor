@@ -8,7 +8,7 @@ type
   TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies,
     reCursor, rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower,
     reTreePine, reTreeOak, reMine, reMountain, reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse,
-    reDragon, reGoblin, reSpider);
+    reDragon, reGoblin, reSpider, reMQuit);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin,
@@ -87,7 +87,9 @@ const
     // Goblin
     (FileName: 'goblin.png'; ResType: teGUI;),
     // Spider
-    (FileName: 'spider.png'; ResType: teGUI;)
+    (FileName: 'spider.png'; ResType: teGUI;),
+    // Text "Quit"
+    (FileName: 'quit.png'; ResType: teGUI;)
     //
     );
 

@@ -4,7 +4,8 @@ interface
 
 type
   TPlayer = record
-    X, Y: Integer;
+    X: Integer;
+    Y: Integer;
     Radius: Integer;
   end;
 
@@ -21,10 +22,12 @@ procedure Gen;
 
 implementation
 
-uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils,
-  DisciplesRL.City,
-  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game, DisciplesRL.Creatures, DisciplesRL.Scene.Settlement,
-  DisciplesRL.PascalScript.Battle, DisciplesRL.PascalScript.Vars, DisciplesRL.Scene.Battle;
+uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map,
+  DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
+  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game,
+  DisciplesRL.Creatures, DisciplesRL.Scene.Settlement,
+  DisciplesRL.PascalScript.Battle, DisciplesRL.PascalScript.Vars,
+  DisciplesRL.Scene.Battle;
 
 procedure Init;
 begin
@@ -46,12 +49,14 @@ begin
     case I of
       0 .. 5:
         begin
-          LeaderParty.SetHitPoints(I, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+          LeaderParty.SetHitPoints(I,
+            V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
         end;
       6 .. 11:
         begin
           J := GetPartyIndex(Player.X, Player.Y);
-          Party[J].SetHitPoints(I - 6, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+          Party[J].SetHitPoints(I - 6,
+            V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
         end;
     end;
   end;
@@ -195,11 +200,12 @@ begin
         MapObj[Player.X, Player.Y] := reNone;
       end;
   end;
-  case MapTile[Player.X, Player.Y] of
+  case PlayerTile of
     reNeutralCity:
       begin
         MapTile[Player.X, Player.Y] := reEmpireCity;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X, Player.Y));
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X,
+          Player.Y));
       end;
     reEmpireCity:
       begin
@@ -214,7 +220,8 @@ end;
 
 procedure RefreshRadius;
 begin
-  DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius, MapDark, reNone);
+  DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius,
+    MapDark, reNone);
 end;
 
 procedure Gen;

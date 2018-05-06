@@ -14,7 +14,8 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.GUI.Button, DisciplesRL.Scene.Settlement,
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources,
+  DisciplesRL.GUI.Button, DisciplesRL.Scene.Settlement,
   DisciplesRL.MainForm;
 
 type
@@ -36,7 +37,12 @@ begin
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
+    case I of
+      btNew:
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
+      btQuit:
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reQuit);
+    end;
     Inc(T, H);
     if (I = btNew) then
       Button[I].Sellected := True;

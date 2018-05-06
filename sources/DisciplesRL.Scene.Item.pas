@@ -14,8 +14,9 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map, DisciplesRL.Game, DisciplesRL.Map,
-  DisciplesRL.Resources, DisciplesRL.Player, DisciplesRL.Scene.Settlement, DisciplesRL.GUI.Button;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map,
+  DisciplesRL.Game, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Player,
+  DisciplesRL.Scene.Settlement, DisciplesRL.GUI.Button;
 
 var
   Button: TButton;
@@ -24,7 +25,7 @@ procedure Action;
 begin
   begin
     DisciplesRL.Scenes.CurrentScene := scMap;
-    case MapTile[Player.X, Player.Y] of
+    case PlayerTile of
       reTower:
         DisciplesRL.Scenes.CurrentScene := scVictory;
       reEmpireCity:

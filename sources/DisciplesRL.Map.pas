@@ -31,6 +31,7 @@ function InMap(X, Y: Integer): Boolean;
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer;
   const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 function GetDistToCapital(const AX, AY: Integer): Integer;
+function PlayerTile: TResEnum;
 
 implementation
 
@@ -177,6 +178,11 @@ begin
             Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
+end;
+
+function PlayerTile: TResEnum;
+begin
+  Result := MapTile[Player.X, Player.Y];
 end;
 
 end.

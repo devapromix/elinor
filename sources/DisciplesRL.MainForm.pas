@@ -35,8 +35,7 @@ implementation
 {$R *.dfm}
 
 uses DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.Map,
-  DisciplesRL.Player, DisciplesRL.Game,
-  DisciplesRL.PascalScript.Battle;
+  DisciplesRL.Player, DisciplesRL.Game, DisciplesRL.PascalScript.Battle;
 
 procedure TMainForm.AutoTimerTimer(Sender: TObject);
 begin
