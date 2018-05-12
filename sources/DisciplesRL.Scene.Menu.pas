@@ -41,7 +41,7 @@ begin
       btNew:
         Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
       btQuit:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reQuit);
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reMQuit);
     end;
     Inc(T, H);
     if (I = btNew) then
