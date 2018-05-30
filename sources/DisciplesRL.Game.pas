@@ -4,11 +4,16 @@ interface
 
 uses DisciplesRL.Party;
 
+const
+  GoldFromMinePerDay = 100;
+
 var
   Days: Integer = 0;
   Gold: Integer = 0;
+  NewGold: Integer = 0;
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
+  IsDay: Boolean = False;
 
   // HUMAN, UNDEAD, HERETIC, DWARF
   // FIGHTER, ARCHER, MAGE
@@ -24,12 +29,14 @@ procedure PartyFree;
 function GetPartyCount: Integer;
 function GetPartyIndex(const AX, AY: Integer): Integer;
 procedure AddPartyAt(const AX, AY: Integer);
+procedure AddLoot;
+procedure NewDay;
 procedure Free;
 
 implementation
 
 uses System.Math, System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map,
-  DisciplesRL.Resources;
+  DisciplesRL.Resources, DisciplesRL.Scenes, DisciplesRL.Player;
 
 procedure Init;
 begin
@@ -90,8 +97,24 @@ end;
 
 procedure AddPartyAt(const AX, AY: Integer);
 begin
-  MapObj[AX, AY] := reEnemies;
+  Map[lrObj][AX, AY] := reEnemies;
   PartyInit(AX, AY);
+end;
+
+procedure AddLoot();
+begin
+  NewGold := GetDistToCapital(Player.X, Player.Y);
+  Inc(Gold, NewGold);
+  DisciplesRL.Scenes.CurrentScene := scItem;
+end;
+
+procedure NewDay;
+begin
+  if IsDay then
+  begin
+    Gold := Gold + (GoldMines * GoldFromMinePerDay);
+    DisciplesRL.Scenes.CurrentScene := scDay;
+  end;
 end;
 
 procedure Free;

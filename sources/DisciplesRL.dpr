@@ -23,7 +23,9 @@ uses
   DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
-  DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas';
+  DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
+  DisciplesRL.Scene.Day in 'DisciplesRL.Scene.Day.pas',
+  DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas';
 
 {$R *.res}
 

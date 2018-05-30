@@ -5,7 +5,8 @@ interface
 uses Vcl.Graphics, System.Types, System.Classes, Vcl.Controls;
 
 type
-  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem);
+  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle,
+    scItem, scDay);
 
   // https://opengameart.org/content/ui-button
 
@@ -32,9 +33,11 @@ const
 
 implementation
 
-uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map, DisciplesRL.Scene.Menu,
-  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle, DisciplesRL.Scene.Settlement,
-  DisciplesRL.Resources, DisciplesRL.Scene.Item;
+uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map,
+  DisciplesRL.Scene.Menu,
+  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Resources, DisciplesRL.Scene.Item, DisciplesRL.Scene.Day;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
@@ -47,7 +50,8 @@ end;
 procedure RenderDark;
 begin
   DisciplesRL.Scene.Map.Render;
-  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height), ResImage[reDark]);
+  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
+    ResImage[reDark]);
 end;
 
 procedure Init;
@@ -76,6 +80,8 @@ begin
         DisciplesRL.Scene.Settlement.Init;
       scItem:
         DisciplesRL.Scene.Item.Init;
+      scDay:
+        DisciplesRL.Scene.Day.Init;
     end;
 end;
 
@@ -98,6 +104,8 @@ begin
       DisciplesRL.Scene.Settlement.Render;
     scItem:
       DisciplesRL.Scene.Item.Render;
+    scDay:
+      DisciplesRL.Scene.Day.Render;
   end;
   MainForm.Canvas.Draw(0, 0, Surface);
 end;
@@ -119,6 +127,8 @@ begin
       DisciplesRL.Scene.Settlement.Timer;
     scItem:
       DisciplesRL.Scene.Item.Timer;
+    scDay:
+      DisciplesRL.Scene.Day.Timer;
   end;
 end;
 
@@ -139,6 +149,8 @@ begin
       DisciplesRL.Scene.Settlement.MouseClick;
     scItem:
       DisciplesRL.Scene.Item.MouseClick;
+    scDay:
+      DisciplesRL.Scene.Day.MouseClick;
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -160,6 +172,8 @@ begin
       DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
     scItem:
       DisciplesRL.Scene.Item.MouseMove(Shift, X, Y);
+    scDay:
+      DisciplesRL.Scene.Day.MouseMove(Shift, X, Y);
   end;
 end;
 
@@ -180,6 +194,8 @@ begin
       DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
     scItem:
       DisciplesRL.Scene.Item.KeyDown(Key, Shift);
+    scDay:
+      DisciplesRL.Scene.Day.KeyDown(Key, Shift);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -200,7 +216,9 @@ begin
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
     { scItem:
-      DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y); }
+      DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y);
+     scDay:
+      DisciplesRL.Scene.Day.MouseDown(Button, Shift, X, Y); }
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -225,6 +243,8 @@ begin
         DisciplesRL.Scene.Settlement.Free;
       scItem:
         DisciplesRL.Scene.Item.Free;
+      scDay:
+        DisciplesRL.Scene.Day.Free;
     end;
   FreeAndNil(Surface);
 end;

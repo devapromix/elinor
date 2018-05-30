@@ -141,8 +141,7 @@ begin
   Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
   Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CAPITAL DEFENSES');
   Party[GetPartyIndex(Player.X, Player.Y)].Clear;
-  Inc(Gold, GetDistToCapital(Player.X, Player.Y));
-  DisciplesRL.Scenes.CurrentScene := scItem;
+  AddLoot();
 end;
 
 procedure Defeat;

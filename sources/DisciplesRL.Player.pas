@@ -7,6 +7,8 @@ type
     X: Integer;
     Y: Integer;
     Radius: Integer;
+    Speed: Integer;
+    MaxSpeed: Integer;
   end;
 
 var
@@ -18,6 +20,7 @@ procedure Move(const AX, AY: ShortInt);
 procedure PutAt(const AX, AY: ShortInt);
 procedure RefreshRadius;
 procedure RefreshParties;
+procedure Turn(const Count: Integer = 1);
 procedure Gen;
 
 implementation
@@ -31,6 +34,8 @@ uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map,
 
 procedure Init;
 begin
+  Player.MaxSpeed := 7;
+  Player.Speed := Player.MaxSpeed;
   Player.Radius := IfThen(Wizard, 9, 1);
   RefreshRadius;
 end;
@@ -153,17 +158,35 @@ begin
   end;
 end;
 
+procedure Turn(const Count: Integer = 1);
+var
+  C: Integer;
+begin
+  if (Count < 1) then Exit;
+  C := 0;
+  repeat
+  Dec(Player.Speed);
+  if (Player.Speed = 0) then
+  begin
+    Inc(Days);
+    IsDay := True;
+    Player.Speed := Player.MaxSpeed;
+  end;
+  Inc(C);
+  until (C >= Count);
+end;
+
 procedure PutAt(const AX, AY: ShortInt);
 var
-  X, Y, I: Integer;
+  I: Integer;
+  F: Boolean;
 begin
   if not InMap(AX, AY) then
     Exit;
-  if (MapObj[AX, AY] = reMountain) then
+  if (Map[lrObj][AX, AY] = reMountain) then
     Exit;
-  if (MapDark[AX, AY] = reDark) then
+  if (Map[lrDark][AX, AY] = reDark) then
     Exit;
-  Inc(Days);
   for I := 0 to High(City) do
   begin
     if (City[I].Owner = reEmpire) then
@@ -176,18 +199,20 @@ begin
   Player.X := AX;
   Player.Y := AY;
   RefreshRadius;
-  case MapObj[Player.X, Player.Y] of
+  Turn(1);
+  F := True;
+  case Map[lrObj][Player.X, Player.Y] of
     reGold:
       begin
-        MapObj[Player.X, Player.Y] := reNone;
-        Inc(Gold, GetDistToCapital(Player.X, Player.Y));
-        DisciplesRL.Scenes.CurrentScene := scItem;
+        Map[lrObj][Player.X, Player.Y] := reNone;
+        AddLoot();
+        F := False;
       end;
     reBag:
       begin
-        MapObj[Player.X, Player.Y] := reNone;
-        Inc(Gold, GetDistToCapital(Player.X, Player.Y));
-        DisciplesRL.Scenes.CurrentScene := scItem;
+        Map[lrObj][Player.X, Player.Y] := reNone;
+        AddLoot();
+        F := False;
       end;
     reEnemies:
       begin
@@ -195,33 +220,38 @@ begin
         Run('Battles\BattleInit.pas');
         FullParty(Player.X, Player.Y);
         Run('Battles\Start.pas');
-
         DisciplesRL.Scenes.CurrentScene := scBattle;
-        MapObj[Player.X, Player.Y] := reNone;
+        Map[lrObj][Player.X, Player.Y] := reNone;
+        F := False;
       end;
   end;
   case PlayerTile of
     reNeutralCity:
       begin
-        MapTile[Player.X, Player.Y] := reEmpireCity;
+        Map[lrTile][Player.X, Player.Y] := reEmpireCity;
         DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X,
           Player.Y));
+        F := False;
       end;
     reEmpireCity:
       begin
         DisciplesRL.Scene.Settlement.Show(stCity);
+        F := False;
       end;
     reEmpireCapital:
       begin
         DisciplesRL.Scene.Settlement.Show(stCapital);
+        F := False;
       end;
   end;
+  if F then
+    NewDay;
 end;
 
 procedure RefreshRadius;
 begin
   DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius,
-    MapDark, reNone);
+    Map[lrDark], reNone);
 end;
 
 procedure Gen;

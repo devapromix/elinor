@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Item;
+unit DisciplesRL.Scene.Day;
 
 interface
 
@@ -22,27 +22,9 @@ var
   Button: TButton;
 
 procedure Action;
-var
-  F: Boolean;
 begin
-  F := True;
-  begin
-    DisciplesRL.Scenes.CurrentScene := scMap;
-    case PlayerTile of
-      reTower:
-        begin
-          DisciplesRL.Scenes.CurrentScene := scVictory;
-          F := False;
-        end;
-      reEmpireCity:
-        begin
-          DisciplesRL.Scene.Settlement.Show(stCity);
-          F := False;
-        end;
-    end;
-    if F then
-      NewDay;
-  end;
+  IsDay := False;
+  DisciplesRL.Scenes.CurrentScene := scMap;
 end;
 
 procedure Init;
@@ -59,8 +41,8 @@ procedure Render;
 begin
   // RenderDark;
 
-  CenterTextOut(100, 'ITEMS');
-  CenterTextOut(200, 'GOLD +' + IntToStr(NewGold));
+  CenterTextOut(100, 'DAY ' + IntToStr(Days));
+  CenterTextOut(200, 'GOLD +' + IntToStr(GoldMines * GoldFromMinePerDay));
   Button.Render;
 end;
 

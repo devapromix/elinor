@@ -44,27 +44,27 @@ begin
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
     begin
-      if (MapDark[X, Y] = reDark) then
+      if (Map[lrDark][X, Y] = reDark) then
         Continue;
-      case MapTile[X, Y] of
+      case Map[lrTile][X, Y] of
         reEmpireTerrain, reEmpireCapital, reEmpireCity:
           DrawImage(X, Y, ResImage[reEmpireTerrain]);
       else
         DrawImage(X, Y, ResImage[reNeutral]);
       end;
       F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and
-        not(MapTile[X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and (MapDark[X, Y] = reNone);
+        not(Map[lrTile][X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
-      if (ResBase[MapTile[X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
-        DrawImage(X, Y, ResImage[MapTile[X, Y]]);
+      if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
+        DrawImage(X, Y, ResImage[Map[lrTile][X, Y]]);
       //
-      if (ResBase[MapObj[X, Y]].ResType in [teEnemy, teBag]) then
+      if (ResBase[Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
         if F then
           DrawImage(X, Y, ResImage[reUnk])
         else
-          DrawImage(X, Y, ResImage[MapObj[X, Y]])
-      else if (MapObj[X, Y] <> reNone) then
-        DrawImage(X, Y, ResImage[MapObj[X, Y]]);
+          DrawImage(X, Y, ResImage[Map[lrObj][X, Y]])
+      else if (Map[lrObj][X, Y] <> reNone) then
+        DrawImage(X, Y, ResImage[Map[lrObj][X, Y]]);
       // Leader
       if (X = Player.X) and (Y = Player.Y) then
         DrawImage(X, Y, ResImage[rePlayer]);

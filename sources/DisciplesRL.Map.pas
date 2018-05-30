@@ -19,10 +19,7 @@ type
   TIgnoreRes = set of TResEnum;
 
 var
-  MapTile: TMapLayer;
-  MapPath: TMapLayer;
-  MapDark: TMapLayer;
-  MapObj: TMapLayer;
+  Map: array [TLayerEnum] of TMapLayer;
 
 procedure Init;
 procedure Clear(const L: TLayerEnum);
@@ -43,12 +40,11 @@ procedure Init;
 var
   L: TLayerEnum;
 begin
-  SetLength(MapTile, MapWidth, MapHeight);
-  SetLength(MapPath, MapWidth, MapHeight);
-  SetLength(MapDark, MapWidth, MapHeight);
-  SetLength(MapObj, MapWidth, MapHeight);
   for L := Low(TLayerEnum) to High(TLayerEnum) do
+  begin
+    SetLength(Map[L], MapWidth, MapHeight);
     Clear(L);
+  end;
   DisciplesRL.City.Init;
   //
   LeaderParty := TParty.Create(Player.X, Player.Y);
@@ -67,14 +63,10 @@ begin
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
       case L of
-        lrTile:
-          MapTile[X, Y] := reNone;
-        lrPath:
-          MapPath[X, Y] := reNone;
+        lrTile, lrPath, lrObj:
+          Map[L][X, Y] := reNone;
         lrDark:
-          MapDark[X, Y] := reDark;
-        lrObj:
-          MapObj[X, Y] := reNone;
+          Map[L][X, Y] := reDark;
       end;
 end;
 
@@ -90,19 +82,19 @@ begin
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
     begin
-      MapTile[X, Y] := reNeutral;
+      Map[lrTile][X, Y] := reNeutral;
       if (X = 0) or (X = MapWidth - 1) or (Y = 0) or (Y = MapHeight - 1) then
       begin
-        MapObj[X, Y] := reMountain;
+        Map[lrObj][X, Y] := reMountain;
         Continue;
       end;
       case RandomRange(0, 5) of
         0:
-          MapObj[X, Y] := reTreePine;
+          Map[lrObj][X, Y] := reTreePine;
         1:
-          MapObj[X, Y] := reTreeOak;
+          Map[lrObj][X, Y] := reTreeOak;
       else
-        MapObj[X, Y] := reMountain;
+        Map[lrObj][X, Y] := reMountain;
       end;
 
     end;
@@ -119,13 +111,13 @@ begin
         begin
           X := RX + RandomRange(-1, 2);
           Y := RY + RandomRange(-1, 2);
-          if MapObj[X, Y] = reMountain then
-            MapObj[X, Y] := reNone;
+          if Map[lrObj][X, Y] = reMountain then
+            Map[lrObj][X, Y] := reNone;
         end;
         X := RX;
         Y := RY;
-        if MapObj[X, Y] = reMountain then
-          MapObj[X, Y] := reNone;
+        if Map[lrObj][X, Y] = reMountain then
+          Map[lrObj][X, Y] := reNone;
       end;
     until ((X = City[I].X) and (Y = City[I].Y));
   end;
@@ -135,11 +127,11 @@ begin
     repeat
       X := RandomRange(2, MapWidth - 2);
       Y := RandomRange(2, MapHeight - 2);
-    until (MapTile[X, Y] = reNeutral) and (MapObj[X, Y] = reNone);
+    until (Map[lrTile][X, Y] = reNeutral) and (Map[lrObj][X, Y] = reNone);
     if (GetDistToCapital(X, Y) <= 15) and (RandomRange(0, 9) > 2) then
-      MapObj[X, Y] := reGold
+      Map[lrObj][X, Y] := reGold
     else
-      MapObj[X, Y] := reBag;
+      Map[lrObj][X, Y] := reBag;
   end;
   // Enemies
   for I := 0 to High(City) do
@@ -147,7 +139,7 @@ begin
     repeat
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
-    until (MapObj[X, Y] = reNone) and (MapTile[X, Y] = reNeutral) and
+    until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutral) and
       (GetDistToCapital(X, Y) >= 3);
     AddPartyAt(X, Y);
   end;
@@ -173,8 +165,9 @@ begin
           Continue
         else
         begin
-          if (MapLayer = MapTile) and (MapObj[AX + X, AY + Y] = reMine) and
-            (MapTile[AX + X, AY + Y] = reNeutral) then
+          // Add mine
+          if (MapLayer = Map[lrTile]) and (Map[lrObj][AX + X, AY + Y] = reMine)
+            and (Map[lrTile][AX + X, AY + Y] = reNeutral) then
             Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
@@ -182,7 +175,7 @@ end;
 
 function PlayerTile: TResEnum;
 begin
-  Result := MapTile[Player.X, Player.Y];
+  Result := Map[lrTile][Player.X, Player.Y];
 end;
 
 end.
