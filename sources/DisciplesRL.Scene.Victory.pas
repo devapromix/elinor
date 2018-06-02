@@ -14,7 +14,8 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources, DisciplesRL.GUI.Button, DisciplesRL.MainForm;
+uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources,
+  DisciplesRL.GUI.Button, DisciplesRL.MainForm, DisciplesRL.Scene.HighScores;
 
 var
   Top, Left: Integer;
@@ -46,7 +47,7 @@ end;
 procedure MouseClick;
 begin
   if VictoryButton.MouseDown then
-    DisciplesRL.MainForm.MainForm.Close;
+    DisciplesRL.Scene.HighScores.Show;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -59,7 +60,7 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE, K_ENTER:
-      DisciplesRL.MainForm.MainForm.Close;
+      DisciplesRL.Scene.HighScores.Show;
   end;
 end;
 

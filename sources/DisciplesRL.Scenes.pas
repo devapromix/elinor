@@ -6,7 +6,7 @@ uses Vcl.Graphics, System.Types, System.Classes, Vcl.Controls;
 
 type
   TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle,
-    scItem, scDay);
+    scItem, scDay, scHighScores);
 
   // https://opengameart.org/content/ui-button
 
@@ -34,10 +34,9 @@ const
 implementation
 
 uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map,
-  DisciplesRL.Scene.Menu,
-  DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat, DisciplesRL.Scene.Battle,
-  DisciplesRL.Scene.Settlement,
-  DisciplesRL.Resources, DisciplesRL.Scene.Item, DisciplesRL.Scene.Day;
+  DisciplesRL.Scene.Menu, DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat,
+  DisciplesRL.Scene.Battle, DisciplesRL.Scene.Settlement, DisciplesRL.Resources,
+  DisciplesRL.Scene.Item, DisciplesRL.Scene.Day, DisciplesRL.Scene.HighScores;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
@@ -82,6 +81,8 @@ begin
         DisciplesRL.Scene.Item.Init;
       scDay:
         DisciplesRL.Scene.Day.Init;
+      scHighScores:
+        DisciplesRL.Scene.HighScores.Init;
     end;
 end;
 
@@ -106,6 +107,8 @@ begin
       DisciplesRL.Scene.Item.Render;
     scDay:
       DisciplesRL.Scene.Day.Render;
+    scHighScores:
+      DisciplesRL.Scene.HighScores.Render;
   end;
   MainForm.Canvas.Draw(0, 0, Surface);
 end;
@@ -129,6 +132,8 @@ begin
       DisciplesRL.Scene.Item.Timer;
     scDay:
       DisciplesRL.Scene.Day.Timer;
+    scHighScores:
+      DisciplesRL.Scene.HighScores.Timer;
   end;
 end;
 
@@ -151,6 +156,8 @@ begin
       DisciplesRL.Scene.Item.MouseClick;
     scDay:
       DisciplesRL.Scene.Day.MouseClick;
+    scHighScores:
+      DisciplesRL.Scene.HighScores.MouseClick;
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -174,6 +181,8 @@ begin
       DisciplesRL.Scene.Item.MouseMove(Shift, X, Y);
     scDay:
       DisciplesRL.Scene.Day.MouseMove(Shift, X, Y);
+    scHighScores:
+      DisciplesRL.Scene.HighScores.MouseMove(Shift, X, Y);
   end;
 end;
 
@@ -196,6 +205,8 @@ begin
       DisciplesRL.Scene.Item.KeyDown(Key, Shift);
     scDay:
       DisciplesRL.Scene.Day.KeyDown(Key, Shift);
+    scHighScores:
+      DisciplesRL.Scene.HighScores.KeyDown(Key, Shift);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -217,7 +228,7 @@ begin
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
     { scItem:
       DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y);
-     scDay:
+      scDay:
       DisciplesRL.Scene.Day.MouseDown(Button, Shift, X, Y); }
   end;
   DisciplesRL.Scenes.Render;
@@ -245,6 +256,8 @@ begin
         DisciplesRL.Scene.Item.Free;
       scDay:
         DisciplesRL.Scene.Day.Free;
+      scHighScores:
+        DisciplesRL.Scene.HighScores.Free;
     end;
   FreeAndNil(Surface);
 end;

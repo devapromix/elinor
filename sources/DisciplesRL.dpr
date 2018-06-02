@@ -25,7 +25,8 @@ uses
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
   DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
   DisciplesRL.Scene.Day in 'DisciplesRL.Scene.Day.pas',
-  DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas';
+  DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
+  DisciplesRL.Scene.HighScores in 'DisciplesRL.Scene.HighScores.pas';
 
 {$R *.res}
 
