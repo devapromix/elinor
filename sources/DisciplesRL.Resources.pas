@@ -5,14 +5,16 @@ interface
 uses Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies,
-    reCursor, rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower,
-    reTreePine, reTreeOak, reMine, reMountain, reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse,
-    reDragon, reGoblin, reSpider, reMQuit);
+  TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat,
+    reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark,
+    reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin,
+    reTower, reTreePine, reTreeOak, reMine, reMountain, reMNewGame, reMVictory,
+    reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin,
+    reSpider, reMQuit);
 
 type
-  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin,
-    teTower, teMine);
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy,
+    teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
 
 type
   TResBase = record
@@ -66,8 +68,8 @@ const
     (FileName: 'tree.pine.png'; ResType: teTree;),
     // Oak
     (FileName: 'tree.oak.png'; ResType: teTree;),
-    // Mine
-    (FileName: 'mine.png'; ResType: teMine;),
+    // Gold Mine
+    (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
     // Text "New Game"

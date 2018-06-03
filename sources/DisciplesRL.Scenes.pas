@@ -8,8 +8,6 @@ type
   TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle,
     scItem, scDay, scHighScores);
 
-  // https://opengameart.org/content/ui-button
-
 var
   Surface: TBitmap;
   CurrentScene: TSceneEnum = scMenu;

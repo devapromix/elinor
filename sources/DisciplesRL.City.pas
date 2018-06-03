@@ -15,9 +15,6 @@ type
 var
   City: array [0 .. 29] of TCity;
 
-const
-  NCity = 7;
-
 procedure Init;
 function GetCityIndex(const AX, AY: Integer): Integer;
 procedure UpdateRadius(const AID: Integer);
@@ -27,6 +24,9 @@ implementation
 
 uses System.Math, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils,
   DisciplesRL.Player, DisciplesRL.Creatures, DisciplesRL.Game;
+
+const
+  NCity = 7;
 
 procedure Init;
 var

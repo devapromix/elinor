@@ -33,8 +33,8 @@ function PlayerTile: TResEnum;
 implementation
 
 uses System.Math, System.SysUtils, DisciplesRL.Player, DisciplesRL.Utils,
-  DisciplesRL.City, DisciplesRL.PathFind,
-  DisciplesRL.Game, DisciplesRL.Creatures;
+  DisciplesRL.City, DisciplesRL.PathFind, DisciplesRL.Game,
+  DisciplesRL.Creatures;
 
 procedure Init;
 var
@@ -46,7 +46,6 @@ begin
     Clear(L);
   end;
   DisciplesRL.City.Init;
-  //
   LeaderParty := TParty.Create(Player.X, Player.Y);
   CapitalParty := TParty.Create(Player.X, Player.Y);
 end;

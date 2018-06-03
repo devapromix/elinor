@@ -19,6 +19,10 @@ var
   // FIGHTER, ARCHER, MAGE
 
 var
+  Wizard: Boolean = False;
+  IsGame: Boolean = False;
+
+var
   Party: array of TParty;
   LeaderParty: TParty;
   CapitalParty: TParty;
@@ -29,6 +33,7 @@ procedure PartyFree;
 function GetPartyCount: Integer;
 function GetPartyIndex(const AX, AY: Integer): Integer;
 procedure AddPartyAt(const AX, AY: Integer);
+procedure Clear;
 procedure AddLoot;
 procedure NewDay;
 procedure Free;
@@ -40,7 +45,10 @@ uses System.Math, System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map,
 
 procedure Init;
 begin
-
+  DisciplesRL.Game.Clear;
+  DisciplesRL.Map.Init;
+  DisciplesRL.Map.Gen;
+  DisciplesRL.Player.Init;
 end;
 
 procedure PartyInit(const AX, AY: Integer);
@@ -75,6 +83,7 @@ var
 begin
   for I := 0 to GetPartyCount - 1 do
     FreeAndNil(Party[I]);
+  SetLength(Party, 0);
 end;
 
 function GetPartyCount: Integer;
@@ -101,6 +110,17 @@ begin
   PartyInit(AX, AY);
 end;
 
+procedure Clear;
+begin
+  Days := 0;
+  Gold := 0;
+  NewGold := 0;
+  GoldMines := 0;
+  BattlesWon := 0;
+  IsDay := False;
+  Free;
+end;
+
 procedure AddLoot();
 begin
   NewGold := GetDistToCapital(Player.X, Player.Y);
@@ -120,7 +140,8 @@ end;
 procedure Free;
 begin
   PartyFree;
-  FreeAndNil(LeaderParty);
+  if Assigned(LeaderParty) then
+    FreeAndNil(LeaderParty);
   FreeAndNil(CapitalParty);
 end;
 

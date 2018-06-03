@@ -15,7 +15,8 @@ procedure Free;
 implementation
 
 uses System.SysUtils, System.Math, System.Types, Vcl.Imaging.PNGImage, DisciplesRL.Map, DisciplesRL.Resources,
-  DisciplesRL.Player, Vcl.Dialogs, DisciplesRL.Utils, DisciplesRL.Scene.Settlement;
+  DisciplesRL.Player, Vcl.Dialogs, DisciplesRL.Utils, DisciplesRL.Scene.Settlement,
+  DisciplesRL.Game;
 
 const
   K_RIGHT = 39;

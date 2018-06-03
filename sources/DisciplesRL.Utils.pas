@@ -2,9 +2,6 @@ unit DisciplesRL.Utils;
 
 interface
 
-uses
-  Forms;
-
 function GetDist(X1, Y1, X2, Y2: Integer): Integer;
 function GetPath(SubDir: string): string;
 

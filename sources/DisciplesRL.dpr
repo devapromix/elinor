@@ -2,7 +2,7 @@ program DisciplesRL;
 
 uses
   Vcl.Forms,
-  DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
+  DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm} ,
   DisciplesRL.Utils in 'DisciplesRL.Utils.pas',
   DisciplesRL.Scenes in 'DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
@@ -31,9 +31,16 @@ uses
 {$R *.res}
 
 begin
+  Randomize();
+{$IFNDEF FPC}
+{$IF COMPILERVERSION >= 18}
+  ReportMemoryLeaksOnShutdown := True;
+{$IFEND}
+{$ENDIF}
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.Title := 'DisciplesRL';
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
+
 end.

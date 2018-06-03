@@ -39,10 +39,7 @@ end;
 
 procedure Render;
 begin
-  // RenderDark;
-
   CenterTextOut(100, 'High scores table');
-  CenterTextOut(200, 'GOLD +' + IntToStr(NewGold));
   Button.Render;
 end;
 

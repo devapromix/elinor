@@ -65,11 +65,7 @@ begin
   ClientWidth := MapWidth * TileSize;
   ClientHeight := MapHeight * TileSize;
   //
-  DisciplesRL.Game.Init;
   DisciplesRL.Resources.Init;
-  DisciplesRL.Map.Init;
-  DisciplesRL.Map.Gen;
-  DisciplesRL.Player.Init;
   DisciplesRL.Scenes.Init;
 end;
 

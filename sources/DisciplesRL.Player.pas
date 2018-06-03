@@ -13,7 +13,6 @@ type
 
 var
   Player: TPlayer;
-  Wizard: Boolean;
 
 procedure Init;
 procedure Move(const AX, AY: ShortInt);
