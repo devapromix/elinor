@@ -166,7 +166,7 @@ begin
     Result := True;
   end
   else
-    Result := FALSE;
+    Result := False;
 end;
 
 procedure Run(Script: string);
