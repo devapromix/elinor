@@ -14,7 +14,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     function Count: Integer;
-    function IsVar(const AVar: String): Boolean;
+    function IsVar(const AVar: string): Boolean;
     function GetStr(const AVar: String): String;
     procedure SetStr(const AVar, AValue: String);
     function GetInt(const AVar: String): Integer;
@@ -23,7 +23,11 @@ type
     procedure SetBool(const AVar: String; const AValue: Boolean);
     procedure Inc(const VarName: String; Count: Integer = 1);
     procedure Dec(const VarName: String; Count: Integer = 1);
-    procedure Let(Var1, Var2: String);
+
+    procedure LetVar(Var1, Var2: string);
+    procedure SetVar(const AVar, AValue: Variant);
+    procedure IncVar(const VarName: String; Count: Variant);
+    procedure DecVar(const VarName: String; Count: Variant);
   end;
 
 implementation
@@ -58,6 +62,11 @@ begin
   SetInt(VarName, I);
 end;
 
+procedure TVars.DecVar(const VarName: String; Count: Variant);
+begin
+
+end;
+
 destructor TVars.Destroy;
 begin
   FreeAndNil(FID);
@@ -74,11 +83,11 @@ function TVars.GetInt(const AVar: String): Integer;
 var
   S: string;
 begin
-  S := Trim(GetStr(AVar));
+  S := GetStr(AVar);
   if S = '' then
     Result := 0
   else
-    Result := StrToInt(S);
+    Result := StrToIntDef(S, 0);
 end;
 
 function TVars.GetStr(const AVar: String): String;
@@ -101,12 +110,17 @@ begin
   SetInt(VarName, I);
 end;
 
+procedure TVars.IncVar(const VarName: String; Count: Variant);
+begin
+
+end;
+
 function TVars.IsVar(const AVar: String): Boolean;
 begin
   Result := FID.IndexOf(Trim(AVar)) > -1;
 end;
 
-procedure TVars.Let(Var1, Var2: String);
+procedure TVars.LetVar(Var1, Var2: String);
 var
   I: Integer;
   S: string;
@@ -140,6 +154,11 @@ begin
 end;
 
 procedure TVars.SetStr(const AVar, AValue: String);
+begin
+  SetVar(AVar, AValue);
+end;
+
+procedure TVars.SetVar(const AVar, AValue: Variant);
 var
   I: Integer;
 begin

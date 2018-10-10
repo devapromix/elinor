@@ -32,11 +32,7 @@ uses
 
 begin
   Randomize();
-{$IFNDEF FPC}
-{$IF COMPILERVERSION >= 18}
   ReportMemoryLeaksOnShutdown := True;
-{$IFEND}
-{$ENDIF}
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.Title := 'DisciplesRL';

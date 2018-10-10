@@ -21,6 +21,10 @@ uses System.SysUtils, System.Classes, DisciplesRL.Scenes, DisciplesRL.MainForm, 
 
 const
   ScriptPath = 'resources\scripts';
+  DataPath = 'resources\data';
+
+var
+  HP: TPSVar;
 
 procedure ClearMessages;
 var
@@ -75,7 +79,7 @@ end;
 
 procedure _LetVar(S1, S2: string);
 begin
-  V.Let(S1, S2);
+  V.LetVar(S1, S2);
 end;
 
 function _Flag(const S: string): Boolean;
@@ -90,7 +94,22 @@ end;
 
 procedure _FlagFalse(const S: string);
 begin
-  V.SetBool('Flag' + S, FALSE);
+  V.SetBool('Flag' + S, False);
+end;
+
+procedure _SetVar(S: string; V: Variant);
+begin
+  V.SetVar(S, V);
+end;
+
+procedure _IncVar(S: string; V: Variant);
+begin
+  V.IncVar(S, V);
+end;
+
+procedure _DecVar(S: string; V: Variant);
+begin
+  V.DecVar(S, V);
 end;
 
 function _Rand(A, B: Integer): Integer;
@@ -101,13 +120,14 @@ end;
 procedure _MsgBox(S: string);
 begin
   ShowMessage(S);
+  MainForm.Label1.Caption := S;
 end;
 
 procedure _UseTimer(Interval: Integer; Script: String);
 begin
   with MainForm do
   begin
-    FlagEnabled := FALSE;
+    FlagEnabled := False;
     ATimerScript := Script;
     AutoTimer.Interval := Interval;
     AutoTimer.Enabled := True;
@@ -136,6 +156,9 @@ begin
 end;
 
 function ScriptOnUses(Sender: TPSPascalCompiler; const Name: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): Boolean;
+var
+  I: Integer;
+  C: Char;
 begin
   if Name = 'SYSTEM' then
   begin
@@ -161,6 +184,15 @@ begin
     Sender.AddDelphiFunction('procedure Refresh;');
     Sender.AddDelphiFunction('procedure Render;');
     //
+    Sender.AddDelphiFunction('procedure SetVar(S: string; V: Variant);');
+    Sender.AddDelphiFunction('procedure IncVar(S: string; V: Variant);');
+    Sender.AddDelphiFunction('procedure DecVar(S: string; V: Variant);');
+    //
+    Sender.AddVariableN('S', 'AnsiString');
+    Sender.AddVariableN('U', 'Boolean');
+    for C := 'A' to 'N' do
+      Sender.AddVariableN(string(C), 'Integer');
+    //
     Sender.AddVariableN('HP', 'Integer');
     //
     Result := True;
@@ -181,12 +213,12 @@ var
   procedure ShowScriptErrors(const FileName: string);
   var
     I: Integer;
-    S: string;
+    S: AnsiString;
   begin
     S := Format('Ошибки в файле: "%s":', [ExtractFileName(FileName)]) + #10#13;
     for I := 0 to Compiler.MsgCount - 1 do
       S := S + Compiler.Msg[I].MessageToString + ';'#10#13;
-    ShowMessage(S + #10#13 + SL.Text);
+    ShowMessage(S + #10#13 + AnsiString(SL.Text));
   end;
 
   function StrRight(S: string; I: Integer): string;
@@ -211,21 +243,18 @@ begin
       SL.LoadFromFile(S, TEncoding.ANSI);
     end;
     SL.Insert(0, 'begin');
-    SL.Insert(0, '  AX, AY: ShortInt;');
-    SL.Insert(0, '  HX, HY, BX, BY: Integer;');
-    SL.Insert(0, '  A, B, C, D, E, F, I, J, H: Integer;  ');
-    SL.Insert(0, '  U: Boolean;  ');
-    SL.Insert(0, '  S: String; ');
+    SL.Insert(0, '  AX, AY, HX, HY, BX, BY: Integer;');
     SL.Insert(0, 'var');
     SL.Append('end.');
     Compiler := TPSPascalCompiler.Create;
     Compiler.OnUses := ScriptOnUses;
-    if not Compiler.Compile(SL.Text) then
+    if not Compiler.Compile(AnsiString(SL.Text)) then
     begin
       ShowScriptErrors(S);
       Compiler.Free;
       Exit;
     end;
+    // ShowMessage(SL.Text);
     Compiler.GetOutput(Data);
     Compiler.Free;
     Exec := TPSExec.Create;
@@ -250,6 +279,10 @@ begin
     Exec.RegisterDelphiFunction(@_DisplayMsg, 'DISPLAYMSG', cdRegister);
     Exec.RegisterDelphiFunction(@_Refresh, 'REFRESH', cdRegister);
     Exec.RegisterDelphiFunction(@_Render, 'RENDER', cdRegister);
+    //
+    Exec.RegisterDelphiFunction(@_SetVar, 'SETVAR', cdRegister);
+    Exec.RegisterDelphiFunction(@_IncVar, 'INCVAR', cdRegister);
+    Exec.RegisterDelphiFunction(@_DecVar, 'DECVAR', cdRegister);
     //
     if not Exec.LoadData(Data) then
     begin
