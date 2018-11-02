@@ -7,14 +7,14 @@ uses
 
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame,
-    reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursor, rePlayer, reDark,
-    reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
-    reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct, reCorpse, reMyzrael,
-    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon,
-    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef,
-    reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk, reTextCancel,
-    reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
-    reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty);
+    reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursor, reNoWay,
+    rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital,
+    reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct,
+    reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon,
+    reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
+    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
+    reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
+    reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
@@ -68,6 +68,8 @@ const
     (FileName: 'enemy.png'; ResType: teEnemy;),
     // Frame
     (FileName: 'select.png'; ResType: teGUI;),
+    // NoFrame
+    (FileName: 'noselect.png'; ResType: teGUI;),
     // Player
     (FileName: 'player.png'; ResType: tePlayer;),
     // Fog

@@ -91,7 +91,10 @@ begin
         DrawImage(X * TileSize, Y * TileSize, ResImage[reDark]);
     end;
   // Cursor
-  DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reCursor]);
+  if IsLeaderMove(MousePos.X, MousePos.Y) then
+    DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reCursor])
+  else
+    DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reNoWay]);
 end;
 
 procedure Timer;
@@ -101,8 +104,15 @@ end;
 
 procedure MouseClick;
 begin
+  // Wizard On
   if Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
-    Leader.PutAt(MousePos.X, MousePos.Y);
+    Leader.PutAt(MousePos.X, MousePos.Y)
+  else
+  // Wizard Off
+  if IsLeaderMove(MousePos.X, MousePos.Y) then
+  begin
+    Leader.PutAt(MousePos.X, MousePos.Y)
+  end;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);

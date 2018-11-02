@@ -28,9 +28,11 @@ function GetDistToCapital(const AX, AY: Integer): Integer;
 procedure Init;
 procedure Clear(const L: TLayerEnum);
 procedure Gen;
-function InMap(X, Y: Integer): Boolean;
+function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+function InMap(const X, Y: Integer): Boolean;
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 function LeaderTile: TResEnum;
+function IsLeaderMove(const X, Y: Integer): Boolean;
 
 implementation
 
@@ -156,9 +158,14 @@ begin
   Leader.AddToParty;
 end;
 
-function InMap(X, Y: Integer): Boolean;
+function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
 begin
-  Result := (X >= 0) and (Y >= 0) and (X < MapWidth) and (Y < MapHeight);
+  Result := (X >= X1) and (Y >= Y1) and (X <= X2) and (Y <= Y2);
+end;
+
+function InMap(const X, Y: Integer): Boolean;
+begin
+  Result := InRect(X, Y, 0, 0, MapWidth - 1, MapHeight - 1);
 end;
 
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
@@ -182,6 +189,11 @@ end;
 function LeaderTile: TResEnum;
 begin
   Result := Map[lrTile][Leader.X, Leader.Y];
+end;
+
+function IsLeaderMove(const X, Y: Integer): Boolean;
+begin
+  Result := InRect(X, Y, Leader.X - 1, Leader.Y - 1, Leader.X + 1, Leader.Y + 1);
 end;
 
 end.
