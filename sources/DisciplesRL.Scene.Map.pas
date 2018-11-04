@@ -104,15 +104,10 @@ end;
 
 procedure MouseClick;
 begin
-  // Wizard On
   if Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
     Leader.PutAt(MousePos.X, MousePos.Y)
-  else
-  // Wizard Off
-  if IsLeaderMove(MousePos.X, MousePos.Y) then
-  begin
-    Leader.PutAt(MousePos.X, MousePos.Y)
-  end;
+  else if IsLeaderMove(MousePos.X, MousePos.Y) and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
+    Leader.PutAt(MousePos.X, MousePos.Y);
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
