@@ -133,15 +133,22 @@ begin
         if LeaderTile in Cities then
           DisciplesRL.Scene.Settlement.Show(stCity);
       end;
-    K_UP:
-      Leader.Move(0, -1);
-    K_DOWN:
-      Leader.Move(0, 1);
-    K_LEFT:
-      Leader.Move(-1, 0);
-    K_RIGHT:
-      Leader.Move(1, 0);
-  end;
+    K_LEFT, K_KP_4, K_A:
+      Leader.Move(drWest);
+    K_RIGHT, K_KP_6, K_D:
+      Leader.Move(drEast);
+    K_UP, K_KP_8, K_W:
+      Leader.Move(drNorth);
+    K_DOWN, K_KP_2, K_X:
+      Leader.Move(drSouth);
+    K_KP_7, K_Q:
+      Leader.Move(drNorthWest);
+    K_KP_9, K_E:
+      Leader.Move(drNorthEast);
+    K_KP_1, K_Z:
+      Leader.Move(drSouthWest);
+    K_KP_3, K_C:
+      Leader.Move(drSouthEast);  end;
 end;
 
 procedure Free;

@@ -3,8 +3,16 @@
 interface
 
 uses
+  System.Types,
   DisciplesRL.Creatures,
   DisciplesRL.MapObject;
+
+type
+  TDirectionEnum = (drEast, drWest, drSouth, drNorth, drSouthEast, drSouthWest, drNorthEast, drNorthWest, drOrigin);
+
+const
+  Direction: array [TDirectionEnum] of TPoint = ((X: 1; Y: 0), (X: - 1; Y: 0), (X: 0; Y: 1), (X: 0; Y: - 1), (X: 1; Y: 1), (X: - 1; Y: 1), (X: 1;
+    Y: - 1), (X: - 1; Y: - 1), (X: 0; Y: 0));
 
 type
   TLeader = class(TMapObject)
@@ -23,7 +31,8 @@ type
     procedure RefreshRadius;
     procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
     procedure Turn(const Count: Integer = 1);
-    procedure Move(const AX, AY: ShortInt);
+    procedure Move(const AX, AY: ShortInt); overload;
+    procedure Move(Dir: TDirectionEnum); overload;
     property Radius: Integer read FRadius;
     property MaxLeadership: Integer read FMaxLeadership;
   end;
@@ -165,6 +174,11 @@ end;
 procedure TLeader.Move(const AX, AY: ShortInt);
 begin
   PutAt(X + AX, Y + AY);
+end;
+
+procedure TLeader.Move(Dir: TDirectionEnum);
+begin
+  PutAt(X + Direction[Dir].X, Y + Direction[Dir].Y);
 end;
 
 procedure TLeader.ChCityOwner;
