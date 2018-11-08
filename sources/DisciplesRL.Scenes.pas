@@ -41,13 +41,31 @@ const
   K_ESCAPE = 27;
   K_ENTER = 13;
   K_SPACE = 32;
-  K_V = ord('V');
-  K_D = ord('D');
+
+  K_A = ord('A');
   K_B = ord('B');
+  K_C = ord('C');
+  K_D = ord('D');
+  K_E = ord('E');
+  K_Q = ord('Q');
+  K_V = ord('V');
+  K_W = ord('W');
+  K_Z = ord('Z');
+
   K_RIGHT = 39;
   K_LEFT = 37;
   K_DOWN = 40;
   K_UP = 38;
+
+  K_KP_1 = 121;
+  K_KP_2 = 122;
+  K_KP_3 = 123;
+  K_KP_4 = 124;
+  K_KP_5 = 125;
+  K_KP_6 = 126;
+  K_KP_7 = 127;
+  K_KP_8 = 128;
+  K_KP_9 = 129;
 
 implementation
 
