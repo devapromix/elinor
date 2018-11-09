@@ -50,6 +50,7 @@ const
   K_Q = ord('Q');
   K_V = ord('V');
   K_W = ord('W');
+  K_X = ord('X');
   K_Z = ord('Z');
 
   K_RIGHT = 39;
