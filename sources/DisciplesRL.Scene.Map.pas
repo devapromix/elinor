@@ -148,7 +148,9 @@ begin
     K_KP_1, K_Z:
       Leader.Move(drSouthWest);
     K_KP_3, K_C:
-      Leader.Move(drSouthEast);  end;
+      Leader.Move(drSouthEast);
+  end;
+
 end;
 
 procedure Free;

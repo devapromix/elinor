@@ -58,15 +58,15 @@ const
   K_DOWN = 40;
   K_UP = 38;
 
-  K_KP_1 = 121;
-  K_KP_2 = 122;
-  K_KP_3 = 123;
-  K_KP_4 = 124;
-  K_KP_5 = 125;
-  K_KP_6 = 126;
-  K_KP_7 = 127;
-  K_KP_8 = 128;
-  K_KP_9 = 129;
+  K_KP_1 = 97;
+  K_KP_2 = 98;
+  K_KP_3 = 99;
+  K_KP_4 = 100;
+  K_KP_5 = 101;
+  K_KP_6 = 102;
+  K_KP_7 = 103;
+  K_KP_8 = 104;
+  K_KP_9 = 105;
 
 implementation
 
