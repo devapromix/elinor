@@ -70,9 +70,7 @@ var
 begin
   if not InMap(AX, AY) then
     Exit;
-  if (Map[lrObj][AX, AY] = reMountain) then
-    Exit;
-  if (Map[lrDark][AX, AY] = reDark) then
+  if (Map[lrObj][AX, AY] in StopTiles) then
     Exit;
   if not IsInfo then
     for I := 0 to High(City) do
