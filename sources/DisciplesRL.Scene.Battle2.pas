@@ -274,12 +274,13 @@ begin
   begin
     DrawTitle(reTitleDefeat);
     F := True;
-  end;
+  end else
   if EnemyParty.IsClear then
   begin
     DrawTitle(reTitleVictory);
     F := True;
-  end;
+  end else
+    DrawTitle(reTitleBattle);
   if F then
   begin
     ActivePartyPosition := -1;
