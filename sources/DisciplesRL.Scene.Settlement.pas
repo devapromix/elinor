@@ -101,6 +101,7 @@ begin
       end;
     stCapital:
       begin
+        DrawTitle(reTitleCapital);
         CenterTextOut(100, Format('%s (Level %d)', [GetCapitalName, City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
