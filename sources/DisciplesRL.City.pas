@@ -20,10 +20,10 @@ var
 const
   NCity = 7;
 
+procedure Gen;
 procedure Init;
 function GetCityIndex(const AX, AY: Integer): Integer;
 procedure UpdateRadius(const AID: Integer);
-procedure Gen;
 function GetOwnerCount: Integer;
 
 implementation
@@ -180,7 +180,6 @@ begin
   Result := 0;
   for I := 1 to NCity do
   begin
-    //if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
     if (City[I].Owner in Races) then
       Inc(Result);
   end;

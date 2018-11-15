@@ -77,24 +77,40 @@ begin
     Button[I].Render;
 end;
 
-function GetCityName: string;
+function GetName(const I: Integer): string;
 begin
   Result := '';
-end;
-
-function GetCapitalName: string;
-begin
-  Result := '';
+  case I of
+    0:
+      Result := 'Vorgel #0';
+    1:
+      Result := 'Eldarion #1';
+    2:
+      Result := 'Tardum #2';
+    3:
+      Result := 'Moravinia #3';
+    4:
+      Result := 'Volanum #4';
+    5:
+      Result := 'Zoran #5';
+    6:
+      Result := 'Fedrang #6';
+    7:
+      Result := 'Pansburg #7';
+    8:
+      Result := 'Soldek #8';
+    9:
+      Result := 'Narn #9';
+  end;
 end;
 
 procedure Render;
 begin
   CalcPoints;
-  CenterTextOut(60, Format('ActivePartyPosition=%d, CurrentPartyPosition=%d', [ActivePartyPosition, CurrentPartyPosition]));
   case CurrentSettlementType of
     stCity:
       begin
-        CenterTextOut(100, Format('%s (Level %d)', [GetCityName, City[CurrentCityIndex].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex), City[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
@@ -102,12 +118,14 @@ begin
     stCapital:
       begin
         DrawTitle(reTitleCapital);
-        CenterTextOut(100, Format('%s (Level %d)', [GetCapitalName, City[0].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetName(7), City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
   end;
+  CenterTextOut(60, Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d', [ActivePartyPosition, CurrentPartyPosition,
+    CurrentCityIndex]));
 
   if (GetDistToCapital(Leader.X, Leader.Y) = 0) or (CurrentSettlementType = stCity) then
     RenderParty(psLeft, LeaderParty, LeaderParty.Count < Leader.MaxLeadership)
@@ -354,8 +372,6 @@ begin
 end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
-  I, J: Integer;
 begin
   if (GetDistToCapital(Leader.X, Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
     Exit;
