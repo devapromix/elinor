@@ -46,6 +46,11 @@ type
 const
   ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive, reTextClose, reTextHire, reTextDismiss);
 
+const
+  CityNameTitle: array [0 .. 9] of TResEnum = (reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
+    reTitleParty, reTitleBattle, reTitleCapital);
+  CityNameText: array [0 .. 9] of string = ('Vorgel', 'Eldarion', 'Tardum', 'Moravinia', 'Volanum', 'Zoran', 'Fedrang', 'Pansburg', 'Soldek', 'Narn');
+
 var
   Button: array [TButtonEnum] of TButton;
   CurrentSettlementType: TSettlementSubSceneEnum;
@@ -77,31 +82,9 @@ begin
     Button[I].Render;
 end;
 
-function GetName(const I: Integer): string;
+function GetName(const I: Integer = 0): string;
 begin
-  Result := '';
-  case I of
-    0:
-      Result := 'Vorgel #0';
-    1:
-      Result := 'Eldarion #1';
-    2:
-      Result := 'Tardum #2';
-    3:
-      Result := 'Moravinia #3';
-    4:
-      Result := 'Volanum #4';
-    5:
-      Result := 'Zoran #5';
-    6:
-      Result := 'Fedrang #6';
-    7:
-      Result := 'Pansburg #7';
-    8:
-      Result := 'Soldek #8';
-    9:
-      Result := 'Narn #9';
-  end;
+  Result := CityNameText[I];
 end;
 
 procedure Render;
@@ -110,7 +93,8 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex), City[CurrentCityIndex].MaxLevel + 1]));
+        DrawTitle(CityNameTitle[CurrentCityIndex + 1]);
+        CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex + 1), City[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
@@ -118,7 +102,7 @@ begin
     stCapital:
       begin
         DrawTitle(reTitleCapital);
-        CenterTextOut(100, Format('%s (Level %d)', [GetName(7), City[0].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetName, City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
