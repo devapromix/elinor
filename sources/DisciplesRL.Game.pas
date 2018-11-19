@@ -62,7 +62,8 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
   DisciplesRL.Leader,
-  DisciplesRL.Scene.Info;
+  DisciplesRL.Scene.Info,
+  DisciplesRL.Scene.Settlement;
 
 type
   TPartyBase = record
@@ -132,6 +133,7 @@ begin
   DisciplesRL.Game.Clear;
   DisciplesRL.Map.Init;
   DisciplesRL.Map.Gen;
+  DisciplesRL.Scene.Settlement.Gen;
   Leader.Clear;
 end;
 

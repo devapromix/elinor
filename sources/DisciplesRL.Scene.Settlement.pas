@@ -10,6 +10,7 @@ type
   TSettlementSubSceneEnum = (stCity, stCapital);
 
 procedure Init;
+procedure Gen;
 procedure Render;
 procedure RenderButtons;
 procedure Timer;
@@ -46,16 +47,20 @@ type
 const
   ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive, reTextClose, reTextHire, reTextDismiss);
 
+type
+  T = 0 .. 9;
+
 const
-  CityNameTitle: array [0 .. 9] of TResEnum = (reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
+  CityNameTitle: array [T] of TResEnum = (reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
     reTitleParty, reTitleBattle, reTitleCapital);
-  CityNameText: array [0 .. 9] of string = ('Vorgel', 'Eldarion', 'Tardum', 'Moravinia', 'Volanum', 'Zoran', 'Fedrang', 'Pansburg', 'Soldek', 'Narn');
+  CityNameText: array [T] of string = ('Vorgel', 'Eldarion', 'Tardum', 'Moravinia', 'Volanum', 'Zoran', 'Fedrang', 'Pansburg', 'Soldek', 'Narn');
 
 var
   Button: array [TButtonEnum] of TButton;
   CurrentSettlementType: TSettlementSubSceneEnum;
   SettlementParty: TParty = nil;
   CurrentCityIndex: Integer = -1;
+  CityArr: array [T] of Integer;
 
 procedure Init;
 var
@@ -74,6 +79,22 @@ begin
   end;
 end;
 
+procedure Gen;
+var
+  N: set of T;
+  J, K: Integer;
+begin
+  N := [];
+  for K := Low(T) to High(T) do
+  begin
+    repeat
+      J := Random(10);
+    until not(J in N);
+    N := N + [J];
+    CityArr[K] := J;
+  end;
+end;
+
 procedure RenderButtons;
 var
   I: TButtonEnum;
@@ -84,7 +105,7 @@ end;
 
 function GetName(const I: Integer = 0): string;
 begin
-  Result := CityNameText[I];
+  Result := CityNameText[CityArr[I]];
 end;
 
 procedure Render;
@@ -93,7 +114,7 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        DrawTitle(CityNameTitle[CurrentCityIndex + 1]);
+        DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
         CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex + 1), City[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
@@ -101,7 +122,7 @@ begin
       end;
     stCapital:
       begin
-        DrawTitle(reTitleCapital);
+        DrawTitle(CityNameTitle[CityArr[0]]);
         CenterTextOut(100, Format('%s (Level %d)', [GetName, City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
