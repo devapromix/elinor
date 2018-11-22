@@ -53,7 +53,7 @@ type
 const
   CityNameTitle: array [T] of TResEnum = (reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
     reTitleParty, reTitleBattle, reTitleHighScores);
-  CityNameText: array [T] of string = ('Vorgel', 'Eldarion', 'Tardum', 'Moravinia', 'Volanum', 'Zoran', 'Fedrang', 'Pansburg', 'Soldek', 'Narn');
+  CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum', 'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
 
 var
   Button: array [TButtonEnum] of TButton;
