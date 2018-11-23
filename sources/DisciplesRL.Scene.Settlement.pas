@@ -51,8 +51,8 @@ type
   T = 0 .. 9;
 
 const
-  CityNameTitle: array [T] of TResEnum = (reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
-    reTitleParty, reTitleBattle, reTitleHighScores);
+  CityNameTitle: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
+    reTitleHimor, reTitleSodek, reTitleSard);
   CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum', 'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
 
 var

@@ -14,7 +14,8 @@ type
     reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
     reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
     reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
-    reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle);
+    reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion,
+    reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
@@ -206,7 +207,27 @@ const
     // Title "Party"
     (FileName: 'title.party.png'; ResType: teGUI;),
     // Title "Battle"
-    (FileName: 'title.battle.png'; ResType: teGUI;)
+    (FileName: 'title.battle.png'; ResType: teGUI;),
+    // Title "Vorgel"
+    (FileName: 'title.city.vorgel.png'; ResType: teGUI;),
+    // Title "Entarion"
+    (FileName: 'title.city.entarion.png'; ResType: teGUI;),
+    // Title "Tardum"
+    (FileName: 'title.city.tardum.png'; ResType: teGUI;),
+    // Title "Temond"
+    (FileName: 'title.city.temond.png'; ResType: teGUI;),
+    // Title "Zerton"
+    (FileName: 'title.city.zerton.png'; ResType: teGUI;),
+    // Title "Doran"
+    (FileName: 'title.city.doran.png'; ResType: teGUI;),
+    // Title "Kront"
+    (FileName: 'title.city.kront.png'; ResType: teGUI;),
+    // Title "Himor"
+    (FileName: 'title.city.himor.png'; ResType: teGUI;),
+    // Title "Sodek"
+    (FileName: 'title.city.sodek.png'; ResType: teGUI;),
+    // Title "Sard"
+    (FileName: 'title.city.sard.png'; ResType: teGUI;)
     //
     );
 
