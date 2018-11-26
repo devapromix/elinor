@@ -6,7 +6,7 @@ uses
   DisciplesRL.Party;
 
 type
-  TScenarioEnum = (sgDarkTower, sgScenario2, sgScenario3);
+  TScenarioEnum = (sgDarkTower, sgScenario2, sgStoneTabs);
 
 const
   ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Сценарий II', 'Древние Знания');
@@ -25,11 +25,13 @@ const
 const
   GoldFromMinePerDay = 100;
   GoldForRevivePerLevel = 250;
+  ScenarioStoneTabMax = 9;
 
 var
   Days: Integer = 0;
   Gold: Integer = 0;
   NewGold: Integer = 0;
+  StoneTab: Integer = 0;
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
   IsDay: Boolean = False;
@@ -48,7 +50,6 @@ function GetPartyIndex(const AX, AY: Integer): Integer;
 procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False);
 procedure Clear;
 procedure AddLoot;
-procedure AddStoneTab;
 procedure NewDay;
 procedure Free;
 
@@ -199,6 +200,7 @@ begin
   Days := 1;
   Gold := 250;
   NewGold := 0;
+  StoneTab := 0;
   GoldMines := 0;
   BattlesWon := 0;
   IsDay := False;
@@ -213,11 +215,6 @@ begin
   NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
   DisciplesRL.Scene.Info.Show(stLoot, scMap);
-end;
-
-procedure AddStoneTab;
-begin
-  DisciplesRL.Scene.Info.Show(stStoneTab, scMap);
 end;
 
 procedure NewDay;

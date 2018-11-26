@@ -88,8 +88,11 @@ end;
 procedure Victory;
 begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
-  if (CurrentScenario = sgScenario3) and (RandomRange(1, 100) <= 50) then
-    AddStoneTab()
+  if (CurrentScenario = sgStoneTabs) and (RandomRange(1, 100) <= 50) then
+  begin
+    Inc(StoneTab);
+    DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
+  end
   else
     AddLoot();
 end;
@@ -274,12 +277,13 @@ begin
   begin
     DrawTitle(reTitleDefeat);
     F := True;
-  end else
-  if EnemyParty.IsClear then
+  end
+  else if EnemyParty.IsClear then
   begin
     DrawTitle(reTitleVictory);
     F := True;
-  end else
+  end
+  else
     DrawTitle(reTitleBattle);
   if F then
   begin

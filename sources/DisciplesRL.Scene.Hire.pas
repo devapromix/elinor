@@ -246,7 +246,7 @@ begin
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
     sgScenario2:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
-    sgScenario3:
+    sgStoneTabs:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
   end;
 end;

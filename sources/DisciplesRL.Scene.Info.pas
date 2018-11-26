@@ -64,7 +64,17 @@ begin
       end;
     stStoneTab:
       begin
-
+        if (CurrentScenario = sgStoneTabs) then
+          if StoneTab >= ScenarioStoneTabMax then
+          begin
+            DisciplesRL.Scene.Info.Show(stVictory, scInfo);
+            F := False;
+          end
+          else
+          begin
+            F := True;
+            DisciplesRL.Scenes.CurrentScene := scMap;
+          end;
       end;
     stDay:
       IsDay := False;
@@ -114,11 +124,10 @@ begin
       DrawTitle(reTitleDefeat);
     stVictory:
       DrawTitle(reTitleVictory);
-      stStoneTab:
+    stStoneTab:
       begin
         DrawTitle(reTitleLoot);
         CenterTextOut(300, 'КАМЕННАЯ ТАБЛИЧКА');
-
       end;
     stDay:
       begin

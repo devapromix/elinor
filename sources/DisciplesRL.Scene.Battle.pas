@@ -155,7 +155,7 @@ procedure Victory;
 begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
   if RandomRange(1, 100) = 1 then
-    AddStoneTab()
+
   else
     AddLoot();
 end;
