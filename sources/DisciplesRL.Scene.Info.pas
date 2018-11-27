@@ -74,6 +74,7 @@ begin
           begin
             F := True;
             DisciplesRL.Scenes.CurrentScene := scMap;
+            Exit;
           end;
       end;
     stDay:
@@ -128,6 +129,7 @@ begin
       begin
         DrawTitle(reTitleLoot);
         CenterTextOut(300, 'КАМЕННАЯ ТАБЛИЧКА');
+        CenterTextOut(350, Format('Найдено %d из %d', [StoneTab, ScenarioStoneTabMax]));
       end;
     stDay:
       begin
