@@ -154,6 +154,8 @@ begin
       Y := RandomRange(1, MapHeight - 1);
     until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutralTerrain) and (GetDistToCapital(X, Y) >= 3);
     AddPartyAt(X, Y);
+    if (CurrentScenario = sgStoneTabs) and (I < ScenarioStoneTabMax) then
+      AddStoneTab(X, Y);
   end;
   Leader.AddToParty;
 end;

@@ -52,11 +52,14 @@ procedure Clear;
 procedure AddLoot;
 procedure NewDay;
 procedure Free;
+function IsStoneTab(const X, Y: Integer): Boolean;
+procedure AddStoneTab(const X, Y: Integer);
 
 implementation
 
 uses
   System.Math,
+  System.Types,
   System.SysUtils,
   DisciplesRL.Creatures,
   DisciplesRL.Map,
@@ -232,6 +235,30 @@ begin
   if Assigned(LeaderParty) then
     FreeAndNil(LeaderParty);
   FreeAndNil(CapitalParty);
+end;
+
+var
+  FStoneTab: array [1..ScenarioStoneTabMax] of TPoint;
+  StoneTabCount: Integer = 0;
+
+function IsStoneTab(const X, Y: Integer): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  for I := 1 to ScenarioStoneTabMax do
+   if (FStoneTab[I].X = X) and (FStoneTab[I].Y = Y) then
+   begin
+     Result := True;
+     Exit;
+   end;
+end;
+
+procedure AddStoneTab(const X, Y: Integer);
+begin
+  Inc(StoneTabCount);
+  FStoneTab[StoneTabCount].X := X;
+  FStoneTab[StoneTabCount].Y := Y;
 end;
 
 end.
