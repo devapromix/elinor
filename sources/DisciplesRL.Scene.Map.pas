@@ -69,9 +69,17 @@ begin
       end;
       F := (GetDist(X, Y, Leader.X, Leader.Y) > Leader.Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
         (Map[lrDark][X, Y] = reNone);
+
+      // Special
+      if Wizard and (((CurrentScenario = sgStoneTabs) and IsStoneTab(X, Y)) or
+        ((CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
+        ((CurrentScenario = sgScenario2) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
+        DrawImage(X * TileSize, Y * TileSize, ResImage[reCursorSpecial]);
+
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrTile][X, Y]]);
+
       //
       if (ResBase[Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
         if F then
@@ -83,6 +91,7 @@ begin
           /// end
       else if (Map[lrObj][X, Y] <> reNone) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
+
       // Leader
       if (X = Leader.X) and (Y = Leader.Y) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[rePlayer]);

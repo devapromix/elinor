@@ -88,7 +88,7 @@ end;
 procedure Victory;
 begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
-  if (CurrentScenario = sgStoneTabs) and IsStoneTab(LeaderParty.X, LeaderParty.Y) then
+  if (CurrentScenario = sgStoneTabs) and IsStoneTab(Leader.X, Leader.Y) then
   begin
     Inc(StoneTab);
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);

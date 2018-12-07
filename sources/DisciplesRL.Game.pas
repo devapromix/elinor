@@ -61,6 +61,7 @@ uses
   System.Math,
   System.Types,
   System.SysUtils,
+  Vcl.Dialogs,
   DisciplesRL.Creatures,
   DisciplesRL.Map,
   DisciplesRL.Resources,
@@ -239,7 +240,7 @@ end;
 
 var
   FStoneTab: array [1..ScenarioStoneTabMax] of TPoint;
-  StoneTabCount: Integer = 0;
+  J: Integer = 0;
 
 function IsStoneTab(const X, Y: Integer): Boolean;
 var
@@ -256,9 +257,9 @@ end;
 
 procedure AddStoneTab(const X, Y: Integer);
 begin
-  Inc(StoneTabCount);
-  FStoneTab[StoneTabCount].X := X;
-  FStoneTab[StoneTabCount].Y := Y;
+  Inc(J);
+  FStoneTab[J].X := X;
+  FStoneTab[J].Y := Y;
 end;
 
 end.

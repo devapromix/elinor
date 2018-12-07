@@ -7,7 +7,7 @@ uses
 
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame,
-    reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursor, reNoWay,
+    reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor, reNoWay,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital,
     reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct,
     reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon,
@@ -68,6 +68,8 @@ const
     (FileName: 'unknown.png'; ResType: teGUI;),
     // Enemy party
     (FileName: 'enemy.png'; ResType: teEnemy;),
+    // Special
+    (FileName: 'cursor.special.png'; ResType: teGUI;),
     // Frame
     (FileName: 'select.png'; ResType: teGUI;),
     // NoFrame
