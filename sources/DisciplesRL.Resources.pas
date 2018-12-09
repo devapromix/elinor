@@ -107,7 +107,7 @@ const
     // Gold Mine
     (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain
-    (FileName: 'mountain.png'; ResType: teObject;),
+    (FileName: 'tile.mountain.png'; ResType: teObject;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button
