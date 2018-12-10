@@ -9,7 +9,7 @@ type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame,
     reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor, reNoWay,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital,
-    reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct,
+    reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain1, reMountain2, reMountain3, reButtonDef, reButtonAct,
     reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon,
     reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
     reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
@@ -21,7 +21,8 @@ const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
   Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain];
-  StopTiles = [reMountain, reDark];
+  MountainTiles = [reMountain1, reMountain2, reMountain3];
+  StopTiles = MountainTiles + [reDark];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -106,8 +107,12 @@ const
     (FileName: 'tree.oak.png'; ResType: teTree;),
     // Gold Mine
     (FileName: 'mine.gold.png'; ResType: teMine;),
-    // Mountain
-    (FileName: 'tile.mountain.png'; ResType: teObject;),
+    // Mountain #1
+    (FileName: 'tile.mountain1.png'; ResType: teObject;),
+    // Mountain #2
+    (FileName: 'tile.mountain2.png'; ResType: teObject;),
+    // Mountain #3
+    (FileName: 'tile.mountain3.png'; ResType: teObject;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button

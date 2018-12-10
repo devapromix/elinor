@@ -91,6 +91,19 @@ end;
 procedure Gen;
 var
   X, Y, RX, RY, I: Integer;
+
+  procedure AddMountain(const X, Y: Integer);
+  begin
+    case Random(3) of
+      0:
+        Map[lrObj][X, Y] := reMountain1;
+      1:
+        Map[lrObj][X, Y] := reMountain2;
+      2:
+        Map[lrObj][X, Y] := reMountain3;
+    end;
+  end;
+
 begin
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
@@ -98,7 +111,7 @@ begin
       Map[lrTile][X, Y] := reNeutralTerrain;
       if (X = 0) or (X = MapWidth - 1) or (Y = 0) or (Y = MapHeight - 1) then
       begin
-        Map[lrObj][X, Y] := reMountain;
+        AddMountain(X, Y);
         Continue;
       end;
       case RandomRange(0, 5) of
@@ -107,7 +120,7 @@ begin
         1:
           Map[lrObj][X, Y] := reTreeOak;
       else
-        Map[lrObj][X, Y] := reMountain;
+        AddMountain(X, Y);
       end;
 
     end;
@@ -124,12 +137,12 @@ begin
         begin
           X := RX + RandomRange(-1, 2);
           Y := RY + RandomRange(-1, 2);
-          if Map[lrObj][X, Y] = reMountain then
+          if Map[lrObj][X, Y] in MountainTiles then
             Map[lrObj][X, Y] := reNone;
         end;
         X := RX;
         Y := RY;
-        if Map[lrObj][X, Y] = reMountain then
+        if Map[lrObj][X, Y] in MountainTiles then
           Map[lrObj][X, Y] := reNone;
       end;
     until ((X = City[I].X) and (Y = City[I].Y));
