@@ -92,6 +92,15 @@ procedure Gen;
 var
   X, Y, RX, RY, I: Integer;
 
+  procedure AddTree(const X, Y: Integer);
+  begin
+    case Random(2) of
+      0:
+        Map[lrObj][X, Y] := reTreePine;
+      1:
+        Map[lrObj][X, Y] := reTreeOak;
+    end;
+  end;
   procedure AddMountain(const X, Y: Integer);
   begin
     case Random(3) of
@@ -114,11 +123,9 @@ begin
         AddMountain(X, Y);
         Continue;
       end;
-      case RandomRange(0, 5) of
+      case RandomRange(0, 3) of
         0:
-          Map[lrObj][X, Y] := reTreePine;
-        1:
-          Map[lrObj][X, Y] := reTreeOak;
+          AddTree(X, Y);
       else
         AddMountain(X, Y);
       end;
