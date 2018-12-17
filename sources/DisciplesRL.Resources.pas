@@ -58,7 +58,7 @@ const
     // Info Frame
     (FileName: 'info_frame.png'; ResType: teGUI;),
     // Neutral Terrain
-    (FileName: 'dirt.png'; ResType: teTile;),
+    (FileName: 'tile.dirt.png'; ResType: teTile;),
     // Empire Terrain
     (FileName: 'tile.the_empire.png'; ResType: teTile;),
     // Undead Hordes Terrain
