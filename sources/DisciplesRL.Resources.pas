@@ -98,13 +98,13 @@ const
     // Legions Of The Damned Capital
     (FileName: 'capital.legions_of_the_damned.png'; ResType: teCapital;),
     // Ruin
-    (FileName: 'ruin.png'; ResType: teRuin;),
+    (FileName: 'tile.ruin.png'; ResType: teRuin;),
     // Tower
-    (FileName: 'tower.png'; ResType: teTower;),
+    (FileName: 'tile.tower.png'; ResType: teTower;),
     // Pine
-    (FileName: 'tree.pine.png'; ResType: teTree;),
+    (FileName: 'tile.tree.pine.png'; ResType: teTree;),
     // Oak
-    (FileName: 'tree.oak.png'; ResType: teTree;),
+    (FileName: 'tile.tree.oak.png'; ResType: teTree;),
     // Gold Mine
     (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain #1
