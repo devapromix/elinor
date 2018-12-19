@@ -106,7 +106,7 @@ const
     // Oak
     (FileName: 'tile.tree.oak.png'; ResType: teTree;),
     // Gold Mine
-    (FileName: 'mine.gold.png'; ResType: teMine;),
+    (FileName: 'tile.mine.gold.png'; ResType: teMine;),
     // Mountain #1
     (FileName: 'tile.mountain1.png'; ResType: teObject;),
     // Mountain #2
