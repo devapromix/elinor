@@ -27,7 +27,8 @@ uses
   DisciplesRL.Leader,
   Vcl.Dialogs,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Game;
+  DisciplesRL.Game,
+  DisciplesRL.Scene.Party;
 
 var
   LastMousePos, MousePos: TPoint;
@@ -158,6 +159,8 @@ begin
       Leader.Move(drSouthWest);
     K_KP_3, K_C:
       Leader.Move(drSouthEast);
+    K_P:
+      DisciplesRL.Scene.Party.Show(LeaderParty, scMap);
   end;
 
 end;
