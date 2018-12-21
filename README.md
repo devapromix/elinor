@@ -43,3 +43,11 @@ Copyright (C) 2018 by Sergiy Tkach (Apromix).
 
 DisciplesRL is open source, written in pascal, the full source is available at:
 https://github.com/devapromix-roguelikes/disciplesrl
+
+## Клавиши управления:
+###1. На карте:
+qweadzxc, стрелки, цифр. клавиатура - движение отряда
+P - информация об отряде (см. пункт 4)
+###2. В столице/городе:
+###3. На поле боя:
+###4. В окне отряда:
