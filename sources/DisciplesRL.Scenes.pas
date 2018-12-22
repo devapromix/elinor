@@ -49,6 +49,7 @@ const
   K_E = ord('E');
   K_P = ord('P');
   K_Q = ord('Q');
+  K_S = ord('S');
   K_V = ord('V');
   K_W = ord('W');
   K_X = ord('X');

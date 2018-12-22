@@ -159,6 +159,8 @@ begin
       Leader.Move(drSouthWest);
     K_KP_3, K_C:
       Leader.Move(drSouthEast);
+    K_KP_5, K_S;
+      Leader.Move(drOrigin);
     K_P:
       DisciplesRL.Scene.Party.Show(LeaderParty, scMap);
   end;
