@@ -415,6 +415,8 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       Close;
+    K_P:
+      DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
   end;
 end;
 
