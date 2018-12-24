@@ -136,13 +136,6 @@ begin
   case Key of
     K_ESCAPE:
       DisciplesRL.Scenes.CurrentScene := scMenu;
-    K_ENTER:
-      begin
-        if LeaderTile in Capitals then
-          DisciplesRL.Scene.Settlement.Show(stCapital);
-        if LeaderTile in Cities then
-          DisciplesRL.Scene.Settlement.Show(stCity);
-      end;
     K_LEFT, K_KP_4, K_A:
       Leader.Move(drWest);
     K_RIGHT, K_KP_6, K_D:
