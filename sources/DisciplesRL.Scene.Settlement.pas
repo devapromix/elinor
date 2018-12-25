@@ -417,6 +417,14 @@ begin
       Close;
     K_P:
       DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
+    K_A:
+      Hire;
+    K_H:
+      Heal;
+    K_D:
+      Dismiss;
+    K_R:
+      Revive;
   end;
 end;
 

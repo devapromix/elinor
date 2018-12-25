@@ -38,18 +38,24 @@ The game is currently in demo stage with very limited contents and lots of issue
 ## Contributing
 Contributions are welcome! Please fork this repository and then once you have made and tested your changes, submit a pull request.
 
+## Управление:
+###1. В столице/городе:
+	P - инвентарь и информация об отряде (см. пункт 4)
+	A - наём новых персонажей
+	H - исцеление персонажа
+	D - отпустить персонажа
+	R - воскресить персонажа
+	
+###2. На карте мира:
+	qweadzxc, стрелки, цифр. клавиатура - движение
+	S, цифр. клав. 5 - ждать, если на тайле столицы/города - войти в город
+	P - инвентарь и информация об отряде (см. пункт 4)
+	
+###3. На поле боя:
+###4. В окне отряда:
+
 ## Credits
 Copyright (C) 2018 by Sergiy Tkach (Apromix).
 
 DisciplesRL is open source, written in pascal, the full source is available at:
 https://github.com/devapromix-roguelikes/disciplesrl
-
-## Клавиши управления:
-###1. На карте:
-qweadzxc, стрелки, цифр. клавиатура - движение
-S, цифр. клав. 5 - ждать, если на тайле столицы/города - войти в город
-P - информация об отряде (см. пункт 4)
-###2. В столице/городе:
-P - информация об отряде (см. пункт 4)
-###3. На поле боя:
-###4. В окне отряда:
