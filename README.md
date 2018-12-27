@@ -40,6 +40,7 @@ Contributions are welcome! Please fork this repository and then once you have ma
 
 ## Управление:
 ###1. В столице/городе:
+	Esc/Enter - выход из города (карта мира)
 	P - инвентарь и информация об отряде (см. пункт 4)
 	A - наём новых персонажей
 	H - исцеление персонажа
@@ -47,12 +48,16 @@ Contributions are welcome! Please fork this repository and then once you have ma
 	R - воскресить персонажа
 	
 ###2. На карте мира:
-	qweadzxc, стрелки, цифр. клавиатура - движение
+	Esc - выход в меню
+	QWEADZXC, стрелки, цифр. клавиатура - движение
 	S, цифр. клав. 5 - ждать, если на тайле столицы/города - войти в город
 	P - инвентарь и информация об отряде (см. пункт 4)
 	
 ###3. На поле боя:
+	Esc/Enter - выход (если победа/поражение)
+	
 ###4. В окне отряда:
+	Esc/Enter - выход
 
 ## Credits
 Copyright (C) 2018 by Sergiy Tkach (Apromix).

@@ -362,7 +362,7 @@ begin
         SettlementParty.Owner := Leader.Race;
       end
   else
-    SettlementParty := CapitalParty;
+    SettlementParty := Party[CapitalPartyIndex];
   end;
   DisciplesRL.Scenes.CurrentScene := scSettlement;
 end;

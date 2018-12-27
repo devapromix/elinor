@@ -34,9 +34,14 @@ procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const
 function LeaderTile: TResEnum;
 function IsLeaderMove(const X, Y: Integer): Boolean;
 
+var
+  LeaderPartyIndex: Byte;
+  CapitalPartyIndex: Byte;
+
 implementation
 
 uses
+  Vcl.Dialogs,
   System.Math,
   System.SysUtils,
   DisciplesRL.Leader,
@@ -66,7 +71,6 @@ begin
   end;
   DisciplesRL.City.Init;
   LeaderParty := TParty.Create(Leader.X, Leader.Y, Leader.Race);
-  CapitalParty := TParty.Create(Leader.X, Leader.Y, Leader.Race);
 end;
 
 procedure Clear(const L: TLayerEnum);
@@ -86,6 +90,14 @@ end;
 function ChTile(X, Y: Integer): Boolean; stdcall;
 begin
   Result := True;
+end;
+
+procedure AddCapitalParty;
+begin
+  CapitalPartyIndex := High(Party) + 1;
+  SetLength(Party, GetPartyCount + 1);
+  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, Leader.Race);
+  Party[GetPartyCount - 1].AddCreature(Characters[Leader.Race][cgGuardian][ckGuardian], 3);
 end;
 
 procedure Gen;
@@ -177,6 +189,10 @@ begin
     if (CurrentScenario = sgStoneTabs) and (I < ScenarioStoneTabMax) then
       AddStoneTab(X, Y);
   end;
+  AddCapitalParty;
+
+  LeaderPartyIndex := High(Party) + 1;
+
   Leader.AddToParty;
 end;
 

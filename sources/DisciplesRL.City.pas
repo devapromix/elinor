@@ -29,7 +29,9 @@ function GetOwnerCount: Integer;
 implementation
 
 uses
+  Vcl.Dialogs,
   System.Math,
+  System.SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Leader,
@@ -140,9 +142,6 @@ begin
           end;
           ClearObj(City[I].X, City[I].Y);
           UpdateRadius(I);
-          // Party
-          CapitalParty.SetLocation(Leader.X, Leader.Y);
-          CapitalParty.AddCreature(Characters[Leader.Race][cgGuardian][ckGuardian], 3);
         end;
       1 .. NCity: // City
         begin
