@@ -155,7 +155,7 @@ begin
     K_KP_5, K_S:
       Leader.Move(drOrigin);
     K_P:
-      DisciplesRL.Scene.Party.Show(LeaderParty, scMap);
+      DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scMap);
   end;
 
 end;

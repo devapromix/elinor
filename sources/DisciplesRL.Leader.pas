@@ -202,17 +202,17 @@ procedure TLeader.AddToParty;
 var
   C: TCreatureEnum;
 begin
-  LeaderParty.SetLocation(Leader.X, Leader.Y);
+  Party[LeaderPartyIndex].SetLocation(Leader.X, Leader.Y);
   C := Characters[Leader.Race][cgLeaders][TRaceCharKind(HireIndex)];
   case GetCharacter(C).ReachEnum of
     reAdj:
       begin
-        LeaderParty.AddCreature(C, 2);
+        Party[LeaderPartyIndex].AddCreature(C, 2);
         ActivePartyPosition := 2;
       end
   else
     begin
-      LeaderParty.AddCreature(C, 3);
+      Party[LeaderPartyIndex].AddCreature(C, 3);
       ActivePartyPosition := 3;
     end;
   end;

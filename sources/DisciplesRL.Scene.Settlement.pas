@@ -133,7 +133,7 @@ begin
     CurrentCityIndex]));
 
   if (GetDistToCapital(Leader.X, Leader.Y) = 0) or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, LeaderParty, LeaderParty.Count < Leader.MaxLeadership)
+    RenderParty(psLeft, Party[LeaderPartyIndex], Party[LeaderPartyIndex].Count < Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
 
@@ -157,13 +157,13 @@ procedure Hire;
         InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      if (((AParty = LeaderParty) and (LeaderParty.Count < Leader.MaxLeadership)) or (AParty <> LeaderParty)) then
+      if (((AParty = Party[LeaderPartyIndex]) and (Party[LeaderPartyIndex].Count < Leader.MaxLeadership)) or (AParty <> Party[LeaderPartyIndex])) then
       begin
         DisciplesRL.Scene.Hire.Show(AParty, APosition);
       end
       else
       begin
-        if (LeaderParty.Count = Leader.MaxLeadership) then
+        if (Party[LeaderPartyIndex].Count = Leader.MaxLeadership) then
           InformDialog('Нужно развить лидерство!')
         else
           InformDialog('Не возможно нанять!');
@@ -176,7 +176,7 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Hire(LeaderParty, ActivePartyPosition);
+      Hire(Party[LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Hire(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -210,7 +210,7 @@ procedure Dismiss;
 begin
   case ActivePartyPosition of
     0 .. 5:
-      Dismiss(LeaderParty, ActivePartyPosition);
+      Dismiss(Party[LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Dismiss(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -266,7 +266,7 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Heal(LeaderParty, ActivePartyPosition);
+      Heal(Party[LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Heal(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -310,7 +310,7 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Revive(LeaderParty, ActivePartyPosition);
+      Revive(Party[LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Revive(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -385,16 +385,16 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (LeaderParty.Count >= Leader.MaxLeadership))
+        if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (Party[LeaderPartyIndex].Count >= Leader.MaxLeadership))
         then
           Exit;
-        LeaderParty.ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
+        Party[LeaderPartyIndex].ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
       end;
     mbMiddle:
       begin
         case GetPartyPosition(X, Y) of
           0 .. 5:
-            DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
+            DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scSettlement);
         else
           DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
         end;
@@ -416,7 +416,7 @@ begin
     K_ESCAPE, K_ENTER:
       Close;
     K_P:
-      DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
+      DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scSettlement);
     K_A:
       Hire;
     K_H:

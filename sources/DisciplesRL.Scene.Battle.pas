@@ -171,7 +171,7 @@ var
 begin
   Log.Clear;
   I := GetPartyIndex(Leader.X, Leader.Y);
-  if LeaderParty.IsClear then
+  if Party[LeaderPartyIndex].IsClear then
     Defeat;
   if Party[I].IsClear then
     Victory;
@@ -262,7 +262,7 @@ begin
   Render2;
   //
   F := False;
-  if LeaderParty.IsClear then
+  if Party[LeaderPartyIndex].IsClear then
   begin
     DrawTitle(reTitleDefeat);
     F := True;
@@ -306,7 +306,7 @@ begin
   N := GetPartyPosition(X, Y);
   if (N < 0) then
     Exit;
-  if LeaderParty.IsClear then
+  if Party[LeaderPartyIndex].IsClear then
     Exit;
   I := GetPartyIndex(Leader.X, Leader.Y);
   if Party[I].IsClear then

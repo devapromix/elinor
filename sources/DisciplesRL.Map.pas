@@ -70,7 +70,6 @@ begin
     Clear(L);
   end;
   DisciplesRL.City.Init;
-  LeaderParty := TParty.Create(Leader.X, Leader.Y, Leader.Race);
 end;
 
 procedure Clear(const L: TLayerEnum);
@@ -98,6 +97,14 @@ begin
   SetLength(Party, GetPartyCount + 1);
   Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, Leader.Race);
   Party[GetPartyCount - 1].AddCreature(Characters[Leader.Race][cgGuardian][ckGuardian], 3);
+end;
+
+procedure AddLeaderParty;
+begin
+  LeaderPartyIndex := High(Party) + 1;
+  SetLength(Party, GetPartyCount + 1);
+  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, Leader.Race);
+  Leader.AddToParty;
 end;
 
 procedure Gen;
@@ -190,10 +197,7 @@ begin
       AddStoneTab(X, Y);
   end;
   AddCapitalParty;
-
-  LeaderPartyIndex := High(Party) + 1;
-
-  Leader.AddToParty;
+  AddLeaderParty;
 end;
 
 function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;

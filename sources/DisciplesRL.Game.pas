@@ -39,8 +39,6 @@ var
   IsGame: Boolean = False;
   CurrentScenario: TScenarioEnum = sgDarkTower;
   Party: array of TParty;
-  LeaderParty: TParty;
-//  CapitalParty: TParty;
 
 procedure Init;
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
@@ -233,8 +231,6 @@ end;
 procedure Free;
 begin
   PartyFree;
-  if Assigned(LeaderParty) then
-    FreeAndNil(LeaderParty);
 end;
 
 var

@@ -33,9 +33,9 @@ function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False);
 procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
-  ChToHit: Integer); overload;
+  ChToHit: Integer; IsExp: Boolean); overload;
 procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer); overload;
-procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
+procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum; IsAdv: Boolean = True); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
 procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHire: Boolean = False); overload;
 
@@ -160,7 +160,7 @@ end;
 
 procedure Close;
 begin
-  if CurrentParty <> LeaderParty then
+  if CurrentParty <> Party[LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
   DisciplesRL.Scenes.CurrentScene := BackScene;
 end;
@@ -246,10 +246,15 @@ begin
     Surface.Canvas.Draw(AX, AY, ResImage[reFrame]);
 end;
 
-procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer);
+procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer; IsExp: Boolean);
+var
+  S: string;
 begin
   Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Name);
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 27, Format('Уровень %d Опыт %d/%d', [Level, Experience, LeaderParty.GetMaxExperience(Level)]));
+  S := '';
+  if IsExp then
+    S := Format(' Опыт %d/%d', [Experience, Party[LeaderPartyIndex].GetMaxExperience(Level)]);
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]));
   Surface.Canvas.TextOut(AX + Left + 64, AY + 48, Format('Здоровье %d/%d', [HitPoints, MaxHitPoints]));
   if Damage > 0 then
     Surface.Canvas.TextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d', [Damage, Armor]))
@@ -263,14 +268,14 @@ begin
   with Party.Creature[Position] do
   begin
     if Active then
-      RenderUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit);
+      RenderUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, True);
   end;
 end;
 
-procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum);
+procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum; IsAdv: Boolean = True);
 begin
   with GetCharacter(ACreature) do
-    RenderUnitInfo(Name, AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal, Armor, Initiative, ChancesToHit);
+    RenderUnitInfo(Name, AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);

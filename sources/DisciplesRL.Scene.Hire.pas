@@ -371,7 +371,7 @@ begin
           with GetCharacter(Characters[Leader.Race][cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Leader.Race][cgLeaders][K]);
+            RenderUnitInfo(Lf, Top + Y, Characters[Leader.Race][cgLeaders][K], False);
           end;
           Inc(Y, 120);
         end;
