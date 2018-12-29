@@ -48,7 +48,9 @@ uses
   DisciplesRL.City,
   DisciplesRL.PathFind,
   DisciplesRL.Game,
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Scene.Party;
 
 function GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin
@@ -100,11 +102,25 @@ begin
 end;
 
 procedure AddLeaderParty;
+var
+  C: TCreatureEnum;
 begin
   LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, GetPartyCount + 1);
   Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, Leader.Race);
-  Leader.AddToParty;
+  C := Characters[Leader.Race][cgLeaders][TRaceCharKind(HireIndex)];
+  case GetCharacter(C).ReachEnum of
+    reAdj:
+      begin
+        Party[LeaderPartyIndex].AddCreature(C, 2);
+        ActivePartyPosition := 2;
+      end
+  else
+    begin
+      Party[LeaderPartyIndex].AddCreature(C, 3);
+      ActivePartyPosition := 3;
+    end;
+  end;
 end;
 
 procedure Gen;

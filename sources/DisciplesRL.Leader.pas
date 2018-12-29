@@ -27,7 +27,6 @@ type
     destructor Destroy; override;
     procedure Clear;
     procedure ChCityOwner;
-    procedure AddToParty;
     procedure RefreshRadius;
     procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
     procedure Turn(const Count: Integer = 1);
@@ -57,7 +56,6 @@ uses
   DisciplesRL.PascalScript.Vars,
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Info;
 
@@ -196,26 +194,6 @@ begin
   Speed := MaxSpeed;
   FRadius := IfThen(Wizard, 9, 1);
   RefreshRadius;
-end;
-
-procedure TLeader.AddToParty;
-var
-  C: TCreatureEnum;
-begin
-  Party[LeaderPartyIndex].SetLocation(Leader.X, Leader.Y);
-  C := Characters[Leader.Race][cgLeaders][TRaceCharKind(HireIndex)];
-  case GetCharacter(C).ReachEnum of
-    reAdj:
-      begin
-        Party[LeaderPartyIndex].AddCreature(C, 2);
-        ActivePartyPosition := 2;
-      end
-  else
-    begin
-      Party[LeaderPartyIndex].AddCreature(C, 3);
-      ActivePartyPosition := 3;
-    end;
-  end;
 end;
 
 constructor TLeader.Create;
