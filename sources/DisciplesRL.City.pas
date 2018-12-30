@@ -66,10 +66,10 @@ end;
 
 procedure UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], RaceTerrain[Leader.Race],
+  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], RaceTerrain[LeaderRace],
     [reNeutralCity, reRuin, reTower] + Capitals + Cities);
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
-  City[AID].Owner := Leader.Race;
+  City[AID].Owner := LeaderRace;
 end;
 
 function GetRadius(const N: Integer): Integer;
@@ -132,7 +132,7 @@ begin
       0: // Capital
         begin
           Leader.SetLocation(City[I].X, City[I].Y);
-          case Leader.Race of
+          case LeaderRace of
             reTheEmpire:
               Map[lrTile][City[I].X, City[I].Y] := reTheEmpireCapital;
             reUndeadHordes:

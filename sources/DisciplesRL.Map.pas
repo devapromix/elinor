@@ -97,8 +97,8 @@ procedure AddCapitalParty;
 begin
   CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, Leader.Race);
-  Party[GetPartyCount - 1].AddCreature(Characters[Leader.Race][cgGuardian][ckGuardian], 3);
+  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, LeaderRace);
+  Party[GetPartyCount - 1].AddCreature(Characters[LeaderRace][cgGuardian][ckGuardian], 3);
 end;
 
 procedure AddLeaderParty;
@@ -107,8 +107,8 @@ var
 begin
   LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, Leader.Race);
-  C := Characters[Leader.Race][cgLeaders][TRaceCharKind(HireIndex)];
+  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, LeaderRace);
+  C := Characters[LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case GetCharacter(C).ReachEnum of
     reAdj:
       begin
@@ -136,6 +136,7 @@ var
         Map[lrObj][X, Y] := reTreeOak;
     end;
   end;
+
   procedure AddMountain(const X, Y: Integer);
   begin
     case Random(3) of

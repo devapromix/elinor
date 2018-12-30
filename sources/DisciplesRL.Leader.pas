@@ -22,7 +22,6 @@ type
   public
     Speed: Integer;
     MaxSpeed: Integer;
-    Race: TRaceEnum;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -178,7 +177,7 @@ end;
 
 procedure TLeader.ChCityOwner;
 begin
-  case Leader.Race of
+  case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
       Map[lrTile][X, Y] := reTheEmpireCity;
     reUndeadHordes:

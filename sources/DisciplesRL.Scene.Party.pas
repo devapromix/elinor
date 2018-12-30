@@ -53,7 +53,8 @@ uses
   DisciplesRL.Leader,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Map;
+  DisciplesRL.Map,
+  DisciplesRL.Scene.Map;
 
 type
   TButtonEnum = (btClose);
@@ -291,7 +292,7 @@ procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHir
 var
   F: Boolean;
 begin
-  F := Party.Owner = Leader.Race;
+  F := Party.Owner = LeaderRace;
   with Party.Creature[Position] do
   begin
     if Active then

@@ -3,7 +3,8 @@
 interface
 
 uses
-  DisciplesRL.Party;
+  DisciplesRL.Party,
+  DisciplesRL.Creatures;
 
 type
   TScenarioEnum = (sgDarkTower, sgScenario2, sgStoneTabs);
@@ -34,6 +35,7 @@ var
   StoneTab: Integer = 0;
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
+  LeaderRace: TRaceEnum;
   IsDay: Boolean = False;
   Wizard: Boolean = False;
   IsGame: Boolean = False;
@@ -60,7 +62,6 @@ uses
   System.Types,
   System.SysUtils,
   Vcl.Dialogs,
-  DisciplesRL.Creatures,
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
@@ -234,7 +235,7 @@ begin
 end;
 
 var
-  FStoneTab: array [1..ScenarioStoneTabMax] of TPoint;
+  FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
   J: Integer = 0;
 
 function IsStoneTab(const X, Y: Integer): Boolean;
@@ -243,11 +244,11 @@ var
 begin
   Result := False;
   for I := 1 to ScenarioStoneTabMax do
-   if (FStoneTab[I].X = X) and (FStoneTab[I].Y = Y) then
-   begin
-     Result := True;
-     Exit;
-   end;
+    if (FStoneTab[I].X = X) and (FStoneTab[I].Y = Y) then
+    begin
+      Result := True;
+      Exit;
+    end;
 end;
 
 procedure AddStoneTab(const X, Y: Integer);

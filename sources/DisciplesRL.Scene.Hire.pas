@@ -34,7 +34,8 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Leader;
+  DisciplesRL.Leader,
+  DisciplesRL.Map;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -101,17 +102,18 @@ begin
   case SubScene of
     stRace:
       begin
-        Leader.Race := TRaceEnum(CurrentIndex + 1);
+        LeaderRace := TRaceEnum(CurrentIndex + 1);
         DisciplesRL.Scene.Hire.Show(stLeader);
       end;
     stLeader:
       begin
         DisciplesRL.Game.Init;
+        Party[LeaderPartyIndex].Owner := LeaderRace;
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
     stCharacter:
       begin
-        HireParty.Hire(Characters[Leader.Race][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
+        HireParty.Hire(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
         DisciplesRL.Scenes.CurrentScene := scSettlement;
       end;
     stScenario:
@@ -187,9 +189,9 @@ begin
   K := TRaceCharKind(CurrentIndex);
   case SubScene of
     stCharacter:
-      C := Characters[Leader.Race][cgCharacters][K];
+      C := Characters[LeaderRace][cgCharacters][K];
     stLeader:
-      C := Characters[Leader.Race][cgLeaders][K];
+      C := Characters[LeaderRace][cgLeaders][K];
   end;
   with GetCharacter(C) do
   begin
@@ -351,10 +353,10 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with GetCharacter(Characters[Leader.Race][cgCharacters][K]) do
+          with GetCharacter(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Leader.Race][cgCharacters][K]);
+            RenderUnitInfo(Lf, Top + Y, Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]);
           end;
           Inc(Y, 120);
         end;
@@ -368,10 +370,10 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with GetCharacter(Characters[Leader.Race][cgLeaders][K]) do
+          with GetCharacter(Characters[LeaderRace][cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Leader.Race][cgLeaders][K], False);
+            RenderUnitInfo(Lf, Top + Y, Characters[LeaderRace][cgLeaders][K], False);
           end;
           Inc(Y, 120);
         end;

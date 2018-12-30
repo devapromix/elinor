@@ -33,8 +33,8 @@ const
   ScriptPath = 'resources\scripts';
   DataPath = 'resources\data';
 
-var
-  HP: TPSVar;
+//var
+//  HP: TPSVar;
 
 procedure ClearMessages;
 var
@@ -223,7 +223,6 @@ var
   Exec: TPSExec;
   S: string;
   Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
-  I: Integer;
   SL: TStringList;
 
   procedure ShowScriptErrors(const FileName: string);
