@@ -107,7 +107,7 @@ var
 begin
   LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, LeaderRace);
+  Party[GetPartyCount - 1] := TLeaderParty.Create(City[0].X, City[0].Y, LeaderRace);
   C := Characters[LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case GetCharacter(C).ReachEnum of
     reAdj:

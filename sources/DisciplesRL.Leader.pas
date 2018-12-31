@@ -26,7 +26,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     procedure ChCityOwner;
-    procedure RefreshRadius;
+    procedure UpdateRadius;
     procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
     procedure Turn(const Count: Integer = 1);
     procedure Move(const AX, AY: ShortInt); overload;
@@ -93,7 +93,7 @@ begin
   else
   begin
     SetLocation(AX, AY);
-    RefreshRadius;
+    UpdateRadius;
     Turn(1);
     F := True;
     case Map[lrObj][X, Y] of
@@ -141,7 +141,7 @@ begin
     NewDay;
 end;
 
-procedure TLeader.RefreshRadius;
+procedure TLeader.UpdateRadius;
 begin
   DisciplesRL.Map.UpdateRadius(X, Y, Radius, Map[lrDark], reNone);
 end;
@@ -192,7 +192,7 @@ begin
   MaxSpeed := 7;
   Speed := MaxSpeed;
   FRadius := IfThen(Wizard, 9, 1);
-  RefreshRadius;
+  UpdateRadius;
 end;
 
 constructor TLeader.Create;

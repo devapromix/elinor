@@ -45,6 +45,16 @@ type
     function GetMaxExperience(const Level: Integer): Integer;
   end;
 
+type
+  TLeaderParty = class(TParty)
+  private
+
+  public
+    constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
+    destructor Destroy; override;
+
+  end;
+
 implementation
 
 uses
@@ -264,6 +274,20 @@ begin
       if (HitPoints > 0) then
         if (AExperience > 0) then
           Experience := Experience + AExperience;
+end;
+
+{ TLeaderParty }
+
+constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
+begin
+  inherited Create(AX, AY, AOwner);
+
+end;
+
+destructor TLeaderParty.Destroy;
+begin
+
+  inherited;
 end;
 
 end.
