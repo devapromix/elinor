@@ -252,7 +252,7 @@ end;
 
 function IsLeaderMove(const X, Y: Integer): Boolean;
 begin
-  Result := InRect(X, Y, Leader.X - 1, Leader.Y - 1, Leader.X + 1, Leader.Y + 1) and not(Map[lrObj][X, Y] in StopTiles);
+  Result := (InRect(X, Y, Leader.X - 1, Leader.Y - 1, Leader.X + 1, Leader.Y + 1) or Wizard) and not(Map[lrObj][X, Y] in StopTiles);
 end;
 
 end.
