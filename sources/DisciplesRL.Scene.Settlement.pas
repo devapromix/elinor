@@ -64,7 +64,6 @@ var
 
 procedure Init;
 var
-  R: TResEnum;
   I: TButtonEnum;
   L, W: Integer;
 begin
@@ -385,8 +384,8 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (Party[LeaderPartyIndex].Count >= Leader.MaxLeadership))
-        then
+        if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
+          (Party[LeaderPartyIndex].Count >= Leader.MaxLeadership)) then
           Exit;
         Party[LeaderPartyIndex].ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
       end;
@@ -396,7 +395,8 @@ begin
           0 .. 5:
             DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scSettlement);
         else
-          DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
+          if not SettlementParty.IsClear then
+            DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
         end;
         Exit;
       end;

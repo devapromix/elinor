@@ -126,7 +126,6 @@ end;
 
 procedure Init;
 var
-  R: TResEnum;
   I: TButtonEnum;
   J: THireSubSceneEnum;
   L, W: Integer;
@@ -337,7 +336,7 @@ end;
 
 procedure Render;
 var
-  I, Y: Integer;
+  Y: Integer;
   R: TRaceEnum;
   K: TRaceCharKind;
   S: TScenarioEnum;
