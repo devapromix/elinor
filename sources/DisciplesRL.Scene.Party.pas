@@ -129,7 +129,6 @@ end;
 
 procedure Init;
 var
-  R: TResEnum;
   I: TButtonEnum;
   L, W: Integer;
 begin
@@ -156,6 +155,7 @@ procedure Render;
 begin
   DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
+  Surface.Canvas.Draw(GetFrameX(0, psRight), GetFrameY(0, psRight), ResImage[reBigFrame]);
   RenderButtons;
 end;
 
