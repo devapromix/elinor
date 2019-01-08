@@ -36,7 +36,7 @@ var
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   case Button of
-    mbRight:
+    mbMiddle:
       begin
         Leader.PutAt(MousePos.X, MousePos.Y, True);
       end;

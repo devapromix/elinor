@@ -81,6 +81,13 @@ begin
     end;
   if IsInfo then
   begin
+    if Map[lrTile][AX, AY] in Cities then
+    begin
+      I := GetPartyIndex(AX, AY);
+      if not Party[I].IsClear then
+        DisciplesRL.Scene.Party.Show(Party[I], scMap);
+      Exit;
+    end;
     case Map[lrObj][AX, AY] of
       reEnemy:
         begin
