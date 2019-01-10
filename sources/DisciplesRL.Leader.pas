@@ -81,6 +81,11 @@ begin
     end;
   if IsInfo then
   begin
+    if Map[lrTile][AX, AY] in Capitals then
+    begin
+        DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
+      Exit;
+    end;
     if Map[lrTile][AX, AY] in Cities then
     begin
       I := GetPartyIndex(AX, AY);
