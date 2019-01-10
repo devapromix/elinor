@@ -74,7 +74,7 @@ begin
       // Special
       if Wizard and (((CurrentScenario = sgStoneTabs) and IsStoneTab(X, Y)) or
         ((CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
-        ((CurrentScenario = sgScenario2) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
+        ((CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower

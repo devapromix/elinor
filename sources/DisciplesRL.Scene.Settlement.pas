@@ -317,7 +317,7 @@ end;
 
 procedure Close;
 begin
-  if (CurrentScenario = sgScenario2) then
+  if (CurrentScenario = sgOverlord) then
   begin
     if (GetOwnerCount = NCity) then
     begin

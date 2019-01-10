@@ -245,7 +245,7 @@ begin
   case AScenario of
     sgDarkTower:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
-    sgScenario2:
+    sgOverlord:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
     sgStoneTabs:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
