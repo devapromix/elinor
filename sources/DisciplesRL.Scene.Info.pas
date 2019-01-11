@@ -64,7 +64,7 @@ begin
       end;
     stStoneTab:
       begin
-        if (CurrentScenario = sgStoneTabs) then
+        if (CurrentScenario = sgAncientKnowledge) then
           if StoneTab >= ScenarioStoneTabMax then
           begin
             DisciplesRL.Scene.Info.Show(stVictory, scInfo);

@@ -247,7 +247,7 @@ begin
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
     sgOverlord:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
-    sgStoneTabs:
+    sgAncientKnowledge:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
   end;
 end;

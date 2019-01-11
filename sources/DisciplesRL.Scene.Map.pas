@@ -72,7 +72,7 @@ begin
         (Map[lrDark][X, Y] = reNone);
 
       // Special
-      if Wizard and (((CurrentScenario = sgStoneTabs) and IsStoneTab(X, Y)) or
+      if Wizard and (((CurrentScenario = sgAncientKnowledge) and IsStoneTab(X, Y)) or
         ((CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
         ((CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[reCursorSpecial]);

@@ -7,7 +7,7 @@ uses
   DisciplesRL.Creatures;
 
 type
-  TScenarioEnum = (sgDarkTower, sgOverlord, sgStoneTabs);
+  TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
 
 const
   ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Повелитель', 'Древние Знания');
@@ -16,7 +16,7 @@ const
   ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
     // Темная Башня
     ('', '', '', '', '', '', '', '', '', '', 'Цель: разрушить Темную Башню'),
-    // Сценарий II
+    // Повелитель
     ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
     // Древние Знания
     ('', '', '', '', '', '', '', '', '', '', 'Цель: найти все каменные таблички')
