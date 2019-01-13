@@ -15,7 +15,8 @@ type
     reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
-    reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard);
+    reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
+    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
@@ -236,7 +237,13 @@ const
     // Title "Sodek"
     (FileName: 'title.city.sodek.png'; ResType: teGUI;),
     // Title "Sard"
-    (FileName: 'title.city.sard.png'; ResType: teGUI;)
+    (FileName: 'title.city.sard.png'; ResType: teGUI;),
+    // Scenario "Dark Tower"
+    (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
+    // Scenario "Overlord"
+    (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
+    // Scenario "Ancient Knowledge"
+    (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;)
     //
     );
 

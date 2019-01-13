@@ -244,11 +244,11 @@ procedure RenderScenario(const AScenario: TScenarioEnum; const AX, AY: Integer);
 begin
   case AScenario of
     sgDarkTower:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reScenarioDarkTower]);
     sgOverlord:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reScenarioOverlord]);
     sgAncientKnowledge:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reScenarioAncientKnowledge]);
   end;
 end;
 
