@@ -54,6 +54,9 @@ const
     // Journal
     (reTextClose, reTextClose));
 
+const
+  CloseButtonScene = [stJournal];
+
 var
   HireParty: TParty = nil;
   HirePosition: Integer = 0;
@@ -64,7 +67,12 @@ var
 
 procedure Show(const ASubScene: THireSubSceneEnum);
 begin
-  CurrentIndex := 0;
+  case ASubScene of
+    stJournal:
+      CurrentIndex := Ord(CurrentScenario);
+  else
+    CurrentIndex := 0;
+  end;
   SubScene := ASubScene;
   DisciplesRL.Scenes.CurrentScene := scHire;
 end;
@@ -97,6 +105,8 @@ begin
       DisciplesRL.Scene.Hire.Show(stScenario);
     stScenario:
       DisciplesRL.Scenes.CurrentScene := scMenu;
+    stJournal:
+      DisciplesRL.Scenes.CurrentScene := scMap;
   end;
 end;
 
@@ -125,9 +135,7 @@ begin
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
     stJournal:
-      begin
-        DisciplesRL.Scenes.CurrentScene := scMap;
-      end;
+      DisciplesRL.Scenes.CurrentScene := scMap;
   end;
 end;
 
@@ -140,16 +148,20 @@ begin
   for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
     W := ResImage[reButtonDef].Width + 4;
-    L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-    Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+    if (J in CloseButtonScene) then
+      L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2)
+    else
+      L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
     for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
       Button[J][I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[J][I]);
-      Inc(L, W);
+      if not(J in CloseButtonScene) then
+        Inc(L, W);
       if (I = btOk) then
         Button[J][I].Sellected := True;
     end;
   end;
+  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
 end;
 
 procedure RenderCharacterInfo;
@@ -337,8 +349,11 @@ procedure RenderButtons;
 var
   I: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[SubScene][I].Render;
+  if (SubScene in CloseButtonScene) then
+    Button[SubScene][btOk].Render
+  else
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[SubScene][I].Render;
 end;
 
 procedure Render;
@@ -430,17 +445,20 @@ end;
 
 procedure MouseClick(X, Y: Integer);
 begin
-  if MouseOver(Lf, Top, X, Y) then
+  if not(SubScene in CloseButtonScene) then
   begin
-    CurrentIndex := 0;
-  end;
-  if MouseOver(Lf, Top + 120, X, Y) then
-  begin
-    CurrentIndex := 1;
-  end;
-  if MouseOver(Lf, Top + 240, X, Y) then
-  begin
-    CurrentIndex := 2;
+    if MouseOver(Lf, Top, X, Y) then
+    begin
+      CurrentIndex := 0;
+    end;
+    if MouseOver(Lf, Top + 120, X, Y) then
+    begin
+      CurrentIndex := 1;
+    end;
+    if MouseOver(Lf, Top + 240, X, Y) then
+    begin
+      CurrentIndex := 2;
+    end;
   end;
   case SubScene of
     stCharacter:
@@ -473,7 +491,7 @@ begin
       end;
     stJournal:
       begin
-        if Button[stScenario][btOk].MouseDown then
+        if Button[stJournal][btOk].MouseDown then
           Ok;
       end;
   end;
@@ -483,8 +501,11 @@ procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 var
   I: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[SubScene][I].MouseMove(X, Y);
+  if (SubScene in CloseButtonScene) then
+    Button[SubScene][btOk].MouseMove(X, Y)
+  else
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[SubScene][I].MouseMove(X, Y);
   Render;
 end;
 
@@ -535,12 +556,14 @@ begin
         K_DOWN:
           CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
       end;
-    stJournal:
-      case Key of
-        K_ESCAPE, K_ENTER:
-          Ok;
-      end;
   end;
+  if (SubScene in CloseButtonScene) then
+    case Key of
+      K_ESCAPE:
+        Back;
+      K_ENTER:
+        Ok;
+    end;
 end;
 
 procedure Free;
