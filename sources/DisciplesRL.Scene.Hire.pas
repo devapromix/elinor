@@ -8,7 +8,7 @@ uses
   DisciplesRL.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario);
+  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal);
 
 procedure Init;
 procedure Render;
@@ -35,7 +35,8 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Leader,
-  DisciplesRL.Map;
+  DisciplesRL.Map,
+  DisciplesRL.Scene.Map;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -49,7 +50,9 @@ const
     // Race
     (reTextContinue, reTextCancel),
     // Scenario
-    (reTextContinue, reTextCancel));
+    (reTextContinue, reTextCancel),
+    // Journal
+    (reTextClose, reTextClose));
 
 var
   HireParty: TParty = nil;
@@ -120,6 +123,10 @@ begin
       begin
         CurrentScenario := TScenarioEnum(CurrentIndex);
         DisciplesRL.Scene.Hire.Show(stRace);
+      end;
+    stJournal:
+      begin
+        DisciplesRL.Scenes.CurrentScene := scMap;
       end;
   end;
 end;
@@ -390,7 +397,7 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stScenario:
+    stScenario, stJournal:
       begin
         DrawTitle(reTitleScenario);
         for S := Low(TScenarioEnum) to High(TScenarioEnum) do
@@ -410,7 +417,7 @@ begin
       RenderCharacterInfo;
     stRace:
       RenderRaceInfo;
-    stScenario:
+    stScenario, stJournal:
       RenderScenarioInfo;
   end;
   RenderButtons;
@@ -463,6 +470,11 @@ begin
           Ok;
         if Button[stScenario][btClose].MouseDown then
           Back;
+      end;
+    stJournal:
+      begin
+        if Button[stScenario][btOk].MouseDown then
+          Ok;
       end;
   end;
 end;
@@ -522,6 +534,11 @@ begin
           CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));
         K_DOWN:
           CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
+      end;
+    stJournal:
+      case Key of
+        K_ESCAPE, K_ENTER:
+          Ok;
       end;
   end;
 end;

@@ -28,7 +28,8 @@ uses
   Vcl.Dialogs,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Game,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Hire;
 
 var
   LastMousePos, MousePos: TPoint;
@@ -156,6 +157,8 @@ begin
       Leader.Move(drOrigin);
     K_P:
       DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scMap);
+    K_J:
+      DisciplesRL.Scene.Hire.Show(stJournal);
   end;
 
 end;
