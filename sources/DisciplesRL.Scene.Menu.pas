@@ -18,6 +18,7 @@ procedure Free;
 implementation
 
 uses
+  Math,
   Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Scenes,
@@ -129,6 +130,10 @@ begin
       Ok;
     K_ESCAPE:
       DisciplesRL.MainForm.MainForm.Close;
+    K_UP:
+      MainMenuCursorPos := Math.EnsureRange(MainMenuCursorPos - 1, 0, Ord(High(TButtonEnum)));
+    K_DOWN:
+      MainMenuCursorPos := Math.EnsureRange(MainMenuCursorPos + 1, 0, Ord(High(TButtonEnum)));
   end;
 end;
 
