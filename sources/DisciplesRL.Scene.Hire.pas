@@ -343,6 +343,11 @@ begin
   Add;
   for J := 0 to 10 do
     Add(ScenarioDescription[S][J]);
+  if IsGame then
+    case CurrentScenario of
+      sgAncientKnowledge:
+        Add(ScenarioAncientKnowledgeState);
+    end;
 end;
 
 procedure RenderButtons;

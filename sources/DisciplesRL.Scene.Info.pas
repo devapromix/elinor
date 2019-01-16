@@ -129,7 +129,7 @@ begin
       begin
         DrawTitle(reTitleLoot);
         CenterTextOut(300, 'КАМЕННАЯ ТАБЛИЧКА');
-        CenterTextOut(350, Format('Найдено %d из %d', [StoneTab, ScenarioStoneTabMax]));
+        CenterTextOut(350, ScenarioAncientKnowledgeState);
       end;
     stDay:
       begin

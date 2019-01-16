@@ -54,6 +54,7 @@ procedure NewDay;
 procedure Free;
 function IsStoneTab(const X, Y: Integer): Boolean;
 procedure AddStoneTab(const X, Y: Integer);
+function ScenarioAncientKnowledgeState: string;
 
 implementation
 
@@ -256,6 +257,11 @@ begin
   Inc(J);
   FStoneTab[J].X := X;
   FStoneTab[J].Y := Y;
+end;
+
+function ScenarioAncientKnowledgeState: string;
+begin
+  Result := Format('Найдено каменных табличек %d из %d', [StoneTab, ScenarioStoneTabMax]);
 end;
 
 end.
