@@ -54,6 +54,7 @@ procedure NewDay;
 procedure Free;
 function IsStoneTab(const X, Y: Integer): Boolean;
 procedure AddStoneTab(const X, Y: Integer);
+function ScenarioOverlordState: string;
 function ScenarioAncientKnowledgeState: string;
 
 implementation
@@ -68,7 +69,8 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Leader,
   DisciplesRL.Scene.Info,
-  DisciplesRL.Scene.Settlement;
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.City;
 
 type
   TPartyBase = record
@@ -259,9 +261,14 @@ begin
   FStoneTab[J].Y := Y;
 end;
 
+function ScenarioOverlordState: string;
+begin
+  Result := Format('Захвачено городов: %d из %d', [GetOwnerCount, NCity]);
+end;
+
 function ScenarioAncientKnowledgeState: string;
 begin
-  Result := Format('Найдено каменных табличек %d из %d', [StoneTab, ScenarioStoneTabMax]);
+  Result := Format('Найдено каменных табличек: %d из %d', [StoneTab, ScenarioStoneTabMax]);
 end;
 
 end.

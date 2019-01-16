@@ -345,6 +345,8 @@ begin
     Add(ScenarioDescription[S][J]);
   if IsGame then
     case CurrentScenario of
+      sgOverlord:
+        Add(ScenarioOverlordState);
       sgAncientKnowledge:
         Add(ScenarioAncientKnowledgeState);
     end;
