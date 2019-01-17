@@ -316,11 +316,14 @@ begin
     K_ESCAPE, K_ENTER:
       Finish;
     K_SPACE:
-      NextTurn;
+      if Wizard then
+        NextTurn;
     K_D:
-      Defeat;
+      if Wizard then
+        Defeat;
     K_V:
-      Victory;
+      if Wizard then
+        Victory;
   end;
 end;
 
