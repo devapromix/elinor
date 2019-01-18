@@ -1,4 +1,4 @@
-![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/disciplesrl.png)
+![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/title.logo.png)
 
 Simple roguelike game based on Disciples.
 
@@ -28,7 +28,7 @@ The game is currently in demo stage with very limited contents and lots of issue
 Contributions are welcome! Please fork this repository and then once you have made and tested your changes, submit a pull request.
 
 ## Credits
-Copyright (C) 2018 by Sergiy Tkach (Apromix).
+Copyright (C) 2018-2019 by Sergiy Tkach (Apromix).
 
 DisciplesRL is open source, written in pascal, the full source is available at:
 https://github.com/devapromix-roguelikes/disciplesrl
