@@ -59,6 +59,8 @@ begin
         DisciplesRL.Scenes.CurrentScene := scMap;
     2: // High Scores
       DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+    3: // Exit;
+      DisciplesRL.MainForm.MainForm.Close;
   end;
 end;
 
@@ -111,7 +113,7 @@ begin
   if Button[btHighScores].MouseDown then
     Ok(2);
   if Button[btQuit].MouseDown then
-    DisciplesRL.MainForm.MainForm.Close;
+    Ok(3);
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
