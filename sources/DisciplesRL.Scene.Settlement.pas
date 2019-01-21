@@ -319,7 +319,7 @@ procedure Close;
 begin
   if (CurrentScenario = sgOverlord) then
   begin
-    if (GetOwnerCount = NCity) then
+    if (GetCityOwnerCount = NCity) then
     begin
       DisciplesRL.Scene.Info.Show(stVictory, scInfo);
       Exit;

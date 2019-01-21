@@ -8,7 +8,7 @@ uses
   DisciplesRL.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal);
+  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal, stVictory2, stDefeat2);
 
 procedure Init;
 procedure Render;

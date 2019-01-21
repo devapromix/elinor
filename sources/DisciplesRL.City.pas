@@ -24,7 +24,7 @@ procedure Gen;
 procedure Init;
 function GetCityIndex(const AX, AY: Integer): Integer;
 procedure UpdateRadius(const AID: Integer);
-function GetOwnerCount: Integer;
+function GetCityOwnerCount: Integer;
 
 implementation
 
@@ -172,7 +172,7 @@ begin
   end;
 end;
 
-function GetOwnerCount: Integer;
+function GetCityOwnerCount: Integer;
 var
   I: Integer;
 begin

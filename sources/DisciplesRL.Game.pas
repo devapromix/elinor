@@ -263,7 +263,7 @@ end;
 
 function ScenarioOverlordState: string;
 begin
-  Result := Format('Захвачено городов: %d из %d', [GetOwnerCount, NCity]);
+  Result := Format('Захвачено городов: %d из %d', [GetCityOwnerCount, NCity]);
 end;
 
 function ScenarioAncientKnowledgeState: string;
