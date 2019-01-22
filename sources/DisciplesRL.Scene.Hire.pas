@@ -36,7 +36,8 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Leader,
   DisciplesRL.Map,
-  DisciplesRL.Scene.Map;
+  DisciplesRL.Scene.Map,
+  DisciplesRL.Scene.Info;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -52,10 +53,16 @@ const
     // Scenario
     (reTextContinue, reTextCancel),
     // Journal
-    (reTextClose, reTextClose));
+    (reTextClose, reTextClose),
+    // Victory
+    (reTextClose, reTextClose),
+    // Defeat
+    (reTextClose, reTextClose)
+
+    );
 
 const
-  CloseButtonScene = [stJournal];
+  CloseButtonScene = [stJournal, stVictory2, stDefeat2];
 
 var
   HireParty: TParty = nil;
@@ -107,6 +114,18 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMenu;
     stJournal:
       DisciplesRL.Scenes.CurrentScene := scMap;
+    stDefeat2:
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+        Exit;
+      end;
+    stVictory2:
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+        Exit;
+      end;
   end;
 end;
 
@@ -136,6 +155,18 @@ begin
       end;
     stJournal:
       DisciplesRL.Scenes.CurrentScene := scMap;
+    stDefeat2:
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+        Exit;
+      end;
+    stVictory2:
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+        Exit;
+      end;
   end;
 end;
 
@@ -352,6 +383,11 @@ begin
     end;
 end;
 
+procedure RenderFinalInfo;
+begin
+
+end;
+
 procedure RenderButtons;
 var
   I: TButtonEnum;
@@ -432,6 +468,14 @@ begin
           Inc(Y, 120);
         end;
       end;
+    stVictory2:
+      begin
+        DrawTitle(reTitleVictory);
+      end;
+    stDefeat2:
+      begin
+        DrawTitle(reTitleDefeat);
+      end;
   end;
   Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top, ResImage[reInfoFrame]);
   case SubScene of
@@ -441,6 +485,8 @@ begin
       RenderRaceInfo;
     stScenario, stJournal:
       RenderScenarioInfo;
+    stVictory2, stDefeat2:
+      RenderFinalInfo;
   end;
   RenderButtons;
 end;
@@ -496,12 +542,13 @@ begin
         if Button[stScenario][btClose].MouseDown then
           Back;
       end;
-    stJournal:
-      begin
-        if Button[stJournal][btOk].MouseDown then
-          Ok;
-      end;
   end;
+  if (SubScene in CloseButtonScene) then
+  begin
+    if Button[stJournal][btOk].MouseDown then
+      Ok;
+  end;
+
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -558,6 +605,13 @@ begin
           Back;
         K_ENTER:
           Ok;
+        K_UP:
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));
+        K_DOWN:
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
+      end;
+    stVictory2, stDefeat2:
+      case Key of
         K_UP:
           CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));
         K_DOWN:
