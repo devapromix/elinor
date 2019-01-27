@@ -8,7 +8,7 @@ uses
   Vcl.Controls;
 
 type
-  TInfoSubSceneEnum = (stDay, stLoot, stStoneTab, stHighScores, stVictory, stDefeat);
+  TInfoSubSceneEnum = (stDay, stLoot, stStoneTab, stHighScores);
 
 procedure Init;
 procedure Render;
@@ -31,7 +31,8 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Leader,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.GUI.Button;
+  DisciplesRL.GUI.Button,
+  DisciplesRL.Scene.Hire;
 
 var
   Button: TButton;
@@ -50,24 +51,12 @@ var
   F: Boolean;
 begin
   case SubScene of
-    stDefeat:
-      begin
-        IsGame := False;
-        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
-        Exit;
-      end;
-    stVictory:
-      begin
-        IsGame := False;
-        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
-        Exit;
-      end;
     stStoneTab:
       begin
         if (CurrentScenario = sgAncientKnowledge) then
           if StoneTab >= ScenarioStoneTabMax then
           begin
-            DisciplesRL.Scene.Info.Show(stVictory, scInfo);
+            DisciplesRL.Scene.Hire.Show(stVictory2);
             F := False;
           end
           else
@@ -89,7 +78,7 @@ begin
             case LeaderTile of
               reTower:
                 begin
-                  DisciplesRL.Scene.Info.Show(stVictory, scInfo);
+                  DisciplesRL.Scene.Hire.Show(stVictory2);
                   F := False;
                 end;
             end;
@@ -121,10 +110,6 @@ end;
 procedure Render;
 begin
   case SubScene of
-    stDefeat:
-      DrawTitle(reTitleDefeat);
-    stVictory:
-      DrawTitle(reTitleVictory);
     stStoneTab:
       begin
         DrawTitle(reTitleLoot);

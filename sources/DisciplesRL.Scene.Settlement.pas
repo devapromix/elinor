@@ -321,7 +321,7 @@ begin
   begin
     if (GetCityOwnerCount = NCity) then
     begin
-      DisciplesRL.Scene.Info.Show(stVictory, scInfo);
+      DisciplesRL.Scene.Hire.Show(stVictory2);
       Exit;
     end;
   end;

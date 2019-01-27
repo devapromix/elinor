@@ -34,7 +34,8 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.BattleLog,
   DisciplesRL.Party,
-  DisciplesRL.Scene.Info;
+  DisciplesRL.Scene.Info,
+  DisciplesRL.Scene.Hire;
 
 var
   Log: TLog;
@@ -99,7 +100,7 @@ end;
 
 procedure Defeat;
 begin
-  DisciplesRL.Scene.Info.Show(stDefeat, scInfo);
+  DisciplesRL.Scene.Hire.Show(stDefeat2);
 end;
 
 procedure Start;

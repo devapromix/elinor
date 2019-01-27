@@ -40,7 +40,8 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
   DisciplesRL.PascalScript.Battle,
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.Scene.Hire;
 
 var
   P: array [1 .. 12] of TPoint;
@@ -162,7 +163,7 @@ end;
 
 procedure Defeat;
 begin
-  DisciplesRL.Scene.Info.Show(stDefeat, scMenu);
+  DisciplesRL.Scene.Hire.Show(stDefeat2);
 end;
 
 procedure Finish;
