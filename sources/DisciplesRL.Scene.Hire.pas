@@ -545,7 +545,7 @@ begin
   end;
   if (SubScene in CloseButtonScene) then
   begin
-    if Button[stJournal][btOk].MouseDown then
+    if Button[SubScene][btOk].MouseDown then
       Ok;
   end;
 
