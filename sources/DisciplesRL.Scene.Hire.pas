@@ -8,7 +8,7 @@ uses
   DisciplesRL.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal, stVictory2, stDefeat2);
+  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal, stVictory, stDefeat);
 
 procedure Init;
 procedure Render;
@@ -62,7 +62,7 @@ const
     );
 
 const
-  CloseButtonScene = [stJournal, stVictory2, stDefeat2];
+  CloseButtonScene = [stJournal, stVictory, stDefeat];
 
 var
   HireParty: TParty = nil;
@@ -114,13 +114,13 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMenu;
     stJournal:
       DisciplesRL.Scenes.CurrentScene := scMap;
-    stDefeat2:
+    stDefeat:
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
         Exit;
       end;
-    stVictory2:
+    stVictory:
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
@@ -155,13 +155,13 @@ begin
       end;
     stJournal:
       DisciplesRL.Scenes.CurrentScene := scMap;
-    stDefeat2:
+    stDefeat:
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
         Exit;
       end;
-    stVictory2:
+    stVictory:
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
@@ -468,11 +468,11 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stVictory2:
+    stVictory:
       begin
         DrawTitle(reTitleVictory);
       end;
-    stDefeat2:
+    stDefeat:
       begin
         DrawTitle(reTitleDefeat);
       end;
@@ -485,7 +485,7 @@ begin
       RenderRaceInfo;
     stScenario, stJournal:
       RenderScenarioInfo;
-    stVictory2, stDefeat2:
+    stVictory, stDefeat:
       RenderFinalInfo;
   end;
   RenderButtons;
@@ -610,7 +610,7 @@ begin
         K_DOWN:
           CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
       end;
-    stVictory2, stDefeat2:
+    stVictory, stDefeat:
       case Key of
         K_UP:
           CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));

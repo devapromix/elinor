@@ -100,7 +100,7 @@ end;
 
 procedure Defeat;
 begin
-  DisciplesRL.Scene.Hire.Show(stDefeat2);
+  DisciplesRL.Scene.Hire.Show(stDefeat);
 end;
 
 procedure Start;

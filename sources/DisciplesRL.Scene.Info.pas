@@ -56,7 +56,7 @@ begin
         if (CurrentScenario = sgAncientKnowledge) then
           if StoneTab >= ScenarioStoneTabMax then
           begin
-            DisciplesRL.Scene.Hire.Show(stVictory2);
+            DisciplesRL.Scene.Hire.Show(stVictory);
             F := False;
           end
           else
@@ -78,7 +78,7 @@ begin
             case LeaderTile of
               reTower:
                 begin
-                  DisciplesRL.Scene.Hire.Show(stVictory2);
+                  DisciplesRL.Scene.Hire.Show(stVictory);
                   F := False;
                 end;
             end;
