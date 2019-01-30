@@ -118,13 +118,11 @@ begin
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
-        Exit;
       end;
     stVictory:
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
-        Exit;
       end;
   end;
 end;
@@ -159,13 +157,11 @@ begin
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
-        Exit;
       end;
     stVictory:
       begin
         IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
-        Exit;
       end;
   end;
 end;

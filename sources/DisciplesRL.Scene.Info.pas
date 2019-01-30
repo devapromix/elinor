@@ -78,8 +78,9 @@ begin
             case LeaderTile of
               reTower:
                 begin
+                ShowMessage(IntToStr(0));
                   DisciplesRL.Scene.Hire.Show(stVictory);
-                  F := False;
+                  Exit;
                 end;
             end;
           end;
