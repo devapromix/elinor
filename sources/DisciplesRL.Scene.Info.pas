@@ -57,7 +57,7 @@ begin
           if StoneTab >= ScenarioStoneTabMax then
           begin
             DisciplesRL.Scene.Hire.Show(stVictory);
-            F := False;
+            Exit;
           end
           else
           begin
@@ -78,7 +78,6 @@ begin
             case LeaderTile of
               reTower:
                 begin
-                ShowMessage(IntToStr(0));
                   DisciplesRL.Scene.Hire.Show(stVictory);
                   Exit;
                 end;
