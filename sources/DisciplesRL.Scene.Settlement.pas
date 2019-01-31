@@ -317,6 +317,13 @@ end;
 
 procedure Close;
 begin
+  case LeaderTile of
+    reNeutralCity:
+      begin
+        Leader.ChCityOwner;
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Leader.X, Leader.Y));
+      end;
+  end;
   if (CurrentScenario = sgOverlord) then
   begin
     if (GetCityOwnerCount = NCity) then
@@ -324,13 +331,6 @@ begin
       DisciplesRL.Scene.Hire.Show(stVictory);
       Exit;
     end;
-  end;
-  case LeaderTile of
-    reNeutralCity:
-      begin
-        Leader.ChCityOwner;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Leader.X, Leader.Y));
-      end;
   end;
   DisciplesRL.Scenes.CurrentScene := scMap;
   NewDay;
