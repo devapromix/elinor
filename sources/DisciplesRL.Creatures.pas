@@ -13,7 +13,8 @@ const
 
 const
   RaceName: array [TRaceEnum] of string = ('Нейтралы', 'Защитники Империи', 'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз');
-  RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reNeutralTerrain, reNeutralTerrain);
+  RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
+    reNeutralTerrain, reNeutralTerrain);
 
 const
   RaceDescription: array [TRaceEnum] of array [0 .. 10] of string = (('', '', '', '', '', '', '', '', '', '', ''),
@@ -365,6 +366,22 @@ const
   }
 
 type
+  TCreatureBase = record
+    ResEnum: TResEnum;
+    Name: string;
+    HitPoints: Integer;
+    Initiative: Integer;
+    ChancesToHit: Integer;
+    Leadership: Integer;
+    Level: Integer;
+    Damage: Integer;
+    Armor: Integer;
+    Heal: Integer;
+    SourceEnum: TSourceEnum;
+    ReachEnum: TReachEnum;
+  end;
+
+type
   TCreature = record
     Active: Boolean;
     Enum: TCreatureEnum;
@@ -382,27 +399,10 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
+    class procedure Clear(var ACreature: TCreature); static;
+    class function Character(const I: TCreatureEnum): TCreatureBase; static;
+    class procedure Assign(var ACreature: TCreature; const I: TCreatureEnum); static;
   end;
-
-type
-  TCreatureBase = record
-    ResEnum: TResEnum;
-    Name: string;
-    HitPoints: Integer;
-    Initiative: Integer;
-    ChancesToHit: Integer;
-    Leadership: Integer;
-    Level: Integer;
-    Damage: Integer;
-    Armor: Integer;
-    Heal: Integer;
-    SourceEnum: TSourceEnum;
-    ReachEnum: TReachEnum;
-  end;
-
-procedure ClearCreature(var ACreature: TCreature);
-procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
-function GetCharacter(const I: TCreatureEnum): TCreatureBase;
 
 implementation
 
@@ -510,30 +510,9 @@ const
     //
     );
 
-procedure ClearCreature(var ACreature: TCreature);
-begin
-  with ACreature do
-  begin
-    Active := False;
-    Enum := crNone;
-    ResEnum := reNone;
-    Name := '';
-    MaxHitPoints := 0;
-    HitPoints := 0;
-    Initiative := 0;
-    ChancesToHit := 0;
-    Leadership := 0;
-    Level := 0;
-    Experience := 0;
-    Damage := 0;
-    Armor := 0;
-    Heal := 0;
-    SourceEnum := seWeapon;
-    ReachEnum := reAdj;
-  end;
-end;
+  { TCreature }
 
-procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
+class procedure TCreature.Assign(var ACreature: TCreature; const I: TCreatureEnum);
 begin
   with ACreature do
   begin
@@ -556,9 +535,32 @@ begin
   end;
 end;
 
-function GetCharacter(const I: TCreatureEnum): TCreatureBase;
+class function TCreature.Character(const I: TCreatureEnum): TCreatureBase;
 begin
   Result := CreatureBase[I];
+end;
+
+class procedure TCreature.Clear(var ACreature: TCreature);
+begin
+  with ACreature do
+  begin
+    Active := False;
+    Enum := crNone;
+    ResEnum := reNone;
+    Name := '';
+    MaxHitPoints := 0;
+    HitPoints := 0;
+    Initiative := 0;
+    ChancesToHit := 0;
+    Leadership := 0;
+    Level := 0;
+    Experience := 0;
+    Damage := 0;
+    Armor := 0;
+    Heal := 0;
+    SourceEnum := seWeapon;
+    ReachEnum := reAdj;
+  end;
 end;
 
 end.

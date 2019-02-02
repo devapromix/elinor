@@ -238,7 +238,7 @@ begin
     stLeader:
       C := Characters[LeaderRace][cgLeaders][K];
   end;
-  with GetCharacter(C) do
+  with TCreature.Character(C) do
   begin
     Add(Name);
     Add('Уровень', Level);
@@ -413,7 +413,7 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with GetCharacter(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]) do
+          with TCreature.Character(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
             RenderUnitInfo(Lf, Top + Y, Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]);
@@ -430,7 +430,7 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with GetCharacter(Characters[LeaderRace][cgLeaders][K]) do
+          with TCreature.Character(Characters[LeaderRace][cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
             RenderUnitInfo(Lf, Top + Y, Characters[LeaderRace][cgLeaders][K], False);

@@ -52,7 +52,6 @@ type
   public
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
     destructor Destroy; override;
-
   end;
 
 implementation
@@ -64,7 +63,7 @@ uses
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
 begin
-  AssignCreature(FCreature[APosition], ACreatureEnum);
+  TCreature.Assign(FCreature[APosition], ACreatureEnum);
 end;
 
 procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
@@ -106,7 +105,7 @@ var
   I: TPosition;
 begin
   for I := Low(TPosition) to High(TPosition) do
-    ClearCreature(FCreature[I]);
+    TCreature.Clear(FCreature[I]);
 end;
 
 constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -133,7 +132,7 @@ procedure TParty.Dismiss(const APosition: TPosition);
 begin
   if FCreature[APosition].Leadership > 0 then
     Exit;
-  ClearCreature(FCreature[APosition])
+  TCreature.Clear(FCreature[APosition])
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;

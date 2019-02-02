@@ -275,7 +275,7 @@ end;
 
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum; IsAdv: Boolean = True);
 begin
-  with GetCharacter(ACreature) do
+  with TCreature.Character(ACreature) do
     RenderUnitInfo(Name, AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, IsAdv);
 end;
 

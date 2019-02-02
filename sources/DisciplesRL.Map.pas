@@ -109,7 +109,7 @@ begin
   SetLength(Party, GetPartyCount + 1);
   Party[GetPartyCount - 1] := TLeaderParty.Create(City[0].X, City[0].Y, LeaderRace);
   C := Characters[LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
-  case GetCharacter(C).ReachEnum of
+  case TCreature.Character(C).ReachEnum of
     reAdj:
       begin
         Party[LeaderPartyIndex].AddCreature(C, 2);

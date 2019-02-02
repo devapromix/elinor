@@ -208,7 +208,7 @@ begin
         G := V.GetInt('Slot' + IntToStr(I) + 'Type');
         if (G > 0) then
         begin
-          RenderUnit(GetCharacter(TCreatureEnum(G)).ResEnum, P[I].X, P[I].Y, F);
+          RenderUnit(TCreature.Character(TCreatureEnum(G)).ResEnum, P[I].X, P[I].Y, F);
           // RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
           // V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;
