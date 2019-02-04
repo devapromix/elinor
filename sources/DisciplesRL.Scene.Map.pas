@@ -29,7 +29,8 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Game,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Party;
 
 var
   LastMousePos, MousePos: TPoint;

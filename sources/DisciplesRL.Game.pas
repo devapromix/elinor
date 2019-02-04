@@ -40,7 +40,7 @@ var
   Wizard: Boolean = False;
   IsGame: Boolean = False;
   CurrentScenario: TScenarioEnum = sgDarkTower;
-  Party: array of TParty;
+
 
 procedure Init;
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);

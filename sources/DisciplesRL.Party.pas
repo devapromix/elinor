@@ -54,6 +54,9 @@ type
     destructor Destroy; override;
   end;
 
+var
+  Party: array of TParty;
+
 implementation
 
 uses
