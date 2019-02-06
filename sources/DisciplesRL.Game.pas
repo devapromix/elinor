@@ -3,6 +3,7 @@
 interface
 
 uses
+  System.Types,
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
@@ -41,7 +42,6 @@ var
   IsGame: Boolean = False;
   CurrentScenario: TScenarioEnum = sgDarkTower;
 
-
 procedure Init;
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 procedure PartyFree;
@@ -52,16 +52,30 @@ procedure Clear;
 procedure AddLoot;
 procedure NewDay;
 procedure Free;
-function IsStoneTab(const X, Y: Integer): Boolean;
-procedure AddStoneTab(const X, Y: Integer);
-function ScenarioOverlordState: string;
-function ScenarioAncientKnowledgeState: string;
+
+type
+  TGame = class(TObject)
+
+  end;
+
+type
+  TScenario = class(TObject)
+  strict private
+  class var
+    FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
+    J: Integer;
+  public
+    class procedure Init;
+    class function IsStoneTab(const X, Y: Integer): Boolean;
+    class procedure AddStoneTab(const X, Y: Integer);
+    class function ScenarioOverlordState: string;
+    class function ScenarioAncientKnowledgeState: string;
+  end;
 
 implementation
 
 uses
   System.Math,
-  System.Types,
   System.SysUtils,
   Vcl.Dialogs,
   DisciplesRL.Map,
@@ -142,6 +156,7 @@ begin
   DisciplesRL.Map.Gen;
   DisciplesRL.Scene.Settlement.Gen;
   Leader.Clear;
+  TScenario.Init;
 end;
 
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
@@ -237,11 +252,21 @@ begin
   PartyFree;
 end;
 
-var
-  FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
-  J: Integer = 0;
+{ TScenario }
 
-function IsStoneTab(const X, Y: Integer): Boolean;
+class procedure TScenario.AddStoneTab(const X, Y: Integer);
+begin
+  Inc(J);
+  FStoneTab[J].X := X;
+  FStoneTab[J].Y := Y;
+end;
+
+class procedure TScenario.Init;
+begin
+  J := 0;
+end;
+
+class function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
 var
   I: Integer;
 begin
@@ -254,21 +279,14 @@ begin
     end;
 end;
 
-procedure AddStoneTab(const X, Y: Integer);
-begin
-  Inc(J);
-  FStoneTab[J].X := X;
-  FStoneTab[J].Y := Y;
-end;
-
-function ScenarioOverlordState: string;
-begin
-  Result := Format('Захвачено городов: %d из %d', [GetCityOwnerCount, NCity]);
-end;
-
-function ScenarioAncientKnowledgeState: string;
+class function TScenario.ScenarioAncientKnowledgeState: string;
 begin
   Result := Format('Найдено каменных табличек: %d из %d', [StoneTab, ScenarioStoneTabMax]);
+end;
+
+class function TScenario.ScenarioOverlordState: string;
+begin
+  Result := Format('Захвачено городов: %d из %d', [GetCityOwnerCount, NCity]);
 end;
 
 end.

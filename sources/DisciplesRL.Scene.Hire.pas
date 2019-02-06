@@ -373,9 +373,9 @@ begin
   if IsGame then
     case CurrentScenario of
       sgOverlord:
-        Add(ScenarioOverlordState);
+        Add(TScenario.ScenarioOverlordState);
       sgAncientKnowledge:
-        Add(ScenarioAncientKnowledgeState);
+        Add(TScenario.ScenarioAncientKnowledgeState);
     end;
 end;
 

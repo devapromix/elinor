@@ -114,7 +114,7 @@ begin
       begin
         DrawTitle(reTitleLoot);
         CenterTextOut(300, 'КАМЕННАЯ ТАБЛИЧКА');
-        CenterTextOut(350, ScenarioAncientKnowledgeState);
+        CenterTextOut(350, TScenario.ScenarioAncientKnowledgeState);
       end;
     stDay:
       begin
