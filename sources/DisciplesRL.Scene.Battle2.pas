@@ -91,7 +91,7 @@ begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
   if (CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(Leader.X, Leader.Y) then
   begin
-    Inc(StoneTab);
+    Inc(TScenario.StoneTab);
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
   end
   else

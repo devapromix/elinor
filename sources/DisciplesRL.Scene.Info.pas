@@ -54,7 +54,7 @@ begin
     stStoneTab:
       begin
         if (CurrentScenario = sgAncientKnowledge) then
-          if StoneTab >= ScenarioStoneTabMax then
+          if TScenario.StoneTab >= ScenarioStoneTabMax then
           begin
             DisciplesRL.Scene.Hire.Show(stVictory);
             Exit;

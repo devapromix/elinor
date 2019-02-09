@@ -33,7 +33,6 @@ var
   Days: Integer = 0;
   Gold: Integer = 0;
   NewGold: Integer = 0;
-  StoneTab: Integer = 0;
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
   LeaderRace: TRaceEnum;
@@ -65,6 +64,7 @@ type
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
     J: Integer;
   public
+    class var StoneTab: Integer;
     class procedure Init;
     class function IsStoneTab(const X, Y: Integer): Boolean;
     class procedure AddStoneTab(const X, Y: Integer);
@@ -156,7 +156,6 @@ begin
   DisciplesRL.Map.Gen;
   DisciplesRL.Scene.Settlement.Gen;
   Leader.Clear;
-  TScenario.Init;
 end;
 
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
@@ -218,10 +217,10 @@ end;
 
 procedure Clear;
 begin
+  TScenario.Init;
   Days := 1;
   Gold := 250;
   NewGold := 0;
-  StoneTab := 0;
   GoldMines := 0;
   BattlesWon := 0;
   IsDay := False;
@@ -264,6 +263,7 @@ end;
 class procedure TScenario.Init;
 begin
   J := 0;
+  StoneTab := 0;
 end;
 
 class function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
