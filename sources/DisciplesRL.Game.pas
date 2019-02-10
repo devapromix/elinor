@@ -27,7 +27,6 @@ const
 const
   GoldFromMinePerDay = 100;
   GoldForRevivePerLevel = 250;
-  ScenarioStoneTabMax = 9;
 
 var
   Days: Integer = 0;
@@ -59,6 +58,8 @@ type
 
 type
   TScenario = class(TObject)
+  public const
+    ScenarioStoneTabMax = 9;
   strict private
   class var
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;

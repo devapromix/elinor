@@ -210,7 +210,7 @@ begin
       Y := RandomRange(1, MapHeight - 1);
     until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutralTerrain) and (GetDistToCapital(X, Y) >= 3);
     AddPartyAt(X, Y);
-    if (CurrentScenario = sgAncientKnowledge) and (I < ScenarioStoneTabMax) then
+    if (CurrentScenario = sgAncientKnowledge) and (I < TScenario.ScenarioStoneTabMax) then
       TScenario.AddStoneTab(X, Y);
   end;
   AddCapitalParty;
