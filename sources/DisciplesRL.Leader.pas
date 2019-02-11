@@ -4,21 +4,14 @@ interface
 
 uses
   System.Types,
+  DisciplesRL.Party,
   DisciplesRL.Creatures,
   DisciplesRL.MapObject;
-
-type
-  TDirectionEnum = (drEast, drWest, drSouth, drNorth, drSouthEast, drSouthWest, drNorthEast, drNorthWest, drOrigin);
-
-const
-  Direction: array [TDirectionEnum] of TPoint = ((X: 1; Y: 0), (X: - 1; Y: 0), (X: 0; Y: 1), (X: 0; Y: - 1), (X: 1; Y: 1), (X: - 1; Y: 1), (X: 1;
-    Y: - 1), (X: - 1; Y: - 1), (X: 0; Y: 0));
 
 type
   TLeader = class(TMapObject)
   private
     FRadius: Integer;
-    FMaxLeadership: Integer;
   public
     Speed: Integer;
     MaxSpeed: Integer;
@@ -32,7 +25,6 @@ type
     procedure Move(const AX, AY: ShortInt); overload;
     procedure Move(Dir: TDirectionEnum); overload;
     property Radius: Integer read FRadius;
-    property MaxLeadership: Integer read FMaxLeadership;
   end;
 
 var
@@ -47,7 +39,6 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.City,
-  DisciplesRL.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Game,
   DisciplesRL.Scene.Settlement,
@@ -211,7 +202,6 @@ constructor TLeader.Create;
 begin
   inherited;
   FRadius := 1;
-  FMaxLeadership := 1;
 end;
 
 destructor TLeader.Destroy;

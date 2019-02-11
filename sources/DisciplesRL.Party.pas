@@ -3,11 +3,19 @@
 interface
 
 uses
+  System.Types,
   DisciplesRL.Creatures,
   DisciplesRL.MapObject;
 
 type
   TPosition = 0 .. 5;
+
+type
+  TDirectionEnum = (drEast, drWest, drSouth, drNorth, drSouthEast, drSouthWest, drNorthEast, drNorthWest, drOrigin);
+
+const
+  Direction: array [TDirectionEnum] of TPoint = ((X: 1; Y: 0), (X: - 1; Y: 0), (X: 0; Y: 1), (X: 0; Y: - 1), (X: 1; Y: 1), (X: - 1; Y: 1), (X: 1;
+    Y: - 1), (X: - 1; Y: - 1), (X: 0; Y: 0));
 
 type
   TParty = class(TMapObject)
@@ -48,10 +56,12 @@ type
 type
   TLeaderParty = class(TParty)
   private
-
+    FMaxLeadership: Integer;
   public
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
     destructor Destroy; override;
+    procedure Clear;
+    property MaxLeadership: Integer read FMaxLeadership;
   end;
 
 var
@@ -280,10 +290,16 @@ end;
 
 { TLeaderParty }
 
+procedure TLeaderParty.Clear;
+begin
+
+  FMaxLeadership := 1;
+end;
+
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
 begin
   inherited Create(AX, AY, AOwner);
-
+  FMaxLeadership := 1;
 end;
 
 destructor TLeaderParty.Destroy;

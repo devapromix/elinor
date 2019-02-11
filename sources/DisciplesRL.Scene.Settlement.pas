@@ -132,7 +132,7 @@ begin
     CurrentCityIndex]));
 
   if (GetDistToCapital(Leader.X, Leader.Y) = 0) or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, Party[LeaderPartyIndex], Party[LeaderPartyIndex].Count < Leader.MaxLeadership)
+    RenderParty(psLeft, Party[LeaderPartyIndex], Party[LeaderPartyIndex].Count < TLeaderParty(Party[LeaderPartyIndex]).MaxLeadership)
   else
     RenderParty(psLeft, nil);
 
@@ -156,13 +156,13 @@ procedure Hire;
         InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      if (((AParty = Party[LeaderPartyIndex]) and (Party[LeaderPartyIndex].Count < Leader.MaxLeadership)) or (AParty <> Party[LeaderPartyIndex])) then
+      if (((AParty = Party[LeaderPartyIndex]) and (Party[LeaderPartyIndex].Count < TLeaderParty(Party[LeaderPartyIndex]).MaxLeadership)) or (AParty <> Party[LeaderPartyIndex])) then
       begin
         DisciplesRL.Scene.Hire.Show(AParty, APosition);
       end
       else
       begin
-        if (Party[LeaderPartyIndex].Count = Leader.MaxLeadership) then
+        if (Party[LeaderPartyIndex].Count = TLeaderParty(Party[LeaderPartyIndex]).MaxLeadership) then
           InformDialog('Нужно развить лидерство!')
         else
           InformDialog('Не возможно нанять!');
@@ -385,7 +385,7 @@ begin
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
         if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
-          (Party[LeaderPartyIndex].Count >= Leader.MaxLeadership)) then
+          (Party[LeaderPartyIndex].Count >= TLeaderParty(Party[LeaderPartyIndex]).MaxLeadership)) then
           Exit;
         Party[LeaderPartyIndex].ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
       end;
