@@ -11,20 +11,13 @@ uses
 type
   TLeader = class(TMapObject)
   private
-    FRadius: Integer;
   public
-    Speed: Integer;
-    MaxSpeed: Integer;
     constructor Create;
     destructor Destroy; override;
-    procedure Clear;
     procedure ChCityOwner;
-    procedure UpdateRadius;
     procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
-    procedure Turn(const Count: Integer = 1);
     procedure Move(const AX, AY: ShortInt); overload;
     procedure Move(Dir: TDirectionEnum); overload;
-    property Radius: Integer read FRadius;
   end;
 
 var
@@ -96,8 +89,8 @@ begin
   else
   begin
     SetLocation(AX, AY);
-    UpdateRadius;
-    Turn(1);
+    TLeaderParty(Party[LeaderPartyIndex]).UpdateRadius;
+    TLeaderParty(Party[LeaderPartyIndex]).Turn(1);
     F := True;
     case Map[lrObj][X, Y] of
       reGold:
@@ -144,30 +137,6 @@ begin
     NewDay;
 end;
 
-procedure TLeader.UpdateRadius;
-begin
-  DisciplesRL.Map.UpdateRadius(X, Y, Radius, Map[lrDark], reNone);
-end;
-
-procedure TLeader.Turn(const Count: Integer = 1);
-var
-  C: Integer;
-begin
-  if (Count < 1) then
-    Exit;
-  C := 0;
-  repeat
-    Dec(Speed);
-    if (Speed = 0) then
-    begin
-      Inc(Days);
-      IsDay := True;
-      Speed := MaxSpeed;
-    end;
-    Inc(C);
-  until (C >= Count);
-end;
-
 procedure TLeader.Move(const AX, AY: ShortInt);
 begin
   PutAt(X + AX, Y + AY);
@@ -190,18 +159,9 @@ begin
   end;
 end;
 
-procedure TLeader.Clear;
-begin
-  MaxSpeed := 7;
-  Speed := MaxSpeed;
-  FRadius := IfThen(Wizard, 9, 1);
-  UpdateRadius;
-end;
-
 constructor TLeader.Create;
 begin
   inherited;
-  FRadius := 1;
 end;
 
 destructor TLeader.Destroy;
