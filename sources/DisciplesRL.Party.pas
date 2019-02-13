@@ -57,11 +57,17 @@ type
   TLeaderParty = class(TParty)
   private
     FMaxLeadership: Integer;
+    FRadius: Integer;
   public
+    Speed: Integer;
+    MaxSpeed: Integer;
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
     destructor Destroy; override;
     procedure Clear;
     property MaxLeadership: Integer read FMaxLeadership;
+    procedure UpdateRadius;
+    property Radius: Integer read FRadius;
+    procedure Turn(const Count: Integer = 1);
   end;
 
 var
@@ -70,7 +76,10 @@ var
 implementation
 
 uses
-  System.Math;
+  System.Math,
+  DisciplesRL.Map,
+  DisciplesRL.Game,
+  DisciplesRL.Resources;
 
 { TParty }
 
@@ -292,20 +301,48 @@ end;
 
 procedure TLeaderParty.Clear;
 begin
-
+  MaxSpeed := 7;
+  Speed := MaxSpeed;
   FMaxLeadership := 1;
+  FRadius := IfThen(Wizard, 9, 1);
+  Self.UpdateRadius;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
 begin
   inherited Create(AX, AY, AOwner);
   FMaxLeadership := 1;
+  FRadius := 1;
 end;
 
 destructor TLeaderParty.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TLeaderParty.Turn(const Count: Integer);
+var
+  C: Integer;
+begin
+  if (Count < 1) then
+    Exit;
+  C := 0;
+  repeat
+    Dec(Speed);
+    if (Speed = 0) then
+    begin
+      Inc(Days);
+      IsDay := True;
+      Speed := MaxSpeed;
+    end;
+    Inc(C);
+  until (C >= Count);
+end;
+
+procedure TLeaderParty.UpdateRadius;
+begin
+  DisciplesRL.Map.UpdateRadius(Self.X, Self.Y, Radius, Map[lrDark], reNone);
 end;
 
 end.

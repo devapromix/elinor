@@ -21,22 +21,22 @@ type
   TIgnoreRes = set of TResEnum;
 
 var
+  LeaderPartyIndex: Byte;
+  CapitalPartyIndex: Byte;
+
+var
   Map: array [TLayerEnum] of TMapLayer;
 
+procedure Gen;
 function GetDist(X1, Y1, X2, Y2: Integer): Integer;
 function GetDistToCapital(const AX, AY: Integer): Integer;
 procedure Init;
 procedure Clear(const L: TLayerEnum);
-procedure Gen;
 function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
 function InMap(const X, Y: Integer): Boolean;
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 function LeaderTile: TResEnum;
 function IsLeaderMove(const X, Y: Integer): Boolean;
-
-var
-  LeaderPartyIndex: Byte;
-  CapitalPartyIndex: Byte;
 
 implementation
 
