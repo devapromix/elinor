@@ -67,7 +67,7 @@ begin
   begin
     if Map[lrTile][AX, AY] in Capitals then
     begin
-        DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
+      DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
     if Map[lrTile][AX, AY] in Cities then
@@ -89,8 +89,12 @@ begin
   else
   begin
     SetLocation(AX, AY);
-    TLeaderParty(Party[LeaderPartyIndex]).UpdateRadius;
-    TLeaderParty(Party[LeaderPartyIndex]).Turn(1);
+    with TLeaderParty(Party[LeaderPartyIndex]) do
+    begin
+      SetLocation(AX, AY);
+      UpdateRadius;
+      Turn(1);
+    end;
     F := True;
     case Map[lrObj][X, Y] of
       reGold:

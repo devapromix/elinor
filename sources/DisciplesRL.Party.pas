@@ -65,8 +65,8 @@ type
     destructor Destroy; override;
     procedure Clear;
     property MaxLeadership: Integer read FMaxLeadership;
-    procedure UpdateRadius;
     property Radius: Integer read FRadius;
+    procedure UpdateRadius;
     procedure Turn(const Count: Integer = 1);
   end;
 
@@ -342,7 +342,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  DisciplesRL.Map.UpdateRadius(Self.X, Self.Y, Radius, Map[lrDark], reNone);
+  DisciplesRL.Map.UpdateRadius(Self.X, Self.Y, Self.Radius, Map[lrDark], reNone);
 end;
 
 end.
