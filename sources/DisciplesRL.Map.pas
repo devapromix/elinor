@@ -46,11 +46,11 @@ uses
   System.SysUtils,
   DisciplesRL.Leader,
   DisciplesRL.City,
-  DisciplesRL.PathFind,
   DisciplesRL.Game,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party,
+  PathFind;
 
 function GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin

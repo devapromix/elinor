@@ -118,7 +118,6 @@
         <DCCReference Include="DisciplesRL.Creatures.pas"/>
         <DCCReference Include="DisciplesRL.Party.pas"/>
         <DCCReference Include="DisciplesRL.City.pas"/>
-        <DCCReference Include="DisciplesRL.PathFind.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Menu.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle.pas"/>
         <DCCReference Include="DisciplesRL.GUI.Button.pas"/>
@@ -136,6 +135,7 @@
             <Form>ConfirmationForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Third-Party\PathFind\PathFind.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

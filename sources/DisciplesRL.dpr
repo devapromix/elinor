@@ -11,7 +11,6 @@ uses
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
   DisciplesRL.City in 'DisciplesRL.City.pas',
-  DisciplesRL.PathFind in 'DisciplesRL.PathFind.pas',
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
@@ -25,7 +24,8 @@ uses
   DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas',
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas',
-  DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm};
+  DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
+  PathFind in 'Third-Party\PathFind\PathFind.pas';
 
 {$R *.res}
 
