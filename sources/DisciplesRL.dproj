@@ -136,6 +136,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Third-Party\PathFind\PathFind.pas"/>
+        <DCCReference Include="Third-Party\RLLog\RLLog.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

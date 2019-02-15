@@ -25,7 +25,8 @@ uses
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas',
   DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
-  PathFind in 'Third-Party\PathFind\PathFind.pas';
+  PathFind in 'Third-Party\PathFind\PathFind.pas',
+  RLLog in 'Third-Party\RLLog\RLLog.pas';
 
 {$R *.res}
 
