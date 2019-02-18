@@ -49,7 +49,7 @@ end;
 
 procedure _Log(S: string);
 begin
-  DisciplesRL.Scene.Battle.Log.Add(S);
+  //DisciplesRL.Scene.Battle.Log.Add(S);
 end;
 
 function _GetStr(S: string): string;

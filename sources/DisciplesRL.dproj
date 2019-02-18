@@ -128,7 +128,6 @@
         <DCCReference Include="DisciplesRL.PascalScript.Vars.pas"/>
         <DCCReference Include="DisciplesRL.MapObject.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Hire.pas"/>
-        <DCCReference Include="DisciplesRL.BattleLog.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle2.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Info.pas"/>
         <DCCReference Include="DisciplesRL.ConfirmationForm.pas">

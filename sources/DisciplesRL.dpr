@@ -21,7 +21,6 @@ uses
   DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
   DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
   DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
-  DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas',
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas',
   DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},

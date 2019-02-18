@@ -5,8 +5,7 @@ interface
 uses
   System.Types,
   System.Classes,
-  Vcl.Controls,
-  DisciplesRL.BattleLog;
+  Vcl.Controls;
 
 procedure Init;
 procedure Render;
@@ -19,9 +18,6 @@ procedure Free;
 procedure CalcPoints;
 function TransformTo(P: Integer): Integer;
 function TransformFrom(P: Integer): Integer;
-
-var
-  Log: TLog;
 
 implementation
 
@@ -170,7 +166,7 @@ procedure Finish;
 var
   I: Integer;
 begin
-  Log.Clear;
+  //Log.Clear;
   I := GetPartyIndex(Leader.X, Leader.Y);
   if Party[LeaderPartyIndex].IsClear then
     Defeat;
@@ -185,7 +181,7 @@ procedure Init;
 begin
   Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left), DefaultButtonTop, Surface.Canvas, reTextClose);
   Button.Sellected := True;
-  Log := TLog.Create(Left, DefaultButtonTop - 20, Surface.Canvas);
+  //Log := TLog.Create(Left, DefaultButtonTop - 20, Surface.Canvas);
 end;
 
 procedure Render2;
@@ -280,7 +276,7 @@ begin
     Button.Render;
   end;
   // else
-  Log.Render;
+  //Log.Render;
 end;
 
 procedure Timer;
@@ -334,7 +330,7 @@ end;
 
 procedure Free;
 begin
-  FreeAndNil(Log);
+  //FreeAndNil(Log);
   FreeAndNil(Button);
 end;
 
