@@ -19,13 +19,13 @@ uses
   DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
   DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
-  DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
   DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas',
   DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
   PathFind in 'Third-Party\PathFind\PathFind.pas',
-  RLLog in 'Third-Party\RLLog\RLLog.pas';
+  RLLog in 'Third-Party\RLLog\RLLog.pas',
+  MapObject in 'Third-Party\MapObject\MapObject.pas';
 
 {$R *.res}
 

@@ -6,7 +6,7 @@ uses
   System.Types,
   DisciplesRL.Party,
   DisciplesRL.Creatures,
-  DisciplesRL.MapObject;
+  MapObject;
 
 type
   TLeader = class(TMapObject)

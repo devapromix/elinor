@@ -5,7 +5,7 @@ interface
 uses
   System.Types,
   DisciplesRL.Creatures,
-  DisciplesRL.MapObject;
+  MapObject;
 
 type
   TPosition = 0 .. 5;
