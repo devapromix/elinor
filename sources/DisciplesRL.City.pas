@@ -7,7 +7,7 @@ uses
   DisciplesRL.Party;
 
 type
-  TCity = record
+  TPlace = record
     X, Y: Integer;
     CurLevel: Integer;
     MaxLevel: Integer;
@@ -15,14 +15,14 @@ type
   end;
 
 var
-  City: array [0 .. 29] of TCity;
+  Place: array [0 .. 29] of TPlace;
 
 const
   NCity = 7;
 
 procedure Gen;
 procedure Init;
-function GetCityIndex(const AX, AY: Integer): Integer;
+function GetIndex(const AX, AY: Integer): Integer;
 procedure UpdateRadius(const AID: Integer);
 function GetCityOwnerCount: Integer;
 
@@ -41,23 +41,23 @@ procedure Init;
 var
   I: Integer;
 begin
-  for I := 0 to High(City) do
+  for I := 0 to High(Place) do
   begin
-    City[I].X := 0;
-    City[I].Y := 0;
-    City[I].CurLevel := 0;
-    City[I].MaxLevel := 2;
-    City[I].Owner := reNeutrals;
+    Place[I].X := 0;
+    Place[I].Y := 0;
+    Place[I].CurLevel := 0;
+    Place[I].MaxLevel := 2;
+    Place[I].Owner := reNeutrals;
   end;
 end;
 
-function GetCityIndex(const AX, AY: Integer): Integer;
+function GetIndex(const AX, AY: Integer): Integer;
 var
   I: Integer;
 begin
   Result := -1;
-  for I := 0 to High(City) do
-    if ((City[I].X = AX) and (City[I].Y = AY)) then
+  for I := 0 to High(Place) do
+    if ((Place[I].X = AX) and (Place[I].Y = AY)) then
     begin
       Result := I;
       Break;
@@ -66,10 +66,10 @@ end;
 
 procedure UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], RaceTerrain[LeaderRace],
+  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrTile], RaceTerrain[LeaderRace],
     [reNeutralCity, reRuin, reTower] + Capitals + Cities);
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
-  City[AID].Owner := LeaderRace;
+  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrDark], reNone);
+  Place[AID].Owner := LeaderRace;
 end;
 
 function GetRadius(const N: Integer): Integer;
@@ -95,7 +95,7 @@ begin
     Exit;
   for I := 0 to N - 1 do
   begin
-    if (GetDist(City[I].X, City[I].Y, City[N].X, City[N].Y) <= GetRadius(N)) then
+    if (GetDist(Place[I].X, Place[I].Y, Place[N].X, Place[N].Y) <= GetRadius(N)) then
     begin
       Result := False;
       Exit;
@@ -122,42 +122,42 @@ procedure Gen;
 var
   DX, DY, I: Integer;
 begin
-  for I := 0 to High(City) do
+  for I := 0 to High(Place) do
   begin
     repeat
-      City[I].X := RandomRange(3, MapWidth - 3);
-      City[I].Y := RandomRange(3, MapHeight - 3);
+      Place[I].X := RandomRange(3, MapWidth - 3);
+      Place[I].Y := RandomRange(3, MapHeight - 3);
     until ChCity(I);
     case I of
       0: // Capital
         begin
-          Leader.SetLocation(City[I].X, City[I].Y);
+          Leader.SetLocation(Place[I].X, Place[I].Y);
           case LeaderRace of
             reTheEmpire:
-              Map[lrTile][City[I].X, City[I].Y] := reTheEmpireCapital;
+              Map[lrTile][Place[I].X, Place[I].Y] := reTheEmpireCapital;
             reUndeadHordes:
-              Map[lrTile][City[I].X, City[I].Y] := reUndeadHordesCapital;
+              Map[lrTile][Place[I].X, Place[I].Y] := reUndeadHordesCapital;
             reLegionsOfTheDamned:
-              Map[lrTile][City[I].X, City[I].Y] := reLegionsOfTheDamnedCapital;
+              Map[lrTile][Place[I].X, Place[I].Y] := reLegionsOfTheDamnedCapital;
           end;
-          ClearObj(City[I].X, City[I].Y);
+          ClearObj(Place[I].X, Place[I].Y);
           UpdateRadius(I);
         end;
       1 .. NCity: // City
         begin
-          Map[lrTile][City[I].X, City[I].Y] := reNeutralCity;
-          ClearObj(City[I].X, City[I].Y);
-          AddPartyAt(City[I].X, City[I].Y);
+          Map[lrTile][Place[I].X, Place[I].Y] := reNeutralCity;
+          ClearObj(Place[I].X, Place[I].Y);
+          AddPartyAt(Place[I].X, Place[I].Y);
         end;
       NCity + 1: // Tower
         begin
-          Map[lrTile][City[I].X, City[I].Y] := reTower;
-          AddPartyAt(City[I].X, City[I].Y, True);
+          Map[lrTile][Place[I].X, Place[I].Y] := reTower;
+          AddPartyAt(Place[I].X, Place[I].Y, True);
         end
     else // Ruin
       begin
-        Map[lrTile][City[I].X, City[I].Y] := reRuin;
-        AddPartyAt(City[I].X, City[I].Y);
+        Map[lrTile][Place[I].X, Place[I].Y] := reRuin;
+        AddPartyAt(Place[I].X, Place[I].Y);
       end;
     end;
     // Mine
@@ -167,7 +167,7 @@ begin
     until ((DX <> 0) and (DY <> 0));
     case I of
       0 .. NCity:
-        Map[lrObj][City[I].X + DX, City[I].Y + DY] := reMine;
+        Map[lrObj][Place[I].X + DX, Place[I].Y + DY] := reMine;
     end;
   end;
 end;
@@ -179,7 +179,7 @@ begin
   Result := 0;
   for I := 1 to NCity do
   begin
-    if (City[I].Owner in Races) then
+    if (Place[I].Owner in Races) then
       Inc(Result);
   end;
 end;

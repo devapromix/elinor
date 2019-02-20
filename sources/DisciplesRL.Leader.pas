@@ -54,12 +54,12 @@ begin
   if (Map[lrObj][AX, AY] in StopTiles) then
     Exit;
   if not IsInfo then
-    for I := 0 to High(City) do
+    for I := 0 to High(Place) do
     begin
-      if (City[I].Owner in Races) then
-        if (City[I].CurLevel < City[I].MaxLevel) then
+      if (Place[I].Owner in Races) then
+        if (Place[I].CurLevel < Place[I].MaxLevel) then
         begin
-          Inc(City[I].CurLevel);
+          Inc(Place[I].CurLevel);
           DisciplesRL.City.UpdateRadius(I);
         end;
     end;
@@ -123,7 +123,7 @@ begin
     reNeutralCity:
       begin
         ChCityOwner;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(X, Y));
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetIndex(X, Y));
         F := False;
       end;
   end;

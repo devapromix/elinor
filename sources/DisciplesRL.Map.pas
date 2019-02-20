@@ -59,7 +59,7 @@ end;
 
 function GetDistToCapital(const AX, AY: Integer): Integer;
 begin
-  Result := GetDist(City[0].X, City[0].Y, AX, AY);
+  Result := GetDist(Place[0].X, Place[0].Y, AX, AY);
 end;
 
 procedure Init;
@@ -97,7 +97,7 @@ procedure AddCapitalParty;
 begin
   CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(City[0].X, City[0].Y, LeaderRace);
+  Party[GetPartyCount - 1] := TParty.Create(Place[0].X, Place[0].Y, LeaderRace);
   Party[GetPartyCount - 1].AddCreature(Characters[LeaderRace][cgGuardian][ckGuardian], 3);
 end;
 
@@ -107,7 +107,7 @@ var
 begin
   LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TLeaderParty.Create(City[0].X, City[0].Y, LeaderRace);
+  Party[GetPartyCount - 1] := TLeaderParty.Create(Place[0].X, Place[0].Y, LeaderRace);
   C := Characters[LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
@@ -169,12 +169,12 @@ begin
     end;
   // Capital and Cities
   DisciplesRL.City.Gen;
-  X := City[0].X;
-  Y := City[0].Y;
-  for I := 1 to High(City) do
+  X := Place[0].X;
+  Y := Place[0].Y;
+  for I := 1 to High(Place) do
   begin
     repeat
-      if IsPathFind(MapWidth, MapHeight, X, Y, City[I].X, City[I].Y, ChTile, RX, RY) then
+      if IsPathFind(MapWidth, MapHeight, X, Y, Place[I].X, Place[I].Y, ChTile, RX, RY) then
       begin
         // if (RandomRange(0, 2) = 0) then
         begin
@@ -188,10 +188,10 @@ begin
         if Map[lrObj][X, Y] in MountainTiles then
           Map[lrObj][X, Y] := reNone;
       end;
-    until ((X = City[I].X) and (Y = City[I].Y));
+    until ((X = Place[I].X) and (Y = Place[I].Y));
   end;
   // Golds and Bags
-  for I := 0 to High(City) div 2 do
+  for I := 0 to High(Place) div 2 do
   begin
     repeat
       X := RandomRange(2, MapWidth - 2);
@@ -203,7 +203,7 @@ begin
       Map[lrObj][X, Y] := reBag;
   end;
   // Enemies
-  for I := 0 to High(City) do
+  for I := 0 to High(Place) do
   begin
     repeat
       X := RandomRange(1, MapWidth - 1);
