@@ -12,6 +12,7 @@ type
     CurLevel: Integer;
     MaxLevel: Integer;
     Owner: TRaceEnum;
+    class function GetIndex(const AX, AY: Integer): Integer; static;
   end;
 
 var
@@ -22,7 +23,6 @@ const
 
 procedure Gen;
 procedure Init;
-function GetIndex(const AX, AY: Integer): Integer;
 procedure UpdateRadius(const AID: Integer);
 function GetCityOwnerCount: Integer;
 
@@ -49,19 +49,6 @@ begin
     Place[I].MaxLevel := 2;
     Place[I].Owner := reNeutrals;
   end;
-end;
-
-function GetIndex(const AX, AY: Integer): Integer;
-var
-  I: Integer;
-begin
-  Result := -1;
-  for I := 0 to High(Place) do
-    if ((Place[I].X = AX) and (Place[I].Y = AY)) then
-    begin
-      Result := I;
-      Break;
-    end;
 end;
 
 procedure UpdateRadius(const AID: Integer);
@@ -182,6 +169,21 @@ begin
     if (Place[I].Owner in Races) then
       Inc(Result);
   end;
+end;
+
+{ TPlace }
+
+class function TPlace.GetIndex(const AX, AY: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := -1;
+  for I := 0 to High(Place) do
+    if ((Place[I].X = AX) and (Place[I].Y = AY)) then
+    begin
+      Result := I;
+      Break;
+    end;
 end;
 
 end.

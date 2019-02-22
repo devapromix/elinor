@@ -321,7 +321,7 @@ begin
     reNeutralCity:
       begin
         Leader.ChCityOwner;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetIndex(Leader.X, Leader.Y));
+        DisciplesRL.City.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
       end;
   end;
   if (CurrentScenario = sgOverlord) then

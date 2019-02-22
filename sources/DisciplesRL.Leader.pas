@@ -123,7 +123,7 @@ begin
     reNeutralCity:
       begin
         ChCityOwner;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetIndex(X, Y));
+        DisciplesRL.City.UpdateRadius(TPlace.GetIndex(X, Y));
         F := False;
       end;
   end;
