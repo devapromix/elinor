@@ -60,7 +60,7 @@ begin
         if (Place[I].CurLevel < Place[I].MaxLevel) then
         begin
           Inc(Place[I].CurLevel);
-          DisciplesRL.City.UpdateRadius(I);
+          TPlace.UpdateRadius(I);
         end;
     end;
   if IsInfo then
@@ -123,7 +123,7 @@ begin
     reNeutralCity:
       begin
         ChCityOwner;
-        DisciplesRL.City.UpdateRadius(TPlace.GetIndex(X, Y));
+        TPlace.UpdateRadius(TPlace.GetIndex(X, Y));
         F := False;
       end;
   end;

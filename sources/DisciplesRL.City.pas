@@ -13,6 +13,7 @@ type
     MaxLevel: Integer;
     Owner: TRaceEnum;
     class function GetIndex(const AX, AY: Integer): Integer; static;
+    class procedure UpdateRadius(const AID: Integer);   static;
   end;
 
 var
@@ -23,7 +24,7 @@ const
 
 procedure Gen;
 procedure Init;
-procedure UpdateRadius(const AID: Integer);
+
 function GetCityOwnerCount: Integer;
 
 implementation
@@ -49,14 +50,6 @@ begin
     Place[I].MaxLevel := 2;
     Place[I].Owner := reNeutrals;
   end;
-end;
-
-procedure UpdateRadius(const AID: Integer);
-begin
-  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrTile], RaceTerrain[LeaderRace],
-    [reNeutralCity, reRuin, reTower] + Capitals + Cities);
-  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrDark], reNone);
-  Place[AID].Owner := LeaderRace;
 end;
 
 function GetRadius(const N: Integer): Integer;
@@ -128,7 +121,7 @@ begin
               Map[lrTile][Place[I].X, Place[I].Y] := reLegionsOfTheDamnedCapital;
           end;
           ClearObj(Place[I].X, Place[I].Y);
-          UpdateRadius(I);
+          TPlace.UpdateRadius(I);
         end;
       1 .. NCity: // City
         begin
@@ -184,6 +177,14 @@ begin
       Result := I;
       Break;
     end;
+end;
+
+class procedure TPlace.UpdateRadius(const AID: Integer);
+begin
+  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrTile], RaceTerrain[LeaderRace],
+    [reNeutralCity, reRuin, reTower] + Capitals + Cities);
+  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrDark], reNone);
+  Place[AID].Owner := LeaderRace;
 end;
 
 end.
