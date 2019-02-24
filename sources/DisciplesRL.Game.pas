@@ -85,7 +85,7 @@ uses
   DisciplesRL.Leader,
   DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.City;
+  DisciplesRL.Places;
 
 type
   TPartyBase = record

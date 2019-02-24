@@ -31,7 +31,7 @@ uses
   System.SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.City,
+  DisciplesRL.Places,
   DisciplesRL.Scenes,
   DisciplesRL.Game,
   DisciplesRL.Scene.Settlement,

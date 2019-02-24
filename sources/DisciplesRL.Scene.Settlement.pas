@@ -32,7 +32,7 @@ uses
   DisciplesRL.Game,
   DisciplesRL.Party,
   DisciplesRL.Map,
-  DisciplesRL.City,
+  DisciplesRL.Places,
   DisciplesRL.Scene.Party,
   DisciplesRL.Leader,
   DisciplesRL.Creatures,

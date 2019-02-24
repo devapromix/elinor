@@ -45,7 +45,7 @@ uses
   System.Math,
   System.SysUtils,
   DisciplesRL.Leader,
-  DisciplesRL.City,
+  DisciplesRL.Places,
   DisciplesRL.Game,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Hire,
@@ -71,7 +71,7 @@ begin
     SetLength(Map[L], MapWidth, MapHeight);
     Clear(L);
   end;
-  DisciplesRL.City.Init;
+  DisciplesRL.Places.Init;
 end;
 
 procedure Clear(const L: TLayerEnum);
@@ -168,7 +168,7 @@ begin
 
     end;
   // Capital and Cities
-  DisciplesRL.City.Gen;
+  DisciplesRL.Places.Gen;
   X := Place[0].X;
   Y := Place[0].Y;
   for I := 1 to High(Place) do

@@ -10,7 +10,6 @@ uses
   DisciplesRL.Leader in 'DisciplesRL.Leader.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
-  DisciplesRL.City in 'DisciplesRL.City.pas',
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
@@ -25,7 +24,8 @@ uses
   DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
   PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
-  MapObject in 'Third-Party\MapObject\MapObject.pas';
+  MapObject in 'Third-Party\MapObject\MapObject.pas',
+  DisciplesRL.Places in 'DisciplesRL.Places.pas';
 
 {$R *.res}
 
