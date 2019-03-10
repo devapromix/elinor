@@ -28,6 +28,7 @@ const
   GoldFromMinePerDay = 100;
   GoldForRevivePerLevel = 250;
 
+
 var
   Days: Integer = 0;
   Gold: Integer = 0;
@@ -60,6 +61,7 @@ type
   TScenario = class(TObject)
   public const
     ScenarioStoneTabMax = 9;
+    ScenarioCitiesMax = 7;
   strict private
   class var
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
@@ -287,7 +289,7 @@ end;
 
 class function TScenario.ScenarioOverlordState: string;
 begin
-  Result := Format('Захвачено городов: %d из %d', [GetCityOwnerCount, NCity]);
+  Result := Format('Захвачено городов: %d из %d', [TPlace.GetCityCount, ScenarioCitiesMax]);
 end;
 
 end.

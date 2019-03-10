@@ -326,7 +326,7 @@ begin
   end;
   if (CurrentScenario = sgOverlord) then
   begin
-    if (GetCityOwnerCount = NCity) then
+    if (TPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
     begin
       DisciplesRL.Scene.Hire.Show(stVictory);
       Exit;
