@@ -28,7 +28,6 @@ const
   GoldFromMinePerDay = 100;
   GoldForRevivePerLevel = 250;
 
-
 var
   Days: Integer = 0;
   Gold: Integer = 0;
@@ -60,6 +59,7 @@ type
 type
   TScenario = class(TObject)
   public const
+    ScenarioPlacesMax = 30;
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
   strict private

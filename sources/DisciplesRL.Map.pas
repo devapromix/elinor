@@ -168,7 +168,7 @@ begin
 
     end;
   // Capital and Cities
-  DisciplesRL.Places.Gen;
+  TPlace.Gen;
   X := Place[0].X;
   Y := Place[0].Y;
   for I := 1 to High(Place) do
