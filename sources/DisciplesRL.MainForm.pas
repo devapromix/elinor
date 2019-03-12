@@ -58,7 +58,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Map,
   DisciplesRL.Leader,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.PascalScript.Battle;
 
 procedure TMainForm.AutoTimerTimer(Sender: TObject);
@@ -109,7 +109,7 @@ procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   DisciplesRL.Resources.Free;
   DisciplesRL.Scenes.Free;
-  DisciplesRL.Game.Free;
+  DisciplesRL.Saga.Free;
 end;
 
 procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

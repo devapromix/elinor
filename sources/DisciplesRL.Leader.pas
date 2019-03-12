@@ -33,7 +33,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Places,
   DisciplesRL.Scenes,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.PascalScript.Battle,
   DisciplesRL.PascalScript.Vars,
