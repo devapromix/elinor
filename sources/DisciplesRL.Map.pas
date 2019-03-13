@@ -46,7 +46,7 @@ uses
   System.SysUtils,
   DisciplesRL.Leader,
   DisciplesRL.Places,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party,

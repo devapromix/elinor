@@ -37,7 +37,7 @@ uses
   Vcl.Dialogs,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Creatures,

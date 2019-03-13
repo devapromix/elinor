@@ -78,7 +78,7 @@ implementation
 uses
   System.Math,
   DisciplesRL.Map,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Resources;
 
 { TParty }
