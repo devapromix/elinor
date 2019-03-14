@@ -25,7 +25,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
   DisciplesRL.MainForm,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Info;
 

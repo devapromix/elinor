@@ -27,7 +27,7 @@ uses
   DisciplesRL.Leader,
   Vcl.Dialogs,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Party;

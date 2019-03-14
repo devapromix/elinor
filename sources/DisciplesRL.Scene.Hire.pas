@@ -27,7 +27,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Scenes,
   DisciplesRL.Creatures,
   DisciplesRL.Resources,
@@ -137,7 +137,7 @@ begin
       end;
     stLeader:
       begin
-        DisciplesRL.Game.Init;
+        DisciplesRL.Saga.Init;
         Party[LeaderPartyIndex].Owner := LeaderRace;
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;

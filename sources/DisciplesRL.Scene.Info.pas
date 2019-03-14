@@ -26,7 +26,7 @@ uses
   System.SysUtils,
   Vcl.Dialogs,
   DisciplesRL.Scene.Map,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Leader,
