@@ -120,7 +120,6 @@
         <DCCReference Include="DisciplesRL.Scene.Menu.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle.pas"/>
         <DCCReference Include="DisciplesRL.GUI.Button.pas"/>
-        <DCCReference Include="DisciplesRL.Game.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Party.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Settlement.pas"/>
         <DCCReference Include="DisciplesRL.PascalScript.Battle.pas"/>
@@ -136,6 +135,7 @@
         <DCCReference Include="Third-Party\RLLog\RLLog.pas"/>
         <DCCReference Include="Third-Party\MapObject\MapObject.pas"/>
         <DCCReference Include="DisciplesRL.Places.pas"/>
+        <DCCReference Include="DisciplesRL.Saga.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

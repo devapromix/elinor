@@ -49,7 +49,7 @@ uses
   Math,
   System.SysUtils,
   System.TypInfo,
-  DisciplesRL.Game,
+  DisciplesRL.Saga,
   DisciplesRL.Leader,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Settlement,

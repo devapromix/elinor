@@ -13,7 +13,6 @@ uses
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
-  DisciplesRL.Game in 'DisciplesRL.Game.pas',
   DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
@@ -25,7 +24,8 @@ uses
   PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
-  DisciplesRL.Places in 'DisciplesRL.Places.pas';
+  DisciplesRL.Places in 'DisciplesRL.Places.pas',
+  DisciplesRL.Saga in 'DisciplesRL.Saga.pas';
 
 {$R *.res}
 
