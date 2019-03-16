@@ -40,7 +40,6 @@ var
   IsGame: Boolean = False;
   CurrentScenario: TScenarioEnum = sgDarkTower;
 
-procedure Init;
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 procedure PartyFree;
 function GetPartyCount: Integer;
@@ -53,7 +52,12 @@ procedure Free;
 
 type
   TSaga = class(TObject)
+  private
 
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Clear;
   end;
 
 type
@@ -76,6 +80,9 @@ type
     class function ScenarioOverlordState: string;
     class function ScenarioAncientKnowledgeState: string;
   end;
+
+var
+  Saga: TSaga;
 
 implementation
 
@@ -153,16 +160,6 @@ const
 const
   MaxLevel = 8;
 
-procedure Init;
-begin
-  IsGame := True;
-  DisciplesRL.Saga.Clear;
-  DisciplesRL.Map.Init;
-  DisciplesRL.Map.Gen;
-  DisciplesRL.Scene.Settlement.Gen;
-  TLeaderParty(Party[LeaderPartyIndex]).Clear;
-end;
-
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
   Level, N: Integer;
@@ -222,6 +219,7 @@ end;
 
 procedure Clear;
 begin
+  IsGame := True;
   TScenario.Init;
   Days := 1;
   Gold := 250;
@@ -230,6 +228,10 @@ begin
   BattlesWon := 0;
   IsDay := False;
   Free;
+  DisciplesRL.Map.Init;
+  DisciplesRL.Map.Gen;
+  DisciplesRL.Scene.Settlement.Gen;
+  TLeaderParty(Party[LeaderPartyIndex]).Clear;
 end;
 
 procedure AddLoot();
@@ -292,6 +294,24 @@ end;
 class function TScenario.ScenarioOverlordState: string;
 begin
   Result := Format('Захвачено городов: %d из %d', [TPlace.GetCityCount, ScenarioCitiesMax]);
+end;
+
+{ TSaga }
+
+procedure TSaga.Clear;
+begin
+
+end;
+
+constructor TSaga.Create;
+begin
+
+end;
+
+destructor TSaga.Destroy;
+begin
+
+  inherited;
 end;
 
 end.
