@@ -7,23 +7,6 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
-type
-  TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
-
-const
-  ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Повелитель', 'Древние Знания');
-
-const
-  ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
-    // Темная Башня
-    ('', '', '', '', '', '', '', '', '', '', 'Цель: разрушить Темную Башню'),
-    // Повелитель
-    ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
-    // Древние Знания
-    ('', '', '', '', '', '', '', '', '', '', 'Цель: найти все каменные таблички')
-    //
-    );
-
 const
   GoldFromMinePerDay = 100;
   GoldForRevivePerLevel = 250;
@@ -38,7 +21,6 @@ var
   IsDay: Boolean = False;
   Wizard: Boolean = False;
   IsGame: Boolean = False;
-  CurrentScenario: TScenarioEnum = sgDarkTower;
 
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 procedure PartyFree;
@@ -62,11 +44,24 @@ type
 
 type
   TScenario = class(TObject)
+  public type
+    TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
   public const
     ScenarioPlacesMax = 30;
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
+  public const
+    ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Повелитель', 'Древние Знания');
+    ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
+      // Темная Башня
+      ('', '', '', '', '', '', '', '', '', '', 'Цель: разрушить Темную Башню'),
+      // Повелитель
+      ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
+      // Древние Знания
+      ('', '', '', '', '', '', '', '', '', '', 'Цель: найти все каменные таблички')
+      //
+      );
   public
     class var StoneTab: Integer;
   strict private
@@ -82,6 +77,7 @@ type
   end;
 
 var
+  CurrentScenario: TScenario.TScenarioEnum = sgDarkTower;
   Saga: TSaga;
 
 implementation

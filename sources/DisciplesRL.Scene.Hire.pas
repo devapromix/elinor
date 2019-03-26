@@ -148,7 +148,7 @@ begin
       end;
     stScenario:
       begin
-        CurrentScenario := TScenarioEnum(CurrentIndex);
+        CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
     stJournal:
@@ -286,7 +286,7 @@ begin
   end;
 end;
 
-procedure RenderScenario(const AScenario: TScenarioEnum; const AX, AY: Integer);
+procedure RenderScenario(const AScenario: TScenario.TScenarioEnum; const AX, AY: Integer);
 begin
   case AScenario of
     sgDarkTower:
@@ -339,7 +339,7 @@ procedure RenderScenarioInfo;
 const
   H = 25;
 var
-  S: TScenarioEnum;
+  S: TScenario.TScenarioEnum;
   T, L, J: Integer;
 
   procedure Add; overload;
@@ -365,11 +365,11 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
-  S := TScenarioEnum(CurrentIndex);
-  Add(ScenarioName[S], True);
+  S := TScenario.TScenarioEnum(CurrentIndex);
+  Add(TScenario.ScenarioName[S], True);
   Add;
   for J := 0 to 10 do
-    Add(ScenarioDescription[S][J]);
+    Add(TScenario.ScenarioDescription[S][J]);
   if IsGame then
     case CurrentScenario of
       sgOverlord:
@@ -400,7 +400,7 @@ var
   Y: Integer;
   R: TRaceEnum;
   K: TRaceCharKind;
-  S: TScenarioEnum;
+  S: TScenario.TScenarioEnum;
 begin
   Y := 0;
   case SubScene of
@@ -454,7 +454,7 @@ begin
     stScenario, stJournal:
       begin
         DrawTitle(reTitleScenario);
-        for S := Low(TScenarioEnum) to High(TScenarioEnum) do
+        for S := Low(TScenario.TScenarioEnum) to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
@@ -602,16 +602,16 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenario.TScenarioEnum)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenario.TScenarioEnum)));
       end;
     stVictory, stDefeat:
       case Key of
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenario.TScenarioEnum)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenario.TScenarioEnum)));
       end;
   end;
   if (SubScene in CloseButtonScene) then
