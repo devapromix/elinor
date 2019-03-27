@@ -33,16 +33,6 @@ procedure NewDay;
 procedure Free;
 
 type
-  TSaga = class(TObject)
-  private
-
-  public
-    constructor Create;
-    destructor Destroy; override;
-    procedure Clear;
-  end;
-
-type
   TScenario = class(TObject)
   public type
     TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
@@ -64,6 +54,7 @@ type
       );
   public
     class var StoneTab: Integer;
+    class var CurrentScenario: TScenarioEnum;
   strict private
   class var
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
@@ -76,9 +67,15 @@ type
     class function ScenarioAncientKnowledgeState: string;
   end;
 
-var
-  CurrentScenario: TScenario.TScenarioEnum = sgDarkTower;
-  Saga: TSaga;
+type
+  TSaga = class(TObject)
+  private
+
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Clear;
+  end;
 
 implementation
 
@@ -267,6 +264,7 @@ class procedure TScenario.Init;
 begin
   J := 0;
   StoneTab := 0;
+  CurrentScenario := sgDarkTower;
 end;
 
 class function TScenario.IsStoneTab(const X, Y: Integer): Boolean;

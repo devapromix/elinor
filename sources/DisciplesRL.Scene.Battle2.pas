@@ -131,7 +131,7 @@ end;
 procedure Victory;
 begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
-  if (CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(Leader.X, Leader.Y) then
+  if (TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(Leader.X, Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
