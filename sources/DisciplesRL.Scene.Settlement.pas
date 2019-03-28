@@ -324,7 +324,7 @@ begin
         TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
       end;
   end;
-  if (CurrentScenario = sgOverlord) then
+  if (TScenario.CurrentScenario = sgOverlord) then
   begin
     if (TPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
     begin

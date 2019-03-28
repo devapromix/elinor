@@ -53,7 +53,7 @@ begin
   case SubScene of
     stStoneTab:
       begin
-        if (CurrentScenario = sgAncientKnowledge) then
+        if (TScenario.CurrentScenario = sgAncientKnowledge) then
           if TScenario.StoneTab >= TScenario.ScenarioStoneTabMax then
           begin
             DisciplesRL.Scene.Hire.Show(stVictory);
@@ -73,7 +73,7 @@ begin
         F := True;
         DisciplesRL.Scenes.CurrentScene := scMap;
         begin
-          if (CurrentScenario = sgDarkTower) then
+          if (TScenario.CurrentScenario = sgDarkTower) then
           begin
             case LeaderTile of
               reTower:

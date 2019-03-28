@@ -76,7 +76,7 @@ procedure Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
     stJournal:
-      CurrentIndex := Ord(CurrentScenario);
+      CurrentIndex := Ord(TScenario.CurrentScenario);
   else
     CurrentIndex := 0;
   end;
@@ -148,7 +148,7 @@ begin
       end;
     stScenario:
       begin
-        CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
+        TScenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
     stJournal:
@@ -371,7 +371,7 @@ begin
   for J := 0 to 10 do
     Add(TScenario.ScenarioDescription[S][J]);
   if IsGame then
-    case CurrentScenario of
+    case TScenario.CurrentScenario of
       sgOverlord:
         Add(TScenario.ScenarioOverlordState);
       sgAncientKnowledge:

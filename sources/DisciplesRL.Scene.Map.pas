@@ -74,9 +74,9 @@ begin
         (Map[lrDark][X, Y] = reNone);
 
       // Special
-      if Wizard and (((CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
-        ((CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
-        ((CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
+      if Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
+        ((TScenario.CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
+        ((TScenario.CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
