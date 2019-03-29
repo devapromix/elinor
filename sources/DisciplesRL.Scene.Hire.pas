@@ -137,7 +137,7 @@ begin
       end;
     stLeader:
       begin
-        DisciplesRL.Saga.Clear;
+        TSaga.Clear;
         Party[LeaderPartyIndex].Owner := LeaderRace;
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;

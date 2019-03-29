@@ -27,10 +27,9 @@ procedure PartyFree;
 function GetPartyCount: Integer;
 function GetPartyIndex(const AX, AY: Integer): Integer;
 procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False);
-procedure Clear;
 procedure AddLoot;
 procedure NewDay;
-procedure Free;
+procedure pFree;
 
 type
   TScenario = class(TObject)
@@ -72,9 +71,7 @@ type
   private
 
   public
-    constructor Create;
-    destructor Destroy; override;
-    procedure Clear;
+    class procedure Clear; static;
   end;
 
 implementation
@@ -210,23 +207,6 @@ begin
   Party[I].Owner := reNeutrals;
 end;
 
-procedure Clear;
-begin
-  IsGame := True;
-  TScenario.Init;
-  Days := 1;
-  Gold := 250;
-  NewGold := 0;
-  GoldMines := 0;
-  BattlesWon := 0;
-  IsDay := False;
-  Free;
-  DisciplesRL.Map.Init;
-  DisciplesRL.Map.Gen;
-  DisciplesRL.Scene.Settlement.Gen;
-  TLeaderParty(Party[LeaderPartyIndex]).Clear;
-end;
-
 procedure AddLoot();
 var
   Level: Integer;
@@ -246,7 +226,7 @@ begin
   end;
 end;
 
-procedure Free;
+procedure pFree;
 begin
   PartyFree;
 end;
@@ -292,20 +272,21 @@ end;
 
 { TSaga }
 
-procedure TSaga.Clear;
+class procedure TSaga.Clear;
 begin
-
-end;
-
-constructor TSaga.Create;
-begin
-
-end;
-
-destructor TSaga.Destroy;
-begin
-
-  inherited;
+  IsGame := True;
+  TScenario.Init;
+  Days := 1;
+  Gold := 250;
+  NewGold := 0;
+  GoldMines := 0;
+  BattlesWon := 0;
+  IsDay := False;
+  pFree;
+  DisciplesRL.Map.Init;
+  DisciplesRL.Map.Gen;
+  DisciplesRL.Scene.Settlement.Gen;
+  TLeaderParty(Party[LeaderPartyIndex]).Clear;
 end;
 
 end.
