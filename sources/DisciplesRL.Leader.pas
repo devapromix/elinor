@@ -72,7 +72,7 @@ begin
     end;
     if Map[lrTile][AX, AY] in Cities then
     begin
-      I := GetPartyIndex(AX, AY);
+      I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
         DisciplesRL.Scene.Party.Show(Party[I], scMap);
       Exit;
@@ -80,7 +80,7 @@ begin
     case Map[lrObj][AX, AY] of
       reEnemy:
         begin
-          I := GetPartyIndex(AX, AY);
+          I := TSaga.GetPartyIndex(AX, AY);
           DisciplesRL.Scene.Party.Show(Party[I], scMap);
         end;
     end;
@@ -100,13 +100,13 @@ begin
       reGold:
         begin
           Map[lrObj][X, Y] := reNone;
-          AddLoot();
+          TSaga.AddLoot();
           F := False;
         end;
       reBag:
         begin
           Map[lrObj][X, Y] := reNone;
-          AddLoot();
+          TSaga.AddLoot();
           F := False;
         end;
       reEnemy:
@@ -138,7 +138,7 @@ begin
     F := False;
   end;
   if F then
-    NewDay;
+    TSaga.NewDay;
 end;
 
 procedure TLeader.Move(const AX, AY: ShortInt);

@@ -96,9 +96,9 @@ end;
 procedure AddCapitalParty;
 begin
   CapitalPartyIndex := High(Party) + 1;
-  SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(Place[0].X, Place[0].Y, LeaderRace);
-  Party[GetPartyCount - 1].AddCreature(Characters[LeaderRace][cgGuardian][ckGuardian], 3);
+  SetLength(Party, TSaga.GetPartyCount + 1);
+  Party[TSaga.GetPartyCount - 1] := TParty.Create(Place[0].X, Place[0].Y, LeaderRace);
+  Party[TSaga.GetPartyCount - 1].AddCreature(Characters[LeaderRace][cgGuardian][ckGuardian], 3);
 end;
 
 procedure AddLeaderParty;
@@ -106,8 +106,8 @@ var
   C: TCreatureEnum;
 begin
   LeaderPartyIndex := High(Party) + 1;
-  SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TLeaderParty.Create(Place[0].X, Place[0].Y, LeaderRace);
+  SetLength(Party, TSaga.GetPartyCount + 1);
+  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Place[0].X, Place[0].Y, LeaderRace);
   C := Characters[LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
@@ -209,7 +209,7 @@ begin
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
     until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutralTerrain) and (GetDistToCapital(X, Y) >= 3);
-    AddPartyAt(X, Y);
+    TSaga.AddPartyAt(X, Y);
     if (TScenario.CurrentScenario = sgAncientKnowledge) and (I < TScenario.ScenarioStoneTabMax) then
       TScenario.AddStoneTab(X, Y);
   end;

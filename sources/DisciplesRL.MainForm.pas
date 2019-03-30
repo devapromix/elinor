@@ -109,7 +109,7 @@ procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   DisciplesRL.Resources.Free;
   DisciplesRL.Scenes.Free;
-  DisciplesRL.Saga.pFree;
+  TSaga.PartyFree;
 end;
 
 procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
