@@ -2,7 +2,8 @@ unit DisciplesRL.Scene.Victory;
 
 interface
 
-uses System.Classes;
+uses
+  System.Classes;
 
 procedure Init;
 procedure Render;
@@ -14,8 +15,13 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources,
-  DisciplesRL.GUI.Button, DisciplesRL.MainForm, DisciplesRL.Scene.HighScores,
+uses
+  System.SysUtils,
+  DisciplesRL.Scenes,
+  DisciplesRL.Resources,
+  DisciplesRL.GUI.Button,
+  DisciplesRL.MainForm,
+  DisciplesRL.Scene.HighScores,
   DisciplesRL.Game;
 
 var

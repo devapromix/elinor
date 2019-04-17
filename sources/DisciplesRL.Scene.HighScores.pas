@@ -2,7 +2,8 @@ unit DisciplesRL.Scene.HighScores;
 
 interface
 
-uses System.Classes;
+uses
+  System.Classes;
 
 procedure Init;
 procedure Render;
@@ -15,9 +16,16 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map,
-  DisciplesRL.Game, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Player,
-  DisciplesRL.Scene.Settlement, DisciplesRL.GUI.Button;
+uses
+  System.SysUtils,
+  DisciplesRL.Scenes,
+  DisciplesRL.Scene.Map,
+  DisciplesRL.Game,
+  DisciplesRL.Map,
+  DisciplesRL.Resources,
+  DisciplesRL.Player,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.GUI.Button;
 
 var
   Button: TButton;

@@ -2,7 +2,11 @@ unit DisciplesRL.PascalScript.Battle;
 
 interface
 
-uses Vcl.Dialogs, DisciplesRL.PascalScript.Vars, uPSCompiler, uPSRuntime;
+uses
+  Vcl.Dialogs,
+  DisciplesRL.PascalScript.Vars,
+  uPSCompiler,
+  uPSRuntime;
 
 procedure Run(Script: string);
 procedure ClearMessages;
@@ -16,7 +20,13 @@ var
 
 implementation
 
-uses System.SysUtils, System.Classes, DisciplesRL.Scenes, DisciplesRL.MainForm, DisciplesRL.Utils, DisciplesRL.Player,
+uses
+  System.SysUtils,
+  System.Classes,
+  DisciplesRL.Scenes,
+  DisciplesRL.MainForm,
+  DisciplesRL.Utils,
+  DisciplesRL.Player,
   DisciplesRL.Creatures;
 
 const
@@ -119,8 +129,8 @@ end;
 
 procedure _MsgBox(S: string);
 begin
-  ShowMessage(S);
-  MainForm.Label1.Caption := S;
+//  ShowMessage(S);
+//  MainForm.Label1.Caption := S;
 end;
 
 procedure _UseTimer(Interval: Integer; Script: String);

@@ -2,7 +2,9 @@ unit DisciplesRL.Map;
 
 interface
 
-uses DisciplesRL.Resources, DisciplesRL.Party;
+uses
+  DisciplesRL.Resources,
+  DisciplesRL.Party;
 
 var
   MapWidth: Integer = 40 + 2;
@@ -25,15 +27,20 @@ procedure Init;
 procedure Clear(const L: TLayerEnum);
 procedure Gen;
 function InMap(X, Y: Integer): Boolean;
-procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer;
-  const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
+procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 function GetDistToCapital(const AX, AY: Integer): Integer;
 function PlayerTile: TResEnum;
 
 implementation
 
-uses System.Math, System.SysUtils, DisciplesRL.Player, DisciplesRL.Utils,
-  DisciplesRL.City, DisciplesRL.PathFind, DisciplesRL.Game,
+uses
+  System.Math,
+  System.SysUtils,
+  DisciplesRL.Player,
+  DisciplesRL.Utils,
+  DisciplesRL.City,
+  DisciplesRL.PathFind,
+  DisciplesRL.Game,
   DisciplesRL.Creatures;
 
 procedure Init;
@@ -104,7 +111,7 @@ begin
   for I := 1 to High(City) do
   begin
     repeat
-      if PathFind(X, Y, City[I].X, City[I].Y, ChTile, RX, RY) then
+      if IsPathFind(MapWidth, MapHeight, X, Y, City[I].X, City[I].Y, ChTile, RX, RY) then
       begin
         // if (RandomRange(0, 2) = 0) then
         begin
@@ -138,8 +145,7 @@ begin
     repeat
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
-    until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutral) and
-      (GetDistToCapital(X, Y) >= 3);
+    until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutral) and (GetDistToCapital(X, Y) >= 3);
     AddPartyAt(X, Y);
   end;
   // Leader's party
@@ -151,22 +157,19 @@ begin
   Result := (X >= 0) and (X < MapWidth) and (Y >= 0) and (Y < MapHeight);
 end;
 
-procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer;
-  const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
+procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 var
   X, Y: Integer;
 begin
   for Y := -AR to AR do
     for X := -AR to AR do
-      if (GetDist(AX + X, AY + Y, AX, AY) <= AR) and
-        DisciplesRL.Map.InMap(AX + X, AY + Y) then
+      if (GetDist(AX + X, AY + Y, AX, AY) <= AR) and DisciplesRL.Map.InMap(AX + X, AY + Y) then
         if (MapLayer[AX + X, AY + Y] in IgnoreRes) then
           Continue
         else
         begin
           // Add mine
-          if (MapLayer = Map[lrTile]) and (Map[lrObj][AX + X, AY + Y] = reMine)
-            and (Map[lrTile][AX + X, AY + Y] = reNeutral) then
+          if (MapLayer = Map[lrTile]) and (Map[lrObj][AX + X, AY + Y] = reMine) and (Map[lrTile][AX + X, AY + Y] = reNeutral) then
             Inc(GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;

@@ -2,11 +2,14 @@ unit DisciplesRL.Scenes;
 
 interface
 
-uses Vcl.Graphics, System.Types, System.Classes, Vcl.Controls;
+uses
+  Vcl.Graphics,
+  System.Types,
+  System.Classes,
+  Vcl.Controls;
 
 type
-  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle,
-    scItem, scDay, scHighScores);
+  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem, scDay, scHighScores);
 
 var
   Surface: TBitmap;
@@ -31,10 +34,20 @@ const
 
 implementation
 
-uses System.SysUtils, Vcl.Forms, DisciplesRL.MainForm, DisciplesRL.Scene.Map,
-  DisciplesRL.Scene.Menu, DisciplesRL.Scene.Victory, DisciplesRL.Scene.Defeat,
-  DisciplesRL.Scene.Battle, DisciplesRL.Scene.Settlement, DisciplesRL.Resources,
-  DisciplesRL.Scene.Item, DisciplesRL.Scene.Day, DisciplesRL.Scene.HighScores;
+uses
+  Vcl.Forms,
+  System.SysUtils,
+  DisciplesRL.MainForm,
+  DisciplesRL.Scene.Map,
+  DisciplesRL.Scene.Menu,
+  DisciplesRL.Scene.Victory,
+  DisciplesRL.Scene.Defeat,
+  DisciplesRL.Scene.Battle,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Resources,
+  DisciplesRL.Scene.Item,
+  DisciplesRL.Scene.Day,
+  DisciplesRL.Scene.HighScores;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
@@ -47,8 +60,7 @@ end;
 procedure RenderDark;
 begin
   DisciplesRL.Scene.Map.Render;
-  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
-    ResImage[reDark]);
+  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height), ResImage[reDark]);
 end;
 
 procedure Init;

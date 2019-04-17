@@ -2,7 +2,9 @@ unit DisciplesRL.Scene.Party;
 
 interface
 
-uses DisciplesRL.Party, DisciplesRL.Resources;
+uses
+  DisciplesRL.Party,
+  DisciplesRL.Resources;
 
 type
   TPartySide = (psLeft, psRight);
@@ -17,7 +19,10 @@ var
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Creatures;
+uses
+  System.SysUtils,
+  DisciplesRL.Scenes,
+  DisciplesRL.Creatures;
 
 const
   Top = 220;

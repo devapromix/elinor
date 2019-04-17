@@ -2,7 +2,9 @@ unit DisciplesRL.Scene.Settlement;
 
 interface
 
-uses System.Classes, Vcl.Controls;
+uses
+  System.Classes,
+  Vcl.Controls;
 
 type
   TSettlementTypeEnum = (stCity, stCapital);
@@ -20,11 +22,20 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Scene.Map,
-  DisciplesRL.Resources, DisciplesRL.Game,
-  DisciplesRL.Party, Vcl.Dialogs, DisciplesRL.Map, DisciplesRL.City,
-  DisciplesRL.Scene.Party, DisciplesRL.Player,
-  DisciplesRL.Creatures, DisciplesRL.GUI.Button;
+uses
+  System.SysUtils,
+  DisciplesRL.Scenes,
+  DisciplesRL.Scene.Map,
+  DisciplesRL.Resources,
+  DisciplesRL.Game,
+  DisciplesRL.Party,
+  Vcl.Dialogs,
+  DisciplesRL.Map,
+  DisciplesRL.City,
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Player,
+  DisciplesRL.Creatures,
+  DisciplesRL.GUI.Button;
 
 type
   TButtonEnum = (btHeal, btRevive, btClose, btHire);
@@ -65,26 +76,21 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CenterTextOut(100, Format('CITY (Level %d)',
-          [City[CurrentCityIndex].MaxLevel + 1]));
+        CenterTextOut(100, Format('CITY (Level %d)', [City[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
-        Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180,
-          'CITY DEFENSES');
+        Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CITY DEFENSES');
       end;
     stCapital:
       begin
-        CenterTextOut(100, Format('THE EMPIRE CAPITAL (Level %d)',
-          [City[0].MaxLevel + 1]));
+        CenterTextOut(100, Format('THE EMPIRE CAPITAL (Level %d)', [City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
-        Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180,
-          'CAPITAL DEFENSES');
+        Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CAPITAL DEFENSES');
       end;
   end;
 
-  if (GetDistToCapital(Player.X, Player.Y) = 0) or
-    (CurrentSettlementType = stCity) then
+  if (GetDistToCapital(Player.X, Player.Y) = 0) or (CurrentSettlementType = stCity) then
     RenderParty(psLeft, LeaderParty)
   else
     RenderParty(psLeft, nil);
@@ -168,17 +174,14 @@ procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   I, J: Integer;
 begin
-  if (GetDistToCapital(Player.X, Player.Y) > 0) and
-    (CurrentSettlementType = stCapital) and (Button = mbRight) and
-    (GetPartyPosition(X, Y) < 6) then
+  if (GetDistToCapital(Player.X, Player.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        LeaderParty.ChPosition(SettlementParty, ActivePartyPosition,
-          CurrentPartyPosition);
+        LeaderParty.ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
       end;
     mbLeft:
       begin

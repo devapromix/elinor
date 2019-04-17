@@ -2,7 +2,9 @@ unit DisciplesRL.Scene.Map;
 
 interface
 
-uses System.Classes, DisciplesRL.Scenes;
+uses
+  System.Classes,
+  DisciplesRL.Scenes;
 
 procedure Init;
 procedure Render;
@@ -14,8 +16,17 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, System.Math, System.Types, Vcl.Imaging.PNGImage, DisciplesRL.Map, DisciplesRL.Resources,
-  DisciplesRL.Player, Vcl.Dialogs, DisciplesRL.Utils, DisciplesRL.Scene.Settlement,
+uses
+  System.SysUtils,
+  System.Math,
+  System.Types,
+  Vcl.Imaging.PNGImage,
+  DisciplesRL.Map,
+  DisciplesRL.Resources,
+  DisciplesRL.Player,
+  Vcl.Dialogs,
+  DisciplesRL.Utils,
+  DisciplesRL.Scene.Settlement,
   DisciplesRL.Game;
 
 const
@@ -53,8 +64,8 @@ begin
       else
         DrawImage(X, Y, ResImage[reNeutral]);
       end;
-      F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and
-        not(Map[lrTile][X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and (Map[lrDark][X, Y] = reNone);
+      F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and not(Map[lrTile][X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and
+        (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
         DrawImage(X, Y, ResImage[Map[lrTile][X, Y]]);

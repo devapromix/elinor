@@ -2,7 +2,8 @@ unit DisciplesRL.Party;
 
 interface
 
-uses DisciplesRL.Creatures;
+uses
+  DisciplesRL.Creatures;
 
 type
   TRaceEnum = (reEmpire, reNeutrals);

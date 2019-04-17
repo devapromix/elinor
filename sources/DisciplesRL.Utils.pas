@@ -7,7 +7,8 @@ function GetPath(SubDir: string): string;
 
 implementation
 
-uses SysUtils;
+uses
+  SysUtils;
 
 function GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin

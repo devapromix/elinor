@@ -2,7 +2,8 @@ unit DisciplesRL.City;
 
 interface
 
-uses DisciplesRL.Party;
+uses
+  DisciplesRL.Party;
 
 type
   TCity = record
@@ -22,8 +23,14 @@ procedure Gen;
 
 implementation
 
-uses System.Math, DisciplesRL.Map, DisciplesRL.Resources, DisciplesRL.Utils,
-  DisciplesRL.Player, DisciplesRL.Creatures, DisciplesRL.Game;
+uses
+  System.Math,
+  DisciplesRL.Map,
+  DisciplesRL.Resources,
+  DisciplesRL.Utils,
+  DisciplesRL.Player,
+  DisciplesRL.Creatures,
+  DisciplesRL.Game;
 
 const
   NCity = 7;
@@ -57,11 +64,9 @@ end;
 
 procedure UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel,
-    Map[lrTile], reEmpireTerrain, [reEmpireCity, reNeutralCity, reEmpireCapital,
-    reRuin, reTower]);
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel,
-    Map[lrDark], reNone);
+  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], reEmpireTerrain,
+    [reEmpireCity, reNeutralCity, reEmpireCapital, reRuin, reTower]);
+  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
   City[AID].Owner := reEmpire;
 end;
 
@@ -88,8 +93,7 @@ begin
     Exit;
   for I := 0 to N - 1 do
   begin
-    if (GetDist(City[I].X, City[I].Y, City[N].X, City[N].Y) <= GetRadius(N))
-    then
+    if (GetDist(City[I].X, City[I].Y, City[N].X, City[N].Y) <= GetRadius(N)) then
     begin
       Result := False;
       Exit;

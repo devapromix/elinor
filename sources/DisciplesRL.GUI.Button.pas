@@ -2,7 +2,10 @@ unit DisciplesRL.GUI.Button;
 
 interface
 
-uses DisciplesRL.Resources, Vcl.Graphics, Vcl.Imaging.PNGImage;
+uses
+  DisciplesRL.Resources,
+  Vcl.Graphics,
+  Vcl.Imaging.PNGImage;
 
 type
   TButtonState = (bsNone, bsOver, bsSell, bsDown);

@@ -2,7 +2,9 @@ unit DisciplesRL.Scene.Battle;
 
 interface
 
-uses System.Classes, Vcl.Controls;
+uses
+  System.Classes,
+  Vcl.Controls;
 
 procedure Init;
 procedure Render;
@@ -17,11 +19,22 @@ function TransformFrom(P: Integer): Integer;
 
 implementation
 
-uses Vcl.Dialogs, Vcl.Graphics, System.SysUtils, DisciplesRL.Scenes,
-  DisciplesRL.Scene.Item, DisciplesRL.Map, DisciplesRL.Game,
-  DisciplesRL.Player, DisciplesRL.Party, DisciplesRL.Scene.Party,
-  DisciplesRL.Resources, DisciplesRL.GUI.Button,
-  DisciplesRL.PascalScript.Battle, System.Types, DisciplesRL.Creatures;
+uses
+  Vcl.Dialogs,
+  Vcl.Graphics,
+  System.SysUtils,
+  DisciplesRL.Scenes,
+  DisciplesRL.Scene.Item,
+  DisciplesRL.Map,
+  DisciplesRL.Game,
+  DisciplesRL.Player,
+  DisciplesRL.Party,
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Resources,
+  DisciplesRL.GUI.Button,
+  DisciplesRL.PascalScript.Battle,
+  System.Types,
+  DisciplesRL.Creatures;
 
 var
   P: array [1 .. 12] of TPoint;
@@ -188,18 +201,12 @@ begin
       if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
       begin
         G := V.GetInt('Slot' + IntToStr(I) + 'Type');
-        DisplayUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X + 7,
-          P[I].Y + 7);
+        DisplayUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X + 7, P[I].Y + 7);
 
-        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 6,
-          Format('[%d] %s (Level %d)',
-          [I, V.GetStr('Slot' + IntToStr(I) + 'Name'), 1]));
+        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 6, Format('[%d] %s (Level %d)', [I, V.GetStr('Slot' + IntToStr(I) + 'Name'), 1]));
         Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 40 + 2,
-          Format('HP %s/%s', [V.GetStr('Slot' + IntToStr(I) + 'HP'),
-          V.GetStr('Slot' + IntToStr(I) + 'MHP')]));
-        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 80 - 2,
-          Format('Damage %s Armor %d',
-          [V.GetStr('Slot' + IntToStr(I) + 'Use'), 0]));
+          Format('HP %s/%s', [V.GetStr('Slot' + IntToStr(I) + 'HP'), V.GetStr('Slot' + IntToStr(I) + 'MHP')]));
+        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 80 - 2, Format('Damage %s Armor %d', [V.GetStr('Slot' + IntToStr(I) + 'Use'), 0]));
 
       end;
     end;
@@ -249,15 +256,13 @@ begin
   F := False;
   if LeaderParty.IsClear then
   begin
-    Surface.Canvas.Draw((Surface.Width div 2) -
-      (ResImage[reDefeat].Width div 2), 10, ResImage[reDefeat]);
+    Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[reDefeat].Width div 2), 10, ResImage[reDefeat]);
     F := True;
   end;
   J := GetPartyIndex(Player.X, Player.Y);
   if Party[J].IsClear then
   begin
-    Surface.Canvas.Draw((Surface.Width div 2) -
-      (ResImage[reVictory].Width div 2), 10, ResImage[reVictory]);
+    Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[reVictory].Width div 2), 10, ResImage[reVictory]);
     F := True;
   end;
   if F then

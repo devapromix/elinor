@@ -2,7 +2,8 @@ unit DisciplesRL.PascalScript.Vars;
 
 interface
 
-uses System.Classes;
+uses
+  System.Classes;
 
 type
   TVars = class(TObject)
@@ -32,7 +33,8 @@ type
 
 implementation
 
-uses System.SysUtils;
+uses
+  System.SysUtils;
 
 { TVars }
 

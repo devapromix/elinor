@@ -2,7 +2,8 @@ unit DisciplesRL.Scene.Menu;
 
 interface
 
-uses System.Classes;
+uses
+  System.Classes;
 
 procedure Init;
 procedure Render;
@@ -14,9 +15,14 @@ procedure Free;
 
 implementation
 
-uses System.SysUtils, DisciplesRL.Scenes, DisciplesRL.Resources,
-  DisciplesRL.GUI.Button, DisciplesRL.Scene.Settlement,
-  DisciplesRL.MainForm, DisciplesRL.Game;
+uses
+  System.SysUtils,
+  DisciplesRL.Scenes,
+  DisciplesRL.Resources,
+  DisciplesRL.GUI.Button,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.MainForm,
+  DisciplesRL.Game;
 
 type
   TButtonEnum = (btNew, btContinue, btHighScores, btQuit);
@@ -37,8 +43,9 @@ begin
         DisciplesRL.Game.Init;
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
-    1: if IsGame then
-      DisciplesRL.Scenes.CurrentScene := scMap;
+    1:
+      if IsGame then
+        DisciplesRL.Scenes.CurrentScene := scMap;
     2:
       DisciplesRL.Scenes.CurrentScene := scHighScores;
   end;

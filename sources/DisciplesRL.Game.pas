@@ -2,7 +2,8 @@ unit DisciplesRL.Game;
 
 interface
 
-uses DisciplesRL.Party;
+uses
+  DisciplesRL.Party;
 
 const
   GoldFromMinePerDay = 100;
@@ -40,8 +41,14 @@ procedure Free;
 
 implementation
 
-uses System.Math, System.SysUtils, DisciplesRL.Creatures, DisciplesRL.Map,
-  DisciplesRL.Resources, DisciplesRL.Scenes, DisciplesRL.Player;
+uses
+  System.Math,
+  System.SysUtils,
+  DisciplesRL.Creatures,
+  DisciplesRL.Map,
+  DisciplesRL.Resources,
+  DisciplesRL.Scenes,
+  DisciplesRL.Player;
 
 procedure Init;
 begin
