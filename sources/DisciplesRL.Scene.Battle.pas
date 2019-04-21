@@ -181,7 +181,7 @@ var
   ButLeft: Integer;
 begin
   ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  CloseButton := TButton.Create(ButLeft, 600, Surface.Canvas, reMNewGame);
+  CloseButton := TButton.Create(ButLeft, 600, Surface.Canvas, reTextClose);
   CloseButton.Sellected := True;
 end;
 
