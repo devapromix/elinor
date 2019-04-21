@@ -53,14 +53,12 @@ begin
     case I of
       0 .. 5:
         begin
-          LeaderParty.SetHitPoints(I,
-            V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+          LeaderParty.SetHitPoints(I, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
         end;
       6 .. 11:
         begin
           J := GetPartyIndex(Player.X, Player.Y);
-          Party[J].SetHitPoints(I - 6,
-            V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+          Party[J].SetHitPoints(I - 6, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
         end;
     end;
   end;
@@ -161,17 +159,18 @@ procedure Turn(const Count: Integer = 1);
 var
   C: Integer;
 begin
-  if (Count < 1) then Exit;
+  if (Count < 1) then
+    Exit;
   C := 0;
   repeat
-  Dec(Player.Speed);
-  if (Player.Speed = 0) then
-  begin
-    Inc(Days);
-    IsDay := True;
-    Player.Speed := Player.MaxSpeed;
-  end;
-  Inc(C);
+    Dec(Player.Speed);
+    if (Player.Speed = 0) then
+    begin
+      Inc(Days);
+      IsDay := True;
+      Player.Speed := Player.MaxSpeed;
+    end;
+    Inc(C);
   until (C >= Count);
 end;
 
@@ -228,8 +227,7 @@ begin
     reNeutralCity:
       begin
         Map[lrTile][Player.X, Player.Y] := reEmpireCity;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X,
-          Player.Y));
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X, Player.Y));
         F := False;
       end;
     reEmpireCity:
@@ -249,8 +247,7 @@ end;
 
 procedure RefreshRadius;
 begin
-  DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius,
-    Map[lrDark], reNone);
+  DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius, Map[lrDark], reNone);
 end;
 
 procedure Gen;

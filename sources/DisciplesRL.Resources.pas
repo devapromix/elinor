@@ -8,7 +8,7 @@ uses
 type
   TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark,
     reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reMNewGame, reMVictory,
-    reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit);
+    reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal, reTextRevive);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -70,11 +70,11 @@ const
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
     // Text "New Game"
-    (FileName: 'newgame.png'; ResType: teGUI;),
+    (FileName: 'text.newgame.png'; ResType: teGUI;),
     // Text "Victory"
-    (FileName: 'mvictory.png'; ResType: teGUI;),
+    (FileName: 'text.victory.png'; ResType: teGUI;),
     // Text "Defeat"
-    (FileName: 'mdefeat.png'; ResType: teGUI;),
+    (FileName: 'text.defeat.png'; ResType: teGUI;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button
@@ -88,7 +88,15 @@ const
     // Spider
     (FileName: 'spider.png'; ResType: teGUI;),
     // Text "Quit"
-    (FileName: 'quit.png'; ResType: teGUI;)
+    (FileName: 'text.quit.png'; ResType: teGUI;),
+    // Text "Hire"
+    (FileName: 'text.hire.png'; ResType: teGUI;),
+    // Text "Close"
+    (FileName: 'text.close.png'; ResType: teGUI;),
+    // Text "Heal"
+    (FileName: 'text.heal.png'; ResType: teGUI;),
+    // Text "Revive"
+    (FileName: 'text.revive.png'; ResType: teGUI;)
     //
     );
 

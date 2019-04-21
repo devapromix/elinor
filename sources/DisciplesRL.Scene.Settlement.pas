@@ -48,6 +48,7 @@ var
 
 procedure Init;
 var
+  R: TResEnum;
   I: TButtonEnum;
   L, W: Integer;
 begin
@@ -55,7 +56,17 @@ begin
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, 600, Surface.Canvas, reMNewGame);
+    case I of
+      btHeal:
+        R := reTextHeal;
+      btRevive:
+        R := reTextRevive;
+      btClose:
+        R := reTextClose;
+      btHire:
+        R := reTextHire;
+    end;
+    Button[I] := TButton.Create(L, 600, Surface.Canvas, R);
     Inc(L, W);
     if (I = btClose) then
       Button[I].Sellected := True;
@@ -94,6 +105,7 @@ begin
     RenderParty(psLeft, LeaderParty)
   else
     RenderParty(psLeft, nil);
+
   RenderParty(psRight, SettlementParty);
   RenderButtons;
 end;
@@ -105,7 +117,7 @@ end;
 
 procedure Hire;
 begin
-
+  ShowMessage('HIRE');
 end;
 
 procedure Heal;
