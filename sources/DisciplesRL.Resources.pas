@@ -6,9 +6,10 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer, reDark,
-    reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reMNewGame, reMVictory,
-    reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal, reTextRevive);
+  TResEnum = (reNone, reDead, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer,
+    reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reMNewGame,
+    reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
+    reTextRevive);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -23,6 +24,8 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
+    // Череп
+    (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame
     (FileName: 'frame.png'; ResType: teGUI;),
     // Active Frame

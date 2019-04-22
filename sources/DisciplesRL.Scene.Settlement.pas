@@ -180,7 +180,7 @@ procedure Heal;
         ShowMessage('Выберите не пустой слот!');
         Exit;
       end;
-      if HitPoints < 0 then
+      if HitPoints <= 0 then
       begin
         ShowMessage('Сначала нужно воскресить!');
         Exit;

@@ -92,7 +92,7 @@ procedure Render;
 begin
   Surface.Canvas.Draw(Left, Top, ResImage[reLogo]);
   RenderButtons;
-  CenterTextOut(Surface.Height - 50, '2018 by Apromix')
+  CenterTextOut(Surface.Height - 50, '2018-2019 by Apromix')
 end;
 
 procedure Timer;

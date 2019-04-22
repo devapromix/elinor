@@ -207,7 +207,19 @@ begin
         Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 40 + 2,
           Format('HP %s/%s', [V.GetStr('Slot' + IntToStr(I) + 'HP'), V.GetStr('Slot' + IntToStr(I) + 'MHP')]));
         Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 80 - 2, Format('Damage %s Armor %d', [V.GetStr('Slot' + IntToStr(I) + 'Use'), 0]));
+      end
+      else
+      begin
+        G := V.GetInt('Slot' + IntToStr(I) + 'Use');
+        if (G > 0) then
+        begin
+          Draw(P[I].X + 7, P[I].Y + 7, ResImage[reDead]);
 
+          Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 6, Format('[%d] %s (Level %d)', [I, V.GetStr('Slot' + IntToStr(I) + 'Name'), 1]));
+          Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 40 + 2,
+            Format('HP %s/%s', [V.GetStr('Slot' + IntToStr(I) + 'HP'), V.GetStr('Slot' + IntToStr(I) + 'MHP')]));
+          Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 80 - 2, Format('Damage %s Armor %d', [V.GetStr('Slot' + IntToStr(I) + 'Use'), 0]));
+        end;
       end;
     end;
     if (ActSlot > 0) then
