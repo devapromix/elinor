@@ -11,7 +11,7 @@ const
 
 var
   Days: Integer = 0;
-  Gold: Integer = 0;
+  Gold: Integer = 300;
   NewGold: Integer = 0;
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
@@ -68,8 +68,8 @@ begin
   Party[GetPartyCount - 1] := TParty.Create(AX, AY);
   with Party[GetPartyCount - 1] do
   begin
-    // AddCreature(crGoblin_Archer, 1);
-    // AddCreature(crGoblin_Archer, 3);
+    AddCreature(crGoblin_Archer, 1);
+    AddCreature(crGoblin_Archer, 3);
     AddCreature(crGoblin_Archer, 5);
 
     // AddCreature(crGoblin, 0);
@@ -121,7 +121,7 @@ end;
 procedure Clear;
 begin
   Days := 0;
-  Gold := 0;
+  Gold := 250;
   NewGold := 0;
   GoldMines := 0;
   BattlesWon := 0;

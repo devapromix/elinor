@@ -130,7 +130,7 @@ begin
     Initiative := CreatureBase[ACreatureEnum].Initiative;
     ChancesToHit := CreatureBase[ACreatureEnum].ChancesToHit;
     Leadership := CreatureBase[ACreatureEnum].Leadership;
-    Level := CreatureBase[ACreatureEnum].Level;
+    Level := CreatureBase[ACreatureEnum].Level+1;
     Value := CreatureBase[ACreatureEnum].Value;
     Armor := CreatureBase[ACreatureEnum].Armor;
     SourceEnum := CreatureBase[ACreatureEnum].SourceEnum;

@@ -150,7 +150,7 @@ end;
 procedure TParty.Revive(const APosition: TPosition);
 begin
   with FCreature[APosition] do
-    if (Active and (HitPoints = 0)) then
+    if (Active and (HitPoints <= 0)) then
       HitPoints := 1;
 end;
 

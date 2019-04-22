@@ -24,8 +24,8 @@ implementation
 
 uses
   System.Math,
-  Vcl.Dialogs,
   System.SysUtils,
+  Vcl.Dialogs,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
   DisciplesRL.Resources,
@@ -115,12 +115,31 @@ begin
 end;
 
 procedure Dismiss;
+
+  procedure Dismiss(const AParty: TParty; const APosition: Integer);
+  begin
+    with AParty.Creature[APosition] do
+    begin
+      if Leadership > 0 then
+      begin
+        ShowMessage('Этого юнита невозможно уволить!');
+        Exit;
+      end
+      else
+      begin
+        if (MessageDlg('Отпустить этого юнита?', mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+          Exit;
+      end;
+    end;
+    AParty.Dismiss(APosition);
+  end;
+
 begin
   case ActivePartyPosition of
     0 .. 5:
-      LeaderParty.Dismiss(ActivePartyPosition);
+      Dismiss(LeaderParty, ActivePartyPosition);
     6 .. 11:
-      SettlementParty.Dismiss(ActivePartyPosition - 6);
+      Dismiss(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 
@@ -128,19 +147,30 @@ procedure Heal;
 
   procedure Heal(const AParty: TParty; const APosition: Integer);
   var
-    V: Integer;
+    V, R: Integer;
   begin
     with AParty.Creature[APosition] do
     begin
-      V := Min(MaxHitPoints - HitPoints, Gold);
+      if not Active then
+        Exit;
+      if HitPoints < 0 then
+      begin
+        ShowMessage('Сначала воскресите этого юнита!');
+        Exit;
+      end;
+      V := Min((MaxHitPoints - HitPoints) * Level, Gold);
       if (V <= 0) then
       begin
         ShowMessage('Для исцеления юнита нужно больше золота!');
         Exit;
       end;
-      Gold := Gold - V;
+      R := (V div Level) * Level;
+      if (MessageDlg(Format('Исцелить этого юнита на %d HP за %d золота?', [V div Level, R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        Exit;
+      Gold := Gold - R;
+      AParty.Heal(APosition, V div Level);
     end;
-    AParty.Heal(APosition, V);
+
   end;
 
 begin
@@ -159,6 +189,9 @@ procedure Revive;
     V: Integer;
   begin
     with AParty.Creature[APosition] do
+    begin
+      if not Active then
+        Exit;
       if HitPoints > 0 then
       begin
         ShowMessage('Существо не нуждается в воскрешении!');
@@ -172,8 +205,11 @@ procedure Revive;
           ShowMessage(Format('Для воскрешения юнита нужно %d золота!', [V]));
           Exit;
         end;
+        if (MessageDlg(Format('Воскресить этого юнита за %d золота?', [V]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+          Exit;
         Gold := Gold - V;
       end;
+    end;
     AParty.Revive(APosition);
   end;
 
