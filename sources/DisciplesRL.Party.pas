@@ -25,13 +25,15 @@ type
     procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
-    procedure SetHitPoints(const APosition: TPosition; const AHP: Integer);
+    procedure SetHitPoints(const APosition: TPosition; const AHitPoints: Integer);
+    function GetHitPoints(const APosition: TPosition): Integer;
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
     function IsClear: Boolean;
     function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
-    procedure Heal(const APosition: TPosition);
+    procedure Heal(const APosition: TPosition); overload;
+    procedure Heal(const APosition: TPosition; const AHitPoints: Integer); overload;
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
@@ -116,11 +118,23 @@ begin
   Result := FCreature[APosition]
 end;
 
+function TParty.GetHitPoints(const APosition: TPosition): Integer;
+begin
+  Result := FCreature[APosition].HitPoints;
+end;
+
 procedure TParty.Heal(const APosition: TPosition);
 begin
   with FCreature[APosition] do
     if (Active and (HitPoints > 0)) then
       HitPoints := MaxHitPoints;
+end;
+
+procedure TParty.Heal(const APosition: TPosition; const AHitPoints: Integer);
+begin
+  with FCreature[APosition] do
+    if (Active and (HitPoints > 0)) then
+      HitPoints := HitPoints + AHitPoints;
 end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
@@ -145,9 +159,9 @@ begin
   FCreature[APosition] := Value;
 end;
 
-procedure TParty.SetHitPoints(const APosition: TPosition; const AHP: Integer);
+procedure TParty.SetHitPoints(const APosition: TPosition; const AHitPoints: Integer);
 begin
-  FCreature[APosition].HitPoints := AHP;
+  FCreature[APosition].HitPoints := AHitPoints;
 end;
 
 procedure TParty.SetState(const APosition: TPosition; const Flag: Boolean);

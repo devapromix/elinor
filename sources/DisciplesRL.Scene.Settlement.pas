@@ -23,6 +23,7 @@ procedure Free;
 implementation
 
 uses
+  System.Math,
   Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Scenes,
@@ -124,12 +125,27 @@ begin
 end;
 
 procedure Heal;
+
+  procedure Heal(const AParty: TParty; const APosition: Integer);
+  var
+    V: Integer;
+  begin
+    with AParty.Creature[APosition] do
+    begin
+      V := Min(MaxHitPoints - HitPoints, Gold);
+      if (V <= 0) then
+        Exit;
+      Gold := Gold - V;
+    end;
+    AParty.Heal(APosition, V);
+  end;
+
 begin
   case ActivePartyPosition of
     0 .. 5:
-      LeaderParty.Heal(ActivePartyPosition);
+      Heal(LeaderParty, ActivePartyPosition);
     6 .. 11:
-      SettlementParty.Heal(ActivePartyPosition - 6);
+      Heal(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 
