@@ -67,8 +67,8 @@ procedure Render;
 begin
   // RenderDark;
 
-  CenterTextOut(100, 'ITEMS');
-  CenterTextOut(200, 'GOLD +' + IntToStr(NewGold));
+  CenterTextOut(100, 'янйпнбхые');
+  CenterTextOut(200, 'гнкнрн +' + IntToStr(NewGold));
   Button.Render;
 end;
 

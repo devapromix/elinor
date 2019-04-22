@@ -49,8 +49,8 @@ procedure Render;
 begin
   // RenderDark;
 
-  CenterTextOut(100, 'DAY ' + IntToStr(Days));
-  CenterTextOut(200, 'GOLD +' + IntToStr(GoldMines * GoldFromMinePerDay));
+  CenterTextOut(100, Format('мюярсохк мнбши демэ (дЕМЭ %d-И)',[Days]));
+  CenterTextOut(200, 'гнкнрн +' + IntToStr(GoldMines * GoldFromMinePerDay));
   Button.Render;
 end;
 

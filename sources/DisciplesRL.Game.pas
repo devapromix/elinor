@@ -120,7 +120,7 @@ end;
 
 procedure Clear;
 begin
-  Days := 0;
+  Days := 1;
   Gold := 250;
   NewGold := 0;
   GoldMines := 0;

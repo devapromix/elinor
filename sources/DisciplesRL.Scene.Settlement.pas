@@ -110,8 +110,27 @@ begin
 end;
 
 procedure Hire;
+
+  procedure Hire(const AParty: TParty; const APosition: Integer);
+  begin
+    with AParty.Creature[APosition] do
+    begin
+      if Active then
+      begin
+        ShowMessage('Выберите пустой слот!');
+        Exit;
+      end;
+
+    end;
+  end;
+
 begin
-  ShowMessage('HIRE');
+  case ActivePartyPosition of
+    0 .. 5:
+      Hire(LeaderParty, ActivePartyPosition);
+    6 .. 11:
+      Hire(SettlementParty, ActivePartyPosition - 6);
+  end;
 end;
 
 procedure Dismiss;
@@ -120,14 +139,19 @@ procedure Dismiss;
   begin
     with AParty.Creature[APosition] do
     begin
+      if not Active then
+      begin
+        ShowMessage('Выберите не пустой слот!');
+        Exit;
+      end;
       if Leadership > 0 then
       begin
-        ShowMessage('Этого юнита невозможно уволить!');
+        ShowMessage('Не возможно уволить!');
         Exit;
       end
       else
       begin
-        if (MessageDlg('Отпустить этого юнита?', mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if (MessageDlg('Отпустить?', mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
           Exit;
       end;
     end;
@@ -152,21 +176,32 @@ procedure Heal;
     with AParty.Creature[APosition] do
     begin
       if not Active then
+      begin
+        ShowMessage('Выберите не пустой слот!');
         Exit;
+      end;
       if HitPoints < 0 then
       begin
-        ShowMessage('Сначала воскресите этого юнита!');
+        ShowMessage('Сначала нужно воскресить!');
         Exit;
       end;
       V := Min((MaxHitPoints - HitPoints) * Level, Gold);
       if (V <= 0) then
       begin
-        ShowMessage('Для исцеления юнита нужно больше золота!');
+        ShowMessage('Нужно больше золота!');
         Exit;
       end;
       R := (V div Level) * Level;
-      if (MessageDlg(Format('Исцелить этого юнита на %d HP за %d золота?', [V div Level, R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
-        Exit;
+      if (HitPoints + (V div Level) < MaxHitPoints) then
+      begin
+        if (MessageDlg(Format('Исцелить на %d HP за %d золота?', [V div Level, R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+          Exit;
+      end
+      else
+      begin
+        if (MessageDlg(Format('Полностью исцелить за %d золота?', [R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+          Exit;
+      end;
       Gold := Gold - R;
       AParty.Heal(APosition, V div Level);
     end;
@@ -191,10 +226,13 @@ procedure Revive;
     with AParty.Creature[APosition] do
     begin
       if not Active then
+      begin
+        ShowMessage('Выберите не пустой слот!');
         Exit;
+      end;
       if HitPoints > 0 then
       begin
-        ShowMessage('Существо не нуждается в воскрешении!');
+        ShowMessage('Не нуждается в воскрешении!');
         Exit;
       end
       else
@@ -202,10 +240,10 @@ procedure Revive;
         V := Level * GoldForRevivePerLevel;
         if (Gold < V) then
         begin
-          ShowMessage(Format('Для воскрешения юнита нужно %d золота!', [V]));
+          ShowMessage(Format('Для воскрешения нужно %d золота!', [V]));
           Exit;
         end;
-        if (MessageDlg(Format('Воскресить этого юнита за %d золота?', [V]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if (MessageDlg(Format('Воскресить за %d золота?', [V]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
           Exit;
         Gold := Gold - V;
       end;
