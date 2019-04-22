@@ -7,6 +7,7 @@ uses
 
 const
   GoldFromMinePerDay = 100;
+  GoldForRevivePerLevel = 250;
 
 var
   Days: Integer = 0;

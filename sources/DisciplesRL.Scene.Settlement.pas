@@ -134,7 +134,10 @@ procedure Heal;
     begin
       V := Min(MaxHitPoints - HitPoints, Gold);
       if (V <= 0) then
+      begin
+        ShowMessage('Для исцеления юнита нужно больше золота!');
         Exit;
+      end;
       Gold := Gold - V;
     end;
     AParty.Heal(APosition, V);
@@ -150,12 +153,36 @@ begin
 end;
 
 procedure Revive;
+
+  procedure Revive(const AParty: TParty; const APosition: Integer);
+  var
+    V: Integer;
+  begin
+    with AParty.Creature[APosition] do
+      if HitPoints > 0 then
+      begin
+        ShowMessage('Существо не нуждается в воскрешении!');
+        Exit;
+      end
+      else
+      begin
+        V := Level * GoldForRevivePerLevel;
+        if (Gold < V) then
+        begin
+          ShowMessage(Format('Для воскрешения юнита нужно %d золота!', [V]));
+          Exit;
+        end;
+        Gold := Gold - V;
+      end;
+    AParty.Revive(APosition);
+  end;
+
 begin
   case ActivePartyPosition of
     0 .. 5:
-      LeaderParty.Revive(ActivePartyPosition);
+      Revive(LeaderParty, ActivePartyPosition);
     6 .. 11:
-      SettlementParty.Revive(ActivePartyPosition - 6);
+      Revive(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 
