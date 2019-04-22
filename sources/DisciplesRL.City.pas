@@ -135,7 +135,7 @@ begin
           ClearObj(City[I].X, City[I].Y);
           UpdateRadius(I);
           // Party
-          CapitalParty.SetPoint(Player.X, Player.Y);
+          CapitalParty.SetLocation(Player.X, Player.Y);
           CapitalParty.AddCreature(crMyzrael, 3);
         end;
       1 .. NCity: // City

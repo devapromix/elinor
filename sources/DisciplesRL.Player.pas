@@ -24,11 +24,21 @@ procedure Gen;
 
 implementation
 
-uses System.Math, Vcl.Dialogs, System.SysUtils, DisciplesRL.Map,
-  DisciplesRL.Resources, DisciplesRL.Utils, DisciplesRL.City,
-  DisciplesRL.Party, DisciplesRL.Scenes, DisciplesRL.Game,
-  DisciplesRL.Creatures, DisciplesRL.Scene.Settlement,
-  DisciplesRL.PascalScript.Battle, DisciplesRL.PascalScript.Vars,
+uses
+  System.Math,
+  Vcl.Dialogs,
+  System.SysUtils,
+  DisciplesRL.Map,
+  DisciplesRL.Resources,
+  DisciplesRL.Utils,
+  DisciplesRL.City,
+  DisciplesRL.Party,
+  DisciplesRL.Scenes,
+  DisciplesRL.Game,
+  DisciplesRL.Creatures,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.PascalScript.Battle,
+  DisciplesRL.PascalScript.Vars,
   DisciplesRL.Scene.Battle;
 
 procedure Init;
@@ -252,7 +262,7 @@ end;
 
 procedure Gen;
 begin
-  LeaderParty.SetPoint(Player.X, Player.Y);
+  LeaderParty.SetLocation(Player.X, Player.Y);
   LeaderParty.AddCreature(crSquire, 0);
   LeaderParty.AddCreature(crPegasus_Knight, 2);
   LeaderParty.AddCreature(crArcher, 3);

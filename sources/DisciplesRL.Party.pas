@@ -3,7 +3,8 @@ unit DisciplesRL.Party;
 interface
 
 uses
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.MapObject;
 
 type
   TRaceEnum = (reEmpire, reNeutrals);
@@ -12,9 +13,8 @@ type
   TPosition = 0 .. 5;
 
 type
-  TParty = class(TObject)
+  TParty = class(TMapObject)
   private
-    FX, FY: Integer;
     FOwner: TRaceEnum;
     FCreature: array [TPosition] of TCreature;
     function GetCreature(APosition: TPosition): TCreature;
@@ -23,8 +23,6 @@ type
     constructor Create(const AX, AY: Integer);
     destructor Destroy; override;
     procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
-    property X: Integer read FX;
-    property Y: Integer read FY;
     property Owner: TRaceEnum read FOwner write FOwner;
     property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
     procedure SetHitPoints(const APosition: TPosition; const AHP: Integer);
@@ -33,7 +31,6 @@ type
     function IsClear: Boolean;
     function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
-    procedure SetPoint(const AX, AY: Integer);
     procedure Heal(const APosition: TPosition);
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
@@ -96,8 +93,7 @@ end;
 
 constructor TParty.Create(const AX, AY: Integer);
 begin
-  FX := AX;
-  FY := AY;
+  inherited Create(AX, AY);
   Self.Clear;
   Owner := reNeutrals;
 end;
@@ -110,6 +106,8 @@ end;
 
 procedure TParty.Dismiss(const APosition: TPosition);
 begin
+  if FCreature[APosition].Leadership > 0 then
+    Exit;
   ClearCreature(FCreature[APosition])
 end;
 
@@ -150,12 +148,6 @@ end;
 procedure TParty.SetHitPoints(const APosition: TPosition; const AHP: Integer);
 begin
   FCreature[APosition].HitPoints := AHP;
-end;
-
-procedure TParty.SetPoint(const AX, AY: Integer);
-begin
-  FX := AX;
-  FY := AY;
 end;
 
 procedure TParty.SetState(const APosition: TPosition; const Flag: Boolean);

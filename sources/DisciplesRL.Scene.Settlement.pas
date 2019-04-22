@@ -23,13 +23,13 @@ procedure Free;
 implementation
 
 uses
+  Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
   DisciplesRL.Resources,
   DisciplesRL.Game,
   DisciplesRL.Party,
-  Vcl.Dialogs,
   DisciplesRL.Map,
   DisciplesRL.City,
   DisciplesRL.Scene.Party,
@@ -38,7 +38,10 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TButtonEnum = (btHeal, btRevive, btClose, btHire);
+  TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
+
+const
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive, reTextClose, reTextHire, reTextHire);
 
 var
   Button: array [TButtonEnum] of TButton;
@@ -52,21 +55,11 @@ var
   I: TButtonEnum;
   L, W: Integer;
 begin
-  W := ResImage[reButtonDef].Width + 10;
+  W := ResImage[reButtonDef].Width + 4;
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    case I of
-      btHeal:
-        R := reTextHeal;
-      btRevive:
-        R := reTextRevive;
-      btClose:
-        R := reTextClose;
-      btHire:
-        R := reTextHire;
-    end;
-    Button[I] := TButton.Create(L, 600, Surface.Canvas, R);
+    Button[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
     Inc(L, W);
     if (I = btClose) then
       Button[I].Sellected := True;
@@ -120,6 +113,16 @@ begin
   ShowMessage('HIRE');
 end;
 
+procedure Dismiss;
+begin
+  case ActivePartyPosition of
+    0 .. 5:
+      LeaderParty.Dismiss(ActivePartyPosition);
+    6 .. 11:
+      SettlementParty.Dismiss(ActivePartyPosition - 6);
+  end;
+end;
+
 procedure Heal;
 begin
   case ActivePartyPosition of
@@ -152,6 +155,8 @@ begin
     Hire;
   if Button[btHeal].MouseDown then
     Heal;
+  if Button[btDismiss].MouseDown then
+    Dismiss;
   if Button[btRevive].MouseDown then
     Revive;
   if Button[btClose].MouseDown then

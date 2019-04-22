@@ -126,7 +126,7 @@ begin
     ResEnum := CreatureBase[ACreatureEnum].ResEnum;
     Name := StringReplace(GetEnumName(P, Ord(Enum)), 'cr', '', [rfReplaceAll]);
     MaxHitPoints := CreatureBase[ACreatureEnum].HitPoints;
-    HitPoints := CreatureBase[ACreatureEnum].HitPoints;
+    HitPoints := CreatureBase[ACreatureEnum].HitPoints div 2;
     Initiative := CreatureBase[ACreatureEnum].Initiative;
     ChancesToHit := CreatureBase[ACreatureEnum].ChancesToHit;
     Leadership := CreatureBase[ACreatureEnum].Leadership;

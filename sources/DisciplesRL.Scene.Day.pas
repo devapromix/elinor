@@ -41,7 +41,7 @@ var
 begin
   ButTop := ((Surface.Height div 3) * 2) - (ResImage[reButtonDef].Height div 2);
   ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  Button := TButton.Create(ButLeft, 600, Surface.Canvas, reMVictory);
+  Button := TButton.Create(ButLeft, 600, Surface.Canvas, reTextClose);
   Button.Sellected := True;
 end;
 
