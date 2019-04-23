@@ -6,10 +6,10 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reDead, reFrame, reActFrame, reInfoFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
+  TResEnum = (reNone, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
     reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
-    reTextRevive, reTitleHire, reTitleHighScores);
+    reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -32,12 +32,6 @@ const
     (FileName: 'actframe.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'info_frame.png'; ResType: teGUI;),
-    // Logo
-    (FileName: 'disciplesrl.png'; ResType: teGUI;),
-    // Victory
-    (FileName: 'victory.png'; ResType: teGUI;),
-    // Defeat
-    (FileName: 'defeat.png'; ResType: teGUI;),
     // Neutral
     (FileName: 'dirt.png'; ResType: teTile;),
     // Empire terrain
@@ -105,7 +99,13 @@ const
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),
     // Title "High Scores"
-    (FileName: 'title.high_scores.png'; ResType: teGUI;)
+    (FileName: 'title.high_scores.png'; ResType: teGUI;),
+    // Title "Victory"
+    (FileName: 'title.victory.png'; ResType: teGUI;),
+    // Title "Defeat"
+    (FileName: 'title.defeat.png'; ResType: teGUI;),
+    // Title "Disciples RL"
+    (FileName: 'title.logo.png'; ResType: teGUI;)
     //
     );
 

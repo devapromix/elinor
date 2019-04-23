@@ -41,7 +41,7 @@ end;
 
 procedure Render;
 begin
-  DrawTitle(reDefeat);
+  DrawTitle(reTitleDefeat);
   Button.Render;
 end;
 

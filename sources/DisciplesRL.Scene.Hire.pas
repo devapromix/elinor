@@ -32,7 +32,6 @@ type
 
 const
   ButtonText: array [TButtonEnum] of TResEnum = (reTextHire, reTextClose);
-  Characters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crArcher);
 
 var
   HireParty: TParty = nil;

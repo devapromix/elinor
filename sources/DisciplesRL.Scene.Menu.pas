@@ -25,7 +25,7 @@ uses
   DisciplesRL.Game;
 
 type
-  TButtonEnum = (btNew, btContinue, btHighScores, btQuit);
+  TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
 
 var
   MainMenuCursorPos: Integer = 0;
@@ -61,7 +61,7 @@ begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     case I of
-      btNew:
+      btPlay:
         Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
       btContinue:
         Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
@@ -87,7 +87,7 @@ end;
 
 procedure Render;
 begin
-  DrawTitle(reLogo);
+  DrawTitle(reTitleLogo);
   RenderButtons;
   CenterTextOut(Surface.Height - 50, '2018-2019 by Apromix')
 end;
@@ -99,7 +99,7 @@ end;
 
 procedure MouseClick;
 begin
-  if Button[btNew].MouseDown then
+  if Button[btPlay].MouseDown then
     Action(0);
   if Button[btContinue].MouseDown then
     Action(1);

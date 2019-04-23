@@ -6,13 +6,30 @@ uses
   DisciplesRL.Resources;
 
 type
-  TCreatureEnum = (crNone, crMyzrael, crPegasus_Knight, crSquire, crArcher, crGoblin, crGoblin_Archer, crSpider, crWolf, crOrc);
+  TRaceEnum = (rcTheEmpire);
+
+type
+  TCreatureEnum = (crNone,
+    // The Empire
+    crMyzrael,
+    // The Empire Leaders
+    crPegasusKnight,
+    // The Empire
+    crSquire, crArcher,
+    //
+    crGoblin, crGoblin_Archer, crSpider, crWolf, crOrc);
 
 type
   TReachEnum = (reAny, reAdj, reAll);
 
 type
   TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth, seFire, seWater);
+
+const
+  Characters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crArcher);
+
+const
+  Leaders: array [0 .. 0] of TCreatureEnum = (crPegasusKnight);
 
 type
   TCreature = record

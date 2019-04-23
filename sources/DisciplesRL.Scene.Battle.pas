@@ -171,15 +171,12 @@ begin
 end;
 
 var
-  CloseButton: TButton;
+  Button: TButton;
 
 procedure Init;
-var
-  ButLeft: Integer;
 begin
-  ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  CloseButton := TButton.Create(ButLeft, 600, Surface.Canvas, reTextClose);
-  CloseButton.Sellected := True;
+  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), DefaultButtonTop, Surface.Canvas, reTextClose);
+  Button.Sellected := True;
 end;
 
 procedure Render2;
@@ -259,91 +256,19 @@ begin
   F := False;
   if LeaderParty.IsClear then
   begin
-    Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[reDefeat].Width div 2), 10, ResImage[reDefeat]);
+    DrawTitle(reTitleDefeat);
     F := True;
   end;
   J := GetPartyIndex(Player.X, Player.Y);
   if Party[J].IsClear then
   begin
-    Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[reVictory].Width div 2), 10, ResImage[reVictory]);
+    DrawTitle(reTitleVictory);
     F := True;
   end;
   if F then
   begin
-    CloseButton.Render;
+    Button.Render;
   end;
-  { /// //
-    ActSlot := TransformFrom(V.GetInt('ActiveCell'));
-    CalcPoints;
-    if (ActSlot > 0) then
-    Surface.Canvas.Draw(P[ActSlot].X, P[ActSlot].Y, ResImage[reActFrame]);
-    for I := 1 to 12 do
-    begin
-    K := V.GetInt('Slot' + IntToStr(I) + 'Type');
-    if (K > 0) then
-    begin
-    Surface.Canvas.Draw(P[I].X, P[I].Y, ResImage[reFrame]);
-    Surface.Canvas.TextOut(P[I].X, P[I].Y, V.GetStr('Slot' + IntToStr(I) + 'HP'));
-    // IntToStr(CreatureBase[TCreatureEnum(K)].HitPoints));
-    end;
-    end; }
-
-  {
-    var
-    I, V, L: Integer;
-    begin
-    ActSlot := VM.GetInt('ActiveCell');
-    CalcPoints;
-    with Graph.Surface.Canvas do
-    begin
-    Brush.Style := bsClear;
-    Draw((Graph.Surface.Width div 2) - (BG.Width div 2), (Graph.Surface.Height div 2) - (BG.Height div 2), BG);
-
-    if (ActSlot > 0) then Draw(P[ActSlot].X - 6, P[ActSlot].Y + 145, CM);
-    //    if (ActSlot > 0) then Draw(P[ActSlot].X, P[ActSlot].Y, U[0][1]);
-
-    for I := 1 to 12 do
-    begin
-    V := VM.GetInt('Slot' + IntToStr(I) + 'Type');
-    if (V > 0) then
-    begin
-    with Graph.Surface.Canvas.Font do
-    begin
-    case UnitMessageColor[I] of
-    4  : Color := clRed;
-    12 : Color := $00FCAF39; // Blue
-    14 : Color := clYellow;
-    else Color := clWhite;
-    end;
-    Size := 14;
-    end;
-    L := VM.GetInt('Slot' + I.ToString + 'HP');
-    if (L <= 0) then Continue;
-    BR.Assign(Red);
-    BR.Width := BarWidth(L, VM.GetInt('Slot' + IntToStr(I) + 'MHP'));
-    Draw(P[I].X, P[I].Y + 180, Bar);
-    Draw(P[I].X + 2, P[I].Y + 182, BR);
-    if (I < 7) then
-    begin
-    Draw(P[I].X, P[I].Y, U[V][1]);
-    if VM.GetBool('FlagSlepotaSlot' + IntToStr(I)) then
-    Draw(P[I].X + 5, P[I].Y + 5, Eff[1]);
-    end else begin
-    Draw(P[I].X, P[I].Y, U[V][2]);
-    if VM.GetBool('FlagSlepotaSlot' + IntToStr(I)) then
-    Draw(P[I].X + 79, P[I].Y + 5, Eff[1]);
-    end;
-    if (UnitMessage[I] <> '') then
-    begin
-    L := 50 - (TextWidth(UnitMessage[I]) div 2);
-    TextOut(P[I].X + L, P[I].Y + 80, UnitMessage[I]);
-    end;
-    //
-
-    end;
-    end;
-    end;
-    Graph.Render; }
 end;
 
 procedure Timer;
@@ -353,13 +278,13 @@ end;
 
 procedure MouseClick;
 begin
-  if CloseButton.MouseDown then
+  if Button.MouseDown then
     Finish;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-  CloseButton.MouseMove(X, Y);
+  Button.MouseMove(X, Y);
   Render;
 end;
 
@@ -410,7 +335,7 @@ end;
 
 procedure Free;
 begin
-  FreeAndNil(CloseButton);
+  FreeAndNil(Button);
 end;
 
 end.

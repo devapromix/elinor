@@ -264,7 +264,7 @@ procedure Gen;
 begin
   LeaderParty.SetLocation(Player.X, Player.Y);
 //  LeaderParty.AddCreature(crSquire, 0);
-  LeaderParty.AddCreature(crPegasus_Knight, 2);
+  LeaderParty.AddCreature(crPegasusKnight, 2);
   LeaderParty.AddCreature(crArcher, 3);
 //  LeaderParty.AddCreature(crSquire, 4);
 end;
