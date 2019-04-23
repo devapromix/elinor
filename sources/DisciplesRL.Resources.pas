@@ -9,7 +9,7 @@ type
   TResEnum = (reNone, reDead, reFrame, reActFrame, reInfoFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
     reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
-    reTextRevive);
+    reTextRevive, reTitleHire, reTitleHighScores);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -101,7 +101,11 @@ const
     // Text "Heal"
     (FileName: 'text.heal.png'; ResType: teGUI;),
     // Text "Revive"
-    (FileName: 'text.revive.png'; ResType: teGUI;)
+    (FileName: 'text.revive.png'; ResType: teGUI;),
+    // Title "Hire"
+    (FileName: 'title.hire.png'; ResType: teGUI;),
+    // Title "High Scores"
+    (FileName: 'title.high_scores.png'; ResType: teGUI;)
     //
     );
 

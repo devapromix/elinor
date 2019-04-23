@@ -25,7 +25,6 @@ uses
   DisciplesRL.Game;
 
 var
-  Top, Left: Integer;
   Button: TButton;
 
 procedure Action;
@@ -35,20 +34,14 @@ begin
 end;
 
 procedure Init;
-var
-  ButTop, ButLeft: Integer;
 begin
-  Top := (Surface.Height div 3) - (ResImage[reDefeat].Height div 2);
-  Left := (Surface.Width div 2) - (ResImage[reDefeat].Width div 2);
-  ButTop := ((Surface.Height div 3) * 2) - (ResImage[reButtonDef].Height div 2);
-  ButLeft := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
-  Button := TButton.Create(ButLeft, ButTop, Surface.Canvas, reMDefeat);
+  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), DefaultButtonTop, Surface.Canvas, reTextClose);
   Button.Sellected := True;
 end;
 
 procedure Render;
 begin
-  Surface.Canvas.Draw(Left, Top, ResImage[reDefeat]);
+  DrawTitle(reDefeat);
   Button.Render;
 end;
 

@@ -71,7 +71,7 @@ begin
   begin
     Button[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
     Inc(L, W);
-    if (I = btClose) then
+    if (I = btHire) then
       Button[I].Sellected := True;
   end;
 end;
@@ -123,6 +123,32 @@ begin
     Add('гднпнбэе', HitPoints, HitPoints);
     Add('спнм', Damage);
     Add('апнмъ', Armor);
+    case SourceEnum of
+      seWeapon:
+        Add('хярнвмхй', 'нпсфхе');
+      seLife:
+        ;
+      seMind:
+        ;
+      seDeath:
+        ;
+      seAir:
+        ;
+      seEarth:
+        ;
+      seFire:
+        ;
+      seWater:
+        ;
+    end;
+    case ReachEnum of
+      reAny:
+        Add('жекх', 'бяе онке анъ');
+      reAdj:
+        Add('жекх', 'акхфюиьхе жекх');
+      reAll:
+        Add('жекх', 'бяе онке анъ');
+    end;
     Add('жекх', Targets);
     Add('жемю', 0);
     Add('гнкнрн', Gold);
@@ -141,7 +167,7 @@ procedure Render;
 var
   I, Y: Integer;
 begin
-  Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[reVictory].Width div 2), 10, ResImage[reVictory]);
+  DrawTitle(reTitleHire);
 
   Y := 0;
   for I := 0 to High(Characters) do

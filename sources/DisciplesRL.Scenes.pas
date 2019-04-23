@@ -5,11 +5,17 @@ interface
 uses
   Vcl.Graphics,
   System.Types,
+  Vcl.Imaging.PNGImage,
+  DisciplesRL.Resources,
   System.Classes,
+  DisciplesRL.GUI.Button,
   Vcl.Controls;
 
 type
   TSceneEnum = (scHire, scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem, scDay, scHighScores);
+
+const
+  DefaultButtonTop = 600;
 
 var
   Surface: TBitmap;
@@ -21,6 +27,9 @@ procedure Init;
 procedure Render;
 procedure Timer;
 procedure MouseClick;
+procedure DrawTitle(Res: TResEnum);
+procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
+procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -36,6 +45,9 @@ const
   K_DOWN = 40;
   K_UP = 38;
 
+var
+  DefaultButton: TButton;
+
 implementation
 
 uses
@@ -48,7 +60,6 @@ uses
   DisciplesRL.Scene.Defeat,
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Resources,
   DisciplesRL.Scene.Item,
   DisciplesRL.Scene.Day,
   DisciplesRL.Scene.HighScores,
@@ -56,6 +67,21 @@ uses
 
 var
   MouseX, MouseY: Integer;
+
+procedure DrawTitle(Res: TResEnum);
+begin
+  Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, ResImage[Res]);
+end;
+
+procedure DrawImage(X, Y: Integer; Image: TPNGImage);
+begin
+  Surface.Canvas.Draw(X, Y, Image);
+end;
+
+procedure DrawImage(X, Y: Integer; Res: TResEnum);
+begin
+  Surface.Canvas.Draw(X, Y, ResImage[Res]);
+end;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var

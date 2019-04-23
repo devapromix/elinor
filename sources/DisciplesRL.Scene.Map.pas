@@ -20,7 +20,6 @@ uses
   System.SysUtils,
   System.Math,
   System.Types,
-  Vcl.Imaging.PNGImage,
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Player,
@@ -37,11 +36,6 @@ begin
 
 end;
 
-procedure DrawImage(X, Y: Integer; Image: TPNGImage);
-begin
-  Surface.Canvas.Draw(X * TileSize, Y * TileSize, Image);
-end;
-
 procedure Render;
 var
   X, Y: Integer;
@@ -54,32 +48,32 @@ begin
         Continue;
       case Map[lrTile][X, Y] of
         reEmpireTerrain, reEmpireCapital, reEmpireCity:
-          DrawImage(X, Y, ResImage[reEmpireTerrain]);
+          DrawImage(X * TileSize, Y * TileSize, ResImage[reEmpireTerrain]);
       else
-        DrawImage(X, Y, ResImage[reNeutral]);
+        DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutral]);
       end;
       F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and not(Map[lrTile][X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and
         (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
-        DrawImage(X, Y, ResImage[Map[lrTile][X, Y]]);
+        DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrTile][X, Y]]);
       //
       if (ResBase[Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
         if F then
-          DrawImage(X, Y, ResImage[reUnk])
+          DrawImage(X * TileSize, Y * TileSize, ResImage[reUnk])
         else
-          DrawImage(X, Y, ResImage[Map[lrObj][X, Y]])
+          DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]])
       else if (Map[lrObj][X, Y] <> reNone) then
-        DrawImage(X, Y, ResImage[Map[lrObj][X, Y]]);
+        DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
       // Leader
       if (X = Player.X) and (Y = Player.Y) then
-        DrawImage(X, Y, ResImage[rePlayer]);
+        DrawImage(X * TileSize, Y * TileSize, ResImage[rePlayer]);
       // Fog
       if F then
-        DrawImage(X, Y, ResImage[reDark]);
+        DrawImage(X * TileSize, Y * TileSize, ResImage[reDark]);
     end;
   // Cursor
-  DrawImage(MousePos.X, MousePos.Y, ResImage[reCursor]);
+  DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reCursor]);
 end;
 
 procedure Timer;

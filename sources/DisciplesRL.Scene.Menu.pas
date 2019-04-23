@@ -28,7 +28,6 @@ type
   TButtonEnum = (btNew, btContinue, btHighScores, btQuit);
 
 var
-  Top, Left: Integer;
   MainMenuCursorPos: Integer = 0;
   Button: array [TButtonEnum] of TButton;
 
@@ -56,8 +55,6 @@ var
   L, T, H: Integer;
   I: TButtonEnum;
 begin
-  Top := (Surface.Height div 5) - (ResImage[reLogo].Height div 2);
-  Left := (Surface.Width div 2) - (ResImage[reLogo].Width div 2);
   L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
   H := ResImage[reButtonDef].Height + 10;
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
@@ -90,7 +87,7 @@ end;
 
 procedure Render;
 begin
-  Surface.Canvas.Draw(Left, Top, ResImage[reLogo]);
+  DrawTitle(reLogo);
   RenderButtons;
   CenterTextOut(Surface.Height - 50, '2018-2019 by Apromix')
 end;
