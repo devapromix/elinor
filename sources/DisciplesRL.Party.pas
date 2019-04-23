@@ -36,6 +36,8 @@ type
     procedure Heal(const APosition: TPosition; const AHitPoints: Integer); overload;
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
+    procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
+    function UpdateLevel: Boolean;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
@@ -212,6 +214,16 @@ begin
             HitPoints := HitPoints + AHitPoints
           else
             HitPoints := MaxHitPoints;
+end;
+
+function TParty.UpdateLevel: Boolean;
+begin
+
+end;
+
+procedure TParty.UpdateXP(const AExperience: Integer; const APosition: TPosition);
+begin
+
 end;
 
 end.

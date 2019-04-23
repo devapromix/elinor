@@ -29,12 +29,6 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Game;
 
-const
-  K_RIGHT = 39;
-  K_LEFT = 37;
-  K_DOWN = 40;
-  K_UP = 38;
-
 var
   LastMousePos, MousePos: TPoint;
 

@@ -9,7 +9,7 @@ uses
   Vcl.Controls;
 
 type
-  TSceneEnum = (scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem, scDay, scHighScores);
+  TSceneEnum = (scHire, scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem, scDay, scHighScores);
 
 var
   Surface: TBitmap;
@@ -31,6 +31,10 @@ const
   K_ENTER = 13;
   K_V = ord('V');
   K_D = ord('D');
+  K_RIGHT = 39;
+  K_LEFT = 37;
+  K_DOWN = 40;
+  K_UP = 38;
 
 implementation
 
@@ -47,7 +51,11 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Scene.Item,
   DisciplesRL.Scene.Day,
-  DisciplesRL.Scene.HighScores;
+  DisciplesRL.Scene.HighScores,
+  DisciplesRL.Scene.Hire;
+
+var
+  MouseX, MouseY: Integer;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
@@ -75,6 +83,8 @@ begin
   Surface.Canvas.Brush.Style := bsClear;
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
+      scHire:
+        DisciplesRL.Scene.Hire.Init;
       scMenu:
         DisciplesRL.Scene.Menu.Init;
       scVictory:
@@ -101,6 +111,8 @@ begin
   Surface.Canvas.Brush.Color := clBlack;
   Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
   case CurrentScene of
+    scHire:
+      DisciplesRL.Scene.Hire.Render;
     scMenu:
       DisciplesRL.Scene.Menu.Render;
     scVictory:
@@ -126,6 +138,8 @@ end;
 procedure Timer;
 begin
   case CurrentScene of
+    scHire:
+      DisciplesRL.Scene.Hire.Timer;
     scMenu:
       DisciplesRL.Scene.Menu.Timer;
     scVictory:
@@ -150,6 +164,8 @@ end;
 procedure MouseClick;
 begin
   case CurrentScene of
+    scHire:
+      DisciplesRL.Scene.Hire.MouseClick(MouseX, MouseY);
     scMenu:
       DisciplesRL.Scene.Menu.MouseClick;
     scVictory:
@@ -174,7 +190,11 @@ end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
+  MouseX := X;
+  MouseY := Y;
   case CurrentScene of
+    scHire:
+      DisciplesRL.Scene.Hire.MouseMove(Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
     scVictory:
@@ -199,6 +219,8 @@ end;
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case CurrentScene of
+    scHire:
+      DisciplesRL.Scene.Hire.KeyDown(Key, Shift);
     scMenu:
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
     scVictory:
@@ -224,7 +246,9 @@ end;
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   case CurrentScene of
-    { scMenu:
+    { scHire:
+      DisciplesRL.Scene.Hire.KeyDown(Key, Shift);
+      scMenu:
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
       scVictory:
       DisciplesRL.Scene.Victory.KeyDown(Key, Shift);
@@ -250,6 +274,8 @@ var
 begin
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
+      scHire:
+        DisciplesRL.Scene.Hire.Free;
       scMenu:
         DisciplesRL.Scene.Menu.Free;
       scVictory:

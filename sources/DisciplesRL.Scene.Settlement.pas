@@ -37,7 +37,8 @@ uses
   DisciplesRL.Player,
   DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,
-  DisciplesRL.Scene.Battle;
+  DisciplesRL.Scene.Battle,
+  DisciplesRL.Scene.Hire;
 
 type
   TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
@@ -78,7 +79,7 @@ end;
 
 procedure Render;
 begin
-CalcPoints;
+  CalcPoints;
   // RenderDark;
   case CurrentSettlementType of
     stCity:
@@ -122,7 +123,8 @@ procedure Hire;
         ShowMessage('Выберите пустой слот!');
         Exit;
       end;
-
+      SetHire(AParty, APosition);
+      DisciplesRL.Scenes.CurrentScene := scHire;
     end;
   end;
 

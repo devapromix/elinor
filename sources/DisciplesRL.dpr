@@ -2,7 +2,7 @@ program DisciplesRL;
 
 uses
   Vcl.Forms,
-  DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm} ,
+  DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
   DisciplesRL.Utils in 'DisciplesRL.Utils.pas',
   DisciplesRL.Scenes in 'DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
@@ -26,7 +26,8 @@ uses
   DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
   DisciplesRL.Scene.Day in 'DisciplesRL.Scene.Day.pas',
   DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
-  DisciplesRL.Scene.HighScores in 'DisciplesRL.Scene.HighScores.pas';
+  DisciplesRL.Scene.HighScores in 'DisciplesRL.Scene.HighScores.pas',
+  DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas';
 
 {$R *.res}
 

@@ -4,7 +4,8 @@ interface
 
 uses
   DisciplesRL.Party,
-  DisciplesRL.Resources;
+  DisciplesRL.Resources,
+  DisciplesRL.Creatures;
 
 const
   Top = 220;
@@ -13,10 +14,12 @@ const
 type
   TPartySide = (psLeft, psRight);
 
+function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
-procedure RenderUnitInfo(Name: string; I, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer); overload;
+procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer); overload;
 procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer); overload;
+procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer); overload;
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer); overload;
 
@@ -28,8 +31,8 @@ implementation
 
 uses
   System.SysUtils,
-  DisciplesRL.Scenes,
-  DisciplesRL.Creatures;
+  System.TypInfo,
+  DisciplesRL.Scenes;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
@@ -91,11 +94,11 @@ begin
     Surface.Canvas.Draw(Left + AX, AY, ResImage[reFrame]);
 end;
 
-procedure RenderUnitInfo(Name: string; I, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer);
+procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer);
 begin
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('%s (Level %d)', [Name, Level]));
   Surface.Canvas.TextOut(AX + Left + 64, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Value+ %d Armor %d', [Damage, Armor]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]));
 end;
 
 procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer);
@@ -103,8 +106,19 @@ begin
   with Party.Creature[I] do
   begin
     if Active then
-      RenderUnitInfo(Name, I, AX, AY, Level, HitPoints, MaxHitPoints, Value, Armor);
+      RenderUnitInfo(Name, AX, AY, Level, HitPoints, MaxHitPoints, Value, Armor);
   end;
+end;
+
+procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum);
+var
+  P: Pointer;
+  Name: string;
+begin
+  P := TypeInfo(TCreatureEnum);
+  Name := StringReplace(GetEnumName(P, Ord(ACreature)), 'cr', '', [rfReplaceAll]);
+  with CreatureBase[ACreature] do
+    RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Value, Armor);
 end;
 
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer);
@@ -120,11 +134,11 @@ begin
     begin
       if HitPoints <= 0 then
         RenderUnit(reDead, AX, AY)
-    else
-      RenderUnit(ResEnum, AX, AY);
-    RenderUnitInfo(I, Party, AX, AY);
+      else
+        RenderUnit(ResEnum, AX, AY);
+      RenderUnitInfo(I, Party, AX, AY);
+    end;
   end;
-end;
 end;
 
 procedure RenderParty(const V: TPartySide; const Party: TParty);
