@@ -3,6 +3,7 @@ unit DisciplesRL.Scene.Battle;
 interface
 
 uses
+  System.Types,
   System.Classes,
   Vcl.Controls;
 
@@ -14,6 +15,7 @@ procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure Free;
+procedure CalcPoints;
 function TransformTo(P: Integer): Integer;
 function TransformFrom(P: Integer): Integer;
 
@@ -33,15 +35,10 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
   DisciplesRL.PascalScript.Battle,
-  System.Types,
   DisciplesRL.Creatures;
 
 var
   P: array [1 .. 12] of TPoint;
-
-const
-  Top = 220;
-  Left = 15;
 
   // Трансформация координат из новой системы в старую
 function TransformTo(P: Integer): Integer;
@@ -201,24 +198,18 @@ begin
       if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
       begin
         G := V.GetInt('Slot' + IntToStr(I) + 'Type');
-        DisplayUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X + 7, P[I].Y + 7);
-
-        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 6, Format('[%d] %s (Level %d)', [I, V.GetStr('Slot' + IntToStr(I) + 'Name'), 1]));
-        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 40 + 2,
-          Format('HP %s/%s', [V.GetStr('Slot' + IntToStr(I) + 'HP'), V.GetStr('Slot' + IntToStr(I) + 'MHP')]));
-        Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 80 - 2, Format('Damage %s Armor %d', [V.GetStr('Slot' + IntToStr(I) + 'Use'), 0]));
+        RenderUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X, P[I].Y);
+        RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), I, P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
+          V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
       end
       else
       begin
         G := V.GetInt('Slot' + IntToStr(I) + 'Use');
         if (G > 0) then
         begin
-          Draw(P[I].X + 7, P[I].Y + 7, ResImage[reDead]);
-
-          Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 6, Format('[%d] %s (Level %d)', [I, V.GetStr('Slot' + IntToStr(I) + 'Name'), 1]));
-          Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 40 + 2,
-            Format('HP %s/%s', [V.GetStr('Slot' + IntToStr(I) + 'HP'), V.GetStr('Slot' + IntToStr(I) + 'MHP')]));
-          Surface.Canvas.TextOut(P[I].X + 10 + 64, P[I].Y + 80 - 2, Format('Damage %s Armor %d', [V.GetStr('Slot' + IntToStr(I) + 'Use'), 0]));
+          RenderUnit(reDead, P[I].X, P[I].Y);
+          RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), I, P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
+            V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;
       end;
     end;

@@ -6,12 +6,19 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Resources;
 
+const
+  Top = 220;
+  Left = 10;
+
 type
   TPartySide = (psLeft, psRight);
 
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
-procedure DisplayUnit(AResEnum: TResEnum; const AX, AY: Integer);
+procedure RenderUnitInfo(Name: string; I, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer); overload;
+procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer); overload;
+procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer); overload;
+procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer); overload;
 
 var
   ActivePartyPosition: Integer = 2;
@@ -23,10 +30,6 @@ uses
   System.SysUtils,
   DisciplesRL.Scenes,
   DisciplesRL.Creatures;
-
-const
-  Top = 220;
-  Left = 15;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
@@ -83,14 +86,30 @@ begin
     J := I + 6;
   end;
   if (ActivePartyPosition = J) then
-    Surface.Canvas.Draw(AX + 6, AY, ResImage[reActFrame])
+    Surface.Canvas.Draw(Left + AX, AY, ResImage[reActFrame])
   else
-    Surface.Canvas.Draw(AX + 6, AY, ResImage[reFrame]);
+    Surface.Canvas.Draw(Left + AX, AY, ResImage[reFrame]);
 end;
 
-procedure DisplayUnit(AResEnum: TResEnum; const AX, AY: Integer);
+procedure RenderUnitInfo(Name: string; I, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer);
 begin
-  Surface.Canvas.Draw(AX, AY, ResImage[AResEnum]);
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Value+ %d Armor %d', [Damage, Armor]));
+end;
+
+procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer);
+begin
+  with Party.Creature[I] do
+  begin
+    if Active then
+      RenderUnitInfo(Name, I, AX, AY, Level, HitPoints, MaxHitPoints, Value, Armor);
+  end;
+end;
+
+procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer);
+begin
+  Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
 end;
 
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer);
@@ -99,13 +118,13 @@ begin
   begin
     if Active then
     begin
-      DisplayUnit(ResEnum, AX + Left - 2, AY + 7);
-
-      Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('[%d] %s (Level %d)', [I, Name, Level]));
-      Surface.Canvas.TextOut(AX + Left + 64, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
-      Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Value %d Armor %d', [Value, Armor]));
-    end;
+      if HitPoints <= 0 then
+        RenderUnit(reDead, AX, AY)
+    else
+      RenderUnit(ResEnum, AX, AY);
+    RenderUnitInfo(I, Party, AX, AY);
   end;
+end;
 end;
 
 procedure RenderParty(const V: TPartySide; const Party: TParty);
@@ -114,6 +133,7 @@ var
   F: Boolean;
 begin
   X4 := Surface.Width div 4;
+  X := 0;
   Y := Top;
   F := False;
   for I := 0 to 5 do
@@ -141,7 +161,7 @@ begin
     end;
     RenderFrame(V, I, X, Y);
     if (Party <> nil) then
-      RenderUnit(I, Party, X, Y);
+      RenderUnit(I, Party, Left + X, Y);
     if F then
     begin
       F := False;

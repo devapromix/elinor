@@ -57,7 +57,7 @@ const
     (ResEnum: reDragon; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Value: 250; Armor: 50; SourceEnum: seWeapon;
     ReachEnum: reAll; Targets: 6;),
     // Pegasus Knight
-    (ResEnum: reCorpse; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Value: 50; Armor: 0; SourceEnum: seWeapon;
+    (ResEnum: reDragon; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Value: 50; Armor: 0; SourceEnum: seWeapon;
     ReachEnum: reAny; Targets: 1;),
     // Squire
     (ResEnum: reDragon; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Value: 25; Armor: 0; SourceEnum: seWeapon;

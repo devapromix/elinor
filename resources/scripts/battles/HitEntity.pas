@@ -13,3 +13,6 @@ else if (GetInt('Slot' + GetStr('SlotTarget') + 'HP') > 0) then
   end
   else
     FlagTrue('MissSlot' + GetStr('SlotTarget'));
+	
+if (GetInt('Slot' + GetStr('SlotTarget') + 'HP') < 0) then
+	SetInt('Slot' + GetStr('SlotTarget') + 'HP', 0);

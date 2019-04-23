@@ -36,7 +36,8 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Player,
   DisciplesRL.Creatures,
-  DisciplesRL.GUI.Button;
+  DisciplesRL.GUI.Button,
+  DisciplesRL.Scene.Battle;
 
 type
   TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
@@ -77,6 +78,7 @@ end;
 
 procedure Render;
 begin
+CalcPoints;
   // RenderDark;
   case CurrentSettlementType of
     stCity:
