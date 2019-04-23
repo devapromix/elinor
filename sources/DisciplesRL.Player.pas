@@ -141,7 +141,7 @@ begin
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
               V.SetInt(S + 'INI', Initiative);
-              V.SetInt(S + 'Use', Value);
+              V.SetInt(S + 'Use', Damage);
               V.SetInt(S + 'TCH', ChancesToHit);
               V.SetInt(S + 'Class', GetClass(ReachEnum, Targets));
             end;
@@ -156,7 +156,7 @@ begin
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
               V.SetInt(S + 'INI', Initiative);
-              V.SetInt(S + 'Use', Value);
+              V.SetInt(S + 'Use', Damage);
               V.SetInt(S + 'TCH', ChancesToHit);
               V.SetInt(S + 'Class', GetClass(ReachEnum, Targets));
             end;

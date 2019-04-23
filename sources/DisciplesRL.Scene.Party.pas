@@ -106,7 +106,7 @@ begin
   with Party.Creature[I] do
   begin
     if Active then
-      RenderUnitInfo(Name, AX, AY, Level, HitPoints, MaxHitPoints, Value, Armor);
+      RenderUnitInfo(Name, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor);
   end;
 end;
 
@@ -118,7 +118,7 @@ begin
   P := TypeInfo(TCreatureEnum);
   Name := StringReplace(GetEnumName(P, Ord(ACreature)), 'cr', '', [rfReplaceAll]);
   with CreatureBase[ACreature] do
-    RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Value, Armor);
+    RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Damage, Armor);
 end;
 
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer);

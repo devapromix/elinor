@@ -6,9 +6,9 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reDead, reFrame, reActFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor, rePlayer,
-    reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reMNewGame,
-    reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
+  TResEnum = (reNone, reDead, reFrame, reActFrame, reInfoFrame, reLogo, reVictory, reDefeat, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
+    rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
+    reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
     reTextRevive);
 
 type
@@ -30,6 +30,8 @@ const
     (FileName: 'frame.png'; ResType: teGUI;),
     // Active Frame
     (FileName: 'actframe.png'; ResType: teGUI;),
+    // Info Frame
+    (FileName: 'info_frame.png'; ResType: teGUI;),
     // Logo
     (FileName: 'disciplesrl.png'; ResType: teGUI;),
     // Victory

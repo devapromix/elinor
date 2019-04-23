@@ -66,13 +66,66 @@ var
 begin
   W := ResImage[reButtonDef].Width + 4;
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width div 2);
+  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Button[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
     Inc(L, W);
     if (I = btClose) then
       Button[I].Sellected := True;
+  end;
+end;
+
+procedure RenderCharacterInfo;
+const
+  H = 25;
+var
+  L, T: Integer;
+
+  procedure Add; overload;
+  begin
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string); overload;
+  begin
+    Surface.Canvas.TextOut(L, T, S);
+    Inc(T, H);
+  end;
+
+  procedure Add(S, V: string); overload;
+  begin
+    Surface.Canvas.TextOut(L, T, Format('%s: %s', [S, V]));
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string; V: Integer; R: string = ''); overload;
+  begin
+    Surface.Canvas.TextOut(L, T, Format('%s: %d%s', [S, V, R]));
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string; V, M: Integer); overload;
+  begin
+    Surface.Canvas.TextOut(L, T, Format('%s: %d/%d', [S, V, M]));
+    Inc(T, H);
+  end;
+
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  with CreatureBase[Characters[CurrentCharacter]] do
+  begin
+    Add('ﬁÕ»“');
+    Add('”–Œ¬≈Õ‹', Level);
+    Add('“Œ◊ÕŒ—“‹', ChancesToHit, '%');
+    Add('»Õ»÷»¿“»¬¿', Initiative);
+    Add('«ƒŒ–Œ¬‹≈', HitPoints, HitPoints);
+    Add('”–ŒÕ', Damage);
+    Add('¡–ŒÕﬂ', Armor);
+    Add('÷≈À»', Targets);
+    Add('÷≈Õ¿', 0);
+    Add('«ŒÀŒ“Œ', Gold);
   end;
 end;
 
@@ -104,7 +157,8 @@ begin
     end;
     Inc(Y, 120);
   end;
-
+  Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top, ResImage[reInfoFrame]);
+  RenderCharacterInfo;
   RenderButtons;
 end;
 
