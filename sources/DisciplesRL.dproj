@@ -135,6 +135,7 @@
         <DCCReference Include="DisciplesRL.MapObject.pas"/>
         <DCCReference Include="DisciplesRL.Scene.HighScores.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Hire.pas"/>
+        <DCCReference Include="DisciplesRL.BattleLog.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

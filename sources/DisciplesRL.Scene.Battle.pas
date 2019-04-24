@@ -1,11 +1,12 @@
-unit DisciplesRL.Scene.Battle;
+п»їunit DisciplesRL.Scene.Battle;
 
 interface
 
 uses
   System.Types,
   System.Classes,
-  Vcl.Controls;
+  Vcl.Controls,
+  DisciplesRL.BattleLog;
 
 procedure Init;
 procedure Render;
@@ -18,6 +19,9 @@ procedure Free;
 procedure CalcPoints;
 function TransformTo(P: Integer): Integer;
 function TransformFrom(P: Integer): Integer;
+
+var
+  Log: TLog;
 
 implementation
 
@@ -40,7 +44,7 @@ uses
 var
   P: array [1 .. 12] of TPoint;
 
-  // Трансформация координат из новой системы в старую
+  // РўСЂР°РЅСЃС„РѕСЂРјР°С†РёСЏ РєРѕРѕСЂРґРёРЅР°С‚ РёР· РЅРѕРІРѕР№ СЃРёСЃС‚РµРјС‹ РІ СЃС‚Р°СЂСѓСЋ
 function TransformTo(P: Integer): Integer;
 {
   1 |0 |   6 | 7
@@ -82,7 +86,7 @@ begin
     Result := 12;
 end;
 
-// Трансформация координат из старой системы в новую
+// РўСЂР°РЅСЃС„РѕСЂРјР°С†РёСЏ РєРѕРѕСЂРґРёРЅР°С‚ РёР· СЃС‚Р°СЂРѕР№ СЃРёСЃС‚РµРјС‹ РІ РЅРѕРІСѓСЋ
 function TransformFrom(P: Integer): Integer;
 {
   1 |4 |   7 |10
@@ -148,8 +152,6 @@ end;
 
 procedure Victory;
 begin
-  Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
-  Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CAPITAL DEFENSES');
   Party[GetPartyIndex(Player.X, Player.Y)].Clear;
   AddLoot();
 end;
@@ -163,6 +165,7 @@ procedure Finish;
 var
   I: Integer;
 begin
+  Log.Clear;
   I := GetPartyIndex(Player.X, Player.Y);
   if LeaderParty.IsClear then
     Defeat;
@@ -175,8 +178,9 @@ var
 
 procedure Init;
 begin
-  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), DefaultButtonTop, Surface.Canvas, reTextClose);
+  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left), DefaultButtonTop, Surface.Canvas, reTextClose);
   Button.Sellected := True;
+  Log := TLog.Create(Left, DefaultButtonTop - 20, Surface.Canvas);
 end;
 
 procedure Render2;
@@ -234,12 +238,6 @@ begin
         L := V.GetInt('Slot' + I.ToString + 'HP');
         if (L <= 0) then
           Continue;
-        { if (UnitMessage[I] <> '') then
-          begin
-          L := (64 div 2) - (TextWidth(UnitMessage[I]) div 2) + 7;
-          TextOut(P[I].X + L, P[I].Y + 50, UnitMessage[I]);
-          end; }
-        //
         Surface.Canvas.Font.Color := clGreen;
       end;
     end;
@@ -267,8 +265,11 @@ begin
   end;
   if F then
   begin
+    V.SetInt('ActiveCell', -1);
     Button.Render;
   end;
+  // else
+  Log.Render;
 end;
 
 procedure Timer;
@@ -310,19 +311,6 @@ begin
         DisciplesRL.Scenes.Render;
       end;
   end;
-  { case N of
-    0 .. 5: // Leader
-    begin
-    LeaderParty.TakeDamage(25, N);
-    DisciplesRL.Scenes.Render;
-    end;
-    6 .. 11: // Enemy
-    begin
-    Party[I].TakeDamage(25, N - 6);
-    Party[I].SetState(N - 6, (Party[I].Creature[N - 6].HitPoints > 0));
-    DisciplesRL.Scenes.Render;
-    end;
-    end; }
 end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
@@ -335,6 +323,7 @@ end;
 
 procedure Free;
 begin
+  FreeAndNil(Log);
   FreeAndNil(Button);
 end;
 

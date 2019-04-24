@@ -27,7 +27,8 @@ uses
   DisciplesRL.Scene.Day in 'DisciplesRL.Scene.Day.pas',
   DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
   DisciplesRL.Scene.HighScores in 'DisciplesRL.Scene.HighScores.pas',
-  DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas';
+  DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
+  DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas';
 
 {$R *.res}
 

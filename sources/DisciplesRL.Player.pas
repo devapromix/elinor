@@ -1,4 +1,4 @@
-unit DisciplesRL.Player;
+﻿unit DisciplesRL.Player;
 
 interface
 
@@ -227,6 +227,7 @@ begin
         InitParty(Player.X, Player.Y);
         Run('Battles\BattleInit.pas');
         FullParty(Player.X, Player.Y);
+        DisciplesRL.Scene.Battle.Log.Clear;
         Run('Battles\Start.pas');
         DisciplesRL.Scenes.CurrentScene := scBattle;
         Map[lrObj][Player.X, Player.Y] := reNone;

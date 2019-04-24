@@ -27,7 +27,8 @@ uses
   DisciplesRL.MainForm,
   DisciplesRL.Utils,
   DisciplesRL.Player,
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.Scene.Battle;
 
 const
   ScriptPath = 'resources\scripts';
@@ -45,6 +46,11 @@ begin
     UnitMessage[I] := '';
     UnitMessageColor[I] := 15;
   end;
+end;
+
+procedure _Log(S: string);
+begin
+  DisciplesRL.Scene.Battle.Log.Add(S);
 end;
 
 function _GetStr(S: string): string;
@@ -129,8 +135,8 @@ end;
 
 procedure _MsgBox(S: string);
 begin
-//  ShowMessage(S);
-//  MainForm.Label1.Caption := S;
+  // ShowMessage(S);
+  // MainForm.Label1.Caption := S;
 end;
 
 procedure _UseTimer(Interval: Integer; Script: String);
@@ -193,6 +199,7 @@ begin
     Sender.AddDelphiFunction('procedure UseTimer(Interval: Integer; Script: string);');
     Sender.AddDelphiFunction('procedure Refresh;');
     Sender.AddDelphiFunction('procedure Render;');
+    Sender.AddDelphiFunction('procedure Log(S: string);');
     //
     Sender.AddDelphiFunction('procedure SetVar(S: string; V: Variant);');
     Sender.AddDelphiFunction('procedure IncVar(S: string; V: Variant);');
@@ -289,6 +296,7 @@ begin
     Exec.RegisterDelphiFunction(@_DisplayMsg, 'DISPLAYMSG', cdRegister);
     Exec.RegisterDelphiFunction(@_Refresh, 'REFRESH', cdRegister);
     Exec.RegisterDelphiFunction(@_Render, 'RENDER', cdRegister);
+    Exec.RegisterDelphiFunction(@_Log, 'LOG', cdRegister);
     //
     Exec.RegisterDelphiFunction(@_SetVar, 'SETVAR', cdRegister);
     Exec.RegisterDelphiFunction(@_IncVar, 'INCVAR', cdRegister);

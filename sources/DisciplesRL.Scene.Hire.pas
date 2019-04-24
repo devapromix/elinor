@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Hire;
+Ôªøunit DisciplesRL.Scene.Hire;
 
 interface
 
@@ -115,16 +115,16 @@ begin
   L := Lf + ResImage[reActFrame].Width + 12;
   with CreatureBase[Characters[CurrentCharacter]] do
   begin
-    Add('ﬁÕ»“');
-    Add('”–Œ¬≈Õ‹', Level);
-    Add('“Œ◊ÕŒ—“‹', ChancesToHit, '%');
-    Add('»Õ»÷»¿“»¬¿', Initiative);
-    Add('«ƒŒ–Œ¬‹≈', HitPoints, HitPoints);
-    Add('”–ŒÕ', Damage);
-    Add('¡–ŒÕﬂ', Armor);
+    Add('–Æ–ù–ò–¢');
+    Add('–£–†–û–í–ï–ù–¨', Level);
+    Add('–¢–û–ß–ù–û–°–¢–¨', ChancesToHit, '%');
+    Add('–ò–ù–ò–¶–ò–ê–¢–ò–í–ê', Initiative);
+    Add('–ó–î–û–†–û–í–¨–ï', HitPoints, HitPoints);
+    Add('–£–†–û–ù', Damage);
+    Add('–ë–†–û–ù–Ø', Armor);
     case SourceEnum of
       seWeapon:
-        Add('»—“Œ◊Õ» ', 'Œ–”∆»≈');
+        Add('–ò–°–¢–û–ß–ù–ò–ö', '–û–†–£–ñ–ò–ï');
       seLife:
         ;
       seMind:
@@ -142,15 +142,15 @@ begin
     end;
     case ReachEnum of
       reAny:
-        Add('÷≈À»', '¬—≈ œŒÀ≈ ¡Œﬂ');
+        Add('–î–ò–°–¢–ê–ù–¶–ò–Ø', '–í–°–ï –ü–û–õ–ï –ë–û–Ø');
       reAdj:
-        Add('÷≈À»', '¡À»∆¿…ÿ»≈ ÷≈À»');
+        Add('–î–ò–°–¢–ê–ù–¶–ò–Ø', '–û–î–ò–ù–û–ß–ù–ê–Ø');
       reAll:
-        Add('÷≈À»', '¬—≈ œŒÀ≈ ¡Œﬂ');
+        Add('–î–ò–°–¢–ê–ù–¶–ò–Ø', '–í–°–ï –ü–û–õ–ï –ë–û–Ø');
     end;
-    Add('÷≈À»', Targets);
-    Add('÷≈Õ¿', 0);
-    Add('«ŒÀŒ“Œ', Gold);
+    Add('–¶–ï–õ–ò', Targets);
+    Add('–¶–ï–ù–ê', 0);
+    Add('–ó–û–õ–û–¢–û', Gold);
   end;
 end;
 

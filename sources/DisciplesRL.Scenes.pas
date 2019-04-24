@@ -1,4 +1,4 @@
-unit DisciplesRL.Scenes;
+﻿unit DisciplesRL.Scenes;
 
 interface
 
@@ -44,9 +44,6 @@ const
   K_LEFT = 37;
   K_DOWN = 40;
   K_UP = 38;
-
-var
-  DefaultButton: TButton;
 
 implementation
 
