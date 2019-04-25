@@ -74,11 +74,13 @@ begin
     Exit;
   Y := 0;
   D := EnsureRange(Count - 6, 0, Count - 1);
+  FCanvas.Font.Size := 10;
   for I := D to Count - 1 do
   begin
     FCanvas.TextOut(FLeft, FTop + Y, FLog[I]);
-    Inc(Y, 18);
+    Inc(Y, 16);
   end;
+  FCanvas.Font.Size := 12;
 end;
 
 end.

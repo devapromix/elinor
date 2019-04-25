@@ -62,7 +62,7 @@ begin
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
+    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas, ButtonText[I]);
     Inc(L, W);
     if (I = btClose) then
       Button[I].Sellected := True;

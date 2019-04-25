@@ -19,12 +19,11 @@ begin
     FlagTrue('MissSlot' + GetStr('SlotTarget'));
     SetStr('Log', GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' уклоняется.');
   end;	
-  if (GetInt('Slot' + GetStr('SlotTarget') + 'HP') <= 0) then
-  begin
+  if (GetInt('Slot' + GetStr('SlotTarget') + 'HP') < 0) then
 	SetInt('Slot' + GetStr('SlotTarget') + 'HP', 0);
-    SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' побежден.');
-  end;	
 end;
 
+if (GetInt('Slot' + GetStr('SlotTarget') + 'HP') = 0) then
+  SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' побежден.');
 Log(GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' пытается атаковать ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + '... ' + GetStr('Log'));
 

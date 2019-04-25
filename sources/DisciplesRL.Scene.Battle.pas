@@ -185,7 +185,7 @@ end;
 
 procedure Render2;
 var
-  I, G, L: Integer;
+  I, G, H, L: Integer;
   ActSlot: Integer;
 begin
   ActSlot := V.GetInt('ActiveCell');
@@ -199,14 +199,18 @@ begin
       if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
       begin
         G := V.GetInt('Slot' + IntToStr(I) + 'Type');
-        RenderUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X, P[I].Y);
-        RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
-          V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
+        if (G > 0) then
+        begin
+          RenderUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X, P[I].Y);
+          RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
+            V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
+        end;
       end
       else
       begin
-        G := V.GetInt('Slot' + IntToStr(I) + 'Use');
-        if (G > 0) then
+        G := V.GetInt('Slot' + IntToStr(I) + 'Type');
+        H := V.GetInt('Slot' + IntToStr(I) + 'Use');
+        if (G > 0) and (H > 0) then
         begin
           RenderUnit(reDead, P[I].X, P[I].Y);
           RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),

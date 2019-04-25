@@ -1,5 +1,6 @@
 // MsgBox(GetStr('Slot' + GetStr('SlotClick') + 'HP'));
 // Если слот не пустой
+//MsgBox(GetStr('Slot' + GetStr('SlotClick') + 'Type'));//Debug
 if (GetInt('Slot' + GetStr('SlotClick') + 'HP') > 0) then
 begin
   // Активный юнит с левой стороны

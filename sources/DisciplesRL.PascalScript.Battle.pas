@@ -135,7 +135,7 @@ end;
 
 procedure _MsgBox(S: string);
 begin
-  // ShowMessage(S);
+  ShowMessage(S);
   // MainForm.Label1.Caption := S;
 end;
 
