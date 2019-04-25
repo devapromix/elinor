@@ -79,7 +79,7 @@ var
   I: Integer;
 begin
   Top := 0;
-  Left := 0;
+  Left := 8;
   //
   Randomize;
   for I := 1 to ParamCount do

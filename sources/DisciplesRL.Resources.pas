@@ -6,7 +6,7 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
+  TResEnum = (reNone, reBGChar, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
     reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
     reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
@@ -24,6 +24,8 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
+    //
+    (FileName: 'bg.character.png'; ResType: teGUI;),
     // Череп
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame

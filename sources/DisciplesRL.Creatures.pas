@@ -29,7 +29,9 @@ const
   Characters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crArcher);
 
 const
-  Leaders: array [0 .. 0] of TCreatureEnum = (crPegasusKnight);
+  Leaders: array [TRaceEnum, 0 .. 0] of TCreatureEnum = (
+    // The Empire
+    (crPegasusKnight));
 
 type
   TCreature = record
@@ -53,6 +55,7 @@ type
 type
   TCreatureBase = record
     ResEnum: TResEnum;
+    Name: string;
     HitPoints: Integer;
     Initiative: Integer;
     ChancesToHit: Integer;
@@ -68,34 +71,34 @@ type
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (ResEnum: reNone; HitPoints: 0; Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; SourceEnum: seWeapon;
+    (ResEnum: reNone; Name: ''; HitPoints: 0; Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; SourceEnum: seWeapon;
     ReachEnum: reAdj; Targets: 0;),
     // Myzrael
-    (ResEnum: reDragon; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; SourceEnum: seWeapon;
-    ReachEnum: reAll; Targets: 6;),
+    (ResEnum: reDragon; Name: 'Мизраэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50;
+    SourceEnum: seWeapon; ReachEnum: reAll; Targets: 6;),
     // Pegasus Knight
-    (ResEnum: reDragon; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reDragon; Name: 'Рыцарь на Пегасе'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Squire
-    (ResEnum: reDragon; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reDragon; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Archer
-    (ResEnum: reDragon; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reDragon; Name: 'Лучник'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Goblin
-    (ResEnum: reGoblin; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reGoblin; Name: 'Гоблин'; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Goblin Archer
-    (ResEnum: reGoblin; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reGoblin; Name: 'Гоблин-лучник'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Spider
-    (ResEnum: reSpider; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reSpider; Name: 'Паук'; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Wolf
-    (ResEnum: reUnk; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; SourceEnum: seWeapon;
+    (ResEnum: reUnk; Name: 'Волк'; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; SourceEnum: seWeapon;
     ReachEnum: reAdj; Targets: 1;),
     // Orc
-    (ResEnum: reUnk; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; SourceEnum: seWeapon;
+    (ResEnum: reUnk; Name: 'Орк'; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; SourceEnum: seWeapon;
     ReachEnum: reAdj; Targets: 1;)
     //
     );
@@ -132,18 +135,15 @@ begin
 end;
 
 procedure AssignCreature(var ACreature: TCreature; const ACreatureEnum: TCreatureEnum);
-var
-  P: Pointer;
 begin
-  P := TypeInfo(TCreatureEnum);
   with ACreature do
   begin
     Active := True;
     Enum := ACreatureEnum;
     ResEnum := CreatureBase[ACreatureEnum].ResEnum;
-    Name := StringReplace(GetEnumName(P, Ord(Enum)), 'cr', '', [rfReplaceAll]);
+    Name := CreatureBase[ACreatureEnum].Name;
     MaxHitPoints := CreatureBase[ACreatureEnum].HitPoints;
-    HitPoints := CreatureBase[ACreatureEnum].HitPoints div 2;
+    HitPoints := CreatureBase[ACreatureEnum].HitPoints;
     Initiative := CreatureBase[ACreatureEnum].Initiative;
     ChancesToHit := CreatureBase[ACreatureEnum].ChancesToHit;
     Leadership := CreatureBase[ACreatureEnum].Leadership;

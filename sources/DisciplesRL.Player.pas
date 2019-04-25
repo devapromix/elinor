@@ -138,6 +138,7 @@ begin
             if Active then
             begin
               V.SetStr(S + 'Name', Name);
+              V.SetInt(S + 'Level', Level);
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
               V.SetInt(S + 'INI', Initiative);
@@ -153,6 +154,7 @@ begin
             if Active then
             begin
               V.SetStr(S + 'Name', Name);
+              V.SetInt(S + 'Level', Level);
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
               V.SetInt(S + 'INI', Initiative);
@@ -264,10 +266,10 @@ end;
 procedure Gen;
 begin
   LeaderParty.SetLocation(Player.X, Player.Y);
-//  LeaderParty.AddCreature(crSquire, 0);
+  // LeaderParty.AddCreature(crSquire, 0);
   LeaderParty.AddCreature(crPegasusKnight, 2);
   LeaderParty.AddCreature(crArcher, 3);
-//  LeaderParty.AddCreature(crSquire, 4);
+  // LeaderParty.AddCreature(crSquire, 4);
 end;
 
 end.

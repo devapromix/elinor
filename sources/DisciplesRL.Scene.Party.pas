@@ -123,6 +123,7 @@ end;
 
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer);
 begin
+  DrawImage(AX + 7, AY + 7, reBGChar);
   Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
 end;
 
