@@ -1,13 +1,10 @@
-unit DisciplesRL.Party;
+﻿unit DisciplesRL.Party;
 
 interface
 
 uses
   DisciplesRL.Creatures,
   DisciplesRL.MapObject;
-
-type
-  TRaceEnum = (reEmpire, reNeutrals);
 
 type
   TPosition = 0 .. 5;

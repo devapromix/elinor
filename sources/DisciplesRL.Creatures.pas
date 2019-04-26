@@ -1,4 +1,4 @@
-unit DisciplesRL.Creatures;
+Ôªøunit DisciplesRL.Creatures;
 
 interface
 
@@ -6,7 +6,7 @@ uses
   DisciplesRL.Resources;
 
 type
-  TRaceEnum = (rcTheEmpire);
+  TRaceEnum = (reNeutrals, reTheEmpire);
 
 type
   TCreatureEnum = (crNone,
@@ -16,7 +16,7 @@ type
     crPegasusKnight,
     // The Empire
     crSquire, crArcher,
-    //
+    // Neutrals
     crGoblin, crGoblin_Archer, crSpider, crWolf, crOrc);
 
 type
@@ -26,12 +26,12 @@ type
   TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth, seFire, seWater);
 
 const
-  Characters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crArcher);
+  TheEmpireCharacters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crArcher);
 
 const
-  Leaders: array [TRaceEnum, 0 .. 0] of TCreatureEnum = (
+  TheEmpireLeaders: array [0 .. 0] of TCreatureEnum = (
     // The Empire
-    (crPegasusKnight));
+    crPegasusKnight);
 
 type
   TCreature = record
@@ -74,32 +74,32 @@ const
     (ResEnum: reNone; Name: ''; HitPoints: 0; Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; SourceEnum: seWeapon;
     ReachEnum: reAdj; Targets: 0;),
     // Myzrael
-    (ResEnum: reDragon; Name: 'ÃËÁ‡˝Î¸'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50;
+    (ResEnum: reDragon; Name: '–ú–∏–∑—Ä–∞—ç–ª—å'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50;
     SourceEnum: seWeapon; ReachEnum: reAll; Targets: 6;),
     // Pegasus Knight
-    (ResEnum: reDragon; Name: '–˚ˆ‡¸ Ì‡ œÂ„‡ÒÂ'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0;
+    (ResEnum: reDragon; Name: '–†—ã—Ü–∞—Ä—å –Ω–∞ –ü–µ–≥–∞—Å–µ'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Squire
-    (ResEnum: reDragon; Name: '—Í‚‡È'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0;
+    (ResEnum: reDragon; Name: '–°–∫–≤–∞–π—Ä'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Archer
-    (ResEnum: reDragon; Name: 'ÀÛ˜ÌËÍ'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0;
+    (ResEnum: reDragon; Name: '–õ—É—á–Ω–∏–∫'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Goblin
-    (ResEnum: reGoblin; Name: '√Ó·ÎËÌ'; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
+    (ResEnum: reGoblin; Name: '–ì–æ–±–ª–∏–Ω'; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Goblin Archer
-    (ResEnum: reGoblin; Name: '√Ó·ÎËÌ-ÎÛ˜ÌËÍ'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
+    (ResEnum: reGoblin; Name: '–ì–æ–±–ª–∏–Ω-–ª—É—á–Ω–∏–∫'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
     // Spider
-    (ResEnum: reSpider; Name: 'œ‡ÛÍ'; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130; Armor: 0;
+    (ResEnum: reSpider; Name: '–ü–∞—É–∫'; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130; Armor: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Wolf
-    (ResEnum: reUnk; Name: '¬ÓÎÍ'; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reUnk; Name: '–í–æ–ª–∫'; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Orc
-    (ResEnum: reUnk; Name: 'ŒÍ'; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Targets: 1;)
+    (ResEnum: reUnk; Name: '–û—Ä–∫'; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;)
     //
     );
 

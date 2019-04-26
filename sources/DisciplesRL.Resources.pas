@@ -1,4 +1,4 @@
-unit DisciplesRL.Resources;
+ï»¿unit DisciplesRL.Resources;
 
 interface
 
@@ -26,7 +26,7 @@ const
     (FileName: ''; ResType: teNone;),
     //
     (FileName: 'bg.character.png'; ResType: teGUI;),
-    // ×åðåï
+    // Ð§ÐµÑ€ÐµÐ¿
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame
     (FileName: 'frame.png'; ResType: teGUI;),

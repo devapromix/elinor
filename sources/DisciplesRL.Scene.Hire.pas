@@ -53,7 +53,7 @@ end;
 
 procedure Hire;
 begin
-  HireParty.Hire(Characters[CurrentCharacter], HirePosition);
+  HireParty.Hire(TheEmpireCharacters[CurrentCharacter], HirePosition);
   DisciplesRL.Scenes.CurrentScene := scSettlement;
 end;
 
@@ -113,7 +113,7 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
-  with CreatureBase[Characters[CurrentCharacter]] do
+  with CreatureBase[TheEmpireCharacters[CurrentCharacter]] do
   begin
     Add('ЮНИТ');
     Add('УРОВЕНЬ', Level);
@@ -169,16 +169,16 @@ begin
   DrawTitle(reTitleHire);
 
   Y := 0;
-  for I := 0 to High(Characters) do
+  for I := 0 to High(TheEmpireCharacters) do
   begin
     if I = CurrentCharacter then
       Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
     else
       Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-    with CreatureBase[Characters[I]] do
+    with CreatureBase[TheEmpireCharacters[I]] do
     begin
       RenderUnit(ResEnum, Lf, Top + Y);
-      RenderUnitInfo(Lf, Top + Y, Characters[I]);
+      RenderUnitInfo(Lf, Top + Y, TheEmpireCharacters[I]);
     end;
     Inc(Y, 120);
   end;
@@ -229,9 +229,9 @@ begin
     K_ENTER:
       Hire;
     K_UP:
-      CurrentCharacter := EnsureRange(CurrentCharacter - 1, 0, High(Characters));
+      CurrentCharacter := EnsureRange(CurrentCharacter - 1, 0, High(TheEmpireCharacters));
     K_DOWN:
-      CurrentCharacter := EnsureRange(CurrentCharacter + 1, 0, High(Characters));
+      CurrentCharacter := EnsureRange(CurrentCharacter + 1, 0, High(TheEmpireCharacters));
   end;
 end;
 

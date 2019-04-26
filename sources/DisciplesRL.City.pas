@@ -1,8 +1,9 @@
-unit DisciplesRL.City;
+﻿unit DisciplesRL.City;
 
 interface
 
 uses
+  DisciplesRL.Creatures,
   DisciplesRL.Party;
 
 type
@@ -29,7 +30,6 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Utils,
   DisciplesRL.Player,
-  DisciplesRL.Creatures,
   DisciplesRL.Game;
 
 const
@@ -67,7 +67,7 @@ begin
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], reEmpireTerrain,
     [reEmpireCity, reNeutralCity, reEmpireCapital, reRuin, reTower]);
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
-  City[AID].Owner := reEmpire;
+  City[AID].Owner := reTheEmpire;
 end;
 
 function GetRadius(const N: Integer): Integer;

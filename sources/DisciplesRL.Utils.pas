@@ -1,4 +1,4 @@
-unit DisciplesRL.Utils;
+﻿unit DisciplesRL.Utils;
 
 interface
 

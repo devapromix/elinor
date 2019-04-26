@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Map;
+﻿unit DisciplesRL.Scene.Map;
 
 interface
 

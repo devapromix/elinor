@@ -199,7 +199,7 @@ begin
     Exit;
   for I := 0 to High(City) do
   begin
-    if (City[I].Owner = reEmpire) then
+    if (City[I].Owner = reTheEmpire) then
       if (City[I].CurLevel < City[I].MaxLevel) then
       begin
         Inc(City[I].CurLevel);
