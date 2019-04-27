@@ -29,7 +29,10 @@ uses
   System.Math,
   System.SysUtils;
 
-{ TLog }
+const
+  Rows = 7;
+
+  { TLog }
 
 procedure TLog.Add(const Msg: string);
 begin
@@ -73,7 +76,7 @@ begin
   if Count <= 0 then
     Exit;
   Y := 0;
-  D := EnsureRange(Count - 6, 0, Count - 1);
+  D := EnsureRange(Count - Rows, 0, Count - 1);
   FCanvas.Font.Size := 10;
   for I := D to Count - 1 do
   begin

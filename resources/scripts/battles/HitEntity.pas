@@ -1,4 +1,21 @@
 // Aтакуем вражеского персонажа
+case Rand(1, 7) of
+  1:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' пытается атаковать.');
+  2:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' атакует.');
+  3:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' рвется в бой.');
+  4:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' атакует.');
+  5:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' атакует.');
+  6:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' атакует.');
+  7:
+    SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' атакует.');
+end;
+//
 if (Flag('SlepotaSlot' + GetStr('ActiveCell')) and (Rand(0, 100) <= 75)) then
 begin
   Run('Battles\Miss.pas');
@@ -9,15 +26,28 @@ begin
   begin
     DecInt('Slot' + GetStr('SlotTarget') + 'HP', GetInt('Slot' + GetStr('ActiveCell') + 'Use'));
     SetInt('DisplayDamageSlot' + GetStr('SlotTarget'), GetInt('Slot' + GetStr('ActiveCell') + 'Use'));
-    case Rand(1, 4) of
+    case Rand(1, 7) of
       1:
-        SetStr('Log', GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ': -' + GetStr('Slot' + GetStr('ActiveCell') + 'Use') + 'HP.');
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ': -' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед. здоровья.');
       2:
-        SetStr('Log', GetStr('Slot' + GetStr('ActiveCell') + 'Name') + ' наносит противнику урон в ' + GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед.');
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ': -' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + 'HP.');
       3:
-        SetStr('Log', GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' получает урон ' + GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед.');
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' получает урон ' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед.');
       4:
-        SetStr('Log', GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' теряет ' + GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед. здоровья.');
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' получает урон ' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед.');
+      5:
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' теряет ' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед. здоровья.');
+      6:
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' потерял ' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед. здоровья.');
+      7:
+        SetStr('Log', GetStr('Log') + ' ' + GetStr('Slot' + GetStr('SlotTarget') + 'Name') + ' теряет ' +
+          GetStr('Slot' + GetStr('ActiveCell') + 'Use') + ' ед. здоровья.');
     end;
   end
   else
