@@ -109,8 +109,7 @@ procedure AssignCreature(var ACreature: TCreature; const ACreatureEnum: TCreatur
 implementation
 
 uses
-  System.SysUtils,
-  System.TypInfo;
+  System.SysUtils;
 
 procedure ClearCreature(var ACreature: TCreature);
 begin
