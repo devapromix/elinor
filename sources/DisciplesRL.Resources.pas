@@ -8,8 +8,9 @@ uses
 type
   TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemies, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
-    reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reTextQuit, reTextHire, reTextClose,
-    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
+    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider,
+    reTextQuit, reTextDismiss, reTextHire, reTextClose, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory,
+    reTitleDefeat, reTitleLogo);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -72,6 +73,10 @@ const
     (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
+    // Text "Capital defenses"
+    (FileName: 'text.capital_def.png'; ResType: teGUI;),
+    // Text "City defenses"
+    (FileName: 'text.city_def.png'; ResType: teGUI;),
     // Text "Play"
     (FileName: 'text.play.png'; ResType: teGUI;),
     // Text "Victory"
@@ -92,10 +97,14 @@ const
     (FileName: 'spider.png'; ResType: teGUI;),
     // Text "Quit"
     (FileName: 'text.quit.png'; ResType: teGUI;),
+    // Text "Dismiss"
+    (FileName: 'text.dismiss.png'; ResType: teGUI;),
     // Text "Hire"
     (FileName: 'text.hire.png'; ResType: teGUI;),
     // Text "Close"
     (FileName: 'text.close.png'; ResType: teGUI;),
+    // Text "Leader's party"
+    (FileName: 'text.lead_party.png'; ResType: teGUI;),
     // Text "Heal"
     (FileName: 'text.heal.png'; ResType: teGUI;),
     // Text "Revive"

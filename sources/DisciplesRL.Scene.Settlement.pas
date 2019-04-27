@@ -44,7 +44,7 @@ type
   TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive, reTextClose, reTextHire, reTextHire);
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive, reTextClose, reTextHire, reTextDismiss);
 
 var
   Button: array [TButtonEnum] of TButton;
@@ -86,15 +86,15 @@ begin
       begin
         CenterTextOut(100, Format('CITY (Level %d)', [City[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
-        Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
-        Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CITY DEFENSES');
+        DrawImage(20, 160, reTextLeadParty);
+        DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
       end;
     stCapital:
       begin
         CenterTextOut(100, Format('THE EMPIRE CAPITAL (Level %d)', [City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
-        Surface.Canvas.TextOut(50, 180, 'LEADER''S PARTY');
-        Surface.Canvas.TextOut((Surface.Width div 2) + 50, 180, 'CAPITAL DEFENSES');
+        DrawImage(20, 160, reTextLeadParty);
+        DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
   end;
 
