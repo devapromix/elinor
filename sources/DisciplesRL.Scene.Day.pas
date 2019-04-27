@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Day;
+ï»¿unit DisciplesRL.Scene.Day;
 
 interface
 
@@ -45,8 +45,8 @@ procedure Render;
 begin
   // RenderDark;
 
-  CenterTextOut(100, Format('ÍÀÑÒÓÏÈË ÍÎÂÛÉ ÄÅÍÜ (Äåíü %d-é)',[Days]));
-  CenterTextOut(200, 'ÇÎËÎÒÎ +' + IntToStr(GoldMines * GoldFromMinePerDay));
+  CenterTextOut(100, Format('ĞĞĞ¡Ğ¢Ğ£ĞŸĞ˜Ğ› ĞĞĞ’Ğ«Ğ™ Ğ”Ğ•ĞĞ¬ (Ğ”ĞµĞ½ÑŒ %d-Ğ¹)',[Days]));
+  CenterTextOut(200, 'Ğ—ĞĞ›ĞĞ¢Ğ +' + IntToStr(GoldMines * GoldFromMinePerDay));
   Button.Render;
 end;
 

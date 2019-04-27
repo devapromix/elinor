@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.HighScores;
+﻿unit DisciplesRL.Scene.HighScores;
 
 interface
 

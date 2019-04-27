@@ -77,26 +77,26 @@ end;
 procedure InitParty(const X, Y: Integer);
 var
   I, J: Integer;
-  T: string;
+  SlotType: string;
 begin
   for I := 0 to 11 do
   begin
-    T := 'Slot' + IntToStr(TransformTo(I)) + 'Type';
+    SlotType := 'Slot' + IntToStr(TransformTo(I)) + 'Type';
     case I of
       0 .. 5:
         begin
           if LeaderParty.Creature[I].Active then
-            V.SetInt(T, Ord(LeaderParty.Creature[I].Enum))
+            V.SetInt(SlotType, Ord(LeaderParty.Creature[I].Enum))
           else
-            V.SetInt(T, 0);
+            V.SetInt(SlotType, 0);
         end;
       6 .. 11:
         begin
           J := GetPartyIndex(Player.X, Player.Y);
           if Party[J].Creature[I - 6].Active then
-            V.SetInt(T, Ord(Party[J].Creature[I - 6].Enum))
+            V.SetInt(SlotType, Ord(Party[J].Creature[I - 6].Enum))
           else
-            V.SetInt(T, 0);
+            V.SetInt(SlotType, 0);
         end;
     end;
   end;

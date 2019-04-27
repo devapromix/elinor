@@ -1,4 +1,4 @@
-unit DisciplesRL.MapObject;
+﻿unit DisciplesRL.MapObject;
 
 interface
 

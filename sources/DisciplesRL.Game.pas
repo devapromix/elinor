@@ -1,4 +1,4 @@
-unit DisciplesRL.Game;
+﻿unit DisciplesRL.Game;
 
 interface
 
