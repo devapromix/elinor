@@ -6,10 +6,10 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reBGChar, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reEmpireTerrain, reUnk, reEnemies, reCursor,
-    rePlayer, reDark, reGold, reBag, reNeutralCity, reEmpireCity, reEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
-    reMNewGame, reMVictory, reMDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reMQuit, reTextHire, reTextClose, reTextHeal,
-    reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
+  TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemies, reCursor,
+    rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
+    reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider, reTextQuit, reTextHire, reTextClose,
+    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -24,8 +24,10 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
-    //
+    // Фон для друж. юнитов
     (FileName: 'bg.character.png'; ResType: teGUI;),
+    // Фон для врагов
+    (FileName: 'bg.enemy.png'; ResType: teGUI;),
     // Череп
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame
@@ -70,8 +72,8 @@ const
     (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
-    // Text "New Game"
-    (FileName: 'text.newgame.png'; ResType: teGUI;),
+    // Text "Play"
+    (FileName: 'text.play.png'; ResType: teGUI;),
     // Text "Victory"
     (FileName: 'text.victory.png'; ResType: teGUI;),
     // Text "Defeat"

@@ -1,4 +1,4 @@
-unit DisciplesRL.PascalScript.Vars;
+﻿unit DisciplesRL.PascalScript.Vars;
 
 interface
 

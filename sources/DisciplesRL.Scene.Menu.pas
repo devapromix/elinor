@@ -62,13 +62,13 @@ begin
   begin
     case I of
       btPlay:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextPlay);
       btContinue:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextPlay);
       btHighScores:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reMNewGame);
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextPlay);
       btQuit:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reMQuit);
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextQuit);
     end;
     Inc(T, H);
   end;

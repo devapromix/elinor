@@ -187,6 +187,7 @@ procedure Render2;
 var
   I, G, H, L: Integer;
   ActSlot: Integer;
+  F: Boolean;
 begin
   ActSlot := V.GetInt('ActiveCell');
   CalcPoints;
@@ -195,13 +196,14 @@ begin
     Brush.Style := bsClear;
     for I := 1 to 12 do
     begin
+      F := I in [1..6];
       Surface.Canvas.Draw(P[I].X, P[I].Y, ResImage[reFrame]);
       if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
       begin
         G := V.GetInt('Slot' + IntToStr(I) + 'Type');
         if (G > 0) then
         begin
-          RenderUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X, P[I].Y);
+          RenderUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X, P[I].Y, F);
           RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
             V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;
@@ -212,7 +214,7 @@ begin
         H := V.GetInt('Slot' + IntToStr(I) + 'Use');
         if (G > 0) and (H > 0) then
         begin
-          RenderUnit(reDead, P[I].X, P[I].Y);
+          RenderUnit(reDead, P[I].X, P[I].Y, F);
           RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
             V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;

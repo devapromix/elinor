@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Party;
+﻿unit DisciplesRL.Scene.Party;
 
 interface
 
@@ -20,7 +20,7 @@ procedure RenderParty(const V: TPartySide; const Party: TParty);
 procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer); overload;
 procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
-procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer); overload;
+procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer); overload;
 
 var
@@ -32,7 +32,8 @@ implementation
 uses
   System.SysUtils,
   System.TypInfo,
-  DisciplesRL.Scenes;
+  DisciplesRL.Scenes,
+  DisciplesRL.Game;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
@@ -111,32 +112,35 @@ begin
 end;
 
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum);
-var
-  P: Pointer;
-  Name: string;
 begin
-  P := TypeInfo(TCreatureEnum);
-  Name := StringReplace(GetEnumName(P, Ord(ACreature)), 'cr', '', [rfReplaceAll]);
   with CreatureBase[ACreature] do
     RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Damage, Armor);
 end;
 
-procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer);
+procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
 begin
-  DrawImage(AX + 7, AY + 7, reBGChar);
+  case F of
+    True:
+      DrawImage(AX + 7, AY + 7, reBGChar);
+    False:
+      DrawImage(AX + 7, AY + 7, reBGEnemy);
+  end;
   Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
 end;
 
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer);
+var
+  F: Boolean;
 begin
+  F := Party.Owner = reTheEmpire;
   with Party.Creature[I] do
   begin
     if Active then
     begin
       if HitPoints <= 0 then
-        RenderUnit(reDead, AX, AY)
+        RenderUnit(reDead, AX, AY, F)
       else
-        RenderUnit(ResEnum, AX, AY);
+        RenderUnit(ResEnum, AX, AY, F);
       RenderUnitInfo(I, Party, AX, AY);
     end;
   end;

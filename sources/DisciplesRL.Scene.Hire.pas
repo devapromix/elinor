@@ -177,7 +177,7 @@ begin
       Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
     with CreatureBase[TheEmpireCharacters[I]] do
     begin
-      RenderUnit(ResEnum, Lf, Top + Y);
+      RenderUnit(ResEnum, Lf, Top + Y, True);
       RenderUnitInfo(Lf, Top + Y, TheEmpireCharacters[I]);
     end;
     Inc(Y, 120);

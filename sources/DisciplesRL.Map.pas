@@ -53,8 +53,8 @@ begin
     Clear(L);
   end;
   DisciplesRL.City.Init;
-  LeaderParty := TParty.Create(Player.X, Player.Y);
-  CapitalParty := TParty.Create(Player.X, Player.Y);
+  LeaderParty := TParty.Create(Player.X, Player.Y, reTheEmpire);
+  CapitalParty := TParty.Create(Player.X, Player.Y, reTheEmpire);
 end;
 
 function GetDistToCapital(const AX, AY: Integer): Integer;

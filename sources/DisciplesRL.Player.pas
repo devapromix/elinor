@@ -239,16 +239,16 @@ begin
   case PlayerTile of
     reNeutralCity:
       begin
-        Map[lrTile][Player.X, Player.Y] := reEmpireCity;
+        Map[lrTile][Player.X, Player.Y] := reTheEmpireCity;
         DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X, Player.Y));
         F := False;
       end;
-    reEmpireCity:
+    reTheEmpireCity:
       begin
         DisciplesRL.Scene.Settlement.Show(stCity);
         F := False;
       end;
-    reEmpireCapital:
+    reTheEmpireCapital:
       begin
         DisciplesRL.Scene.Settlement.Show(stCapital);
         F := False;

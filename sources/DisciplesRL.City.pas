@@ -64,8 +64,8 @@ end;
 
 procedure UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], reEmpireTerrain,
-    [reEmpireCity, reNeutralCity, reEmpireCapital, reRuin, reTower]);
+  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], reTheEmpireTerrain,
+    [reTheEmpireCity, reNeutralCity, reTheEmpireCapital, reRuin, reTower]);
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
   City[AID].Owner := reTheEmpire;
 end;
@@ -118,7 +118,7 @@ end;
 
 procedure Gen;
 var
-  X, Y, DX, DY, I: Integer;
+  X, Y, DX, DY, I, J: Integer;
 begin
   for I := 0 to High(City) do
   begin
@@ -131,7 +131,7 @@ begin
         begin
           Player.X := City[I].X;
           Player.Y := City[I].Y;
-          Map[lrTile][City[I].X, City[I].Y] := reEmpireCapital;
+          Map[lrTile][City[I].X, City[I].Y] := reTheEmpireCapital;
           ClearObj(City[I].X, City[I].Y);
           UpdateRadius(I);
           // Party
@@ -143,6 +143,8 @@ begin
           Map[lrTile][City[I].X, City[I].Y] := reNeutralCity;
           ClearObj(City[I].X, City[I].Y);
           AddPartyAt(City[I].X, City[I].Y);
+          J := GetPartyIndex(City[I].X, City[I].Y);
+          Party[J].Owner := reNeutrals;
         end;
       NCity + 1: // Tower
         begin

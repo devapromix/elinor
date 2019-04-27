@@ -17,7 +17,8 @@ type
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
   public
-    constructor Create(const AX, AY: Integer);
+    constructor Create(const AX, AY: Integer); overload;
+    constructor Create(const AX, AY: Integer; AOwner: TRaceEnum); overload;
     destructor Destroy; override;
     procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
@@ -90,6 +91,13 @@ var
 begin
   for I := Low(TPosition) to High(TPosition) do
     ClearCreature(FCreature[I]);
+end;
+
+constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
+begin
+  inherited Create(AX, AY);
+  Self.Clear;
+  Owner := AOwner;
 end;
 
 constructor TParty.Create(const AX, AY: Integer);

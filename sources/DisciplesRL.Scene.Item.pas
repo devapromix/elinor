@@ -42,7 +42,7 @@ begin
           DisciplesRL.Scenes.CurrentScene := scVictory;
           F := False;
         end;
-      reEmpireCity:
+      reTheEmpireCity:
         begin
           DisciplesRL.Scene.Settlement.Show(stCity);
           F := False;

@@ -1,10 +1,10 @@
-unit DisciplesRL.PascalScript.Battle;
+Ôªøunit DisciplesRL.PascalScript.Battle;
 
 interface
 
 uses
-  Vcl.Dialogs,
   DisciplesRL.PascalScript.Vars,
+  Vcl.Dialogs,
   uPSCompiler,
   uPSRuntime;
 
@@ -232,7 +232,7 @@ var
     I: Integer;
     S: AnsiString;
   begin
-    S := Format('Œ¯Ë·ÍË ‚ Ù‡ÈÎÂ: "%s":', [ExtractFileName(FileName)]) + #10#13;
+    S := Format('–û—à–∏–±–∫–∏ –≤ —Ñ–∞–π–ª–µ: "%s":', [ExtractFileName(FileName)]) + #10#13;
     for I := 0 to Compiler.MsgCount - 1 do
       S := S + Compiler.Msg[I].MessageToString + ';'#10#13;
     ShowMessage(S + #10#13 + AnsiString(SL.Text));
@@ -249,67 +249,71 @@ var
 begin
   SL := TStringList.Create;
   try
-    if (StrRight(Script, 4) = '.pas') then
-    begin
-      S := GetPath(ScriptPath) + Script;
-      if not FileExists(S) then
+    try
+      if (StrRight(Script, 4) = '.pas') then
       begin
-        ShowMessage('‘‡ÈÎ ÒÍËÔÚ‡ "' + ExtractFileName(S) + '" ÌÂ Ì‡È‰ÂÌ!');
+        S := GetPath(ScriptPath) + Script;
+        if not FileExists(S) then
+        begin
+          ShowMessage('–§–∞–π–ª —Å–∫—Ä–∏–ø—Ç–∞ "' + ExtractFileName(S) + '" –Ω–µ –Ω–∞–π–¥–µ–Ω!');
+          Exit;
+        end;
+        SL.LoadFromFile(S, TEncoding.ANSI);
+      end;
+      SL.Insert(0, 'begin');
+      SL.Insert(0, '  AX, AY, HX, HY, BX, BY: Integer;');
+      SL.Insert(0, 'var');
+      SL.Append('end.');
+      Compiler := TPSPascalCompiler.Create;
+      Compiler.OnUses := ScriptOnUses;
+      if not Compiler.Compile(AnsiString(SL.Text)) then
+      begin
+        ShowScriptErrors(S);
+        Compiler.Free;
         Exit;
       end;
-      SL.LoadFromFile(S, TEncoding.ANSI);
-    end;
-    SL.Insert(0, 'begin');
-    SL.Insert(0, '  AX, AY, HX, HY, BX, BY: Integer;');
-    SL.Insert(0, 'var');
-    SL.Append('end.');
-    Compiler := TPSPascalCompiler.Create;
-    Compiler.OnUses := ScriptOnUses;
-    if not Compiler.Compile(AnsiString(SL.Text)) then
-    begin
-      ShowScriptErrors(S);
+      // ShowMessage(SL.Text);
+      Compiler.GetOutput(Data);
       Compiler.Free;
-      Exit;
-    end;
-    // ShowMessage(SL.Text);
-    Compiler.GetOutput(Data);
-    Compiler.Free;
-    Exec := TPSExec.Create;
-    //
-    Exec.RegisterDelphiFunction(@_GetStr, 'GETSTR', cdRegister);
-    Exec.RegisterDelphiFunction(@_SetStr, 'SETSTR', cdRegister);
-    Exec.RegisterDelphiFunction(@_GetInt, 'GETINT', cdRegister);
-    Exec.RegisterDelphiFunction(@_SetInt, 'SETINT', cdRegister);
-    Exec.RegisterDelphiFunction(@_IncInt, 'INCINT', cdRegister);
-    Exec.RegisterDelphiFunction(@_DecInt, 'DECINT', cdRegister);
-    Exec.RegisterDelphiFunction(@_GetBool, 'GETBOOL', cdRegister);
-    Exec.RegisterDelphiFunction(@_SetBool, 'SETBOOL', cdRegister);
-    Exec.RegisterDelphiFunction(@_LetVar, 'LETVAR', cdRegister);
-    Exec.RegisterDelphiFunction(@_Flag, 'FLAG', cdRegister);
-    Exec.RegisterDelphiFunction(@_FlagTrue, 'FLAGTRUE', cdRegister);
-    Exec.RegisterDelphiFunction(@_FlagFalse, 'FLAGFALSE', cdRegister);
-    //
-    Exec.RegisterDelphiFunction(@_Rand, 'RAND', cdRegister);
-    Exec.RegisterDelphiFunction(@_MsgBox, 'MSGBOX', cdRegister);
-    Exec.RegisterDelphiFunction(@_Run, 'RUN', cdRegister);
-    Exec.RegisterDelphiFunction(@_UseTimer, 'USETIMER', cdRegister);
-    Exec.RegisterDelphiFunction(@_DisplayMsg, 'DISPLAYMSG', cdRegister);
-    Exec.RegisterDelphiFunction(@_Refresh, 'REFRESH', cdRegister);
-    Exec.RegisterDelphiFunction(@_Render, 'RENDER', cdRegister);
-    Exec.RegisterDelphiFunction(@_Log, 'LOG', cdRegister);
-    //
-    Exec.RegisterDelphiFunction(@_SetVar, 'SETVAR', cdRegister);
-    Exec.RegisterDelphiFunction(@_IncVar, 'INCVAR', cdRegister);
-    Exec.RegisterDelphiFunction(@_DecVar, 'DECVAR', cdRegister);
-    //
-    if not Exec.LoadData(Data) then
-    begin
+      Exec := TPSExec.Create;
+      //
+      Exec.RegisterDelphiFunction(@_GetStr, 'GETSTR', cdRegister);
+      Exec.RegisterDelphiFunction(@_SetStr, 'SETSTR', cdRegister);
+      Exec.RegisterDelphiFunction(@_GetInt, 'GETINT', cdRegister);
+      Exec.RegisterDelphiFunction(@_SetInt, 'SETINT', cdRegister);
+      Exec.RegisterDelphiFunction(@_IncInt, 'INCINT', cdRegister);
+      Exec.RegisterDelphiFunction(@_DecInt, 'DECINT', cdRegister);
+      Exec.RegisterDelphiFunction(@_GetBool, 'GETBOOL', cdRegister);
+      Exec.RegisterDelphiFunction(@_SetBool, 'SETBOOL', cdRegister);
+      Exec.RegisterDelphiFunction(@_LetVar, 'LETVAR', cdRegister);
+      Exec.RegisterDelphiFunction(@_Flag, 'FLAG', cdRegister);
+      Exec.RegisterDelphiFunction(@_FlagTrue, 'FLAGTRUE', cdRegister);
+      Exec.RegisterDelphiFunction(@_FlagFalse, 'FLAGFALSE', cdRegister);
+      //
+      Exec.RegisterDelphiFunction(@_Rand, 'RAND', cdRegister);
+      Exec.RegisterDelphiFunction(@_MsgBox, 'MSGBOX', cdRegister);
+      Exec.RegisterDelphiFunction(@_Run, 'RUN', cdRegister);
+      Exec.RegisterDelphiFunction(@_UseTimer, 'USETIMER', cdRegister);
+      Exec.RegisterDelphiFunction(@_DisplayMsg, 'DISPLAYMSG', cdRegister);
+      Exec.RegisterDelphiFunction(@_Refresh, 'REFRESH', cdRegister);
+      Exec.RegisterDelphiFunction(@_Render, 'RENDER', cdRegister);
+      Exec.RegisterDelphiFunction(@_Log, 'LOG', cdRegister);
+      //
+      Exec.RegisterDelphiFunction(@_SetVar, 'SETVAR', cdRegister);
+      Exec.RegisterDelphiFunction(@_IncVar, 'INCVAR', cdRegister);
+      Exec.RegisterDelphiFunction(@_DecVar, 'DECVAR', cdRegister);
+      //
+      if not Exec.LoadData(Data) then
+      begin
+        Exec.Free;
+        Exit;
+      end;
+      Exec.RunScript;
       Exec.Free;
-      Exit;
+    except
     end;
-    Exec.RunScript;
-    Exec.Free;
-  except
+  finally
+    FreeAndNil(SL);
   end;
 end;
 

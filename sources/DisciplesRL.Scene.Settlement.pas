@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Settlement;
+п»їunit DisciplesRL.Scene.Settlement;
 
 interface
 
@@ -120,7 +120,7 @@ procedure Hire;
     begin
       if Active then
       begin
-        ShowMessage('Выберите пустой слот!');
+        ShowMessage('Р’С‹Р±РµСЂРёС‚Рµ РїСѓСЃС‚РѕР№ СЃР»РѕС‚!');
         Exit;
       end;
       SetHire(AParty, APosition);
@@ -145,17 +145,17 @@ procedure Dismiss;
     begin
       if not Active then
       begin
-        ShowMessage('Выберите не пустой слот!');
+        ShowMessage('Р’С‹Р±РµСЂРёС‚Рµ РЅРµ РїСѓСЃС‚РѕР№ СЃР»РѕС‚!');
         Exit;
       end;
       if Leadership > 0 then
       begin
-        ShowMessage('Не возможно уволить!');
+        ShowMessage('РќРµ РІРѕР·РјРѕР¶РЅРѕ СѓРІРѕР»РёС‚СЊ!');
         Exit;
       end
       else
       begin
-        if (MessageDlg('Отпустить?', mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if (MessageDlg('РћС‚РїСѓСЃС‚РёС‚СЊ?', mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
           Exit;
       end;
     end;
@@ -181,29 +181,29 @@ procedure Heal;
     begin
       if not Active then
       begin
-        ShowMessage('Выберите не пустой слот!');
+        ShowMessage('Р’С‹Р±РµСЂРёС‚Рµ РЅРµ РїСѓСЃС‚РѕР№ СЃР»РѕС‚!');
         Exit;
       end;
       if HitPoints <= 0 then
       begin
-        ShowMessage('Сначала нужно воскресить!');
+        ShowMessage('РЎРЅР°С‡Р°Р»Р° РЅСѓР¶РЅРѕ РІРѕСЃРєСЂРµСЃРёС‚СЊ!');
         Exit;
       end;
       V := Min((MaxHitPoints - HitPoints) * Level, Gold);
       if (V <= 0) then
       begin
-        ShowMessage('Нужно больше золота!');
+        ShowMessage('РќСѓР¶РЅРѕ Р±РѕР»СЊС€Рµ Р·РѕР»РѕС‚Р°!');
         Exit;
       end;
       R := (V div Level) * Level;
       if (HitPoints + (V div Level) < MaxHitPoints) then
       begin
-        if (MessageDlg(Format('Исцелить на %d HP за %d золота?', [V div Level, R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if (MessageDlg(Format('РСЃС†РµР»РёС‚СЊ РЅР° %d HP Р·Р° %d Р·РѕР»РѕС‚Р°?', [V div Level, R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
           Exit;
       end
       else
       begin
-        if (MessageDlg(Format('Полностью исцелить за %d золота?', [R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if (MessageDlg(Format('РџРѕР»РЅРѕСЃС‚СЊСЋ РёСЃС†РµР»РёС‚СЊ Р·Р° %d Р·РѕР»РѕС‚Р°?', [R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
           Exit;
       end;
       Gold := Gold - R;
@@ -231,12 +231,12 @@ procedure Revive;
     begin
       if not Active then
       begin
-        ShowMessage('Выберите не пустой слот!');
+        ShowMessage('Р’С‹Р±РµСЂРёС‚Рµ РЅРµ РїСѓСЃС‚РѕР№ СЃР»РѕС‚!');
         Exit;
       end;
       if HitPoints > 0 then
       begin
-        ShowMessage('Не нуждается в воскрешении!');
+        ShowMessage('РќРµ РЅСѓР¶РґР°РµС‚СЃСЏ РІ РІРѕСЃРєСЂРµС€РµРЅРёРё!');
         Exit;
       end
       else
@@ -244,10 +244,10 @@ procedure Revive;
         V := Level * GoldForRevivePerLevel;
         if (Gold < V) then
         begin
-          ShowMessage(Format('Для воскрешения нужно %d золота!', [V]));
+          ShowMessage(Format('Р”Р»СЏ РІРѕСЃРєСЂРµС€РµРЅРёСЏ РЅСѓР¶РЅРѕ %d Р·РѕР»РѕС‚Р°!', [V]));
           Exit;
         end;
-        if (MessageDlg(Format('Воскресить за %d золота?', [V]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if (MessageDlg(Format('Р’РѕСЃРєСЂРµСЃРёС‚СЊ Р·Р° %d Р·РѕР»РѕС‚Р°?', [V]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
           Exit;
         Gold := Gold - V;
       end;
@@ -292,6 +292,7 @@ begin
       begin
         CurrentCityIndex := GetPartyIndex(Player.X, Player.Y);
         SettlementParty := Party[CurrentCityIndex];
+        SettlementParty.Owner := reTheEmpire;
       end
   else
     SettlementParty := CapitalParty;
@@ -324,7 +325,6 @@ begin
     mbLeft:
       begin
         CurrentPartyPosition := GetPartyPosition(X, Y);
-        I := GetPartyIndex(Player.X, Player.Y);
         if CurrentPartyPosition < 0 then
           Exit;
         ActivePartyPosition := CurrentPartyPosition;

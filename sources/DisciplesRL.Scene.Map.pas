@@ -47,13 +47,13 @@ begin
       if (Map[lrDark][X, Y] = reDark) then
         Continue;
       case Map[lrTile][X, Y] of
-        reEmpireTerrain, reEmpireCapital, reEmpireCity:
-          DrawImage(X * TileSize, Y * TileSize, ResImage[reEmpireTerrain]);
+        reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
+          DrawImage(X * TileSize, Y * TileSize, ResImage[reTheEmpireTerrain]);
       else
         DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutral]);
       end;
-      F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and not(Map[lrTile][X, Y] in [reEmpireTerrain, reEmpireCapital, reEmpireCity]) and
-        (Map[lrDark][X, Y] = reNone);
+      F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and not(Map[lrTile][X, Y] in [reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity])
+        and (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrTile][X, Y]]);
@@ -106,11 +106,11 @@ begin
     K_ENTER:
       begin
         case PlayerTile of
-          reEmpireCapital:
+          reTheEmpireCapital:
             begin
               DisciplesRL.Scene.Settlement.Show(stCapital);
             end;
-          reEmpireCity:
+          reTheEmpireCity:
             begin
               DisciplesRL.Scene.Settlement.Show(stCity);
             end;
