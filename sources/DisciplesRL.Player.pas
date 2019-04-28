@@ -102,13 +102,17 @@ begin
   end;
 end;
 
-function GetClass(ReachEnum: TReachEnum; Targets: Integer): Integer;
+function GetClass(ReachEnum: TReachEnum; Targets, Heal: Integer): Integer;
 begin
   case ReachEnum of
     reAny:
       case Targets of
         1: // Ranger
-          Result := 4;
+          if Heal = 0 then
+            Result := 4
+          else
+            // Healer
+            Result := 3;
       end;
     reAll:
       case Targets of
@@ -142,9 +146,9 @@ begin
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
               V.SetInt(S + 'INI', Initiative);
-              V.SetInt(S + 'Use', Damage);
+              V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
               V.SetInt(S + 'TCH', ChancesToHit);
-              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets));
+              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
             end;
         end;
       6 .. 11:
@@ -158,9 +162,9 @@ begin
               V.SetInt(S + 'MHP', MaxHitPoints);
               V.SetInt(S + 'HP', HitPoints);
               V.SetInt(S + 'INI', Initiative);
-              V.SetInt(S + 'Use', Damage);
+              V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
               V.SetInt(S + 'TCH', ChancesToHit);
-              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets));
+              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
             end;
         end;
     end;
