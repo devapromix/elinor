@@ -8,9 +8,9 @@ uses
 type
   TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemies, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
-    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reDragon, reGoblin, reSpider,
-    reTextQuit, reTextDismiss, reTextHire, reTextClose, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory,
-    reTitleDefeat, reTitleLogo);
+    reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reDragon,
+    reGoblin, reSpider, reTextQuit, reTextDismiss, reTextHire, reTextClose, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores,
+    reTitleVictory, reTitleDefeat, reTitleLogo);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -73,6 +73,8 @@ const
     (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
+    // Text "High Scores"
+    (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"
     (FileName: 'text.capital_def.png'; ResType: teGUI;),
     // Text "City defenses"

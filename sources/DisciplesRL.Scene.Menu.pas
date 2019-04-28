@@ -66,7 +66,7 @@ begin
       btContinue:
         Button[I] := TButton.Create(L, T, Surface.Canvas, reTextPlay);
       btHighScores:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextPlay);
+        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextHighScores);
       btQuit:
         Button[I] := TButton.Create(L, T, Surface.Canvas, reTextQuit);
     end;
