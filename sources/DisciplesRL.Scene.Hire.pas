@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes,
+  Vcl.Controls,
   DisciplesRL.Party;
 
 procedure Init;
@@ -11,6 +12,7 @@ procedure Render;
 procedure Timer;
 procedure MouseClick(X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure SetHire(const Party: TParty; const Position: Integer);
 procedure Free;
@@ -39,6 +41,11 @@ var
   Button: array [TButtonEnum] of TButton;
   CurrentCharacter: Integer = 0;
   Lf: Integer = 0;
+
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+
+end;
 
 procedure SetHire(const Party: TParty; const Position: Integer);
 begin

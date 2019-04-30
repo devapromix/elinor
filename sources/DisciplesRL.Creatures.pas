@@ -15,7 +15,9 @@ type
     // The Empire Warrior Leader
     crPegasusKnight,
     // The Empire Mage Leader
+
     // The Empire Scout Leader
+
     // The Empire Fighters
     crSquire,
     // The Empire Ranged Attack Units
@@ -35,12 +37,13 @@ type
   TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth, seFire, seWater);
 
 const
-  TheEmpireCharacters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crAcolyte);
+  TheEmpireCapitalGuardian = crMyzrael;
 
 const
-  TheEmpireLeaders: array [0 .. 0] of TCreatureEnum = (
-    // The Empire
-    crPegasusKnight);
+  TheEmpireLeaders: array [0 .. 0] of TCreatureEnum = (crPegasusKnight);
+
+const
+  TheEmpireCharacters: array [0 .. 2] of TCreatureEnum = (crSquire, crArcher, crAcolyte);
 
 type
   TCreature = record
@@ -104,7 +107,7 @@ const
     SourceEnum: seAir; ReachEnum: reAny; Targets: 1;),
     // Goblin
     (ResEnum: reGoblin; Name: 'Гоблин'; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAny; Targets: 1;),
+    SourceEnum: seLife; ReachEnum: reAdj; Targets: 1;),
     // Goblin Archer
     (ResEnum: reGoblin; Name: 'Гоблин-лучник'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
     Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
@@ -121,7 +124,7 @@ const
     );
 
 procedure ClearCreature(var ACreature: TCreature);
-procedure AssignCreature(var ACreature: TCreature; const ACreatureEnum: TCreatureEnum);
+procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
 
 implementation
 
@@ -151,26 +154,26 @@ begin
   end;
 end;
 
-procedure AssignCreature(var ACreature: TCreature; const ACreatureEnum: TCreatureEnum);
+procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
 begin
   with ACreature do
   begin
     Active := True;
-    Enum := ACreatureEnum;
-    ResEnum := CreatureBase[ACreatureEnum].ResEnum;
-    Name := CreatureBase[ACreatureEnum].Name;
-    MaxHitPoints := CreatureBase[ACreatureEnum].HitPoints;
-    HitPoints := CreatureBase[ACreatureEnum].HitPoints;
-    Initiative := CreatureBase[ACreatureEnum].Initiative;
-    ChancesToHit := CreatureBase[ACreatureEnum].ChancesToHit;
-    Leadership := CreatureBase[ACreatureEnum].Leadership;
-    Level := CreatureBase[ACreatureEnum].Level;
-    Damage := CreatureBase[ACreatureEnum].Damage;
-    Armor := CreatureBase[ACreatureEnum].Armor;
-    Heal := CreatureBase[ACreatureEnum].Heal;
-    SourceEnum := CreatureBase[ACreatureEnum].SourceEnum;
-    ReachEnum := CreatureBase[ACreatureEnum].ReachEnum;
-    Targets := CreatureBase[ACreatureEnum].Targets;
+    Enum := I;
+    ResEnum := CreatureBase[I].ResEnum;
+    Name := CreatureBase[I].Name;
+    MaxHitPoints := CreatureBase[I].HitPoints;
+    HitPoints := CreatureBase[I].HitPoints;
+    Initiative := CreatureBase[I].Initiative;
+    ChancesToHit := CreatureBase[I].ChancesToHit;
+    Leadership := CreatureBase[I].Leadership;
+    Level := CreatureBase[I].Level;
+    Damage := CreatureBase[I].Damage;
+    Armor := CreatureBase[I].Armor;
+    Heal := CreatureBase[I].Heal;
+    SourceEnum := CreatureBase[I].SourceEnum;
+    ReachEnum := CreatureBase[I].ReachEnum;
+    Targets := CreatureBase[I].Targets;
   end;
 end;
 

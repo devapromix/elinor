@@ -4,12 +4,14 @@ interface
 
 uses
   System.Classes,
-  DisciplesRL.Scenes;
+  DisciplesRL.Scenes,
+  Vcl.Controls;
 
 procedure Init;
 procedure Render;
 procedure Timer;
 procedure MouseClick;
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure Free;
@@ -30,6 +32,11 @@ uses
 
 var
   LastMousePos, MousePos: TPoint;
+
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+
+end;
 
 procedure Init;
 begin

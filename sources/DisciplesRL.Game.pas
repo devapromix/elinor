@@ -11,14 +11,11 @@ const
 
 var
   Days: Integer = 0;
-  Gold: Integer = 300;
+  Gold: Integer = 0;
   NewGold: Integer = 0;
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
   IsDay: Boolean = False;
-
-  // HUMAN, UNDEAD, HERETIC, DWARF
-  // FIGHTER, ARCHER, MAGE
 
 var
   Wizard: Boolean = False;
@@ -30,11 +27,11 @@ var
   CapitalParty: TParty;
 
 procedure Init;
-procedure PartyInit(const AX, AY: Integer);
+procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 procedure PartyFree;
 function GetPartyCount: Integer;
 function GetPartyIndex(const AX, AY: Integer): Integer;
-procedure AddPartyAt(const AX, AY: Integer);
+procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False);
 procedure Clear;
 procedure AddLoot;
 procedure NewDay;
@@ -51,6 +48,68 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Player;
 
+type
+  TPartyBase = record
+    Level: Integer;
+    Character: array [TPosition] of TCreatureEnum;
+  end;
+
+const
+  PartyBase: array [1 .. 20] of TPartyBase = (
+    //
+    (Level: 1; Character: (crNone, crGoblin_Archer, crGoblin, crNone, crNone, crGoblin_Archer)),
+    //
+    (Level: 1; Character: (crGoblin, crNone, crGoblin, crNone, crGoblin, crNone)),
+    //
+    (Level: 1; Character: (crGoblin, crNone, crNone, crGoblin_Archer, crGoblin, crNone)),
+
+    //
+    (Level: 2; Character: (crGoblin, crNone, crGoblin, crGoblin_Archer, crGoblin, crNone)),
+    //
+    (Level: 2; Character: (crGoblin, crGoblin_Archer, crNone, crNone, crGoblin, crGoblin_Archer)),
+
+    //
+    (Level: 3; Character: (crGoblin, crGoblin_Archer, crNone, crGoblin_Archer, crGoblin, crGoblin_Archer)),
+    //
+    (Level: 3; Character: (crGoblin, crGoblin_Archer, crGoblin, crNone, crGoblin, crGoblin_Archer)),
+
+    //
+    (Level: 4; Character: (crGoblin, crGoblin_Archer, crGoblin, crGoblin_Archer, crGoblin, crGoblin_Archer)),
+    //
+    (Level: 4; Character: (crNone, crNone, crWolf, crNone, crNone, crNone)),
+
+    //
+    (Level: 5; Character: (crWolf, crNone, crNone, crNone, crWolf, crNone)),
+    //
+    (Level: 5; Character: (crWolf, crNone, crGoblin, crGoblin_Archer, crWolf, crNone)),
+
+    //
+    (Level: 6; Character: (crWolf, crNone, crWolf, crNone, crWolf, crNone)),
+    //
+    (Level: 6; Character: (crWolf, crNone, crWolf, crGoblin_Archer, crWolf, crNone)),
+
+    //
+    (Level: 7; Character: (crWolf, crNone, crOrc, crGoblin_Archer, crWolf, crNone)),
+    //
+    (Level: 7; Character: (crOrc, crGoblin_Archer, crNone, crNone, crOrc, crGoblin_Archer)),
+    //
+    (Level: 7; Character: (crOrc, crNone, crOrc, crNone, crOrc, crNone)),
+    //
+    (Level: 7; Character: (crOrc, crNone, crOrc, crGoblin_Archer, crOrc, crNone)),
+
+    //
+    (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crNone, crOrc, crGoblin_Archer)),
+    //
+    (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crGoblin_Archer, crOrc, crGoblin_Archer)),
+
+    // Финальная партия в башне
+    (Level: 99; Character: (crNone, crNone, crSpider, crNone, crNone, crNone))
+    //
+    );
+
+const
+  MaxLevel = 8;
+
 procedure Init;
 begin
   DisciplesRL.Game.Clear;
@@ -59,29 +118,23 @@ begin
   DisciplesRL.Player.Init;
 end;
 
-procedure PartyInit(const AX, AY: Integer);
+procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
-  L: Integer;
+  Level, N: Integer;
+  I: TPosition;
 begin
-  L := GetDistToCapital(AX, AY);
+  Level := EnsureRange(GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
   SetLength(Party, GetPartyCount + 1);
   Party[GetPartyCount - 1] := TParty.Create(AX, AY);
+  repeat
+    N := RandomRange(0, High(PartyBase) - 1) + 1;
+  until PartyBase[N].Level = Level;
+  if IsFinal then
+    N := High(PartyBase);
   with Party[GetPartyCount - 1] do
   begin
-    AddCreature(crGoblin_Archer, 1);
-    AddCreature(crGoblin_Archer, 3);
-    AddCreature(crGoblin_Archer, 5);
-
-    // AddCreature(crGoblin, 0);
-    // AddCreature(crGoblin, 2);
-    // AddCreature(crGoblin, 4);
-    { if (RandomRange(0, 3) = 0) then
-      AddCreature(crGoblin_Archer, 3);
-      if (RandomRange(0, 4) = 0) then
-      begin
-      AddCreature(crGoblin_Archer, 1);
-      AddCreature(crGoblin_Archer, 5);
-      end; }
+    for I := Low(TPosition) to High(TPosition) do
+      AddCreature(PartyBase[N].Character[I], I);
   end;
 end;
 
@@ -112,10 +165,14 @@ begin
     end;
 end;
 
-procedure AddPartyAt(const AX, AY: Integer);
+procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
+var
+  I: Integer;
 begin
   Map[lrObj][AX, AY] := reEnemies;
-  PartyInit(AX, AY);
+  PartyInit(AX, AY, IsFinal);
+  I := GetPartyIndex(AX, AY);
+  Party[I].Owner := reNeutrals;
 end;
 
 procedure Clear;
@@ -130,8 +187,11 @@ begin
 end;
 
 procedure AddLoot();
+var
+  Level: Integer;
 begin
-  NewGold := GetDistToCapital(Player.X, Player.Y);
+  Level := GetDistToCapital(Player.X, Player.Y);
+  NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
   DisciplesRL.Scenes.CurrentScene := scItem;
 end;

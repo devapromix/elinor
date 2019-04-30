@@ -4,12 +4,12 @@ interface
 
 uses
   Vcl.Graphics,
+  Vcl.Controls,
   System.Types,
+  System.Classes,
   Vcl.Imaging.PNGImage,
   DisciplesRL.Resources,
-  System.Classes,
-  DisciplesRL.GUI.Button,
-  Vcl.Controls;
+  DisciplesRL.GUI.Button;
 
 type
   TSceneEnum = (scHire, scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem, scDay, scHighScores);
@@ -269,24 +269,26 @@ end;
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   case CurrentScene of
-    { scHire:
-      DisciplesRL.Scene.Hire.KeyDown(Key, Shift);
-      scMenu:
-      DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
-      scVictory:
-      DisciplesRL.Scene.Victory.KeyDown(Key, Shift);
-      scDefeat:
-      DisciplesRL.Scene.Defeat.KeyDown(Key, Shift);
-      scMap:
-      DisciplesRL.Scene.Map.KeyDown(Key, Shift); }
+    scHire:
+      DisciplesRL.Scene.Hire.MouseDown(Button, Shift, X, Y);
+    scMenu:
+      DisciplesRL.Scene.Menu.MouseDown(Button, Shift, X, Y);
+    scVictory:
+      DisciplesRL.Scene.Victory.MouseDown(Button, Shift, X, Y);
+    scDefeat:
+      DisciplesRL.Scene.Defeat.MouseDown(Button, Shift, X, Y);
+    scMap:
+      DisciplesRL.Scene.Map.MouseDown(Button, Shift, X, Y);
     scBattle:
       DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
-    { scItem:
+    scItem:
       DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y);
-      scDay:
-      DisciplesRL.Scene.Day.MouseDown(Button, Shift, X, Y); }
+    scDay:
+      DisciplesRL.Scene.Day.MouseDown(Button, Shift, X, Y);
+    scHighScores:
+      DisciplesRL.Scene.HighScores.MouseDown(Button, Shift, X, Y);
   end;
   DisciplesRL.Scenes.Render;
 end;

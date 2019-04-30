@@ -118,7 +118,7 @@ end;
 
 procedure Gen;
 var
-  X, Y, DX, DY, I, J: Integer;
+  X, Y, DX, DY, I: Integer;
 begin
   for I := 0 to High(City) do
   begin
@@ -136,20 +136,18 @@ begin
           UpdateRadius(I);
           // Party
           CapitalParty.SetLocation(Player.X, Player.Y);
-          CapitalParty.AddCreature(crMyzrael, 3);
+          CapitalParty.AddCreature(TheEmpireCapitalGuardian, 3);
         end;
       1 .. NCity: // City
         begin
           Map[lrTile][City[I].X, City[I].Y] := reNeutralCity;
           ClearObj(City[I].X, City[I].Y);
           AddPartyAt(City[I].X, City[I].Y);
-          J := GetPartyIndex(City[I].X, City[I].Y);
-          Party[J].Owner := reNeutrals;
         end;
       NCity + 1: // Tower
         begin
           Map[lrTile][City[I].X, City[I].Y] := reTower;
-          AddPartyAt(City[I].X, City[I].Y);
+          AddPartyAt(City[I].X, City[I].Y, True);
         end
     else // Ruin
       begin

@@ -3,12 +3,14 @@ unit DisciplesRL.Scene.Menu;
 interface
 
 uses
-  System.Classes;
+  System.Classes,
+  Vcl.Controls;
 
 procedure Init;
 procedure Render;
 procedure Timer;
 procedure MouseClick;
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure Free;
@@ -30,6 +32,11 @@ type
 var
   MainMenuCursorPos: Integer = 0;
   Button: array [TButtonEnum] of TButton;
+
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+
+end;
 
 procedure Action(K: Integer = -1);
 begin
