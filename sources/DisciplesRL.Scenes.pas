@@ -12,7 +12,7 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TSceneEnum = (scHire, scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scItem, scDay, scHighScores);
+  TSceneEnum = (scHire, scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scBattle2, scItem, scDay, scHighScores);
 
 const
   DefaultButtonTop = 600;
@@ -38,8 +38,10 @@ procedure Free;
 const
   K_ESCAPE = 27;
   K_ENTER = 13;
+  K_SPACE = 32;
   K_V = ord('V');
   K_D = ord('D');
+  K_B = ord('B');
   K_RIGHT = 39;
   K_LEFT = 37;
   K_DOWN = 40;
@@ -60,7 +62,8 @@ uses
   DisciplesRL.Scene.Item,
   DisciplesRL.Scene.Day,
   DisciplesRL.Scene.HighScores,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Scene.Battle2;
 
 var
   MouseX, MouseY: Integer;
@@ -118,6 +121,8 @@ begin
         DisciplesRL.Scene.Map.Init;
       scBattle:
         DisciplesRL.Scene.Battle.Init;
+      scBattle2:
+        DisciplesRL.Scene.Battle2.Init;
       scSettlement:
         DisciplesRL.Scene.Settlement.Init;
       scItem:
@@ -146,6 +151,8 @@ begin
       DisciplesRL.Scene.Map.Render;
     scBattle:
       DisciplesRL.Scene.Battle.Render;
+    scBattle2:
+      DisciplesRL.Scene.Battle2.Render;
     scSettlement:
       DisciplesRL.Scene.Settlement.Render;
     scItem:
@@ -173,6 +180,8 @@ begin
       DisciplesRL.Scene.Map.Timer;
     scBattle:
       DisciplesRL.Scene.Battle.Timer;
+    scBattle2:
+      DisciplesRL.Scene.Battle2.Timer;
     scSettlement:
       DisciplesRL.Scene.Settlement.Timer;
     scItem:
@@ -199,6 +208,8 @@ begin
       DisciplesRL.Scene.Map.MouseClick;
     scBattle:
       DisciplesRL.Scene.Battle.MouseClick;
+    scBattle2:
+      DisciplesRL.Scene.Battle2.MouseClick;
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseClick;
     scItem:
@@ -228,6 +239,8 @@ begin
       DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
     scBattle:
       DisciplesRL.Scene.Battle.MouseMove(Shift, X, Y);
+    scBattle2:
+      DisciplesRL.Scene.Battle2.MouseMove(Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
     scItem:
@@ -254,6 +267,8 @@ begin
       DisciplesRL.Scene.Map.KeyDown(Key, Shift);
     scBattle:
       DisciplesRL.Scene.Battle.KeyDown(Key, Shift);
+    scBattle2:
+      DisciplesRL.Scene.Battle2.KeyDown(Key, Shift);
     scSettlement:
       DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
     scItem:
@@ -281,6 +296,8 @@ begin
       DisciplesRL.Scene.Map.MouseDown(Button, Shift, X, Y);
     scBattle:
       DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
+    scBattle2:
+      DisciplesRL.Scene.Battle2.MouseDown(Button, Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
     scItem:
@@ -311,6 +328,8 @@ begin
         DisciplesRL.Scene.Map.Free;
       scBattle:
         DisciplesRL.Scene.Battle.Free;
+      scBattle2:
+        DisciplesRL.Scene.Battle2.Free;
       scSettlement:
         DisciplesRL.Scene.Settlement.Free;
       scItem:

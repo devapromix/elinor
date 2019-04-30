@@ -28,7 +28,8 @@ uses
   DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
   DisciplesRL.Scene.HighScores in 'DisciplesRL.Scene.HighScores.pas',
   DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
-  DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas';
+  DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas',
+  DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas';
 
 {$R *.res}
 

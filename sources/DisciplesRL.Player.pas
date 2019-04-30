@@ -39,7 +39,8 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.PascalScript.Battle,
   DisciplesRL.PascalScript.Vars,
-  DisciplesRL.Scene.Battle;
+  DisciplesRL.Scene.Battle,
+  DisciplesRL.Scene.Battle2;
 
 procedure Init;
 begin
@@ -230,12 +231,8 @@ begin
       end;
     reEnemies:
       begin
-        InitParty(Player.X, Player.Y);
-        Run('Battles\BattleInit.pas');
-        FullParty(Player.X, Player.Y);
-        DisciplesRL.Scene.Battle.Log.Clear;
-        Run('Battles\Start.pas');
-        DisciplesRL.Scenes.CurrentScene := scBattle;
+        DisciplesRL.Scene.Battle2.Start;
+        DisciplesRL.Scenes.CurrentScene := scBattle2;
         Map[lrObj][Player.X, Player.Y] := reNone;
         F := False;
       end;

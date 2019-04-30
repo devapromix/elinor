@@ -49,7 +49,7 @@ const
 var
   Button: array [TButtonEnum] of TButton;
   CurrentSettlementType: TSettlementTypeEnum;
-  SettlementParty: TParty;
+  SettlementParty: TParty = nil;
   CurrentCityIndex: Integer = -1;
 
 procedure Init;

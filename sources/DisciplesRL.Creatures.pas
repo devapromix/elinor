@@ -92,7 +92,7 @@ const
     SourceEnum: seWeapon; ReachEnum: reAll; Targets: 6;),
     // Pegasus Knight
     (ResEnum: reDragon; Name: 'Рыцарь на Пегасе'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0;
-    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
+    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
     // Squire
     (ResEnum: reDragon; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
@@ -158,7 +158,7 @@ procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
 begin
   with ACreature do
   begin
-    Active := True;
+    Active := I <> crNone;
     Enum := I;
     ResEnum := CreatureBase[I].ResEnum;
     Name := CreatureBase[I].Name;

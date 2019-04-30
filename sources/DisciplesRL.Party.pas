@@ -44,6 +44,9 @@ type
 
 implementation
 
+uses
+  System.Math;
+
 { TParty }
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
@@ -141,7 +144,7 @@ procedure TParty.Heal(const APosition: TPosition; const AHitPoints: Integer);
 begin
   with FCreature[APosition] do
     if (Active and (HitPoints > 0)) then
-      HitPoints := HitPoints + AHitPoints;
+      HitPoints := EnsureRange(HitPoints + AHitPoints, 0, MaxHitPoints);
 end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
