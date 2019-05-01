@@ -41,9 +41,22 @@ var
 var
   Button: TButton;
   EnemyParty: TParty = nil;
+  PartyExperience: Integer;
+
+procedure AddExperience;
+var
+  P: TPosition;
+  ChCnt: Integer;
+begin
+  if PartyExperience > 0 then
+  begin
+
+  end;
+end;
 
 procedure Victory;
 begin
+  AddExperience;
   Party[GetPartyIndex(Player.X, Player.Y)].Clear;
   AddLoot();
 end;
@@ -58,6 +71,7 @@ var
   I: Integer;
 begin
   Log.Clear;
+  PartyExperience := 0;
   I := GetPartyIndex(Player.X, Player.Y);
   EnemyParty := Party[I];
   ActivePartyPosition := 2;
