@@ -41,22 +41,39 @@ var
 var
   Button: TButton;
   EnemyParty: TParty = nil;
-  PartyExperience: Integer;
+  PartyExperience: Integer = 0;
 
-procedure AddExperience;
+procedure ChExperience;
 var
   P: TPosition;
-  ChCnt: Integer;
+  ChCnt, ChExp: Integer;
 begin
   if PartyExperience > 0 then
   begin
-
+    ChCnt := 0;
+    for P := Low(TPosition) to High(TPosition) do
+      with LeaderParty.Creature[P] do
+        if Active and (HitPoints > 0) then
+        begin
+          Inc(ChCnt);
+        end;
+    if ChCnt > 0 then
+    begin
+      ChExp := EnsureRange(PartyExperience div ChCnt, 1, 9999);
+      for P := Low(TPosition) to High(TPosition) do
+        with LeaderParty.Creature[P] do
+          if Active and (HitPoints > 0) then
+          begin
+            LeaderParty.UpdateXP(ChExp, P);
+          end;
+    end;
+    PartyExperience := 0;
   end;
 end;
 
 procedure Victory;
 begin
-  AddExperience;
+  ChExperience;
   Party[GetPartyIndex(Player.X, Player.Y)].Clear;
   AddLoot();
 end;
