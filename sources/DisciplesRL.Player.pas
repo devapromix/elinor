@@ -56,23 +56,23 @@ begin
 end;
 
 procedure RefreshParties;
-var
-  I, J: Integer;
+// var
+// I, J: Integer;
 begin
-  for I := 0 to 11 do
-  begin
+  { for I := 0 to 11 do
+    begin
     case I of
-      0 .. 5:
-        begin
-          LeaderParty.SetHitPoints(I, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
-        end;
-      6 .. 11:
-        begin
-          J := GetPartyIndex(Player.X, Player.Y);
-          Party[J].SetHitPoints(I - 6, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
-        end;
+    0 .. 5:
+    begin
+    LeaderParty.SetHitPoints(I, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
     end;
-  end;
+    6 .. 11:
+    begin
+    J := GetPartyIndex(Player.X, Player.Y);
+    Party[J].SetHitPoints(I - 6, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
+    end;
+    end;
+    end; }
 end;
 
 procedure InitParty(const X, Y: Integer);
@@ -267,10 +267,7 @@ end;
 procedure Gen;
 begin
   LeaderParty.SetLocation(Player.X, Player.Y);
-  // LeaderParty.AddCreature(crSquire, 0);
-  LeaderParty.AddCreature(crPegasusKnight, 2);
-  LeaderParty.AddCreature(crAcolyte, 3);
-  // LeaderParty.AddCreature(crSquire, 4);
+  LeaderParty.AddCreature(TheEmpireLeaders[0], 2);
 end;
 
 end.
