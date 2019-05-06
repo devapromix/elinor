@@ -14,10 +14,10 @@ type
     crMyzrael,
     // The Empire Warrior Leader
     crPegasusKnight,
-    // The Empire Mage Leader
-
     // The Empire Scout Leader
-
+    crRanger,
+    // The Empire Mage Leader
+    crArchmage,
     // The Empire Fighters
     crSquire,
     // The Empire Ranged Attack Units
@@ -307,6 +307,12 @@ const
     // Pegasus Knight
     (ResEnum: reDragon; Name: 'Рыцарь на Пегасе'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0;
     Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    // Ranger
+    (ResEnum: reDragon; Name: 'Следопыт'; HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
+    // Archmage
+    (ResEnum: reDragon; Name: 'Архимаг'; HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 30; Armor: 0; Heal: 0;
+    SourceEnum: seAir; ReachEnum: reAll; Targets: 6;),
     // Squire
     (ResEnum: reDragon; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
