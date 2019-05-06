@@ -103,7 +103,7 @@ const
     (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crGoblin_Archer, crOrc, crGoblin_Archer)),
 
     // Финальная партия в башне
-    (Level: 99; Character: (crNone, crNone, crSpider, crNone, crNone, crNone))
+    (Level: 99; Character: (crNone, crNone, crGiantSpider, crNone, crNone, crNone))
     //
     );
 

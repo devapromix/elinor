@@ -149,7 +149,7 @@ begin
               V.SetInt(S + 'INI', Initiative);
               V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
               V.SetInt(S + 'TCH', ChancesToHit);
-              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
+              //V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
             end;
         end;
       6 .. 11:
@@ -165,7 +165,7 @@ begin
               V.SetInt(S + 'INI', Initiative);
               V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
               V.SetInt(S + 'TCH', ChancesToHit);
-              V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
+              //V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
             end;
         end;
     end;

@@ -8,9 +8,10 @@ uses
 type
   TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemies, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
-    reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reDragon,
-    reGoblin, reSpider, reTextQuit, reTextDismiss, reTextHire, reTextClose, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores,
-    reTitleVictory, reTitleDefeat, reTitleLogo);
+    reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reMyzrael,
+    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
+    reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
+    reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -91,14 +92,46 @@ const
     (FileName: 'buttonact.png'; ResType: teGUI;),
     // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
-    // Dragon
-    (FileName: 'dragon.png'; ResType: teGUI;),
+    // Myzrael
+    (FileName: 'character.myzrael.png'; ResType: teGUI;),
+    // Pegasus Knight
+    (FileName: 'character.pegasus_knight.png'; ResType: teGUI;),
+    // Ranger
+    (FileName: 'character.ranger.png'; ResType: teGUI;),
+    // Archmage
+    (FileName: 'character.archmage.png'; ResType: teGUI;),
+    // Squire
+    (FileName: 'character.squire.png'; ResType: teGUI;),
+    // Archer
+    (FileName: 'character.archer.png'; ResType: teGUI;),
+    // Apprentice
+    (FileName: 'character.apprentice.png'; ResType: teGUI;),
+    // Acolyte
+    (FileName: 'character.acolyte.png'; ResType: teGUI;),
+    // Black Dragon
+    (FileName: 'character.black_dragon.png'; ResType: teGUI;),
+    // White Dragon
+    (FileName: 'character.white_dragon.png'; ResType: teGUI;),
+    // Red Dragon
+    (FileName: 'character.red_dragon.png'; ResType: teGUI;),
+    // Green Dragon
+    (FileName: 'character.green_dragon.png'; ResType: teGUI;),
+    // Blue Dragon
+    (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
     // Goblin
-    (FileName: 'goblin.png'; ResType: teGUI;),
-    // Spider
-    (FileName: 'spider.png'; ResType: teGUI;),
+    (FileName: 'character.goblin.png'; ResType: teGUI;),
+    // Goblin Archer
+    (FileName: 'character.goblin_archer.png'; ResType: teGUI;),
+    // Giant Spider
+    (FileName: 'character.giant_spider.png'; ResType: teGUI;),
+    // Wolf
+    (FileName: 'character.wolf.png'; ResType: teGUI;),
+    // Orc
+    (FileName: 'character.orc.png'; ResType: teGUI;),
     // Text "Quit"
     (FileName: 'text.quit.png'; ResType: teGUI;),
+    // Text "Continue"
+    (FileName: 'text.continue.png'; ResType: teGUI;),
     // Text "Dismiss"
     (FileName: 'text.dismiss.png'; ResType: teGUI;),
     // Text "Hire"

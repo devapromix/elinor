@@ -133,7 +133,7 @@ begin
       seWeapon:
         Add('ИСТОЧНИК', 'ОРУЖИЕ');
       seLife:
-        ;
+        Add('ИСТОЧНИК', 'ЖИЗНЬ');
       seMind:
         ;
       seDeath:
@@ -149,13 +149,21 @@ begin
     end;
     case ReachEnum of
       reAny:
-        Add('ДИСТАНЦИЯ', 'ВСЕ ПОЛЕ БОЯ');
+        begin
+          Add('ДИСТАНЦИЯ', 'ВСЕ ПОЛЕ БОЯ');
+          Add('ЦЕЛИ', 1);
+        end;
       reAdj:
-        Add('ДИСТАНЦИЯ', 'ОДИНОЧНАЯ');
+        begin
+          Add('ДИСТАНЦИЯ', 'ОДИНОЧНАЯ');
+          Add('ЦЕЛИ', 1);
+        end;
       reAll:
-        Add('ДИСТАНЦИЯ', 'ВСЕ ПОЛЕ БОЯ');
+        begin
+          Add('ДИСТАНЦИЯ', 'ВСЕ ПОЛЕ БОЯ');
+          Add('ЦЕЛИ', 6);
+        end;
     end;
-    Add('ЦЕЛИ', Targets);
     Add('ЦЕНА', 0);
     Add('ЗОЛОТО', Gold);
   end;

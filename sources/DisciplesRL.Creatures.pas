@@ -28,7 +28,7 @@ type
     crAcolyte,
 
     // Neutrals
-    crGoblin, crGoblin_Archer, crSpider, crWolf, crOrc);
+    crGoblin, crGoblin_Archer, crGiantSpider, crWolf, crOrc);
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -276,7 +276,6 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
-    Targets: Integer;
   end;
 
 type
@@ -293,53 +292,52 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
-    Targets: Integer;
   end;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
     (ResEnum: reNone; Name: ''; HitPoints: 0; Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 0;),
+    SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Myzrael
-    (ResEnum: reDragon; Name: 'Мизраэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAll; Targets: 6;),
+    (ResEnum: reMyzrael; Name: 'Мизраэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAll;),
     // Pegasus Knight
-    (ResEnum: reDragon; Name: 'Рыцарь на Пегасе'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50; Armor: 0;
-    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 50;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Ranger
-    (ResEnum: reDragon; Name: 'Следопыт'; HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 40; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reRanger; Name: 'Следопыт'; HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny;),
     // Archmage
-    (ResEnum: reDragon; Name: 'Архимаг'; HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 30; Armor: 0; Heal: 0;
-    SourceEnum: seAir; ReachEnum: reAll; Targets: 6;),
+    (ResEnum: reArchmage; Name: 'Архимаг'; HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 5; Level: 1; Damage: 30; Armor: 0; Heal: 0;
+    SourceEnum: seAir; ReachEnum: reAll;),
     // Squire
-    (ResEnum: reDragon; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reSquire; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Archer
-    (ResEnum: reDragon; Name: 'Лучник'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reArcher; Name: 'Лучник'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny;),
     // Apprentice
-    (ResEnum: reDragon; Name: 'Ученик'; HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seAir; ReachEnum: reAll; Targets: 6;),
+    (ResEnum: reApprentice; Name: 'Ученик'; HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    SourceEnum: seAir; ReachEnum: reAll;),
     // Acolyte
-    (ResEnum: reDragon; Name: 'Служка'; HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 20;
-    SourceEnum: seAir; ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reAcolyte; Name: 'Служка'; HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 20;
+    SourceEnum: seAir; ReachEnum: reAny;),
     // Goblin
     (ResEnum: reGoblin; Name: 'Гоблин'; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAdj; Targets: 1;),
+    SourceEnum: seLife; ReachEnum: reAdj;),
     // Goblin Archer
-    (ResEnum: reGoblin; Name: 'Гоблин-лучник'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
-    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Targets: 1;),
+    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
+    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;),
     // Spider
-    (ResEnum: reSpider; Name: 'Паук'; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Wolf
-    (ResEnum: reUnk; Name: 'Волк'; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;),
+    (ResEnum: reWolf; Name: 'Волк'; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Orc
-    (ResEnum: reUnk; Name: 'Орк'; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Targets: 1;)
+    (ResEnum: reOrc; Name: 'Орк'; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj;)
     //
     );
 
@@ -370,7 +368,6 @@ begin
     Heal := 0;
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
-    Targets := 1;
   end;
 end;
 
@@ -393,7 +390,6 @@ begin
     Heal := CreatureBase[I].Heal;
     SourceEnum := CreatureBase[I].SourceEnum;
     ReachEnum := CreatureBase[I].ReachEnum;
-    Targets := CreatureBase[I].Targets;
   end;
 end;
 
