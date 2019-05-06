@@ -6,15 +6,15 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemies, reCursor,
+  TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemy, reCursor,
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
-    reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reButtonDef, reButtonAct, reCorpse, reMyzrael,
-    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
-    reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
+    reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon,
+    reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
+    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
     reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo);
 
 type
-  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
 
 type
   TResBase = record
@@ -45,11 +45,11 @@ const
     // Unknown (?)
     (FileName: 'unknown.png'; ResType: teGUI;),
     // Enemy party
-    (FileName: 'enemies.png'; ResType: teEnemy;),
+    (FileName: 'enemy.png'; ResType: teEnemy;),
     // Frame
     (FileName: 'select.png'; ResType: teGUI;),
     // Player
-    (FileName: 'player.png'; ResType: teObject;),
+    (FileName: 'player.png'; ResType: tePlayer;),
     // Fog
     (FileName: 'transparent.png'; ResType: teGUI;),
     // Gold
@@ -74,18 +74,6 @@ const
     (FileName: 'mine.gold.png'; ResType: teMine;),
     // Mountain
     (FileName: 'mountain.png'; ResType: teObject;),
-    // Text "High Scores"
-    (FileName: 'text.high_scores.png'; ResType: teGUI;),
-    // Text "Capital defenses"
-    (FileName: 'text.capital_def.png'; ResType: teGUI;),
-    // Text "City defenses"
-    (FileName: 'text.city_def.png'; ResType: teGUI;),
-    // Text "Play"
-    (FileName: 'text.play.png'; ResType: teGUI;),
-    // Text "Victory"
-    (FileName: 'text.victory.png'; ResType: teGUI;),
-    // Text "Defeat"
-    (FileName: 'text.defeat.png'; ResType: teGUI;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button
@@ -128,6 +116,18 @@ const
     (FileName: 'character.wolf.png'; ResType: teGUI;),
     // Orc
     (FileName: 'character.orc.png'; ResType: teGUI;),
+    // Text "High Scores"
+    (FileName: 'text.high_scores.png'; ResType: teGUI;),
+    // Text "Capital defenses"
+    (FileName: 'text.capital_def.png'; ResType: teGUI;),
+    // Text "City defenses"
+    (FileName: 'text.city_def.png'; ResType: teGUI;),
+    // Text "Play"
+    (FileName: 'text.play.png'; ResType: teGUI;),
+    // Text "Victory"
+    (FileName: 'text.victory.png'; ResType: teGUI;),
+    // Text "Defeat"
+    (FileName: 'text.defeat.png'; ResType: teGUI;),
     // Text "Quit"
     (FileName: 'text.quit.png'; ResType: teGUI;),
     // Text "Continue"

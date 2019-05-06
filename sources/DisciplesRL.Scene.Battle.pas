@@ -196,7 +196,7 @@ begin
     Brush.Style := bsClear;
     for I := 1 to 12 do
     begin
-      F := I in [1..6];
+      F := I in [1 .. 6];
       Surface.Canvas.Draw(P[I].X, P[I].Y, ResImage[reFrame]);
       if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
       begin
@@ -204,8 +204,8 @@ begin
         if (G > 0) then
         begin
           RenderUnit(CreatureBase[TCreatureEnum(G)].ResEnum, P[I].X, P[I].Y, F);
-          RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
-            V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
+          // RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
+          // V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;
       end
       else
@@ -215,8 +215,8 @@ begin
         if (G > 0) and (H > 0) then
         begin
           RenderUnit(reDead, P[I].X, P[I].Y, F);
-          RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
-            V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
+          // RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
+          // V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;
       end;
     end;

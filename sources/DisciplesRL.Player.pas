@@ -229,7 +229,7 @@ begin
         AddLoot();
         F := False;
       end;
-    reEnemies:
+    reEnemy:
       begin
         DisciplesRL.Scene.Battle2.Start;
         DisciplesRL.Scenes.CurrentScene := scBattle2;

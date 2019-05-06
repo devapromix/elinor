@@ -3,8 +3,8 @@
 interface
 
 uses
-  DisciplesRL.Resources,
   Vcl.Graphics,
+  DisciplesRL.Resources,
   Vcl.Imaging.PNGImage;
 
 type

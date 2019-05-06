@@ -169,7 +169,7 @@ procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
 var
   I: Integer;
 begin
-  Map[lrObj][AX, AY] := reEnemies;
+  Map[lrObj][AX, AY] := reEnemy;
   PartyInit(AX, AY, IsFinal);
   I := GetPartyIndex(AX, AY);
   Party[I].Owner := reNeutrals;

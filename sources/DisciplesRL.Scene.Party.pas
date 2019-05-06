@@ -17,7 +17,7 @@ type
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty);
-procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer); overload;
+procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor: Integer); overload;
 procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
@@ -95,11 +95,14 @@ begin
     Surface.Canvas.Draw(Left + AX, AY, ResImage[reFrame]);
 end;
 
-procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor: Integer);
+procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor: Integer);
 begin
   Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('%s (Level %d)', [Name, Level]));
   Surface.Canvas.TextOut(AX + Left + 64, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]));
+  if Damage > 0 then
+    Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]))
+  else
+    Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Heal %d Armor %d', [Heal, Armor]));
 end;
 
 procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer);
@@ -107,14 +110,14 @@ begin
   with Party.Creature[I] do
   begin
     if Active then
-      RenderUnitInfo(Name, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Armor);
+      RenderUnitInfo(Name, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor);
   end;
 end;
 
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum);
 begin
   with CreatureBase[ACreature] do
-    RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Damage, Armor);
+    RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Damage, Heal, Armor);
 end;
 
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
