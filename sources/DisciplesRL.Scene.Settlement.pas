@@ -7,14 +7,14 @@ uses
   Vcl.Controls;
 
 type
-  TSettlementTypeEnum = (stCity, stCapital);
+  TSettlementSubSceneEnum = (stCity, stCapital);
 
 procedure Init;
 procedure Render;
 procedure RenderButtons;
 procedure Timer;
 procedure MouseClick;
-procedure Show(SettlementType: TSettlementTypeEnum);
+procedure Show(SettlementType: TSettlementSubSceneEnum);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
@@ -48,7 +48,7 @@ const
 
 var
   Button: array [TButtonEnum] of TButton;
-  CurrentSettlementType: TSettlementTypeEnum;
+  CurrentSettlementType: TSettlementSubSceneEnum;
   SettlementParty: TParty = nil;
   CurrentCityIndex: Integer = -1;
 
@@ -123,8 +123,7 @@ procedure Hire;
         ShowMessage('Выберите пустой слот!');
         Exit;
       end;
-      SetHire(AParty, APosition);
-      DisciplesRL.Scenes.CurrentScene := scHire;
+      DisciplesRL.Scene.Hire.Show(AParty, APosition);
     end;
   end;
 
@@ -284,7 +283,7 @@ begin
     Action;
 end;
 
-procedure Show(SettlementType: TSettlementTypeEnum);
+procedure Show(SettlementType: TSettlementSubSceneEnum);
 begin
   CurrentSettlementType := SettlementType;
   case CurrentSettlementType of

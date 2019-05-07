@@ -2,6 +2,9 @@
 
 interface
 
+uses
+  DisciplesRL.Creatures;
+
 type
   TPlayer = record
     X: Integer;
@@ -9,6 +12,7 @@ type
     Radius: Integer;
     Speed: Integer;
     MaxSpeed: Integer;
+    Race: TRaceEnum;
   end;
 
 var
@@ -35,12 +39,13 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Game,
-  DisciplesRL.Creatures,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.PascalScript.Battle,
   DisciplesRL.PascalScript.Vars,
   DisciplesRL.Scene.Battle,
-  DisciplesRL.Scene.Battle2;
+  DisciplesRL.Scene.Battle2,
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Scene.Party;
 
 procedure Init;
 begin
@@ -149,7 +154,7 @@ begin
               V.SetInt(S + 'INI', Initiative);
               V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
               V.SetInt(S + 'TCH', ChancesToHit);
-              //V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
+              // V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
             end;
         end;
       6 .. 11:
@@ -165,7 +170,7 @@ begin
               V.SetInt(S + 'INI', Initiative);
               V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
               V.SetInt(S + 'TCH', ChancesToHit);
-              //V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
+              // V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
             end;
         end;
     end;
@@ -265,9 +270,23 @@ begin
 end;
 
 procedure Gen;
+var
+  C: TCreatureEnum;
 begin
   LeaderParty.SetLocation(Player.X, Player.Y);
-  LeaderParty.AddCreature(TheEmpireLeaders[0], 2);
+  C := TheEmpireLeaders[HireLeaderIndex];
+  case CreatureBase[C].ReachEnum of
+    reAdj:
+      begin
+        LeaderParty.AddCreature(C, 2);
+        ActivePartyPosition := 2;
+      end
+  else
+    begin
+      LeaderParty.AddCreature(C, 3);
+      ActivePartyPosition := 3;
+    end;
+  end;
 end;
 
 end.

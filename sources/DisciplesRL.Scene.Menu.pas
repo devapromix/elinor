@@ -22,9 +22,9 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
-  DisciplesRL.Scene.Settlement,
   DisciplesRL.MainForm,
-  DisciplesRL.Game;
+  DisciplesRL.Game,
+  DisciplesRL.Scene.Hire;
 
 type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
@@ -44,11 +44,7 @@ begin
     MainMenuCursorPos := K;
   case MainMenuCursorPos of
     0:
-      begin
-        IsGame := True;
-        DisciplesRL.Game.Init;
-        DisciplesRL.Scene.Settlement.Show(stCapital);
-      end;
+      DisciplesRL.Scene.Hire.Show(stLeader);
     1:
       if IsGame then
         DisciplesRL.Scenes.CurrentScene := scMap;

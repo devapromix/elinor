@@ -3,18 +3,24 @@
 interface
 
 uses
-  System.Classes,
   Vcl.Controls,
+  System.Classes,
   DisciplesRL.Party;
+
+type
+  THireSubSceneEnum = (stCharacter, stLeader);
 
 procedure Init;
 procedure Render;
 procedure Timer;
+procedure Show; overload;
+procedure Show(const ASubScene: THireSubSceneEnum); overload;
+procedure Show(const Party: TParty; const Position: Integer); overload;
 procedure MouseClick(X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure SetHire(const Party: TParty; const Position: Integer);
+function HireLeaderIndex: Integer;
 procedure Free;
 
 implementation
@@ -27,10 +33,11 @@ uses
   DisciplesRL.Creatures,
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Settlement;
 
 type
-  TButtonEnum = (btHire, btClose);
+  TButtonEnum = (btOk, btClose);
 
 const
   ButtonText: array [TButtonEnum] of TResEnum = (reTextHire, reTextClose);
@@ -38,30 +45,67 @@ const
 var
   HireParty: TParty = nil;
   HirePosition: Integer = 0;
-  Button: array [TButtonEnum] of TButton;
+  SubScene: THireSubSceneEnum = stCharacter;
+  ButtonCharacter: array [TButtonEnum] of TButton;
   CurrentCharacter: Integer = 0;
   Lf: Integer = 0;
+
+procedure Show;
+begin
+
+end;
+
+procedure Show(const ASubScene: THireSubSceneEnum);
+begin
+  CurrentCharacter := 0;
+  SubScene := ASubScene;
+  DisciplesRL.Scenes.CurrentScene := scHire;
+end;
+
+procedure Show(const Party: TParty; const Position: Integer);
+begin
+  HireParty := Party;
+  HirePosition := Position;
+  CurrentCharacter := 0;
+  SubScene := stCharacter;
+  DisciplesRL.Scenes.CurrentScene := scHire;
+end;
+
+function HireLeaderIndex: Integer;
+begin
+  Result := CurrentCharacter;
+end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
 
 end;
 
-procedure SetHire(const Party: TParty; const Position: Integer);
+procedure Cancel;
 begin
-  HireParty := Party;
-  HirePosition := Position;
+  case SubScene of
+    stCharacter:
+      DisciplesRL.Scenes.CurrentScene := scSettlement;
+    stLeader:
+      DisciplesRL.Scenes.CurrentScene := scMenu;
+  end;
 end;
 
-procedure Close;
+procedure Ok;
 begin
-  DisciplesRL.Scenes.CurrentScene := scSettlement;
-end;
-
-procedure Hire;
-begin
-  HireParty.Hire(TheEmpireCharacters[CurrentCharacter], HirePosition);
-  DisciplesRL.Scenes.CurrentScene := scSettlement;
+  case SubScene of
+    stCharacter:
+      begin
+        HireParty.Hire(TheEmpireCharacters[CurrentCharacter], HirePosition);
+        DisciplesRL.Scenes.CurrentScene := scSettlement;
+      end;
+    stLeader:
+      begin
+        IsGame := True;
+        DisciplesRL.Game.Init;
+        DisciplesRL.Scene.Settlement.Show(stCapital);
+      end;
+  end;
 end;
 
 procedure Init;
@@ -75,10 +119,10 @@ begin
   Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
+    ButtonCharacter[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
     Inc(L, W);
-    if (I = btHire) then
-      Button[I].Sellected := True;
+    if (I = btOk) then
+      ButtonCharacter[I].Sellected := True;
   end;
 end;
 
@@ -86,6 +130,7 @@ procedure RenderCharacterInfo;
 const
   H = 25;
 var
+  C: TCreatureEnum;
   L, T: Integer;
 
   procedure Add; overload;
@@ -120,7 +165,13 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
-  with CreatureBase[TheEmpireCharacters[CurrentCharacter]] do
+  case SubScene of
+    stCharacter:
+      C := TheEmpireCharacters[CurrentCharacter];
+    stLeader:
+      C := TheEmpireLeaders[CurrentCharacter];
+  end;
+  with CreatureBase[C] do
   begin
     Add('ЮНИТ');
     Add('УРОВЕНЬ', Level);
@@ -174,7 +225,7 @@ var
   I: TButtonEnum;
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].Render;
+    ButtonCharacter[I].Render;
 end;
 
 procedure Render;
@@ -184,19 +235,37 @@ begin
   DrawTitle(reTitleHire);
 
   Y := 0;
-  for I := 0 to High(TheEmpireCharacters) do
-  begin
-    if I = CurrentCharacter then
-      Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
-    else
-      Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-    with CreatureBase[TheEmpireCharacters[I]] do
-    begin
-      RenderUnit(ResEnum, Lf, Top + Y, True);
-      RenderUnitInfo(Lf, Top + Y, TheEmpireCharacters[I]);
-    end;
-    Inc(Y, 120);
+  case SubScene of
+    stCharacter:
+      for I := 0 to High(TheEmpireCharacters) do
+      begin
+        if I = CurrentCharacter then
+          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+        else
+          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+        with CreatureBase[TheEmpireCharacters[I]] do
+        begin
+          RenderUnit(ResEnum, Lf, Top + Y, True);
+          RenderUnitInfo(Lf, Top + Y, TheEmpireCharacters[I]);
+        end;
+        Inc(Y, 120);
+      end;
+    stLeader:
+      for I := 0 to High(TheEmpireLeaders) do
+      begin
+        if I = CurrentCharacter then
+          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+        else
+          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+        with CreatureBase[TheEmpireLeaders[I]] do
+        begin
+          RenderUnit(ResEnum, Lf, Top + Y, True);
+          RenderUnitInfo(Lf, Top + Y, TheEmpireLeaders[I]);
+        end;
+        Inc(Y, 120);
+      end;
   end;
+
   Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top, ResImage[reInfoFrame]);
   RenderCharacterInfo;
   RenderButtons;
@@ -221,10 +290,10 @@ begin
   begin
     CurrentCharacter := 2;
   end;
-  if Button[btHire].MouseDown then
-    Hire;
-  if Button[btClose].MouseDown then
-    Close;
+  if ButtonCharacter[btOk].MouseDown then
+    Ok;
+  if ButtonCharacter[btClose].MouseDown then
+    Cancel;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -232,21 +301,26 @@ var
   I: TButtonEnum;
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].MouseMove(X, Y);
+    ButtonCharacter[I].MouseMove(X, Y);
   Render;
 end;
 
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
-  case Key of
-    K_ESCAPE:
-      Close;
-    K_ENTER:
-      Hire;
-    K_UP:
-      CurrentCharacter := EnsureRange(CurrentCharacter - 1, 0, High(TheEmpireCharacters));
-    K_DOWN:
-      CurrentCharacter := EnsureRange(CurrentCharacter + 1, 0, High(TheEmpireCharacters));
+  case SubScene of
+    stCharacter:
+      case Key of
+        K_ESCAPE:
+          Cancel;
+        K_ENTER:
+          Ok;
+        K_UP:
+          CurrentCharacter := EnsureRange(CurrentCharacter - 1, 0, High(TheEmpireCharacters));
+        K_DOWN:
+          CurrentCharacter := EnsureRange(CurrentCharacter + 1, 0, High(TheEmpireCharacters));
+      end;
+    stLeader:
+      ;
   end;
 end;
 
@@ -255,7 +329,7 @@ var
   I: TButtonEnum;
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[I]);
+    FreeAndNil(ButtonCharacter[I]);
 end;
 
 end.
