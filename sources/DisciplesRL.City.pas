@@ -136,7 +136,7 @@ begin
           UpdateRadius(I);
           // Party
           CapitalParty.SetLocation(Player.X, Player.Y);
-          CapitalParty.AddCreature(TheEmpireCapitalGuardian, 3);
+          CapitalParty.AddCreature(Characters[Player.Race][cgGuardian][ckGuardian], 3);
         end;
       1 .. NCity: // City
         begin

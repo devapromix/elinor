@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Menu;
+﻿unit DisciplesRL.Scene.Menu;
 
 interface
 
@@ -38,13 +38,16 @@ begin
 
 end;
 
-procedure Action(K: Integer = -1);
+procedure Ok(K: Integer = -1);
 begin
   if (K >= 0) then
     MainMenuCursorPos := K;
   case MainMenuCursorPos of
     0:
-      DisciplesRL.Scene.Hire.Show(stLeader);
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Hire.Show(stRace);
+      end;
     1:
       if IsGame then
         DisciplesRL.Scenes.CurrentScene := scMap;
@@ -103,11 +106,11 @@ end;
 procedure MouseClick;
 begin
   if Button[btPlay].MouseDown then
-    Action(0);
+    Ok(0);
   if Button[btContinue].MouseDown then
-    Action(1);
+    Ok(1);
   if Button[btHighScores].MouseDown then
-    Action(2);
+    Ok(2);
   if Button[btQuit].MouseDown then
     DisciplesRL.MainForm.MainForm.Close;
 end;
@@ -125,7 +128,7 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ENTER:
-      Action;
+      Ok;
     K_ESCAPE:
       DisciplesRL.MainForm.MainForm.Close;
   end;

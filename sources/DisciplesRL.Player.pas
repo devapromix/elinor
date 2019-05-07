@@ -274,7 +274,7 @@ var
   C: TCreatureEnum;
 begin
   LeaderParty.SetLocation(Player.X, Player.Y);
-  C := TheEmpireLeaders[HireLeaderIndex];
+  C := Characters[Player.Race][cgLeaders][TRaceCharKind(HireIndex)];
   case CreatureBase[C].ReachEnum of
     reAdj:
       begin

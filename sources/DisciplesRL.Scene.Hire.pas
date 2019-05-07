@@ -8,19 +8,18 @@ uses
   DisciplesRL.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader);
+  THireSubSceneEnum = (stCharacter, stLeader, stRace);
 
 procedure Init;
 procedure Render;
 procedure Timer;
-procedure Show; overload;
 procedure Show(const ASubScene: THireSubSceneEnum); overload;
 procedure Show(const Party: TParty; const Position: Integer); overload;
 procedure MouseClick(X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
-function HireLeaderIndex: Integer;
+function HireIndex: Integer;
 procedure Free;
 
 implementation
@@ -34,30 +33,32 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Settlement;
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Player;
 
 type
   TButtonEnum = (btOk, btClose);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextHire, reTextClose);
+  ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
+    // Character
+    (reTextHire, reTextClose),
+    // Leader
+    (reTextContinue, reTextClose),
+    // Race
+    (reTextContinue, reTextClose));
 
 var
   HireParty: TParty = nil;
   HirePosition: Integer = 0;
   SubScene: THireSubSceneEnum = stCharacter;
-  ButtonCharacter: array [TButtonEnum] of TButton;
-  CurrentCharacter: Integer = 0;
+  Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
+  CurrentIndex: Integer = 0;
   Lf: Integer = 0;
-
-procedure Show;
-begin
-
-end;
 
 procedure Show(const ASubScene: THireSubSceneEnum);
 begin
-  CurrentCharacter := 0;
+  CurrentIndex := 0;
   SubScene := ASubScene;
   DisciplesRL.Scenes.CurrentScene := scHire;
 end;
@@ -66,14 +67,14 @@ procedure Show(const Party: TParty; const Position: Integer);
 begin
   HireParty := Party;
   HirePosition := Position;
-  CurrentCharacter := 0;
+  CurrentIndex := 0;
   SubScene := stCharacter;
   DisciplesRL.Scenes.CurrentScene := scHire;
 end;
 
-function HireLeaderIndex: Integer;
+function HireIndex: Integer;
 begin
-  Result := CurrentCharacter;
+  Result := CurrentIndex;
 end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -87,6 +88,8 @@ begin
     stCharacter:
       DisciplesRL.Scenes.CurrentScene := scSettlement;
     stLeader:
+      DisciplesRL.Scene.Hire.Show(stRace);
+    stRace:
       DisciplesRL.Scenes.CurrentScene := scMenu;
   end;
 end;
@@ -96,7 +99,7 @@ begin
   case SubScene of
     stCharacter:
       begin
-        HireParty.Hire(TheEmpireCharacters[CurrentCharacter], HirePosition);
+        HireParty.Hire(Characters[Player.Race][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
         DisciplesRL.Scenes.CurrentScene := scSettlement;
       end;
     stLeader:
@@ -105,6 +108,12 @@ begin
         DisciplesRL.Game.Init;
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
+    stRace:
+      begin
+        IsGame := False;
+        Player.Race := TRaceEnum(CurrentIndex + 1);
+        DisciplesRL.Scene.Hire.Show(stLeader);
+      end;
   end;
 end;
 
@@ -112,17 +121,21 @@ procedure Init;
 var
   R: TResEnum;
   I: TButtonEnum;
+  J: THireSubSceneEnum;
   L, W: Integer;
 begin
-  W := ResImage[reButtonDef].Width + 4;
-  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
-    ButtonCharacter[I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[I]);
-    Inc(L, W);
-    if (I = btOk) then
-      ButtonCharacter[I].Sellected := True;
+    W := ResImage[reButtonDef].Width + 4;
+    L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+    Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+    begin
+      Button[J][I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[J][I]);
+      Inc(L, W);
+      if (I = btOk) then
+        Button[J][I].Sellected := True;
+    end;
   end;
 end;
 
@@ -131,6 +144,7 @@ const
   H = 25;
 var
   C: TCreatureEnum;
+  K: TRaceCharKind;
   L, T: Integer;
 
   procedure Add; overload;
@@ -165,11 +179,12 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
+  K := TRaceCharKind(CurrentIndex);
   case SubScene of
     stCharacter:
-      C := TheEmpireCharacters[CurrentCharacter];
+      C := Characters[Player.Race][cgCharacters][K];
     stLeader:
-      C := TheEmpireLeaders[CurrentCharacter];
+      C := Characters[Player.Race][cgLeaders][K];
   end;
   with CreatureBase[C] do
   begin
@@ -177,27 +192,10 @@ begin
     Add('УРОВЕНЬ', Level);
     Add('ТОЧНОСТЬ', ChancesToHit, '%');
     Add('ИНИЦИАТИВА', Initiative);
-    Add('ЗДОРОВЬЕ', HitPoints, HitPoints);
-    Add('УРОН', Damage);
-    Add('БРОНЯ', Armor);
-    case SourceEnum of
-      seWeapon:
-        Add('ИСТОЧНИК', 'ОРУЖИЕ');
-      seLife:
-        Add('ИСТОЧНИК', 'ЖИЗНЬ');
-      seMind:
-        ;
-      seDeath:
-        ;
-      seAir:
-        ;
-      seEarth:
-        ;
-      seFire:
-        ;
-      seWater:
-        ;
-    end;
+    Add('Здоровье', HitPoints, HitPoints);
+    Add('Урон', Damage);
+    Add('Броня', Armor);
+    Add('Источник', SourceName[SourceEnum]);
     case ReachEnum of
       reAny:
         begin
@@ -215,9 +213,17 @@ begin
           Add('ЦЕЛИ', 6);
         end;
     end;
-    Add('ЦЕНА', 0);
-    Add('ЗОЛОТО', Gold);
+    if SubScene = stCharacter then
+    begin
+      Add('ЦЕНА', 0);
+      Add('ЗОЛОТО', Gold);
+    end;
   end;
+end;
+
+procedure RenderRaceInfo;
+begin
+
 end;
 
 procedure RenderButtons;
@@ -225,49 +231,76 @@ var
   I: TButtonEnum;
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
-    ButtonCharacter[I].Render;
+    Button[SubScene][I].Render;
 end;
 
 procedure Render;
 var
   I, Y: Integer;
+  R: TRaceEnum;
+  K: TRaceCharKind;
 begin
-  DrawTitle(reTitleHire);
-
   Y := 0;
   case SubScene of
     stCharacter:
-      for I := 0 to High(TheEmpireCharacters) do
       begin
-        if I = CurrentCharacter then
-          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
-        else
-          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-        with CreatureBase[TheEmpireCharacters[I]] do
+        DrawTitle(reTitleHire);
+        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
-          RenderUnit(ResEnum, Lf, Top + Y, True);
-          RenderUnitInfo(Lf, Top + Y, TheEmpireCharacters[I]);
+          if K = TRaceCharKind(CurrentIndex) then
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+          else
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+          with CreatureBase[Characters[Player.Race][cgCharacters][K]] do
+          begin
+            RenderUnit(ResEnum, Lf, Top + Y, True);
+            RenderUnitInfo(Lf, Top + Y, Characters[Player.Race][cgCharacters][K]);
+          end;
+          Inc(Y, 120);
         end;
-        Inc(Y, 120);
       end;
     stLeader:
-      for I := 0 to High(TheEmpireLeaders) do
       begin
-        if I = CurrentCharacter then
-          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
-        else
-          Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-        with CreatureBase[TheEmpireLeaders[I]] do
+        DrawTitle(reTitleHire);
+        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
-          RenderUnit(ResEnum, Lf, Top + Y, True);
-          RenderUnitInfo(Lf, Top + Y, TheEmpireLeaders[I]);
+          if K = TRaceCharKind(CurrentIndex) then
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+          else
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+          with CreatureBase[Characters[Player.Race][cgLeaders][K]] do
+          begin
+            RenderUnit(ResEnum, Lf, Top + Y, True);
+            RenderUnitInfo(Lf, Top + Y, Characters[Player.Race][cgLeaders][K]);
+          end;
+          Inc(Y, 120);
         end;
-        Inc(Y, 120);
+      end;
+    stRace:
+      begin
+        DrawTitle(reTitleHire);
+        for R := reTheEmpire to reLegionsOfTheDamned do
+        begin
+          if Ord(R) - 1 = CurrentIndex then
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+          else
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+          // with CreatureBase[TheEmpireLeaders[I]] do
+          // begin
+          // RenderUnit(ResEnum, Lf, Top + Y, True);
+          // RenderUnitInfo(Lf, Top + Y, TheEmpireLeaders[I]);
+          // end;
+          Inc(Y, 120);
+        end;
       end;
   end;
-
   Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top, ResImage[reInfoFrame]);
-  RenderCharacterInfo;
+  case SubScene of
+    stCharacter, stLeader:
+      RenderCharacterInfo;
+    stRace:
+      RenderRaceInfo;
+  end;
   RenderButtons;
 end;
 
@@ -280,19 +313,19 @@ procedure MouseClick(X, Y: Integer);
 begin
   if MouseOver(Lf, Top, X, Y) then
   begin
-    CurrentCharacter := 0;
+    CurrentIndex := 0;
   end;
   if MouseOver(Lf, Top + 120, X, Y) then
   begin
-    CurrentCharacter := 1;
+    CurrentIndex := 1;
   end;
   if MouseOver(Lf, Top + 240, X, Y) then
   begin
-    CurrentCharacter := 2;
+    CurrentIndex := 2;
   end;
-  if ButtonCharacter[btOk].MouseDown then
+  if Button[SubScene][btOk].MouseDown then
     Ok;
-  if ButtonCharacter[btClose].MouseDown then
+  if Button[SubScene][btClose].MouseDown then
     Cancel;
 end;
 
@@ -301,7 +334,7 @@ var
   I: TButtonEnum;
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
-    ButtonCharacter[I].MouseMove(X, Y);
+    Button[SubScene][I].MouseMove(X, Y);
   Render;
 end;
 
@@ -315,11 +348,13 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentCharacter := EnsureRange(CurrentCharacter - 1, 0, High(TheEmpireCharacters));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
         K_DOWN:
-          CurrentCharacter := EnsureRange(CurrentCharacter + 1, 0, High(TheEmpireCharacters));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
       end;
     stLeader:
+      ;
+    stRace:
       ;
   end;
 end;
@@ -327,9 +362,11 @@ end;
 procedure Free;
 var
   I: TButtonEnum;
+  J: THireSubSceneEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(ButtonCharacter[I]);
+  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      FreeAndNil(Button[J][I]);
 end;
 
 end.
