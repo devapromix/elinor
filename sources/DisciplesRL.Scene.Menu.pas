@@ -24,7 +24,8 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.MainForm,
   DisciplesRL.Game,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Scene.Info;
 
 type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
@@ -52,7 +53,7 @@ begin
       if IsGame then
         DisciplesRL.Scenes.CurrentScene := scMap;
     2:
-      DisciplesRL.Scenes.CurrentScene := scHighScores;
+      DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
   end;
 end;
 

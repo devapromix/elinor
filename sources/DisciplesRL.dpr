@@ -24,12 +24,11 @@ uses
   DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
   DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
-  DisciplesRL.Scene.Day in 'DisciplesRL.Scene.Day.pas',
   DisciplesRL.MapObject in 'DisciplesRL.MapObject.pas',
-  DisciplesRL.Scene.HighScores in 'DisciplesRL.Scene.HighScores.pas',
   DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
   DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas',
-  DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas';
+  DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
+  DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas';
 
 {$R *.res}
 

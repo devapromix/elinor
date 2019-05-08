@@ -12,7 +12,7 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TSceneEnum = (scHire, scMenu, scVictory, scDefeat, scMap, scSettlement, scBattle, scBattle2, scItem, scDay, scHighScores);
+  TSceneEnum = (scHire, scMenu, scInfo, scVictory, scDefeat, scMap, scSettlement, scBattle, scBattle2, scItem);
 
 const
   DefaultButtonTop = 600;
@@ -60,10 +60,9 @@ uses
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Item,
-  DisciplesRL.Scene.Day,
-  DisciplesRL.Scene.HighScores,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Battle2;
+  DisciplesRL.Scene.Battle2,
+  DisciplesRL.Scene.Info;
 
 var
   MouseX, MouseY: Integer;
@@ -111,6 +110,8 @@ begin
     case I of
       scHire:
         DisciplesRL.Scene.Hire.Init;
+      scInfo:
+        DisciplesRL.Scene.Info.Init;
       scMenu:
         DisciplesRL.Scene.Menu.Init;
       scVictory:
@@ -127,10 +128,6 @@ begin
         DisciplesRL.Scene.Settlement.Init;
       scItem:
         DisciplesRL.Scene.Item.Init;
-      scDay:
-        DisciplesRL.Scene.Day.Init;
-      scHighScores:
-        DisciplesRL.Scene.HighScores.Init;
     end;
 end;
 
@@ -141,6 +138,8 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.Render;
+    scInfo:
+      DisciplesRL.Scene.Info.Render;
     scMenu:
       DisciplesRL.Scene.Menu.Render;
     scVictory:
@@ -157,10 +156,6 @@ begin
       DisciplesRL.Scene.Settlement.Render;
     scItem:
       DisciplesRL.Scene.Item.Render;
-    scDay:
-      DisciplesRL.Scene.Day.Render;
-    scHighScores:
-      DisciplesRL.Scene.HighScores.Render;
   end;
   MainForm.Canvas.Draw(0, 0, Surface);
 end;
@@ -170,6 +165,8 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.Timer;
+    scInfo:
+      DisciplesRL.Scene.Info.Timer;
     scMenu:
       DisciplesRL.Scene.Menu.Timer;
     scVictory:
@@ -186,10 +183,6 @@ begin
       DisciplesRL.Scene.Settlement.Timer;
     scItem:
       DisciplesRL.Scene.Item.Timer;
-    scDay:
-      DisciplesRL.Scene.Day.Timer;
-    scHighScores:
-      DisciplesRL.Scene.HighScores.Timer;
   end;
 end;
 
@@ -198,6 +191,8 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.MouseClick(MouseX, MouseY);
+    scInfo:
+      DisciplesRL.Scene.Info.MouseClick(MouseX, MouseY);
     scMenu:
       DisciplesRL.Scene.Menu.MouseClick;
     scVictory:
@@ -214,10 +209,6 @@ begin
       DisciplesRL.Scene.Settlement.MouseClick;
     scItem:
       DisciplesRL.Scene.Item.MouseClick;
-    scDay:
-      DisciplesRL.Scene.Day.MouseClick;
-    scHighScores:
-      DisciplesRL.Scene.HighScores.MouseClick;
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -229,6 +220,8 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.MouseMove(Shift, X, Y);
+    scInfo:
+      DisciplesRL.Scene.Info.MouseMove(Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
     scVictory:
@@ -245,10 +238,6 @@ begin
       DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
     scItem:
       DisciplesRL.Scene.Item.MouseMove(Shift, X, Y);
-    scDay:
-      DisciplesRL.Scene.Day.MouseMove(Shift, X, Y);
-    scHighScores:
-      DisciplesRL.Scene.HighScores.MouseMove(Shift, X, Y);
   end;
 end;
 
@@ -257,6 +246,8 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.KeyDown(Key, Shift);
+    scInfo:
+      DisciplesRL.Scene.Info.KeyDown(Key, Shift);
     scMenu:
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
     scVictory:
@@ -273,10 +264,6 @@ begin
       DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
     scItem:
       DisciplesRL.Scene.Item.KeyDown(Key, Shift);
-    scDay:
-      DisciplesRL.Scene.Day.KeyDown(Key, Shift);
-    scHighScores:
-      DisciplesRL.Scene.HighScores.KeyDown(Key, Shift);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -286,6 +273,8 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.MouseDown(Button, Shift, X, Y);
+    scInfo:
+      DisciplesRL.Scene.Info.MouseDown(Button, Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseDown(Button, Shift, X, Y);
     scVictory:
@@ -302,10 +291,6 @@ begin
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
     scItem:
       DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y);
-    scDay:
-      DisciplesRL.Scene.Day.MouseDown(Button, Shift, X, Y);
-    scHighScores:
-      DisciplesRL.Scene.HighScores.MouseDown(Button, Shift, X, Y);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -318,6 +303,8 @@ begin
     case I of
       scHire:
         DisciplesRL.Scene.Hire.Free;
+      scInfo:
+        DisciplesRL.Scene.Info.Free;
       scMenu:
         DisciplesRL.Scene.Menu.Free;
       scVictory:
@@ -334,10 +321,6 @@ begin
         DisciplesRL.Scene.Settlement.Free;
       scItem:
         DisciplesRL.Scene.Item.Free;
-      scDay:
-        DisciplesRL.Scene.Day.Free;
-      scHighScores:
-        DisciplesRL.Scene.HighScores.Free;
     end;
   FreeAndNil(Surface);
 end;

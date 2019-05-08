@@ -23,7 +23,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
   DisciplesRL.MainForm,
-  DisciplesRL.Scene.HighScores,
+  DisciplesRL.Scene.Info,
   DisciplesRL.Game;
 
 var
@@ -32,7 +32,7 @@ var
 procedure Action;
 begin
   IsGame := False;
-  DisciplesRL.Scene.HighScores.Show;
+  DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
 end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);

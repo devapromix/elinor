@@ -46,7 +46,8 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
-  DisciplesRL.Player;
+  DisciplesRL.Player,
+  DisciplesRL.Scene.Info;
 
 type
   TPartyBase = record
@@ -202,7 +203,7 @@ begin
   if IsDay then
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
-    DisciplesRL.Scenes.CurrentScene := scDay;
+    DisciplesRL.Scene.Info.Show(stDay, scMap);
   end;
 end;
 

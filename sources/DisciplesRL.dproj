@@ -131,12 +131,11 @@
         <DCCReference Include="DisciplesRL.Scene.Settlement.pas"/>
         <DCCReference Include="DisciplesRL.PascalScript.Battle.pas"/>
         <DCCReference Include="DisciplesRL.PascalScript.Vars.pas"/>
-        <DCCReference Include="DisciplesRL.Scene.Day.pas"/>
         <DCCReference Include="DisciplesRL.MapObject.pas"/>
-        <DCCReference Include="DisciplesRL.Scene.HighScores.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Hire.pas"/>
         <DCCReference Include="DisciplesRL.BattleLog.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle2.pas"/>
+        <DCCReference Include="DisciplesRL.Scene.Info.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
