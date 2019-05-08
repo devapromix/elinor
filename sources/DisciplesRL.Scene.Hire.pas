@@ -26,6 +26,7 @@ implementation
 
 uses
   System.Math,
+  Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Game,
   DisciplesRL.Scenes,
@@ -44,9 +45,9 @@ const
     // Character
     (reTextHire, reTextClose),
     // Leader
-    (reTextContinue, reTextClose),
+    (reTextContinue, reTextCancel),
     // Race
-    (reTextContinue, reTextClose));
+    (reTextContinue, reTextCancel));
 
 var
   HireParty: TParty = nil;
@@ -67,9 +68,7 @@ procedure Show(const Party: TParty; const Position: Integer);
 begin
   HireParty := Party;
   HirePosition := Position;
-  CurrentIndex := 0;
-  SubScene := stCharacter;
-  DisciplesRL.Scenes.CurrentScene := scHire;
+  Show(stCharacter);
 end;
 
 function HireIndex: Integer;
@@ -82,7 +81,7 @@ begin
 
 end;
 
-procedure Cancel;
+procedure Back;
 begin
   case SubScene of
     stCharacter:
@@ -97,22 +96,20 @@ end;
 procedure Ok;
 begin
   case SubScene of
+    stRace:
+      begin
+        Player.Race := TRaceEnum(CurrentIndex + 1);
+        DisciplesRL.Scene.Hire.Show(stLeader);
+      end;
+    stLeader:
+      begin
+        DisciplesRL.Game.Init;
+        DisciplesRL.Scene.Settlement.Show(stCapital);
+      end;
     stCharacter:
       begin
         HireParty.Hire(Characters[Player.Race][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
         DisciplesRL.Scenes.CurrentScene := scSettlement;
-      end;
-    stLeader:
-      begin
-        IsGame := True;
-        DisciplesRL.Game.Init;
-        DisciplesRL.Scene.Settlement.Show(stCapital);
-      end;
-    stRace:
-      begin
-        IsGame := False;
-        Player.Race := TRaceEnum(CurrentIndex + 1);
-        DisciplesRL.Scene.Hire.Show(stLeader);
       end;
   end;
 end;
@@ -188,10 +185,10 @@ begin
   end;
   with CreatureBase[C] do
   begin
-    Add('ЮНИТ');
-    Add('УРОВЕНЬ', Level);
-    Add('ТОЧНОСТЬ', ChancesToHit, '%');
-    Add('ИНИЦИАТИВА', Initiative);
+    Add(Name);
+    Add('Уровень', Level);
+    Add('Точность', ChancesToHit, '%');
+    Add('Инициатива', Initiative);
     Add('Здоровье', HitPoints, HitPoints);
     Add('Урон', Damage);
     Add('Броня', Armor);
@@ -199,24 +196,24 @@ begin
     case ReachEnum of
       reAny:
         begin
-          Add('ДИСТАНЦИЯ', 'ВСЕ ПОЛЕ БОЯ');
-          Add('ЦЕЛИ', 1);
+          Add('Дистанция', 'Все поле боя');
+          Add('Цели', 1);
         end;
       reAdj:
         begin
-          Add('ДИСТАНЦИЯ', 'ОДИНОЧНАЯ');
-          Add('ЦЕЛИ', 1);
+          Add('Дистанция', 'Ближайшие цели');
+          Add('Цели', 1);
         end;
       reAll:
         begin
-          Add('ДИСТАНЦИЯ', 'ВСЕ ПОЛЕ БОЯ');
-          Add('ЦЕЛИ', 6);
+          Add('Дистанция', 'Все поле боя');
+          Add('Цели', 6);
         end;
     end;
     if SubScene = stCharacter then
     begin
-      Add('ЦЕНА', 0);
-      Add('ЗОЛОТО', Gold);
+      Add('Цена', 0);
+      Add('Золото', Gold);
     end;
   end;
 end;
@@ -261,7 +258,7 @@ begin
       end;
     stLeader:
       begin
-        DrawTitle(reTitleHire);
+        DrawTitle(reTitleLeader);
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
           if K = TRaceCharKind(CurrentIndex) then
@@ -278,7 +275,7 @@ begin
       end;
     stRace:
       begin
-        DrawTitle(reTitleHire);
+        DrawTitle(reTitleRace);
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
           if Ord(R) - 1 = CurrentIndex then
@@ -323,10 +320,29 @@ begin
   begin
     CurrentIndex := 2;
   end;
-  if Button[SubScene][btOk].MouseDown then
-    Ok;
-  if Button[SubScene][btClose].MouseDown then
-    Cancel;
+  case SubScene of
+    stCharacter:
+      begin
+        if Button[stCharacter][btOk].MouseDown then
+          Ok;
+        if Button[stCharacter][btClose].MouseDown then
+          Back;
+      end;
+    stLeader:
+      begin
+        if Button[stLeader][btOk].MouseDown then
+          Ok;
+        if Button[stLeader][btClose].MouseDown then
+          Back;
+      end;
+    stRace:
+      begin
+        if Button[stRace][btOk].MouseDown then
+          Ok;
+        if Button[stRace][btClose].MouseDown then
+          Back;
+      end;
+  end;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -344,7 +360,7 @@ begin
     stCharacter:
       case Key of
         K_ESCAPE:
-          Cancel;
+          Back;
         K_ENTER:
           Ok;
         K_UP:
@@ -353,16 +369,34 @@ begin
           CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
       end;
     stLeader:
-      ;
+      case Key of
+        K_ESCAPE:
+          Back;
+        K_ENTER:
+          Ok;
+        K_UP:
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
+        K_DOWN:
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
+      end;
     stRace:
-      ;
+      case Key of
+        K_ESCAPE:
+          Back;
+        K_ENTER:
+          Ok;
+        K_UP:
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
+        K_DOWN:
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
+      end;
   end;
 end;
 
 procedure Free;
 var
-  I: TButtonEnum;
   J: THireSubSceneEnum;
+  I: TButtonEnum;
 begin
   for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
     for I := Low(TButtonEnum) to High(TButtonEnum) do

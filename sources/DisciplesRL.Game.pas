@@ -112,6 +112,7 @@ const
 
 procedure Init;
 begin
+  IsGame := True;
   DisciplesRL.Game.Clear;
   DisciplesRL.Map.Init;
   DisciplesRL.Map.Gen;
