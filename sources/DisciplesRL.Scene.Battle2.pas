@@ -33,7 +33,8 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.BattleLog,
-  DisciplesRL.Party;
+  DisciplesRL.Party,
+  DisciplesRL.Scene.Info;
 
 var
   Log: TLog;
@@ -80,7 +81,7 @@ end;
 
 procedure Defeat;
 begin
-  DisciplesRL.Scenes.CurrentScene := scDefeat;
+  DisciplesRL.Scene.Info.Show(stDefeat, scInfo);
 end;
 
 procedure Start;
@@ -293,6 +294,10 @@ begin
       Finish;
     K_SPACE:
       NextTurn;
+    K_D:
+      Defeat;
+    K_V:
+      Victory;
   end;
 end;
 

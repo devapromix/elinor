@@ -10,9 +10,9 @@ type
     rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
     reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon,
     reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
-    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextCancel,
-    reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
-    reTitleLeader);
+    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
+    reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
+    reTitleLeader, reTitleNewDay, reTitleLoot);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -160,7 +160,11 @@ const
     // Title "Race"
     (FileName: 'title.race.png'; ResType: teGUI;),
     // Title "Leader"
-    (FileName: 'title.leader.png'; ResType: teGUI;)
+    (FileName: 'title.leader.png'; ResType: teGUI;),
+    // Title "New Day"
+    (FileName: 'title.new_day.png'; ResType: teGUI;),
+    // Title "Loot"
+    (FileName: 'title.loot.png'; ResType: teGUI;)
     //
     );
 

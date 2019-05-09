@@ -12,7 +12,7 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TSceneEnum = (scHire, scMenu, scInfo, scVictory, scDefeat, scMap, scSettlement, scBattle, scBattle2);
+  TSceneEnum = (scHire, scMenu, scInfo, scMap, scSettlement, scBattle, scBattle2);
 
 const
   DefaultButtonTop = 600;
@@ -55,8 +55,6 @@ uses
   DisciplesRL.MainForm,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
-  DisciplesRL.Scene.Victory,
-  DisciplesRL.Scene.Defeat,
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Hire,
@@ -113,10 +111,6 @@ begin
         DisciplesRL.Scene.Info.Init;
       scMenu:
         DisciplesRL.Scene.Menu.Init;
-      scVictory:
-        DisciplesRL.Scene.Victory.Init;
-      scDefeat:
-        DisciplesRL.Scene.Defeat.Init;
       scMap:
         DisciplesRL.Scene.Map.Init;
       scBattle:
@@ -139,10 +133,6 @@ begin
       DisciplesRL.Scene.Info.Render;
     scMenu:
       DisciplesRL.Scene.Menu.Render;
-    scVictory:
-      DisciplesRL.Scene.Victory.Render;
-    scDefeat:
-      DisciplesRL.Scene.Defeat.Render;
     scMap:
       DisciplesRL.Scene.Map.Render;
     scBattle:
@@ -164,10 +154,6 @@ begin
       DisciplesRL.Scene.Info.Timer;
     scMenu:
       DisciplesRL.Scene.Menu.Timer;
-    scVictory:
-      DisciplesRL.Scene.Victory.Timer;
-    scDefeat:
-      DisciplesRL.Scene.Defeat.Timer;
     scMap:
       DisciplesRL.Scene.Map.Timer;
     scBattle:
@@ -188,10 +174,6 @@ begin
       DisciplesRL.Scene.Info.MouseClick(MouseX, MouseY);
     scMenu:
       DisciplesRL.Scene.Menu.MouseClick;
-    scVictory:
-      DisciplesRL.Scene.Victory.MouseClick;
-    scDefeat:
-      DisciplesRL.Scene.Defeat.MouseClick;
     scMap:
       DisciplesRL.Scene.Map.MouseClick;
     scBattle:
@@ -215,10 +197,6 @@ begin
       DisciplesRL.Scene.Info.MouseMove(Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
-    scVictory:
-      DisciplesRL.Scene.Victory.MouseMove(Shift, X, Y);
-    scDefeat:
-      DisciplesRL.Scene.Defeat.MouseMove(Shift, X, Y);
     scMap:
       DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
     scBattle:
@@ -239,10 +217,6 @@ begin
       DisciplesRL.Scene.Info.KeyDown(Key, Shift);
     scMenu:
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
-    scVictory:
-      DisciplesRL.Scene.Victory.KeyDown(Key, Shift);
-    scDefeat:
-      DisciplesRL.Scene.Defeat.KeyDown(Key, Shift);
     scMap:
       DisciplesRL.Scene.Map.KeyDown(Key, Shift);
     scBattle:
@@ -264,10 +238,6 @@ begin
       DisciplesRL.Scene.Info.MouseDown(Button, Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseDown(Button, Shift, X, Y);
-    scVictory:
-      DisciplesRL.Scene.Victory.MouseDown(Button, Shift, X, Y);
-    scDefeat:
-      DisciplesRL.Scene.Defeat.MouseDown(Button, Shift, X, Y);
     scMap:
       DisciplesRL.Scene.Map.MouseDown(Button, Shift, X, Y);
     scBattle:
@@ -292,10 +262,6 @@ begin
         DisciplesRL.Scene.Info.Free;
       scMenu:
         DisciplesRL.Scene.Menu.Free;
-      scVictory:
-        DisciplesRL.Scene.Victory.Free;
-      scDefeat:
-        DisciplesRL.Scene.Defeat.Free;
       scMap:
         DisciplesRL.Scene.Map.Free;
       scBattle:

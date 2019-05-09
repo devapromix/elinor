@@ -158,7 +158,7 @@ end;
 
 procedure Defeat;
 begin
-  DisciplesRL.Scenes.CurrentScene := scDefeat;
+  DisciplesRL.Scene.Info.Show(stDefeat, scMenu);
 end;
 
 procedure Finish;

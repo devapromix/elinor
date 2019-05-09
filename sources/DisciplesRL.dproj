@@ -120,8 +120,6 @@
         <DCCReference Include="DisciplesRL.Party.pas"/>
         <DCCReference Include="DisciplesRL.City.pas"/>
         <DCCReference Include="DisciplesRL.PathFind.pas"/>
-        <DCCReference Include="DisciplesRL.Scene.Defeat.pas"/>
-        <DCCReference Include="DisciplesRL.Scene.Victory.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Menu.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle.pas"/>
         <DCCReference Include="DisciplesRL.GUI.Button.pas"/>

@@ -8,7 +8,7 @@ uses
   Vcl.Controls;
 
 type
-  TInfoSubSceneEnum = (stDay, stLoot, stHighScores);
+  TInfoSubSceneEnum = (stDay, stLoot, stHighScores, stVictory, stDefeat);
 
 procedure Init;
 procedure Render;
@@ -47,6 +47,18 @@ var
   F: Boolean;
 begin
   case SubScene of
+    stDefeat:
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+        Exit;
+      end;
+    stVictory:
+      begin
+        IsGame := False;
+        DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+        Exit;
+      end;
     stDay:
       IsDay := False;
     stLoot:
@@ -57,7 +69,7 @@ begin
           case PlayerTile of
             reTower:
               begin
-                DisciplesRL.Scenes.CurrentScene := scVictory;
+                DisciplesRL.Scene.Info.Show(stVictory, scInfo);
                 F := False;
               end;
             reTheEmpireCity:
@@ -83,15 +95,19 @@ end;
 procedure Render;
 begin
   case SubScene of
+    stDefeat:
+      DrawTitle(reTitleDefeat);
+    stVictory:
+      DrawTitle(reTitleVictory);
     stDay:
       begin
-        DrawTitle(reTitleHighScores);
+        DrawTitle(reTitleNewDay);
         CenterTextOut(300, Format('НАСТУПИЛ НОВЫЙ ДЕНЬ (День %d-й)', [Days]));
         CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(GoldMines * GoldFromMinePerDay));
       end;
     stLoot:
       begin
-        DrawTitle(reTitleHighScores);
+        DrawTitle(reTitleLoot);
         CenterTextOut(300, 'СОКРОВИЩЕ');
         CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(NewGold));
       end;
