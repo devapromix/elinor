@@ -183,7 +183,7 @@ begin
     stLeader:
       C := Characters[Player.Race][cgLeaders][K];
   end;
-  with CreatureBase[C] do
+  with GetCharacter(C) do
   begin
     Add(Name);
     Add('Уровень', Level);
@@ -248,7 +248,7 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with CreatureBase[Characters[Player.Race][cgCharacters][K]] do
+          with GetCharacter(Characters[Player.Race][cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
             RenderUnitInfo(Lf, Top + Y, Characters[Player.Race][cgCharacters][K]);
@@ -265,7 +265,7 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with CreatureBase[Characters[Player.Race][cgLeaders][K]] do
+          with GetCharacter(Characters[Player.Race][cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
             RenderUnitInfo(Lf, Top + Y, Characters[Player.Race][cgLeaders][K]);

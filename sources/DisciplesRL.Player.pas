@@ -275,7 +275,7 @@ var
 begin
   LeaderParty.SetLocation(Player.X, Player.Y);
   C := Characters[Player.Race][cgLeaders][TRaceCharKind(HireIndex)];
-  case CreatureBase[C].ReachEnum of
+  case GetCharacter(C).ReachEnum of
     reAdj:
       begin
         LeaderParty.AddCreature(C, 2);

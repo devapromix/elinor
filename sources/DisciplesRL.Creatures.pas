@@ -368,6 +368,15 @@ type
     ReachEnum: TReachEnum;
   end;
 
+procedure ClearCreature(var ACreature: TCreature);
+procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
+function GetCharacter(const I: TCreatureEnum): TCreatureBase;
+
+implementation
+
+uses
+  System.SysUtils;
+
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
@@ -470,14 +479,6 @@ const
     );
 
 procedure ClearCreature(var ACreature: TCreature);
-procedure AssignCreature(var ACreature: TCreature; const I: TCreatureEnum);
-
-implementation
-
-uses
-  System.SysUtils;
-
-procedure ClearCreature(var ACreature: TCreature);
 begin
   with ACreature do
   begin
@@ -519,6 +520,11 @@ begin
     SourceEnum := CreatureBase[I].SourceEnum;
     ReachEnum := CreatureBase[I].ReachEnum;
   end;
+end;
+
+function GetCharacter(const I: TCreatureEnum): TCreatureBase;
+begin
+  Result := CreatureBase[I];
 end;
 
 end.

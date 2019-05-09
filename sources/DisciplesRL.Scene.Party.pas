@@ -116,7 +116,7 @@ end;
 
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum);
 begin
-  with CreatureBase[ACreature] do
+  with GetCharacter(ACreature) do
     RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Damage, Heal, Armor);
 end;
 
