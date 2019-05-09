@@ -12,7 +12,7 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TSceneEnum = (scHire, scMenu, scInfo, scVictory, scDefeat, scMap, scSettlement, scBattle, scBattle2, scItem);
+  TSceneEnum = (scHire, scMenu, scInfo, scVictory, scDefeat, scMap, scSettlement, scBattle, scBattle2);
 
 const
   DefaultButtonTop = 600;
@@ -59,7 +59,6 @@ uses
   DisciplesRL.Scene.Defeat,
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Scene.Item,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info;
@@ -126,8 +125,6 @@ begin
         DisciplesRL.Scene.Battle2.Init;
       scSettlement:
         DisciplesRL.Scene.Settlement.Init;
-      scItem:
-        DisciplesRL.Scene.Item.Init;
     end;
 end;
 
@@ -154,8 +151,6 @@ begin
       DisciplesRL.Scene.Battle2.Render;
     scSettlement:
       DisciplesRL.Scene.Settlement.Render;
-    scItem:
-      DisciplesRL.Scene.Item.Render;
   end;
   MainForm.Canvas.Draw(0, 0, Surface);
 end;
@@ -181,8 +176,6 @@ begin
       DisciplesRL.Scene.Battle2.Timer;
     scSettlement:
       DisciplesRL.Scene.Settlement.Timer;
-    scItem:
-      DisciplesRL.Scene.Item.Timer;
   end;
 end;
 
@@ -207,8 +200,6 @@ begin
       DisciplesRL.Scene.Battle2.MouseClick;
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseClick;
-    scItem:
-      DisciplesRL.Scene.Item.MouseClick;
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -236,8 +227,6 @@ begin
       DisciplesRL.Scene.Battle2.MouseMove(Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
-    scItem:
-      DisciplesRL.Scene.Item.MouseMove(Shift, X, Y);
   end;
 end;
 
@@ -262,8 +251,6 @@ begin
       DisciplesRL.Scene.Battle2.KeyDown(Key, Shift);
     scSettlement:
       DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
-    scItem:
-      DisciplesRL.Scene.Item.KeyDown(Key, Shift);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -289,8 +276,6 @@ begin
       DisciplesRL.Scene.Battle2.MouseDown(Button, Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
-    scItem:
-      DisciplesRL.Scene.Item.MouseDown(Button, Shift, X, Y);
   end;
   DisciplesRL.Scenes.Render;
 end;
@@ -319,8 +304,6 @@ begin
         DisciplesRL.Scene.Battle2.Free;
       scSettlement:
         DisciplesRL.Scene.Settlement.Free;
-      scItem:
-        DisciplesRL.Scene.Item.Free;
     end;
   FreeAndNil(Surface);
 end;

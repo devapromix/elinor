@@ -30,7 +30,7 @@ uses
   Vcl.Graphics,
   System.SysUtils,
   DisciplesRL.Scenes,
-  DisciplesRL.Scene.Item,
+  DisciplesRL.Scene.Info,
   DisciplesRL.Map,
   DisciplesRL.Game,
   DisciplesRL.Player,

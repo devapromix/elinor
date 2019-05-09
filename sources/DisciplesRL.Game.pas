@@ -195,7 +195,7 @@ begin
   Level := GetDistToCapital(Player.X, Player.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
-  DisciplesRL.Scenes.CurrentScene := scItem;
+  DisciplesRL.Scene.Info.Show(stLoot, scMap);
 end;
 
 procedure NewDay;

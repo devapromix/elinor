@@ -19,7 +19,6 @@ uses
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',
   DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
   DisciplesRL.Game in 'DisciplesRL.Game.pas',
-  DisciplesRL.Scene.Item in 'DisciplesRL.Scene.Item.pas',
   DisciplesRL.Scene.Party in 'DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',

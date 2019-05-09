@@ -126,7 +126,6 @@
         <DCCReference Include="DisciplesRL.Scene.Battle.pas"/>
         <DCCReference Include="DisciplesRL.GUI.Button.pas"/>
         <DCCReference Include="DisciplesRL.Game.pas"/>
-        <DCCReference Include="DisciplesRL.Scene.Item.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Party.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Settlement.pas"/>
         <DCCReference Include="DisciplesRL.PascalScript.Battle.pas"/>
