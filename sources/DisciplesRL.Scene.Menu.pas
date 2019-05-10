@@ -18,6 +18,7 @@ procedure Free;
 implementation
 
 uses
+  Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -49,9 +50,13 @@ begin
         IsGame := False;
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
-    1:
-      if IsGame then
-        DisciplesRL.Scenes.CurrentScene := scMap;
+    1: // Continue
+      begin
+        if ConfirmDialog('Отпустить?') then
+          InformDialog('Отпустил!') else InformDialog('Не отпускать!');
+      end;
+    // if IsGame then
+    // DisciplesRL.Scenes.CurrentScene := scMap;
     2:
       DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
   end;

@@ -25,7 +25,8 @@ uses
   DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
   DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas',
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
-  DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas';
+  DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas',
+  DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm};
 
 {$R *.res}
 
@@ -36,6 +37,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'DisciplesRL';
   Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TConfirmationForm, ConfirmationForm);
   Application.Run;
 
 end.

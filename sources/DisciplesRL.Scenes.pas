@@ -33,6 +33,8 @@ procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+function ConfirmDialog(const S: string): Boolean;
+procedure InformDialog(const S: string);
 procedure Free;
 
 const
@@ -59,10 +61,30 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Info;
+  DisciplesRL.Scene.Info,
+  DisciplesRL.ConfirmationForm;
 
 var
   MouseX, MouseY: Integer;
+
+function ConfirmDialog(const S: string): Boolean;
+begin
+  Result := False;
+  ConfirmationForm.Msg := S;
+  ConfirmationForm.SubScene := stConfirm;
+  ConfirmationForm.ShowModal;
+  case ConfirmationForm.ModalResult of
+    mrOk:
+      Result := True;
+  end;
+end;
+
+procedure InformDialog(const S: string);
+begin
+  ConfirmationForm.Msg := S;
+  ConfirmationForm.SubScene := stInform;
+  ConfirmationForm.ShowModal;
+end;
 
 procedure DrawTitle(Res: TResEnum);
 begin
