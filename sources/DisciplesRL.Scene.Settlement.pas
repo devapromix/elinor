@@ -25,7 +25,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Vcl.Dialogs,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
   DisciplesRL.Resources,
@@ -38,6 +37,7 @@ uses
   DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Battle,
+  DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Hire;
 
 type
@@ -120,7 +120,7 @@ procedure Hire;
     begin
       if Active then
       begin
-        ShowMessage('Выберите пустой слот!');
+        DisciplesRL.Scene.Info.Show('Выберите пустой слот!', scSettlement);
         Exit;
       end;
       DisciplesRL.Scene.Hire.Show(AParty, APosition);
@@ -144,17 +144,17 @@ procedure Dismiss;
     begin
       if not Active then
       begin
-        ShowMessage('Выберите не пустой слот!');
+        DisciplesRL.Scene.Info.Show('Выберите не пустой слот!', scSettlement);
         Exit;
       end;
       if Leadership > 0 then
       begin
-        ShowMessage('Не возможно уволить!');
+        DisciplesRL.Scene.Info.Show('Не возможно уволить!', scSettlement);
         Exit;
       end
       else
       begin
-        if (MessageDlg('Отпустить?', mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if not DisciplesRL.Scene.Info.Show('Отпустить?', stConfirm, scSettlement) then
           Exit;
       end;
     end;
@@ -180,29 +180,29 @@ procedure Heal;
     begin
       if not Active then
       begin
-        ShowMessage('Выберите не пустой слот!');
+        DisciplesRL.Scene.Info.Show('Выберите не пустой слот!', scSettlement);
         Exit;
       end;
       if HitPoints <= 0 then
       begin
-        ShowMessage('Сначала нужно воскресить!');
+        DisciplesRL.Scene.Info.Show('Сначала нужно воскресить!', scSettlement);
         Exit;
       end;
       V := Min((MaxHitPoints - HitPoints) * Level, Gold);
       if (V <= 0) then
       begin
-        ShowMessage('Нужно больше золота!');
+        DisciplesRL.Scene.Info.Show('Нужно больше золота!', scSettlement);
         Exit;
       end;
       R := (V div Level) * Level;
       if (HitPoints + (V div Level) < MaxHitPoints) then
       begin
-        if (MessageDlg(Format('Исцелить на %d HP за %d золота?', [V div Level, R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if not DisciplesRL.Scene.Info.Show(Format('Исцелить на %d HP за %d золота?', [V div Level, R]), stConfirm, scSettlement) then
           Exit;
       end
       else
       begin
-        if (MessageDlg(Format('Полностью исцелить за %d золота?', [R]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if not DisciplesRL.Scene.Info.Show(Format('Полностью исцелить за %d золота?', [R]), stConfirm, scSettlement) then
           Exit;
       end;
       Gold := Gold - R;
@@ -230,12 +230,12 @@ procedure Revive;
     begin
       if not Active then
       begin
-        ShowMessage('Выберите не пустой слот!');
+        DisciplesRL.Scene.Info.Show('Выберите не пустой слот!', scSettlement);
         Exit;
       end;
       if HitPoints > 0 then
       begin
-        ShowMessage('Не нуждается в воскрешении!');
+        DisciplesRL.Scene.Info.Show('Не нуждается в воскрешении!', scSettlement);
         Exit;
       end
       else
@@ -243,10 +243,10 @@ procedure Revive;
         V := Level * GoldForRevivePerLevel;
         if (Gold < V) then
         begin
-          ShowMessage(Format('Для воскрешения нужно %d золота!', [V]));
+          DisciplesRL.Scene.Info.Show(Format('Для воскрешения нужно %d золота!', [V]), scSettlement);
           Exit;
         end;
-        if (MessageDlg(Format('Воскресить за %d золота?', [V]), mtConfirmation, [mbOK, mbCancel], 0) = mrCancel) then
+        if not DisciplesRL.Scene.Info.Show(Format('Воскресить за %d золота?', [V]), stConfirm, scSettlement) then
           Exit;
         Gold := Gold - V;
       end;

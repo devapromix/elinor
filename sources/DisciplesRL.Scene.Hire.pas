@@ -26,7 +26,6 @@ implementation
 
 uses
   System.Math,
-  Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Game,
   DisciplesRL.Scenes,
