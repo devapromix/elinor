@@ -117,7 +117,7 @@ begin
   DisciplesRL.Game.Clear;
   DisciplesRL.Map.Init;
   DisciplesRL.Map.Gen;
-  DisciplesRL.Player.Init;
+  Leader.Clear;
 end;
 
 procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
@@ -192,7 +192,7 @@ procedure AddLoot();
 var
   Level: Integer;
 begin
-  Level := GetDistToCapital(Player.X, Player.Y);
+  Level := GetDistToCapital(Leader.X, Leader.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
   DisciplesRL.Scene.Info.Show(stLoot, scMap);

@@ -110,7 +110,6 @@
             <Form>MainForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="DisciplesRL.Utils.pas"/>
         <DCCReference Include="DisciplesRL.Scenes.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Map.pas"/>
         <DCCReference Include="DisciplesRL.Map.pas"/>

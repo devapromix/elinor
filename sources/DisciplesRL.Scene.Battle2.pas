@@ -75,7 +75,7 @@ end;
 procedure Victory;
 begin
   ChExperience;
-  Party[GetPartyIndex(Player.X, Player.Y)].Clear;
+  Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
   AddLoot();
 end;
 
@@ -90,7 +90,7 @@ var
 begin
   Log.Clear;
   PartyExperience := 0;
-  I := GetPartyIndex(Player.X, Player.Y);
+  I := GetPartyIndex(Leader.X, Leader.Y);
   EnemyParty := Party[I];
   ActivePartyPosition := 2;
 end;

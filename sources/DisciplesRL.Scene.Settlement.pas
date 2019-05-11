@@ -98,7 +98,7 @@ begin
       end;
   end;
 
-  if (GetDistToCapital(Player.X, Player.Y) = 0) or (CurrentSettlementType = stCity) then
+  if (GetDistToCapital(Leader.X, Leader.Y) = 0) or (CurrentSettlementType = stCity) then
     RenderParty(psLeft, LeaderParty)
   else
     RenderParty(psLeft, nil);
@@ -289,7 +289,7 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CurrentCityIndex := GetPartyIndex(Player.X, Player.Y);
+        CurrentCityIndex := GetPartyIndex(Leader.X, Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
         SettlementParty.Owner := reTheEmpire;
       end
@@ -312,7 +312,7 @@ procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   I, J: Integer;
 begin
-  if (GetDistToCapital(Player.X, Player.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
+  if (GetDistToCapital(Leader.X, Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of

@@ -25,6 +25,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     Surface: TBitmap;
@@ -54,6 +55,7 @@ const
   ButtonsText: array [TButtonEnum] of TResEnum = (reTextHire, reTextClose);
 
 var
+  MouseX, MouseY: Integer;
   Buttons: array [TButtonEnum] of TButton;
   Button: TButton;
   Lf: Integer;
@@ -109,11 +111,22 @@ begin
   FreeAndNil(Surface);
 end;
 
+procedure TConfirmationForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
+begin
+  MouseX := X;
+  MouseY := Y;
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Buttons[I].MouseMove(X, Y);
+  Button.MouseMove(X, Y);
+end;
+
 procedure TConfirmationForm.FormPaint(Sender: TObject);
 var
   I: TButtonEnum;
 begin
-  Surface.Canvas.Brush.Color := clWebDarkViolet;
+  Surface.Canvas.Brush.Color := clBlack;
   Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
   case SubScene of
     stInform:

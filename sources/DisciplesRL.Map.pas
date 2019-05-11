@@ -23,12 +23,13 @@ type
 var
   Map: array [TLayerEnum] of TMapLayer;
 
+function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+function GetDistToCapital(const AX, AY: Integer): Integer;
 procedure Init;
 procedure Clear(const L: TLayerEnum);
 procedure Gen;
 function InMap(X, Y: Integer): Boolean;
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
-function GetDistToCapital(const AX, AY: Integer): Integer;
 function PlayerTile: TResEnum;
 
 implementation
@@ -37,11 +38,20 @@ uses
   System.Math,
   System.SysUtils,
   DisciplesRL.Player,
-  DisciplesRL.Utils,
   DisciplesRL.City,
   DisciplesRL.PathFind,
   DisciplesRL.Game,
   DisciplesRL.Creatures;
+
+function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+begin
+  Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
+end;
+
+function GetDistToCapital(const AX, AY: Integer): Integer;
+begin
+  Result := GetDist(City[0].X, City[0].Y, AX, AY);
+end;
 
 procedure Init;
 var
@@ -53,13 +63,8 @@ begin
     Clear(L);
   end;
   DisciplesRL.City.Init;
-  LeaderParty := TParty.Create(Player.X, Player.Y, reTheEmpire);
-  CapitalParty := TParty.Create(Player.X, Player.Y, reTheEmpire);
-end;
-
-function GetDistToCapital(const AX, AY: Integer): Integer;
-begin
-  Result := GetDist(City[0].X, City[0].Y, AX, AY);
+  LeaderParty := TParty.Create(Leader.X, Leader.Y, reTheEmpire);
+  CapitalParty := TParty.Create(Leader.X, Leader.Y, reTheEmpire);
 end;
 
 procedure Clear(const L: TLayerEnum);
@@ -148,13 +153,12 @@ begin
     until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutral) and (GetDistToCapital(X, Y) >= 3);
     AddPartyAt(X, Y);
   end;
-  // Leader's party
-  DisciplesRL.Player.Gen;
+  Leader.AddToParty;
 end;
 
 function InMap(X, Y: Integer): Boolean;
 begin
-  Result := (X >= 0) and (X < MapWidth) and (Y >= 0) and (Y < MapHeight);
+  Result := (X >= 0) and (Y >= 0) and (X < MapWidth) and (Y < MapHeight);
 end;
 
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
@@ -177,7 +181,7 @@ end;
 
 function PlayerTile: TResEnum;
 begin
-  Result := Map[lrTile][Player.X, Player.Y];
+  Result := Map[lrTile][Leader.X, Leader.Y];
 end;
 
 end.

@@ -25,7 +25,6 @@ uses
   System.Classes,
   DisciplesRL.Scenes,
   DisciplesRL.MainForm,
-  DisciplesRL.Utils,
   DisciplesRL.Player,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Battle;
@@ -158,7 +157,7 @@ end;
 
 procedure _Refresh;
 begin
-  RefreshParties;
+
 end;
 
 procedure _Render;
@@ -252,7 +251,7 @@ begin
     try
       if (StrRight(Script, 4) = '.pas') then
       begin
-        S := GetPath(ScriptPath) + Script;
+        S := ScriptPath + Script;
         if not FileExists(S) then
         begin
           ShowMessage('Файл скрипта "' + ExtractFileName(S) + '" не найден!');

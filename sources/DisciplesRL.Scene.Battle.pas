@@ -152,7 +152,7 @@ end;
 
 procedure Victory;
 begin
-  Party[GetPartyIndex(Player.X, Player.Y)].Clear;
+  Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
   AddLoot();
 end;
 
@@ -166,7 +166,7 @@ var
   I: Integer;
 begin
   Log.Clear;
-  I := GetPartyIndex(Player.X, Player.Y);
+  I := GetPartyIndex(Leader.X, Leader.Y);
   if LeaderParty.IsClear then
     Defeat;
   if Party[I].IsClear then
@@ -263,7 +263,7 @@ begin
     DrawTitle(reTitleDefeat);
     F := True;
   end;
-  J := GetPartyIndex(Player.X, Player.Y);
+  J := GetPartyIndex(Leader.X, Leader.Y);
   if Party[J].IsClear then
   begin
     DrawTitle(reTitleVictory);
@@ -304,7 +304,7 @@ begin
     Exit;
   if LeaderParty.IsClear then
     Exit;
-  I := GetPartyIndex(Player.X, Player.Y);
+  I := GetPartyIndex(Leader.X, Leader.Y);
   if Party[I].IsClear then
     Exit;
   ClearMessages;

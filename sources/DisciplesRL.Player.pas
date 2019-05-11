@@ -3,28 +3,30 @@
 interface
 
 uses
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.MapObject;
 
 type
-  TPlayer = record
-    X: Integer;
-    Y: Integer;
-    Radius: Integer;
+  TLeader = class(TMapObject)
+  private
+    FRadius: Integer;
+  public
     Speed: Integer;
     MaxSpeed: Integer;
     Race: TRaceEnum;
+    constructor Create;
+    destructor Destroy; override;
+    procedure Clear;
+    procedure AddToParty;
+    procedure RefreshRadius;
+    procedure PutAt(const AX, AY: ShortInt);
+    procedure Turn(const Count: Integer = 1);
+    procedure Move(const AX, AY: ShortInt);
+    property Radius: Integer read FRadius;
   end;
 
 var
-  Player: TPlayer;
-
-procedure Init;
-procedure Move(const AX, AY: ShortInt);
-procedure PutAt(const AX, AY: ShortInt);
-procedure RefreshRadius;
-procedure RefreshParties;
-procedure Turn(const Count: Integer = 1);
-procedure Gen;
+  Leader: TLeader;
 
 implementation
 
@@ -34,7 +36,6 @@ uses
   System.SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Utils,
   DisciplesRL.City,
   DisciplesRL.Party,
   DisciplesRL.Scenes,
@@ -46,39 +47,6 @@ uses
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party;
-
-procedure Init;
-begin
-  Player.MaxSpeed := 7;
-  Player.Speed := Player.MaxSpeed;
-  Player.Radius := IfThen(Wizard, 9, 1);
-  RefreshRadius;
-end;
-
-procedure Move(const AX, AY: ShortInt);
-begin
-  PutAt(Player.X + AX, Player.Y + AY);
-end;
-
-procedure RefreshParties;
-// var
-// I, J: Integer;
-begin
-  { for I := 0 to 11 do
-    begin
-    case I of
-    0 .. 5:
-    begin
-    LeaderParty.SetHitPoints(I, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
-    end;
-    6 .. 11:
-    begin
-    J := GetPartyIndex(Player.X, Player.Y);
-    Party[J].SetHitPoints(I - 6, V.GetInt('Slot' + IntToStr(TransformTo(I)) + 'HP'));
-    end;
-    end;
-    end; }
-end;
 
 procedure InitParty(const X, Y: Integer);
 var
@@ -98,7 +66,7 @@ begin
         end;
       6 .. 11:
         begin
-          J := GetPartyIndex(Player.X, Player.Y);
+          J := GetPartyIndex(Leader.X, Leader.Y);
           if Party[J].Creature[I - 6].Active then
             V.SetInt(SlotType, Ord(Party[J].Creature[I - 6].Enum))
           else
@@ -159,7 +127,7 @@ begin
         end;
       6 .. 11:
         begin
-          J := GetPartyIndex(Player.X, Player.Y);
+          J := GetPartyIndex(Leader.X, Leader.Y);
           with Party[J].Creature[I - 6] do
             if Active then
             begin
@@ -177,26 +145,9 @@ begin
   end;
 end;
 
-procedure Turn(const Count: Integer = 1);
-var
-  C: Integer;
-begin
-  if (Count < 1) then
-    Exit;
-  C := 0;
-  repeat
-    Dec(Player.Speed);
-    if (Player.Speed = 0) then
-    begin
-      Inc(Days);
-      IsDay := True;
-      Player.Speed := Player.MaxSpeed;
-    end;
-    Inc(C);
-  until (C >= Count);
-end;
+{ TLeader }
 
-procedure PutAt(const AX, AY: ShortInt);
+procedure TLeader.PutAt(const AX, AY: ShortInt);
 var
   I: Integer;
   F: Boolean;
@@ -216,21 +167,20 @@ begin
         DisciplesRL.City.UpdateRadius(I);
       end;
   end;
-  Player.X := AX;
-  Player.Y := AY;
+  SetLocation(AX, AY);
   RefreshRadius;
   Turn(1);
   F := True;
-  case Map[lrObj][Player.X, Player.Y] of
+  case Map[lrObj][X, Y] of
     reGold:
       begin
-        Map[lrObj][Player.X, Player.Y] := reNone;
+        Map[lrObj][X, Y] := reNone;
         AddLoot();
         F := False;
       end;
     reBag:
       begin
-        Map[lrObj][Player.X, Player.Y] := reNone;
+        Map[lrObj][X, Y] := reNone;
         AddLoot();
         F := False;
       end;
@@ -238,15 +188,15 @@ begin
       begin
         DisciplesRL.Scene.Battle2.Start;
         DisciplesRL.Scenes.CurrentScene := scBattle2;
-        Map[lrObj][Player.X, Player.Y] := reNone;
+        Map[lrObj][X, Y] := reNone;
         F := False;
       end;
   end;
   case PlayerTile of
     reNeutralCity:
       begin
-        Map[lrTile][Player.X, Player.Y] := reTheEmpireCity;
-        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Player.X, Player.Y));
+        Map[lrTile][X, Y] := reTheEmpireCity;
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(X, Y));
         F := False;
       end;
     reTheEmpireCity:
@@ -264,17 +214,49 @@ begin
     NewDay;
 end;
 
-procedure RefreshRadius;
+procedure TLeader.RefreshRadius;
 begin
-  DisciplesRL.Map.UpdateRadius(Player.X, Player.Y, Player.Radius, Map[lrDark], reNone);
+  DisciplesRL.Map.UpdateRadius(X, Y, Radius, Map[lrDark], reNone);
 end;
 
-procedure Gen;
+procedure TLeader.Turn(const Count: Integer = 1);
+var
+  C: Integer;
+begin
+  if (Count < 1) then
+    Exit;
+  C := 0;
+  repeat
+    Dec(Speed);
+    if (Speed = 0) then
+    begin
+      Inc(Days);
+      IsDay := True;
+      Speed := MaxSpeed;
+    end;
+    Inc(C);
+  until (C >= Count);
+end;
+
+procedure TLeader.Move(const AX, AY: ShortInt);
+begin
+  PutAt(X + AX, Y + AY);
+end;
+
+procedure TLeader.Clear;
+begin
+  MaxSpeed := 7;
+  Speed := MaxSpeed;
+  FRadius := IfThen(Wizard, 9, 1);
+  RefreshRadius;
+end;
+
+procedure TLeader.AddToParty;
 var
   C: TCreatureEnum;
 begin
-  LeaderParty.SetLocation(Player.X, Player.Y);
-  C := Characters[Player.Race][cgLeaders][TRaceCharKind(HireIndex)];
+  LeaderParty.SetLocation(Leader.X, Leader.Y);
+  C := Characters[Leader.Race][cgLeaders][TRaceCharKind(HireIndex)];
   case GetCharacter(C).ReachEnum of
     reAdj:
       begin
@@ -288,5 +270,25 @@ begin
     end;
   end;
 end;
+
+constructor TLeader.Create;
+begin
+  inherited;
+  FRadius := 1;
+end;
+
+destructor TLeader.Destroy;
+begin
+
+  inherited;
+end;
+
+initialization
+
+Leader := TLeader.Create;
+
+finalization
+
+FreeAndNil(Leader);
 
 end.

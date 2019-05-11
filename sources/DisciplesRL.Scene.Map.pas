@@ -26,7 +26,6 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Player,
   Vcl.Dialogs,
-  DisciplesRL.Utils,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Game;
 
@@ -59,7 +58,7 @@ begin
       else
         DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutral]);
       end;
-      F := (GetDist(X, Y, Player.X, Player.Y) > Player.Radius) and not(Map[lrTile][X, Y] in [reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity])
+      F := (GetDist(X, Y, Leader.X, Leader.Y) > Leader.Radius) and not(Map[lrTile][X, Y] in [reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity])
         and (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
@@ -73,7 +72,7 @@ begin
       else if (Map[lrObj][X, Y] <> reNone) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
       // Leader
-      if (X = Player.X) and (Y = Player.Y) then
+      if (X = Leader.X) and (Y = Leader.Y) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[rePlayer]);
       // Fog
       if F then
@@ -91,7 +90,7 @@ end;
 procedure MouseClick;
 begin
   if Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
-    DisciplesRL.Player.PutAt(MousePos.X, MousePos.Y);
+    Leader.PutAt(MousePos.X, MousePos.Y);
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -124,13 +123,13 @@ begin
         end;
       end;
     K_UP:
-      DisciplesRL.Player.Move(0, -1);
+      Leader.Move(0, -1);
     K_DOWN:
-      DisciplesRL.Player.Move(0, 1);
+      Leader.Move(0, 1);
     K_LEFT:
-      DisciplesRL.Player.Move(-1, 0);
+      Leader.Move(-1, 0);
     K_RIGHT:
-      DisciplesRL.Player.Move(1, 0);
+      Leader.Move(1, 0);
   end;
 end;
 

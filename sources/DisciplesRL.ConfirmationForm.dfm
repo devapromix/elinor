@@ -16,6 +16,7 @@ object ConfirmationForm: TConfirmationForm
   OnClick = FormClick
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnMouseMove = FormMouseMove
   OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13

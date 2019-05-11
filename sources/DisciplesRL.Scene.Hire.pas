@@ -97,7 +97,7 @@ begin
   case SubScene of
     stRace:
       begin
-        Player.Race := TRaceEnum(CurrentIndex + 1);
+        Leader.Race := TRaceEnum(CurrentIndex + 1);
         DisciplesRL.Scene.Hire.Show(stLeader);
       end;
     stLeader:
@@ -107,7 +107,7 @@ begin
       end;
     stCharacter:
       begin
-        HireParty.Hire(Characters[Player.Race][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
+        HireParty.Hire(Characters[Leader.Race][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
         DisciplesRL.Scenes.CurrentScene := scSettlement;
       end;
   end;
@@ -178,9 +178,9 @@ begin
   K := TRaceCharKind(CurrentIndex);
   case SubScene of
     stCharacter:
-      C := Characters[Player.Race][cgCharacters][K];
+      C := Characters[Leader.Race][cgCharacters][K];
     stLeader:
-      C := Characters[Player.Race][cgLeaders][K];
+      C := Characters[Leader.Race][cgLeaders][K];
   end;
   with GetCharacter(C) do
   begin
@@ -247,10 +247,10 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with GetCharacter(Characters[Player.Race][cgCharacters][K]) do
+          with GetCharacter(Characters[Leader.Race][cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Player.Race][cgCharacters][K]);
+            RenderUnitInfo(Lf, Top + Y, Characters[Leader.Race][cgCharacters][K]);
           end;
           Inc(Y, 120);
         end;
@@ -264,10 +264,10 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with GetCharacter(Characters[Player.Race][cgLeaders][K]) do
+          with GetCharacter(Characters[Leader.Race][cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Player.Race][cgLeaders][K]);
+            RenderUnitInfo(Lf, Top + Y, Characters[Leader.Race][cgLeaders][K]);
           end;
           Inc(Y, 120);
         end;

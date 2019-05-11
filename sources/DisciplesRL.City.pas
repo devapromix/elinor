@@ -28,7 +28,6 @@ uses
   System.Math,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Utils,
   DisciplesRL.Player,
   DisciplesRL.Game;
 
@@ -129,14 +128,13 @@ begin
     case I of
       0: // Capital
         begin
-          Player.X := City[I].X;
-          Player.Y := City[I].Y;
+          Leader.SetLocation(City[I].X, City[I].Y);
           Map[lrTile][City[I].X, City[I].Y] := reTheEmpireCapital;
           ClearObj(City[I].X, City[I].Y);
           UpdateRadius(I);
           // Party
-          CapitalParty.SetLocation(Player.X, Player.Y);
-          CapitalParty.AddCreature(Characters[Player.Race][cgGuardian][ckGuardian], 3);
+          CapitalParty.SetLocation(Leader.X, Leader.Y);
+          CapitalParty.AddCreature(Characters[Leader.Race][cgGuardian][ckGuardian], 3);
         end;
       1 .. NCity: // City
         begin

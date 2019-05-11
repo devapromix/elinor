@@ -171,6 +171,7 @@ const
 var
   ResImage: array [TResEnum] of TPNGImage;
 
+function GetPath(SubDir: string): string;
 procedure Init;
 procedure Free;
 
@@ -178,8 +179,13 @@ implementation
 
 uses
   System.SysUtils,
-  Vcl.Graphics,
-  DisciplesRL.Utils;
+  Vcl.Graphics;
+
+function GetPath(SubDir: string): string;
+begin
+  Result := ExtractFilePath(ParamStr(0));
+  Result := IncludeTrailingPathDelimiter(Result + SubDir);
+end;
 
 procedure Init;
 var

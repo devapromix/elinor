@@ -3,7 +3,6 @@ program DisciplesRL;
 uses
   Vcl.Forms,
   DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
-  DisciplesRL.Utils in 'DisciplesRL.Utils.pas',
   DisciplesRL.Scenes in 'DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
