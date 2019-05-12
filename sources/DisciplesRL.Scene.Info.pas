@@ -1,5 +1,5 @@
 ﻿unit DisciplesRL.Scene.Info;
-
+
 interface
 
 uses
@@ -75,11 +75,11 @@ begin
                 DisciplesRL.Scene.Info.Show(stVictory, scInfo);
                 F := False;
               end;
-            reTheEmpireCity:
-              begin
-                DisciplesRL.Scene.Settlement.Show(stCity);
-                F := False;
-              end;
+          end;
+          if PlayerTile in Cities then
+          begin
+            DisciplesRL.Scene.Settlement.Show(stCity);
+            F := False;
           end;
           if F then
             NewDay;
@@ -165,3 +165,4 @@ begin
 end;
 
 end.
+

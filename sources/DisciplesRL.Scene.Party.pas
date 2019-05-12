@@ -33,7 +33,8 @@ uses
   System.SysUtils,
   System.TypInfo,
   DisciplesRL.Scenes,
-  DisciplesRL.Game;
+  DisciplesRL.Game,
+  DisciplesRL.Leader;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
@@ -135,7 +136,7 @@ procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer);
 var
   F: Boolean;
 begin
-  F := Party.Owner = reTheEmpire;
+  F := Party.Owner = Leader.Race;
   with Party.Creature[I] do
   begin
     if Active then

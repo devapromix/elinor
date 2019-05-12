@@ -63,8 +63,8 @@ begin
     Clear(L);
   end;
   DisciplesRL.City.Init;
-  LeaderParty := TParty.Create(Leader.X, Leader.Y, reTheEmpire);
-  CapitalParty := TParty.Create(Leader.X, Leader.Y, reTheEmpire);
+  LeaderParty := TParty.Create(Leader.X, Leader.Y, Leader.Race);
+  CapitalParty := TParty.Create(Leader.X, Leader.Y, Leader.Race);
 end;
 
 procedure Clear(const L: TLayerEnum);

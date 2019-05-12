@@ -160,7 +160,7 @@ begin
     Exit;
   for I := 0 to High(City) do
   begin
-    if (City[I].Owner = reTheEmpire) then
+    if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
       if (City[I].CurLevel < City[I].MaxLevel) then
       begin
         Inc(City[I].CurLevel);
@@ -190,25 +190,33 @@ begin
         DisciplesRL.Scenes.CurrentScene := scBattle2;
         Map[lrObj][X, Y] := reNone;
         F := False;
+        Exit;
       end;
   end;
   case PlayerTile of
     reNeutralCity:
       begin
-        Map[lrTile][X, Y] := reTheEmpireCity;
+        case Leader.Race of
+          reTheEmpire:
+            Map[lrTile][X, Y] := reTheEmpireCity;
+          reUndeadHordes:
+            Map[lrTile][X, Y] := reUndeadHordesCity;
+          reLegionsOfTheDamned:
+            Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
+        end;
         DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(X, Y));
         F := False;
       end;
-    reTheEmpireCity:
-      begin
-        DisciplesRL.Scene.Settlement.Show(stCity);
-        F := False;
-      end;
-    reTheEmpireCapital:
-      begin
-        DisciplesRL.Scene.Settlement.Show(stCapital);
-        F := False;
-      end;
+  end;
+  if PlayerTile in Capitals then
+  begin
+    DisciplesRL.Scene.Settlement.Show(stCapital);
+    F := False;
+  end;
+  if PlayerTile in Cities then
+  begin
+    DisciplesRL.Scene.Settlement.Show(stCity);
+    F := False;
   end;
   if F then
     NewDay;

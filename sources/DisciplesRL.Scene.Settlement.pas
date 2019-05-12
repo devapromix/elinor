@@ -291,7 +291,7 @@ begin
       begin
         CurrentCityIndex := GetPartyIndex(Leader.X, Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
-        SettlementParty.Owner := reTheEmpire;
+        SettlementParty.Owner := Leader.Race;
       end
   else
     SettlementParty := CapitalParty;

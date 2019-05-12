@@ -7,12 +7,17 @@ uses
 
 type
   TResEnum = (reNone, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame, reNeutral, reTheEmpireTerrain, reUnk, reEnemy, reCursor,
-    rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reTheEmpireCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain,
-    reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon,
-    reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
-    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
-    reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
-    reTitleRace, reTitleLeader, reTitleNewDay, reTitleLoot);
+    rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital,
+    reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct,
+    reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon, reWhiteDragon,
+    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef,
+    reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk,
+    reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
+    reTitleLeader, reTitleNewDay, reTitleLoot);
+
+const
+  Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
+  Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -58,11 +63,19 @@ const
     // Bag
     (FileName: 'chest.png'; ResType: teBag;),
     // Neutral City
-    (FileName: 'city.png'; ResType: teCity;),
-    // Empire City
-    (FileName: 'city.png'; ResType: teCity;),
-    // Empire Capital
-    (FileName: 'castle.png'; ResType: teCapital;),
+    (FileName: 'city.neutrals.png'; ResType: teCity;),
+    // The Empire City
+    (FileName: 'city.the_empire.png'; ResType: teCity;),
+    // Undead Hordes City
+    (FileName: 'city.undead_hordes.png'; ResType: teCity;),
+    // Legions Of The Damned City
+    (FileName: 'city.legions_of_the_damned.png'; ResType: teCity;),
+    // The Empire Capital
+    (FileName: 'capital.the_empire.png'; ResType: teCapital;),
+    // Undead Hordes Capital
+    (FileName: 'capital.undead_hordes.png'; ResType: teCapital;),
+    // Legions Of The Damned Capital
+    (FileName: 'capital.legions_of_the_damned.png'; ResType: teCapital;),
     // Ruin
     (FileName: 'ruin.png'; ResType: teRuin;),
     // Tower

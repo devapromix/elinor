@@ -58,8 +58,8 @@ begin
       else
         DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutral]);
       end;
-      F := (GetDist(X, Y, Leader.X, Leader.Y) > Leader.Radius) and not(Map[lrTile][X, Y] in [reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity])
-        and (Map[lrDark][X, Y] = reNone);
+      F := (GetDist(X, Y, Leader.X, Leader.Y) > Leader.Radius) and not(Map[lrTile][X, Y] in [reTheEmpireTerrain] + Capitals + Cities) and
+        (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrTile][X, Y]]);
@@ -111,16 +111,10 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMenu;
     K_ENTER:
       begin
-        case PlayerTile of
-          reTheEmpireCapital:
-            begin
-              DisciplesRL.Scene.Settlement.Show(stCapital);
-            end;
-          reTheEmpireCity:
-            begin
-              DisciplesRL.Scene.Settlement.Show(stCity);
-            end;
-        end;
+        if PlayerTile in Capitals then
+          DisciplesRL.Scene.Settlement.Show(stCapital);
+        if PlayerTile in Cities then
+          DisciplesRL.Scene.Settlement.Show(stCity);
       end;
     K_UP:
       Leader.Move(0, -1);
