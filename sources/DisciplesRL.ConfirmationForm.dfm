@@ -6,7 +6,7 @@ object ConfirmationForm: TConfirmationForm
   Caption = 'ConfirmationForm'
   ClientHeight = 383
   ClientWidth = 623
-  Color = clBtnFace
+  Color = clBlack
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -28,6 +28,7 @@ object ConfirmationForm: TConfirmationForm
     Caption = 'Button1'
     ModalResult = 1
     TabOrder = 0
+    Visible = False
   end
   object Button2: TButton
     Left = 299
@@ -37,5 +38,6 @@ object ConfirmationForm: TConfirmationForm
     Caption = 'Button2'
     ModalResult = 2
     TabOrder = 1
+    Visible = False
   end
 end

@@ -30,6 +30,8 @@ type
     { Private declarations }
     Surface: TBitmap;
     procedure CenterTextOut(const Y: Integer; const Msg: string);
+    procedure Ok;
+    procedure Back;
   public
     { Public declarations }
     Msg: string;
@@ -52,13 +54,23 @@ type
   TButtonEnum = (btOk, btCancel);
 
 const
-  ButtonsText: array [TButtonEnum] of TResEnum = (reTextHire, reTextClose);
+  ButtonsText: array [TButtonEnum] of TResEnum = (reTextOk, reTextCancel);
 
 var
   MouseX, MouseY: Integer;
   Buttons: array [TButtonEnum] of TButton;
   Button: TButton;
   Lf: Integer;
+
+procedure TConfirmationForm.Ok;
+begin
+  Button1.Click;
+end;
+
+procedure TConfirmationForm.Back;
+begin
+    Button2.Click;
+end;
 
 procedure TConfirmationForm.CenterTextOut(const Y: Integer; const Msg: string);
 var
@@ -70,7 +82,20 @@ end;
 
 procedure TConfirmationForm.FormClick(Sender: TObject);
 begin
-  //
+  case SubScene of
+    stInform:
+      begin
+        if Button.MouseDown then
+          Back;
+      end;
+    stConfirm:
+      begin
+        if Buttons[btOk].MouseDown then
+          Ok;
+        if Buttons[btCancel].MouseDown then
+          Back;
+      end;
+  end;
 end;
 
 procedure TConfirmationForm.FormCreate(Sender: TObject);

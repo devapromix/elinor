@@ -117,7 +117,7 @@ end;
 
 procedure Gen;
 var
-  X, Y, DX, DY, I: Integer;
+  DX, DY, I: Integer;
 begin
   for I := 0 to High(City) do
   begin

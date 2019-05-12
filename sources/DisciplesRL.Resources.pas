@@ -11,8 +11,8 @@ type
     reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon,
     reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
     reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
-    reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
-    reTitleLeader, reTitleNewDay, reTitleLoot);
+    reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
+    reTitleRace, reTitleLeader, reTitleNewDay, reTitleLoot);
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -139,6 +139,8 @@ const
     (FileName: 'text.hire.png'; ResType: teGUI;),
     // Text "Close"
     (FileName: 'text.close.png'; ResType: teGUI;),
+    // Text "Ok"
+    (FileName: 'text.ok.png'; ResType: teGUI;),
     // Text "Cancel"
     (FileName: 'text.cancel.png'; ResType: teGUI;),
     // Text "Leader's party"
