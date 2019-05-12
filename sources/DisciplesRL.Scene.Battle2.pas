@@ -28,7 +28,7 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Creatures,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,

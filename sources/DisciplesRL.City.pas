@@ -28,7 +28,7 @@ uses
   System.Math,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   DisciplesRL.Game;
 
 const

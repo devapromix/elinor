@@ -46,7 +46,7 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   DisciplesRL.Scene.Info;
 
 type

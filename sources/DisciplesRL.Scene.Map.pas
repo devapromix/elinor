@@ -24,7 +24,7 @@ uses
   System.Types,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   Vcl.Dialogs,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Game;

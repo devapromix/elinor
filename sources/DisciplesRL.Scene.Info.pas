@@ -29,7 +29,7 @@ uses
   DisciplesRL.Game,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.GUI.Button;
 

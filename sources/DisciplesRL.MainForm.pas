@@ -57,7 +57,7 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
   DisciplesRL.Map,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   DisciplesRL.Game,
   DisciplesRL.PascalScript.Battle;
 

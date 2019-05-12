@@ -37,7 +37,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  DisciplesRL.Player,
+  DisciplesRL.Leader,
   DisciplesRL.City,
   DisciplesRL.PathFind,
   DisciplesRL.Game,

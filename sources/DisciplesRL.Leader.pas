@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Player;
+﻿unit DisciplesRL.Leader;
 
 interface
 

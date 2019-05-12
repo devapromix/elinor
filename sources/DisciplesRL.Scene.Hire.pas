@@ -34,7 +34,7 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Player;
+  DisciplesRL.Leader;
 
 type
   TButtonEnum = (btOk, btClose);
