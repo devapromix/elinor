@@ -45,18 +45,14 @@ begin
   if (K >= 0) then
     MainMenuCursorPos := K;
   case MainMenuCursorPos of
-    0:
+    0: // Play
       begin
         IsGame := False;
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
     1: // Continue
-      begin
-        if ConfirmDialog('Отпустить?') then
-          InformDialog('Отпустил!') else InformDialog('Не отпускать!');
-      end;
-    // if IsGame then
-    // DisciplesRL.Scenes.CurrentScene := scMap;
+      if IsGame then
+        DisciplesRL.Scenes.CurrentScene := scMap;
     2:
       DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
   end;
