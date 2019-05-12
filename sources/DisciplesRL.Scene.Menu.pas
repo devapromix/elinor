@@ -31,6 +31,9 @@ uses
 type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
 
+const
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue, reTextHighScores, reTextQuit);
+
 var
   MainMenuCursorPos: Integer = 0;
   Button: array [TButtonEnum] of TButton;
@@ -53,7 +56,7 @@ begin
     1: // Continue
       if IsGame then
         DisciplesRL.Scenes.CurrentScene := scMap;
-    2:
+    2: // High Scores
       DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
   end;
 end;
@@ -68,16 +71,9 @@ begin
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    case I of
-      btPlay:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextPlay);
-      btContinue:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextContinue);
-      btHighScores:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextHighScores);
-      btQuit:
-        Button[I] := TButton.Create(L, T, Surface.Canvas, reTextQuit);
-    end;
+    Button[I] := TButton.Create(L, T, Surface.Canvas, ButtonText[I]);
+    if (I = btPlay) then
+      Button[I].Sellected := True;
     Inc(T, H);
   end;
 end;
