@@ -217,9 +217,54 @@ begin
   end;
 end;
 
-procedure RenderRaceInfo;
+procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
 begin
+  // DrawImage(AX + 7, AY + 7, reBGChar);
+  case Race of
+    reTheEmpire:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+    reUndeadHordes:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reUndeadHordesLogo]);
+    reLegionsOfTheDamned:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reLegionsOfTheDamnedLogo]);
+  end;
+end;
 
+procedure RenderRaceInfo;
+const
+  H = 25;
+var
+  R: TRaceEnum;
+  T, L, J: Integer;
+
+  procedure Add; overload;
+  begin
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    Surface.Canvas.TextOut(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  R := TRaceEnum(CurrentIndex + 1);
+  Add(RaceName[R], True);
+  Add;
+  for J := 0 to 8 do
+    Add(RaceDescription[R][J]);
 end;
 
 procedure RenderButtons;
@@ -281,11 +326,7 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          // with CreatureBase[TheEmpireLeaders[I]] do
-          // begin
-          // RenderUnit(ResEnum, Lf, Top + Y, True);
-          // RenderUnitInfo(Lf, Top + Y, TheEmpireLeaders[I]);
-          // end;
+          RenderRace(R, Lf, Top + Y);
           Inc(Y, 120);
         end;
       end;

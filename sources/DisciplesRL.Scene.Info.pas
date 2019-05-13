@@ -69,14 +69,14 @@ begin
         F := True;
         begin
           DisciplesRL.Scenes.CurrentScene := scMap;
-          case PlayerTile of
+          case LeaderTile of
             reTower:
               begin
                 DisciplesRL.Scene.Info.Show(stVictory, scInfo);
                 F := False;
               end;
           end;
-          if PlayerTile in Cities then
+          if LeaderTile in Cities then
           begin
             DisciplesRL.Scene.Settlement.Show(stCity);
             F := False;

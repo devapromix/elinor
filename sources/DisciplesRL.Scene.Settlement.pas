@@ -77,6 +77,16 @@ begin
     Button[I].Render;
 end;
 
+function GetCityName: string;
+begin
+  Result := '';
+end;
+
+function GetCapitalName: string;
+begin
+  Result := '';
+end;
+
 procedure Render;
 begin
   CalcPoints;
@@ -84,14 +94,14 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CenterTextOut(100, Format('CITY (Level %d)', [City[CurrentCityIndex].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetCityName, City[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
       end;
     stCapital:
       begin
-        CenterTextOut(100, Format('THE EMPIRE CAPITAL (Level %d)', [City[0].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetCapitalName, City[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);

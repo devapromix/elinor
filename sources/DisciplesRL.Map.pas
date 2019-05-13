@@ -30,7 +30,7 @@ procedure Clear(const L: TLayerEnum);
 procedure Gen;
 function InMap(X, Y: Integer): Boolean;
 procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
-function PlayerTile: TResEnum;
+function LeaderTile: TResEnum;
 
 implementation
 
@@ -179,7 +179,7 @@ begin
         end;
 end;
 
-function PlayerTile: TResEnum;
+function LeaderTile: TResEnum;
 begin
   Result := Map[lrTile][Leader.X, Leader.Y];
 end;

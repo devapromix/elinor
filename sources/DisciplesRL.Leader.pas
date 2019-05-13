@@ -193,7 +193,7 @@ begin
         Exit;
       end;
   end;
-  case PlayerTile of
+  case LeaderTile of
     reNeutralCity:
       begin
         case Leader.Race of
@@ -208,12 +208,12 @@ begin
         F := False;
       end;
   end;
-  if PlayerTile in Capitals then
+  if LeaderTile in Capitals then
   begin
     DisciplesRL.Scene.Settlement.Show(stCapital);
     F := False;
   end;
-  if PlayerTile in Cities then
+  if LeaderTile in Cities then
   begin
     DisciplesRL.Scene.Settlement.Show(stCity);
     F := False;

@@ -111,9 +111,9 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMenu;
     K_ENTER:
       begin
-        if PlayerTile in Capitals then
+        if LeaderTile in Capitals then
           DisciplesRL.Scene.Settlement.Show(stCapital);
-        if PlayerTile in Cities then
+        if LeaderTile in Cities then
           DisciplesRL.Scene.Settlement.Show(stCity);
       end;
     K_UP:
