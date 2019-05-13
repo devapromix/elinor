@@ -263,7 +263,7 @@ begin
   R := TRaceEnum(CurrentIndex + 1);
   Add(RaceName[R], True);
   Add;
-  for J := 0 to 8 do
+  for J := 0 to 10 do
     Add(RaceDescription[R][J]);
 end;
 
