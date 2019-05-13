@@ -63,8 +63,7 @@ end;
 
 procedure UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], reTheEmpireTerrain,
-    [reNeutralCity, reRuin, reTower] + Capitals + Cities);
+  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], RaceTerrain[Leader.Race], [reNeutralCity, reRuin, reTower] + Capitals + Cities);
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
   City[AID].Owner := Leader.Race;
 end;

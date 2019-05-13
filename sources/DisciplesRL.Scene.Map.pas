@@ -55,10 +55,14 @@ begin
       case Map[lrTile][X, Y] of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
           DrawImage(X * TileSize, Y * TileSize, ResImage[reTheEmpireTerrain]);
+        reUndeadHordesTerrain, reUndeadHordesCapital, reUndeadHordesCity:
+          DrawImage(X * TileSize, Y * TileSize, ResImage[reUndeadHordesTerrain]);
+        reLegionsOfTheDamnedTerrain, reLegionsOfTheDamnedCapital, reLegionsOfTheDamnedCity:
+          DrawImage(X * TileSize, Y * TileSize, ResImage[reLegionsOfTheDamnedTerrain]);
       else
-        DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutral]);
+        DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutralTerrain]);
       end;
-      F := (GetDist(X, Y, Leader.X, Leader.Y) > Leader.Radius) and not(Map[lrTile][X, Y] in [reTheEmpireTerrain] + Capitals + Cities) and
+      F := (GetDist(X, Y, Leader.X, Leader.Y) > Leader.Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
         (Map[lrDark][X, Y] = reNone);
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then

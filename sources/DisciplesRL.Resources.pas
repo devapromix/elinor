@@ -7,7 +7,7 @@ uses
 
 type
   TResEnum = (reNone, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame, reInfoFrame,
-    reNeutral, reTheEmpireTerrain, reUnk, reEnemy, reCursor, rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+    reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursor, rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
     reMountain, reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte,
     reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
@@ -18,6 +18,7 @@ type
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
+  Tiles = [reTheEmpireTerrain];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
@@ -50,10 +51,14 @@ const
     (FileName: 'actframe.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'info_frame.png'; ResType: teGUI;),
-    // Neutral
+    // Neutral Terrain
     (FileName: 'dirt.png'; ResType: teTile;),
-    // Empire terrain
-    (FileName: 'grass.png'; ResType: teTile;),
+    // Empire Terrain
+    (FileName: 'tile.the_empire.png'; ResType: teTile;),
+    // Undead Hordes Terrain
+    (FileName: 'tile.undead_hordes.png'; ResType: teTile;),
+    // Legions Of The Damned Terrain
+    (FileName: 'tile.legions_of_the_damned.png'; ResType: teTile;),
     // Unknown (?)
     (FileName: 'unknown.png'; ResType: teGUI;),
     // Enemy party

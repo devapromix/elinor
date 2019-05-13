@@ -10,6 +10,7 @@ type
 
 const
   RaceName: array [TRaceEnum] of string = ('Нейтралы', 'Защитники Империи', 'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз');
+  RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reTheEmpireTerrain, reTheEmpireTerrain);
 
 const
   RaceDescription: array [TRaceEnum] of array [0 .. 10] of string = (('', '', '', '', '', '', '', '', '', '', ''),
