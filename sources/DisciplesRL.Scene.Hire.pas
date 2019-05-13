@@ -1,5 +1,5 @@
 ﻿unit DisciplesRL.Scene.Hire;
-
+
 interface
 
 uses
@@ -444,3 +444,4 @@ begin
 end;
 
 end.
+
