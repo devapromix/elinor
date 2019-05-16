@@ -330,6 +330,9 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
+        if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (LeaderParty.Count >= Leader.MaxLeadership))
+        then
+          Exit;
         LeaderParty.ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
       end;
     mbLeft:

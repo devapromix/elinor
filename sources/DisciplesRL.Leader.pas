@@ -10,10 +10,10 @@ type
   TLeader = class(TMapObject)
   private
     FRadius: Integer;
+    FMaxLeadership: Integer;
   public
     Speed: Integer;
     MaxSpeed: Integer;
-    FMaxLeadership: Integer;
     Race: TRaceEnum;
     constructor Create;
     destructor Destroy; override;
