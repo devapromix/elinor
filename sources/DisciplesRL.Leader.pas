@@ -13,6 +13,7 @@ type
   public
     Speed: Integer;
     MaxSpeed: Integer;
+    FMaxLeadership: Integer;
     Race: TRaceEnum;
     constructor Create;
     destructor Destroy; override;
@@ -23,6 +24,7 @@ type
     procedure Turn(const Count: Integer = 1);
     procedure Move(const AX, AY: ShortInt);
     property Radius: Integer read FRadius;
+    property MaxLeadership: Integer read FMaxLeadership;
   end;
 
 var
@@ -283,6 +285,7 @@ constructor TLeader.Create;
 begin
   inherited;
   FRadius := 1;
+  FMaxLeadership := 1;
 end;
 
 destructor TLeader.Destroy;

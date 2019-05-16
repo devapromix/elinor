@@ -109,11 +109,11 @@ begin
   end;
 
   if (GetDistToCapital(Leader.X, Leader.Y) = 0) or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, LeaderParty)
+    RenderParty(psLeft, LeaderParty, LeaderParty.Count < Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
 
-  RenderParty(psRight, SettlementParty);
+  RenderParty(psRight, SettlementParty, True);
   RenderButtons;
 end;
 
@@ -133,7 +133,8 @@ procedure Hire;
         InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      DisciplesRL.Scene.Hire.Show(AParty, APosition);
+      if (((AParty = LeaderParty) and (LeaderParty.Count < Leader.MaxLeadership)) or (AParty <> LeaderParty)) then
+        DisciplesRL.Scene.Hire.Show(AParty, APosition);
     end;
   end;
 

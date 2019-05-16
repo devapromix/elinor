@@ -16,6 +16,7 @@ type
     FCreature: array [TPosition] of TCreature;
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
+    function GetCount: Integer;
   public
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum); overload;
@@ -39,6 +40,7 @@ type
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
+    property Count: Integer read GetCount;
     procedure ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
   end;
 
@@ -131,6 +133,17 @@ end;
 function TParty.GetHitPoints(const APosition: TPosition): Integer;
 begin
   Result := FCreature[APosition].HitPoints;
+end;
+
+function TParty.GetCount: Integer;
+var
+  Position: TPosition;
+begin
+  Result := -1;
+  for Position := Low(TPosition) to High(TPosition) do
+    with FCreature[Position] do
+      if Active then
+        Inc(Result);
 end;
 
 procedure TParty.Heal(const APosition: TPosition);

@@ -16,12 +16,12 @@ type
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
-procedure RenderParty(const V: TPartySide; const Party: TParty);
+procedure RenderParty(const V: TPartySide; const Party: TParty; CanHire: Boolean = False);
 procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor: Integer); overload;
 procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
-procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer); overload;
+procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer; CanHire: Boolean = False); overload;
 
 var
   ActivePartyPosition: Integer = 2;
@@ -132,7 +132,7 @@ begin
   Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
 end;
 
-procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer);
+procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer; CanHire: Boolean = False);
 var
   F: Boolean;
 begin
@@ -146,11 +146,14 @@ begin
       else
         RenderUnit(ResEnum, AX, AY, F);
       RenderUnitInfo(I, Party, AX, AY);
+    end else if CanHire then
+    begin
+      DrawImage(AX + 7, AY + 7, rePlus);
     end;
   end;
 end;
 
-procedure RenderParty(const V: TPartySide; const Party: TParty);
+procedure RenderParty(const V: TPartySide; const Party: TParty; CanHire: Boolean = False);
 var
   I, X, Y, X4: Integer;
   F: Boolean;
@@ -184,7 +187,7 @@ begin
     end;
     RenderFrame(V, I, X, Y);
     if (Party <> nil) then
-      RenderUnit(I, Party, Left + X, Y);
+      RenderUnit(I, Party, Left + X, Y, CanHire);
     if F then
     begin
       F := False;
