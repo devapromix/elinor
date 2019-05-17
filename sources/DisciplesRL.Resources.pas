@@ -19,7 +19,7 @@ type
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
-  Tiles = [reTheEmpireTerrain];
+  Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
