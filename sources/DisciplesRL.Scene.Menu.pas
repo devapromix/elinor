@@ -38,7 +38,6 @@ const
 var
   MainMenuCursorPos: Integer = 0;
   Button: array [TButtonEnum] of TButton;
-  Fr: TFrame;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
@@ -78,9 +77,6 @@ begin
       Button[I].Sellected := True;
     Inc(T, H);
   end;
-
-  Fr := TFrame.Create(10, 10, Surface.Canvas);
-  Fr.Tag := 1;
 end;
 
 procedure RenderButtons;
@@ -99,7 +95,6 @@ begin
   DrawTitle(reTitleLogo);
   RenderButtons;
   CenterTextOut(Surface.Height - 50, '2018-2019 by Apromix');
-  Fr.Render;
 end;
 
 procedure Timer;
@@ -117,11 +112,6 @@ begin
     Ok(2);
   if Button[btQuit].MouseDown then
     DisciplesRL.MainForm.MainForm.Close;
-  if Fr.MouseDown then
-  begin
-    Fr.Sellected := True;
-    ShowMessage(IntToStr(Fr.Tag));
-  end;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -130,7 +120,6 @@ var
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     Button[I].MouseMove(X, Y);
-  Fr.MouseMove(X, Y);
   Render;
 end;
 
@@ -150,7 +139,6 @@ var
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Button[I]);
-  FreeAndNil(Fr);
 end;
 
 end.

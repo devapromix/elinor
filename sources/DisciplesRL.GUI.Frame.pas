@@ -20,7 +20,7 @@ type
     FCanvas: TCanvas;
     FTag: Integer;
   public
-    constructor Create(ALeft, ATop: Integer; ACanvas: TCanvas);
+    constructor Create(ALeft, ATop, ATag: Integer; ACanvas: TCanvas);
     destructor Destroy; override;
     procedure MouseMove(X, Y: Integer);
     function MouseOver(X, Y: Integer): Boolean; overload;
@@ -29,20 +29,22 @@ type
     procedure Render;
     property Sellected: Boolean read FSellected write FSellected;
     property Tag: Integer read FTag write FTag;
+    class function Width: Integer; static;
+    class function Height: Integer; static;
   end;
 
 implementation
 
 { TFrame }
 
-constructor TFrame.Create(ALeft, ATop: Integer; ACanvas: TCanvas);
+constructor TFrame.Create(ALeft, ATop, ATag: Integer; ACanvas: TCanvas);
 begin
   FTop := ATop;
   FLeft := ALeft;
+  FTag := ATag;
   FCanvas := ACanvas;
   FSellected := False;
   FCanHire := False;
-  FTag := 0;
 end;
 
 destructor TFrame.Destroy;
@@ -72,6 +74,16 @@ begin
     FCanvas.Draw(FLeft, FTop, ResImage[reActFrame])
   else
     FCanvas.Draw(FLeft, FTop, ResImage[reFrame]);
+end;
+
+class function TFrame.Width: Integer;
+begin
+  Result := ResImage[reFrame].Width
+end;
+
+class function TFrame.Height: Integer;
+begin
+  Result := ResImage[reFrame].Height
 end;
 
 function TFrame.MouseOver(X, Y: Integer): Boolean;

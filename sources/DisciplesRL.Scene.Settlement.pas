@@ -38,7 +38,8 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Info,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.GUI.Frame;
 
 type
   TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);

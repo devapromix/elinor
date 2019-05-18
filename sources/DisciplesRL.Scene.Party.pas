@@ -3,6 +3,7 @@
 interface
 
 uses
+  System.Types,
   DisciplesRL.Party,
   DisciplesRL.Resources,
   DisciplesRL.Creatures;
@@ -14,11 +15,15 @@ const
 type
   TPartySide = (psLeft, psRight);
 
+procedure Init;
+procedure Render;
+procedure Free;
+//function GetFrameXY(const Position: TPosition; const PartySide: TPartySide): Integer;
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const V: TPartySide; const Party: TParty; CanHire: Boolean = False);
 procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor: Integer); overload;
-procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer); overload;
+procedure RenderUnitInfo(I: TPosition; Party: TParty; AX, AY: Integer); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
 procedure RenderUnit(I: Integer; Party: TParty; AX, AY: Integer; CanHire: Boolean = False); overload;
@@ -34,7 +39,85 @@ uses
   System.TypInfo,
   DisciplesRL.Scenes,
   DisciplesRL.Game,
-  DisciplesRL.Leader;
+  DisciplesRL.Leader,
+  DisciplesRL.GUI.Frame;
+
+var
+  LeftFrame, RightFrame: array [TPosition] of TFrame;
+
+procedure Init;
+var
+  X, Y, Position, W: Integer;
+  F: Boolean;
+  PartySide: TPartySide;
+const
+  S = 2;
+begin
+  W := Surface.Width div 4;
+  for PartySide := Low(TPartySide) to High(TPartySide) do
+  begin
+    X := Left;
+    Y := Top;
+    F := False;
+    for Position := Low(TPosition) to High(TPosition) do
+    begin
+      case Position of
+        0, 2, 4:
+          begin
+            case PartySide of
+              psLeft:
+                X := (W + Left) - (W - TFrame.Width - S);
+              psRight:
+                X := Surface.Width - (Left + S + (TFrame.Width * 2));
+            end;
+          end;
+        1, 3, 5:
+          begin
+            case PartySide of
+              psLeft:
+                X := Left;
+              psRight:
+                X := Surface.Width - TFrame.Width - Left;
+            end;
+            F := True;
+          end;
+      end;
+      case PartySide of
+        psLeft:
+          LeftFrame[Position] := TFrame.Create(X, Y, Position, Surface.Canvas);
+        psRight:
+          RightFrame[Position] := TFrame.Create(X, Y, Position, Surface.Canvas);
+      end;
+      if F then
+      begin
+        F := False;
+        Inc(Y, TFrame.Height + S);
+      end;
+    end;
+  end;
+end;
+
+procedure Render;
+var
+  I: Integer;
+begin
+  for I := Low(TPosition) to High(TPosition) do
+  begin
+    LeftFrame[I].Render;
+    RightFrame[I].Render;
+  end;
+end;
+
+procedure Free;
+var
+  I: Integer;
+begin
+  for I := Low(TPosition) to High(TPosition) do
+  begin
+    FreeAndNil(LeftFrame[I]);
+    FreeAndNil(RightFrame[I]);
+  end;
+end;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
@@ -106,7 +189,7 @@ begin
     Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Heal %d Armor %d', [Heal, Armor]));
 end;
 
-procedure RenderUnitInfo(I: Integer; Party: TParty; AX, AY: Integer);
+procedure RenderUnitInfo(I: TPosition; Party: TParty; AX, AY: Integer);
 begin
   with Party.Creature[I] do
   begin
@@ -146,7 +229,8 @@ begin
       else
         RenderUnit(ResEnum, AX, AY, F);
       RenderUnitInfo(I, Party, AX, AY);
-    end else if CanHire then
+    end
+    else if CanHire then
     begin
       DrawImage(AX + 7, AY + 7, rePlus);
     end;
@@ -155,7 +239,8 @@ end;
 
 procedure RenderParty(const V: TPartySide; const Party: TParty; CanHire: Boolean = False);
 var
-  I, X, Y, X4: Integer;
+  X, Y, X4: Integer;
+  I: TPosition;
   F: Boolean;
 begin
   X4 := Surface.Width div 4;
@@ -185,7 +270,8 @@ begin
           F := True;
         end;
     end;
-    RenderFrame(V, I, X, Y);
+  DisciplesRL.Scene.Party.Render;
+    //RenderFrame(V, I, X, Y);
     if (Party <> nil) then
       RenderUnit(I, Party, Left + X, Y, CanHire);
     if F then

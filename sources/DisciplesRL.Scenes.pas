@@ -12,7 +12,7 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TSceneEnum = (scHire, scMenu, scInfo, scMap, scSettlement, scBattle, scBattle2);
+  TSceneEnum = (scHire, scMenu, scInfo, scMap, scParty, scSettlement, scBattle, scBattle2);
 
 const
   DefaultButtonTop = 600;
@@ -62,7 +62,8 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
-  DisciplesRL.ConfirmationForm;
+  DisciplesRL.ConfirmationForm,
+  DisciplesRL.Scene.Party;
 
 var
   MouseX, MouseY: Integer;
@@ -135,6 +136,8 @@ begin
         DisciplesRL.Scene.Menu.Init;
       scMap:
         DisciplesRL.Scene.Map.Init;
+      scParty:
+        DisciplesRL.Scene.Party.Init;
       scBattle:
         DisciplesRL.Scene.Battle.Init;
       scBattle2:
@@ -157,6 +160,8 @@ begin
       DisciplesRL.Scene.Menu.Render;
     scMap:
       DisciplesRL.Scene.Map.Render;
+    scParty:
+      DisciplesRL.Scene.Party.Render;
     scBattle:
       DisciplesRL.Scene.Battle.Render;
     scBattle2:
@@ -286,6 +291,8 @@ begin
         DisciplesRL.Scene.Menu.Free;
       scMap:
         DisciplesRL.Scene.Map.Free;
+      scParty:
+        DisciplesRL.Scene.Party.Free;
       scBattle:
         DisciplesRL.Scene.Battle.Free;
       scBattle2:
