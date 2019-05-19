@@ -50,103 +50,6 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party;
 
-procedure InitParty(const X, Y: Integer);
-var
-  I, J: Integer;
-  SlotType: string;
-begin
-  for I := 0 to 11 do
-  begin
-    SlotType := 'Slot' + IntToStr(TransformTo(I)) + 'Type';
-    case I of
-      0 .. 5:
-        begin
-          if LeaderParty.Creature[I].Active then
-            V.SetInt(SlotType, Ord(LeaderParty.Creature[I].Enum))
-          else
-            V.SetInt(SlotType, 0);
-        end;
-      6 .. 11:
-        begin
-          J := GetPartyIndex(Leader.X, Leader.Y);
-          if Party[J].Creature[I - 6].Active then
-            V.SetInt(SlotType, Ord(Party[J].Creature[I - 6].Enum))
-          else
-            V.SetInt(SlotType, 0);
-        end;
-    end;
-  end;
-end;
-
-function GetClass(ReachEnum: TReachEnum; Targets, Heal: Integer): Integer;
-begin
-  case ReachEnum of
-    reAny:
-      case Targets of
-        1: // Ranger
-          if Heal = 0 then
-            Result := 4
-          else
-            // Healer
-            Result := 3;
-      end;
-    reAll:
-      case Targets of
-        6: // Mage
-          Result := 2;
-      end;
-    reAdj:
-      case Targets of
-        1: // Warrior
-          Result := 1;
-      end;
-  end;
-end;
-
-procedure FullParty(const X, Y: Integer);
-var
-  I, J: Integer;
-  S: string;
-begin
-  for I := 0 to 11 do
-  begin
-    S := 'Slot' + IntToStr(TransformTo(I));
-    case I of
-      0 .. 5:
-        begin
-          with LeaderParty.Creature[I] do
-            if Active then
-            begin
-              V.SetStr(S + 'Name', Name);
-              V.SetInt(S + 'Level', Level);
-              V.SetInt(S + 'MHP', MaxHitPoints);
-              V.SetInt(S + 'HP', HitPoints);
-              V.SetInt(S + 'INI', Initiative);
-              V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
-              V.SetInt(S + 'TCH', ChancesToHit);
-              // V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
-            end;
-        end;
-      6 .. 11:
-        begin
-          J := GetPartyIndex(Leader.X, Leader.Y);
-          with Party[J].Creature[I - 6] do
-            if Active then
-            begin
-              V.SetStr(S + 'Name', Name);
-              V.SetInt(S + 'Level', Level);
-              V.SetInt(S + 'MHP', MaxHitPoints);
-              V.SetInt(S + 'HP', HitPoints);
-              V.SetInt(S + 'INI', Initiative);
-              V.SetInt(S + 'Use', IfThen(Heal = 0, Damage, Heal));
-              V.SetInt(S + 'TCH', ChancesToHit);
-              // V.SetInt(S + 'Class', GetClass(ReachEnum, Targets, Heal));
-            end;
-        end;
-    end;
-  end;
-end;
-
 { TLeader }
 
 procedure TLeader.PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
@@ -160,15 +63,16 @@ begin
     Exit;
   if (Map[lrDark][AX, AY] = reDark) then
     Exit;
-  for I := 0 to High(City) do
-  begin
-    if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
-      if (City[I].CurLevel < City[I].MaxLevel) then
-      begin
-        Inc(City[I].CurLevel);
-        DisciplesRL.City.UpdateRadius(I);
-      end;
-  end;
+  if not IsInfo then
+    for I := 0 to High(City) do
+    begin
+      if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
+        if (City[I].CurLevel < City[I].MaxLevel) then
+        begin
+          Inc(City[I].CurLevel);
+          DisciplesRL.City.UpdateRadius(I);
+        end;
+    end;
   if IsInfo then
   begin
     case Map[lrObj][AX, AY] of
@@ -176,9 +80,9 @@ begin
         begin
           I := GetPartyIndex(AX, AY);
           DisciplesRL.Scene.Party.Show(Party[I], scMap);
-          Exit;
         end;
     end;
+    Exit;
   end
   else
   begin

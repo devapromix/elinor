@@ -38,7 +38,6 @@ begin
     mbRight:
       begin
         Leader.PutAt(MousePos.X, MousePos.Y, True);
-
       end;
   end;
 end;

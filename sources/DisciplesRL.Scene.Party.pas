@@ -141,6 +141,7 @@ end;
 
 procedure Render;
 begin
+  DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
   RenderButtons;
 end;

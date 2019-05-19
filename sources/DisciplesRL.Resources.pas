@@ -14,7 +14,7 @@ type
     reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleLeader, reTitleNewDay,
-    reTitleLoot);
+    reTitleLoot,reTitleParty);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
@@ -193,7 +193,9 @@ const
     // Title "New Day"
     (FileName: 'title.new_day.png'; ResType: teGUI;),
     // Title "Loot"
-    (FileName: 'title.loot.png'; ResType: teGUI;)
+    (FileName: 'title.loot.png'; ResType: teGUI;),
+    // Title "Party"
+    (FileName: 'title.party.png'; ResType: teGUI;)
     //
     );
 
