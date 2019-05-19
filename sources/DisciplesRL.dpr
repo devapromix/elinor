@@ -25,8 +25,7 @@ uses
   DisciplesRL.BattleLog in 'DisciplesRL.BattleLog.pas',
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Info in 'DisciplesRL.Scene.Info.pas',
-  DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
-  DisciplesRL.GUI.Frame in 'DisciplesRL.GUI.Frame.pas';
+  DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm};
 
 {$R *.res}
 

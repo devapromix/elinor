@@ -26,8 +26,7 @@ uses
   DisciplesRL.MainForm,
   DisciplesRL.Game,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Info,
-  DisciplesRL.GUI.Frame;
+  DisciplesRL.Scene.Info;
 
 type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
