@@ -334,9 +334,9 @@ begin
         begin
           case ActivePartyPosition of
             0 .. 5:
-              DisciplesRL.Scene.Party.Show(LeaderParty);
+              DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
           else
-            DisciplesRL.Scene.Party.Show(SettlementParty);
+            DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
           end;
           Exit;
         end;

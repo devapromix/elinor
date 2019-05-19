@@ -20,7 +20,7 @@ type
     procedure Clear;
     procedure AddToParty;
     procedure RefreshRadius;
-    procedure PutAt(const AX, AY: ShortInt);
+    procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
     procedure Turn(const Count: Integer = 1);
     procedure Move(const AX, AY: ShortInt);
     property Radius: Integer read FRadius;
@@ -149,7 +149,7 @@ end;
 
 { TLeader }
 
-procedure TLeader.PutAt(const AX, AY: ShortInt);
+procedure TLeader.PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
 var
   I: Integer;
   F: Boolean;
@@ -169,31 +169,45 @@ begin
         DisciplesRL.City.UpdateRadius(I);
       end;
   end;
-  SetLocation(AX, AY);
-  RefreshRadius;
-  Turn(1);
-  F := True;
-  case Map[lrObj][X, Y] of
-    reGold:
-      begin
-        Map[lrObj][X, Y] := reNone;
-        AddLoot();
-        F := False;
-      end;
-    reBag:
-      begin
-        Map[lrObj][X, Y] := reNone;
-        AddLoot();
-        F := False;
-      end;
-    reEnemy:
-      begin
-        DisciplesRL.Scene.Battle2.Start;
-        DisciplesRL.Scenes.CurrentScene := scBattle2;
-        Map[lrObj][X, Y] := reNone;
-        F := False;
-        Exit;
-      end;
+  if IsInfo then
+  begin
+    case Map[lrObj][AX, AY] of
+      reEnemy:
+        begin
+          I := GetPartyIndex(AX, AY);
+          DisciplesRL.Scene.Party.Show(Party[I], scMap);
+          Exit;
+        end;
+    end;
+  end
+  else
+  begin
+    SetLocation(AX, AY);
+    RefreshRadius;
+    Turn(1);
+    F := True;
+    case Map[lrObj][X, Y] of
+      reGold:
+        begin
+          Map[lrObj][X, Y] := reNone;
+          AddLoot();
+          F := False;
+        end;
+      reBag:
+        begin
+          Map[lrObj][X, Y] := reNone;
+          AddLoot();
+          F := False;
+        end;
+      reEnemy:
+        begin
+          DisciplesRL.Scene.Battle2.Start;
+          DisciplesRL.Scenes.CurrentScene := scBattle2;
+          Map[lrObj][X, Y] := reNone;
+          F := False;
+          Exit;
+        end;
+    end;
   end;
   case LeaderTile of
     reNeutralCity:

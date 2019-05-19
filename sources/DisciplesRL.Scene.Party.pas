@@ -6,6 +6,7 @@ uses
   Vcl.Controls,
   System.Classes,
   DisciplesRL.Party,
+  DisciplesRL.Scenes,
   DisciplesRL.Resources,
   DisciplesRL.Creatures;
 
@@ -23,7 +24,7 @@ procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseClick;
 procedure Timer;
-procedure Show(Party: TParty);
+procedure Show(Party: TParty; CloseScene: TSceneEnum);
 procedure Free;
 function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Integer;
 function GetFrameY(const Position: TPosition; const PartySide: TPartySide): Integer;
@@ -45,7 +46,6 @@ implementation
 uses
   System.SysUtils,
   System.TypInfo,
-  DisciplesRL.Scenes,
   DisciplesRL.Game,
   DisciplesRL.Leader,
   DisciplesRL.GUI.Button,
@@ -61,13 +61,17 @@ const
 var
   Button: array [TButtonEnum] of TButton;
   CurrentParty: TParty;
+  BackScene: TSceneEnum;
 
 const
   S = 2;
 
-procedure Show(Party: TParty);
+procedure Show(Party: TParty; CloseScene: TSceneEnum);
 begin
   CurrentParty := Party;
+  BackScene := CloseScene;
+  if ActivePartyPosition > 5 then
+    ActivePartyPosition := ActivePartyPosition - 6;
   DisciplesRL.Scenes.CurrentScene := scParty;
 end;
 
@@ -143,7 +147,9 @@ end;
 
 procedure Close;
 begin
-  DisciplesRL.Scenes.CurrentScene := scSettlement;
+  if CurrentParty <> LeaderParty then
+    ActivePartyPosition := ActivePartyPosition + 6;
+  DisciplesRL.Scenes.CurrentScene := BackScene;
 end;
 
 procedure MouseClick;
