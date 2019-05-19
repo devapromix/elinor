@@ -330,6 +330,11 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
+        if (CurrentPartyPosition = ActivePartyPosition)and(True) then
+        begin
+          DisciplesRL.Scenes.CurrentScene := scParty;
+          Exit;
+        end;
         if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (LeaderParty.Count >= Leader.MaxLeadership))
         then
           Exit;

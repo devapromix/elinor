@@ -183,6 +183,8 @@ begin
       DisciplesRL.Scene.Menu.Timer;
     scMap:
       DisciplesRL.Scene.Map.Timer;
+    scParty:
+      DisciplesRL.Scene.Party.Timer;
     scBattle:
       DisciplesRL.Scene.Battle.Timer;
     scBattle2:
@@ -203,6 +205,8 @@ begin
       DisciplesRL.Scene.Menu.MouseClick;
     scMap:
       DisciplesRL.Scene.Map.MouseClick;
+    scParty:
+      DisciplesRL.Scene.Party.MouseClick;
     scBattle:
       DisciplesRL.Scene.Battle.MouseClick;
     scBattle2:
@@ -226,6 +230,8 @@ begin
       DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
     scMap:
       DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
+    scParty:
+      DisciplesRL.Scene.Party.MouseMove(Shift, X, Y);
     scBattle:
       DisciplesRL.Scene.Battle.MouseMove(Shift, X, Y);
     scBattle2:
@@ -246,6 +252,8 @@ begin
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
     scMap:
       DisciplesRL.Scene.Map.KeyDown(Key, Shift);
+    scParty:
+      DisciplesRL.Scene.Party.KeyDown(Key, Shift);
     scBattle:
       DisciplesRL.Scene.Battle.KeyDown(Key, Shift);
     scBattle2:
@@ -267,6 +275,8 @@ begin
       DisciplesRL.Scene.Menu.MouseDown(Button, Shift, X, Y);
     scMap:
       DisciplesRL.Scene.Map.MouseDown(Button, Shift, X, Y);
+    scParty:
+      DisciplesRL.Scene.Party.MouseDown(Button, Shift, X, Y);
     scBattle:
       DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
     scBattle2:

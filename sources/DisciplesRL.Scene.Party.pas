@@ -3,6 +3,8 @@
 interface
 
 uses
+  Vcl.Controls,
+  System.Classes,
   DisciplesRL.Party,
   DisciplesRL.Resources,
   DisciplesRL.Creatures;
@@ -16,6 +18,11 @@ type
 
 procedure Init;
 procedure Render;
+procedure KeyDown(var Key: Word; Shift: TShiftState);
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure MouseClick;
+procedure Timer;
 procedure Free;
 function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Integer;
 function GetFrameY(const Position: TPosition; const PartySide: TPartySide): Integer;
@@ -39,7 +46,19 @@ uses
   System.TypInfo,
   DisciplesRL.Scenes,
   DisciplesRL.Game,
-  DisciplesRL.Leader;
+  DisciplesRL.Leader,
+  DisciplesRL.GUI.Button,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Map;
+
+type
+  TButtonEnum = (btClose);
+
+const
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
+
+var
+  Button: array [TButtonEnum] of TButton;
 
 const
   S = 2;
@@ -84,18 +103,79 @@ begin
 end;
 
 procedure Init;
+var
+  R: TResEnum;
+  I: TButtonEnum;
+  L, W: Integer;
 begin
+  W := ResImage[reButtonDef].Width + 4;
+  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas, ButtonText[I]);
+    Inc(L, W);
+    if (I = btClose) then
+      Button[I].Sellected := True;
+  end;
+end;
 
+procedure RenderButtons;
+var
+  I: TButtonEnum;
+begin
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[I].Render;
 end;
 
 procedure Render;
+begin
+  RenderParty(psLeft, LeaderParty);
+  RenderButtons;
+end;
+
+procedure Action;
+begin
+  DisciplesRL.Scenes.CurrentScene := scSettlement;
+end;
+
+procedure MouseClick;
+begin
+  if Button[btClose].MouseDown then
+    Action;
+end;
+
+procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
+begin
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[I].MouseMove(X, Y);
+  Render;
+end;
+
+procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+end;
+
+procedure KeyDown(var Key: Word; Shift: TShiftState);
+begin
+  case Key of
+    K_ESCAPE, K_ENTER:
+      Action;
+  end;
+end;
+
+procedure Timer;
 begin
 
 end;
 
 procedure Free;
+var
+  I: TButtonEnum;
 begin
-
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[I]);
 end;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
