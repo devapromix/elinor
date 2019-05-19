@@ -274,7 +274,7 @@ begin
   end;
 end;
 
-procedure Action;
+procedure Close;
 begin
   DisciplesRL.Scenes.CurrentScene := scMap;
   NewDay;
@@ -291,7 +291,7 @@ begin
   if Button[btRevive].MouseDown then
     Revive;
   if Button[btClose].MouseDown then
-    Action;
+    Close;
 end;
 
 procedure Show(SettlementType: TSettlementSubSceneEnum);
@@ -330,9 +330,14 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        if (CurrentPartyPosition = ActivePartyPosition)and(True) then
+        if (CurrentPartyPosition = ActivePartyPosition) and (True) then
         begin
-          DisciplesRL.Scenes.CurrentScene := scParty;
+          case ActivePartyPosition of
+            0 .. 5:
+              DisciplesRL.Scene.Party.Show(LeaderParty);
+          else
+            DisciplesRL.Scene.Party.Show(SettlementParty);
+          end;
           Exit;
         end;
         if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (LeaderParty.Count >= Leader.MaxLeadership))
@@ -354,7 +359,7 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE, K_ENTER:
-      Action;
+      Close;
   end;
 end;
 

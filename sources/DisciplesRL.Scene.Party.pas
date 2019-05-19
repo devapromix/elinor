@@ -23,6 +23,7 @@ procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseClick;
 procedure Timer;
+procedure Show(Party: TParty);
 procedure Free;
 function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Integer;
 function GetFrameY(const Position: TPosition; const PartySide: TPartySide): Integer;
@@ -59,9 +60,16 @@ const
 
 var
   Button: array [TButtonEnum] of TButton;
+  CurrentParty: TParty;
 
 const
   S = 2;
+
+procedure Show(Party: TParty);
+begin
+  CurrentParty := Party;
+  DisciplesRL.Scenes.CurrentScene := scParty;
+end;
 
 function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Integer;
 var
@@ -129,11 +137,11 @@ end;
 
 procedure Render;
 begin
-  RenderParty(psLeft, LeaderParty);
+  RenderParty(psLeft, CurrentParty);
   RenderButtons;
 end;
 
-procedure Action;
+procedure Close;
 begin
   DisciplesRL.Scenes.CurrentScene := scSettlement;
 end;
@@ -141,7 +149,7 @@ end;
 procedure MouseClick;
 begin
   if Button[btClose].MouseDown then
-    Action;
+    Close;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -161,7 +169,7 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE, K_ENTER:
-      Action;
+      Close;
   end;
 end;
 
