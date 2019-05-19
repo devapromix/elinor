@@ -55,19 +55,19 @@ begin
         case PartySide of
           psLeft:
             Result := (W + Left) - (W - ResImage[reFrame].Width - S);
-          psRight:
-            Result := Surface.Width - (Left + S + (ResImage[reFrame].Width * 2));
+        else
+          Result := Surface.Width - (Left + S + (ResImage[reFrame].Width * 2));
         end;
       end;
-    1, 3, 5:
-      begin
-        case PartySide of
-          psLeft:
-            Result := Left;
-          psRight:
-            Result := Surface.Width - ResImage[reFrame].Width - Left;
-        end;
+  else
+    begin
+      case PartySide of
+        psLeft:
+          Result := Left;
+      else
+        Result := Surface.Width - ResImage[reFrame].Width - Left;
       end;
+    end;
   end;
 end;
 
@@ -78,8 +78,8 @@ begin
       Result := Top;
     2, 3:
       Result := Top + ResImage[reFrame].Height + S;
-    4, 5:
-      Result := Top + ((ResImage[reFrame].Height + S) * 2);
+  else
+    Result := Top + ((ResImage[reFrame].Height + S) * 2);
   end;
 end;
 
