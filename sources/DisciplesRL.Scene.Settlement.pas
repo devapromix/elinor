@@ -333,7 +333,7 @@ begin
     end;
   end;
   DisciplesRL.Scenes.CurrentScene := scMap;
-  NewDay;
+  TSaga.NewDay;
 end;
 
 procedure MouseClick;
@@ -356,7 +356,7 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CurrentCityIndex := GetPartyIndex(Leader.X, Leader.Y);
+        CurrentCityIndex := TSaga.GetPartyIndex(Leader.X, Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
         SettlementParty.Owner := Party[LeaderPartyIndex].Owner;
       end

@@ -89,7 +89,7 @@ begin
             Exit;
           end;
           if F then
-            NewDay;
+            TSaga.NewDay;
         end;
       end;
   end;

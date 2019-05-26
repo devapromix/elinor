@@ -130,14 +130,14 @@ end;
 
 procedure Victory;
 begin
-  Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
+  Party[TSaga.GetPartyIndex(Leader.X, Leader.Y)].Clear;
   if (TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(Leader.X, Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
   end
   else
-    AddLoot();
+    TSaga.AddLoot();
 end;
 
 procedure Defeat;
@@ -151,7 +151,7 @@ var
 begin
   Log.Clear;
   PartyExperience := 0;
-  I := GetPartyIndex(Leader.X, Leader.Y);
+  I := TSaga.GetPartyIndex(Leader.X, Leader.Y);
   EnemyParty := Party[I];
   ActivePartyPosition := GetRandomActivePartyPosition(Party[LeaderPartyIndex]);
   CurrentPartyPosition := ActivePartyPosition;
