@@ -125,17 +125,17 @@ begin
         begin
           Map[lrTile][Place[I].X, Place[I].Y] := reNeutralCity;
           ClearObj(Place[I].X, Place[I].Y);
-          AddPartyAt(Place[I].X, Place[I].Y);
+          TSaga.AddPartyAt(Place[I].X, Place[I].Y);
         end;
       TScenario.ScenarioTowerIndex: // Tower
         begin
           Map[lrTile][Place[I].X, Place[I].Y] := reTower;
-          AddPartyAt(Place[I].X, Place[I].Y, True);
+          TSaga.AddPartyAt(Place[I].X, Place[I].Y, True);
         end
     else // Ruin
       begin
         Map[lrTile][Place[I].X, Place[I].Y] := reRuin;
-        AddPartyAt(Place[I].X, Place[I].Y);
+        TSaga.AddPartyAt(Place[I].X, Place[I].Y);
       end;
     end;
     // Mine

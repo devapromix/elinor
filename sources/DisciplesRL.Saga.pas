@@ -22,15 +22,6 @@ var
   Wizard: Boolean = False;
   IsGame: Boolean = False;
 
-procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
-procedure PartyFree;
-function GetPartyCount: Integer;
-function GetPartyIndex(const AX, AY: Integer): Integer;
-procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False);
-procedure AddLoot;
-procedure NewDay;
-procedure pFree;
-
 type
   TScenario = class(TObject)
   public type
@@ -59,11 +50,11 @@ type
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
     J: Integer;
   public
-    class procedure Init;
-    class function IsStoneTab(const X, Y: Integer): Boolean;
-    class procedure AddStoneTab(const X, Y: Integer);
-    class function ScenarioOverlordState: string;
-    class function ScenarioAncientKnowledgeState: string;
+    class procedure Init; static;
+    class function IsStoneTab(const X, Y: Integer): Boolean; static;
+    class procedure AddStoneTab(const X, Y: Integer); static;
+    class function ScenarioOverlordState: string; static;
+    class function ScenarioAncientKnowledgeState: string; static;
   end;
 
 type
@@ -72,6 +63,13 @@ type
 
   public
     class procedure Clear; static;
+    class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
+    class procedure PartyFree; static;
+    class function GetPartyCount: Integer; static;
+    class function GetPartyIndex(const AX, AY: Integer): Integer; static;
+    class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
+    class procedure AddLoot; static;
+    class procedure NewDay; static;
   end;
 
 implementation
@@ -150,41 +148,43 @@ const
 const
   MaxLevel = 8;
 
-procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
+  { TSaga }
+
+class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
   Level, N: Integer;
   I: TPosition;
 begin
   Level := EnsureRange(GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
-  SetLength(Party, GetPartyCount + 1);
-  Party[GetPartyCount - 1] := TParty.Create(AX, AY);
+  SetLength(Party, TSaga.GetPartyCount + 1);
+  Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat
     N := RandomRange(0, High(PartyBase) - 1) + 1;
   until PartyBase[N].Level = Level;
   if IsFinal then
     N := High(PartyBase);
-  with Party[GetPartyCount - 1] do
+  with Party[TSaga.GetPartyCount - 1] do
   begin
     for I := Low(TPosition) to High(TPosition) do
       AddCreature(PartyBase[N].Character[I], I);
   end;
 end;
 
-procedure PartyFree;
+class procedure TSaga.PartyFree;
 var
   I: Integer;
 begin
-  for I := 0 to GetPartyCount - 1 do
+  for I := 0 to TSaga.GetPartyCount - 1 do
     FreeAndNil(Party[I]);
   SetLength(Party, 0);
 end;
 
-function GetPartyCount: Integer;
+class function TSaga.GetPartyCount: Integer;
 begin
   Result := Length(Party);
 end;
 
-function GetPartyIndex(const AX, AY: Integer): Integer;
+class function TSaga.GetPartyIndex(const AX, AY: Integer): Integer;
 var
   I: Integer;
 begin
@@ -197,17 +197,17 @@ begin
     end;
 end;
 
-procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
+class procedure TSaga.AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
 var
   I: Integer;
 begin
   Map[lrObj][AX, AY] := reEnemy;
-  PartyInit(AX, AY, IsFinal);
+  TSaga.PartyInit(AX, AY, IsFinal);
   I := GetPartyIndex(AX, AY);
   Party[I].Owner := reNeutrals;
 end;
 
-procedure AddLoot();
+class procedure TSaga.AddLoot();
 var
   Level: Integer;
 begin
@@ -217,18 +217,13 @@ begin
   DisciplesRL.Scene.Info.Show(stLoot, scMap);
 end;
 
-procedure NewDay;
+class procedure TSaga.NewDay;
 begin
   if IsDay then
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     DisciplesRL.Scene.Info.Show(stDay, scMap);
   end;
-end;
-
-procedure pFree;
-begin
-  PartyFree;
 end;
 
 { TScenario }
@@ -282,7 +277,7 @@ begin
   GoldMines := 0;
   BattlesWon := 0;
   IsDay := False;
-  pFree;
+  PartyFree;
   DisciplesRL.Map.Init;
   DisciplesRL.Map.Gen;
   DisciplesRL.Scene.Settlement.Gen;

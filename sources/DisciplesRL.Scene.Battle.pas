@@ -150,11 +150,11 @@ end;
 
 procedure Victory;
 begin
-  Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
+  Party[TSaga.GetPartyIndex(Leader.X, Leader.Y)].Clear;
   if RandomRange(1, 100) = 1 then
 
   else
-    AddLoot();
+    TSaga.AddLoot();
 end;
 
 procedure Defeat;
@@ -167,7 +167,7 @@ var
   I: Integer;
 begin
   //Log.Clear;
-  I := GetPartyIndex(Leader.X, Leader.Y);
+  I := TSaga.GetPartyIndex(Leader.X, Leader.Y);
   if Party[LeaderPartyIndex].IsClear then
     Defeat;
   if Party[I].IsClear then
@@ -264,7 +264,7 @@ begin
     DrawTitle(reTitleDefeat);
     F := True;
   end;
-  J := GetPartyIndex(Leader.X, Leader.Y);
+  J := TSaga.GetPartyIndex(Leader.X, Leader.Y);
   if Party[J].IsClear then
   begin
     DrawTitle(reTitleVictory);
@@ -305,7 +305,7 @@ begin
     Exit;
   if Party[LeaderPartyIndex].IsClear then
     Exit;
-  I := GetPartyIndex(Leader.X, Leader.Y);
+  I := TSaga.GetPartyIndex(Leader.X, Leader.Y);
   if Party[I].IsClear then
     Exit;
   ClearMessages;
