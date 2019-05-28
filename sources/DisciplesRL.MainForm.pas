@@ -85,7 +85,7 @@ begin
   for I := 1 to ParamCount do
   begin
     if (LowerCase(ParamStr(I)) = '-w') then
-      Wizard := True;
+      TSaga.Wizard := True;
   end;
   //
   ClientWidth := MapWidth * TileSize;
@@ -125,7 +125,10 @@ end;
 procedure TMainForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 begin
   DisciplesRL.Scenes.MouseMove(Shift, X, Y);
-  Caption := Format('DisciplesRL (%d:%d) [m:%d]', [X, Y, GoldMines]);
+  if TSaga.Wizard then
+    Caption := Format('DisciplesRL (%d:%d) [gold mines: %d]', [X, Y, TSaga.GoldMines])
+  else
+    Caption := 'DisciplesRL';
 end;
 
 end.

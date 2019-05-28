@@ -97,8 +97,8 @@ procedure AddCapitalParty;
 begin
   CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TParty.Create(Place[0].X, Place[0].Y, LeaderRace);
-  Party[TSaga.GetPartyCount - 1].AddCreature(Characters[LeaderRace][cgGuardian][ckGuardian], 3);
+  Party[TSaga.GetPartyCount - 1] := TParty.Create(Place[0].X, Place[0].Y, TSaga.LeaderRace);
+  Party[TSaga.GetPartyCount - 1].AddCreature(Characters[TSaga.LeaderRace][cgGuardian][ckGuardian], 3);
 end;
 
 procedure AddLeaderParty;
@@ -107,8 +107,8 @@ var
 begin
   LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Place[0].X, Place[0].Y, LeaderRace);
-  C := Characters[LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
+  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Place[0].X, Place[0].Y, TSaga.LeaderRace);
+  C := Characters[TSaga.LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
       begin
@@ -240,7 +240,7 @@ begin
         begin
           // Add mine
           if (MapLayer = Map[lrTile]) and (Map[lrObj][AX + X, AY + Y] = reMine) and (Map[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
-            Inc(GoldMines);
+            Inc(TSaga.GoldMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
 end;
@@ -252,7 +252,7 @@ end;
 
 function IsLeaderMove(const X, Y: Integer): Boolean;
 begin
-  Result := (InRect(X, Y, Leader.X - 1, Leader.Y - 1, Leader.X + 1, Leader.Y + 1) or Wizard) and not(Map[lrObj][X, Y] in StopTiles);
+  Result := (InRect(X, Y, Leader.X - 1, Leader.Y - 1, Leader.X + 1, Leader.Y + 1) or TSaga.Wizard) and not(Map[lrObj][X, Y] in StopTiles);
 end;
 
 end.
