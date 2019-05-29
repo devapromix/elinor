@@ -304,7 +304,7 @@ begin
   MaxSpeed := 7;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
-  FRadius := IfThen(Wizard, 9, 1);
+  FRadius := IfThen(TSaga.Wizard, 9, 1);
   Self.UpdateRadius;
 end;
 
@@ -332,8 +332,8 @@ begin
     Dec(Speed);
     if (Speed = 0) then
     begin
-      Inc(Days);
-      IsDay := True;
+      Inc(TSaga.Days);
+      TSaga.IsDay := True;
       Speed := MaxSpeed;
     end;
     Inc(C);

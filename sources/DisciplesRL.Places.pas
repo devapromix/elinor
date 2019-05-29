@@ -110,7 +110,7 @@ begin
       0: // Capital
         begin
           Leader.SetLocation(Place[I].X, Place[I].Y);
-          case LeaderRace of
+          case TSaga.LeaderRace of
             reTheEmpire:
               Map[lrTile][Place[I].X, Place[I].Y] := reTheEmpireCapital;
             reUndeadHordes:
@@ -165,10 +165,10 @@ end;
 
 class procedure TPlace.UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrTile], RaceTerrain[LeaderRace],
+  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrTile], RaceTerrain[TSaga.LeaderRace],
     [reNeutralCity, reRuin, reTower] + Capitals + Cities);
   DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrDark], reNone);
-  Place[AID].Owner := LeaderRace;
+  Place[AID].Owner := TSaga.LeaderRace;
 end;
 
 class function TPlace.GetCityCount: Integer;
