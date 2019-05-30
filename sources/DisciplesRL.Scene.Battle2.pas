@@ -359,13 +359,13 @@ begin
     K_ESCAPE, K_ENTER:
       Finish;
     K_SPACE:
-      if Wizard then
+      if TSaga.Wizard then
         NextTurn;
     K_D:
-      if Wizard then
+      if TSaga.Wizard then
         Defeat;
     K_V:
-      if Wizard then
+      if TSaga.Wizard then
         Victory;
   end;
 end;

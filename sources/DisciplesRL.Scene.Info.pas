@@ -67,7 +67,7 @@ begin
           end;
       end;
     stDay:
-      IsDay := False;
+      TSaga.IsDay := False;
     stLoot:
       begin
         F := True;
@@ -119,14 +119,14 @@ begin
     stDay:
       begin
         DrawTitle(reTitleNewDay);
-        CenterTextOut(300, Format('НАСТУПИЛ НОВЫЙ ДЕНЬ (День %d-й)', [Days]));
-        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(GoldMines * GoldFromMinePerDay));
+        CenterTextOut(300, Format('НАСТУПИЛ НОВЫЙ ДЕНЬ (День %d-й)', [TSaga.Days]));
+        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines * TSaga.GoldFromMinePerDay));
       end;
     stLoot:
       begin
         DrawTitle(reTitleLoot);
         CenterTextOut(300, 'СОКРОВИЩЕ');
-        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(NewGold));
+        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
       end;
     stHighScores:
       begin

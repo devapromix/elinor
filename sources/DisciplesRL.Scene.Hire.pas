@@ -116,12 +116,12 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMap;
     stDefeat:
       begin
-        IsGame := False;
+        TSaga.IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
       end;
     stVictory:
       begin
-        IsGame := False;
+        TSaga.IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
       end;
   end;
@@ -132,13 +132,13 @@ begin
   case SubScene of
     stRace:
       begin
-        LeaderRace := TRaceEnum(CurrentIndex + 1);
+        TSaga.LeaderRace := TRaceEnum(CurrentIndex + 1);
         DisciplesRL.Scene.Hire.Show(stLeader);
       end;
     stLeader:
       begin
         TSaga.Clear;
-        Party[LeaderPartyIndex].Owner := LeaderRace;
+        Party[LeaderPartyIndex].Owner := TSaga.LeaderRace;
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
     stCharacter:
@@ -155,12 +155,12 @@ begin
       DisciplesRL.Scenes.CurrentScene := scMap;
     stDefeat:
       begin
-        IsGame := False;
+        TSaga.IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
       end;
     stVictory:
       begin
-        IsGame := False;
+        TSaga.IsGame := False;
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
       end;
   end;
@@ -234,9 +234,9 @@ begin
   K := TRaceCharKind(CurrentIndex);
   case SubScene of
     stCharacter:
-      C := Characters[LeaderRace][cgCharacters][K];
+      C := Characters[TSaga.LeaderRace][cgCharacters][K];
     stLeader:
-      C := Characters[LeaderRace][cgLeaders][K];
+      C := Characters[TSaga.LeaderRace][cgLeaders][K];
   end;
   with TCreature.Character(C) do
   begin
@@ -268,7 +268,7 @@ begin
     if SubScene = stCharacter then
     begin
       Add('Цена', 0);
-      Add('Золото', Gold);
+      Add('Золото', TSaga.Gold);
     end;
   end;
 end;
@@ -370,7 +370,7 @@ begin
   Add;
   for J := 0 to 10 do
     Add(TScenario.ScenarioDescription[S][J]);
-  if IsGame then
+  if TSaga.IsGame then
     case TScenario.CurrentScenario of
       sgOverlord:
         Add(TScenario.ScenarioOverlordState);
@@ -430,10 +430,10 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with TCreature.Character(Characters[LeaderRace][cgLeaders][K]) do
+          with TCreature.Character(Characters[TSaga.LeaderRace][cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[LeaderRace][cgLeaders][K], False);
+            RenderUnitInfo(Lf, Top + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
           end;
           Inc(Y, 120);
         end;

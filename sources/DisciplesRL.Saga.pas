@@ -7,21 +7,6 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
-const
-  GoldFromMinePerDay = 100;
-  GoldForRevivePerLevel = 250;
-
-var
-  Days: Integer = 0;
-  Gold: Integer = 0;
-  NewGold: Integer = 0;
-  GoldMines: Integer = 0;
-  BattlesWon: Integer = 0;
-  LeaderRace: TRaceEnum;
-  IsDay: Boolean = False;
-  Wizard: Boolean = False;
-  IsGame: Boolean = False;
-
 type
   TScenario = class(TObject)
   public type
@@ -61,6 +46,20 @@ type
   TSaga = class(TObject)
   private
 
+  public
+  class var
+    Days: Integer;
+    Gold: Integer;
+    NewGold: Integer;
+    GoldMines: Integer;
+    BattlesWon: Integer;
+    LeaderRace: TRaceEnum;
+    IsDay: Boolean;
+    Wizard: Boolean;
+    IsGame: Boolean;
+  public const
+    GoldFromMinePerDay = 100;
+    GoldForRevivePerLevel = 250;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
@@ -269,6 +268,7 @@ end;
 
 class procedure TSaga.Clear;
 begin
+  Wizard := False;
   IsGame := True;
   TScenario.Init;
   Days := 1;
