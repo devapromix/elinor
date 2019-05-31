@@ -78,6 +78,9 @@ begin
           DrawImage(X * TileSize, Y * TileSize, ResImage[reUnk])
         else
           DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]])
+          /// else if (ResBase[Map[lrObj][X, Y]].ResType in [teTree]) then
+          /// begin
+          /// end
       else if (Map[lrObj][X, Y] <> reNone) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
       // Leader

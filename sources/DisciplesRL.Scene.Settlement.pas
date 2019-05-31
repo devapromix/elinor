@@ -199,6 +199,11 @@ procedure Heal;
         InformDialog('Сначала нужно воскресить!');
         Exit;
       end;
+      if HitPoints = MaxHitPoints then
+      begin
+        InformDialog('Не нуждается в исцелении!');
+        Exit;
+      end;
       V := Min((MaxHitPoints - HitPoints) * Level, Gold);
       if (V <= 0) then
       begin
