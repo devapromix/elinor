@@ -74,7 +74,7 @@ begin
         (Map[lrDark][X, Y] = reNone);
 
       // Special
-      if Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
+      if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
         ((TScenario.CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
         ((TScenario.CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[reCursorSpecial]);
@@ -116,7 +116,7 @@ end;
 
 procedure MouseClick;
 begin
-  if Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
+  if TSaga.Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
     Leader.PutAt(MousePos.X, MousePos.Y)
   else if IsLeaderMove(MousePos.X, MousePos.Y) and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
     Leader.PutAt(MousePos.X, MousePos.Y);

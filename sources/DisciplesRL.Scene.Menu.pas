@@ -51,11 +51,11 @@ begin
   case MainMenuCursorPos of
     0: // Play
       begin
-        IsGame := False;
+        TSaga.IsGame := False;
         DisciplesRL.Scene.Hire.Show(stScenario);
       end;
     1: // Continue
-      if IsGame then
+      if TSaga.IsGame then
         DisciplesRL.Scenes.CurrentScene := scMap;
     2: // High Scores
       DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
