@@ -292,7 +292,7 @@ procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHir
 var
   F: Boolean;
 begin
-  F := Party.Owner = LeaderRace;
+  F := Party.Owner = TSaga.LeaderRace;
   with Party.Creature[Position] do
   begin
     if Active then

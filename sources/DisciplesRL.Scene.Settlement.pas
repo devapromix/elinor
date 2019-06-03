@@ -115,7 +115,7 @@ begin
       begin
         DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
         CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex + 1), Place[CurrentCityIndex].MaxLevel + 1]));
-        CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
+        CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
       end;
@@ -123,7 +123,7 @@ begin
       begin
         DrawTitle(CityNameTitle[CityArr[0]]);
         CenterTextOut(100, Format('%s (Level %d)', [GetName, Place[0].MaxLevel + 1]));
-        CenterTextOut(140, 'GOLD ' + IntToStr(Gold));
+        CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
@@ -238,7 +238,7 @@ procedure Heal;
         InformDialog('Не нуждается в исцелении!');
         Exit;
       end;
-      V := Min((MaxHitPoints - HitPoints) * Level, Gold);
+      V := Min((MaxHitPoints - HitPoints) * Level, TSaga.Gold);
       if (V <= 0) then
       begin
         InformDialog('Нужно больше золота!');
@@ -255,7 +255,7 @@ procedure Heal;
         if not ConfirmDialog(Format('Полностью исцелить за %d золота?', [R])) then
           Exit;
       end;
-      Gold := Gold - R;
+      TSaga.Gold := TSaga.Gold - R;
       AParty.Heal(APosition, V div Level);
     end;
 
@@ -291,15 +291,15 @@ procedure Revive;
       end
       else
       begin
-        V := Level * GoldForRevivePerLevel;
-        if (Gold < V) then
+        V := Level * TSaga.GoldForRevivePerLevel;
+        if (TSaga.Gold < V) then
         begin
           InformDialog(Format('Для воскрешения нужно %d золота!', [V]));
           Exit;
         end;
         if not ConfirmDialog(Format('Воскресить за %d золота?', [V])) then
           Exit;
-        Gold := Gold - V;
+        TSaga.Gold := TSaga.Gold - V;
       end;
     end;
     AParty.Revive(APosition);
