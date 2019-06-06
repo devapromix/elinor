@@ -7,6 +7,18 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
+{
+  Сценарии:
+  [1] Темная Башня - победить чародея в башне.
+  [2] Древние Знания - собрать на карте все каменные таблички с древними знаниями.
+  [3] Властитель - захватить все города на карте.
+  4  Захватить определенный город.
+  5  Добыть определенный артефакт.
+  6  Разорить все руины и другие опасные места.
+  7  Победить всех врагов на карте.
+  8  Что-то выполнить за N дней (лимит времени, возможно опция для каждого сценария).
+}
+
 type
   TScenario = class(TObject)
   public type
@@ -51,6 +63,7 @@ type
     Days: Integer;
     Gold: Integer;
     NewGold: Integer;
+    Scores: Integer;
     GoldMines: Integer;
     BattlesWon: Integer;
     LeaderRace: TRaceEnum;
@@ -69,6 +82,7 @@ type
     class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
     class procedure AddLoot; static;
     class procedure NewDay; static;
+    class procedure AddScores(I: Integer); static;
   end;
 
 implementation
@@ -206,6 +220,12 @@ begin
   Party[I].Owner := reNeutrals;
 end;
 
+class procedure TSaga.AddScores(I: Integer);
+begin
+  if (I < 0) then I := 0;
+  Scores := Scores + I;
+end;
+
 class procedure TSaga.AddLoot();
 var
   Level: Integer;
@@ -238,7 +258,6 @@ class procedure TScenario.Init;
 begin
   J := 0;
   StoneTab := 0;
-  CurrentScenario := sgDarkTower;
 end;
 
 class function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
@@ -268,12 +287,12 @@ end;
 
 class procedure TSaga.Clear;
 begin
-  Wizard := False;
   IsGame := True;
   TScenario.Init;
   Days := 1;
   Gold := 250;
   NewGold := 0;
+  Scores := 0;
   GoldMines := 0;
   BattlesWon := 0;
   IsDay := False;
