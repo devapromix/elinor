@@ -58,7 +58,7 @@ begin
       if TSaga.IsGame then
         DisciplesRL.Scenes.CurrentScene := scMap;
     2: // High Scores
-      DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
+      DisciplesRL.Scene.Hire.Show(stHighScores2);
     3: // Exit;
       DisciplesRL.MainForm.MainForm.Close;
   end;

@@ -8,7 +8,7 @@ uses
   Vcl.Controls;
 
 type
-  TInfoSubSceneEnum = (stDay, stLoot, stStoneTab, stHighScores);
+  TInfoSubSceneEnum = (stDay, stLoot, stStoneTab);
 
 procedure Init;
 procedure Render;
@@ -37,7 +37,7 @@ uses
 var
   Button: TButton;
   Dialog: string = '';
-  SubScene: TInfoSubSceneEnum = stHighScores;
+  SubScene: TInfoSubSceneEnum;
   BackScene: TSceneEnum = scMenu;
   Lf: Integer = 0;
 
@@ -127,10 +127,6 @@ begin
         DrawTitle(reTitleLoot);
         CenterTextOut(300, 'СОКРОВИЩЕ');
         CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
-      end;
-    stHighScores:
-      begin
-        DrawTitle(reTitleHighScores);
       end;
   end;
   RenderButtons;
