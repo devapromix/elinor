@@ -320,7 +320,7 @@ begin
   case LeaderTile of
     reNeutralCity:
       begin
-        Leader.ChCityOwner;
+        TLeaderParty(Party[LeaderPartyIndex]).ChCityOwner;
         TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
       end;
   end;

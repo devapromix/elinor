@@ -68,6 +68,7 @@ type
     property Radius: Integer read FRadius;
     procedure UpdateRadius;
     procedure Turn(const Count: Integer = 1);
+    procedure ChCityOwner;
   end;
 
 var
@@ -298,6 +299,18 @@ begin
 end;
 
 { TLeaderParty }
+
+procedure TLeaderParty.ChCityOwner;
+begin
+  case Party[LeaderPartyIndex].Owner of
+    reTheEmpire:
+      Map[lrTile][X, Y] := reTheEmpireCity;
+    reUndeadHordes:
+      Map[lrTile][X, Y] := reUndeadHordesCity;
+    reLegionsOfTheDamned:
+      Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
+  end;
+end;
 
 procedure TLeaderParty.Clear;
 begin

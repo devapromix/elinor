@@ -14,7 +14,6 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure ChCityOwner;
     procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
     procedure Move(const AX, AY: ShortInt); overload;
     procedure Move(Dir: TDirectionEnum); overload;
@@ -122,7 +121,7 @@ begin
   case LeaderTile of
     reNeutralCity:
       begin
-        ChCityOwner;
+        TLeaderParty(Party[LeaderPartyIndex]).ChCityOwner;
         TPlace.UpdateRadius(TPlace.GetIndex(X, Y));
         F := False;
       end;
@@ -149,18 +148,6 @@ end;
 procedure TLeader.Move(Dir: TDirectionEnum);
 begin
   PutAt(X + Direction[Dir].X, Y + Direction[Dir].Y);
-end;
-
-procedure TLeader.ChCityOwner;
-begin
-  case Party[LeaderPartyIndex].Owner of
-    reTheEmpire:
-      Map[lrTile][X, Y] := reTheEmpireCity;
-    reUndeadHordes:
-      Map[lrTile][X, Y] := reUndeadHordesCity;
-    reLegionsOfTheDamned:
-      Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
-  end;
 end;
 
 constructor TLeader.Create;
