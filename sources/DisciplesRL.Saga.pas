@@ -300,7 +300,7 @@ begin
   DisciplesRL.Map.Init;
   DisciplesRL.Map.Gen;
   DisciplesRL.Scene.Settlement.Gen;
-  TLeaderParty(Party[LeaderPartyIndex]).Clear;
+  TLeaderParty.Leader.Clear;
 end;
 
 end.

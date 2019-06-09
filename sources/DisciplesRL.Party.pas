@@ -69,6 +69,7 @@ type
     procedure UpdateRadius;
     procedure Turn(const Count: Integer = 1);
     procedure ChCityOwner;
+    class function Leader: TLeaderParty;
   end;
 
 var
@@ -332,6 +333,11 @@ destructor TLeaderParty.Destroy;
 begin
 
   inherited;
+end;
+
+class function TLeaderParty.Leader: TLeaderParty;
+begin
+  Result := TLeaderParty(Party[LeaderPartyIndex]);
 end;
 
 procedure TLeaderParty.Turn(const Count: Integer);

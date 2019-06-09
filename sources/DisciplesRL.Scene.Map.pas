@@ -70,7 +70,7 @@ begin
       else
         DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutralTerrain]);
       end;
-      F := (GetDist(X, Y, Leader.X, Leader.Y) > TLeaderParty(Party[LeaderPartyIndex]).Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
+      F := (GetDist(X, Y, Leader.X, Leader.Y) > TLeaderParty.Leader.Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
         (Map[lrDark][X, Y] = reNone);
 
       // Special
