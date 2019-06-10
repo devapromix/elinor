@@ -43,6 +43,7 @@ var
   ActivePartyPosition: Integer = 2;
   CurrentPartyPosition: Integer = 2;
 
+
 implementation
 
 uses

@@ -21,10 +21,6 @@ type
   TIgnoreRes = set of TResEnum;
 
 var
-  LeaderPartyIndex: Byte;
-  CapitalPartyIndex: Byte;
-
-var
   Map: array [TLayerEnum] of TMapLayer;
 
 procedure Gen;

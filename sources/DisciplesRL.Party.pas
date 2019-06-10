@@ -74,6 +74,8 @@ type
 
 var
   Party: array of TParty;
+  LeaderPartyIndex: Byte;
+  CapitalPartyIndex: Byte;
 
 implementation
 
