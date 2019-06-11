@@ -14,9 +14,6 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
-    procedure Move(const AX, AY: ShortInt); overload;
-    procedure Move(Dir: TDirectionEnum); overload;
   end;
 
 var
@@ -42,113 +39,6 @@ uses
   DisciplesRL.Scene.Info;
 
 { TLeader }
-
-procedure TLeader.PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
-var
-  I: Integer;
-  F: Boolean;
-begin
-  if not InMap(AX, AY) then
-    Exit;
-  if (Map[lrObj][AX, AY] in StopTiles) then
-    Exit;
-  if not IsInfo then
-    for I := 0 to High(Place) do
-    begin
-      if (Place[I].Owner in Races) then
-        if (Place[I].CurLevel < Place[I].MaxLevel) then
-        begin
-          Inc(Place[I].CurLevel);
-          TPlace.UpdateRadius(I);
-        end;
-    end;
-  if IsInfo then
-  begin
-    if Map[lrTile][AX, AY] in Capitals then
-    begin
-      DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
-      Exit;
-    end;
-    if Map[lrTile][AX, AY] in Cities then
-    begin
-      I := TSaga.GetPartyIndex(AX, AY);
-      if not Party[I].IsClear then
-        DisciplesRL.Scene.Party.Show(Party[I], scMap);
-      Exit;
-    end;
-    case Map[lrObj][AX, AY] of
-      reEnemy:
-        begin
-          I := TSaga.GetPartyIndex(AX, AY);
-          DisciplesRL.Scene.Party.Show(Party[I], scMap);
-        end;
-    end;
-    Exit;
-  end
-  else
-  begin
-    SetLocation(AX, AY);
-    with TLeaderParty(Party[LeaderPartyIndex]) do
-    begin
-      SetLocation(AX, AY);
-      UpdateRadius;
-      Turn(1);
-    end;
-    F := True;
-    case Map[lrObj][X, Y] of
-      reGold:
-        begin
-          Map[lrObj][X, Y] := reNone;
-          TSaga.AddLoot();
-          F := False;
-        end;
-      reBag:
-        begin
-          Map[lrObj][X, Y] := reNone;
-          TSaga.AddLoot();
-          F := False;
-        end;
-      reEnemy:
-        begin
-          DisciplesRL.Scene.Battle2.Start;
-          DisciplesRL.Scenes.CurrentScene := scBattle2;
-          Map[lrObj][X, Y] := reNone;
-          F := False;
-          Exit;
-        end;
-    end;
-  end;
-  case LeaderTile of
-    reNeutralCity:
-      begin
-        TLeaderParty.Leader.ChCityOwner;
-        TPlace.UpdateRadius(TPlace.GetIndex(X, Y));
-        F := False;
-      end;
-  end;
-  if LeaderTile in Capitals then
-  begin
-    DisciplesRL.Scene.Settlement.Show(stCapital);
-    F := False;
-  end;
-  if LeaderTile in Cities then
-  begin
-    DisciplesRL.Scene.Settlement.Show(stCity);
-    F := False;
-  end;
-  if F then
-    TSaga.NewDay;
-end;
-
-procedure TLeader.Move(const AX, AY: ShortInt);
-begin
-  PutAt(X + AX, Y + AY);
-end;
-
-procedure TLeader.Move(Dir: TDirectionEnum);
-begin
-  PutAt(X + Direction[Dir].X, Y + Direction[Dir].Y);
-end;
 
 constructor TLeader.Create;
 begin

@@ -40,7 +40,7 @@ begin
   case Button of
     mbMiddle:
       begin
-        Leader.PutAt(MousePos.X, MousePos.Y, True);
+        TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);
       end;
   end;
 end;
@@ -117,9 +117,9 @@ end;
 procedure MouseClick;
 begin
   if TSaga.Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
-    Leader.PutAt(MousePos.X, MousePos.Y)
+    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
   else if IsLeaderMove(MousePos.X, MousePos.Y) and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
-    Leader.PutAt(MousePos.X, MousePos.Y);
+    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -139,23 +139,23 @@ begin
     K_ESCAPE:
       DisciplesRL.Scenes.CurrentScene := scMenu;
     K_LEFT, K_KP_4, K_A:
-      Leader.Move(drWest);
+      TLeaderParty.Leader.Move(drWest);
     K_RIGHT, K_KP_6, K_D:
-      Leader.Move(drEast);
+      TLeaderParty.Leader.Move(drEast);
     K_UP, K_KP_8, K_W:
-      Leader.Move(drNorth);
+      TLeaderParty.Leader.Move(drNorth);
     K_DOWN, K_KP_2, K_X:
-      Leader.Move(drSouth);
+      TLeaderParty.Leader.Move(drSouth);
     K_KP_7, K_Q:
-      Leader.Move(drNorthWest);
+      TLeaderParty.Leader.Move(drNorthWest);
     K_KP_9, K_E:
-      Leader.Move(drNorthEast);
+      TLeaderParty.Leader.Move(drNorthEast);
     K_KP_1, K_Z:
-      Leader.Move(drSouthWest);
+      TLeaderParty.Leader.Move(drSouthWest);
     K_KP_3, K_C:
-      Leader.Move(drSouthEast);
+      TLeaderParty.Leader.Move(drSouthEast);
     K_KP_5, K_S:
-      Leader.Move(drOrigin);
+      TLeaderParty.Leader.Move(drOrigin);
     K_P:
       DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scMap);
     K_J:

@@ -70,6 +70,9 @@ type
     procedure Turn(const Count: Integer = 1);
     procedure ChCityOwner;
     class function Leader: TLeaderParty;
+    class procedure Move(const AX, AY: ShortInt); overload;
+    class procedure Move(Dir: TDirectionEnum); overload;
+    class procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
   end;
 
 var
@@ -83,7 +86,13 @@ uses
   System.Math,
   DisciplesRL.Map,
   DisciplesRL.Saga,
-  DisciplesRL.Resources;
+  DisciplesRL.Resources,
+  DisciplesRL.Leader,
+  DisciplesRL.Places,
+  DisciplesRL.Scenes,
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Battle2,
+  DisciplesRL.Scene.Settlement;
 
 { TParty }
 
@@ -340,6 +349,113 @@ end;
 class function TLeaderParty.Leader: TLeaderParty;
 begin
   Result := TLeaderParty(Party[LeaderPartyIndex]);
+end;
+
+class procedure TLeaderParty.Move(Dir: TDirectionEnum);
+begin
+  PutAt(Leader.X + Direction[Dir].X, Leader.Y + Direction[Dir].Y);
+end;
+
+class procedure TLeaderParty.PutAt(const AX, AY: ShortInt; const IsInfo: Boolean);
+var
+  I: Integer;
+  F: Boolean;
+begin
+  if not InMap(AX, AY) then
+    Exit;
+  if (Map[lrObj][AX, AY] in StopTiles) then
+    Exit;
+  if not IsInfo then
+    for I := 0 to High(Place) do
+    begin
+      if (Place[I].Owner in Races) then
+        if (Place[I].CurLevel < Place[I].MaxLevel) then
+        begin
+          Inc(Place[I].CurLevel);
+          TPlace.UpdateRadius(I);
+        end;
+    end;
+  if IsInfo then
+  begin
+    if Map[lrTile][AX, AY] in Capitals then
+    begin
+      DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
+      Exit;
+    end;
+    if Map[lrTile][AX, AY] in Cities then
+    begin
+      I := TSaga.GetPartyIndex(AX, AY);
+      if not Party[I].IsClear then
+        DisciplesRL.Scene.Party.Show(Party[I], scMap);
+      Exit;
+    end;
+    case Map[lrObj][AX, AY] of
+      reEnemy:
+        begin
+          I := TSaga.GetPartyIndex(AX, AY);
+          DisciplesRL.Scene.Party.Show(Party[I], scMap);
+        end;
+    end;
+    Exit;
+  end
+  else
+  begin
+    Leader.SetLocation(AX, AY);
+    with TLeaderParty(Party[LeaderPartyIndex]) do
+    begin
+      SetLocation(AX, AY);
+      UpdateRadius;
+      Turn(1);
+    end;
+    F := True;
+    case Map[lrObj][Leader.X, Leader.Y] of
+      reGold:
+        begin
+          Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TSaga.AddLoot();
+          F := False;
+        end;
+      reBag:
+        begin
+          Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TSaga.AddLoot();
+          F := False;
+        end;
+      reEnemy:
+        begin
+          DisciplesRL.Scene.Battle2.Start;
+          DisciplesRL.Scenes.CurrentScene := scBattle2;
+          Map[lrObj][Leader.X, Leader.Y] := reNone;
+          F := False;
+          Exit;
+        end;
+    end;
+  end;
+  case LeaderTile of
+    reNeutralCity:
+      begin
+        TLeaderParty.Leader.ChCityOwner;
+        TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
+        F := False;
+      end;
+  end;
+  if LeaderTile in Capitals then
+  begin
+    DisciplesRL.Scene.Settlement.Show(stCapital);
+    F := False;
+  end;
+  if LeaderTile in Cities then
+  begin
+    DisciplesRL.Scene.Settlement.Show(stCity);
+    F := False;
+  end;
+  if F then
+    TSaga.NewDay;
+end;
+
+class procedure TLeaderParty.Move(const AX, AY: ShortInt);
+begin
+  Leader.PutAt(Leader.X + AX, Leader.Y + AY);
 end;
 
 procedure TLeaderParty.Turn(const Count: Integer);
