@@ -45,7 +45,6 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
   DisciplesRL.Map,
-  DisciplesRL.Leader,
   DisciplesRL.Saga,
   DisciplesRL.PascalScript.Battle;
 

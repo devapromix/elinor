@@ -40,7 +40,6 @@ uses
   Vcl.Dialogs,
   System.Math,
   System.SysUtils,
-  DisciplesRL.Leader,
   DisciplesRL.Places,
   DisciplesRL.Saga,
   DisciplesRL.Creatures,
@@ -61,13 +60,21 @@ end;
 procedure Init;
 var
   L: TLayerEnum;
+  I: Integer;
 begin
   for L := Low(TLayerEnum) to High(TLayerEnum) do
   begin
     SetLength(Map[L], MapWidth, MapHeight);
     Clear(L);
   end;
-  DisciplesRL.Places.Init;
+  for I := 0 to High(Place) do
+  begin
+    Place[I].X := 0;
+    Place[I].Y := 0;
+    Place[I].CurLevel := 0;
+    Place[I].MaxLevel := 2;
+    Place[I].Owner := reNeutrals;
+  end;
 end;
 
 procedure Clear(const L: TLayerEnum);
@@ -243,12 +250,13 @@ end;
 
 function LeaderTile: TResEnum;
 begin
-  Result := Map[lrTile][Leader.X, Leader.Y];
+  Result := Map[lrTile][TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
 end;
 
 function IsLeaderMove(const X, Y: Integer): Boolean;
 begin
-  Result := (InRect(X, Y, Leader.X - 1, Leader.Y - 1, Leader.X + 1, Leader.Y + 1) or TSaga.Wizard) and not(Map[lrObj][X, Y] in StopTiles);
+  Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1, TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or TSaga.Wizard)
+    and not(Map[lrObj][X, Y] in StopTiles);
 end;
 
 end.
