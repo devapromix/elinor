@@ -25,7 +25,6 @@ uses
   System.Classes,
   DisciplesRL.Scenes,
   DisciplesRL.MainForm,
-  DisciplesRL.Leader,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Battle;
 

@@ -87,7 +87,6 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Resources,
-  DisciplesRL.Leader,
   DisciplesRL.Places,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Party,
