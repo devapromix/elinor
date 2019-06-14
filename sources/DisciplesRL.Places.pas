@@ -22,8 +22,6 @@ type
 var
   Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
 
-procedure Init;
-
 implementation
 
 uses
@@ -31,22 +29,7 @@ uses
   System.Math,
   System.SysUtils,
   DisciplesRL.Map,
-  DisciplesRL.Resources,
-  DisciplesRL.Leader;
-
-procedure Init;
-var
-  I: Integer;
-begin
-  for I := 0 to High(Place) do
-  begin
-    Place[I].X := 0;
-    Place[I].Y := 0;
-    Place[I].CurLevel := 0;
-    Place[I].MaxLevel := 2;
-    Place[I].Owner := reNeutrals;
-  end;
-end;
+  DisciplesRL.Resources;
 
 function GetRadius(const N: Integer): Integer;
 begin
@@ -109,7 +92,6 @@ begin
     case I of
       0: // Capital
         begin
-          Leader.SetLocation(Place[I].X, Place[I].Y);
           case TSaga.LeaderRace of
             reTheEmpire:
               Map[lrTile][Place[I].X, Place[I].Y] := reTheEmpireCapital;

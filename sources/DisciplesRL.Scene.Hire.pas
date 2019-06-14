@@ -34,7 +34,6 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Leader,
   DisciplesRL.Map,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Info;

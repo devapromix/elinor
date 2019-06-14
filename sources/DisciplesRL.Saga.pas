@@ -94,7 +94,6 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
-  DisciplesRL.Leader,
   DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Places;
@@ -230,7 +229,7 @@ class procedure TSaga.AddLoot();
 var
   Level: Integer;
 begin
-  Level := GetDistToCapital(Leader.X, Leader.Y);
+  Level := GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
   DisciplesRL.Scene.Info.Show(stLoot, scMap);
