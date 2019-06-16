@@ -7,7 +7,6 @@ uses
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
-  DisciplesRL.Leader in 'DisciplesRL.Leader.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',

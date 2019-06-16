@@ -30,7 +30,6 @@ uses
   DisciplesRL.Scene.Info,
   DisciplesRL.Map,
   DisciplesRL.Saga,
-  DisciplesRL.Leader,
   DisciplesRL.Party,
   DisciplesRL.Scene.Party,
   DisciplesRL.Resources,
@@ -150,7 +149,7 @@ end;
 
 procedure Victory;
 begin
-  Party[TSaga.GetPartyIndex(Leader.X, Leader.Y)].Clear;
+  Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)].Clear;
   if RandomRange(1, 100) = 1 then
 
   else
@@ -167,7 +166,7 @@ var
   I: Integer;
 begin
   //Log.Clear;
-  I := TSaga.GetPartyIndex(Leader.X, Leader.Y);
+  I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if Party[LeaderPartyIndex].IsClear then
     Defeat;
   if Party[I].IsClear then
@@ -264,7 +263,7 @@ begin
     DrawTitle(reTitleDefeat);
     F := True;
   end;
-  J := TSaga.GetPartyIndex(Leader.X, Leader.Y);
+  J := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if Party[J].IsClear then
   begin
     DrawTitle(reTitleVictory);
@@ -305,7 +304,7 @@ begin
     Exit;
   if Party[LeaderPartyIndex].IsClear then
     Exit;
-  I := TSaga.GetPartyIndex(Leader.X, Leader.Y);
+  I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if Party[I].IsClear then
     Exit;
   ClearMessages;

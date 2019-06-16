@@ -51,7 +51,6 @@ uses
   System.SysUtils,
   System.TypInfo,
   DisciplesRL.Saga,
-  DisciplesRL.Leader,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Map,
