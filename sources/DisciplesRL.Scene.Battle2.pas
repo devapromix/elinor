@@ -41,7 +41,6 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Creatures,
-  DisciplesRL.Leader,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
@@ -130,8 +129,8 @@ end;
 
 procedure Victory;
 begin
-  Party[TSaga.GetPartyIndex(Leader.X, Leader.Y)].Clear;
-  if (TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(Leader.X, Leader.Y) then
+  Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)].Clear;
+  if (TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
@@ -151,7 +150,7 @@ var
 begin
   Log.Clear;
   PartyExperience := 0;
-  I := TSaga.GetPartyIndex(Leader.X, Leader.Y);
+  I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
   ActivePartyPosition := GetRandomActivePartyPosition(Party[LeaderPartyIndex]);
   CurrentPartyPosition := ActivePartyPosition;

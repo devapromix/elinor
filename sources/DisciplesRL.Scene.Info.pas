@@ -29,7 +29,6 @@ uses
   DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Leader,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Hire;
