@@ -24,7 +24,6 @@ uses
   System.Types,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Leader,
   Vcl.Dialogs,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Saga,
@@ -70,7 +69,7 @@ begin
       else
         DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutralTerrain]);
       end;
-      F := (GetDist(X, Y, Leader.X, Leader.Y) > TLeaderParty.Leader.Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
+      F := (GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > TLeaderParty.Leader.Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
         (Map[lrDark][X, Y] = reNone);
 
       // Special
@@ -96,7 +95,7 @@ begin
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
 
       // Leader
-      if (X = Leader.X) and (Y = Leader.Y) then
+      if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[rePlayer]);
       // Fog
       if F then

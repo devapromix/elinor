@@ -34,7 +34,6 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Places,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Leader,
   DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Battle,
@@ -131,7 +130,7 @@ begin
   CenterTextOut(60, Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d', [ActivePartyPosition, CurrentPartyPosition,
     CurrentCityIndex]));
 
-  if (GetDistToCapital(Leader.X, Leader.Y) = 0) or (CurrentSettlementType = stCity) then
+  if (GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0) or (CurrentSettlementType = stCity) then
     RenderParty(psLeft, Party[LeaderPartyIndex], Party[LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
@@ -321,7 +320,7 @@ begin
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
-        TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
+        TPlace.UpdateRadius(TPlace.GetIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y));
       end;
   end;
   if (TScenario.CurrentScenario = sgOverlord) then
@@ -356,7 +355,7 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CurrentCityIndex := TSaga.GetPartyIndex(Leader.X, Leader.Y);
+        CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
         SettlementParty.Owner := Party[LeaderPartyIndex].Owner;
       end
@@ -377,7 +376,7 @@ end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if (GetDistToCapital(Leader.X, Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
+  if (GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of
