@@ -133,7 +133,6 @@
         <DCCReference Include="Third-Party\PathFind\PathFind.pas"/>
         <DCCReference Include="Third-Party\RLLog\RLLog.pas"/>
         <DCCReference Include="Third-Party\MapObject\MapObject.pas"/>
-        <DCCReference Include="DisciplesRL.Places.pas"/>
         <DCCReference Include="DisciplesRL.Saga.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

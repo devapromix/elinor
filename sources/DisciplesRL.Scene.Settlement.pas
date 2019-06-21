@@ -32,7 +32,6 @@ uses
   DisciplesRL.Saga,
   DisciplesRL.Party,
   DisciplesRL.Map,
-  DisciplesRL.Places,
   DisciplesRL.Scene.Party,
   DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,

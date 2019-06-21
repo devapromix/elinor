@@ -95,8 +95,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Info,
-  DisciplesRL.Scene.Settlement,
-  DisciplesRL.Places;
+  DisciplesRL.Scene.Settlement;
 
 type
   TPartyBase = record

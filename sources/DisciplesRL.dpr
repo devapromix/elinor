@@ -23,7 +23,6 @@ uses
   PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
-  DisciplesRL.Places in 'DisciplesRL.Places.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas';
 
 {$R *.res}
