@@ -37,8 +37,11 @@ type
     class procedure Gen; static;
   end;
 
-var
-  Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
+type
+  TMap = class(TObject)
+  class var
+    Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
+  end;
 
 procedure Gen;
 function GetDist(X1, Y1, X2, Y2: Integer): Integer;
@@ -68,7 +71,7 @@ end;
 
 function GetDistToCapital(const AX, AY: Integer): Integer;
 begin
-  Result := GetDist(Place[0].X, Place[0].Y, AX, AY);
+  Result := GetDist(TMap.Place[0].X, TMap.Place[0].Y, AX, AY);
 end;
 
 procedure Init;
@@ -81,13 +84,13 @@ begin
     SetLength(Map[L], MapWidth, MapHeight);
     Clear(L);
   end;
-  for I := 0 to High(Place) do
+  for I := 0 to High(TMap.Place) do
   begin
-    Place[I].X := 0;
-    Place[I].Y := 0;
-    Place[I].CurLevel := 0;
-    Place[I].MaxLevel := 2;
-    Place[I].Owner := reNeutrals;
+    TMap.Place[I].X := 0;
+    TMap.Place[I].Y := 0;
+    TMap.Place[I].CurLevel := 0;
+    TMap.Place[I].MaxLevel := 2;
+    TMap.Place[I].Owner := reNeutrals;
   end;
 end;
 
@@ -114,7 +117,7 @@ procedure AddCapitalParty;
 begin
   CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TParty.Create(Place[0].X, Place[0].Y, TSaga.LeaderRace);
+  Party[TSaga.GetPartyCount - 1] := TParty.Create(TMap.Place[0].X, TMap.Place[0].Y, TSaga.LeaderRace);
   Party[TSaga.GetPartyCount - 1].AddCreature(Characters[TSaga.LeaderRace][cgGuardian][ckGuardian], 3);
 end;
 
@@ -124,7 +127,7 @@ var
 begin
   LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Place[0].X, Place[0].Y, TSaga.LeaderRace);
+  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(TMap.Place[0].X, TMap.Place[0].Y, TSaga.LeaderRace);
   C := Characters[TSaga.LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
@@ -186,12 +189,12 @@ begin
     end;
   // Capital and Cities
   TPlace.Gen;
-  X := Place[0].X;
-  Y := Place[0].Y;
-  for I := 1 to High(Place) do
+  X := TMap.Place[0].X;
+  Y := TMap.Place[0].Y;
+  for I := 1 to High(TMap.Place) do
   begin
     repeat
-      if IsPathFind(MapWidth, MapHeight, X, Y, Place[I].X, Place[I].Y, ChTile, RX, RY) then
+      if IsPathFind(MapWidth, MapHeight, X, Y, TMap.Place[I].X, TMap.Place[I].Y, ChTile, RX, RY) then
       begin
         // if (RandomRange(0, 2) = 0) then
         begin
@@ -205,10 +208,10 @@ begin
         if Map[lrObj][X, Y] in MountainTiles then
           Map[lrObj][X, Y] := reNone;
       end;
-    until ((X = Place[I].X) and (Y = Place[I].Y));
+    until ((X = TMap.Place[I].X) and (Y = TMap.Place[I].Y));
   end;
   // Golds and Bags
-  for I := 0 to High(Place) div 2 do
+  for I := 0 to High(TMap.Place) div 2 do
   begin
     repeat
       X := RandomRange(2, MapWidth - 2);
@@ -220,7 +223,7 @@ begin
       Map[lrObj][X, Y] := reBag;
   end;
   // Enemies
-  for I := 0 to High(Place) do
+  for I := 0 to High(TMap.Place) do
   begin
     repeat
       X := RandomRange(1, MapWidth - 1);
@@ -296,7 +299,7 @@ begin
     Exit;
   for I := 0 to N - 1 do
   begin
-    if (GetDist(Place[I].X, Place[I].Y, Place[N].X, Place[N].Y) <= GetRadius(N)) then
+    if (GetDist(TMap.Place[I].X, TMap.Place[I].Y, TMap.Place[N].X, TMap.Place[N].Y) <= GetRadius(N)) then
     begin
       Result := False;
       Exit;
@@ -325,41 +328,41 @@ class procedure TPlace.Gen;
 var
   DX, DY, I: Integer;
 begin
-  for I := 0 to High(Place) do
+  for I := 0 to High(TMap.Place) do
   begin
     repeat
-      Place[I].X := RandomRange(3, MapWidth - 3);
-      Place[I].Y := RandomRange(3, MapHeight - 3);
+      TMap.Place[I].X := RandomRange(3, MapWidth - 3);
+      TMap.Place[I].Y := RandomRange(3, MapHeight - 3);
     until ChCity(I);
     case I of
       0: // Capital
         begin
           case TSaga.LeaderRace of
             reTheEmpire:
-              Map[lrTile][Place[I].X, Place[I].Y] := reTheEmpireCapital;
+              Map[lrTile][TMap.Place[I].X, TMap.Place[I].Y] := reTheEmpireCapital;
             reUndeadHordes:
-              Map[lrTile][Place[I].X, Place[I].Y] := reUndeadHordesCapital;
+              Map[lrTile][TMap.Place[I].X, TMap.Place[I].Y] := reUndeadHordesCapital;
             reLegionsOfTheDamned:
-              Map[lrTile][Place[I].X, Place[I].Y] := reLegionsOfTheDamnedCapital;
+              Map[lrTile][TMap.Place[I].X, TMap.Place[I].Y] := reLegionsOfTheDamnedCapital;
           end;
-          ClearObj(Place[I].X, Place[I].Y);
+          ClearObj(TMap.Place[I].X, TMap.Place[I].Y);
           TPlace.UpdateRadius(I);
         end;
       1 .. TScenario.ScenarioCitiesMax: // City
         begin
-          Map[lrTile][Place[I].X, Place[I].Y] := reNeutralCity;
-          ClearObj(Place[I].X, Place[I].Y);
-          TSaga.AddPartyAt(Place[I].X, Place[I].Y);
+          Map[lrTile][TMap.Place[I].X, TMap.Place[I].Y] := reNeutralCity;
+          ClearObj(TMap.Place[I].X, TMap.Place[I].Y);
+          TSaga.AddPartyAt(TMap.Place[I].X, TMap.Place[I].Y);
         end;
       TScenario.ScenarioTowerIndex: // Tower
         begin
-          Map[lrTile][Place[I].X, Place[I].Y] := reTower;
-          TSaga.AddPartyAt(Place[I].X, Place[I].Y, True);
+          Map[lrTile][TMap.Place[I].X, TMap.Place[I].Y] := reTower;
+          TSaga.AddPartyAt(TMap.Place[I].X, TMap.Place[I].Y, True);
         end
     else // Ruin
       begin
-        Map[lrTile][Place[I].X, Place[I].Y] := reRuin;
-        TSaga.AddPartyAt(Place[I].X, Place[I].Y);
+        Map[lrTile][TMap.Place[I].X, TMap.Place[I].Y] := reRuin;
+        TSaga.AddPartyAt(TMap.Place[I].X, TMap.Place[I].Y);
       end;
     end;
     // Mine
@@ -369,7 +372,7 @@ begin
     until ((DX <> 0) and (DY <> 0));
     case I of
       0 .. TScenario.ScenarioCitiesMax:
-        Map[lrObj][Place[I].X + DX, Place[I].Y + DY] := reMine;
+        Map[lrObj][TMap.Place[I].X + DX, TMap.Place[I].Y + DY] := reMine;
     end;
   end;
 end;
@@ -379,8 +382,8 @@ var
   I: Integer;
 begin
   Result := -1;
-  for I := 0 to High(Place) do
-    if ((Place[I].X = AX) and (Place[I].Y = AY)) then
+  for I := 0 to High(TMap.Place) do
+    if ((TMap.Place[I].X = AX) and (TMap.Place[I].Y = AY)) then
     begin
       Result := I;
       Break;
@@ -389,10 +392,10 @@ end;
 
 class procedure TPlace.UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrTile], RaceTerrain[TSaga.LeaderRace],
+  DisciplesRL.Map.UpdateRadius(TMap.Place[AID].X, TMap.Place[AID].Y, TMap.Place[AID].CurLevel, Map[lrTile], RaceTerrain[TSaga.LeaderRace],
     [reNeutralCity, reRuin, reTower] + Capitals + Cities);
-  DisciplesRL.Map.UpdateRadius(Place[AID].X, Place[AID].Y, Place[AID].CurLevel, Map[lrDark], reNone);
-  Place[AID].Owner := TSaga.LeaderRace;
+  DisciplesRL.Map.UpdateRadius(TMap.Place[AID].X, TMap.Place[AID].Y, TMap.Place[AID].CurLevel, Map[lrDark], reNone);
+  TMap.Place[AID].Owner := TSaga.LeaderRace;
 end;
 
 class function TPlace.GetCityCount: Integer;
@@ -402,7 +405,7 @@ begin
   Result := 0;
   for I := 1 to TScenario.ScenarioCitiesMax do
   begin
-    if (Place[I].Owner in Races) then
+    if (TMap.Place[I].Owner in Races) then
       Inc(Result);
   end;
 end;

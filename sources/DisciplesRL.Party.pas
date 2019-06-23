@@ -364,12 +364,12 @@ begin
   if (Map[lrObj][AX, AY] in StopTiles) then
     Exit;
   if not IsInfo then
-    for I := 0 to High(Place) do
+    for I := 0 to High(TMap.Place) do
     begin
-      if (Place[I].Owner in Races) then
-        if (Place[I].CurLevel < Place[I].MaxLevel) then
+      if (TMap.Place[I].Owner in Races) then
+        if (TMap.Place[I].CurLevel < TMap.Place[I].MaxLevel) then
         begin
-          Inc(Place[I].CurLevel);
+          Inc(TMap.Place[I].CurLevel);
           TPlace.UpdateRadius(I);
         end;
     end;

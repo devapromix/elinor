@@ -112,7 +112,7 @@ begin
     stCity:
       begin
         DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
-        CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex + 1), Place[CurrentCityIndex].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
@@ -120,7 +120,7 @@ begin
     stCapital:
       begin
         DrawTitle(CityNameTitle[CityArr[0]]);
-        CenterTextOut(100, Format('%s (Level %d)', [GetName, Place[0].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)', [GetName, TMap.Place[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
