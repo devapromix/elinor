@@ -39,20 +39,19 @@ type
 
 type
   TMap = class(TObject)
-  class var
-    Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
+  public
+    class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
+    class procedure Clear(const L: TLayerEnum);
+    class procedure Init; static;
+    class procedure Gen; static;
+    class procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
+    class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+    class function GetDistToCapital(const AX, AY: Integer): Integer;
+    class function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+    class function InMap(const X, Y: Integer): Boolean;
+    class function LeaderTile: TResEnum;
+    class function IsLeaderMove(const X, Y: Integer): Boolean;
   end;
-
-procedure Gen;
-function GetDist(X1, Y1, X2, Y2: Integer): Integer;
-function GetDistToCapital(const AX, AY: Integer): Integer;
-procedure Init;
-procedure Clear(const L: TLayerEnum);
-function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
-function InMap(const X, Y: Integer): Boolean;
-procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
-function LeaderTile: TResEnum;
-function IsLeaderMove(const X, Y: Integer): Boolean;
 
 implementation
 
@@ -64,17 +63,17 @@ uses
   DisciplesRL.Scene.Party,
   PathFind;
 
-function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+class function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin
   Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
 end;
 
-function GetDistToCapital(const AX, AY: Integer): Integer;
+class function TMap.GetDistToCapital(const AX, AY: Integer): Integer;
 begin
   Result := GetDist(TMap.Place[0].X, TMap.Place[0].Y, AX, AY);
 end;
 
-procedure Init;
+class procedure TMap.Init;
 var
   L: TLayerEnum;
   I: Integer;
@@ -94,7 +93,7 @@ begin
   end;
 end;
 
-procedure Clear(const L: TLayerEnum);
+class procedure TMap.Clear(const L: TLayerEnum);
 var
   X, Y: Integer;
 begin
@@ -143,7 +142,7 @@ begin
   end;
 end;
 
-procedure Gen;
+class procedure TMap.Gen;
 var
   X, Y, RX, RY, I: Integer;
 
@@ -237,23 +236,23 @@ begin
   AddLeaderParty;
 end;
 
-function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+class function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
 begin
   Result := (X >= X1) and (Y >= Y1) and (X <= X2) and (Y <= Y2);
 end;
 
-function InMap(const X, Y: Integer): Boolean;
+class function TMap.InMap(const X, Y: Integer): Boolean;
 begin
   Result := InRect(X, Y, 0, 0, MapWidth - 1, MapHeight - 1);
 end;
 
-procedure UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
+class procedure TMap.UpdateRadius(const AX, AY, AR: Integer; var MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 var
   X, Y: Integer;
 begin
   for Y := -AR to AR do
     for X := -AR to AR do
-      if (GetDist(AX + X, AY + Y, AX, AY) <= AR) and DisciplesRL.Map.InMap(AX + X, AY + Y) then
+      if (GetDist(AX + X, AY + Y, AX, AY) <= AR) and TMap.InMap(AX + X, AY + Y) then
         if (MapLayer[AX + X, AY + Y] in IgnoreRes) then
           Continue
         else
@@ -265,12 +264,12 @@ begin
         end;
 end;
 
-function LeaderTile: TResEnum;
+class function TMap.LeaderTile: TResEnum;
 begin
   Result := Map[lrTile][TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
 end;
 
-function IsLeaderMove(const X, Y: Integer): Boolean;
+class function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
 begin
   Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1, TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or TSaga.Wizard)
     and not(Map[lrObj][X, Y] in StopTiles);
@@ -299,7 +298,7 @@ begin
     Exit;
   for I := 0 to N - 1 do
   begin
-    if (GetDist(TMap.Place[I].X, TMap.Place[I].Y, TMap.Place[N].X, TMap.Place[N].Y) <= GetRadius(N)) then
+    if (TMap.GetDist(TMap.Place[I].X, TMap.Place[I].Y, TMap.Place[N].X, TMap.Place[N].Y) <= GetRadius(N)) then
     begin
       Result := False;
       Exit;
@@ -392,9 +391,9 @@ end;
 
 class procedure TPlace.UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(TMap.Place[AID].X, TMap.Place[AID].Y, TMap.Place[AID].CurLevel, Map[lrTile], RaceTerrain[TSaga.LeaderRace],
+  TMap.UpdateRadius(TMap.Place[AID].X, TMap.Place[AID].Y, TMap.Place[AID].CurLevel, Map[lrTile], RaceTerrain[TSaga.LeaderRace],
     [reNeutralCity, reRuin, reTower] + Capitals + Cities);
-  DisciplesRL.Map.UpdateRadius(TMap.Place[AID].X, TMap.Place[AID].Y, TMap.Place[AID].CurLevel, Map[lrDark], reNone);
+  TMap.UpdateRadius(TMap.Place[AID].X, TMap.Place[AID].Y, TMap.Place[AID].CurLevel, Map[lrDark], reNone);
   TMap.Place[AID].Owner := TSaga.LeaderRace;
 end;
 

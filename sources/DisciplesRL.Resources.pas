@@ -250,10 +250,6 @@ const
 var
   ResImage: array [TResEnum] of TPNGImage;
 
-function GetPath(SubDir: string): string;
-procedure Init;
-procedure Free;
-
 implementation
 
 uses
@@ -285,5 +281,13 @@ begin
   for I := Low(TResEnum) to High(TResEnum) do
     FreeAndNil(ResImage[I]);
 end;
+
+initialization
+
+Init;
+
+finalization
+
+Free;
 
 end.

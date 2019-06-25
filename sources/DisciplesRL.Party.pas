@@ -359,7 +359,7 @@ var
   I: Integer;
   F: Boolean;
 begin
-  if not InMap(AX, AY) then
+  if not TMap.InMap(AX, AY) then
     Exit;
   if (Map[lrObj][AX, AY] in StopTiles) then
     Exit;
@@ -429,7 +429,7 @@ begin
         end;
     end;
   end;
-  case LeaderTile of
+  case TMap.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
@@ -437,12 +437,12 @@ begin
         F := False;
       end;
   end;
-  if LeaderTile in Capitals then
+  if TMap.LeaderTile in Capitals then
   begin
     DisciplesRL.Scene.Settlement.Show(stCapital);
     F := False;
   end;
-  if LeaderTile in Cities then
+  if TMap.LeaderTile in Cities then
   begin
     DisciplesRL.Scene.Settlement.Show(stCity);
     F := False;
@@ -477,7 +477,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  DisciplesRL.Map.UpdateRadius(Self.X, Self.Y, Self.Radius, Map[lrDark], reNone);
+  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, Map[lrDark], reNone);
 end;
 
 end.
