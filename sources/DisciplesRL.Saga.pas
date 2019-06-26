@@ -166,7 +166,7 @@ var
   Level, N: Integer;
   I: TPosition;
 begin
-  Level := EnsureRange(GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
+  Level := EnsureRange(TMap.GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat
@@ -228,7 +228,7 @@ class procedure TSaga.AddLoot();
 var
   Level: Integer;
 begin
-  Level := GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
   DisciplesRL.Scene.Info.Show(stLoot, scMap);
@@ -295,8 +295,8 @@ begin
   BattlesWon := 0;
   IsDay := False;
   PartyFree;
-  DisciplesRL.Map.Init;
-  DisciplesRL.Map.Gen;
+  TMap.Init;
+  TMap.Gen;
   DisciplesRL.Scene.Settlement.Gen;
   TLeaderParty.Leader.Clear;
 end;

@@ -13,12 +13,13 @@ uses
   Vcl.Forms,
   Vcl.Dialogs,
   Vcl.ExtCtrls,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, Vcl.MPlayer;
 
 type
   TMainForm = class(TForm)
     Timer1: TTimer;
     AutoTimer: TTimer;
+    MediaPlayer1: TMediaPlayer;
     procedure FormPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -79,7 +80,6 @@ begin
   ClientWidth := MapWidth * TileSize;
   ClientHeight := MapHeight * TileSize;
   //
-  DisciplesRL.Resources.Init;
   DisciplesRL.Scenes.Init;
 end;
 
@@ -95,7 +95,6 @@ end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
-  DisciplesRL.Resources.Free;
   DisciplesRL.Scenes.Free;
   TSaga.PartyFree;
 end;

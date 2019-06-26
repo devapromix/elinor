@@ -69,8 +69,8 @@ begin
       else
         DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutralTerrain]);
       end;
-      F := (GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > TLeaderParty.Leader.Radius) and not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
-        (Map[lrDark][X, Y] = reNone);
+      F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > TLeaderParty.Leader.Radius) and
+        not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and (Map[lrDark][X, Y] = reNone);
 
       // Special
       if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
@@ -88,9 +88,6 @@ begin
           DrawImage(X * TileSize, Y * TileSize, ResImage[reUnk])
         else
           DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]])
-          /// else if (ResBase[Map[lrObj][X, Y]].ResType in [teTree]) then
-          /// begin
-          /// end
       else if (Map[lrObj][X, Y] <> reNone) then
         DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
 
@@ -102,7 +99,7 @@ begin
         DrawImage(X * TileSize, Y * TileSize, ResImage[reDark]);
     end;
   // Cursor
-  if IsLeaderMove(MousePos.X, MousePos.Y) then
+  if TMap.IsLeaderMove(MousePos.X, MousePos.Y) then
     DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reCursor])
   else
     DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reNoWay]);
@@ -115,9 +112,9 @@ end;
 
 procedure MouseClick;
 begin
-  if TSaga.Wizard and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
+  if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
     TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-  else if IsLeaderMove(MousePos.X, MousePos.Y) and DisciplesRL.Map.InMap(MousePos.X, MousePos.Y) then
+  else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and TMap.InMap(MousePos.X, MousePos.Y) then
     TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
 end;
 

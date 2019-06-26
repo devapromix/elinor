@@ -74,7 +74,7 @@ begin
         begin
           if (TScenario.CurrentScenario = sgDarkTower) then
           begin
-            case LeaderTile of
+            case TMap.LeaderTile of
               reTower:
                 begin
                   DisciplesRL.Scene.Hire.Show(stVictory);
@@ -82,7 +82,7 @@ begin
                 end;
             end;
           end;
-          if LeaderTile = reNeutralCity then
+          if TMap.LeaderTile = reNeutralCity then
           begin
             DisciplesRL.Scene.Settlement.Show(stCity);
             Exit;

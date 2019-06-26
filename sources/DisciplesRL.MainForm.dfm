@@ -22,6 +22,15 @@ object MainForm: TMainForm
   OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
+  object MediaPlayer1: TMediaPlayer
+    Left = 152
+    Top = 184
+    Width = 253
+    Height = 30
+    DoubleBuffered = True
+    ParentDoubleBuffered = False
+    TabOrder = 0
+  end
   object Timer1: TTimer
     Interval = 100
     OnTimer = Timer1Timer

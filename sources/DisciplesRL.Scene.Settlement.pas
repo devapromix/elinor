@@ -129,7 +129,7 @@ begin
   CenterTextOut(60, Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d', [ActivePartyPosition, CurrentPartyPosition,
     CurrentCityIndex]));
 
-  if (GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0) or (CurrentSettlementType = stCity) then
+  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0) or (CurrentSettlementType = stCity) then
     RenderParty(psLeft, Party[LeaderPartyIndex], Party[LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
@@ -315,7 +315,7 @@ end;
 
 procedure Close;
 begin
-  case LeaderTile of
+  case TMap.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
@@ -375,7 +375,7 @@ end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if (GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
+  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of
