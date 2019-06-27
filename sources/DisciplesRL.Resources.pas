@@ -247,8 +247,19 @@ const
     //
     );
 
+type
+  TMusicEnum = (mmGame);
+
 var
   ResImage: array [TResEnum] of TPNGImage;
+  ResMusicPath: array [TMusicEnum] of string;
+
+const
+  MusicBase: array [TMusicEnum] of TResBase = (
+    // Soliloquy
+    (FileName: 'soliloquy.mp3'; ResType: teNone;)
+    //
+    );
 
 implementation
 
@@ -265,12 +276,17 @@ end;
 procedure Init;
 var
   I: TResEnum;
+  J: TMusicEnum;
 begin
   for I := Low(TResEnum) to High(TResEnum) do
   begin
     ResImage[I] := TPNGImage.Create;
     if (ResBase[I].FileName <> '') then
       ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
+  end;
+  for J := Low(TMusicEnum) to High(TMusicEnum) do
+  begin
+    ResMusicPath[J] := GetPath('resources\music') + MusicBase[J].FileName;
   end;
 end;
 

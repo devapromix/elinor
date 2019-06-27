@@ -81,6 +81,10 @@ begin
   ClientHeight := MapHeight * TileSize;
   //
   DisciplesRL.Scenes.Init;
+
+  MediaPlayer1.FileName := ResMusicPath[mmGame];
+  MediaPlayer1.Open;
+  MediaPlayer1.Play;
 end;
 
 procedure TMainForm.FormPaint(Sender: TObject);

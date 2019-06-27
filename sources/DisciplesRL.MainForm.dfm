@@ -23,11 +23,12 @@ object MainForm: TMainForm
   PixelsPerInch = 96
   TextHeight = 13
   object MediaPlayer1: TMediaPlayer
-    Left = 152
-    Top = 184
+    Left = 112
+    Top = 24
     Width = 253
     Height = 30
     DoubleBuffered = True
+    Visible = False
     ParentDoubleBuffered = False
     TabOrder = 0
   end
