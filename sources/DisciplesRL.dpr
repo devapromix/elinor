@@ -23,7 +23,8 @@ uses
   PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
-  DisciplesRL.Saga in 'DisciplesRL.Saga.pas';
+  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
+  PhoenixMediaPlayer in 'Third-Party\PhoenixMediaPlayer\PhoenixMediaPlayer.pas';
 
 {$R *.res}
 
