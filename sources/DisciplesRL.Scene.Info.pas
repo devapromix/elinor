@@ -61,7 +61,7 @@ begin
           else
           begin
             F := True;
-            DisciplesRL.Scenes.CurrentScene := scMap;
+            SetScene(scMap);
             Exit;
           end;
       end;
@@ -70,7 +70,7 @@ begin
     stLoot:
       begin
         F := True;
-        DisciplesRL.Scenes.CurrentScene := scMap;
+        SetScene(scMap);
         begin
           if (TScenario.CurrentScenario = sgDarkTower) then
           begin
@@ -84,6 +84,7 @@ begin
           end;
           if TMap.LeaderTile = reNeutralCity then
           begin
+            SetSceneMusic(scSettlement);
             DisciplesRL.Scene.Settlement.Show(stCity);
             Exit;
           end;
@@ -92,7 +93,7 @@ begin
         end;
       end;
   end;
-  DisciplesRL.Scenes.CurrentScene := BackScene;
+  SetScene(BackScene);
 end;
 
 procedure Init;
@@ -160,7 +161,7 @@ procedure Show(const ASubScene: TInfoSubSceneEnum; const ABackScene: TSceneEnum)
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
-  DisciplesRL.Scenes.CurrentScene := scInfo;
+  SetScene(scInfo);
 end;
 
 procedure Free;

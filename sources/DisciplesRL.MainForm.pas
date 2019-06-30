@@ -13,13 +13,12 @@ uses
   Vcl.Forms,
   Vcl.Dialogs,
   Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.MPlayer;
+  Vcl.StdCtrls;
 
 type
   TMainForm = class(TForm)
     Timer1: TTimer;
     AutoTimer: TTimer;
-    MediaPlayer1: TMediaPlayer;
     procedure FormPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -81,10 +80,6 @@ begin
   ClientHeight := MapHeight * TileSize;
   //
   DisciplesRL.Scenes.Init;
-
-  MediaPlayer1.FileName := ResMusicPath[mmGame];
-  MediaPlayer1.Open;
-  MediaPlayer1.Play;
 end;
 
 procedure TMainForm.FormPaint(Sender: TObject);

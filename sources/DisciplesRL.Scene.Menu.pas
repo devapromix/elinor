@@ -56,7 +56,10 @@ begin
       end;
     1: // Continue
       if TSaga.IsGame then
-        DisciplesRL.Scenes.CurrentScene := scMap;
+      begin
+        SetSceneMusic(scMap);
+        SetScene(scMap);
+      end;
     2: // High Scores
       DisciplesRL.Scene.Hire.Show(stHighScores2);
     3: // Exit;

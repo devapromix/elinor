@@ -154,7 +154,8 @@ procedure Hire;
         InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      if (((AParty = Party[LeaderPartyIndex]) and (Party[LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)) or (AParty <> Party[LeaderPartyIndex])) then
+      if (((AParty = Party[LeaderPartyIndex]) and (Party[LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)) or
+        (AParty <> Party[LeaderPartyIndex])) then
       begin
         DisciplesRL.Scene.Hire.Show(AParty, APosition);
       end
@@ -330,7 +331,8 @@ begin
       Exit;
     end;
   end;
-  DisciplesRL.Scenes.CurrentScene := scMap;
+  SetSceneMusic(scMap);
+  SetScene(scMap);
   TSaga.NewDay;
 end;
 
@@ -361,7 +363,7 @@ begin
   else
     SettlementParty := Party[CapitalPartyIndex];
   end;
-  DisciplesRL.Scenes.CurrentScene := scSettlement;
+  SetScene(scSettlement);
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -375,7 +377,8 @@ end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and (GetPartyPosition(X, Y) < 6) then
+  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and
+    (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of

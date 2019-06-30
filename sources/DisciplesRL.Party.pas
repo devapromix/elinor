@@ -422,7 +422,8 @@ begin
       reEnemy:
         begin
           DisciplesRL.Scene.Battle2.Start;
-          DisciplesRL.Scenes.CurrentScene := scBattle2;
+          SetSceneMusic(scBattle2);
+          SetScene(scBattle2);
           Map[lrObj][Leader.X, Leader.Y] := reNone;
           F := False;
           Exit;
@@ -439,11 +440,13 @@ begin
   end;
   if TMap.LeaderTile in Capitals then
   begin
+    SetSceneMusic(scSettlement);
     DisciplesRL.Scene.Settlement.Show(stCapital);
     F := False;
   end;
   if TMap.LeaderTile in Cities then
   begin
+    SetSceneMusic(scSettlement);
     DisciplesRL.Scene.Settlement.Show(stCity);
     F := False;
   end;

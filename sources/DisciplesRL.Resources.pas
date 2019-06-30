@@ -248,7 +248,7 @@ const
     );
 
 type
-  TMusicEnum = (mmGame);
+  TMusicEnum = (mmGame, mmMap);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -257,7 +257,9 @@ var
 const
   MusicBase: array [TMusicEnum] of TResBase = (
     // Soliloquy
-    (FileName: 'soliloquy.mp3'; ResType: teNone;)
+    (FileName: 'soliloquy.mp3'; ResType: teNone;),
+    // Prologue
+    (FileName: 'prologue.mp3'; ResType: teNone;)
     //
     );
 

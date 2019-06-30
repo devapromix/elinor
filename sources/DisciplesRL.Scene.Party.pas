@@ -75,7 +75,7 @@ begin
   CurrentParty := Party;
   BackScene := CloseScene;
   ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
-  DisciplesRL.Scenes.CurrentScene := scParty;
+  SetScene(scParty);
 end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
@@ -163,7 +163,7 @@ procedure Close;
 begin
   if CurrentParty <> Party[LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
-  DisciplesRL.Scenes.CurrentScene := BackScene;
+  SetScene(BackScene);
 end;
 
 procedure MouseClick;

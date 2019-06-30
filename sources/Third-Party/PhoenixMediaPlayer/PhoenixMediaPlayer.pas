@@ -4,17 +4,19 @@ interface
 
 uses
   Vcl.MPlayer,
-  System.Classes;
+  System.Classes,
+  DisciplesRL.Resources;
 
 type
   TPhoenixMediaPlayer = class(TObject)
   private
-    FMediaPlayer: TMediaPlayer;
+    FMediaPlayer: array [TMusicEnum] of TMediaPlayer;
   public
-    constructor Create(const FileName: string);
+    constructor Create;
     destructor Destroy; override;
-    procedure Play;
-    procedure Stop;
+    procedure Play(const MusicEnum: TMusicEnum);
+    procedure Stop(const MusicEnum: TMusicEnum);
+    procedure StopAll;
   end;
 
 implementation
@@ -26,30 +28,46 @@ uses
 
 { TPhoenixMediaPlayer }
 
-constructor TPhoenixMediaPlayer.Create(const FileName: string);
+constructor TPhoenixMediaPlayer.Create;
+var
+  MusicEnum: TMusicEnum;
 begin
-  FMediaPlayer := TMediaPlayer.Create(MainForm);
-  FMediaPlayer.Parent := MainForm;
-  FMediaPlayer.Visible := False;
-  FMediaPlayer.FileName := FileName;
-  FMediaPlayer.Open;
+  for MusicEnum := Low(TMusicEnum) to High(TMusicEnum) do
+  begin
+    FMediaPlayer[MusicEnum] := TMediaPlayer.Create(MainForm);
+    FMediaPlayer[MusicEnum].Parent := MainForm;
+    FMediaPlayer[MusicEnum].Visible := False;
+    FMediaPlayer[MusicEnum].FileName := ResMusicPath[MusicEnum];
+    FMediaPlayer[MusicEnum].Open;
+  end;
 end;
 
 destructor TPhoenixMediaPlayer.Destroy;
+var
+  MusicEnum: TMusicEnum;
 begin
-  FreeAndNil(FMediaPlayer);
+  for MusicEnum := Low(TMusicEnum) to High(TMusicEnum) do
+    FreeAndNil(FMediaPlayer[MusicEnum]);
   inherited;
 end;
 
-procedure TPhoenixMediaPlayer.Play;
+procedure TPhoenixMediaPlayer.Stop(const MusicEnum: TMusicEnum);
 begin
-  FMediaPlayer.Play;
+  FMediaPlayer[MusicEnum].Pause;
+  FMediaPlayer[MusicEnum].Rewind;
 end;
 
-procedure TPhoenixMediaPlayer.Stop;
+procedure TPhoenixMediaPlayer.StopAll;
+var
+  MusicEnum: TMusicEnum;
 begin
-  FMediaPlayer.Pause;
-  FMediaPlayer.Rewind;
+  for MusicEnum := Low(TMusicEnum) to High(TMusicEnum) do
+    Stop(MusicEnum);
+end;
+
+procedure TPhoenixMediaPlayer.Play(const MusicEnum: TMusicEnum);
+begin
+  FMediaPlayer[MusicEnum].Play;
 end;
 
 end.

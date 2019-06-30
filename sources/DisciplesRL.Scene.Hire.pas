@@ -82,7 +82,7 @@ begin
     CurrentIndex := 0;
   end;
   SubScene := ASubScene;
-  DisciplesRL.Scenes.CurrentScene := scHire;
+  SetScene(scHire);
 end;
 
 procedure Show(const Party: TParty; const Position: Integer);
@@ -106,15 +106,15 @@ procedure Back;
 begin
   case SubScene of
     stCharacter:
-      DisciplesRL.Scenes.CurrentScene := scSettlement;
+      SetScene(scSettlement);
     stLeader:
       DisciplesRL.Scene.Hire.Show(stRace);
     stRace:
       DisciplesRL.Scene.Hire.Show(stScenario);
     stScenario:
-      DisciplesRL.Scenes.CurrentScene := scMenu;
+      SetScene(scMenu);
     stJournal:
-      DisciplesRL.Scenes.CurrentScene := scMap;
+      SetScene(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -126,7 +126,7 @@ begin
         DisciplesRL.Scene.Hire.Show(stHighScores2);
       end;
     stHighScores2:
-      DisciplesRL.Scenes.CurrentScene := scMenu;
+      SetScene(scMenu);
   end;
 end;
 
@@ -142,12 +142,13 @@ begin
       begin
         TSaga.Clear;
         Party[LeaderPartyIndex].Owner := TSaga.LeaderRace;
+        SetSceneMusic(scSettlement);
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
     stCharacter:
       begin
         HireParty.Hire(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
-        DisciplesRL.Scenes.CurrentScene := scSettlement;
+        SetScene(scSettlement);
       end;
     stScenario:
       begin
@@ -155,7 +156,7 @@ begin
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
     stJournal:
-      DisciplesRL.Scenes.CurrentScene := scMap;
+      SetScene(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -167,7 +168,7 @@ begin
         DisciplesRL.Scene.Hire.Show(stHighScores2);
       end;
     stHighScores2:
-      DisciplesRL.Scenes.CurrentScene := scMenu;
+      SetScene(scMenu);
   end;
 end;
 

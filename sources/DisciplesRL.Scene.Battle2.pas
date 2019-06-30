@@ -129,6 +129,7 @@ end;
 
 procedure Victory;
 begin
+  SetSceneMusic(scMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)].Clear;
   if (TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin

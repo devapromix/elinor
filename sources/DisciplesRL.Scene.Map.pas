@@ -133,7 +133,10 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE:
-      DisciplesRL.Scenes.CurrentScene := scMenu;
+    begin
+      SetSceneMusic(scMenu);
+      SetScene(scMenu);
+    end;
     K_LEFT, K_KP_4, K_A:
       TLeaderParty.Leader.Move(drWest);
     K_RIGHT, K_KP_6, K_D:

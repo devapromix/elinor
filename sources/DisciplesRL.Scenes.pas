@@ -19,7 +19,6 @@ const
 
 var
   Surface: TBitmap;
-  CurrentScene: TSceneEnum = scMenu;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 procedure RenderDark;
@@ -36,6 +35,9 @@ procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 function ConfirmDialog(const S: string): Boolean;
 procedure InformDialog(const S: string);
 procedure Free;
+
+procedure SetScene(CurScene: TSceneEnum);
+procedure SetSceneMusic(CurScene: TSceneEnum);
 
 const
   K_ESCAPE = 27;
@@ -87,10 +89,34 @@ uses
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
   DisciplesRL.ConfirmationForm,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party,
+  PhoenixMediaPlayer;
 
 var
   MouseX, MouseY: Integer;
+  CurrentScene: TSceneEnum;
+  MediaPlayer: TPhoenixMediaPlayer;
+
+procedure SetScene(CurScene: TSceneEnum);
+begin
+  CurrentScene := CurScene;
+end;
+
+procedure SetSceneMusic(CurScene: TSceneEnum);
+begin
+  case CurScene of
+    scSettlement, scBattle2:
+      begin
+        MediaPlayer.StopAll;
+        MediaPlayer.Play(mmGame);
+      end;
+    scMap, scMenu:
+      begin
+        MediaPlayer.StopAll;
+        MediaPlayer.Play(mmMap);
+      end;
+  end;
+end;
 
 function ConfirmDialog(const S: string): Boolean;
 begin
@@ -150,6 +176,9 @@ begin
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
+  MediaPlayer := TPhoenixMediaPlayer.Create;
+  SetSceneMusic(scMenu);
+  SetScene(scMenu);
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
       scHire:
@@ -315,6 +344,7 @@ procedure Free;
 var
   I: TSceneEnum;
 begin
+  FreeAndNil(MediaPlayer);
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
       scHire:
