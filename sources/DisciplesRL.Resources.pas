@@ -248,7 +248,7 @@ const
     );
 
 type
-  TMusicEnum = (mmGame, mmMap);
+  TMusicEnum = (mmBattle, mmGame, mmMap);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -256,9 +256,11 @@ var
 
 const
   MusicBase: array [TMusicEnum] of TResBase = (
-    // Soliloquy
+    // Battle
+    (FileName: 'wasteland-showdown.mp3'; ResType: teNone;),
+    // Game
     (FileName: 'soliloquy.mp3'; ResType: teNone;),
-    // Prologue
+    // Map
     (FileName: 'prologue.mp3'; ResType: teNone;)
     //
     );

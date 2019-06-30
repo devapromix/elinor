@@ -105,10 +105,15 @@ end;
 procedure SetSceneMusic(CurScene: TSceneEnum);
 begin
   case CurScene of
-    scSettlement, scBattle2:
+    scSettlement:
       begin
         MediaPlayer.StopAll;
         MediaPlayer.Play(mmGame);
+      end;
+    scBattle2:
+      begin
+        MediaPlayer.StopAll;
+        MediaPlayer.Play(mmBattle);
       end;
     scMap, scMenu:
       begin
