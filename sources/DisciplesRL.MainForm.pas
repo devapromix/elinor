@@ -27,7 +27,6 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure FormClick(Sender: TObject);
-    procedure AutoTimerTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,18 +42,8 @@ implementation
 
 uses
   DisciplesRL.Scenes,
-  DisciplesRL.Resources,
   DisciplesRL.Map,
-  DisciplesRL.Saga,
-  DisciplesRL.PascalScript.Battle;
-
-procedure TMainForm.AutoTimerTimer(Sender: TObject);
-begin
-  ClearMessages;
-  FlagEnabled := True;
-  AutoTimer.Enabled := False;
-  Run(ATimerScript);
-end;
+  DisciplesRL.Saga;
 
 procedure TMainForm.FormClick(Sender: TObject);
 begin
@@ -112,9 +101,7 @@ procedure TMainForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Int
 begin
   DisciplesRL.Scenes.MouseMove(Shift, X, Y);
   if TSaga.Wizard then
-    Caption := Format('DisciplesRL (%d:%d) [gold mines: %d]', [X, Y, TSaga.GoldMines])
-  else
-    Caption := 'DisciplesRL';
+    Caption := Format('DisciplesRL (%d:%d) [gold mines: %d]', [X, Y, TSaga.GoldMines]);
 end;
 
 end.
