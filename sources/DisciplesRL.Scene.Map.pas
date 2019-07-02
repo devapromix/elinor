@@ -61,13 +61,13 @@ begin
         Continue;
       case Map[lrTile][X, Y] of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
-          DrawImage(X * TileSize, Y * TileSize, ResImage[reTheEmpireTerrain]);
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reTheEmpireTerrain]);
         reUndeadHordesTerrain, reUndeadHordesCapital, reUndeadHordesCity:
-          DrawImage(X * TileSize, Y * TileSize, ResImage[reUndeadHordesTerrain]);
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUndeadHordesTerrain]);
         reLegionsOfTheDamnedTerrain, reLegionsOfTheDamnedCapital, reLegionsOfTheDamnedCity:
-          DrawImage(X * TileSize, Y * TileSize, ResImage[reLegionsOfTheDamnedTerrain]);
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reLegionsOfTheDamnedTerrain]);
       else
-        DrawImage(X * TileSize, Y * TileSize, ResImage[reNeutralTerrain]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reNeutralTerrain]);
       end;
       F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > TLeaderParty.Leader.Radius) and
         not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and (Map[lrDark][X, Y] = reNone);
@@ -76,33 +76,33 @@ begin
       if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
         ((TScenario.CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
         ((TScenario.CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
-        DrawImage(X * TileSize, Y * TileSize, ResImage[reCursorSpecial]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
       if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
-        DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrTile][X, Y]]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[Map[lrTile][X, Y]]);
 
       //
       if (ResBase[Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
         if F then
-          DrawImage(X * TileSize, Y * TileSize, ResImage[reUnk])
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUnk])
         else
-          DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]])
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[Map[lrObj][X, Y]])
       else if (Map[lrObj][X, Y] <> reNone) then
-        DrawImage(X * TileSize, Y * TileSize, ResImage[Map[lrObj][X, Y]]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[Map[lrObj][X, Y]]);
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
-        DrawImage(X * TileSize, Y * TileSize, ResImage[rePlayer]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[rePlayer]);
       // Fog
       if F then
-        DrawImage(X * TileSize, Y * TileSize, ResImage[reDark]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reDark]);
     end;
   // Cursor
   if TMap.IsLeaderMove(MousePos.X, MousePos.Y) then
-    DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reCursor])
+    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize, ResImage[reCursor])
   else
-    DrawImage(MousePos.X * TileSize, MousePos.Y * TileSize, ResImage[reNoWay]);
+    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize, ResImage[reNoWay]);
 end;
 
 procedure Timer;
@@ -120,7 +120,7 @@ end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-  MousePos := Point(X div TileSize, Y div TileSize);
+  MousePos := Point(X div TMap.TileSize, Y div TMap.TileSize);
   if (MousePos.X <> LastMousePos.X) or (MousePos.Y <> LastMousePos.Y) then
   begin
     DisciplesRL.Scenes.Render;

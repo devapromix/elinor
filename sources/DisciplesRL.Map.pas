@@ -12,9 +12,6 @@ var
   MapWidth: Integer = 40 + 2;
   MapHeight: Integer = 20 + 2;
 
-const
-  TileSize = 32;
-
 type
   TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
 
@@ -39,6 +36,8 @@ type
 
 type
   TMap = class(TObject)
+  public const
+    TileSize = 32;
   public
     class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
     class procedure Clear(const L: TLayerEnum);
