@@ -65,8 +65,8 @@ begin
       TSaga.Wizard := True;
   end;
   //
-  ClientWidth := MapWidth * TMap.TileSize;
-  ClientHeight := MapHeight * TMap.TileSize;
+  ClientWidth := TMap.Width * TMap.TileSize;
+  ClientHeight := TMap.Height * TMap.TileSize;
   //
   DisciplesRL.Scenes.Init;
 end;

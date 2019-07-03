@@ -212,7 +212,7 @@ class procedure TSaga.AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
 var
   I: Integer;
 begin
-  Map[lrObj][AX, AY] := reEnemy;
+  TMap.Map[lrObj][AX, AY] := reEnemy;
   TSaga.PartyInit(AX, AY, IsFinal);
   I := GetPartyIndex(AX, AY);
   Party[I].Owner := reNeutrals;

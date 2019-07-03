@@ -34,6 +34,11 @@ uses
 var
   LastMousePos, MousePos: TPoint;
 
+procedure Init;
+begin
+
+end;
+
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   case Button of
@@ -44,22 +49,17 @@ begin
   end;
 end;
 
-procedure Init;
-begin
-
-end;
-
 procedure Render;
 var
   X, Y: Integer;
   F: Boolean;
 begin
-  for Y := 0 to MapHeight - 1 do
-    for X := 0 to MapWidth - 1 do
+  for Y := 0 to TMap.Height - 1 do
+    for X := 0 to TMap.Width - 1 do
     begin
-      if (Map[lrDark][X, Y] = reDark) then
+      if (TMap.Map[lrDark][X, Y] = reDark) then
         Continue;
-      case Map[lrTile][X, Y] of
+      case TMap.Map[lrTile][X, Y] of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reTheEmpireTerrain]);
         reUndeadHordesTerrain, reUndeadHordesCapital, reUndeadHordesCity:
@@ -70,26 +70,26 @@ begin
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reNeutralTerrain]);
       end;
       F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > TLeaderParty.Leader.Radius) and
-        not(Map[lrTile][X, Y] in Tiles + Capitals + Cities) and (Map[lrDark][X, Y] = reNone);
+        not(TMap.Map[lrTile][X, Y] in Tiles + Capitals + Cities) and (TMap.Map[lrDark][X, Y] = reNone);
 
       // Special
       if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
-        ((TScenario.CurrentScenario = sgDarkTower) and (ResBase[Map[lrTile][X, Y]].ResType = teTower)) or
-        ((TScenario.CurrentScenario = sgOverlord) and (ResBase[Map[lrTile][X, Y]].ResType = teCity))) then
+        ((TScenario.CurrentScenario = sgDarkTower) and (ResBase[TMap.Map[lrTile][X, Y]].ResType = teTower)) or
+        ((TScenario.CurrentScenario = sgOverlord) and (ResBase[TMap.Map[lrTile][X, Y]].ResType = teCity))) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
-      if (ResBase[Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[Map[lrTile][X, Y]]);
+      if (ResBase[TMap.Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[TMap.Map[lrTile][X, Y]]);
 
       //
-      if (ResBase[Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
+      if (ResBase[TMap.Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
         if F then
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUnk])
         else
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[Map[lrObj][X, Y]])
-      else if (Map[lrObj][X, Y] <> reNone) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[Map[lrObj][X, Y]]);
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[TMap.Map[lrObj][X, Y]])
+      else if (TMap.Map[lrObj][X, Y] <> reNone) then
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[TMap.Map[lrObj][X, Y]]);
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then

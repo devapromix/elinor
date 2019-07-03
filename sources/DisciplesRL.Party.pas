@@ -314,11 +314,11 @@ procedure TLeaderParty.ChCityOwner;
 begin
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
-      Map[lrTile][X, Y] := reTheEmpireCity;
+      TMap.Map[lrTile][X, Y] := reTheEmpireCity;
     reUndeadHordes:
-      Map[lrTile][X, Y] := reUndeadHordesCity;
+      TMap.Map[lrTile][X, Y] := reUndeadHordesCity;
     reLegionsOfTheDamned:
-      Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
+      TMap.Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
   end;
 end;
 
@@ -361,7 +361,7 @@ var
 begin
   if not TMap.InMap(AX, AY) then
     Exit;
-  if (Map[lrObj][AX, AY] in StopTiles) then
+  if (TMap.Map[lrObj][AX, AY] in StopTiles) then
     Exit;
   if not IsInfo then
     for I := 0 to High(TMap.Place) do
@@ -375,19 +375,19 @@ begin
     end;
   if IsInfo then
   begin
-    if Map[lrTile][AX, AY] in Capitals then
+    if TMap.Map[lrTile][AX, AY] in Capitals then
     begin
       DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
-    if Map[lrTile][AX, AY] in Cities then
+    if TMap.Map[lrTile][AX, AY] in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
         DisciplesRL.Scene.Party.Show(Party[I], scMap);
       Exit;
     end;
-    case Map[lrObj][AX, AY] of
+    case TMap.Map[lrObj][AX, AY] of
       reEnemy:
         begin
           I := TSaga.GetPartyIndex(AX, AY);
@@ -406,16 +406,16 @@ begin
       Turn(1);
     end;
     F := True;
-    case Map[lrObj][Leader.X, Leader.Y] of
+    case TMap.Map[lrObj][Leader.X, Leader.Y] of
       reGold:
         begin
-          Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
           TSaga.AddLoot();
           F := False;
         end;
       reBag:
         begin
-          Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
           TSaga.AddLoot();
           F := False;
         end;
@@ -424,7 +424,7 @@ begin
           DisciplesRL.Scene.Battle2.Start;
           SetSceneMusic(scBattle2);
           SetScene(scBattle2);
-          Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
           F := False;
           Exit;
         end;
@@ -480,7 +480,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, Map[lrDark], reNone);
+  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.Map[lrDark], reNone);
 end;
 
 end.
