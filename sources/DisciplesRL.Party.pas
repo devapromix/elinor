@@ -59,6 +59,9 @@ type
     FMaxLeadership: Integer;
     FRadius: Integer;
   public
+  class var
+    LeaderPartyIndex: Byte;
+    CapitalPartyIndex: Byte;
     Speed: Integer;
     MaxSpeed: Integer;
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -77,8 +80,6 @@ type
 
 var
   Party: array of TParty;
-  LeaderPartyIndex: Byte;
-  CapitalPartyIndex: Byte;
 
 implementation
 

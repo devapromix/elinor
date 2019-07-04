@@ -30,7 +30,7 @@ type
     TileSize = 32;
   public
     class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
-    class var Map: array [TMap.TLayerEnum] of TMap.TMapLayer;
+    class var Map: array [TLayerEnum] of TMapLayer;
     class procedure Clear(const L: TLayerEnum);
     class procedure Init; static;
     class procedure Gen; static;
@@ -115,7 +115,7 @@ end;
 
 procedure AddCapitalParty;
 begin
-  CapitalPartyIndex := High(Party) + 1;
+  TLeaderParty.CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(TMap.Place[0].X, TMap.Place[0].Y, TSaga.LeaderRace);
   Party[TSaga.GetPartyCount - 1].AddCreature(Characters[TSaga.LeaderRace][cgGuardian][ckGuardian], 3);
@@ -125,19 +125,19 @@ procedure AddLeaderParty;
 var
   C: TCreatureEnum;
 begin
-  LeaderPartyIndex := High(Party) + 1;
+  TLeaderParty.LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(TMap.Place[0].X, TMap.Place[0].Y, TSaga.LeaderRace);
   C := Characters[TSaga.LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
       begin
-        Party[LeaderPartyIndex].AddCreature(C, 2);
+        Party[TLeaderParty.LeaderPartyIndex].AddCreature(C, 2);
         ActivePartyPosition := 2;
       end
   else
     begin
-      Party[LeaderPartyIndex].AddCreature(C, 3);
+      Party[TLeaderParty.LeaderPartyIndex].AddCreature(C, 3);
       ActivePartyPosition := 3;
     end;
   end;

@@ -167,7 +167,7 @@ var
 begin
   //Log.Clear;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  if Party[LeaderPartyIndex].IsClear then
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
     Defeat;
   if Party[I].IsClear then
     Victory;
@@ -258,7 +258,7 @@ begin
   Render2;
   //
   F := False;
-  if Party[LeaderPartyIndex].IsClear then
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
   begin
     DrawTitle(reTitleDefeat);
     F := True;
@@ -302,7 +302,7 @@ begin
   N := GetPartyPosition(X, Y);
   if (N < 0) then
     Exit;
-  if Party[LeaderPartyIndex].IsClear then
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
     Exit;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if Party[I].IsClear then

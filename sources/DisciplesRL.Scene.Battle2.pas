@@ -99,7 +99,7 @@ begin
   begin
     ChCnt := 0;
     for P := Low(TPosition) to High(TPosition) do
-      with Party[LeaderPartyIndex].Creature[P] do
+      with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
         if Active and (HitPoints > 0) then
         begin
           Inc(ChCnt);
@@ -108,19 +108,19 @@ begin
     begin
       ChExp := EnsureRange(PartyExperience div ChCnt, 1, 9999);
       for P := Low(TPosition) to High(TPosition) do
-        with Party[LeaderPartyIndex].Creature[P] do
+        with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
           if Active and (HitPoints > 0) then
           begin
-            Party[LeaderPartyIndex].UpdateXP(ChExp, P);
+            Party[TLeaderParty.LeaderPartyIndex].UpdateXP(ChExp, P);
             Log.Add(Format('%s получил опыт +%d', [Name, ChExp]));
           end;
     end;
     for P := Low(TPosition) to High(TPosition) do
-      with Party[LeaderPartyIndex].Creature[P] do
+      with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
         if Active and (HitPoints > 0) then
-          if Experience >= Party[LeaderPartyIndex].GetMaxExperience(Level) then
+          if Experience >= Party[TLeaderParty.LeaderPartyIndex].GetMaxExperience(Level) then
           begin
-            Party[LeaderPartyIndex].UpdateLevel(P);
+            Party[TLeaderParty.LeaderPartyIndex].UpdateLevel(P);
             Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
           end;
     PartyExperience := 0;
@@ -153,14 +153,14 @@ begin
   PartyExperience := 0;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
-  ActivePartyPosition := GetRandomActivePartyPosition(Party[LeaderPartyIndex]);
+  ActivePartyPosition := GetRandomActivePartyPosition(Party[TLeaderParty.LeaderPartyIndex]);
   CurrentPartyPosition := ActivePartyPosition;
 end;
 
 procedure Finish;
 begin
   Log.Clear;
-  if Party[LeaderPartyIndex].IsClear then
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
     Defeat;
   if EnemyParty.IsClear then
     Victory;
@@ -168,7 +168,7 @@ end;
 
 procedure NextTurn;
 begin
-  ActivePartyPosition := GetRandomActivePartyPosition(Party[LeaderPartyIndex]);
+  ActivePartyPosition := GetRandomActivePartyPosition(Party[TLeaderParty.LeaderPartyIndex]);
 end;
 
 procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
@@ -272,14 +272,14 @@ begin
     0 .. 5:
       case ActivePartyPosition of
         0 .. 5:
-          Heal(Party[LeaderPartyIndex], Party[LeaderPartyIndex], ActivePartyPosition, CurrentPartyPosition);
+          Heal(Party[TLeaderParty.LeaderPartyIndex], Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition, CurrentPartyPosition);
         6 .. 11:
-          Damage(EnemyParty, Party[LeaderPartyIndex], ActivePartyPosition - 6, CurrentPartyPosition);
+          Damage(EnemyParty, Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition - 6, CurrentPartyPosition);
       end;
     6 .. 11:
       case ActivePartyPosition of
         0 .. 5:
-          Damage(Party[LeaderPartyIndex], EnemyParty, ActivePartyPosition, CurrentPartyPosition - 6);
+          Damage(Party[TLeaderParty.LeaderPartyIndex], EnemyParty, ActivePartyPosition, CurrentPartyPosition - 6);
         6 .. 11:
           Heal(EnemyParty, EnemyParty, ActivePartyPosition - 6, CurrentPartyPosition - 6);
       end;
@@ -291,7 +291,7 @@ begin
   CurrentPartyPosition := GetPartyPosition(X, Y);
   if CurrentPartyPosition < 0 then
     Exit;
-  if Party[LeaderPartyIndex].IsClear or EnemyParty.IsClear then
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear or EnemyParty.IsClear then
     Exit;
   case Button of
     mbLeft:
@@ -313,10 +313,10 @@ procedure Render;
 var
   F: Boolean;
 begin
-  RenderParty(psLeft, Party[LeaderPartyIndex]);
+  RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex]);
   RenderParty(psRight, EnemyParty);
   F := False;
-  if Party[LeaderPartyIndex].IsClear then
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
   begin
     DrawTitle(reTitleDefeat);
     F := True;
