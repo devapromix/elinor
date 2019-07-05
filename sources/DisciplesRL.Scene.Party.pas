@@ -161,7 +161,7 @@ end;
 
 procedure Close;
 begin
-  if CurrentParty <> Party[LeaderPartyIndex] then
+  if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
   SetScene(BackScene);
 end;
@@ -254,7 +254,7 @@ begin
   Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Name);
   S := '';
   if IsExp then
-    S := Format(' Опыт %d/%d', [Experience, Party[LeaderPartyIndex].GetMaxExperience(Level)]);
+    S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex].GetMaxExperience(Level)]);
   Surface.Canvas.TextOut(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]));
   Surface.Canvas.TextOut(AX + Left + 64, AY + 48, Format('Здоровье %d/%d', [HitPoints, MaxHitPoints]));
   if Damage > 0 then

@@ -130,7 +130,7 @@ begin
     CurrentCityIndex]));
 
   if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0) or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, Party[LeaderPartyIndex], Party[LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)
+    RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex], Party[TLeaderParty.LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
 
@@ -154,14 +154,14 @@ procedure Hire;
         InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      if (((AParty = Party[LeaderPartyIndex]) and (Party[LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)) or
-        (AParty <> Party[LeaderPartyIndex])) then
+      if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and (Party[TLeaderParty.LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)) or
+        (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
       begin
         DisciplesRL.Scene.Hire.Show(AParty, APosition);
       end
       else
       begin
-        if (Party[LeaderPartyIndex].Count = TLeaderParty.Leader.MaxLeadership) then
+        if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.MaxLeadership) then
           InformDialog('Нужно развить лидерство!')
         else
           InformDialog('Не возможно нанять!');
@@ -174,7 +174,7 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Hire(Party[LeaderPartyIndex], ActivePartyPosition);
+      Hire(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Hire(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -208,7 +208,7 @@ procedure Dismiss;
 begin
   case ActivePartyPosition of
     0 .. 5:
-      Dismiss(Party[LeaderPartyIndex], ActivePartyPosition);
+      Dismiss(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Dismiss(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -264,7 +264,7 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Heal(Party[LeaderPartyIndex], ActivePartyPosition);
+      Heal(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Heal(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -308,7 +308,7 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Revive(Party[LeaderPartyIndex], ActivePartyPosition);
+      Revive(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
       Revive(SettlementParty, ActivePartyPosition - 6);
   end;
@@ -358,10 +358,10 @@ begin
       begin
         CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
-        SettlementParty.Owner := Party[LeaderPartyIndex].Owner;
+        SettlementParty.Owner := Party[TLeaderParty.LeaderPartyIndex].Owner;
       end
   else
-    SettlementParty := Party[CapitalPartyIndex];
+    SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
   end;
   SetScene(scSettlement);
 end;
@@ -386,15 +386,15 @@ begin
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
         if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
-          (Party[LeaderPartyIndex].Count >= TLeaderParty.Leader.MaxLeadership)) then
+          (Party[TLeaderParty.LeaderPartyIndex].Count >= TLeaderParty.Leader.MaxLeadership)) then
           Exit;
-        Party[LeaderPartyIndex].ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
+        Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
       end;
     mbMiddle:
       begin
         case GetPartyPosition(X, Y) of
           0 .. 5:
-            DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scSettlement);
+            DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
         else
           if not SettlementParty.IsClear then
             DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
@@ -417,7 +417,7 @@ begin
     K_ESCAPE, K_ENTER:
       Close;
     K_P:
-      DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scSettlement);
+      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
     K_A:
       Hire;
     K_H:

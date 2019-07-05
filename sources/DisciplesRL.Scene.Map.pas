@@ -156,7 +156,7 @@ begin
     K_KP_5, K_S:
       TLeaderParty.Leader.Move(drOrigin);
     K_P:
-      DisciplesRL.Scene.Party.Show(Party[LeaderPartyIndex], scMap);
+      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:
       DisciplesRL.Scene.Hire.Show(stJournal);
   end;

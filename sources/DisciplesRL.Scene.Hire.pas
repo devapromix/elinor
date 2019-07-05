@@ -141,13 +141,13 @@ begin
     stLeader:
       begin
         TSaga.Clear;
-        Party[LeaderPartyIndex].Owner := TSaga.LeaderRace;
+        Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
         SetSceneMusic(scSettlement);
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
     stCharacter:
       begin
-        HireParty.Hire(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
+        HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
         SetScene(scSettlement);
       end;
     stScenario:
@@ -424,10 +424,10 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with TCreature.Character(Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]) do
+          with TCreature.Character(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Party[LeaderPartyIndex].Owner][cgCharacters][K]);
+            RenderUnitInfo(Lf, Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K]);
           end;
           Inc(Y, 120);
         end;
