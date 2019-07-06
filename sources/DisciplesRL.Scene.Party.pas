@@ -32,8 +32,8 @@ function GetFrameY(const Position: TPosition; const PartySide: TPartySide): Inte
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False);
-procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
-  ChToHit: Integer; IsExp: Boolean); overload;
+procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
+  IsExp: Boolean); overload;
 procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum; IsAdv: Boolean = True); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
@@ -42,7 +42,6 @@ procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHir
 var
   ActivePartyPosition: Integer = 2;
   CurrentPartyPosition: Integer = 2;
-
 
 implementation
 
@@ -247,7 +246,8 @@ begin
     Surface.Canvas.Draw(AX, AY, ResImage[reFrame]);
 end;
 
-procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer; IsExp: Boolean);
+procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
+  IsExp: Boolean);
 var
   S: string;
 begin
@@ -255,7 +255,7 @@ begin
   S := '';
   if IsExp then
     S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex].GetMaxExperience(Level)]);
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]) + S);
   Surface.Canvas.TextOut(AX + Left + 64, AY + 48, Format('Здоровье %d/%d', [HitPoints, MaxHitPoints]));
   if Damage > 0 then
     Surface.Canvas.TextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d', [Damage, Armor]))
