@@ -31,13 +31,13 @@ function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Inte
 function GetFrameY(const Position: TPosition; const PartySide: TPartySide): Integer;
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
-procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False);
+procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
 procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
   IsExp: Boolean); overload;
-procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer); overload;
+procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer; ShowExp: Boolean = True); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum; IsAdv: Boolean = True); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
-procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHire: Boolean = False); overload;
+procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True); overload;
 
 var
   ActivePartyPosition: Integer = 2;
@@ -264,12 +264,12 @@ begin
   Surface.Canvas.TextOut(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d', [Initiative, ChToHit]) + '%');
 end;
 
-procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer);
+procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer; ShowExp: Boolean = True);
 begin
   with Party.Creature[Position] do
   begin
     if Active then
-      RenderUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, True);
+      RenderUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
   end;
 end;
 
@@ -288,7 +288,7 @@ begin
   Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
 end;
 
-procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHire: Boolean = False);
+procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   F: Boolean;
 begin
@@ -301,7 +301,7 @@ begin
         RenderUnit(reDead, AX, AY, F)
       else
         RenderUnit(ResEnum, AX, AY, F);
-      RenderUnitInfo(Position, Party, AX, AY);
+      RenderUnitInfo(Position, Party, AX, AY, ShowExp);
     end
     else if CanHire then
     begin
@@ -311,7 +311,7 @@ begin
   end;
 end;
 
-procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False);
+procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   Position: TPosition;
 begin
@@ -319,7 +319,7 @@ begin
   begin
     RenderFrame(PartySide, Position, GetFrameX(Position, PartySide), GetFrameY(Position, PartySide));
     if (Party <> nil) then
-      RenderUnit(Position, Party, GetFrameX(Position, PartySide), GetFrameY(Position, PartySide), CanHire);
+      RenderUnit(Position, Party, GetFrameX(Position, PartySide), GetFrameY(Position, PartySide), CanHire, ShowExp);
   end;
 end;
 

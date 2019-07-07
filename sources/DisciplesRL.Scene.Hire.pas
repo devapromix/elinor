@@ -427,7 +427,7 @@ begin
           with TCreature.Character(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K]);
+            RenderUnitInfo(Lf, Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K], False);
           end;
           Inc(Y, 120);
         end;

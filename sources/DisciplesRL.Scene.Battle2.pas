@@ -314,7 +314,7 @@ var
   F: Boolean;
 begin
   RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex]);
-  RenderParty(psRight, EnemyParty);
+  RenderParty(psRight, EnemyParty, False, False);
   F := False;
   if Party[TLeaderParty.LeaderPartyIndex].IsClear then
   begin
