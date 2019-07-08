@@ -101,10 +101,10 @@ end;
 procedure TConfirmationForm.FormCreate(Sender: TObject);
 var
   I: TButtonEnum;
-  L, W: Integer;
+  L, W, Y: Integer;
 begin
-  ClientWidth := MainForm.ClientWidth - 300;
-  ClientHeight := MainForm.ClientHeight - 300;
+  ClientWidth := ResImage[reBigFrame].Width;
+  ClientHeight := ResImage[reBigFrame].Height;
   Position := poOwnerFormCenter;
   Surface := TBitmap.Create;
   Surface.Width := ClientWidth;
@@ -114,15 +114,16 @@ begin
   Surface.Canvas.Brush.Style := bsClear;
   W := ResImage[reButtonDef].Width + 4;
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  Y := ResImage[reBigFrame].Height - (ResImage[reButtonDef].Height + 10);
   Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Buttons[I] := TButton.Create(L, 300, Surface.Canvas, ButtonsText[I]);
+    Buttons[I] := TButton.Create(L, Y, Surface.Canvas, ButtonsText[I]);
     Inc(L, W);
     if (I = btOk) then
       Buttons[I].Sellected := True;
   end;
-  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), 300, Surface.Canvas, reTextClose);
+  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), Y, Surface.Canvas, reTextClose);
   Button.Sellected := True;
 end;
 
@@ -153,6 +154,7 @@ var
 begin
   Surface.Canvas.Brush.Color := clBlack;
   Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
+  Surface.Canvas.Draw(0, 0, ResImage[reBigFrame]);
   case SubScene of
     stInform:
       begin
