@@ -115,10 +115,15 @@ begin
         MediaPlayer.StopAll;
         MediaPlayer.Play(mmBattle);
       end;
-    scMap, scMenu:
+    scMap:
       begin
         MediaPlayer.StopAll;
         MediaPlayer.Play(mmMap);
+      end;
+    scMenu:
+      begin
+        MediaPlayer.StopAll;
+        MediaPlayer.Play(mmMenu);
       end;
   end;
 end;

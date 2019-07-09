@@ -26,7 +26,8 @@ const
   StopTiles = MountainTiles + [reDark];
 
 type
-  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine);
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine,
+    teMusic, teSound);
 
 type
   TResBase = record
@@ -248,7 +249,7 @@ const
     );
 
 type
-  TMusicEnum = (mmBattle, mmGame, mmMap);
+  TMusicEnum = (mmBattle, mmGame, mmMap, mmMenu);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -257,11 +258,13 @@ var
 const
   MusicBase: array [TMusicEnum] of TResBase = (
     // Battle
-    (FileName: 'wasteland-showdown.mp3'; ResType: teNone;),
+    (FileName: 'wasteland-showdown.mp3'; ResType: teMusic;),
     // Game
-    (FileName: 'soliloquy.mp3'; ResType: teNone;),
+    (FileName: 'soliloquy.mp3'; ResType: teMusic;),
     // Map
-    (FileName: 'prologue.mp3'; ResType: teNone;)
+    (FileName: 'prologue.mp3'; ResType: teMusic;),
+    // Menu
+    (FileName: 'stellardrone.mp3'; ResType: teMusic;)
     //
     );
 
