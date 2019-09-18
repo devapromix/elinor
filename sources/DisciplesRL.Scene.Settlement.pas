@@ -134,13 +134,16 @@ procedure Hire;
         Exit;
       end;
       if (((AParty = LeaderParty) and (LeaderParty.Count < Leader.MaxLeadership)) or (AParty <> LeaderParty)) then
-        DisciplesRL.Scene.Hire.Show(AParty, APosition)
+      begin
+        DisciplesRL.Scene.Hire.Show(AParty, APosition);
+        CurrentPartyPosition := APosition;
+      end
       else
       begin
         if (LeaderParty.Count = Leader.MaxLeadership) then
-        InformDialog('Нужно развить лидерство!')
-         else
-        InformDialog('Не возможно нанять!');
+          InformDialog('Нужно развить лидерство!')
+        else
+          InformDialog('Не возможно нанять!');
         Exit;
       end;
     end;
