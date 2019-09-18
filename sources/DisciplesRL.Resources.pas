@@ -13,8 +13,8 @@ type
     rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
     reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleLeader, reTitleNewDay,
-    reTitleLoot,reTitleParty);
+    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
+    reTitleNewDay, reTitleLoot, reTitleParty);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
@@ -188,6 +188,8 @@ const
     (FileName: 'title.logo.png'; ResType: teGUI;),
     // Title "Race"
     (FileName: 'title.race.png'; ResType: teGUI;),
+    // Title "Scenario"
+    (FileName: 'title.scenario.png'; ResType: teGUI;),
     // Title "Leader"
     (FileName: 'title.leader.png'; ResType: teGUI;),
     // Title "New Day"

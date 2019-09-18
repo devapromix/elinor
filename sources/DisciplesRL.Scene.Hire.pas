@@ -8,7 +8,7 @@ uses
   DisciplesRL.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace);
+  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario);
 
 procedure Init;
 procedure Render;
@@ -46,6 +46,8 @@ const
     // Leader
     (reTextContinue, reTextCancel),
     // Race
+    (reTextContinue, reTextCancel),
+    // Scenario
     (reTextContinue, reTextCancel));
 
 var
@@ -88,6 +90,8 @@ begin
     stLeader:
       DisciplesRL.Scene.Hire.Show(stRace);
     stRace:
+      DisciplesRL.Scene.Hire.Show(stScenario);
+    stScenario:
       DisciplesRL.Scenes.CurrentScene := scMenu;
   end;
 end;
@@ -109,6 +113,11 @@ begin
       begin
         HireParty.Hire(Characters[Leader.Race][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
         DisciplesRL.Scenes.CurrentScene := scSettlement;
+      end;
+    stScenario:
+      begin
+        CurrentScenario := TScenarioEnum(CurrentIndex + 1);
+        DisciplesRL.Scene.Hire.Show(stRace);
       end;
   end;
 end;
@@ -230,7 +239,52 @@ begin
   end;
 end;
 
+procedure RenderScenario(const AScenario: TScenarioEnum; const AX, AY: Integer);
+begin
+  case AScenario of
+    sgDarkTower:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+  end;
+end;
+
 procedure RenderRaceInfo;
+const
+  H = 25;
+var
+  R: TRaceEnum;
+  T, L, J: Integer;
+
+  procedure Add; overload;
+  begin
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    Surface.Canvas.TextOut(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  R := TRaceEnum(CurrentIndex + 1);
+  Add(RaceName[R], True);
+  Add;
+  for J := 0 to 10 do
+    Add(RaceDescription[R][J]);
+end;
+
+procedure RenderScenarioInfo;
 const
   H = 25;
 var
@@ -280,6 +334,7 @@ var
   I, Y: Integer;
   R: TRaceEnum;
   K: TRaceCharKind;
+  S: TScenarioEnum;
 begin
   Y := 0;
   case SubScene of
@@ -330,6 +385,19 @@ begin
           Inc(Y, 120);
         end;
       end;
+    stScenario:
+      begin
+        DrawTitle(reTitleScenario);
+        for S := Low(TScenarioEnum) to High(TScenarioEnum) do
+        begin
+          if Ord(S) = CurrentIndex then
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+          else
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+          RenderScenario(S, Lf, Top + Y);
+          Inc(Y, 120);
+        end;
+      end;
   end;
   Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top, ResImage[reInfoFrame]);
   case SubScene of
@@ -337,6 +405,8 @@ begin
       RenderCharacterInfo;
     stRace:
       RenderRaceInfo;
+    stScenario:
+      RenderScenarioInfo;
   end;
   RenderButtons;
 end;
@@ -380,6 +450,13 @@ begin
         if Button[stRace][btOk].MouseDown then
           Ok;
         if Button[stRace][btClose].MouseDown then
+          Back;
+      end;
+    stScenario:
+      begin
+        if Button[stScenario][btOk].MouseDown then
+          Ok;
+        if Button[stScenario][btClose].MouseDown then
           Back;
       end;
   end;
@@ -429,6 +506,17 @@ begin
           CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
         K_DOWN:
           CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
+      end;
+    stScenario:
+      case Key of
+        K_ESCAPE:
+          Back;
+        K_ENTER:
+          Ok;
+        K_UP:
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenarioEnum)));
+        K_DOWN:
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenarioEnum)));
       end;
   end;
 end;

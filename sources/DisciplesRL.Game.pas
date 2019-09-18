@@ -5,6 +5,9 @@ interface
 uses
   DisciplesRL.Party;
 
+type
+  TScenarioEnum = (sgDarkTower);
+
 const
   GoldFromMinePerDay = 100;
   GoldForRevivePerLevel = 250;
@@ -16,12 +19,9 @@ var
   GoldMines: Integer = 0;
   BattlesWon: Integer = 0;
   IsDay: Boolean = False;
-
-var
   Wizard: Boolean = False;
   IsGame: Boolean = False;
-
-var
+  CurrentScenario: TScenarioEnum = sgDarkTower;
   Party: array of TParty;
   LeaderParty: TParty;
   CapitalParty: TParty;

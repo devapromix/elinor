@@ -69,12 +69,15 @@ begin
         F := True;
         begin
           DisciplesRL.Scenes.CurrentScene := scMap;
-          case LeaderTile of
-            reTower:
-              begin
-                DisciplesRL.Scene.Info.Show(stVictory, scInfo);
-                F := False;
-              end;
+          if CurrentScenario = sgDarkTower then
+          begin
+            case LeaderTile of
+              reTower:
+                begin
+                  DisciplesRL.Scene.Info.Show(stVictory, scInfo);
+                  F := False;
+                end;
+            end;
           end;
           if LeaderTile in Cities then
           begin

@@ -51,7 +51,7 @@ begin
     0: // Play
       begin
         IsGame := False;
-        DisciplesRL.Scene.Hire.Show(stRace);
+        DisciplesRL.Scene.Hire.Show(stScenario);
       end;
     1: // Continue
       if IsGame then
