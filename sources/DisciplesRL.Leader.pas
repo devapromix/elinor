@@ -18,6 +18,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
+    procedure ChCityOwner;
     procedure AddToParty;
     procedure RefreshRadius;
     procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
@@ -48,7 +49,8 @@ uses
   DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Info;
 
 { TLeader }
 
@@ -116,14 +118,7 @@ begin
   case LeaderTile of
     reNeutralCity:
       begin
-        case Leader.Race of
-          reTheEmpire:
-            Map[lrTile][X, Y] := reTheEmpireCity;
-          reUndeadHordes:
-            Map[lrTile][X, Y] := reUndeadHordesCity;
-          reLegionsOfTheDamned:
-            Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
-        end;
+        ChCityOwner;
         DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(X, Y));
         F := False;
       end;
@@ -169,6 +164,18 @@ end;
 procedure TLeader.Move(const AX, AY: ShortInt);
 begin
   PutAt(X + AX, Y + AY);
+end;
+
+procedure TLeader.ChCityOwner;
+begin
+  case Leader.Race of
+    reTheEmpire:
+      Map[lrTile][X, Y] := reTheEmpireCity;
+    reUndeadHordes:
+      Map[lrTile][X, Y] := reUndeadHordesCity;
+    reLegionsOfTheDamned:
+      Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
+  end;
 end;
 
 procedure TLeader.Clear;

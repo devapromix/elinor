@@ -6,7 +6,21 @@ uses
   DisciplesRL.Party;
 
 type
-  TScenarioEnum = (sgDarkTower);
+  TScenarioEnum = (sgDarkTower, sgScenario2, sgScenario3);
+
+const
+  ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Сценарий II', 'Сценарий III');
+
+const
+  ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
+    // Темная Башня
+    ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить Темную Башню'),
+    // Сценарий II
+    ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
+    // Сценарий III
+    ('', '', '', '', '', '', '', '', '', '', '')
+    //
+    );
 
 const
   GoldFromMinePerDay = 100;

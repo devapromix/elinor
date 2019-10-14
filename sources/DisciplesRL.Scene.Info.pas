@@ -67,9 +67,9 @@ begin
     stLoot:
       begin
         F := True;
+        DisciplesRL.Scenes.CurrentScene := scMap;
         begin
-          DisciplesRL.Scenes.CurrentScene := scMap;
-          if CurrentScenario = sgDarkTower then
+          if (CurrentScenario = sgDarkTower) then
           begin
             case LeaderTile of
               reTower:
@@ -79,10 +79,10 @@ begin
                 end;
             end;
           end;
-          if LeaderTile in Cities then
+          if LeaderTile = reNeutralCity then
           begin
             DisciplesRL.Scene.Settlement.Show(stCity);
-            F := False;
+            Exit;
           end;
           if F then
             NewDay;

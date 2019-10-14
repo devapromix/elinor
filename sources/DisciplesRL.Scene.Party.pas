@@ -24,6 +24,7 @@ procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseClick;
 procedure Timer;
+function GetRandomActivePartyPosition(Party: TParty): TPosition;
 procedure Show(Party: TParty; CloseScene: TSceneEnum);
 procedure Free;
 function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Integer;
@@ -31,7 +32,8 @@ function GetFrameY(const Position: TPosition; const PartySide: TPartySide): Inte
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderParty(const PartySide: TPartySide; const Party: TParty; CanHire: Boolean = False);
-procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor: Integer); overload;
+procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
+  ChToHit: Integer); overload;
 procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum); overload;
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean); overload;
@@ -44,6 +46,7 @@ var
 implementation
 
 uses
+  Math,
   System.SysUtils,
   System.TypInfo,
   DisciplesRL.Game,
@@ -70,9 +73,18 @@ procedure Show(Party: TParty; CloseScene: TSceneEnum);
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
-  if ActivePartyPosition > 5 then
-    ActivePartyPosition := ActivePartyPosition - 6;
+  ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
   DisciplesRL.Scenes.CurrentScene := scParty;
+end;
+
+function GetRandomActivePartyPosition(Party: TParty): TPosition;
+var
+  I: TPosition;
+begin
+  repeat
+    I := RandomRange(Low(TPosition), High(TPosition) + 1);
+  until Party.GetHitPoints(I) > 0;
+  Result := I;
 end;
 
 function GetFrameX(const Position: TPosition; const PartySide: TPartySide): Integer;
@@ -228,20 +240,22 @@ begin
   else
     J := I + 6;
   end;
-  if (ActivePartyPosition = J) then
+  if (ActivePartyPosition = J) and (CurrentPartyPosition > -1) then
     Surface.Canvas.Draw(AX, AY, ResImage[reActFrame])
   else
     Surface.Canvas.Draw(AX, AY, ResImage[reFrame]);
 end;
 
-procedure RenderUnitInfo(Name: string; AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor: Integer);
+procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer);
 begin
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Format('%s (Level %d)', [Name, Level]));
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 40 + 2, Format('HP %d/%d', [HitPoints, MaxHitPoints]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Name);
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 27, Format('Уровень %d Опыт %d/%d', [Level, Experience, LeaderParty.GetMaxExperience(Level)]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 48, Format('Здоровье %d/%d', [HitPoints, MaxHitPoints]));
   if Damage > 0 then
-    Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Damage %d Armor %d', [Damage, Armor]))
+    Surface.Canvas.TextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d', [Damage, Armor]))
   else
-    Surface.Canvas.TextOut(AX + Left + 64, AY + 80 - 2, Format('Heal %d Armor %d', [Heal, Armor]));
+    Surface.Canvas.TextOut(AX + Left + 64, AY + 69, Format('Исцеление %d Броня %d', [Heal, Armor]));
+  Surface.Canvas.TextOut(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d', [Initiative, ChToHit]) + '%');
 end;
 
 procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer);
@@ -249,14 +263,14 @@ begin
   with Party.Creature[Position] do
   begin
     if Active then
-      RenderUnitInfo(Name, AX, AY, Level, HitPoints, MaxHitPoints, Damage, Heal, Armor);
+      RenderUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit);
   end;
 end;
 
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum);
 begin
   with GetCharacter(ACreature) do
-    RenderUnitInfo(Name, AX, AY, Level, HitPoints, HitPoints, Damage, Heal, Armor);
+    RenderUnitInfo(Name, AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal, Armor, Initiative, ChancesToHit);
 end;
 
 procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);

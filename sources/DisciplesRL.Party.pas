@@ -36,12 +36,13 @@ type
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
-    function UpdateLevel: Boolean;
+    procedure UpdateLevel(const APosition: TPosition);
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
     property Count: Integer read GetCount;
     procedure ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
+    function GetMaxExperience(const Level: Integer): Integer;
   end;
 
 implementation
@@ -133,6 +134,11 @@ end;
 function TParty.GetHitPoints(const APosition: TPosition): Integer;
 begin
   Result := FCreature[APosition].HitPoints;
+end;
+
+function TParty.GetMaxExperience(const Level: Integer): Integer;
+begin
+  Result := Level * 250;
 end;
 
 function TParty.GetCount: Integer;
@@ -237,14 +243,27 @@ begin
             HitPoints := MaxHitPoints;
 end;
 
-function TParty.UpdateLevel: Boolean;
+procedure TParty.UpdateLevel(const APosition: TPosition);
 begin
-
+  with FCreature[APosition] do
+  begin
+    Experience := 0;
+    MaxHitPoints := MaxHitPoints + (MaxHitPoints div 10);
+    HitPoints := MaxHitPoints;
+    Initiative := EnsureRange(Initiative + 1, 10, 100);
+    ChancesToHit := EnsureRange(ChancesToHit + 1, 10, 100);
+    Damage := Damage + (Damage div 10);
+    Level := Level + 1;
+  end;
 end;
 
 procedure TParty.UpdateXP(const AExperience: Integer; const APosition: TPosition);
 begin
-
+  with FCreature[APosition] do
+    if Active then
+      if (HitPoints > 0) then
+        if (AExperience > 0) then
+          Experience := Experience + AExperience;
 end;
 
 end.

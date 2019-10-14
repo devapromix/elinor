@@ -116,7 +116,7 @@ begin
       end;
     stScenario:
       begin
-        CurrentScenario := TScenarioEnum(CurrentIndex + 1);
+        CurrentScenario := TScenarioEnum(CurrentIndex);
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
   end;
@@ -244,6 +244,10 @@ begin
   case AScenario of
     sgDarkTower:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+    sgScenario2:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+    sgScenario3:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
   end;
 end;
 
@@ -288,7 +292,7 @@ procedure RenderScenarioInfo;
 const
   H = 25;
 var
-  R: TRaceEnum;
+  S: TScenarioEnum;
   T, L, J: Integer;
 
   procedure Add; overload;
@@ -314,11 +318,11 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
-  R := TRaceEnum(CurrentIndex + 1);
-  Add(RaceName[R], True);
+  S := TScenarioEnum(CurrentIndex);
+  Add(ScenarioName[S], True);
   Add;
   for J := 0 to 10 do
-    Add(RaceDescription[R][J]);
+    Add(ScenarioDescription[S][J]);
 end;
 
 procedure RenderButtons;

@@ -1,4 +1,4 @@
-unit DisciplesRL.ConfirmationForm;
+﻿unit DisciplesRL.ConfirmationForm;
 
 interface
 
@@ -69,7 +69,7 @@ end;
 
 procedure TConfirmationForm.Back;
 begin
-    Button2.Click;
+  Button2.Click;
 end;
 
 procedure TConfirmationForm.CenterTextOut(const Y: Integer; const Msg: string);

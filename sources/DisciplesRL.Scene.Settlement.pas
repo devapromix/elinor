@@ -90,7 +90,7 @@ end;
 procedure Render;
 begin
   CalcPoints;
-  // RenderDark;
+  CenterTextOut(60, Format('ActivePartyPosition=%d, CurrentPartyPosition=%d', [ActivePartyPosition, CurrentPartyPosition]));
   case CurrentSettlementType of
     stCity:
       begin
@@ -136,7 +136,6 @@ procedure Hire;
       if (((AParty = LeaderParty) and (LeaderParty.Count < Leader.MaxLeadership)) or (AParty <> LeaderParty)) then
       begin
         DisciplesRL.Scene.Hire.Show(AParty, APosition);
-        CurrentPartyPosition := APosition;
       end
       else
       begin
@@ -150,6 +149,7 @@ procedure Hire;
   end;
 
 begin
+  CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
       Hire(LeaderParty, ActivePartyPosition);
@@ -239,6 +239,7 @@ procedure Heal;
   end;
 
 begin
+  CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
       Heal(LeaderParty, ActivePartyPosition);
@@ -282,6 +283,7 @@ procedure Revive;
   end;
 
 begin
+  CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
       Revive(LeaderParty, ActivePartyPosition);
@@ -292,6 +294,21 @@ end;
 
 procedure Close;
 begin
+  if (CurrentScenario = sgScenario2) then
+  begin
+    if (GetOwnerCount = NCity) then
+    begin
+      DisciplesRL.Scene.Info.Show(stVictory, scInfo);
+      Exit;
+    end;
+  end;
+  case LeaderTile of
+    reNeutralCity:
+      begin
+        Leader.ChCityOwner;
+        DisciplesRL.City.UpdateRadius(DisciplesRL.City.GetCityIndex(Leader.X, Leader.Y));
+      end;
+  end;
   DisciplesRL.Scenes.CurrentScene := scMap;
   NewDay;
 end;
@@ -346,20 +363,20 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        if (CurrentPartyPosition = ActivePartyPosition) and (True) then
-        begin
-          case ActivePartyPosition of
-            0 .. 5:
-              DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
-          else
-            DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
-          end;
-          Exit;
-        end;
         if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and (LeaderParty.Count >= Leader.MaxLeadership))
         then
           Exit;
         LeaderParty.ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
+      end;
+    mbMiddle:
+      begin
+        case GetPartyPosition(X, Y) of
+          0 .. 5:
+            DisciplesRL.Scene.Party.Show(LeaderParty, scSettlement);
+        else
+          DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
+        end;
+        Exit;
       end;
     mbLeft:
       begin

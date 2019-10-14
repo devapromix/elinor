@@ -17,10 +17,14 @@ type
 var
   City: array [0 .. 29] of TCity;
 
+const
+  NCity = 7;
+
 procedure Init;
 function GetCityIndex(const AX, AY: Integer): Integer;
 procedure UpdateRadius(const AID: Integer);
 procedure Gen;
+function GetOwnerCount: Integer;
 
 implementation
 
@@ -30,9 +34,6 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Leader,
   DisciplesRL.Game;
-
-const
-  NCity = 7;
 
 procedure Init;
 var
@@ -63,7 +64,8 @@ end;
 
 procedure UpdateRadius(const AID: Integer);
 begin
-  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], RaceTerrain[Leader.Race], [reNeutralCity, reRuin, reTower] + Capitals + Cities);
+  DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrTile], RaceTerrain[Leader.Race],
+    [reNeutralCity, reRuin, reTower] + Capitals + Cities);
   DisciplesRL.Map.UpdateRadius(City[AID].X, City[AID].Y, City[AID].CurLevel, Map[lrDark], reNone);
   City[AID].Owner := Leader.Race;
 end;
@@ -168,6 +170,18 @@ begin
       0 .. NCity:
         Map[lrObj][City[I].X + DX, City[I].Y + DY] := reMine;
     end;
+  end;
+end;
+
+function GetOwnerCount: Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 1 to NCity do
+  begin
+    if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
+      Inc(Result);
   end;
 end;
 

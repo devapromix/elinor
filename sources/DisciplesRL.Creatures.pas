@@ -373,6 +373,7 @@ type
     ChancesToHit: Integer;
     Leadership: Integer;
     Level: Integer;
+    Experience: Integer;
     Damage: Integer;
     Armor: Integer;
     Heal: Integer;
@@ -520,6 +521,7 @@ begin
     ChancesToHit := 0;
     Leadership := 0;
     Level := 0;
+    Experience := 0;
     Damage := 0;
     Armor := 0;
     Heal := 0;
@@ -542,6 +544,7 @@ begin
     ChancesToHit := CreatureBase[I].ChancesToHit;
     Leadership := CreatureBase[I].Leadership;
     Level := CreatureBase[I].Level;
+    Experience := 0;
     Damage := CreatureBase[I].Damage;
     Armor := CreatureBase[I].Armor;
     Heal := CreatureBase[I].Heal;

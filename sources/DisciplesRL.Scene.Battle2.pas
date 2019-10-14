@@ -1,5 +1,5 @@
 ﻿unit DisciplesRL.Scene.Battle2;
-
+
 interface
 
 uses
@@ -49,6 +49,10 @@ var
   P: TPosition;
   ChCnt, ChExp: Integer;
 begin
+  for P := Low(TPosition) to High(TPosition) do
+    with EnemyParty.Creature[P] do
+      if Active then
+        Inc(PartyExperience, MaxHitPoints);
   if PartyExperience > 0 then
   begin
     ChCnt := 0;
@@ -66,15 +70,23 @@ begin
           if Active and (HitPoints > 0) then
           begin
             LeaderParty.UpdateXP(ChExp, P);
+            Log.Add(Format('%s получил опыт +%d', [Name, ChExp]));
           end;
     end;
+    for P := Low(TPosition) to High(TPosition) do
+      with LeaderParty.Creature[P] do
+        if Active and (HitPoints > 0) then
+          if Experience >= LeaderParty.GetMaxExperience(Level) then
+          begin
+            LeaderParty.UpdateLevel(P);
+            Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
+          end;
     PartyExperience := 0;
   end;
 end;
 
 procedure Victory;
 begin
-  ChExperience;
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
   AddLoot();
 end;
@@ -92,7 +104,8 @@ begin
   PartyExperience := 0;
   I := GetPartyIndex(Leader.X, Leader.Y);
   EnemyParty := Party[I];
-  ActivePartyPosition := 2;
+  ActivePartyPosition := GetRandomActivePartyPosition(LeaderParty);
+  CurrentPartyPosition := ActivePartyPosition;
 end;
 
 procedure Finish;
@@ -106,7 +119,7 @@ end;
 
 procedure NextTurn;
 begin
-  ActivePartyPosition := RandomRange(0, 12);
+  ActivePartyPosition := GetRandomActivePartyPosition(LeaderParty);
 end;
 
 procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
@@ -170,6 +183,8 @@ begin
       if B then
         NextTurn;
     end;
+  if EnemyParty.IsClear then
+    ChExperience;
 end;
 
 procedure Heal(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
@@ -308,3 +323,4 @@ begin
 end;
 
 end.
+
