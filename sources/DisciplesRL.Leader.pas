@@ -68,7 +68,8 @@ begin
   if not IsInfo then
     for I := 0 to High(City) do
     begin
-      if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
+      if (City[I].Owner in Races) then
+        // if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
         if (City[I].CurLevel < City[I].MaxLevel) then
         begin
           Inc(City[I].CurLevel);

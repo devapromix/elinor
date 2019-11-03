@@ -180,7 +180,8 @@ begin
   Result := 0;
   for I := 1 to NCity do
   begin
-    if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
+    //if (City[I].Owner = reTheEmpire) or (City[I].Owner = reUndeadHordes) or (City[I].Owner = reLegionsOfTheDamned) then
+    if (City[I].Owner in Races) then
       Inc(Result);
   end;
 end;

@@ -9,6 +9,9 @@ type
   TRaceEnum = (reNeutrals, reTheEmpire, reUndeadHordes, reLegionsOfTheDamned, reMountainClans, reElvenAlliance);
 
 const
+  Races = [reTheEmpire, reUndeadHordes, reLegionsOfTheDamned];
+
+const
   RaceName: array [TRaceEnum] of string = ('Нейтралы', 'Защитники Империи', 'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз');
   RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reNeutralTerrain, reNeutralTerrain);
 
