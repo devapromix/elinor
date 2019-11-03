@@ -8,7 +8,7 @@ uses
   Vcl.Controls;
 
 type
-  TInfoSubSceneEnum = (stDay, stLoot, stHighScores, stVictory, stDefeat);
+  TInfoSubSceneEnum = (stDay, stLoot, stStoneTab, stHighScores, stVictory, stDefeat);
 
 procedure Init;
 procedure Render;
@@ -62,6 +62,10 @@ begin
         DisciplesRL.Scene.Info.Show(stHighScores, scMenu);
         Exit;
       end;
+    stStoneTab:
+      begin
+
+      end;
     stDay:
       IsDay := False;
     stLoot:
@@ -110,6 +114,12 @@ begin
       DrawTitle(reTitleDefeat);
     stVictory:
       DrawTitle(reTitleVictory);
+      stStoneTab:
+      begin
+        DrawTitle(reTitleLoot);
+        CenterTextOut(300, 'КАМЕННАЯ ТАБЛИЧКА');
+
+      end;
     stDay:
       begin
         DrawTitle(reTitleNewDay);

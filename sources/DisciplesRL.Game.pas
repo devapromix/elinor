@@ -9,7 +9,7 @@ type
   TScenarioEnum = (sgDarkTower, sgScenario2, sgScenario3);
 
 const
-  ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Сценарий II', 'Сценарий III');
+  ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Сценарий II', 'Древние Знания');
 
 const
   ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
@@ -17,8 +17,8 @@ const
     ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить Темную Башню'),
     // Сценарий II
     ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
-    // Сценарий III
-    ('', '', '', '', '', '', '', '', '', '', '')
+    // Древние Знания
+    ('', '', '', '', '', '', '', '', '', '', 'Цель: найти все каменные таблички')
     //
     );
 
@@ -48,6 +48,7 @@ function GetPartyIndex(const AX, AY: Integer): Integer;
 procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False);
 procedure Clear;
 procedure AddLoot;
+procedure AddStoneTab;
 procedure NewDay;
 procedure Free;
 
@@ -210,6 +211,11 @@ begin
   NewGold := RandomRange(Level * 20, Level * 30);
   Inc(Gold, NewGold);
   DisciplesRL.Scene.Info.Show(stLoot, scMap);
+end;
+
+procedure AddStoneTab;
+begin
+  DisciplesRL.Scene.Info.Show(stStoneTab, scMap);
 end;
 
 procedure NewDay;

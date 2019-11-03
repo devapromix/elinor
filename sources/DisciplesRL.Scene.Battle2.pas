@@ -88,7 +88,10 @@ end;
 procedure Victory;
 begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
-  AddLoot();
+  if (CurrentScenario = sgScenario3) and (RandomRange(1, 100) <= 50) then
+    AddStoneTab()
+  else
+    AddLoot();
 end;
 
 procedure Defeat;

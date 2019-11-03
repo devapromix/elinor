@@ -26,6 +26,7 @@ var
 implementation
 
 uses
+  Math,
   Vcl.Dialogs,
   Vcl.Graphics,
   System.SysUtils,
@@ -153,7 +154,10 @@ end;
 procedure Victory;
 begin
   Party[GetPartyIndex(Leader.X, Leader.Y)].Clear;
-  AddLoot();
+  if RandomRange(1, 100) = 1 then
+    AddStoneTab()
+  else
+    AddLoot();
 end;
 
 procedure Defeat;
