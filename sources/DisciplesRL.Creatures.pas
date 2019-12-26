@@ -441,7 +441,7 @@ const
     SourceEnum: seAir; ReachEnum: reAny;),
 
     // Ashgan
-    (ResEnum: reMyzrael; Name: 'Ашган'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    (ResEnum: reAshgan; Name: 'Ашган'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll;),
     // Death Knight
     (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0;
@@ -466,7 +466,7 @@ const
     SourceEnum: seDeath; ReachEnum: reAll;),
 
     // Ashkael
-    (ResEnum: reMyzrael; Name: 'Ашкаэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    (ResEnum: reAshkael; Name: 'Ашкаэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll;),
     // Duke
     (ResEnum: rePegasusKnight; Name: 'Герцог'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0;

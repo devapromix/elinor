@@ -10,11 +10,11 @@ type
     reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursor, rePlayer, reDark,
     reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
     reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain, reButtonDef, reButtonAct, reCorpse, reMyzrael,
-    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
-    reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
-    reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
-    reTitleNewDay, reTitleLoot, reTitleParty);
+    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon,
+    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef,
+    reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk, reTextCancel,
+    reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
+    reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
@@ -124,6 +124,10 @@ const
     (FileName: 'character.apprentice.png'; ResType: teGUI;),
     // Acolyte
     (FileName: 'character.acolyte.png'; ResType: teGUI;),
+    // Ashkael
+    (FileName: 'character.ashkael.png'; ResType: teGUI;),
+    // Ashgan
+    (FileName: 'character.ashgan.png'; ResType: teGUI;),
     // Black Dragon
     (FileName: 'character.black_dragon.png'; ResType: teGUI;),
     // White Dragon
