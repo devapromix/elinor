@@ -96,6 +96,7 @@ var
   MouseX, MouseY: Integer;
   CurrentScene: TSceneEnum;
   MediaPlayer: TPhoenixMediaPlayer;
+  MediaAvailable: Boolean;
 
 procedure SetScene(CurScene: TSceneEnum);
 begin
@@ -104,6 +105,8 @@ end;
 
 procedure SetSceneMusic(CurScene: TSceneEnum);
 begin
+  if not MediaAvailable then
+    Exit;
   case CurScene of
     scSettlement:
       begin
@@ -186,7 +189,12 @@ begin
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
-  MediaPlayer := TPhoenixMediaPlayer.Create;
+  try
+    MediaPlayer := TPhoenixMediaPlayer.Create;
+    MediaAvailable := True;
+  except
+    MediaAvailable := False;
+  end;
   SetSceneMusic(scMenu);
   SetScene(scMenu);
   for I := Low(TSceneEnum) to High(TSceneEnum) do
