@@ -84,6 +84,7 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_DcuOutput>dcus</DCC_DcuOutput>
         <Debugger_RunParams>-w -l</Debugger_RunParams>
         <DCC_ExeOutput>../</DCC_ExeOutput>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
