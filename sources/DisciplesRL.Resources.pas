@@ -72,7 +72,7 @@ const
     // Unknown (?)
     (FileName: 'unknown.png'; ResType: teGUI;),
     // Enemy party
-    (FileName: 'enemy.png'; ResType: teEnemy;),
+    (FileName: 'mapobject.enemy.png'; ResType: teEnemy;),
     // Special
     (FileName: 'cursor.special.png'; ResType: teGUI;),
     // Frame
@@ -80,13 +80,13 @@ const
     // NoFrame
     (FileName: 'noselect.png'; ResType: teGUI;),
     // Player
-    (FileName: 'player.png'; ResType: tePlayer;),
+    (FileName: 'mapobject.player.png'; ResType: tePlayer;),
     // Fog
     (FileName: 'transparent.png'; ResType: teGUI;),
     // Gold
-    (FileName: 'gold.png'; ResType: teRes;),
+    (FileName: 'mapobject.gold.png'; ResType: teRes;),
     // Bag
-    (FileName: 'chest.png'; ResType: teBag;),
+    (FileName: 'mapobject.chest.png'; ResType: teBag;),
     // Neutral City
     (FileName: 'city.neutrals.png'; ResType: teCity;),
     // The Empire City
