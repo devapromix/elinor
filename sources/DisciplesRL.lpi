@@ -8,7 +8,6 @@
         <MainUnitHasCreateFormStatements Value="False"/>
         <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
-        <UseDefaultCompilerOptions Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -27,11 +26,15 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="DisciplesRL.dpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="Third-Party\BearLibTerminal\BearLibTerminal.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

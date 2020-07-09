@@ -2,7 +2,9 @@ program DisciplesRL;
 
 uses
   {$IFDEF FPC}
-  BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas';
+  SysUtils, Classes,
+  BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas',
+  DisciplesRL.Main in 'DisciplesRL.Main.pas';
   {$ELSE}
   Vcl.Forms,
   DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
@@ -32,9 +34,65 @@ uses
 {$R *.res}
 {$ENDIF}
 
+{$IFDEF FPC}
+const
+  TileSize = 32;
+var
+  I, Key: Word;
+  Resources: TStringList;
+
+  X, Y, MX, MY: Integer;
+{$ENDIF}
+
 begin
   Randomize();
   {$IFDEF FPC}
+  terminal_open();
+  writeln('DisciplesRL v.0.8'#13#10);
+  terminal_set('window.title=DisciplesRL');
+  terminal_set(Format('window.size=%dx%d', [MapWidth * 4, MapHeight * 2]));
+  terminal_set('input.filter={keyboard, mouse+}');
+  Resources := TStringList.Create;
+  try
+    writeln('LOADING RESOURCES...');
+    Resources.LoadFromFile('resources\resources.txt');
+    for I := 0 to Resources.Count - 1 do
+      if (Trim(Resources[I]) <> '') then
+        begin
+          writeln(Resources[I]);
+          terminal_set(Resources[I]);
+        end;
+  finally
+    FreeAndNil(Resources);
+  end;
+  terminal_refresh();
+  repeat
+
+    terminal_clear;
+    terminal_layer(0);
+    for Y := 0 to MapHeight - 1 do
+      for X := 0 to MapWidth - 1 do
+      begin
+        terminal_layer(1);
+        terminal_put(X * 4, Y * 2, Map[lrTile][X, Y]);
+        terminal_layer(2);
+        if (Map[lrObj][X, Y] <> 0) then
+          terminal_put(X * 4, Y * 2, Map[lrObj][X, Y]);
+      end;
+    MX := terminal_state(TK_MOUSE_X) div 4;
+    MY := terminal_state(TK_MOUSE_Y) div 2;
+    terminal_layer(4);
+    terminal_put(MX * 4, MY * 2, $E005);
+
+
+    Key := 0;
+    if terminal_has_input() then
+      Key := terminal_read();
+    // Update(Key);
+    terminal_refresh();
+    terminal_delay(1);
+  until (Key = TK_CLOSE);
+  terminal_close();
   {$ELSE}
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
