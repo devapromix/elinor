@@ -1,6 +1,9 @@
 program DisciplesRL;
 
 uses
+  {$IFDEF FPC}
+  BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas';
+  {$ELSE}
   Vcl.Forms,
   DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
   DisciplesRL.Scenes in 'DisciplesRL.Scenes.pas',
@@ -27,9 +30,12 @@ uses
   PhoenixMediaPlayer in 'Third-Party\PhoenixMediaPlayer\PhoenixMediaPlayer.pas';
 
 {$R *.res}
+{$ENDIF}
 
 begin
   Randomize();
+  {$IFDEF FPC}
+  {$ELSE}
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
@@ -37,5 +43,5 @@ begin
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TConfirmationForm, ConfirmationForm);
   Application.Run;
-
+  {$ENDIF}
 end.
