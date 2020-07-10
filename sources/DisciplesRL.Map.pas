@@ -23,9 +23,13 @@ type
       procedure Gen;
       procedure Clear; overload;
       procedure Clear(const L: TLayerEnum); overload;
+      function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+      function InMap(const X, Y: Integer): Boolean;
       property TileSize: Byte read FTileSize;
       property Width: Word read FWidth;
       property Height: Word read FHeight;
+      function GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
+      class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
   end;
 
 {$ELSE}
@@ -83,6 +87,21 @@ uses
   Math;
 
 { TMap }
+
+class function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
+begin
+  Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
+end;
+
+function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+begin
+  Result := (X >= X1) and (Y >= Y1) and (X <= X2) and (Y <= Y2);
+end;
+
+function TMap.InMap(const X, Y: Integer): Boolean;
+begin
+  Result := InRect(X, Y, 0, 0, FWidth - 1, FHeight - 1);
+end;
 
 procedure TMap.AddTree(const X, Y: Integer);
 begin
@@ -160,6 +179,14 @@ begin
         lrDark:
           FMap[L][X, Y] := 0;
       end;
+end;
+
+function TMap.GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
+begin
+  if InMap(X, Y) then
+    Result := FMap[L][X, Y]
+  else
+    Result := 0;
 end;
 
 {$ELSE}

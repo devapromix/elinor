@@ -26,7 +26,7 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <Units Count="6">
+    <Units Count="5">
       <Unit0>
         <Filename Value="DisciplesRL.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -36,21 +36,17 @@
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="DisciplesRL.Main.pas"/>
+        <Filename Value="DisciplesRL.Scene.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="DisciplesRL.Scene.pas"/>
+        <Filename Value="DisciplesRL.Resources.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="DisciplesRL.Resources.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="DisciplesRL.Map.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit5>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

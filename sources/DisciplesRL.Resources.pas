@@ -4,6 +4,14 @@ interface
 
 {$IFDEF FPC}
 
+type
+
+  { TResources }
+
+  TResources = class(TObject)
+    constructor Create;
+  end;
+
 {$ELSE}
 
 uses
@@ -278,14 +286,31 @@ implementation
 
 {$IFDEF FPC}
 
-procedure Init;
+uses
+  SysUtils,
+  Classes,
+  BearLibTerminal;
+
+{ TResources }
+
+constructor TResources.Create;
+var
+  I: Word;
+  Resources: TStringList;
 begin
-
-end;
-
-procedure Free;
-begin
-
+  Resources := TStringList.Create;
+  try
+    writeln('LOADING RESOURCES...');
+    Resources.LoadFromFile('resources\resources.txt');
+    for I := 0 to Resources.Count - 1 do
+      if (Trim(Resources[I]) <> '') then
+      begin
+          terminal_set(Resources[I]);
+          writeln(Resources[I]);
+      end;
+  finally
+    FreeAndNil(Resources);
+  end;
 end;
 
 {$ELSE}
@@ -329,10 +354,10 @@ end;
 
 initialization
 
-Init;
+//Init;
 
 finalization
 
-Free;
+//Free;
 
 end.
