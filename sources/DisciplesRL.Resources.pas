@@ -2,6 +2,10 @@
 
 interface
 
+{$IFDEF FPC}
+
+{$ELSE}
+
 uses
   Vcl.Imaging.PNGImage;
 
@@ -268,7 +272,23 @@ const
     //
     );
 
+{$ENDIF}
+
 implementation
+
+{$IFDEF FPC}
+
+procedure Init;
+begin
+
+end;
+
+procedure Free;
+begin
+
+end;
+
+{$ELSE}
 
 uses
   System.SysUtils,
@@ -304,6 +324,8 @@ begin
   for I := Low(TResEnum) to High(TResEnum) do
     FreeAndNil(ResImage[I]);
 end;
+
+{$ENDIF}
 
 initialization
 

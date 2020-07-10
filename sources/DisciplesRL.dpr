@@ -4,7 +4,10 @@ uses
   {$IFDEF FPC}
   SysUtils, Classes,
   BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas',
-  DisciplesRL.Main in 'DisciplesRL.Main.pas';
+  DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
+  DisciplesRL.Map in 'DisciplesRL.Map.pas',
+  DisciplesRL.Main in 'DisciplesRL.Main.pas',
+  DisciplesRL.Scene in 'DisciplesRL.Scene.pas';
   {$ELSE}
   Vcl.Forms,
   DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
@@ -35,8 +38,6 @@ uses
 {$ENDIF}
 
 {$IFDEF FPC}
-const
-  TileSize = 32;
 var
   I, Key: Word;
   Resources: TStringList;
@@ -47,11 +48,9 @@ var
 begin
   Randomize();
   {$IFDEF FPC}
-  terminal_open();
-  writeln('DisciplesRL v.0.8'#13#10);
-  terminal_set('window.title=DisciplesRL');
-  terminal_set(Format('window.size=%dx%d', [MapWidth * 4, MapHeight * 2]));
-  terminal_set('input.filter={keyboard, mouse+}');
+{  terminal_open();
+
+
   Resources := TStringList.Create;
   try
     writeln('LOADING RESOURCES...');
@@ -92,7 +91,7 @@ begin
     terminal_refresh();
     terminal_delay(1);
   until (Key = TK_CLOSE);
-  terminal_close();
+  terminal_close(); }
   {$ELSE}
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
