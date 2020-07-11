@@ -5,6 +5,8 @@ uses
   SysUtils, Classes,
   BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas',
   DisciplesRL.Scene in 'DisciplesRL.Scene.pas',
+  DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
+  DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas';
   {$ELSE}
@@ -39,25 +41,7 @@ uses
 
 begin
   Randomize();
-  {$IFDEF FPC}
-{  terminal_open();
-
-
-  terminal_refresh();
-  repeat
-
-
-
-
-    Key := 0;
-    if terminal_has_input() then
-      Key := terminal_read();
-    // Update(Key);
-    terminal_refresh();
-    terminal_delay(1);
-  until (Key = TK_CLOSE);
-  terminal_close(); }
-  {$ELSE}
+  {$IFNDEF FPC}
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
   Application.MainFormOnTaskbar := True;

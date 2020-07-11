@@ -7,15 +7,18 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSceneEnum = (scMenu, scGame);
+  TSceneEnum = (scMenu, scMap);
 
 type
+
+  { TScene }
+
   TScene = class(TObject)
   private
   
   public
-    //constructor Create;
-    //destructor Destroy; override;
+    constructor Create;
+    destructor Destroy; override;
     procedure Render; virtual; abstract;
     procedure Update(var Key: Word); virtual; abstract;
   end;	
@@ -32,6 +35,8 @@ type
     FGameName: string;
     FGameVersion: string;
     FMap: TMap;
+    FScene: array [TSceneEnum] of TScene;
+    FSceneEnum: TSceneEnum;
     FResources: TResources;
     procedure MainLoop;
   public
@@ -39,6 +44,7 @@ type
     destructor Destroy; override;
     procedure Render; override;
     procedure Update(var Key: Word); override;
+    procedure SetScene(const SceneEnum: TSceneEnum);
     property GameName: string read FGameName;
     property GameVersion: string read FGameVersion;
     property IsDebug: Boolean read FIsDebug write FIsDebug;
@@ -56,7 +62,23 @@ uses
   Math,
   SysUtils,
   Classes,
-  BearLibTerminal;
+  BearLibTerminal,
+  DisciplesRL.Scene.Menu,
+DisciplesRL.Scene.Map;
+
+{ TScene }
+
+constructor TScene.Create;
+begin
+
+end;
+
+destructor TScene.Destroy;
+begin
+  inherited Destroy;
+end;
+
+{ TGame }
 
 constructor TGame.Create;
 var
@@ -69,9 +91,9 @@ begin
   FCanClose := False;
   FIsDebug := (ParamCount > 0) and (Trim(ParamStr(1)) = '-d');
   terminal_open();
-//  FScene[scMenu] := TSceneMenu.Create;
-//  FScene[scGame] := TSceneGame.Create;
-//  SceneEnum := scMenu;
+  FScene[scMenu] := TSceneMenu.Create;
+  FScene[scMap] := TSceneMap.Create;
+  SetScene(scMenu);
   Debug := '';
   if FIsDebug then
     Debug := '[DEBUG]';
@@ -88,7 +110,10 @@ end;
 procedure TGame.MainLoop;
 begin
   repeat
-    Render;
+    begin
+      terminal_clear;
+      Render;
+    end;
     FKey := 0;
     if terminal_has_input() then
     begin
@@ -107,41 +132,27 @@ var
 begin
   FreeAndNil(FResources);
   FreeAndNil(FMap);
-//  for I := Low(TSceneEnum) to High(TSceneEnum) do
-//    FreeAndNil(FScene[I]);
+  for I := Low(TSceneEnum) to High(TSceneEnum) do
+    FreeAndNil(FScene[I]);
   terminal_close();
   inherited;
 end;
 
 procedure TGame.Render;
-var
-  X, Y, MX, MY: Integer;
 begin
-  terminal_clear;
-  terminal_layer(0);
-  for Y := 0 to FMap.Height - 1 do
-    for X := 0 to FMap.Width - 1 do
-    begin
-      terminal_layer(1);
-      terminal_put(X * 4, Y * 2, FMap.GetTile(lrTile, X, Y));
-      terminal_layer(2);
-      if (FMap.GetTile(lrObj, X, Y) <> 0) then
-        terminal_put(X * 4, Y * 2, FMap.GetTile(lrObj, X, Y));
-    end;
-  MX := terminal_state(TK_MOUSE_X) div 4;
-  MY := terminal_state(TK_MOUSE_Y) div 2;
-  terminal_layer(7);
-  terminal_put(MX * 4, MY * 2, $E005);
-  if FIsDebug then
-  begin
-    terminal_layer(9);
-    terminal_print(1, 1, Format('%dx%d', [MX, MY]));
-  end;
+  if (FScene[FSceneEnum] <> nil) then
+    FScene[FSceneEnum].Render;
 end;
 
 procedure TGame.Update(var Key: Word);
 begin
+  if (FScene[FSceneEnum] <> nil) then
+    FScene[FSceneEnum].Update(Key);
+end;
 
+procedure TGame.SetScene(const SceneEnum: TSceneEnum);
+begin
+  FSceneEnum := SceneEnum;
 end;
 
 initialization
