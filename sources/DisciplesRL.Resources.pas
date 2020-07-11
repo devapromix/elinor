@@ -5,9 +5,22 @@ interface
 {$IFDEF FPC}
 
 type
+  TResEnum = Cardinal;
 
-  { TResources }
+const
+  //
+  reNone = 0;
 
+  //
+  reNeutralTerrain = 0;
+  reTheEmpireTerrain = 0;
+  reUndeadHordesTerrain = 0;
+  reLegionsOfTheDamnedTerrain = 0;
+
+  //
+
+
+type
   TResources = class(TObject)
     constructor Create;
   end;

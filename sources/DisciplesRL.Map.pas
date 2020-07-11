@@ -4,32 +4,49 @@ interface
 
 {$IFDEF FPC}
 
+uses
+  DisciplesRL.Saga;
+
 type
   TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
+
+type
   TMapLayer = array of array of Cardinal;
 
- { TMap }
+ type
+  TPlace = record
+    X, Y: Integer;
+    CurLevel: Integer;
+    MaxLevel: Integer;
+    //Owner: TRaceEnum;
+    //class function GetIndex(const AX, AY: Integer): Integer; static;
+    //class procedure UpdateRadius(const AID: Integer); static;
+    //class function GetCityCount: Integer; static;
+    //class procedure Gen; static;
+  end;
 
+type
   TMap = class(TObject)
-    private
-      FTileSize: Byte;
-      FWidth: Word;
-      FHeight: Word;
-      FMap: array [TLayerEnum] of TMapLayer;
-      procedure AddTree(const X, Y: Integer);
-      procedure AddMountain(const X, Y: Integer);
-   public
-      constructor Create;
-      procedure Gen;
-      procedure Clear; overload;
-      procedure Clear(const L: TLayerEnum); overload;
-      function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
-      function InMap(const X, Y: Integer): Boolean;
-      property TileSize: Byte read FTileSize;
-      property Width: Word read FWidth;
-      property Height: Word read FHeight;
-      function GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
-      class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+  private
+    FTileSize: Byte;
+    FWidth: Word;
+    FHeight: Word;
+    FMap: array [TLayerEnum] of TMapLayer;
+    procedure AddTree(const X, Y: Integer);
+    procedure AddMountain(const X, Y: Integer);
+  public
+    class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
+    constructor Create;
+    procedure Gen;
+    procedure Clear; overload;
+    procedure Clear(const L: TLayerEnum); overload;
+    function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+    function InMap(const X, Y: Integer): Boolean;
+    property TileSize: Byte read FTileSize;
+    property Width: Word read FWidth;
+    property Height: Word read FHeight;
+    function GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
+    class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
   end;
 
 {$ELSE}

@@ -8,6 +8,9 @@ uses
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
+  DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
+  MapObject in 'Third-Party\MapObject\MapObject.pas',
+  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas';
   {$ELSE}
   Vcl.Forms,

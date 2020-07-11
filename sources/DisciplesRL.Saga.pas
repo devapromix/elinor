@@ -1,6 +1,17 @@
 ﻿unit DisciplesRL.Saga;
 
 interface
+{$IFDEF FPC}
+
+type
+  TScenario = class(TObject)
+  public const
+    ScenarioPlacesMax = 30;
+  end;
+
+implementation
+
+{$ELSE}
 
 uses
   System.Types,
@@ -300,5 +311,7 @@ begin
   DisciplesRL.Scene.Settlement.Gen;
   TLeaderParty.Leader.Clear;
 end;
+
+{$ENDIF}
 
 end.
