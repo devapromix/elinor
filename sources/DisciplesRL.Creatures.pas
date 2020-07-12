@@ -520,7 +520,11 @@ const
 
   { TCreature }
 
-{$IFDEF FPC}procedure Creature{$ELSE}class procedure TCreature.{$ENDIF}Assign(var ACreature: TCreature; const I: TCreatureEnum);
+{$IFDEF FPC}
+procedure CreatureAssign(var ACreature: TCreature; const I: TCreatureEnum);
+{$ELSE}
+class procedure TCreature.Assign(var ACreature: TCreature; const I: TCreatureEnum);
+{$ENDIF}
 begin
   with ACreature do
   begin
@@ -543,12 +547,20 @@ begin
   end;
 end;
 
-{$IFDEF FPC}function Creature{$ELSE}class function TCreature.{$ENDIF}Character(const I: TCreatureEnum): TCreatureBase;
+{$IFDEF FPC}
+function CreatureCharacter(const I: TCreatureEnum): TCreatureBase;
+{$ELSE}
+class function TCreature.Character(const I: TCreatureEnum): TCreatureBase;
+{$ENDIF}
 begin
   Result := CreatureBase[I];
 end;
 
-{$IFDEF FPC}procedure Creature{$ELSE}class procedure TCreature.{$ENDIF}Clear(var ACreature: TCreature);
+{$IFDEF FPC}
+procedure CreatureClear(var ACreature: TCreature);
+{$ELSE}
+class procedure TCreature.Clear(var ACreature: TCreature);
+{$ENDIF}
 begin
   with ACreature do
   begin

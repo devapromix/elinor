@@ -18,7 +18,21 @@ const
   reLegionsOfTheDamnedTerrain = 0;
 
   //
-
+  reMyzrael = 0;
+  rePegasusKnight = 0;
+  reRanger = 0;
+  reArchmage = 0;
+  reSquire = 0;
+  reArcher = 0;
+  reApprentice = 0;
+  reAcolyte = 0;
+  reAshgan = 0;
+  reAshkael = 0;
+  reGoblin = 0;
+  reGoblinArcher = 0;
+  reOrc = 0;
+  reGiantSpider = 0;
+  reWolf = 0;
 
 type
   TResources = class(TObject)
