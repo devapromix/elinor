@@ -88,6 +88,7 @@ uses
   Math,
   DisciplesRL.Map,
   DisciplesRL.Saga,
+  DisciplesRL.Scene,
   DisciplesRL.Resources;
   {$ELSE}
   System.Math,
@@ -334,11 +335,11 @@ procedure TLeaderParty.ChCityOwner;
 begin
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
-      TMap.Map[lrTile][X, Y] := reTheEmpireCity;
+      Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
     reUndeadHordes:
-      TMap.Map[lrTile][X, Y] := reUndeadHordesCity;
+      Game.Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
     reLegionsOfTheDamned:
-      TMap.Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
+      Game.Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
 end;
 
@@ -379,9 +380,9 @@ var
   I: Integer;
   F: Boolean;
 begin
-  if not TMap.InMap(AX, AY) then
+  if not Game.Map.InMap(AX, AY) then
     Exit;
-  if (TMap.Map[lrObj][AX, AY] in StopTiles) then
+  if (Game.Map.GetTile(lrObj, AX, AY) in StopTiles) then
     Exit;
   if not IsInfo then
     for I := 0 to High(TMap.Place) do

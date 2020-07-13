@@ -29,6 +29,9 @@ type
   end;
 
 type
+
+  { TMap }
+
   TMap = class(TObject)
   private
     FTileSize: Byte;
@@ -49,6 +52,7 @@ type
     property Width: Word read FWidth;
     property Height: Word read FHeight;
     function GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
+    procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: Cardinal);
     class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
   end;
 
@@ -121,9 +125,9 @@ procedure TMap.AddTree(const X, Y: Integer);
 begin
   case Random(2) of
       0:
-        FMap[lrObj][X, Y] := $E009;
+        FMap[lrObj][X, Y] := reTreePine;
       1:
-        FMap[lrObj][X, Y] := $E010;
+        FMap[lrObj][X, Y] := reTreeOak;
   end;
 end;
 
@@ -131,11 +135,11 @@ procedure TMap.AddMountain(const X, Y: Integer);
 begin
   case Random(3) of
       0:
-        FMap[lrObj][X, Y] := $E006;
+        FMap[lrObj][X, Y] := reMountain1;
       1:
-        FMap[lrObj][X, Y] := $E007;
+        FMap[lrObj][X, Y] := reMountain2;
       2:
-        FMap[lrObj][X, Y] := $E008;
+        FMap[lrObj][X, Y] := reMountain3;
   end;
 end;
 
@@ -154,7 +158,7 @@ begin
   for Y := 0 to Height - 1 do
     for X := 0 to Width - 1 do
     begin
-      FMap[lrTile][X, Y] := $E000;
+      FMap[lrTile][X, Y] := reNeutralTerrain;
       if (X = 0) or (X = Width - 1) or (Y = 0) or (Y = Height - 1) then
       begin
         AddMountain(X, Y);
@@ -201,6 +205,11 @@ begin
     Result := FMap[L][X, Y]
   else
     Result := 0;
+end;
+
+procedure TMap.SetTile(const L: TLayerEnum; X, Y: Integer; Tile: Cardinal);
+begin
+  FMap[L][X, Y] := Tile;
 end;
 
 {$ELSE}

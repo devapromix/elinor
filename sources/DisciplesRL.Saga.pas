@@ -9,6 +9,13 @@ type
     ScenarioPlacesMax = 30;
   end;
 
+type
+  TSaga = class(TObject)
+  public
+  class var
+    Wizard: Boolean;
+  end;
+
 implementation
 
 {$ELSE}

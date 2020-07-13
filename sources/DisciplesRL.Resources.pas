@@ -12,10 +12,30 @@ const
   reNone = 0;
 
   //
-  reNeutralTerrain = 0;
+  reDark = 0;
+
+  //
+  reTreePine = $E009;
+  reTreeOak = $E010;
+  reMountain1 = $E006;
+  reMountain2 = $E007;
+  reMountain3 = $E008;
+
+  //
+  reNeutralTerrain = $E000;
   reTheEmpireTerrain = 0;
   reUndeadHordesTerrain = 0;
   reLegionsOfTheDamnedTerrain = 0;
+
+  //
+  reTheEmpireCapital = 0;
+  reUndeadHordesCapital = 0;
+  reLegionsOfTheDamnedCapital = 0;
+
+  //
+  reTheEmpireCity = 0;
+  reUndeadHordesCity = 0;
+  reLegionsOfTheDamnedCity = 0;
 
   //
   reMyzrael = 0;
@@ -33,6 +53,10 @@ const
   reOrc = 0;
   reGiantSpider = 0;
   reWolf = 0;
+
+const
+  MountainTiles = [reMountain1, reMountain2, reMountain3];
+  StopTiles = MountainTiles + [reDark];
 
 type
   TResources = class(TObject)
