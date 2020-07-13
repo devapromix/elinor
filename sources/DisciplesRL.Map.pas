@@ -2,10 +2,13 @@ unit DisciplesRL.Map;
 
 interface
 
-{$IFDEF FPC}
-
 uses
-  DisciplesRL.Saga;
+  DisciplesRL.Creatures,
+  DisciplesRL.Resources,
+  DisciplesRL.Saga,
+  DisciplesRL.Party;
+
+{$IFDEF FPC}
 
 type
   TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
@@ -18,7 +21,7 @@ type
     X, Y: Integer;
     CurLevel: Integer;
     MaxLevel: Integer;
-    //Owner: TRaceEnum;
+    Owner: TRaceEnum;
     //class function GetIndex(const AX, AY: Integer): Integer; static;
     //class procedure UpdateRadius(const AID: Integer); static;
     //class function GetCityCount: Integer; static;
@@ -50,12 +53,6 @@ type
   end;
 
 {$ELSE}
-
-uses
-  DisciplesRL.Creatures,
-  DisciplesRL.Resources,
-  DisciplesRL.Saga,
-  DisciplesRL.Party;
 
 type
   TPlace = record

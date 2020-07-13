@@ -2,6 +2,10 @@
 
 interface
 
+{$IFDEF FPC}
+{$ELSE}
+{$ENDIF}
+
 uses
   Vcl.Graphics,
   Vcl.Controls,
@@ -81,6 +85,7 @@ uses
   Vcl.Forms,
   System.SysUtils,
   DisciplesRL.MainForm,
+  DisciplesRL.ConfirmationForm,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Battle,
@@ -88,7 +93,6 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
-  DisciplesRL.ConfirmationForm,
   DisciplesRL.Scene.Party,
   PhoenixMediaPlayer;
 
