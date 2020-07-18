@@ -404,15 +404,15 @@ begin
     if Game.Map.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
-      if not Party[I].IsClear then
-        DisciplesRL.Scene.Party.Show(Party[I], scMap);
+      //if not Party[I].IsClear then
+      //  DisciplesRL.Scene.Party.Show(Party[I], scMap);
       Exit;
     end;
-    case TMap.Map[lrObj][AX, AY] of
+    case Game.Map.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
           I := TSaga.GetPartyIndex(AX, AY);
-          DisciplesRL.Scene.Party.Show(Party[I], scMap);
+          //DisciplesRL.Scene.Party.Show(Party[I], scMap);
         end;
     end;
     Exit;
@@ -427,48 +427,48 @@ begin
       Turn(1);
     end;
     F := True;
-    case TMap.Map[lrObj][Leader.X, Leader.Y] of
+    case Game.Map.GetTile(lrObj, Leader.X, Leader.Y) of
       reGold:
         begin
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot();
           F := False;
         end;
       reBag:
         begin
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot();
           F := False;
         end;
       reEnemy:
         begin
-          DisciplesRL.Scene.Battle2.Start;
-          SetSceneMusic(scBattle2);
-          SetScene(scBattle2);
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          //DisciplesRL.Scene.Battle2.Start;
+          //SetSceneMusic(scBattle2);
+          //SetScene(scBattle2);
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;
         end;
     end;
   end;
-  case TMap.LeaderTile of
+  case Game.Map.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
-        TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
+        //TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
         F := False;
       end;
   end;
-  if TMap.LeaderTile in Capitals then
+  if Game.Map.LeaderTile in Capitals then
   begin
-    SetSceneMusic(scSettlement);
-    DisciplesRL.Scene.Settlement.Show(stCapital);
+    //SetSceneMusic(scSettlement);
+    //DisciplesRL.Scene.Settlement.Show(stCapital);
     F := False;
   end;
-  if TMap.LeaderTile in Cities then
+  if Game.Map.LeaderTile in Cities then
   begin
-    SetSceneMusic(scSettlement);
-    DisciplesRL.Scene.Settlement.Show(stCity);
+    //SetSceneMusic(scSettlement);
+    //DisciplesRL.Scene.Settlement.Show(stCity);
     F := False;
   end;
   if F then
@@ -501,7 +501,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.Map[lrDark], reNone);
+//  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.Map[lrDark], reNone);
 end;
 
 end.

@@ -53,7 +53,9 @@ type
     property Height: Word read FHeight;
     function GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
     procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: Cardinal);
+    function LeaderTile: Cardinal;
     class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+    class function GetDistToCapital(const AX, AY: Integer): Integer;
   end;
 
 {$ELSE}
@@ -109,6 +111,11 @@ uses
 class function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin
   Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
+end;
+
+class function TMap.GetDistToCapital(const AX, AY: Integer): Integer;
+begin
+  Result := GetDist(TMap.Place[0].X, TMap.Place[0].Y, AX, AY);
 end;
 
 function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
@@ -183,6 +190,11 @@ begin
     SetLength(FMap[L], Width, Height);
     Clear(L);
   end;
+end;
+
+function TMap.LeaderTile: Cardinal;
+begin
+  Result := FMap[lrTile][ TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
 end;
 
 procedure TMap.Clear(const L: TLayerEnum);

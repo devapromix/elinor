@@ -33,9 +33,15 @@ const
   reLegionsOfTheDamnedCapital = 2;
 
   //
+  reNeutralCity = -1;
   reTheEmpireCity = 0;
   reUndeadHordesCity = 1;
   reLegionsOfTheDamnedCity = 2;
+
+  //
+  reEnemy = 0;
+  reGold = 1;
+  reBag = 2;
 
   //
   reMyzrael = 0;
