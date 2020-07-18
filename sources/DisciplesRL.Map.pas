@@ -23,7 +23,7 @@ type
     MaxLevel: Integer;
     Owner: TRaceEnum;
     //class function GetIndex(const AX, AY: Integer): Integer; static;
-    //class procedure UpdateRadius(const AID: Integer); static;
+    // class procedure UpdateRadius(const AID: Integer); static;
     //class function GetCityCount: Integer; static;
     //class procedure Gen; static;
   end;

@@ -391,17 +391,17 @@ begin
         if (TMap.Place[I].CurLevel < TMap.Place[I].MaxLevel) then
         begin
           Inc(TMap.Place[I].CurLevel);
-          TPlace.UpdateRadius(I);
+          //TPlace.UpdateRadius(I);
         end;
     end;
   if IsInfo then
   begin
-    if TMap.Map[lrTile][AX, AY] in Capitals then
+    if Game.Map.GetTile(lrTile, AX, AY) in Capitals then
     begin
-      DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
+      //DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
-    if TMap.Map[lrTile][AX, AY] in Cities then
+    if Game.Map.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then

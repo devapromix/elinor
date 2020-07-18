@@ -24,18 +24,18 @@ const
   //
   reNeutralTerrain = $E000;
   reTheEmpireTerrain = 0;
-  reUndeadHordesTerrain = 0;
-  reLegionsOfTheDamnedTerrain = 0;
+  reUndeadHordesTerrain = 1;
+  reLegionsOfTheDamnedTerrain = 2;
 
   //
   reTheEmpireCapital = 0;
-  reUndeadHordesCapital = 0;
-  reLegionsOfTheDamnedCapital = 0;
+  reUndeadHordesCapital = 1;
+  reLegionsOfTheDamnedCapital = 2;
 
   //
   reTheEmpireCity = 0;
-  reUndeadHordesCity = 0;
-  reLegionsOfTheDamnedCity = 0;
+  reUndeadHordesCity = 1;
+  reLegionsOfTheDamnedCity = 2;
 
   //
   reMyzrael = 0;
@@ -55,6 +55,9 @@ const
   reWolf = 0;
 
 const
+  Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
+  Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
+  Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain];
   MountainTiles = [reMountain1, reMountain2, reMountain3];
   StopTiles = MountainTiles + [reDark];
 
