@@ -4,9 +4,9 @@ interface
 
 uses
   DisciplesRL.PascalScript.Vars,
-  Vcl.Dialogs,
+  Vcl.Dialogs{,
   uPSCompiler,
-  uPSRuntime;
+  {uPSRuntime};
 
 procedure Run(Script: string);
 procedure ClearMessages;
@@ -169,8 +169,9 @@ begin
   Run(Script);
 end;
 
-function ScriptOnUses(Sender: TPSPascalCompiler; const Name: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): Boolean;
-var
+
+//function ScriptOnUses(Sender: TPSPascalCompiler; const Name: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): Boolean;
+{var
   I: Integer;
   C: Char;
 begin
@@ -214,15 +215,15 @@ begin
   end
   else
     Result := False;
-end;
+end;  }
 
 procedure Run(Script: string);
-var
+{var
   Compiler: TPSPascalCompiler;
   Exec: TPSExec;
   S: string;
-  Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
-  SL: TStringList;
+//  Data: {$IFDEF UNICODE}//AnsiString{$ELSE}string{$ENDIF};
+{  SL: TStringList;
 
   procedure ShowScriptErrors(const FileName: string);
   var
@@ -242,9 +243,9 @@ var
     Len := Length(S);
     Result := Copy(S, Len - I + 1, Len);
   end;
-
+}
 begin
-  SL := TStringList.Create;
+{  SL := TStringList.Create;
   try
     try
       if (StrRight(Script, 4) = '.pas') then
@@ -311,7 +312,7 @@ begin
     end;
   finally
     FreeAndNil(SL);
-  end;
+  end;}
 end;
 
 initialization
