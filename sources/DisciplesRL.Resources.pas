@@ -12,36 +12,10 @@ const
   reNone = 0;
 
   //
-  reDark = 0;
-
-  //
-  reTreePine = $E009;
-  reTreeOak = $E010;
-  reMountain1 = $E006;
-  reMountain2 = $E007;
-  reMountain3 = $E008;
-
-  //
-  reNeutralTerrain = $E000;
+  reNeutralTerrain = 0;
   reTheEmpireTerrain = 0;
-  reUndeadHordesTerrain = 1;
-  reLegionsOfTheDamnedTerrain = 2;
-
-  //
-  reTheEmpireCapital = 0;
-  reUndeadHordesCapital = 1;
-  reLegionsOfTheDamnedCapital = 2;
-
-  //
-  reNeutralCity = -1;
-  reTheEmpireCity = 0;
-  reUndeadHordesCity = 1;
-  reLegionsOfTheDamnedCity = 2;
-
-  //
-  reEnemy = 0;
-  reGold = 1;
-  reBag = 2;
+  reUndeadHordesTerrain = 0;
+  reLegionsOfTheDamnedTerrain = 0;
 
   //
   reMyzrael = 0;
@@ -59,13 +33,6 @@ const
   reOrc = 0;
   reGiantSpider = 0;
   reWolf = 0;
-
-const
-  Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
-  Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
-  Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain];
-  MountainTiles = [reMountain1, reMountain2, reMountain3];
-  StopTiles = MountainTiles + [reDark];
 
 type
   TResources = class(TObject)
@@ -414,10 +381,14 @@ end;
 
 initialization
 
-//Init;
+{$IFNDEF FPC}
+Init;
+{$ENDIF}
 
 finalization
 
-//Free;
+{$IFNDEF FPC}
+Free;
+{$ENDIF}
 
 end.
