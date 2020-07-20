@@ -10,12 +10,37 @@ type
 const
   //
   reNone = 0;
+  reDark = 0;
 
   //
-  reNeutralTerrain = 0;
-  reTheEmpireTerrain = 0;
-  reUndeadHordesTerrain = 0;
-  reLegionsOfTheDamnedTerrain = 0;
+    //
+  reTreePine = $E009;
+  reTreeOak = $E010;
+  reMountain1 = $E006;
+  reMountain2 = $E007;
+  reMountain3 = $E008;
+
+  //
+  reNeutralTerrain = $E000;
+  reTheEmpireTerrain = 1;
+  reUndeadHordesTerrain = 2;
+  reLegionsOfTheDamnedTerrain = 3;
+
+    //
+  reTheEmpireCapital = 0;
+  reUndeadHordesCapital = 1;
+  reLegionsOfTheDamnedCapital = 2;
+
+  //
+  reNeutralCity = -1;
+  reTheEmpireCity = 0;
+  reUndeadHordesCity = 1;
+  reLegionsOfTheDamnedCity = 2;
+
+  //
+  reEnemy = 0;
+  reGold = 1;
+  reBag = 2;
 
   //
   reMyzrael = 0;
@@ -57,6 +82,8 @@ type
     reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 
+{$ENDIF}
+
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
@@ -64,6 +91,8 @@ const
   MountainTiles = [reMountain1, reMountain2, reMountain3];
   StopTiles = MountainTiles + [reDark];
 
+{$IFDEF FPC}
+{$ELSE}
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine,
     teMusic, teSound);

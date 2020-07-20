@@ -4,9 +4,7 @@ interface
 
 uses
   DisciplesRL.PascalScript.Vars,
-  Vcl.Dialogs{,
-  uPSCompiler,
-  {uPSRuntime};
+  Vcl.Dialogs;
 
 procedure Run(Script: string);
 procedure ClearMessages;
@@ -169,9 +167,13 @@ begin
   Run(Script);
 end;
 
-
 //function ScriptOnUses(Sender: TPSPascalCompiler; const Name: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): Boolean;
 {var
+=======
+
+//function ScriptOnUses(Sender: TPSPascalCompiler; const Name: {$IFDEF UNICODE}//AnsiString{$ELSE}string{$ENDIF}): Boolean;
+{var
+>>>>>>> .r290
   I: Integer;
   C: Char;
 begin
@@ -215,16 +217,22 @@ begin
   end
   else
     Result := False;
-end;  }
+<<<<<<< .mine
+end; }
 
 procedure Run(Script: string);
-{var
-  Compiler: TPSPascalCompiler;
-  Exec: TPSExec;
+var
+//  Compiler: TPSPascalCompiler;
+//  Exec: TPSExec;
   S: string;
+//<<<<<<< .mine
+//  Data: {$IFDEF UNICODE}//AnsiString{$ELSE}string{$ENDIF};
+  SL: TStringList;
+//=======
 //  Data: {$IFDEF UNICODE}//AnsiString{$ELSE}string{$ENDIF};
 {  SL: TStringList;
-
+>>>>>>> .r290
+{
   procedure ShowScriptErrors(const FileName: string);
   var
     I: Integer;
@@ -242,8 +250,7 @@ procedure Run(Script: string);
   begin
     Len := Length(S);
     Result := Copy(S, Len - I + 1, Len);
-  end;
-}
+  end;}
 begin
 {  SL := TStringList.Create;
   try
@@ -312,7 +319,8 @@ begin
     end;
   finally
     FreeAndNil(SL);
-  end;}
+<<<<<<< .mine
+  end; }
 end;
 
 initialization

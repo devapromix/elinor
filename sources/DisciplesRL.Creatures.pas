@@ -415,7 +415,11 @@ procedure CreatureAssign(var ACreature: TCreature; const I: TCreatureEnum);
 implementation
 
 uses
-  {$IFNDEF FPC}System.SysUtils{$ELSE}SysUtils{$ENDIF};
+  {$IFDEF FPC}
+  SysUtils;
+  {$ELSE}
+  System.SysUtils;
+  {$ENDIF}
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
