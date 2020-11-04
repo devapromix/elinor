@@ -526,49 +526,18 @@ begin
       CurrentIndex := 2;
     end;
   end;
-  case SubScene of
-    stCharacter:
-      begin
-        if Button[SubScene][btOk].MouseDown then
-          Ok;
-        if Button[SubScene][btClose].MouseDown then
-          Back;
-      end;
-    stLeader:
-      begin
-        if Button[SubScene][btOk].MouseDown then
-          Ok;
-        if Button[SubScene][btClose].MouseDown then
-          Back;
-      end;
-    stRace:
-      begin
-        if Button[SubScene][btOk].MouseDown then
-          Ok;
-        if Button[SubScene][btClose].MouseDown then
-          Back;
-      end;
-    stScenario:
-      begin
-        if Button[SubScene][btOk].MouseDown then
-          Ok;
-        if Button[SubScene][btClose].MouseDown then
-          Back;
-      end;
-    stHighScores2:
-      begin
-        if Button[SubScene][btOk].MouseDown then
-          Ok;
-        if Button[SubScene][btClose].MouseDown then
-          Back;
-      end;
-  end;
+
+  if SubScene in [stCharacter, stLeader, stRace, stScenario, stHighScores2] then
+    if Button[SubScene][btOk].MouseDown then
+      Ok
+    else if Button[SubScene][btClose].MouseDown then
+      Back;
+
   if (SubScene in CloseButtonScene) then
   begin
     if Button[SubScene][btOk].MouseDown then
       Ok;
   end;
-
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
