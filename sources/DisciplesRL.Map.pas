@@ -8,6 +8,58 @@ uses
   DisciplesRL.Saga,
   DisciplesRL.Party;
 
+{$IFDEF FPC}
+
+type
+  TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
+
+type
+  TMapLayer = array of array of Cardinal;
+
+ type
+  TPlace = record
+    X, Y: Integer;
+    CurLevel: Integer;
+    MaxLevel: Integer;
+    Owner: TRaceEnum;
+    //class function GetIndex(const AX, AY: Integer): Integer; static;
+    // class procedure UpdateRadius(const AID: Integer); static;
+    //class function GetCityCount: Integer; static;
+    //class procedure Gen; static;
+  end;
+
+type
+
+  { TMap }
+
+  TMap = class(TObject)
+  private
+    FTileSize: Byte;
+    FWidth: Word;
+    FHeight: Word;
+    FMap: array [TLayerEnum] of TMapLayer;
+    procedure AddTree(const X, Y: Integer);
+    procedure AddMountain(const X, Y: Integer);
+  public
+    class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
+    constructor Create;
+    procedure Gen;
+    procedure Clear; overload;
+    procedure Clear(const L: TLayerEnum); overload;
+    function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+    function InMap(const X, Y: Integer): Boolean;
+    property TileSize: Byte read FTileSize;
+    property Width: Word read FWidth;
+    property Height: Word read FHeight;
+    function GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
+    procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: Cardinal);
+    function LeaderTile: Cardinal;
+    class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+    class function GetDistToCapital(const AX, AY: Integer): Integer;
+  end;
+
+{$ELSE}
+
 type
   TPlace = record
     X, Y: Integer;
@@ -45,7 +97,134 @@ type
     class function Height: Integer;
   end;
 
+{$ENDIF}
+
 implementation
+
+{$IFDEF FPC}
+
+uses
+  Math;
+
+{ TMap }
+
+class function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
+begin
+  Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
+end;
+
+class function TMap.GetDistToCapital(const AX, AY: Integer): Integer;
+begin
+  Result := GetDist(TMap.Place[0].X, TMap.Place[0].Y, AX, AY);
+end;
+
+function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+begin
+  Result := (X >= X1) and (Y >= Y1) and (X <= X2) and (Y <= Y2);
+end;
+
+function TMap.InMap(const X, Y: Integer): Boolean;
+begin
+  Result := InRect(X, Y, 0, 0, FWidth - 1, FHeight - 1);
+end;
+
+procedure TMap.AddTree(const X, Y: Integer);
+begin
+  case Random(2) of
+      0:
+        FMap[lrObj][X, Y] := reTreePine;
+      1:
+        FMap[lrObj][X, Y] := reTreeOak;
+  end;
+end;
+
+procedure TMap.AddMountain(const X, Y: Integer);
+begin
+  case Random(3) of
+      0:
+        FMap[lrObj][X, Y] := reMountain1;
+      1:
+        FMap[lrObj][X, Y] := reMountain2;
+      2:
+        FMap[lrObj][X, Y] := reMountain3;
+  end;
+end;
+
+constructor TMap.Create;
+begin
+  FWidth := 28 + 2; //40 + 2;
+  FHeight := 20 + 2;
+  FTileSize := 32;
+end;
+
+procedure TMap.Gen;
+var
+  X, Y: Integer;
+begin
+  Clear;
+  for Y := 0 to Height - 1 do
+    for X := 0 to Width - 1 do
+    begin
+      FMap[lrTile][X, Y] := reNeutralTerrain;
+      if (X = 0) or (X = Width - 1) or (Y = 0) or (Y = Height - 1) then
+      begin
+        AddMountain(X, Y);
+        Continue;
+      end;
+      case RandomRange(0, 3) of
+        0:
+          AddTree(X, Y);
+      else
+        AddMountain(X, Y);
+      end;
+
+    end;
+end;
+
+procedure TMap.Clear;
+var
+  L: TLayerEnum;
+begin
+  for L := Low(TLayerEnum) to High(TLayerEnum) do
+  begin
+    SetLength(FMap[L], Width, Height);
+    Clear(L);
+  end;
+end;
+
+function TMap.LeaderTile: Cardinal;
+begin
+  Result := FMap[lrTile][ TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
+end;
+
+procedure TMap.Clear(const L: TLayerEnum);
+var
+  X, Y: Integer;
+begin
+  for Y := 0 to Height - 1 do
+    for X := 0 to Width - 1 do
+      case L of
+        lrTile, lrPath, lrObj:
+          FMap[L][X, Y] := 0;
+        lrDark:
+          FMap[L][X, Y] := 0;
+      end;
+end;
+
+function TMap.GetTile(const L: TLayerEnum; X, Y: Integer): Cardinal;
+begin
+  if InMap(X, Y) then
+    Result := FMap[L][X, Y]
+  else
+    Result := 0;
+end;
+
+procedure TMap.SetTile(const L: TLayerEnum; X, Y: Integer; Tile: Cardinal);
+begin
+  FMap[L][X, Y] := Tile;
+end;
+
+{$ELSE}
 
 uses
   Vcl.Dialogs,
@@ -414,5 +593,7 @@ begin
       Inc(Result);
   end;
 end;
+
+{$ENDIF}
 
 end.

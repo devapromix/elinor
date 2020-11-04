@@ -2,6 +2,65 @@
 
 interface
 
+{$IFDEF FPC}
+
+uses
+  DisciplesRL.Scene;
+
+type
+
+  { TSceneMap }
+
+  TSceneMap = class(TScene)
+  public
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+  end;
+
+implementation
+
+uses
+  Math,
+  SysUtils,
+  Classes,
+  BearLibTerminal,
+  DisciplesRL.Map;
+
+procedure TSceneMap.Render;
+var
+  X, Y, MX, MY: Integer;
+begin
+  terminal_layer(0);
+    for Y := 0 to Game.Map.Height - 1 do
+      for X := 0 to Game.Map.Width - 1 do
+      begin
+        terminal_layer(1);
+        terminal_put(X * 4, Y * 2, Game.Map.GetTile(lrTile, X, Y));
+        terminal_layer(2);
+        if (Game.Map.GetTile(lrObj, X, Y) <> 0) then
+          terminal_put(X * 4, Y * 2, Game.Map.GetTile(lrObj, X, Y));
+      end;
+    MX := terminal_state(TK_MOUSE_X) div 4;
+    MY := terminal_state(TK_MOUSE_Y) div 2;
+    terminal_layer(7);
+    terminal_put(MX * 4, MY * 2, $E005);
+    if Game.IsDebug then
+    begin
+      terminal_layer(9);
+      terminal_print(1, 1, Format('%dx%d', [MX, MY]));
+    end;
+end;
+
+procedure TSceneMap.Update(var Key: Word);
+begin
+  case Key of
+    TK_ESCAPE:
+      Game.SetScene(scMenu);
+  end;
+end;
+
+{$ELSE}
+
 uses
   System.Classes,
   DisciplesRL.Scenes,
@@ -167,5 +226,7 @@ procedure Free;
 begin
 
 end;
+
+{$ENDIF}
 
 end.

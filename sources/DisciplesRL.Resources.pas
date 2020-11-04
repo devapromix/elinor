@@ -2,6 +2,70 @@
 
 interface
 
+{$IFDEF FPC}
+
+type
+  TResEnum = Cardinal;
+
+const
+  //
+  reNone = 0;
+  reDark = 0;
+
+  //
+    //
+  reTreePine = $E009;
+  reTreeOak = $E010;
+  reMountain1 = $E006;
+  reMountain2 = $E007;
+  reMountain3 = $E008;
+
+  //
+  reNeutralTerrain = $E000;
+  reTheEmpireTerrain = 1;
+  reUndeadHordesTerrain = 2;
+  reLegionsOfTheDamnedTerrain = 3;
+
+    //
+  reTheEmpireCapital = 0;
+  reUndeadHordesCapital = 1;
+  reLegionsOfTheDamnedCapital = 2;
+
+  //
+  reNeutralCity = -1;
+  reTheEmpireCity = 0;
+  reUndeadHordesCity = 1;
+  reLegionsOfTheDamnedCity = 2;
+
+  //
+  reEnemy = 0;
+  reGold = 1;
+  reBag = 2;
+
+  //
+  reMyzrael = 0;
+  rePegasusKnight = 0;
+  reRanger = 0;
+  reArchmage = 0;
+  reSquire = 0;
+  reArcher = 0;
+  reApprentice = 0;
+  reAcolyte = 0;
+  reAshgan = 0;
+  reAshkael = 0;
+  reGoblin = 0;
+  reGoblinArcher = 0;
+  reOrc = 0;
+  reGiantSpider = 0;
+  reWolf = 0;
+
+type
+  TResources = class(TObject)
+    constructor Create;
+  end;
+
+{$ELSE}
+
 uses
   Vcl.Imaging.PNGImage;
 
@@ -18,6 +82,8 @@ type
     reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 
+{$ENDIF}
+
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
@@ -25,6 +91,8 @@ const
   MountainTiles = [reMountain1, reMountain2, reMountain3];
   StopTiles = MountainTiles + [reDark];
 
+{$IFDEF FPC}
+{$ELSE}
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine,
     teMusic, teSound);
@@ -268,7 +336,40 @@ const
     //
     );
 
+{$ENDIF}
+
 implementation
+
+{$IFDEF FPC}
+
+uses
+  SysUtils,
+  Classes,
+  BearLibTerminal;
+
+{ TResources }
+
+constructor TResources.Create;
+var
+  I: Word;
+  Resources: TStringList;
+begin
+  Resources := TStringList.Create;
+  try
+    writeln('LOADING RESOURCES...');
+    Resources.LoadFromFile('resources\resources.txt');
+    for I := 0 to Resources.Count - 1 do
+      if (Trim(Resources[I]) <> '') then
+      begin
+          terminal_set(Resources[I]);
+          writeln(Resources[I]);
+      end;
+  finally
+    FreeAndNil(Resources);
+  end;
+end;
+
+{$ELSE}
 
 uses
   System.SysUtils,
@@ -305,12 +406,18 @@ begin
     FreeAndNil(ResImage[I]);
 end;
 
+{$ENDIF}
+
 initialization
 
+{$IFNDEF FPC}
 Init;
+{$ENDIF}
 
 finalization
 
+{$IFNDEF FPC}
 Free;
+{$ENDIF}
 
 end.

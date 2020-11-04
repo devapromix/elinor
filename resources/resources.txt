@@ -1,0 +1,7 @@
+0xE000: resources\tile.dirt.png, size=32x32
+0xE005: resources\noselect.png, size=32x32
+0xE006: resources\tile.mountain1.png, size=30x30
+0xE007: resources\tile.mountain2.png, size=30x30
+0xE008: resources\tile.mountain3.png, size=30x30
+0xE009: resources\tile.tree.pine.png, size=32x32
+0xE010: resources\tile.tree.oak.png, size=32x32

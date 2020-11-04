@@ -3,7 +3,11 @@
 interface
 
 uses
+  {$IFDEF FPC}
+  Types,
+  {$ELSE}
   System.Types,
+  {$ENDIF}
   DisciplesRL.Creatures,
   MapObject;
 
@@ -70,7 +74,7 @@ type
     property MaxLeadership: Integer read FMaxLeadership;
     property Radius: Integer read FRadius;
     procedure UpdateRadius;
-    procedure Turn(const Count: Integer = 1);
+    procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
     class function Leader: TLeaderParty;
     class procedure Move(const AX, AY: ShortInt); overload;
@@ -84,6 +88,13 @@ var
 implementation
 
 uses
+  {$IFDEF FPC}
+  Math,
+  DisciplesRL.Map,
+  DisciplesRL.Saga,
+  DisciplesRL.Scene,
+  DisciplesRL.Resources;
+  {$ELSE}
   System.Math,
   DisciplesRL.Map,
   DisciplesRL.Saga,
@@ -92,12 +103,17 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
+  {$ENDIF}
 
 { TParty }
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
 begin
+  {$IFDEF FPC}
+  CreatureAssign(FCreature[APosition], ACreatureEnum);
+  {$ELSE}
   TCreature.Assign(FCreature[APosition], ACreatureEnum);
+  {$ENDIF}
 end;
 
 procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
@@ -139,7 +155,11 @@ var
   I: TPosition;
 begin
   for I := Low(TPosition) to High(TPosition) do
+  {$IFDEF FPC}
+    CreatureClear(FCreature[I]);
+  {$ELSE}
     TCreature.Clear(FCreature[I]);
+  {$ENDIF}
 end;
 
 constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -166,7 +186,11 @@ procedure TParty.Dismiss(const APosition: TPosition);
 begin
   if FCreature[APosition].Leadership > 0 then
     Exit;
+  {$IFDEF FPC}
+  CreatureClear(FCreature[APosition])
+  {$ELSE}
   TCreature.Clear(FCreature[APosition])
+  {$ENDIF}
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;
@@ -313,6 +337,16 @@ end;
 
 procedure TLeaderParty.ChCityOwner;
 begin
+  {$IFDEF FPC}
+  case Party[LeaderPartyIndex].Owner of
+    reTheEmpire:
+      Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
+    reUndeadHordes:
+      Game.Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
+    reLegionsOfTheDamned:
+      Game.Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
+  end;
+  {$ELSE}
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
       TMap.Map[lrTile][X, Y] := reTheEmpireCity;
@@ -321,6 +355,7 @@ begin
     reLegionsOfTheDamned:
       TMap.Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
   end;
+  {$ENDIF}
 end;
 
 procedure TLeaderParty.Clear;
@@ -360,6 +395,12 @@ var
   I: Integer;
   F: Boolean;
 begin
+  {$IFDEF FPC}
+  if not Game.Map.InMap(AX, AY) then
+    Exit;
+  if (Game.Map.GetTile(lrObj, AX, AY) in StopTiles) then
+    Exit;
+  {$ELSE}
   if not TMap.InMap(AX, AY) then
     Exit;
   if (TMap.Map[lrObj][AX, AY] in StopTiles) then
@@ -453,6 +494,7 @@ begin
   end;
   if F then
     TSaga.NewDay;
+  {$ENDIF}
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -460,11 +502,11 @@ begin
   Leader.PutAt(Leader.X + AX, Leader.Y + AY);
 end;
 
-procedure TLeaderParty.Turn(const Count: Integer);
+procedure TLeaderParty.Turn(const ACount: Integer);
 var
   C: Integer;
 begin
-  if (Count < 1) then
+  if (ACount < 1) then
     Exit;
   C := 0;
   repeat
@@ -476,12 +518,15 @@ begin
       Speed := MaxSpeed;
     end;
     Inc(C);
-  until (C >= Count);
+  until (C >= ACount);
 end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
+  {$IFDEF FPC}
+  {$ELSE}
   TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.Map[lrDark], reNone);
+  {$ENDIF}
 end;
 
 end.

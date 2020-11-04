@@ -2,6 +2,41 @@
 
 interface
 
+{$IFDEF FPC}
+
+uses
+  DisciplesRL.Scene;
+
+type
+
+  { TSceneMenu }
+
+  TSceneMenu = class(TScene)
+  public
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+  end;
+
+implementation
+
+uses
+  BearLibTerminal;
+
+procedure TSceneMenu.Render;
+begin
+
+end;
+
+procedure TSceneMenu.Update(var Key: Word);
+begin
+  case Key of
+    TK_ENTER:
+      Game.SetScene(scMap);
+  end;
+end;
+
+{$ELSE}
+
 uses
   System.Classes,
   Vcl.Controls;
@@ -149,5 +184,7 @@ begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Button[I]);
 end;
+
+{$ENDIF}
 
 end.

@@ -399,15 +399,27 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
+    {$IFNDEF FPC}
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
     class procedure Assign(var ACreature: TCreature; const I: TCreatureEnum); static;
+    {$ENDIF}
   end;
+
+{$IFDEF FPC}
+procedure CreatureClear(var ACreature: TCreature);
+function CreatureCharacter(const I: TCreatureEnum): TCreatureBase;
+procedure CreatureAssign(var ACreature: TCreature; const I: TCreatureEnum);
+{$ENDIF}
 
 implementation
 
 uses
+  {$IFDEF FPC}
+  SysUtils;
+  {$ELSE}
   System.SysUtils;
+  {$ENDIF}
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
@@ -512,7 +524,11 @@ const
 
   { TCreature }
 
+{$IFDEF FPC}
+procedure CreatureAssign(var ACreature: TCreature; const I: TCreatureEnum);
+{$ELSE}
 class procedure TCreature.Assign(var ACreature: TCreature; const I: TCreatureEnum);
+{$ENDIF}
 begin
   with ACreature do
   begin
@@ -535,12 +551,20 @@ begin
   end;
 end;
 
+{$IFDEF FPC}
+function CreatureCharacter(const I: TCreatureEnum): TCreatureBase;
+{$ELSE}
 class function TCreature.Character(const I: TCreatureEnum): TCreatureBase;
+{$ENDIF}
 begin
   Result := CreatureBase[I];
 end;
 
+{$IFDEF FPC}
+procedure CreatureClear(var ACreature: TCreature);
+{$ELSE}
 class procedure TCreature.Clear(var ACreature: TCreature);
+{$ENDIF}
 begin
   with ACreature do
   begin
