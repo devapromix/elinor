@@ -14,6 +14,9 @@ type
   end;
 
 type
+
+  { TSaga }
+
   TSaga = class(TObject)
   public
   class var
@@ -31,6 +34,7 @@ type
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
   public
+    class procedure ModifyGold(Amount: Integer); static;
     class function GetPartyCount: Integer; static;
     class function GetPartyIndex(const AX, AY: Integer): Integer;
     class procedure AddLoot; static;
@@ -42,6 +46,11 @@ implementation
 uses
   Math, SysUtils,
   DisciplesRL.Map;
+
+class procedure TSaga.ModifyGold(Amount: Integer);
+begin
+  Inc(Gold, Amount);
+end;
 
 class function TSaga.GetPartyCount: Integer;
 begin
@@ -61,13 +70,13 @@ begin
     end;
 end;
 
-class procedure TSaga.AddLoot();
+class procedure TSaga.AddLoot;
 var
   Level: Integer;
 begin
   Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
-  Inc(Gold, NewGold);
+  ModifyGold(NewGold);
   //DisciplesRL.Scene.Info.Show(stLoot, scMap);
 end;
 

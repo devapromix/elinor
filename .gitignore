@@ -1,3 +1,8 @@
 *.dcu
 sources/__history/
 sources/DisciplesRL.dproj.local
+*.ppu
+*.o
+*.a
+sources/backup/
+sources/lib/

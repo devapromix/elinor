@@ -109,11 +109,7 @@ uses
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
 begin
-  {$IFDEF FPC}
-  CreatureAssign(FCreature[APosition], ACreatureEnum);
-  {$ELSE}
   TCreature.Assign(FCreature[APosition], ACreatureEnum);
-  {$ENDIF}
 end;
 
 procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
@@ -155,11 +151,7 @@ var
   I: TPosition;
 begin
   for I := Low(TPosition) to High(TPosition) do
-  {$IFDEF FPC}
-    CreatureClear(FCreature[I]);
-  {$ELSE}
     TCreature.Clear(FCreature[I]);
-  {$ENDIF}
 end;
 
 constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -186,11 +178,7 @@ procedure TParty.Dismiss(const APosition: TPosition);
 begin
   if FCreature[APosition].Leadership > 0 then
     Exit;
-  {$IFDEF FPC}
-  CreatureClear(FCreature[APosition])
-  {$ELSE}
   TCreature.Clear(FCreature[APosition])
-  {$ENDIF}
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;
@@ -235,17 +223,17 @@ end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
 var
-  Creature: TCreatureBase;
+  ACreature: TCreatureBase;
 begin
   Result := False;
-  Creature := TCreature.Character(ACreatureEnum);
-  if Creature.Gold > TSaga.Gold then
+  ACreature := TCreature.Character(ACreatureEnum);
+  if ACreature.Gold > TSaga.Gold then
     Exit;
   if not FCreature[APosition].Active then
   begin
     Result := True;
     AddCreature(ACreatureEnum, APosition);
-    TSaga.ModifyGold(-Creature.Gold);
+    TSaga.ModifyGold(-ACreature.Gold);
   end;
 end;
 
