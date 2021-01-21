@@ -161,6 +161,7 @@ type
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
     class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
     class procedure AddLoot; static;
+    class procedure ModifyGold(Amount: Integer); static;
     class procedure NewDay; static;
     class procedure AddScores(I: Integer); static;
   end;
@@ -304,13 +305,18 @@ begin
   Scores := Scores + I;
 end;
 
+class procedure TSaga.ModifyGold(Amount: Integer);
+begin
+  Inc(Gold, Amount);
+end;
+
 class procedure TSaga.AddLoot();
 var
   Level: Integer;
 begin
   Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
-  Inc(Gold, NewGold);
+  ModifyGold(NewGold);
   DisciplesRL.Scene.Info.Show(stLoot, scMap);
 end;
 

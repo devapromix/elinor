@@ -13,6 +13,7 @@ object MainForm: TMainForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnClick = FormClick
   OnCreate = FormCreate
   OnDestroy = FormDestroy

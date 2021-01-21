@@ -150,7 +150,7 @@ const
     (crPossessed, crGargoyle, crCultist))
     //
     );
-
+{$region texts}
   {
     Ардоберт
     Верок
@@ -364,6 +364,7 @@ const
     Я превращу ваших солдат в ходячие осадные орудия.
     Я работал и с плохими бойцами, и с хорошими, и все они справлялись с большим успехом.
   }
+{$endregion texts}
 
 type
   TCreatureBase = record
@@ -379,6 +380,7 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
+    Gold: Integer;
   end;
 
 type
@@ -441,13 +443,13 @@ const
     SourceEnum: seAir; ReachEnum: reAll;),
     // Squire
     (ResEnum: reSquire; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400),
     // Archer
     (ResEnum: reArcher; Name: 'Лучник'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny;),
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 350),
     // Apprentice
     (ResEnum: reApprentice; Name: 'Ученик'; HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seAir; ReachEnum: reAll;),
+    SourceEnum: seAir; ReachEnum: reAll; Gold: 450),
     // Acolyte
     (ResEnum: reAcolyte; Name: 'Служка'; HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 20;
     SourceEnum: seAir; ReachEnum: reAny;),
@@ -466,13 +468,13 @@ const
     Heal: 0; SourceEnum: seFire; ReachEnum: reAll;),
     // Fighter
     (ResEnum: reSquire; Name: 'Воин'; HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400),
     // Ghost
-    (ResEnum: reArcher; Name: 'Привидение'; HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 0;
-    SourceEnum: seMind; ReachEnum: reAny;),
+    (ResEnum: reArcher; Name: 'Привидение'; HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
+    SourceEnum: seMind; ReachEnum: reAny; Gold: 350),
     // Initiate
     (ResEnum: reApprentice; Name: 'Адепт'; HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seDeath; ReachEnum: reAll;),
+    SourceEnum: seDeath; ReachEnum: reAll; Gold: 450),
     // Wyvern
     (ResEnum: reAcolyte; Name: 'Виверна'; HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAll;),
@@ -491,13 +493,13 @@ const
     SourceEnum: seFire; ReachEnum: reAll;),
     // Possessed
     (ResEnum: reSquire; Name: 'Одержимый'; HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400),
     // Gargoyle
     (ResEnum: reArcher; Name: 'Горгулья'; HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 40; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny;),
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 600),
     // Cultist
     (ResEnum: reApprentice; Name: 'Культист'; HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seFire; ReachEnum: reAll;),
+    SourceEnum: seFire; ReachEnum: reAll; Gold: 450),
     // Devil
     (ResEnum: reAcolyte; Name: 'Черт'; HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj;),

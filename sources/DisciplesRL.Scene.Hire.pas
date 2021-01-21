@@ -147,8 +147,10 @@ begin
       end;
     stCharacter:
       begin
-        HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition);
-        SetScene(scSettlement);
+        if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
+          SetScene(scSettlement)
+        else
+          InformDialog('Не хватает денег!');
       end;
     stScenario:
       begin
@@ -273,7 +275,7 @@ begin
     end;
     if SubScene = stCharacter then
     begin
-      Add('Цена', 0);
+      Add('Цена', Gold);
       Add('Золото', TSaga.Gold);
     end;
   end;

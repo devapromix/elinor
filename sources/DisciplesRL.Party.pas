@@ -234,12 +234,18 @@ begin
 end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
+var
+  Creature: TCreatureBase;
 begin
   Result := False;
+  Creature := TCreature.Character(ACreatureEnum);
+  if Creature.Gold > TSaga.Gold then
+    Exit;
   if not FCreature[APosition].Active then
   begin
     Result := True;
     AddCreature(ACreatureEnum, APosition);
+    TSaga.ModifyGold(-Creature.Gold);
   end;
 end;
 
