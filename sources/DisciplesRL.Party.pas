@@ -23,7 +23,7 @@ const
 
 type
   TParty = class(TMapObject)
-  private
+  strict private
     FOwner: TRaceEnum;
     FCreature: array [TPosition] of TCreature;
     function GetCreature(APosition: TPosition): TCreature;
@@ -48,7 +48,7 @@ type
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
-    procedure UpdateLevel(const APosition: TPosition);
+    procedure UpdateLevel(const APosition: TPosition); virtual;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
@@ -76,6 +76,7 @@ type
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
+    procedure UpdateLevel(const APosition: TPosition); override;
     class function Leader: TLeaderParty;
     class procedure Move(const AX, AY: ShortInt); overload;
     class procedure Move(Dir: TDirectionEnum); overload;
@@ -513,6 +514,14 @@ begin
     end;
     Inc(C);
   until (C >= ACount);
+end;
+
+procedure TLeaderParty.UpdateLevel(const APosition: TPosition);
+begin
+  inherited;
+  with Creature[APosition] do
+    if IsLeader and (Level mod 3 = 0) then
+      Inc(FMaxLeadership);
 end;
 
 procedure TLeaderParty.UpdateRadius;

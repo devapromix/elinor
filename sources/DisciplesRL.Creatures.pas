@@ -404,6 +404,7 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
+    function IsLeader(): Boolean;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
     class procedure Assign(var ACreature: TCreature; const I: TCreatureEnum); static;
@@ -570,6 +571,18 @@ begin
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
   end;
+end;
+
+function TCreature.IsLeader(): Boolean;
+var
+  Race: TRaceEnum;
+  CharKind: TRaceCharKind;
+begin
+  Result := False;
+  for Race := Low(Characters) to High(Characters) do
+    for CharKind := Low(Characters[Race][cgLeaders]) to High(Characters[Race][cgLeaders]) do
+      if Enum = Characters[Race][cgLeaders][CharKind] then
+        Exit(True);
 end;
 
 end.
