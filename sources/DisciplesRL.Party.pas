@@ -23,7 +23,7 @@ const
 
 type
   TParty = class(TMapObject)
-  private
+  strict private
     FOwner: TRaceEnum;
     FCreature: array [TPosition] of TCreature;
     function GetCreature(APosition: TPosition): TCreature;
@@ -48,7 +48,7 @@ type
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
-    procedure UpdateLevel(const APosition: TPosition);
+    procedure UpdateLevel(const APosition: TPosition); virtual;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
@@ -76,6 +76,7 @@ type
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
+    procedure UpdateLevel(const APosition: TPosition); override;
     class function Leader: TLeaderParty;
     class procedure Move(const AX, AY: ShortInt); overload;
     class procedure Move(Dir: TDirectionEnum); overload;
@@ -109,11 +110,7 @@ uses
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
 begin
-  {$IFDEF FPC}
-  CreatureAssign(FCreature[APosition], ACreatureEnum);
-  {$ELSE}
   TCreature.Assign(FCreature[APosition], ACreatureEnum);
-  {$ENDIF}
 end;
 
 procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
@@ -155,11 +152,7 @@ var
   I: TPosition;
 begin
   for I := Low(TPosition) to High(TPosition) do
-  {$IFDEF FPC}
-    CreatureClear(FCreature[I]);
-  {$ELSE}
     TCreature.Clear(FCreature[I]);
-  {$ENDIF}
 end;
 
 constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -186,11 +179,7 @@ procedure TParty.Dismiss(const APosition: TPosition);
 begin
   if FCreature[APosition].Leadership > 0 then
     Exit;
-  {$IFDEF FPC}
-  CreatureClear(FCreature[APosition])
-  {$ELSE}
   TCreature.Clear(FCreature[APosition])
-  {$ENDIF}
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;
@@ -234,12 +223,18 @@ begin
 end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
+var
+  ACreature: TCreatureBase;
 begin
   Result := False;
+  ACreature := TCreature.Character(ACreatureEnum);
+  if ACreature.Gold > TSaga.Gold then
+    Exit;
   if not FCreature[APosition].Active then
   begin
     Result := True;
     AddCreature(ACreatureEnum, APosition);
+    TSaga.ModifyGold(-ACreature.Gold);
   end;
 end;
 
@@ -519,6 +514,14 @@ begin
     end;
     Inc(C);
   until (C >= ACount);
+end;
+
+procedure TLeaderParty.UpdateLevel(const APosition: TPosition);
+begin
+  inherited;
+  with Creature[APosition] do
+    if IsLeader and (Level mod 3 = 0) then
+      Inc(FMaxLeadership);
 end;
 
 procedure TLeaderParty.UpdateRadius;
