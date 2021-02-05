@@ -403,9 +403,7 @@ end;
 
 procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
 begin
-  // showmessage(ResMusicPath[MusicEnum]);
-  //Play(ResMusicPath[MusicEnum]);
-  Play(ResMusicPath[mmMenu]);
+  Play(ResMusicPath[MusicEnum]);
 end;
 
 end.

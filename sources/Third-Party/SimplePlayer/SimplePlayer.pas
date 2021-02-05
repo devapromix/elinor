@@ -13,12 +13,13 @@ type
   private
     FC: Byte;
     FChannelType: TChannelType;
-    FChannel: array [0 .. 7] of DWORD;
+    FChannel: array [Byte] of DWORD;
     FVolume: ShortInt;
     procedure SetVolume(const Value: ShortInt);
     function GetVolume: ShortInt;
   public
     constructor Create;
+    destructor Destroy; override;
     property Volume: ShortInt read GetVolume write SetVolume;
     function Play(const FileName: string): Boolean; overload;
     procedure Stop;
@@ -39,6 +40,19 @@ begin
   Volume := 100;
 end;
 
+destructor TSimplePlayer.Destroy;
+var
+  I: Byte;
+begin
+  for I := 0 to High(FChannel) do
+  begin
+    BASS_ChannelStop(FChannel[I]);
+    BASS_StreamFree(FChannel[I]);
+  end;
+  BASS_Free();
+  inherited;
+end;
+
 function TSimplePlayer.GetVolume: ShortInt;
 begin
   if (FVolume > 100) then
@@ -54,7 +68,7 @@ begin
   if (Volume <= 0) then
     Exit;
   FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
-    {$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
+{$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
   if (FChannel[FC] <> 0) then
   begin
     FChannelType := ctStream;
