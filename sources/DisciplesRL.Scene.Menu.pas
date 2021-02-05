@@ -68,7 +68,8 @@ type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue, reTextHighScores, reTextQuit);
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
+    reTextHighScores, reTextQuit);
 
 var
   MainMenuCursorPos: Integer = 0;
@@ -86,19 +87,27 @@ begin
   case MainMenuCursorPos of
     0: // Play
       begin
+        MediaPlayer.Play(mmClick);
         TSaga.IsGame := False;
         DisciplesRL.Scene.Hire.Show(stScenario);
       end;
     1: // Continue
       if TSaga.IsGame then
       begin
+        MediaPlayer.Play(mmClick);
         SetSceneMusic(scMap);
         SetScene(scMap);
       end;
     2: // High Scores
-      DisciplesRL.Scene.Hire.Show(stHighScores2);
+      begin
+        MediaPlayer.Play(mmClick);
+        DisciplesRL.Scene.Hire.Show(stHighScores2);
+      end;
     3: // Exit;
-      DisciplesRL.MainForm.MainForm.Close;
+      begin
+        MediaPlayer.Play(mmClick);
+        DisciplesRL.MainForm.MainForm.Close;
+      end;
   end;
 end;
 
@@ -134,7 +143,7 @@ procedure Render;
 begin
   DrawTitle(reTitleLogo);
   RenderButtons;
-  CenterTextOut(Surface.Height - 50, '2018-2019 by Apromix');
+  CenterTextOut(Surface.Height - 50, '2018-2021 by Apromix');
 end;
 
 procedure Timer;
@@ -171,9 +180,11 @@ begin
     K_ESCAPE:
       DisciplesRL.MainForm.MainForm.Close;
     K_UP:
-      MainMenuCursorPos := Math.EnsureRange(MainMenuCursorPos - 1, 0, Ord(High(TButtonEnum)));
+      MainMenuCursorPos := Math.EnsureRange(MainMenuCursorPos - 1, 0,
+        Ord(High(TButtonEnum)));
     K_DOWN:
-      MainMenuCursorPos := Math.EnsureRange(MainMenuCursorPos + 1, 0, Ord(High(TButtonEnum)));
+      MainMenuCursorPos := Math.EnsureRange(MainMenuCursorPos + 1, 0,
+        Ord(High(TButtonEnum)));
   end;
 end;
 

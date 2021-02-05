@@ -21,7 +21,7 @@ type
     constructor Create;
     destructor Destroy; override;
     property Volume: ShortInt read GetVolume write SetVolume;
-    function Play(const FileName: string): Boolean; overload;
+    function Play(const FileName: string; F: Boolean): Boolean; overload;
     procedure Stop;
   end;
 
@@ -62,13 +62,20 @@ begin
   Result := FVolume;
 end;
 
-function TSimplePlayer.Play(const FileName: string): Boolean;
+function TSimplePlayer.Play(const FileName: string; F: Boolean): Boolean;
 begin
   Result := False;
   if (Volume <= 0) then
     Exit;
-  FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
+  case F of
+    True:
+      FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0,
+        0, BASS_MUSIC_LOOP {$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
+    False:
+      FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
 {$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
+
+  end;
   if (FChannel[FC] <> 0) then
   begin
     FChannelType := ctStream;

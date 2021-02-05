@@ -13,7 +13,7 @@ const
   reDark = 0;
 
   //
-    //
+  //
   reTreePine = $E009;
   reTreeOak = $E010;
   reMountain1 = $E006;
@@ -26,7 +26,7 @@ const
   reUndeadHordesTerrain = 2;
   reLegionsOfTheDamnedTerrain = 3;
 
-    //
+  //
   reTheEmpireCapital = 0;
   reUndeadHordesCapital = 1;
   reLegionsOfTheDamnedCapital = 2;
@@ -70,31 +70,46 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame,
-    reBigFrame, reInfoFrame, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy,
-    reCursorSpecial, reCursor, reNoWay, rePlayer, reDark, reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
-    reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine, reMountain1, reMountain2,
-    reMountain3, reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice, reAcolyte,
-    reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf,
-    reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
-    reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory,
-    reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
-    reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
-    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
+  TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
+    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame,
+    reBigFrame, reInfoFrame, reNeutralTerrain, reTheEmpireTerrain,
+    reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy,
+    reCursorSpecial, reCursor, reNoWay, rePlayer, reDark, reGold, reBag,
+    reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+    reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
+    reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
+    reMountain1, reMountain2, reMountain3, reButtonDef, reButtonAct, reCorpse,
+    reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher,
+    reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon,
+    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
+    reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef,
+    reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit,
+    reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk,
+    reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire,
+    reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
+    reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty,
+    reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond,
+    reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek,
+    reTitleSard, reScenarioDarkTower, reScenarioOverlord,
+    reScenarioAncientKnowledge);
 
 {$ENDIF}
 
 const
-  Capitals = [reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital];
+  Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
+    reLegionsOfTheDamnedCapital];
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
-  Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain];
+  Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain,
+    reLegionsOfTheDamnedTerrain];
   MountainTiles = [reMountain1, reMountain2, reMountain3];
   StopTiles = MountainTiles + [reDark];
 
 {$IFDEF FPC}
 {$ELSE}
+
 type
-  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine,
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
+    teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine,
     teMusic, teSound);
 
 type
@@ -317,7 +332,7 @@ const
     );
 
 type
-  TMusicEnum = (mmBattle, mmGame, mmMap, mmMenu);
+  TMusicEnum = (mmClick, mmBattle, mmGame, mmMap, mmMenu);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -325,6 +340,8 @@ var
 
 const
   MusicBase: array [TMusicEnum] of TResBase = (
+    // Click
+    (FileName: 'click.wav'; ResType: teSound;),
     // Battle
     (FileName: 'wasteland-showdown.mp3'; ResType: teMusic;),
     // Game
@@ -361,8 +378,8 @@ begin
     for I := 0 to Resources.Count - 1 do
       if (Trim(Resources[I]) <> '') then
       begin
-          terminal_set(Resources[I]);
-          writeln(Resources[I]);
+        terminal_set(Resources[I]);
+        writeln(Resources[I]);
       end;
   finally
     FreeAndNil(Resources);
@@ -394,7 +411,12 @@ begin
   end;
   for J := Low(TMusicEnum) to High(TMusicEnum) do
   begin
-    ResMusicPath[J] := GetPath('resources\music') + MusicBase[J].FileName;
+    case MusicBase[J].ResType of
+      teSound:
+        ResMusicPath[J] := GetPath('resources\sounds') + MusicBase[J].FileName;
+      teMusic:
+        ResMusicPath[J] := GetPath('resources\music') + MusicBase[J].FileName;
+    end;
   end;
 end;
 
@@ -411,13 +433,13 @@ end;
 initialization
 
 {$IFNDEF FPC}
-Init;
+  Init;
 {$ENDIF}
 
 finalization
 
 {$IFNDEF FPC}
-Free;
+  Free;
 {$ENDIF}
 
 end.

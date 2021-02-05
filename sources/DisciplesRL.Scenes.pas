@@ -13,7 +13,8 @@ uses
   System.Classes,
   Vcl.Imaging.PNGImage,
   DisciplesRL.Resources,
-  DisciplesRL.GUI.Button;
+  DisciplesRL.GUI.Button,
+  SimplePlayer;
 
 type
   TSceneEnum = (scHire, scMenu, scInfo, scMap, scParty, scSettlement, scBattle,
@@ -24,6 +25,11 @@ const
 
 var
   Surface: TBitmap;
+
+type
+  TMediaPlayer = class(TSimplePlayer)
+    procedure Play(const MusicEnum: TMusicEnum); overload;
+  end;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
 procedure RenderDark;
@@ -80,6 +86,9 @@ const
   K_KP_8 = 104;
   K_KP_9 = 105;
 
+var
+  MediaPlayer: TMediaPlayer;
+
 implementation
 
 uses
@@ -95,18 +104,11 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
-  DisciplesRL.Scene.Party,
-  SimplePlayer;
-
-type
-  TMediaPlayer = class(TSimplePlayer)
-    procedure Play(const MusicEnum: TMusicEnum); overload;
-  end;
+  DisciplesRL.Scene.Party;
 
 var
   MouseX, MouseY: Integer;
   CurrentScene: TSceneEnum;
-  MediaPlayer: TMediaPlayer;
   MediaAvailable: Boolean;
 
 procedure SetScene(CurScene: TSceneEnum);
@@ -403,7 +405,7 @@ end;
 
 procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
 begin
-  Play(ResMusicPath[MusicEnum]);
+  Play(ResMusicPath[MusicEnum], MusicBase[MusicEnum].ResType = teMusic);
 end;
 
 end.
