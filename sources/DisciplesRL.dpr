@@ -27,8 +27,8 @@ uses
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
-  PhoenixMediaPlayer in 'Third-Party\PhoenixMediaPlayer\PhoenixMediaPlayer.pas',
-  Bass in 'Third-Party\Bass\Bass.pas';
+  Bass in 'Third-Party\Bass\Bass.pas',
+  SimplePlayer in 'Third-Party\SimplePlayer\SimplePlayer.pas';
 
 {$R *.res}
 

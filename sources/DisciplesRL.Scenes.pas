@@ -16,7 +16,8 @@ uses
   DisciplesRL.GUI.Button;
 
 type
-  TSceneEnum = (scHire, scMenu, scInfo, scMap, scParty, scSettlement, scBattle, scBattle2);
+  TSceneEnum = (scHire, scMenu, scInfo, scMap, scParty, scSettlement, scBattle,
+    scBattle2);
 
 const
   DefaultButtonTop = 600;
@@ -83,6 +84,7 @@ implementation
 
 uses
   Vcl.Forms,
+  Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.ConfirmationForm,
@@ -94,12 +96,17 @@ uses
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Party,
-  PhoenixMediaPlayer;
+  SimplePlayer;
+
+type
+  TMediaPlayer = class(TSimplePlayer)
+    procedure Play(const MusicEnum: TMusicEnum); overload;
+  end;
 
 var
   MouseX, MouseY: Integer;
   CurrentScene: TSceneEnum;
-  MediaPlayer: TPhoenixMediaPlayer;
+  MediaPlayer: TMediaPlayer;
   MediaAvailable: Boolean;
 
 procedure SetScene(CurScene: TSceneEnum);
@@ -114,22 +121,22 @@ begin
   case CurScene of
     scSettlement:
       begin
-        MediaPlayer.StopAll;
+        MediaPlayer.Stop;
         MediaPlayer.Play(mmGame);
       end;
     scBattle2:
       begin
-        MediaPlayer.StopAll;
+        MediaPlayer.Stop;
         MediaPlayer.Play(mmBattle);
       end;
     scMap:
       begin
-        MediaPlayer.StopAll;
+        MediaPlayer.Stop;
         MediaPlayer.Play(mmMap);
       end;
     scMenu:
       begin
-        MediaPlayer.StopAll;
+        MediaPlayer.Stop;
         MediaPlayer.Play(mmMenu);
       end;
   end;
@@ -156,7 +163,8 @@ end;
 
 procedure DrawTitle(Res: TResEnum);
 begin
-  Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, ResImage[Res]);
+  Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[Res].Width div 2), 10,
+    ResImage[Res]);
 end;
 
 procedure DrawImage(X, Y: Integer; Image: TPNGImage);
@@ -180,7 +188,8 @@ end;
 procedure RenderDark;
 begin
   DisciplesRL.Scene.Map.Render;
-  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height), ResImage[reDark]);
+  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
+    ResImage[reDark]);
 end;
 
 procedure Init;
@@ -194,7 +203,7 @@ begin
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
   try
-    MediaPlayer := TPhoenixMediaPlayer.Create;
+    MediaPlayer := TMediaPlayer.Create;
     MediaAvailable := True;
   except
     MediaAvailable := False;
@@ -366,6 +375,7 @@ procedure Free;
 var
   I: TSceneEnum;
 begin
+  MediaPlayer.Stop;
   FreeAndNil(MediaPlayer);
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of
@@ -387,6 +397,15 @@ begin
         DisciplesRL.Scene.Settlement.Free;
     end;
   FreeAndNil(Surface);
+end;
+
+{ TMediaPlayer }
+
+procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
+begin
+  // showmessage(ResMusicPath[MusicEnum]);
+  //Play(ResMusicPath[MusicEnum]);
+  Play(ResMusicPath[mmMenu]);
 end;
 
 end.

@@ -135,8 +135,8 @@
         <DCCReference Include="Third-Party\RLLog\RLLog.pas"/>
         <DCCReference Include="Third-Party\MapObject\MapObject.pas"/>
         <DCCReference Include="DisciplesRL.Saga.pas"/>
-        <DCCReference Include="Third-Party\PhoenixMediaPlayer\PhoenixMediaPlayer.pas"/>
         <DCCReference Include="Third-Party\Bass\Bass.pas"/>
+        <DCCReference Include="Third-Party\SimplePlayer\SimplePlayer.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -1,2 +1,0 @@
-upx DisciplesRL.exe
-pause

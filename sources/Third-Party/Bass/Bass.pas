@@ -1,4 +1,4 @@
-{
+﻿{
   BASS 2.4 Delphi unit
   Copyright (c) 1999-2008 Un4seen Developments Ltd.
 
@@ -664,7 +664,7 @@ type
 
 // Functions
 const
-  bassdll = 'bass.dll';
+  bassdll = 'Bass.dll';
 
 function BASS_SetConfig(option, Value: DWORD): Bool; stdcall; external bassdll;
 function BASS_GetConfig(option: DWORD): DWORD; stdcall; external bassdll;
