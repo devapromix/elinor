@@ -92,11 +92,14 @@ begin
         DisciplesRL.Scene.Hire.Show(stScenario);
       end;
     1: // Continue
-      if TSaga.IsGame then
       begin
-        MediaPlayer.Play(mmClick);
-        SetSceneMusic(scMap);
-        SetScene(scMap);
+        if TSaga.IsGame then
+        begin
+          MediaPlayer.Play(mmClick);
+          Sleep(100);
+          SetSceneMusic(scMap);
+          SetScene(scMap);
+        end;
       end;
     2: // High Scores
       begin

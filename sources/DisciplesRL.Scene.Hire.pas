@@ -8,7 +8,8 @@ uses
   DisciplesRL.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal, stVictory, stDefeat, stHighScores2);
+  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
+    stVictory, stDefeat, stHighScores2);
 
 procedure Init;
 procedure Render;
@@ -104,6 +105,7 @@ end;
 
 procedure Back;
 begin
+  MediaPlayer.Play(mmClick);
   case SubScene of
     stCharacter:
       SetScene(scSettlement);
@@ -132,6 +134,7 @@ end;
 
 procedure Ok;
 begin
+  MediaPlayer.Play(mmClick);
   case SubScene of
     stRace:
       begin
@@ -147,7 +150,8 @@ begin
       end;
     stCharacter:
       begin
-        if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
+        if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+          [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
           SetScene(scSettlement)
         else
           InformDialog('Не хватает денег!');
@@ -294,7 +298,8 @@ begin
   end;
 end;
 
-procedure RenderScenario(const AScenario: TScenario.TScenarioEnum; const AX, AY: Integer);
+procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
+  const AX, AY: Integer);
 begin
   case AScenario of
     sgDarkTower:
@@ -426,10 +431,14 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with TCreature.Character(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K]) do
+          with TCreature.Character
+            (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+            [cgCharacters][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner][cgCharacters][K], False);
+            RenderUnitInfo(Lf, Top + Y,
+              Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+              [cgCharacters][K], False);
           end;
           Inc(Y, 120);
         end;
@@ -443,10 +452,12 @@ begin
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
           else
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
-          with TCreature.Character(Characters[TSaga.LeaderRace][cgLeaders][K]) do
+          with TCreature.Character(Characters[TSaga.LeaderRace]
+            [cgLeaders][K]) do
           begin
             RenderUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
+            RenderUnitInfo(Lf, Top + Y, Characters[TSaga.LeaderRace][cgLeaders]
+              [K], False);
           end;
           Inc(Y, 120);
         end;
@@ -467,7 +478,8 @@ begin
     stScenario, stJournal:
       begin
         DrawTitle(reTitleScenario);
-        for S := Low(TScenario.TScenarioEnum) to High(TScenario.TScenarioEnum) do
+        for S := Low(TScenario.TScenarioEnum)
+          to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
             Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
@@ -490,7 +502,8 @@ begin
         DrawTitle(reTitleHighScores);
       end;
   end;
-  Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top, ResImage[reInfoFrame]);
+  Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top,
+    ResImage[reInfoFrame]);
   case SubScene of
     stCharacter, stLeader:
       RenderCharacterInfo;
@@ -564,9 +577,11 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+            Ord(High(TRaceCharKind)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+            Ord(High(TRaceCharKind)));
       end;
     stLeader:
       case Key of
@@ -575,9 +590,11 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+            Ord(High(TRaceCharKind)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+            Ord(High(TRaceCharKind)));
       end;
     stRace:
       case Key of
@@ -586,9 +603,11 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TRaceCharKind)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+            Ord(High(TRaceCharKind)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TRaceCharKind)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+            Ord(High(TRaceCharKind)));
       end;
     stScenario:
       case Key of
@@ -597,23 +616,29 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenario.TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+            Ord(High(TScenario.TScenarioEnum)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenario.TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+            Ord(High(TScenario.TScenarioEnum)));
       end;
     stVictory, stDefeat:
       case Key of
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenario.TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+            Ord(High(TScenario.TScenarioEnum)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenario.TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+            Ord(High(TScenario.TScenarioEnum)));
       end;
     stHighScores2:
       case Key of
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, Ord(High(TScenario.TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+            Ord(High(TScenario.TScenarioEnum)));
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, Ord(High(TScenario.TScenarioEnum)));
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+            Ord(High(TScenario.TScenarioEnum)));
       end;
   end;
   if (SubScene in CloseButtonScene) then

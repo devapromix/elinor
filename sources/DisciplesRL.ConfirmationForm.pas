@@ -48,7 +48,8 @@ implementation
 uses
   DisciplesRL.MainForm,
   DisciplesRL.Resources,
-  DisciplesRL.GUI.Button;
+  DisciplesRL.GUI.Button,
+  DisciplesRL.Scenes;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -64,11 +65,13 @@ var
 
 procedure TConfirmationForm.Ok;
 begin
+  MediaPlayer.Play(mmClick);
   Button1.Click;
 end;
 
 procedure TConfirmationForm.Back;
 begin
+  MediaPlayer.Play(mmClick);
   Button2.Click;
 end;
 
@@ -123,7 +126,8 @@ begin
     if (I = btOk) then
       Buttons[I].Sellected := True;
   end;
-  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), Y, Surface.Canvas, reTextClose);
+  Button := TButton.Create((Surface.Width div 2) -
+    (ResImage[reButtonDef].Width div 2), Y, Surface.Canvas, reTextClose);
   Button.Sellected := True;
 end;
 
@@ -137,7 +141,8 @@ begin
   FreeAndNil(Surface);
 end;
 
-procedure TConfirmationForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+procedure TConfirmationForm.FormMouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
 var
   I: TButtonEnum;
 begin

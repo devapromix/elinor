@@ -49,6 +49,7 @@ procedure Back;
 var
   F: Boolean;
 begin
+  MediaPlayer.Play(mmClick);
   case SubScene of
     stStoneTab:
       begin

@@ -70,10 +70,11 @@ begin
   case F of
     True:
       FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0,
-        0, BASS_MUSIC_LOOP {$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
+        BASS_MUSIC_LOOP {$IFDEF UNICODE} or BASS_UNICODE
+{$ENDIF});
     False:
       FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
-{$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
+        {$IFDEF UNICODE } or BASS_UNICODE {$ENDIF});
 
   end;
   if (FChannel[FC] <> 0) then
