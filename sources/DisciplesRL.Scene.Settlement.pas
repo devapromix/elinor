@@ -43,15 +43,18 @@ type
   TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive, reTextClose, reTextHire, reTextDismiss);
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
+    reTextClose, reTextHire, reTextDismiss);
 
 type
   T = 0 .. 9;
 
 const
-  CityNameTitle: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
+  CityNameTitle: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion,
+    reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
     reTitleHimor, reTitleSodek, reTitleSard);
-  CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum', 'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
+  CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum', 'Temond',
+    'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
 
 var
   Button: array [TButtonEnum] of TButton;
@@ -69,7 +72,8 @@ begin
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas, ButtonText[I]);
+    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas,
+      ButtonText[I]);
     Inc(L, W);
     if (I = btClose) then
       Button[I].Sellected := True;
@@ -112,7 +116,9 @@ begin
     stCity:
       begin
         DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
-        CenterTextOut(100, Format('%s (Level %d)', [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)',
+          [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
+          .MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
@@ -120,17 +126,22 @@ begin
     stCapital:
       begin
         DrawTitle(CityNameTitle[CityArr[0]]);
-        CenterTextOut(100, Format('%s (Level %d)', [GetName, TMap.Place[0].MaxLevel + 1]));
+        CenterTextOut(100, Format('%s (Level %d)',
+          [GetName, TMap.Place[0].MaxLevel + 1]));
         CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
   end;
-  CenterTextOut(60, Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d', [ActivePartyPosition, CurrentPartyPosition,
-    CurrentCityIndex]));
+  CenterTextOut(60,
+    Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
+    [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
 
-  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0) or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex], Party[TLeaderParty.LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)
+  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
+    or (CurrentSettlementType = stCity) then
+    RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
+      Party[TLeaderParty.LeaderPartyIndex].Count <
+      TLeaderParty.Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
 
@@ -154,14 +165,17 @@ procedure Hire;
         InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and (Party[TLeaderParty.LeaderPartyIndex].Count < TLeaderParty.Leader.MaxLeadership)) or
+      if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and
+        (Party[TLeaderParty.LeaderPartyIndex].Count <
+        TLeaderParty.Leader.MaxLeadership)) or
         (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
       begin
         DisciplesRL.Scene.Hire.Show(AParty, APosition);
       end
       else
       begin
-        if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.MaxLeadership) then
+        if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
+          MaxLeadership) then
           InformDialog('Нужно развить лидерство!')
         else
           InformDialog('Не возможно нанять!');
@@ -171,6 +185,7 @@ procedure Hire;
   end;
 
 begin
+  MediaPlayer.Play(mmClick);
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
@@ -206,6 +221,7 @@ procedure Dismiss;
   end;
 
 begin
+  MediaPlayer.Play(mmClick);
   case ActivePartyPosition of
     0 .. 5:
       Dismiss(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
@@ -246,12 +262,14 @@ procedure Heal;
       R := (V div Level) * Level;
       if (HitPoints + (V div Level) < MaxHitPoints) then
       begin
-        if not ConfirmDialog(Format('Исцелить на %d HP за %d золота?', [V div Level, R])) then
+        if not ConfirmDialog(Format('Исцелить на %d HP за %d золота?',
+          [V div Level, R])) then
           Exit;
       end
       else
       begin
-        if not ConfirmDialog(Format('Полностью исцелить за %d золота?', [R])) then
+        if not ConfirmDialog(Format('Полностью исцелить за %d золота?', [R]))
+        then
           Exit;
       end;
       TSaga.Gold := TSaga.Gold - R;
@@ -261,6 +279,7 @@ procedure Heal;
   end;
 
 begin
+  MediaPlayer.Play(mmClick);
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
@@ -305,6 +324,7 @@ procedure Revive;
   end;
 
 begin
+  MediaPlayer.Play(mmClick);
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
@@ -320,7 +340,8 @@ begin
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
-        TPlace.UpdateRadius(TPlace.GetIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y));
+        TPlace.UpdateRadius(TPlace.GetIndex(TLeaderParty.Leader.X,
+          TLeaderParty.Leader.Y));
       end;
   end;
   if (TScenario.CurrentScenario = sgOverlord) then
@@ -357,7 +378,8 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+        CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X,
+          TLeaderParty.Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
         SettlementParty.Owner := Party[TLeaderParty.LeaderPartyIndex].Owner;
       end
@@ -378,7 +400,8 @@ end;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0) and (CurrentSettlementType = stCapital) and (Button = mbRight) and
+  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
+    and (CurrentSettlementType = stCapital) and (Button = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
@@ -386,20 +409,26 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        if (ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
-          (Party[TLeaderParty.LeaderPartyIndex].Count >= TLeaderParty.Leader.MaxLeadership)) then
+        if (ActivePartyPosition < 0) or
+          ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
+          (Party[TLeaderParty.LeaderPartyIndex].Count >=
+          TLeaderParty.Leader.MaxLeadership)) then
           Exit;
-        Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty, ActivePartyPosition, CurrentPartyPosition);
+        Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
+          ActivePartyPosition, CurrentPartyPosition);
+        MediaPlayer.Play(mmClick);
       end;
     mbMiddle:
       begin
         case GetPartyPosition(X, Y) of
           0 .. 5:
-            DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+            DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
+              scSettlement);
         else
           if not SettlementParty.IsClear then
             DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
         end;
+        MediaPlayer.Play(mmClick);
         Exit;
       end;
     mbLeft:
@@ -408,6 +437,7 @@ begin
         if CurrentPartyPosition < 0 then
           Exit;
         ActivePartyPosition := CurrentPartyPosition;
+        MediaPlayer.Play(mmClick);
       end;
   end;
 end;
@@ -418,7 +448,8 @@ begin
     K_ESCAPE, K_ENTER:
       Close;
     K_P:
-      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
+        scSettlement);
     K_A:
       Hire;
     K_H:

@@ -5,6 +5,9 @@ interface
 uses
   Bass;
 
+const
+  MusicChannel = 0;
+
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);
 
@@ -21,8 +24,10 @@ type
     constructor Create;
     destructor Destroy; override;
     property Volume: ShortInt read GetVolume write SetVolume;
-    function Play(const FileName: string; F: Boolean): Boolean; overload;
+    property CurrentChannel: Byte read FC write FC;
+    function Play(const FileName: string; F: Boolean): Boolean;
     procedure Stop;
+    procedure StopMusic;
   end;
 
 implementation
@@ -38,6 +43,7 @@ begin
   BASS_Start;
   BASS_GetInfo(BassInfo);
   Volume := 100;
+  FC := 1;
 end;
 
 destructor TSimplePlayer.Destroy;
@@ -74,7 +80,7 @@ begin
 {$ENDIF});
     False:
       FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
-        {$IFDEF UNICODE } or BASS_UNICODE {$ENDIF});
+{$IFDEF UNICODE } or BASS_UNICODE {$ENDIF});
 
   end;
   if (FChannel[FC] <> 0) then
@@ -86,7 +92,7 @@ begin
   Result := FChannel[FC] <> 0;
   Inc(FC);
   if (FC > High(FChannel)) then
-    FC := 0;
+    FC := 1;
 end;
 
 procedure TSimplePlayer.SetVolume(const Value: ShortInt);
@@ -102,8 +108,14 @@ procedure TSimplePlayer.Stop;
 var
   I: Byte;
 begin
-  for I := 0 to High(FChannel) do
+  for I := 1 to High(FChannel) do
     BASS_ChannelStop(FChannel[I]);
+  FC := 1;
+end;
+
+procedure TSimplePlayer.StopMusic;
+begin
+  BASS_ChannelStop(FChannel[MusicChannel]);
 end;
 
 end.

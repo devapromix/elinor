@@ -29,6 +29,7 @@ var
 type
   TMediaPlayer = class(TSimplePlayer)
     procedure Play(const MusicEnum: TMusicEnum); overload;
+    procedure PlayMusic(const MusicEnum: TMusicEnum);
   end;
 
 procedure CenterTextOut(const AY: Integer; AText: string);
@@ -123,23 +124,23 @@ begin
   case CurScene of
     scSettlement:
       begin
-        MediaPlayer.Stop;
-        MediaPlayer.Play(mmGame);
+        MediaPlayer.StopMusic;
+        MediaPlayer.PlayMusic(mmGame);
       end;
     scBattle2:
       begin
-        MediaPlayer.Stop;
-        MediaPlayer.Play(mmBattle);
+        MediaPlayer.StopMusic;
+        MediaPlayer.PlayMusic(mmBattle);
       end;
     scMap:
       begin
-        MediaPlayer.Stop;
-        MediaPlayer.Play(mmMap);
+        MediaPlayer.StopMusic;
+        MediaPlayer.PlayMusic(mmMap);
       end;
     scMenu:
       begin
-        MediaPlayer.Stop;
-        MediaPlayer.Play(mmMenu);
+        MediaPlayer.StopMusic;
+        MediaPlayer.PlayMusic(mmMenu);
       end;
   end;
 end;
@@ -406,6 +407,13 @@ end;
 procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
 begin
   Play(ResMusicPath[MusicEnum], MusicBase[MusicEnum].ResType = teMusic);
+end;
+
+procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
+begin
+  CurrentChannel := 0;
+  Play(MusicEnum);
+  CurrentChannel := 1;
 end;
 
 end.
