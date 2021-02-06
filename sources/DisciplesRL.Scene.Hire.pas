@@ -28,6 +28,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
+  DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Scenes,
   DisciplesRL.Creatures,
@@ -35,7 +36,6 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Map,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Info;
 
@@ -524,20 +524,23 @@ begin
 
 end;
 
-procedure MouseClick(X, Y: Integer);
+procedure MouseClick(X, Y: Integer); { TODO: Можно сократить код }
 begin
   if not(SubScene in CloseButtonScene) then
   begin
     if MouseOver(Lf, Top, X, Y) then
     begin
+      MediaPlayer.Play(mmClick);
       CurrentIndex := 0;
     end;
     if MouseOver(Lf, Top + 120, X, Y) then
     begin
+      MediaPlayer.Play(mmClick);
       CurrentIndex := 1;
     end;
     if MouseOver(Lf, Top + 240, X, Y) then
     begin
+      MediaPlayer.Play(mmClick);
       CurrentIndex := 2;
     end;
   end;
@@ -577,11 +580,17 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-            Ord(High(TRaceCharKind)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TRaceCharKind)));
+          end;
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-            Ord(High(TRaceCharKind)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TRaceCharKind)));
+          end;
       end;
     stLeader:
       case Key of
@@ -590,11 +599,17 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-            Ord(High(TRaceCharKind)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TRaceCharKind)));
+          end;
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-            Ord(High(TRaceCharKind)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TRaceCharKind)));
+          end;
       end;
     stRace:
       case Key of
@@ -603,11 +618,17 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-            Ord(High(TRaceCharKind)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TRaceCharKind)));
+          end;
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-            Ord(High(TRaceCharKind)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TRaceCharKind)));
+          end;
       end;
     stScenario:
       case Key of
@@ -616,29 +637,47 @@ begin
         K_ENTER:
           Ok;
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-            Ord(High(TScenario.TScenarioEnum)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TScenario.TScenarioEnum)));
+          end;
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-            Ord(High(TScenario.TScenarioEnum)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TScenario.TScenarioEnum)));
+          end;
       end;
     stVictory, stDefeat:
       case Key of
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-            Ord(High(TScenario.TScenarioEnum)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TScenario.TScenarioEnum)));
+          end;
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-            Ord(High(TScenario.TScenarioEnum)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TScenario.TScenarioEnum)));
+          end;
       end;
     stHighScores2:
       case Key of
         K_UP:
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-            Ord(High(TScenario.TScenarioEnum)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TScenario.TScenarioEnum)));
+          end;
         K_DOWN:
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-            Ord(High(TScenario.TScenarioEnum)));
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TScenario.TScenarioEnum)));
+          end;
       end;
   end;
   if (SubScene in CloseButtonScene) then

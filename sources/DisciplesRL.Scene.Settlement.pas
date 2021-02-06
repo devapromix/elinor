@@ -333,6 +333,7 @@ begin
   end;
   SetSceneMusic(scMap);
   SetScene(scMap);
+  MediaPlayer.Play(mmClick);
   TSaga.NewDay;
 end;
 
