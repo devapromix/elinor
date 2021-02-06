@@ -1,6 +1,7 @@
 ﻿unit DisciplesRL.Saga;
 
 interface
+
 {$IFDEF FPC}
 
 uses
@@ -77,7 +78,7 @@ begin
   Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   NewGold := RandomRange(Level * 20, Level * 30);
   ModifyGold(NewGold);
-  //DisciplesRL.Scene.Info.Show(stLoot, scMap);
+  // DisciplesRL.Scene.Info.Show(stLoot, scMap);
 end;
 
 class procedure TSaga.NewDay;
@@ -85,7 +86,7 @@ begin
   if IsDay then
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
-    //DisciplesRL.Scene.Info.Show(stDay, scMap);
+    // DisciplesRL.Scene.Info.Show(stDay, scMap);
   end;
 end;
 
@@ -118,14 +119,16 @@ type
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
   public const
-    ScenarioName: array [TScenarioEnum] of string = ('Темная Башня', 'Повелитель', 'Древние Знания');
+    ScenarioName: array [TScenarioEnum] of string = ('Темная Башня',
+      'Повелитель', 'Древние Знания');
     ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
       // Темная Башня
       ('', '', '', '', '', '', '', '', '', '', 'Цель: разрушить Темную Башню'),
       // Повелитель
       ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
       // Древние Знания
-      ('', '', '', '', '', '', '', '', '', '', 'Цель: найти все каменные таблички')
+      ('', '', '', '', '', '', '', '', '', '',
+      'Цель: найти все каменные таблички')
       //
       );
   public
@@ -168,7 +171,8 @@ type
     class procedure PartyFree; static;
     class function GetPartyCount: Integer; static;
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
-    class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
+    class procedure AddPartyAt(const AX, AY: Integer;
+      IsFinal: Boolean = False); static;
     class procedure AddLoot; static;
     class procedure ModifyGold(Amount: Integer); static;
     class procedure NewDay; static;
@@ -196,53 +200,69 @@ type
 const
   PartyBase: array [1 .. 20] of TPartyBase = (
     //
-    (Level: 1; Character: (crNone, crGoblin_Archer, crGoblin, crNone, crNone, crGoblin_Archer)),
+    (Level: 1; Character: (crNone, crGoblin_Archer, crGoblin, crNone, crNone,
+    crGoblin_Archer)),
     //
-    (Level: 1; Character: (crGoblin, crNone, crGoblin, crNone, crGoblin, crNone)),
+    (Level: 1; Character: (crGoblin, crNone, crGoblin, crNone,
+    crGoblin, crNone)),
     //
-    (Level: 1; Character: (crGoblin, crNone, crNone, crGoblin_Archer, crGoblin, crNone)),
+    (Level: 1; Character: (crGoblin, crNone, crNone, crGoblin_Archer,
+    crGoblin, crNone)),
 
     //
-    (Level: 2; Character: (crGoblin, crNone, crGoblin, crGoblin_Archer, crGoblin, crNone)),
+    (Level: 2; Character: (crGoblin, crNone, crGoblin, crGoblin_Archer,
+    crGoblin, crNone)),
     //
-    (Level: 2; Character: (crGoblin, crGoblin_Archer, crNone, crNone, crGoblin, crGoblin_Archer)),
+    (Level: 2; Character: (crGoblin, crGoblin_Archer, crNone, crNone, crGoblin,
+    crGoblin_Archer)),
 
     //
-    (Level: 3; Character: (crGoblin, crGoblin_Archer, crNone, crGoblin_Archer, crGoblin, crGoblin_Archer)),
+    (Level: 3; Character: (crGoblin, crGoblin_Archer, crNone, crGoblin_Archer,
+    crGoblin, crGoblin_Archer)),
     //
-    (Level: 3; Character: (crGoblin, crGoblin_Archer, crGoblin, crNone, crGoblin, crGoblin_Archer)),
+    (Level: 3; Character: (crGoblin, crGoblin_Archer, crGoblin, crNone,
+    crGoblin, crGoblin_Archer)),
 
     //
-    (Level: 4; Character: (crGoblin, crGoblin_Archer, crGoblin, crGoblin_Archer, crGoblin, crGoblin_Archer)),
+    (Level: 4; Character: (crGoblin, crGoblin_Archer, crGoblin, crGoblin_Archer,
+    crGoblin, crGoblin_Archer)),
     //
     (Level: 4; Character: (crNone, crNone, crWolf, crNone, crNone, crNone)),
 
     //
     (Level: 5; Character: (crWolf, crNone, crNone, crNone, crWolf, crNone)),
     //
-    (Level: 5; Character: (crWolf, crNone, crGoblin, crGoblin_Archer, crWolf, crNone)),
+    (Level: 5; Character: (crWolf, crNone, crGoblin, crGoblin_Archer,
+    crWolf, crNone)),
 
     //
     (Level: 6; Character: (crWolf, crNone, crWolf, crNone, crWolf, crNone)),
     //
-    (Level: 6; Character: (crWolf, crNone, crWolf, crGoblin_Archer, crWolf, crNone)),
+    (Level: 6; Character: (crWolf, crNone, crWolf, crGoblin_Archer,
+    crWolf, crNone)),
 
     //
-    (Level: 7; Character: (crWolf, crNone, crOrc, crGoblin_Archer, crWolf, crNone)),
+    (Level: 7; Character: (crWolf, crNone, crOrc, crGoblin_Archer,
+    crWolf, crNone)),
     //
-    (Level: 7; Character: (crOrc, crGoblin_Archer, crNone, crNone, crOrc, crGoblin_Archer)),
+    (Level: 7; Character: (crOrc, crGoblin_Archer, crNone, crNone, crOrc,
+    crGoblin_Archer)),
     //
     (Level: 7; Character: (crOrc, crNone, crOrc, crNone, crOrc, crNone)),
     //
-    (Level: 7; Character: (crOrc, crNone, crOrc, crGoblin_Archer, crOrc, crNone)),
+    (Level: 7; Character: (crOrc, crNone, crOrc, crGoblin_Archer,
+    crOrc, crNone)),
 
     //
-    (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crNone, crOrc, crGoblin_Archer)),
+    (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crNone, crOrc,
+    crGoblin_Archer)),
     //
-    (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crGoblin_Archer, crOrc, crGoblin_Archer)),
+    (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crGoblin_Archer,
+    crOrc, crGoblin_Archer)),
 
     // Финальная партия в башне
-    (Level: 99; Character: (crNone, crNone, crGiantSpider, crNone, crNone, crNone))
+    (Level: 99; Character: (crNone, crNone, crGiantSpider, crNone,
+    crNone, crNone))
     //
     );
 
@@ -310,7 +330,8 @@ end;
 
 class procedure TSaga.AddScores(I: Integer);
 begin
-  if (I < 0) then I := 0;
+  if (I < 0) then
+    I := 0;
   Scores := Scores + I;
 end;
 
@@ -335,6 +356,7 @@ begin
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     DisciplesRL.Scene.Info.Show(stDay, scMap);
+    MediaPlayer.Play(mmDay);
   end;
 end;
 
@@ -368,12 +390,14 @@ end;
 
 class function TScenario.ScenarioAncientKnowledgeState: string;
 begin
-  Result := Format('Найдено каменных табличек: %d из %d', [StoneTab, ScenarioStoneTabMax]);
+  Result := Format('Найдено каменных табличек: %d из %d',
+    [StoneTab, ScenarioStoneTabMax]);
 end;
 
 class function TScenario.ScenarioOverlordState: string;
 begin
-  Result := Format('Захвачено городов: %d из %d', [TPlace.GetCityCount, ScenarioCitiesMax]);
+  Result := Format('Захвачено городов: %d из %d',
+    [TPlace.GetCityCount, ScenarioCitiesMax]);
 end;
 
 { TSaga }

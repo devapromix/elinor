@@ -17,7 +17,8 @@ procedure MouseClick(X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure Show(const ASubScene: TInfoSubSceneEnum; const ABackScene: TSceneEnum);
+procedure Show(const ASubScene: TInfoSubSceneEnum;
+  const ABackScene: TSceneEnum);
 procedure Free;
 
 implementation
@@ -99,7 +100,9 @@ end;
 
 procedure Init;
 begin
-  Button := TButton.Create((Surface.Width div 2) - (ResImage[reButtonDef].Width div 2), DefaultButtonTop, Surface.Canvas, reTextClose);
+  Button := TButton.Create((Surface.Width div 2) -
+    (ResImage[reButtonDef].Width div 2), DefaultButtonTop, Surface.Canvas,
+    reTextClose);
   Button.Sellected := True;
 end;
 
@@ -120,8 +123,10 @@ begin
     stDay:
       begin
         DrawTitle(reTitleNewDay);
-        CenterTextOut(300, Format('НАСТУПИЛ НОВЫЙ ДЕНЬ (День %d-й)', [TSaga.Days]));
-        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines * TSaga.GoldFromMinePerDay));
+        CenterTextOut(300, Format('НАСТУПИЛ НОВЫЙ ДЕНЬ (День %d-й)',
+          [TSaga.Days]));
+        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
+          TSaga.GoldFromMinePerDay));
       end;
     stLoot:
       begin
@@ -158,7 +163,8 @@ begin
   end;
 end;
 
-procedure Show(const ASubScene: TInfoSubSceneEnum; const ABackScene: TSceneEnum);
+procedure Show(const ASubScene: TInfoSubSceneEnum;
+  const ABackScene: TSceneEnum);
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
