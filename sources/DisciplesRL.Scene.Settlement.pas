@@ -148,6 +148,49 @@ begin
   RenderButtons;
 end;
 
+procedure MoveCursor(Dir: TDirectionEnum);
+begin
+  case Dir of
+    drWest:
+      case ActivePartyPosition of
+        1, 3, 5:
+          Inc(ActivePartyPosition, 6);
+        0, 2, 4:
+          Inc(ActivePartyPosition);
+        6, 8, 10:
+          Dec(ActivePartyPosition, 6);
+        7, 9, 11:
+          Dec(ActivePartyPosition);
+      end;
+    drEast:
+      case ActivePartyPosition of
+        1, 3, 5:
+          Dec(ActivePartyPosition);
+        0, 2, 4:
+          Inc(ActivePartyPosition, 6);
+        6, 8, 10:
+          Inc(ActivePartyPosition);
+        7, 9, 11:
+          Dec(ActivePartyPosition, 6);
+      end;
+    drNorth:
+      case ActivePartyPosition of
+        0, 1, 6, 7:
+          Inc(ActivePartyPosition, 4);
+        2 .. 5, 8 .. 11:
+          Dec(ActivePartyPosition, 2);
+      end;
+    drSouth:
+      case ActivePartyPosition of
+        0 .. 3, 6 .. 9:
+          Inc(ActivePartyPosition, 2);
+        4, 5, 10, 11:
+          Dec(ActivePartyPosition, 4);
+      end;
+  end;
+  Render;
+end;
+
 procedure Timer;
 begin
 
@@ -449,14 +492,22 @@ begin
     K_P:
       DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement);
-    K_A:
-      Hire;
+    // K_A:
+    // Hire;
     K_H:
       Heal;
-    K_D:
-      Dismiss;
+    // K_D:
+    // Dismiss;
     K_R:
       Revive;
+    K_LEFT, K_KP_4, K_A:
+      MoveCursor(drWest);
+    K_RIGHT, K_KP_6, K_D:
+      MoveCursor(drEast);
+    K_UP, K_KP_8, K_W:
+      MoveCursor(drNorth);
+    K_DOWN, K_KP_2, K_X:
+      MoveCursor(drSouth);
   end;
 end;
 
