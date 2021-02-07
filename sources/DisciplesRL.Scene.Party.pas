@@ -75,6 +75,7 @@ begin
   BackScene := CloseScene;
   ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
   SetScene(scParty);
+  MediaPlayer.Play(mmSettlement);
 end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
@@ -163,6 +164,7 @@ begin
   if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
   SetScene(BackScene);
+  MediaPlayer.Play(mmSettlement);
 end;
 
 procedure MouseClick;

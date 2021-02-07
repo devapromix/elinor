@@ -81,7 +81,6 @@ begin
     False:
       FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
 {$IFDEF UNICODE } or BASS_UNICODE {$ENDIF});
-
   end;
   if (FChannel[FC] <> 0) then
   begin

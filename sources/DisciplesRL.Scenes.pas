@@ -125,22 +125,23 @@ begin
     scSettlement:
       begin
         MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmGame);
+        //MediaPlayer.PlayMusic(mmGame);
+        MediaPlayer.Play(mmSettlement);
       end;
     scBattle2:
       begin
         MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmBattle);
+        //MediaPlayer.PlayMusic(mmBattle);
       end;
     scMap:
       begin
         MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmMap);
+        //MediaPlayer.PlayMusic(mmMap);
       end;
     scMenu:
       begin
         MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmMenu);
+        //MediaPlayer.PlayMusic(mmMenu);
       end;
   end;
 end;

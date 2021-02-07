@@ -144,7 +144,6 @@ begin
       TLeaderParty.Leader.MaxLeadership)
   else
     RenderParty(psLeft, nil);
-
   RenderParty(psRight, SettlementParty, True);
   RenderButtons;
 end;
@@ -355,6 +354,7 @@ begin
   SetSceneMusic(scMap);
   SetScene(scMap);
   MediaPlayer.Play(mmClick);
+  MediaPlayer.Play(mmSettlement);
   TSaga.NewDay;
 end;
 
