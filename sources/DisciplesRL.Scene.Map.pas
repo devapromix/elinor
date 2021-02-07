@@ -237,7 +237,7 @@ begin
       TLeaderParty.Leader.Move(drSouthWest);
     K_KP_3, K_C:
       TLeaderParty.Leader.Move(drSouthEast);
-    K_KP_5, K_S:
+    K_ENTER, K_KP_5, K_S:
       TLeaderParty.Leader.Move(drOrigin);
     K_P:
       DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
