@@ -31,24 +31,24 @@ var
   X, Y, MX, MY: Integer;
 begin
   terminal_layer(0);
-    for Y := 0 to Game.Map.Height - 1 do
-      for X := 0 to Game.Map.Width - 1 do
-      begin
-        terminal_layer(1);
-        terminal_put(X * 4, Y * 2, Game.Map.GetTile(lrTile, X, Y));
-        terminal_layer(2);
-        if (Game.Map.GetTile(lrObj, X, Y) <> 0) then
-          terminal_put(X * 4, Y * 2, Game.Map.GetTile(lrObj, X, Y));
-      end;
-    MX := terminal_state(TK_MOUSE_X) div 4;
-    MY := terminal_state(TK_MOUSE_Y) div 2;
-    terminal_layer(7);
-    terminal_put(MX * 4, MY * 2, $E005);
-    if Game.IsDebug then
+  for Y := 0 to Game.Map.Height - 1 do
+    for X := 0 to Game.Map.Width - 1 do
     begin
-      terminal_layer(9);
-      terminal_print(1, 1, Format('%dx%d', [MX, MY]));
+      terminal_layer(1);
+      terminal_put(X * 4, Y * 2, Game.Map.GetTile(lrTile, X, Y));
+      terminal_layer(2);
+      if (Game.Map.GetTile(lrObj, X, Y) <> 0) then
+        terminal_put(X * 4, Y * 2, Game.Map.GetTile(lrObj, X, Y));
     end;
+  MX := terminal_state(TK_MOUSE_X) div 4;
+  MY := terminal_state(TK_MOUSE_Y) div 2;
+  terminal_layer(7);
+  terminal_put(MX * 4, MY * 2, $E005);
+  if Game.IsDebug then
+  begin
+    terminal_layer(9);
+    terminal_print(1, 1, Format('%dx%d', [MX, MY]));
+  end;
 end;
 
 procedure TSceneMap.Update(var Key: Word);
@@ -70,6 +70,7 @@ procedure Init;
 procedure Render;
 procedure Timer;
 procedure MouseClick;
+procedure Show;
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
@@ -98,6 +99,12 @@ begin
 
 end;
 
+procedure Show;
+begin
+  MediaPlayer.Play(mmSettlement);
+  SetScene(scMap);
+end;
+
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   case Button of
@@ -120,35 +127,50 @@ begin
         Continue;
       case TMap.Map[lrTile][X, Y] of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reTheEmpireTerrain]);
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+            ResImage[reTheEmpireTerrain]);
         reUndeadHordesTerrain, reUndeadHordesCapital, reUndeadHordesCity:
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUndeadHordesTerrain]);
-        reLegionsOfTheDamnedTerrain, reLegionsOfTheDamnedCapital, reLegionsOfTheDamnedCity:
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reLegionsOfTheDamnedTerrain]);
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+            ResImage[reUndeadHordesTerrain]);
+        reLegionsOfTheDamnedTerrain, reLegionsOfTheDamnedCapital,
+          reLegionsOfTheDamnedCity:
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+            ResImage[reLegionsOfTheDamnedTerrain]);
       else
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reNeutralTerrain]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+          ResImage[reNeutralTerrain]);
       end;
-      F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > TLeaderParty.Leader.Radius) and
-        not(TMap.Map[lrTile][X, Y] in Tiles + Capitals + Cities) and (TMap.Map[lrDark][X, Y] = reNone);
+      F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) >
+        TLeaderParty.Leader.Radius) and
+        not(TMap.Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
+        (TMap.Map[lrDark][X, Y] = reNone);
 
       // Special
-      if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(X, Y)) or
-        ((TScenario.CurrentScenario = sgDarkTower) and (ResBase[TMap.Map[lrTile][X, Y]].ResType = teTower)) or
-        ((TScenario.CurrentScenario = sgOverlord) and (ResBase[TMap.Map[lrTile][X, Y]].ResType = teCity))) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reCursorSpecial]);
+      if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and
+        TScenario.IsStoneTab(X, Y)) or
+        ((TScenario.CurrentScenario = sgDarkTower) and
+        (ResBase[TMap.Map[lrTile][X, Y]].ResType = teTower)) or
+        ((TScenario.CurrentScenario = sgOverlord) and
+        (ResBase[TMap.Map[lrTile][X, Y]].ResType = teCity))) then
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+          ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
-      if (ResBase[TMap.Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin, teTower]) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[TMap.Map[lrTile][X, Y]]);
+      if (ResBase[TMap.Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin,
+        teTower]) then
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+          ResImage[TMap.Map[lrTile][X, Y]]);
 
       //
       if (ResBase[TMap.Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
         if F then
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUnk])
         else
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[TMap.Map[lrObj][X, Y]])
+          DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+            ResImage[TMap.Map[lrObj][X, Y]])
       else if (TMap.Map[lrObj][X, Y] <> reNone) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[TMap.Map[lrObj][X, Y]]);
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+          ResImage[TMap.Map[lrObj][X, Y]]);
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
@@ -159,9 +181,11 @@ begin
     end;
   // Cursor
   if TMap.IsLeaderMove(MousePos.X, MousePos.Y) then
-    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize, ResImage[reCursor])
+    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize,
+      ResImage[reCursor])
   else
-    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize, ResImage[reNoWay]);
+    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize,
+      ResImage[reNoWay]);
 end;
 
 procedure Timer;
@@ -173,7 +197,8 @@ procedure MouseClick;
 begin
   if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
     TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-  else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and TMap.InMap(MousePos.X, MousePos.Y) then
+  else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and
+    TMap.InMap(MousePos.X, MousePos.Y) then
     TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
 end;
 
@@ -192,10 +217,10 @@ procedure KeyDown(var Key: Word; Shift: TShiftState);
 begin
   case Key of
     K_ESCAPE:
-    begin
-      SetSceneMusic(scMenu);
-      SetScene(scMenu);
-    end;
+      begin
+        SetSceneMusic(scMenu);
+        SetScene(scMenu);
+      end;
     K_LEFT, K_KP_4, K_A:
       TLeaderParty.Leader.Move(drWest);
     K_RIGHT, K_KP_6, K_D:

@@ -63,16 +63,19 @@ begin
           else
           begin
             F := True;
-            SetScene(scMap);
+            DisciplesRL.Scene.Map.Show;
             Exit;
           end;
       end;
     stDay:
-      TSaga.IsDay := False;
+      begin
+        MediaPlayer.Play(mmSettlement);
+        TSaga.IsDay := False;
+      end;
     stLoot:
       begin
         F := True;
-        SetScene(scMap);
+        DisciplesRL.Scene.Map.Show;
         begin
           if (TScenario.CurrentScenario = sgDarkTower) then
           begin

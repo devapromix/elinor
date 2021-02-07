@@ -161,6 +161,7 @@ type
     LeaderRace: TRaceEnum;
     IsDay: Boolean;
     Wizard: Boolean;
+    NoMusic: Boolean;
     IsGame: Boolean;
   public const
     GoldFromMinePerDay = 100;

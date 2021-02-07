@@ -31,7 +31,7 @@ procedure TSceneMenu.Update(var Key: Word);
 begin
   case Key of
     TK_ENTER:
-      Game.SetScene(scMap);
+      DisciplesRL.Scene.Map.Show;
   end;
 end;
 
@@ -62,7 +62,8 @@ uses
   DisciplesRL.MainForm,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Info;
+  DisciplesRL.Scene.Info,
+  DisciplesRL.Scene.Map;
 
 type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
@@ -98,7 +99,7 @@ begin
           MediaPlayer.Play(mmClick);
           Sleep(100);
           SetSceneMusic(scMap);
-          SetScene(scMap);
+          DisciplesRL.Scene.Map.Show;
         end;
       end;
     2: // High Scores

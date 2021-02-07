@@ -59,10 +59,13 @@ begin
   //
   Randomize;
   TSaga.Wizard := False;
+  TSaga.NoMusic := False;
   for I := 1 to ParamCount do
   begin
     if (LowerCase(ParamStr(I)) = '-w') then
       TSaga.Wizard := True;
+    if (LowerCase(ParamStr(I)) = '-m') then
+      TSaga.NoMusic := True;
   end;
   //
   ClientWidth := TMap.Width * TMap.TileSize;

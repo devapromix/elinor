@@ -105,7 +105,8 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party, 
+  DisciplesRL.Saga;
 
 var
   MouseX, MouseY: Integer;
@@ -125,23 +126,23 @@ begin
     scSettlement:
       begin
         MediaPlayer.StopMusic;
-        //MediaPlayer.PlayMusic(mmGame);
+        MediaPlayer.PlayMusic(mmGame);
         MediaPlayer.Play(mmSettlement);
       end;
     scBattle2:
       begin
         MediaPlayer.StopMusic;
-        //MediaPlayer.PlayMusic(mmBattle);
+        MediaPlayer.PlayMusic(mmBattle);
       end;
     scMap:
       begin
         MediaPlayer.StopMusic;
-        //MediaPlayer.PlayMusic(mmMap);
+        MediaPlayer.PlayMusic(mmMap);
       end;
     scMenu:
       begin
         MediaPlayer.StopMusic;
-        //MediaPlayer.PlayMusic(mmMenu);
+        MediaPlayer.PlayMusic(mmMenu);
       end;
   end;
 end;
@@ -412,6 +413,8 @@ end;
 
 procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
 begin
+  if TSaga.NoMusic then
+    Exit;
   CurrentChannel := 0;
   Play(MusicEnum);
   CurrentChannel := 1;

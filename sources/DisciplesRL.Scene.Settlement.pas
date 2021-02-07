@@ -352,9 +352,8 @@ begin
     end;
   end;
   SetSceneMusic(scMap);
-  SetScene(scMap);
+  DisciplesRL.Scene.Map.Show;
   MediaPlayer.Play(mmClick);
-  MediaPlayer.Play(mmSettlement);
   TSaga.NewDay;
 end;
 

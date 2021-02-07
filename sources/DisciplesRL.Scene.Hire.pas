@@ -116,7 +116,7 @@ begin
     stScenario:
       SetScene(scMenu);
     stJournal:
-      SetScene(scMap);
+      DisciplesRL.Scene.Map.Show;
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -162,7 +162,7 @@ begin
         DisciplesRL.Scene.Hire.Show(stRace);
       end;
     stJournal:
-      SetScene(scMap);
+      DisciplesRL.Scene.Map.Show;
     stDefeat:
       begin
         TSaga.IsGame := False;
