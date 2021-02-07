@@ -169,6 +169,12 @@ begin
   SubScene := ASubScene;
   BackScene := ABackScene;
   SetScene(scInfo);
+  case SubScene of
+    stDay:
+      MediaPlayer.Play(mmDay);
+    stLoot, stStoneTab:
+      MediaPlayer.Play(mmLoot);
+  end;
 end;
 
 procedure Free;

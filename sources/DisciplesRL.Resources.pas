@@ -332,7 +332,8 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmBattle, mmGame, mmMap, mmMenu, mmDay, mmSettlement);
+  TMusicEnum = (mmClick, mmBattle, mmGame, mmMap, mmMenu, mmDay,
+    mmSettlement, mmLoot);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -353,7 +354,9 @@ const
     // New Day
     (FileName: 'day.ogg'; ResType: teSound;),
     // Settlement
-    (FileName: 'capital.ogg'; ResType: teSound;)
+    (FileName: 'capital.ogg'; ResType: teSound;),
+    // Loot
+    (FileName: 'loot.ogg'; ResType: teSound;)
     //
     );
 

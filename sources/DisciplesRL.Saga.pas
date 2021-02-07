@@ -356,7 +356,6 @@ begin
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     DisciplesRL.Scene.Info.Show(stDay, scMap);
-    MediaPlayer.Play(mmDay);
   end;
 end;
 
