@@ -120,22 +120,32 @@ begin
     stStoneTab:
       begin
         DrawTitle(reTitleLoot);
-        CenterTextOut(300, 'КАМЕННАЯ ТАБЛИЧКА');
-        CenterTextOut(350, TScenario.ScenarioAncientKnowledgeState);
+        DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
+        DrawImage((Surface.Width div 2) - 32, 300, reItemStoneTable);
+        CenterTextOut(450, 'КАМЕННАЯ ТАБЛИЧКА');
+        CenterTextOut(470, TScenario.ScenarioAncientKnowledgeState);
       end;
     stDay:
       begin
         DrawTitle(reTitleNewDay);
-        CenterTextOut(300, Format('НАСТУПИЛ НОВЫЙ ДЕНЬ (День %d-й)',
-          [TSaga.Days]));
-        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
-          TSaga.GoldFromMinePerDay));
+        DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
+        CenterTextOut(450, Format('ДЕНЬ %d', [TSaga.Days]));
+        if TSaga.GoldMines > 0 then
+        begin
+          DrawImage((Surface.Width div 2) - 32, 300, reItemGold);
+          CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
+            TSaga.GoldFromMinePerDay))
+        end
+        else
+          DrawImage((Surface.Width div 2) - 32, 300, reDay);
       end;
     stLoot:
       begin
         DrawTitle(reTitleLoot);
-        CenterTextOut(300, 'СОКРОВИЩЕ');
-        CenterTextOut(350, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+        DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
+        DrawImage((Surface.Width div 2) - 32, 300, reItemGold);
+        CenterTextOut(450, 'СОКРОВИЩЕ');
+        CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
       end;
   end;
   RenderButtons;

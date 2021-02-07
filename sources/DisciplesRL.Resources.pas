@@ -70,12 +70,12 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
-    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame, reActFrame,
-    reBigFrame, reInfoFrame, reNeutralTerrain, reTheEmpireTerrain,
-    reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reUnk, reEnemy,
-    reCursorSpecial, reCursor, reNoWay, rePlayer, reDark, reGold, reBag,
-    reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+  TResEnum = (reNone, reDay, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
+    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame,
+    reSmallFrame, reActFrame, reBigFrame, reInfoFrame, reNeutralTerrain,
+    reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
+    reUnk, reEnemy, reCursorSpecial, reCursor, reNoWay, rePlayer, reDark,
+    reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
     reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
     reMountain1, reMountain2, reMountain3, reButtonDef, reButtonAct, reCorpse,
@@ -91,7 +91,7 @@ type
     reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond,
     reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek,
     reTitleSard, reScenarioDarkTower, reScenarioOverlord,
-    reScenarioAncientKnowledge);
+    reScenarioAncientKnowledge, reItemGold, reItemStoneTable);
 
 {$ENDIF}
 
@@ -109,8 +109,8 @@ const
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
-    teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine,
-    teMusic, teSound);
+    teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine, teMusic,
+    teSound, teItem);
 
 type
   TResBase = record
@@ -122,6 +122,8 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
+    // Day
+    (FileName: 'day.png'; ResType: teGUI;),
     // Plus
     (FileName: 'plus.png'; ResType: teGUI;),
     // The Empire Logo
@@ -138,6 +140,8 @@ const
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame
     (FileName: 'frame.png'; ResType: teGUI;),
+    // Small Frame
+    (FileName: 'frame.small.png'; ResType: teGUI;),
     // Active Frame
     (FileName: 'actframe.png'; ResType: teGUI;),
     // Big Frame
@@ -327,7 +331,11 @@ const
     // Scenario "Overlord"
     (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
     // Scenario "Ancient Knowledge"
-    (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;)
+    (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
+    // Item Gold
+    (FileName: 'item.gold.png'; ResType: teItem;),
+    // Item Stone Table
+    (FileName: 'item.stone_table.png'; ResType: teItem;)
     //
     );
 
