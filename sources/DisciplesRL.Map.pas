@@ -454,10 +454,16 @@ begin
           Continue
         else
         begin
-          // Add mine
-          if (MapLayer = Map[lrTile]) and (Map[lrObj][AX + X, AY + Y] = reMine)
-            and (Map[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
+          // Add Gold Mine
+          if (MapLayer = Map[lrTile]) and
+            (Map[lrObj][AX + X, AY + Y] = reMineGold) and
+            (Map[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
             Inc(TSaga.GoldMines);
+          // Add Mana Mine
+          if (MapLayer = Map[lrTile]) and
+            (Map[lrObj][AX + X, AY + Y] = reMineMana) and
+            (Map[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
+            Inc(TSaga.ManaMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
 end;
@@ -530,7 +536,7 @@ end;
 
 class procedure TPlace.Gen;
 var
-  DX, DY, I: Integer;
+  DX, DY, FX, FY, I: Integer;
 begin
   for I := 0 to High(TMap.Place) do
   begin
@@ -572,14 +578,23 @@ begin
         TSaga.AddPartyAt(TMap.Place[I].X, TMap.Place[I].Y);
       end;
     end;
-    // Mine
+    // Mines
     repeat
       DX := RandomRange(-2, 2);
       DY := RandomRange(-2, 2);
     until ((DX <> 0) and (DY <> 0));
+    repeat
+      FX := RandomRange(-2, 2);
+      FY := RandomRange(-2, 2);
+    until ((FX <> 0) and (FY <> 0) and (FX <> DX) and (FY <> DY));
     case I of
       0 .. TScenario.ScenarioCitiesMax:
-        TMap.Map[lrObj][TMap.Place[I].X + DX, TMap.Place[I].Y + DY] := reMine;
+        begin
+          TMap.Map[lrObj][TMap.Place[I].X + DX, TMap.Place[I].Y + DY] :=
+            reMineGold;
+          TMap.Map[lrObj][TMap.Place[I].X + FX, TMap.Place[I].Y + FY] :=
+            reMineMana;
+        end;
     end;
   end;
 end;

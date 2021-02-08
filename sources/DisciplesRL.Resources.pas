@@ -77,20 +77,20 @@ type
     reUnk, reEnemy, reCursorSpecial, reCursor, reNoWay, rePlayer, reDark,
     reGold, reMana, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
-    reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
-    reMountain1, reMountain2, reMountain3, reButtonDef, reButtonAct, reCorpse,
-    reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher,
-    reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon,
-    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
-    reGiantSpider, reWolf, reOrc, reTextHighScores, reTextCapitalDef,
-    reTextCityDef, reTextPlay, reTextVictory, reTextDefeat, reTextQuit,
-    reTextContinue, reTextDismiss, reTextHire, reTextClose, reTextOk,
-    reTextCancel, reTextLeadParty, reTextHeal, reTextRevive, reTitleHire,
-    reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
-    reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty,
-    reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond,
-    reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek,
-    reTitleSard, reScenarioDarkTower, reScenarioOverlord,
+    reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak,
+    reMineGold, reMineMana, reMountain1, reMountain2, reMountain3, reButtonDef,
+    reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage,
+    reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan,
+    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
+    reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
+    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat,
+    reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
+    reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive,
+    reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
+    reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
+    reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
+    reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
+    reTitleSodek, reTitleSard, reScenarioDarkTower, reScenarioOverlord,
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable);
 
 {$ENDIF}
@@ -200,6 +200,8 @@ const
     (FileName: 'tile.tree.oak.png'; ResType: teTree;),
     // Gold Mine
     (FileName: 'tile.mine.gold.png'; ResType: teMine;),
+    // Mana Mine
+    (FileName: 'tile.mine.mana.png'; ResType: teMine;),
     // Mountain #1
     (FileName: 'tile.mountain1.png'; ResType: teObject;),
     // Mountain #2
