@@ -196,14 +196,14 @@ begin
           DrawGold;
           CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay));
-          Inc(Y);
+          Inc(Y, 20);
         end
         else if MM and not GM then
         begin
           DrawMana;
           CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
             TSaga.ManaFromMinePerDay));
-          Inc(Y);
+          Inc(Y, 20);
         end
         else if GM and MM then
         begin
@@ -215,10 +215,10 @@ begin
           end;
           CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay));
-          Inc(Y);
+          Inc(Y, 20);
           CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
             TSaga.ManaFromMinePerDay));
-          Inc(Y);
+          Inc(Y, 20);
         end
         else
           DrawItem([reDay]);
