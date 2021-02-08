@@ -114,36 +114,55 @@ begin
   Button.Render;
 end;
 
+procedure DrawItem(ItemRes: array of TResEnum);
+var
+  I, X: Integer;
+begin
+  DrawImage((Surface.Width div 2) - 59 - 120, 295, reSmallFrame);
+  DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
+  DrawImage((Surface.Width div 2) - 59 + 120, 295, reSmallFrame);
+  case Length(ItemRes) of
+    1:
+      DrawImage((Surface.Width div 2) - 32, 300, ItemRes[0]);
+    2, 3:
+      begin
+        X := -120;
+        for I := 0 to Length(ItemRes) - 1 do
+        begin
+          DrawImage((Surface.Width div 2) - 32 + X, 300, ItemRes[I]);
+          Inc(X, 120);
+        end;
+      end;
+  end;
+end;
+
 procedure Render;
 begin
   case SubScene of
     stStoneTab:
       begin
         DrawTitle(reTitleLoot);
-        DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
-        DrawImage((Surface.Width div 2) - 32, 300, reItemStoneTable);
+        DrawItem([reItemStoneTable]);
         CenterTextOut(450, 'КАМЕННАЯ ТАБЛИЧКА');
         CenterTextOut(470, TScenario.ScenarioAncientKnowledgeState);
       end;
     stDay:
       begin
         DrawTitle(reTitleNewDay);
-        DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
         CenterTextOut(450, Format('ДЕНЬ %d', [TSaga.Days]));
         if TSaga.GoldMines > 0 then
         begin
-          DrawImage((Surface.Width div 2) - 32, 300, reItemGold);
+          DrawItem([reItemGold, reDay, reItemGold]);
           CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay))
         end
         else
-          DrawImage((Surface.Width div 2) - 32, 300, reDay);
+          DrawItem([reDay]);
       end;
     stLoot:
       begin
         DrawTitle(reTitleLoot);
-        DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
-        DrawImage((Surface.Width div 2) - 32, 300, reItemGold);
+        DrawItem([reItemGold, reItemGold, reItemGold]);
         CenterTextOut(450, 'СОКРОВИЩЕ');
         CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
       end;
