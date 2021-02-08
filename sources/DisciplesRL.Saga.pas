@@ -385,7 +385,7 @@ var
     N := 0;
     if (NewGold = 0) and (NewMana = 0) then
       N := 1;
-    NewItem := RandomRange(N, 2);
+    NewItem := RandomRange(N, 4);
 
   end;
 

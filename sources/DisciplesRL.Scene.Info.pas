@@ -126,13 +126,15 @@ begin
   DrawImage((Surface.Width div 2) - 59 + 120, 295, reSmallFrame);
   case Length(ItemRes) of
     1:
-      DrawImage((Surface.Width div 2) - 32, 300, ItemRes[0]);
+      if ItemRes[0] <> reNone then
+        DrawImage((Surface.Width div 2) - 32, 300, ItemRes[0]);
     2, 3:
       begin
         X := -120;
         for I := 0 to Length(ItemRes) - 1 do
         begin
-          DrawImage((Surface.Width div 2) - 32 + X, 300, ItemRes[I]);
+          if ItemRes[I] <> reNone then
+            DrawImage((Surface.Width div 2) - 32 + X, 300, ItemRes[I]);
           Inc(X, 120);
         end;
       end;
@@ -249,25 +251,26 @@ begin
               end;
               if TSaga.NewMana > 0 then
               begin
-                DrawItem([reItemMana]);
+                if It1 = reNone then
+                  It1 := reItemMana
+                else
+                  It2 := reItemMana;
                 CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
                 Inc(Y, 20);
               end;
               if TSaga.NewItem > 0 then
               begin
                 ItemRes := reAcolyte;
-                if TSaga.NewGold > 0 then
-                  case GC of
-                    0:
-                      DrawItem([ItemRes, reItemGold]);
-                  else
-                    DrawItem([reItemGold, ItemRes]);
-                  end
+                if It1 = reNone then
+                  It1 := ItemRes
+                else if It2 = reNone then
+                  It2 := ItemRes
                 else
-                  DrawItem([ItemRes]);
+                  It3 := ItemRes;
                 CenterTextOut(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
                 Inc(Y, 20);
               end;
+              DrawItem([It1, It2, It3]);
             end;
         end;
       end;
