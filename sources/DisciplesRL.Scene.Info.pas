@@ -41,7 +41,7 @@ var
   SubScene: TInfoSubSceneEnum;
   BackScene: TSceneEnum = scMenu;
   LF: Integer = 0;
-  GC: Integer = 0;
+  GC, MC: Integer;
   LootRes: TResEnum;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -143,7 +143,39 @@ procedure Render;
 var
   Y: Integer;
   ItemRes: TResEnum;
+  GM, MM: Boolean;
+  It1, It2, It3: TResEnum;
+
+  procedure DrawGold;
+  begin
+    case GC of
+      0:
+        DrawItem([reItemGold]);
+      1:
+        DrawItem([reItemGold, reItemGold]);
+      2:
+        DrawItem([reItemGold, reItemGold, reItemGold]);
+    end;
+  end;
+
+  procedure DrawMana;
+  begin
+    case MC of
+      0:
+        DrawItem([reItemMana]);
+      1:
+        DrawItem([reItemMana, reItemMana]);
+      2:
+        DrawItem([reItemMana, reItemMana, reItemMana]);
+    end;
+  end;
+
 begin
+  It1 := reNone;
+  It2 := reNone;
+  It3 := reNone;
+  GM := TSaga.GoldMines > 0;
+  MM := TSaga.ManaMines > 0;
   case SubScene of
     stStoneTab:
       begin
@@ -156,11 +188,35 @@ begin
       begin
         DrawTitle(reTitleNewDay);
         CenterTextOut(450, Format('ДЕНЬ %d', [TSaga.Days]));
-        if TSaga.GoldMines > 0 then
+        Y := 470;
+        if GM and not MM then
         begin
-          DrawItem([reItemGold, reDay, reItemGold]);
-          CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
-            TSaga.GoldFromMinePerDay))
+          DrawGold;
+          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
+            TSaga.GoldFromMinePerDay));
+          Inc(Y);
+        end
+        else if MM and not GM then
+        begin
+          DrawMana;
+          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
+            TSaga.ManaFromMinePerDay));
+          Inc(Y);
+        end
+        else if GM and MM then
+        begin
+          case MC of
+            0:
+              DrawItem([reItemMana, reDay, reItemGold]);
+          else
+            DrawItem([reItemGold, reDay, reItemMana]);
+          end;
+          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
+            TSaga.GoldFromMinePerDay));
+          Inc(Y);
+          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
+            TSaga.ManaFromMinePerDay));
+          Inc(Y);
         end
         else
           DrawItem([reDay]);
@@ -171,16 +227,15 @@ begin
         case LootRes of
           reGold:
             begin
-              case GC of
-                0:
-                  DrawItem([reItemGold]);
-                1:
-                  DrawItem([reItemGold, reItemGold]);
-                2:
-                  DrawItem([reItemGold, reItemGold, reItemGold]);
-              end;
+              DrawGold;
               CenterTextOut(450, 'СОКРОВИЩЕ');
               CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+            end;
+          reMana:
+            begin
+              DrawMana;
+              CenterTextOut(450, 'СОКРОВИЩЕ');
+              CenterTextOut(470, 'МАНА +' + IntToStr(TSaga.NewMana));
             end;
           reBag:
             begin
@@ -188,8 +243,14 @@ begin
               CenterTextOut(450, 'СОКРОВИЩЕ');
               if TSaga.NewGold > 0 then
               begin
-                DrawItem([reItemGold]);
+                It1 := reItemGold;
                 CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+                Inc(Y, 20);
+              end;
+              if TSaga.NewMana > 0 then
+              begin
+                DrawItem([reItemMana]);
+                CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
                 Inc(Y, 20);
               end;
               if TSaga.NewItem > 0 then
@@ -253,6 +314,7 @@ begin
   end;
   LootRes := ALootRes;
   GC := RandomRange(0, 3);
+  MC := RandomRange(0, 3);
 end;
 
 procedure Free;

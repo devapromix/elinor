@@ -450,6 +450,12 @@ begin
           TSaga.AddLoot(reGold);
           F := False;
         end;
+      reMana:
+        begin
+          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TSaga.AddLoot(reMana);
+          F := False;
+        end;
       reBag:
         begin
           TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;

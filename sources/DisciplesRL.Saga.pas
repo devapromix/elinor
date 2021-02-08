@@ -24,8 +24,11 @@ type
     Days: Integer;
     Gold: Integer;
     NewGold: Integer;
+    Mana: Integer;
+    NewMana: Integer;
     Scores: Integer;
     GoldMines: Integer;
+    ManaMines: Integer;
     BattlesWon: Integer;
     LeaderRace: TRaceEnum;
     IsDay: Boolean;
@@ -34,8 +37,10 @@ type
   public const
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
+    ManaFromMinePerDay = 10;
   public
     class procedure ModifyGold(Amount: Integer); static;
+    class procedure ModifyMana(Amount: Integer); static;
     class function GetPartyCount: Integer; static;
     class function GetPartyIndex(const AX, AY: Integer): Integer;
     class procedure AddLoot; static;
@@ -51,6 +56,11 @@ uses
 class procedure TSaga.ModifyGold(Amount: Integer);
 begin
   Inc(Gold, Amount);
+end;
+
+class procedure TSaga.ModifyMana(Amount: Integer);
+begin
+  Inc(Mana, Amount);
 end;
 
 class function TSaga.GetPartyCount: Integer;
@@ -156,9 +166,12 @@ type
     Days: Integer;
     Gold: Integer;
     NewGold: Integer;
+    Mana: Integer;
+    NewMana: Integer;
     NewItem: Integer;
     Scores: Integer;
     GoldMines: Integer;
+    ManaMines: Integer;
     BattlesWon: Integer;
     LeaderRace: TRaceEnum;
     IsDay: Boolean;
@@ -168,6 +181,7 @@ type
   public const
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
+    ManaFromMinePerDay = 10;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
@@ -178,6 +192,7 @@ type
       IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
     class procedure ModifyGold(Amount: Integer); static;
+    class procedure ModifyMana(Amount: Integer); static;
     class procedure NewDay; static;
     class procedure AddScores(I: Integer); static;
   end;
@@ -342,31 +357,59 @@ begin
   Inc(Gold, Amount);
 end;
 
+class procedure TSaga.ModifyMana(Amount: Integer);
+begin
+  Inc(Mana, Amount);
+end;
+
 class procedure TSaga.AddLoot(LootRes: TResEnum);
 var
   Level, N: Integer;
+
+  procedure AddGold;
+  begin
+    NewGold := RandomRange(Level * 2, Level * 3) * 10;
+    ModifyGold(NewGold);
+  end;
+
+  procedure AddMana;
+  begin
+    NewMana := RandomRange(Level * 1, Level * 3);
+    if NewMana < 3 then
+      NewMana := 3;
+    ModifyMana(NewMana);
+  end;
+
+  procedure AddItem;
+  begin
+    N := 0;
+    if (NewGold = 0) and (NewMana = 0) then
+      N := 1;
+    NewItem := RandomRange(N, 2);
+
+  end;
+
 begin
   NewGold := 0;
+  NewMana := 0;
+  NewItem := 0;
   Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   case LootRes of
     reGold:
-      begin
-        NewGold := RandomRange(Level * 2, Level * 3) * 10;
-        ModifyGold(NewGold);
-      end;
+      AddGold;
+    reMana:
+      AddMana;
     reBag:
       begin
-        case RandomRange(0, 2) of
+        case RandomRange(0, 3) of
           0:
-            begin
-              NewGold := RandomRange(Level * 2, Level * 3) * 10;
-              ModifyGold(NewGold);
-            end;
+            AddGold;
         end;
-        N := 0;
-        if NewGold = 0 then
-          N := 1;
-        NewItem := RandomRange(N, 2);
+        case RandomRange(0, 3) of
+          0:
+            AddMana;
+        end;
+        AddItem;
       end;
   end;
   DisciplesRL.Scene.Info.Show(stLoot, scMap, LootRes);
@@ -377,6 +420,7 @@ begin
   if IsDay then
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
+    Mana := Mana + (ManaMines * ManaFromMinePerDay);
     DisciplesRL.Scene.Info.Show(stDay, scMap);
   end;
 end;
@@ -430,9 +474,12 @@ begin
   Days := 1;
   Gold := 250;
   NewGold := 0;
+  Mana := 250;
+  NewMana := 0;
   NewItem := 0;
   Scores := 0;
   GoldMines := 0;
+  ManaMines := 0;
   BattlesWon := 0;
   IsDay := False;
   PartyFree;

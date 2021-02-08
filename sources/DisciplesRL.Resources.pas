@@ -75,7 +75,7 @@ type
     reSmallFrame, reActFrame, reBigFrame, reInfoFrame, reNeutralTerrain,
     reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
     reUnk, reEnemy, reCursorSpecial, reCursor, reNoWay, rePlayer, reDark,
-    reGold, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+    reGold, reMana, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
     reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak, reMine,
     reMountain1, reMountain2, reMountain3, reButtonDef, reButtonAct, reCorpse,
@@ -91,7 +91,7 @@ type
     reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond,
     reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek,
     reTitleSard, reScenarioDarkTower, reScenarioOverlord,
-    reScenarioAncientKnowledge, reItemGold, reItemStoneTable);
+    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable);
 
 {$ENDIF}
 
@@ -172,6 +172,8 @@ const
     (FileName: 'transparent.png'; ResType: teGUI;),
     // Gold
     (FileName: 'mapobject.gold.png'; ResType: teRes;),
+    // Mana
+    (FileName: 'mapobject.mana.png'; ResType: teRes;),
     // Bag
     (FileName: 'mapobject.chest.png'; ResType: teBag;),
     // Neutral City
@@ -334,6 +336,8 @@ const
     (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
     // Item Gold
     (FileName: 'item.gold.png'; ResType: teItem;),
+    // Item Mana
+    (FileName: 'item.mana.png'; ResType: teItem;),
     // Item Stone Table
     (FileName: 'item.stone_table.png'; ResType: teItem;)
     //
