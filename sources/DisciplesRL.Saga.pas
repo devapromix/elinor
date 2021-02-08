@@ -94,6 +94,7 @@ end;
 
 uses
   System.Types,
+  DisciplesRL.Resources,
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
@@ -155,6 +156,7 @@ type
     Days: Integer;
     Gold: Integer;
     NewGold: Integer;
+    NewItem: Integer;
     Scores: Integer;
     GoldMines: Integer;
     BattlesWon: Integer;
@@ -174,7 +176,7 @@ type
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
     class procedure AddPartyAt(const AX, AY: Integer;
       IsFinal: Boolean = False); static;
-    class procedure AddLoot; static;
+    class procedure AddLoot(LootRes: TResEnum); static;
     class procedure ModifyGold(Amount: Integer); static;
     class procedure NewDay; static;
     class procedure AddScores(I: Integer); static;
@@ -187,7 +189,6 @@ uses
   System.SysUtils,
   Vcl.Dialogs,
   DisciplesRL.Map,
-  DisciplesRL.Resources,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Settlement;
@@ -341,14 +342,34 @@ begin
   Inc(Gold, Amount);
 end;
 
-class procedure TSaga.AddLoot();
+class procedure TSaga.AddLoot(LootRes: TResEnum);
 var
-  Level: Integer;
+  Level, N: Integer;
 begin
+  NewGold := 0;
   Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  NewGold := RandomRange(Level * 20, Level * 30);
-  ModifyGold(NewGold);
-  DisciplesRL.Scene.Info.Show(stLoot, scMap);
+  case LootRes of
+    reGold:
+      begin
+        NewGold := RandomRange(Level * 2, Level * 3) * 10;
+        ModifyGold(NewGold);
+      end;
+    reBag:
+      begin
+        case RandomRange(0, 2) of
+          0:
+            begin
+              NewGold := RandomRange(Level * 2, Level * 3) * 10;
+              ModifyGold(NewGold);
+            end;
+        end;
+        N := 0;
+        if NewGold = 0 then
+          N := 1;
+        NewItem := RandomRange(N, 2);
+      end;
+  end;
+  DisciplesRL.Scene.Info.Show(stLoot, scMap, LootRes);
 end;
 
 class procedure TSaga.NewDay;
@@ -409,6 +430,7 @@ begin
   Days := 1;
   Gold := 250;
   NewGold := 0;
+  NewItem := 0;
   Scores := 0;
   GoldMines := 0;
   BattlesWon := 0;

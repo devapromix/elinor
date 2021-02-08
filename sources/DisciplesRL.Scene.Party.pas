@@ -87,9 +87,6 @@ begin
   MediaPlayer.Play(mmSettlement);
 end;
 
-// 1 0 6  7
-// 3 2 8  9
-// 5 4 10 11
 procedure MoveCursor(Dir: TDirectionEnum);
 begin
   case Dir of

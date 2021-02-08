@@ -137,7 +137,7 @@ begin
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
   end
   else
-    TSaga.AddLoot();
+    TSaga.AddLoot(reBag);
 end;
 
 procedure Defeat;

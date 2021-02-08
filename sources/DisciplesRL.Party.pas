@@ -447,13 +447,13 @@ begin
       reGold:
         begin
           TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
-          TSaga.AddLoot();
+          TSaga.AddLoot(reGold);
           F := False;
         end;
       reBag:
         begin
           TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
-          TSaga.AddLoot();
+          TSaga.AddLoot(reBag);
           F := False;
         end;
       reEnemy:

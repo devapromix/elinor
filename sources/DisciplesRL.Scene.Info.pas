@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes,
+  DisciplesRL.Resources,
   DisciplesRL.Scenes,
   Vcl.Controls;
 
@@ -17,19 +18,19 @@ procedure MouseClick(X, Y: Integer);
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure Show(const ASubScene: TInfoSubSceneEnum;
-  const ABackScene: TSceneEnum);
+procedure Show(const ASubScene: TInfoSubSceneEnum; const ABackScene: TSceneEnum;
+  const ALootRes: TResEnum = reGold);
 procedure Free;
 
 implementation
 
 uses
+  System.Math,
   System.SysUtils,
   Vcl.Dialogs,
   DisciplesRL.Scene.Map,
   DisciplesRL.Saga,
   DisciplesRL.Map,
-  DisciplesRL.Resources,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Hire;
@@ -39,7 +40,9 @@ var
   Dialog: string = '';
   SubScene: TInfoSubSceneEnum;
   BackScene: TSceneEnum = scMenu;
-  Lf: Integer = 0;
+  LF: Integer = 0;
+  GC: Integer = 0;
+  LootRes: TResEnum;
 
 procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
@@ -137,6 +140,9 @@ begin
 end;
 
 procedure Render;
+var
+  Y: Integer;
+  ItemRes: TResEnum;
 begin
   case SubScene of
     stStoneTab:
@@ -162,9 +168,47 @@ begin
     stLoot:
       begin
         DrawTitle(reTitleLoot);
-        DrawItem([reItemGold, reItemGold, reItemGold]);
-        CenterTextOut(450, 'СОКРОВИЩЕ');
-        CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+        case LootRes of
+          reGold:
+            begin
+              case GC of
+                0:
+                  DrawItem([reItemGold]);
+                1:
+                  DrawItem([reItemGold, reItemGold]);
+                2:
+                  DrawItem([reItemGold, reItemGold, reItemGold]);
+              end;
+              CenterTextOut(450, 'СОКРОВИЩЕ');
+              CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+            end;
+          reBag:
+            begin
+              Y := 470;
+              CenterTextOut(450, 'СОКРОВИЩЕ');
+              if TSaga.NewGold > 0 then
+              begin
+                DrawItem([reItemGold]);
+                CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+                Inc(Y, 20);
+              end;
+              if TSaga.NewItem > 0 then
+              begin
+                ItemRes := reAcolyte;
+                if TSaga.NewGold > 0 then
+                  case GC of
+                    0:
+                      DrawItem([ItemRes, reItemGold]);
+                  else
+                    DrawItem([reItemGold, ItemRes]);
+                  end
+                else
+                  DrawItem([ItemRes]);
+                CenterTextOut(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
+                Inc(Y, 20);
+              end;
+            end;
+        end;
       end;
   end;
   RenderButtons;
@@ -195,8 +239,8 @@ begin
   end;
 end;
 
-procedure Show(const ASubScene: TInfoSubSceneEnum;
-  const ABackScene: TSceneEnum);
+procedure Show(const ASubScene: TInfoSubSceneEnum; const ABackScene: TSceneEnum;
+  const ALootRes: TResEnum);
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
@@ -207,6 +251,8 @@ begin
     stLoot, stStoneTab:
       MediaPlayer.Play(mmLoot);
   end;
+  LootRes := ALootRes;
+  GC := RandomRange(0, 3);
 end;
 
 procedure Free;

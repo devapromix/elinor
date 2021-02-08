@@ -153,7 +153,7 @@ begin
   if RandomRange(1, 100) = 1 then
 
   else
-    TSaga.AddLoot();
+    TSaga.AddLoot(reBag);
 end;
 
 procedure Defeat;
