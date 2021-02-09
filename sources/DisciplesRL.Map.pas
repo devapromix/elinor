@@ -1,4 +1,4 @@
-unit DisciplesRL.Map;
+﻿unit DisciplesRL.Map;
 
 interface
 
@@ -7,7 +7,9 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Saga,
   DisciplesRL.Party;
-
+{$IFDEF FPC}
+{$MODESWITCH ADVANCEDRECORDS}
+{$ENDIF}
 {$IFDEF FPC}
 
 type
@@ -80,9 +82,10 @@ type
     TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
   public const
     TileSize = 32;
+  private
   public
-    class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
     class var Map: array [TLayerEnum] of TMapLayer;
+    class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
     class procedure Clear(const L: TLayerEnum);
     class procedure Init; static;
     class procedure Gen; static;
@@ -97,6 +100,8 @@ type
     class function IsLeaderMove(const X, Y: Integer): Boolean;
     class function Width: Integer;
     class function Height: Integer;
+    class function GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
+    class procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: TResEnum);
   end;
 
 {$ENDIF}
@@ -248,6 +253,14 @@ end;
 class function TMap.GetDistToCapital(const AX, AY: Integer): Integer;
 begin
   Result := GetDist(TMap.Place[0].X, TMap.Place[0].Y, AX, AY);
+end;
+
+class function TMap.GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
+begin
+  if InMap(X, Y) then
+    Result := Map[L][X, Y]
+  else
+    Result := reNone;
 end;
 
 class function TMap.Height: Integer;
@@ -476,6 +489,12 @@ end;
 class function TMap.LeaderTile: TResEnum;
 begin
   Result := Map[lrTile][TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
+end;
+
+class procedure TMap.SetTile(const L: TLayerEnum; X, Y: Integer;
+  Tile: TResEnum);
+begin
+  Map[L][X, Y] := Tile;
 end;
 
 class function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
