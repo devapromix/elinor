@@ -123,9 +123,9 @@ begin
   for Y := 0 to TMap.Height - 1 do
     for X := 0 to TMap.Width - 1 do
     begin
-      if (TMap.Map[lrDark][X, Y] = reDark) then
+      if (TMap.GetTile(lrDark, X, Y) = reDark) then
         Continue;
-      case TMap.Map[lrTile][X, Y] of
+      case TMap.GetTile(lrTile, X, Y) of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
             ResImage[reTheEmpireTerrain]);
@@ -142,35 +142,35 @@ begin
       end;
       F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) >
         TLeaderParty.Leader.Radius) and
-        not(TMap.Map[lrTile][X, Y] in Tiles + Capitals + Cities) and
-        (TMap.Map[lrDark][X, Y] = reNone);
+        not(TMap.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
+        (TMap.GetTile(lrDark, X, Y) = reNone);
 
       // Special
       if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and
         TScenario.IsStoneTab(X, Y)) or
         ((TScenario.CurrentScenario = sgDarkTower) and
-        (ResBase[TMap.Map[lrTile][X, Y]].ResType = teTower)) or
+        (ResBase[TMap.GetTile(lrTile, X, Y)].ResType = teTower)) or
         ((TScenario.CurrentScenario = sgOverlord) and
-        (ResBase[TMap.Map[lrTile][X, Y]].ResType = teCity))) then
+        (ResBase[TMap.GetTile(lrTile, X, Y)].ResType = teCity))) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
           ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
-      if (ResBase[TMap.Map[lrTile][X, Y]].ResType in [teCapital, teCity, teRuin,
-        teTower]) then
+      if (ResBase[TMap.GetTile(lrTile, X, Y)].ResType in [teCapital, teCity,
+        teRuin, teTower]) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-          ResImage[TMap.Map[lrTile][X, Y]]);
+          ResImage[TMap.GetTile(lrTile, X, Y)]);
 
       //
-      if (ResBase[TMap.Map[lrObj][X, Y]].ResType in [teEnemy, teBag]) then
+      if (ResBase[TMap.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag]) then
         if F then
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUnk])
         else
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-            ResImage[TMap.Map[lrObj][X, Y]])
-      else if (TMap.Map[lrObj][X, Y] <> reNone) then
+            ResImage[TMap.GetTile(lrObj, X, Y)])
+      else if (TMap.GetTile(lrObj, X, Y) <> reNone) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-          ResImage[TMap.Map[lrObj][X, Y]]);
+          ResImage[TMap.GetTile(lrObj, X, Y)]);
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then

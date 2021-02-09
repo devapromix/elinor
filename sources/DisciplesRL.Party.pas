@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Types,
-  {$ELSE}
+{$ELSE}
   System.Types,
-  {$ENDIF}
+{$ENDIF}
   DisciplesRL.Creatures,
   MapObject;
 
@@ -15,11 +15,13 @@ type
   TPosition = 0 .. 5;
 
 type
-  TDirectionEnum = (drEast, drWest, drSouth, drNorth, drSouthEast, drSouthWest, drNorthEast, drNorthWest, drOrigin);
+  TDirectionEnum = (drEast, drWest, drSouth, drNorth, drSouthEast, drSouthWest,
+    drNorthEast, drNorthWest, drOrigin);
 
 const
-  Direction: array [TDirectionEnum] of TPoint = ((X: 1; Y: 0), (X: - 1; Y: 0), (X: 0; Y: 1), (X: 0; Y: - 1), (X: 1; Y: 1), (X: - 1; Y: 1), (X: 1;
-    Y: - 1), (X: - 1; Y: - 1), (X: 0; Y: 0));
+  Direction: array [TDirectionEnum] of TPoint = ((X: 1; Y: 0), (X: - 1; Y: 0),
+    (X: 0; Y: 1), (X: 0; Y: - 1), (X: 1; Y: 1), (X: - 1; Y: 1), (X: 1; Y: - 1),
+    (X: - 1; Y: - 1), (X: 0; Y: 0));
 
 type
   TParty = class(TMapObject)
@@ -33,18 +35,23 @@ type
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum); overload;
     destructor Destroy; override;
-    procedure AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
+    procedure AddCreature(const ACreatureEnum: TCreatureEnum;
+      const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
-    property Creature[APosition: TPosition]: TCreature read GetCreature write SetCreature;
-    procedure SetHitPoints(const APosition: TPosition; const AHitPoints: Integer);
+    property Creature[APosition: TPosition]: TCreature read GetCreature
+      write SetCreature;
+    procedure SetHitPoints(const APosition: TPosition;
+      const AHitPoints: Integer);
     function GetHitPoints(const APosition: TPosition): Integer;
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
     function IsClear: Boolean;
-    function Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
+    function Hire(const ACreatureEnum: TCreatureEnum;
+      const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
-    procedure Heal(const APosition: TPosition; const AHitPoints: Integer); overload;
+    procedure Heal(const APosition: TPosition;
+      const AHitPoints: Integer); overload;
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
@@ -53,7 +60,8 @@ type
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
     property Count: Integer read GetCount;
-    procedure ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
+    procedure ChPosition(Party: TParty; const ActPosition: Integer;
+      var CurPosition: Integer);
     function GetMaxExperience(const Level: Integer): Integer;
   end;
 
@@ -80,7 +88,8 @@ type
     class function Leader: TLeaderParty;
     class procedure Move(const AX, AY: ShortInt); overload;
     class procedure Move(Dir: TDirectionEnum); overload;
-    class procedure PutAt(const AX, AY: ShortInt; const IsInfo: Boolean = False);
+    class procedure PutAt(const AX, AY: ShortInt;
+      const IsInfo: Boolean = False);
   end;
 
 var
@@ -89,13 +98,13 @@ var
 implementation
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Math,
   DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Scene,
   DisciplesRL.Resources;
-  {$ELSE}
+{$ELSE}
   System.Math,
   DisciplesRL.Map,
   DisciplesRL.Saga,
@@ -104,16 +113,17 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
-  {$ENDIF}
-
+{$ENDIF}
 { TParty }
 
-procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum; const APosition: TPosition);
+procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum;
+  const APosition: TPosition);
 begin
   TCreature.Assign(FCreature[APosition], ACreatureEnum);
 end;
 
-procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer; var CurPosition: Integer);
+procedure TParty.ChPosition(Party: TParty; const ActPosition: Integer;
+  var CurPosition: Integer);
 begin
   if (CurPosition < 0) then
     Exit;
@@ -222,7 +232,8 @@ begin
       HitPoints := EnsureRange(HitPoints + AHitPoints, 0, MaxHitPoints);
 end;
 
-function TParty.Hire(const ACreatureEnum: TCreatureEnum; const APosition: TPosition): Boolean;
+function TParty.Hire(const ACreatureEnum: TCreatureEnum;
+  const APosition: TPosition): Boolean;
 var
   ACreature: TCreatureBase;
 begin
@@ -250,7 +261,8 @@ begin
   FCreature[APosition] := Value;
 end;
 
-procedure TParty.SetHitPoints(const APosition: TPosition; const AHitPoints: Integer);
+procedure TParty.SetHitPoints(const APosition: TPosition;
+  const AHitPoints: Integer);
 begin
   FCreature[APosition].HitPoints := AHitPoints;
 end;
@@ -264,7 +276,8 @@ procedure TParty.Swap(Party: TParty; A, B: Integer);
 var
   Cr: TCreature;
 begin
-  if (Party.Creature[B].Leadership > 0) or (Creature[A].Leadership > 0) or (Party = nil) then
+  if (Party.Creature[B].Leadership > 0) or (Creature[A].Leadership > 0) or
+    (Party = nil) then
     Exit;
   Cr := Party.Creature[B];
   Party.Creature[B] := FCreature[A];
@@ -293,7 +306,8 @@ begin
     end;
 end;
 
-procedure TParty.UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
+procedure TParty.UpdateHP(const AHitPoints: Integer;
+  const APosition: TPosition);
 begin
   with FCreature[APosition] do
     if Active then
@@ -319,7 +333,8 @@ begin
   end;
 end;
 
-procedure TParty.UpdateXP(const AExperience: Integer; const APosition: TPosition);
+procedure TParty.UpdateXP(const AExperience: Integer;
+  const APosition: TPosition);
 begin
   with FCreature[APosition] do
     if Active then
@@ -332,7 +347,7 @@ end;
 
 procedure TLeaderParty.ChCityOwner;
 begin
-  {$IFDEF FPC}
+{$IFDEF FPC}
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
       Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
@@ -341,16 +356,16 @@ begin
     reLegionsOfTheDamned:
       Game.Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
-  {$ELSE}
+{$ELSE}
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
-      TMap.Map[lrTile][X, Y] := reTheEmpireCity;
+      TMap.SetTile(lrTile, X, Y, reTheEmpireCity);
     reUndeadHordes:
-      TMap.Map[lrTile][X, Y] := reUndeadHordesCity;
+      TMap.SetTile(lrTile, X, Y, reUndeadHordesCity);
     reLegionsOfTheDamned:
-      TMap.Map[lrTile][X, Y] := reLegionsOfTheDamnedCity;
+      TMap.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
-  {$ENDIF}
+{$ENDIF}
 end;
 
 procedure TLeaderParty.Clear;
@@ -385,20 +400,21 @@ begin
   PutAt(Leader.X + Direction[Dir].X, Leader.Y + Direction[Dir].Y);
 end;
 
-class procedure TLeaderParty.PutAt(const AX, AY: ShortInt; const IsInfo: Boolean);
+class procedure TLeaderParty.PutAt(const AX, AY: ShortInt;
+  const IsInfo: Boolean);
 var
   I: Integer;
   F: Boolean;
 begin
-  {$IFDEF FPC}
+{$IFDEF FPC}
   if not Game.Map.InMap(AX, AY) then
     Exit;
   if (Game.Map.GetTile(lrObj, AX, AY) in StopTiles) then
     Exit;
-  {$ELSE}
+{$ELSE}
   if not TMap.InMap(AX, AY) then
     Exit;
-  if (TMap.Map[lrObj][AX, AY] in StopTiles) then
+  if (TMap.GetTile(lrObj, AX, AY) in StopTiles) then
     Exit;
   if not IsInfo then
     for I := 0 to High(TMap.Place) do
@@ -412,19 +428,19 @@ begin
     end;
   if IsInfo then
   begin
-    if TMap.Map[lrTile][AX, AY] in Capitals then
+    if TMap.GetTile(lrTile, AX, AY) in Capitals then
     begin
       DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
-    if TMap.Map[lrTile][AX, AY] in Cities then
+    if TMap.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
         DisciplesRL.Scene.Party.Show(Party[I], scMap);
       Exit;
     end;
-    case TMap.Map[lrObj][AX, AY] of
+    case TMap.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
           I := TSaga.GetPartyIndex(AX, AY);
@@ -495,7 +511,7 @@ begin
   end;
   if F then
     TSaga.NewDay;
-  {$ENDIF}
+{$ENDIF}
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -532,10 +548,10 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  {$IFDEF FPC}
-  {$ELSE}
+{$IFDEF FPC}
+{$ELSE}
   TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.Map[lrDark], reNone);
-  {$ENDIF}
+{$ENDIF}
 end;
 
 end.
