@@ -31,7 +31,7 @@ procedure TSceneMenu.Update(var Key: Word);
 begin
   case Key of
     TK_ENTER:
-      DisciplesRL.Scene.Map.Show;
+      Game.SetScene(scMap);
   end;
 end;
 

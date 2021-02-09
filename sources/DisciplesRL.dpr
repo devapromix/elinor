@@ -9,6 +9,7 @@ uses
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
+  DisciplesRL.Items in 'DisciplesRL.Items.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas';
@@ -20,6 +21,7 @@ uses
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
+  DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
   DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Battle in 'DisciplesRL.Scene.Battle.pas',

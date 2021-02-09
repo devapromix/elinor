@@ -459,22 +459,22 @@ begin
       Turn(1);
     end;
     F := True;
-    case TMap.Map[lrObj][Leader.X, Leader.Y] of
+    case TMap.GetTile(lrObj, Leader.X, Leader.Y) of
       reGold:
         begin
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reGold);
           F := False;
         end;
       reMana:
         begin
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reMana);
           F := False;
         end;
       reBag:
         begin
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reBag);
           F := False;
         end;
@@ -483,7 +483,7 @@ begin
           DisciplesRL.Scene.Battle2.Start;
           SetSceneMusic(scBattle2);
           SetScene(scBattle2);
-          TMap.Map[lrObj][Leader.X, Leader.Y] := reNone;
+          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;
         end;

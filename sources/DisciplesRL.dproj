@@ -116,6 +116,7 @@
         <DCCReference Include="DisciplesRL.Map.pas"/>
         <DCCReference Include="DisciplesRL.Resources.pas"/>
         <DCCReference Include="DisciplesRL.Creatures.pas"/>
+        <DCCReference Include="DisciplesRL.Items.pas"/>
         <DCCReference Include="DisciplesRL.Party.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Menu.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle.pas"/>
