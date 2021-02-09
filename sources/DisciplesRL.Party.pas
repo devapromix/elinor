@@ -550,7 +550,7 @@ procedure TLeaderParty.UpdateRadius;
 begin
 {$IFDEF FPC}
 {$ELSE}
-  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.Map[lrDark], reNone);
+  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.GetLayer(lrDark), reNone);
 {$ENDIF}
 end;
 

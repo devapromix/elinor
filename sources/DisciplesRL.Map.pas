@@ -10,7 +10,6 @@ uses
 {$IFDEF FPC}
 {$MODESWITCH ADVANCEDRECORDS}
 {$ENDIF}
-
 {$IFDEF FPC}
 
 type
@@ -84,14 +83,14 @@ type
   public const
     TileSize = 32;
   private
-  public
     class var Map: array [TLayerEnum] of TMapLayer;
+  public
     class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
     class procedure Clear(const L: TLayerEnum);
     class procedure Init; static;
     class procedure Gen; static;
     class procedure UpdateRadius(const AX, AY, AR: Integer;
-      var MapLayer: TMapLayer; const AResEnum: TResEnum;
+      MapLayer: TMapLayer; const AResEnum: TResEnum;
       IgnoreRes: TIgnoreRes = []);
     class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
     class function GetDistToCapital(const AX, AY: Integer): Integer;
@@ -101,6 +100,7 @@ type
     class function IsLeaderMove(const X, Y: Integer): Boolean;
     class function Width: Integer;
     class function Height: Integer;
+    class function GetLayer(const L: TLayerEnum): TMapLayer;
     class function GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
     class procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: TResEnum);
   end;
@@ -254,6 +254,11 @@ end;
 class function TMap.GetDistToCapital(const AX, AY: Integer): Integer;
 begin
   Result := GetDist(TMap.Place[0].X, TMap.Place[0].Y, AX, AY);
+end;
+
+class function TMap.GetLayer(const L: TLayerEnum): TMapLayer;
+begin
+  Result := Map[L];
 end;
 
 class function TMap.GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
@@ -455,7 +460,7 @@ begin
 end;
 
 class procedure TMap.UpdateRadius(const AX, AY, AR: Integer;
-  var MapLayer: TMapLayer; const AResEnum: TResEnum;
+  MapLayer: TMapLayer; const AResEnum: TResEnum;
   IgnoreRes: TIgnoreRes = []);
 var
   X, Y: Integer;
