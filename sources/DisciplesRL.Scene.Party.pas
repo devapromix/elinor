@@ -227,6 +227,7 @@ begin
   begin
 
   end;
+  RenderResources;
   RenderButtons;
 end;
 

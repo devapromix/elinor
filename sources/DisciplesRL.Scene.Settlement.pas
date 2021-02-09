@@ -12,6 +12,7 @@ type
 procedure Init;
 procedure Gen;
 procedure Render;
+procedure RenderResources;
 procedure RenderButtons;
 procedure Timer;
 procedure MouseClick;
@@ -109,6 +110,14 @@ begin
   Result := CityNameText[CityArr[I]];
 end;
 
+procedure RenderResources;
+begin
+  DrawImage(10, 10, reGold);
+  LeftTextOut(45, 22, IntToStr(TSaga.Gold));
+  DrawImage(10, 40, reMana);
+  LeftTextOut(45, 52, IntToStr(TSaga.Mana));
+end;
+
 procedure Render;
 begin
   CalcPoints;
@@ -119,7 +128,6 @@ begin
         CenterTextOut(100, Format('%s (Level %d)',
           [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
           .MaxLevel + 1]));
-        CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
       end;
@@ -128,7 +136,6 @@ begin
         DrawTitle(CityNameTitle[CityArr[0]]);
         CenterTextOut(100, Format('%s (Level %d)',
           [GetName, TMap.Place[0].MaxLevel + 1]));
-        CenterTextOut(140, 'GOLD ' + IntToStr(TSaga.Gold));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
@@ -145,6 +152,7 @@ begin
   else
     RenderParty(psLeft, nil);
   RenderParty(psRight, SettlementParty, True);
+  RenderResources;
   RenderButtons;
 end;
 

@@ -114,6 +114,7 @@ uses
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
 {$ENDIF}
+
 { TParty }
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum;

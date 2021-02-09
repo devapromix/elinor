@@ -32,6 +32,7 @@ type
     procedure PlayMusic(const MusicEnum: TMusicEnum);
   end;
 
+procedure LeftTextOut(const AX, AY: Integer; AText: string);
 procedure CenterTextOut(const AY: Integer; AText: string);
 procedure RenderDark;
 procedure Init;
@@ -106,7 +107,7 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Info,
-  DisciplesRL.Scene.Party, 
+  DisciplesRL.Scene.Party,
   DisciplesRL.Saga;
 
 var
@@ -183,12 +184,17 @@ begin
   Surface.Canvas.Draw(X, Y, ResImage[Res]);
 end;
 
+procedure LeftTextOut(const AX, AY: Integer; AText: string);
+begin
+  Surface.Canvas.TextOut(AX, AY, AText);
+end;
+
 procedure CenterTextOut(const AY: Integer; AText: string);
 var
   S: Integer;
 begin
   S := Surface.Canvas.TextWidth(AText);
-  Surface.Canvas.TextOut((Surface.Width div 2) - (S div 2), AY, AText);
+  LeftTextOut((Surface.Width div 2) - (S div 2), AY, AText);
 end;
 
 procedure RenderDark;
