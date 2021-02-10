@@ -218,25 +218,25 @@ var
 
   procedure Add(S: string); overload;
   begin
-    Surface.Canvas.TextOut(L, T, S);
+    LeftTextOut(L, T, S);
     Inc(T, H);
   end;
 
   procedure Add(S, V: string); overload;
   begin
-    Surface.Canvas.TextOut(L, T, Format('%s: %s', [S, V]));
+    LeftTextOut(L, T, Format('%s: %s', [S, V]));
     Inc(T, H);
   end;
 
   procedure Add(S: string; V: Integer; R: string = ''); overload;
   begin
-    Surface.Canvas.TextOut(L, T, Format('%s: %d%s', [S, V, R]));
+    LeftTextOut(L, T, Format('%s: %d%s', [S, V, R]));
     Inc(T, H);
   end;
 
   procedure Add(S: string; V, M: Integer); overload;
   begin
-    Surface.Canvas.TextOut(L, T, Format('%s: %d/%d', [S, V, M]));
+    LeftTextOut(L, T, Format('%s: %d/%d', [S, V, M]));
     Inc(T, H);
   end;
 
@@ -332,7 +332,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    Surface.Canvas.TextOut(L, T, S);
+    LeftTextOut(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);
@@ -369,7 +369,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    Surface.Canvas.TextOut(L, T, S);
+    LeftTextOut(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);

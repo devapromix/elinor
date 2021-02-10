@@ -335,22 +335,22 @@ procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
 var
   S: string;
 begin
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 6, Name);
+  LeftTextOut(AX + Left + 64, AY + 6, Name);
   S := '';
   if IsExp then
     S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperience(Level)]);
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 27,
+  LeftTextOut(AX + Left + 64, AY + 27,
     Format('Уровень %d', [Level]) + S);
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 48,
+  LeftTextOut(AX + Left + 64, AY + 48,
     Format('Здоровье %d/%d', [HitPoints, MaxHitPoints]));
   if Damage > 0 then
-    Surface.Canvas.TextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d',
+    LeftTextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d',
       [Damage, Armor]))
   else
-    Surface.Canvas.TextOut(AX + Left + 64, AY + 69,
+    LeftTextOut(AX + Left + 64, AY + 69,
       Format('Исцеление %d Броня %d', [Heal, Armor]));
-  Surface.Canvas.TextOut(AX + Left + 64, AY + 90,
+  LeftTextOut(AX + Left + 64, AY + 90,
     Format('Инициатива %d Точность %d', [Initiative, ChToHit]) + '%');
 end;
 
