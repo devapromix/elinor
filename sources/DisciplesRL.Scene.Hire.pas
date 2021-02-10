@@ -128,7 +128,9 @@ begin
         DisciplesRL.Scene.Hire.Show(stHighScores2);
       end;
     stHighScores2:
-      SetScene(scMenu);
+      begin
+        SetScene(scMenu);
+      end;
   end;
 end;
 
@@ -167,14 +169,18 @@ begin
       begin
         TSaga.IsGame := False;
         DisciplesRL.Scene.Hire.Show(stHighScores2);
+        SetSceneMusic(scMenu);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
         DisciplesRL.Scene.Hire.Show(stHighScores2);
+        SetSceneMusic(scMenu);
       end;
     stHighScores2:
-      SetScene(scMenu);
+      begin
+        SetScene(scMenu);
+      end;
   end;
 end;
 
