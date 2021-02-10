@@ -13,9 +13,8 @@ type
   private
     FTop: Integer;
     FLeft: Integer;
-    FCanvas: TCanvas;
   public
-    constructor Create(const ALeft, ATop: Integer; ACanvas: TCanvas);
+    constructor Create(const ALeft, ATop: Integer);
     procedure Render;
   end;
 
@@ -61,12 +60,11 @@ const
 
   { TLog }
 
-constructor TLog.Create(const ALeft, ATop: Integer; ACanvas: TCanvas);
+constructor TLog.Create(const ALeft, ATop: Integer);
 begin
   inherited Create;
   FTop := ATop;
   FLeft := ALeft;
-  FCanvas := ACanvas;
 end;
 
 procedure TLog.Render;
@@ -77,13 +75,11 @@ begin
     Exit;
   Y := 0;
   D := EnsureRange(Count - Rows, 0, Count - 1);
-  FCanvas.Font.Size := 10;
   for I := D to Count - 1 do
   begin
-    FCanvas.TextOut(FLeft, FTop + Y, Get(I));
+    Surface.Canvas.TextOut(FLeft, FTop + Y, Get(I));
     Inc(Y, 16);
   end;
-  FCanvas.Font.Size := 12;
 end;
 
 procedure ChExperience;
@@ -306,7 +302,7 @@ procedure Init;
 begin
   Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left), DefaultButtonTop, Surface.Canvas, reTextClose);
   Button.Sellected := True;
-  Log := TLog.Create(Left, DefaultButtonTop - 20, Surface.Canvas);
+  Log := TLog.Create(Left, DefaultButtonTop - 20);
 end;
 
 procedure Render;
