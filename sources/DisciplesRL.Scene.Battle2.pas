@@ -113,7 +113,8 @@ begin
     for P := Low(TPosition) to High(TPosition) do
       with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
         if Active and (HitPoints > 0) then
-          if Experience >= Party[TLeaderParty.LeaderPartyIndex].GetMaxExperience(Level) then
+          if Experience >= Party[TLeaderParty.LeaderPartyIndex].GetMaxExperience
+            (Level) then
           begin
             Party[TLeaderParty.LeaderPartyIndex].UpdateLevel(P);
             Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
@@ -125,8 +126,10 @@ end;
 procedure Victory;
 begin
   SetSceneMusic(scMap);
-  Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)].Clear;
-  if (TScenario.CurrentScenario = sgAncientKnowledge) and TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
+  Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
+    TLeaderParty.Leader.Y)].Clear;
+  if (TScenario.CurrentScenario = sgAncientKnowledge) and
+    TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
     DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
@@ -148,7 +151,8 @@ begin
   PartyExperience := 0;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
-  ActivePartyPosition := GetRandomActivePartyPosition(Party[TLeaderParty.LeaderPartyIndex]);
+  ActivePartyPosition := GetRandomActivePartyPosition
+    (Party[TLeaderParty.LeaderPartyIndex]);
   CurrentPartyPosition := ActivePartyPosition;
 end;
 
@@ -163,7 +167,8 @@ end;
 
 procedure NextTurn;
 begin
-  ActivePartyPosition := GetRandomActivePartyPosition(Party[TLeaderParty.LeaderPartyIndex]);
+  ActivePartyPosition := GetRandomActivePartyPosition
+    (Party[TLeaderParty.LeaderPartyIndex]);
 end;
 
 procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
@@ -172,7 +177,9 @@ var
   F, B: Boolean;
 begin
   if AtkParty.Creature[AtkPos].Active and DefParty.Creature[DefPos].Active then
-    if (AtkParty.Creature[AtkPos].HitPoints > 0) and (DefParty.Creature[DefPos].HitPoints > 0) and (AtkParty.Creature[AtkPos].Damage > 0) then
+    if (AtkParty.Creature[AtkPos].HitPoints > 0) and
+      (DefParty.Creature[DefPos].HitPoints > 0) and
+      (AtkParty.Creature[AtkPos].Damage > 0) then
     begin
       B := False;
       case AtkParty.Creature[AtkPos].ReachEnum of
@@ -187,26 +194,36 @@ begin
             F := False;
             case AtkPos of
               1, 3, 5:
-                F := (AtkParty.Creature[0].HitPoints > 0) or (AtkParty.Creature[2].HitPoints > 0) or (AtkParty.Creature[4].HitPoints > 0);
+                F := (AtkParty.Creature[0].HitPoints > 0) or
+                  (AtkParty.Creature[2].HitPoints > 0) or
+                  (AtkParty.Creature[4].HitPoints > 0);
             end;
             if not F then
               case DefPos of
                 0, 2, 4:
                   begin
-                    if (AtkPos = 0) and (DefPos = 4) and ((DefParty.Creature[0].HitPoints > 0) or (DefParty.Creature[2].HitPoints > 0)) then
+                    if (AtkPos = 0) and (DefPos = 4) and
+                      ((DefParty.Creature[0].HitPoints > 0) or
+                      (DefParty.Creature[2].HitPoints > 0)) then
                       Exit;
-                    if (AtkPos = 4) and (DefPos = 0) and ((DefParty.Creature[2].HitPoints > 0) or (DefParty.Creature[4].HitPoints > 0)) then
+                    if (AtkPos = 4) and (DefPos = 0) and
+                      ((DefParty.Creature[2].HitPoints > 0) or
+                      (DefParty.Creature[4].HitPoints > 0)) then
                       Exit;
-                    DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
+                    DefParty.TakeDamage(AtkParty.Creature[AtkPos]
+                      .Damage, DefPos);
                     Log.Add('Damage');
                     B := True;
                   end;
                 1, 3, 5:
                   begin
-                    F := (DefParty.Creature[0].HitPoints > 0) or (DefParty.Creature[2].HitPoints > 0) or (DefParty.Creature[4].HitPoints > 0);
+                    F := (DefParty.Creature[0].HitPoints > 0) or
+                      (DefParty.Creature[2].HitPoints > 0) or
+                      (DefParty.Creature[4].HitPoints > 0);
                     if not F then
                     begin
-                      DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
+                      DefParty.TakeDamage
+                        (AtkParty.Creature[AtkPos].Damage, DefPos);
                       Log.Add('Damage');
                       B := True;
                     end;
@@ -216,7 +233,8 @@ begin
         reAll:
           begin
             for P := Low(TPosition) to High(TPosition) do
-              if DefParty.Creature[P].Active and (DefParty.Creature[P].HitPoints > 0) then
+              if DefParty.Creature[P].Active and
+                (DefParty.Creature[P].HitPoints > 0) then
               begin
                 DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, P);
                 Log.Add('Damage');
@@ -228,7 +246,15 @@ begin
         NextTurn;
     end;
   if EnemyParty.IsClear then
+  begin
     ChExperience;
+    MediaPlayer.Play(mmWin);
+  end;
+  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
+  begin
+    MediaPlayer.PlayMusic(mmDefeat);
+  end;
+
 end;
 
 procedure Heal(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
@@ -236,14 +262,17 @@ var
   P: TPosition;
 begin
   if AtkParty.Creature[AtkPos].Active and DefParty.Creature[DefPos].Active then
-    if (AtkParty.Creature[AtkPos].HitPoints > 0) and (DefParty.Creature[DefPos].HitPoints > 0) and (AtkParty.Creature[AtkPos].Heal > 0) then
+    if (AtkParty.Creature[AtkPos].HitPoints > 0) and
+      (DefParty.Creature[DefPos].HitPoints > 0) and
+      (AtkParty.Creature[AtkPos].Heal > 0) then
     begin
       case AtkParty.Creature[AtkPos].ReachEnum of
         reAll:
           begin
             for P := Low(TPosition) to High(TPosition) do
               with DefParty.Creature[P] do
-                if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
+                if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints)
+                then
                 begin
                   DefParty.Heal(P, AtkParty.Creature[AtkPos].Heal);
                   Log.Add('Heal');
@@ -267,16 +296,21 @@ begin
     0 .. 5:
       case ActivePartyPosition of
         0 .. 5:
-          Heal(Party[TLeaderParty.LeaderPartyIndex], Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition, CurrentPartyPosition);
+          Heal(Party[TLeaderParty.LeaderPartyIndex],
+            Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition,
+            CurrentPartyPosition);
         6 .. 11:
-          Damage(EnemyParty, Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition - 6, CurrentPartyPosition);
+          Damage(EnemyParty, Party[TLeaderParty.LeaderPartyIndex],
+            ActivePartyPosition - 6, CurrentPartyPosition);
       end;
     6 .. 11:
       case ActivePartyPosition of
         0 .. 5:
-          Damage(Party[TLeaderParty.LeaderPartyIndex], EnemyParty, ActivePartyPosition, CurrentPartyPosition - 6);
+          Damage(Party[TLeaderParty.LeaderPartyIndex], EnemyParty,
+            ActivePartyPosition, CurrentPartyPosition - 6);
         6 .. 11:
-          Heal(EnemyParty, EnemyParty, ActivePartyPosition - 6, CurrentPartyPosition - 6);
+          Heal(EnemyParty, EnemyParty, ActivePartyPosition - 6,
+            CurrentPartyPosition - 6);
       end;
   end;
 end;
@@ -299,7 +333,8 @@ end;
 
 procedure Init;
 begin
-  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left), DefaultButtonTop, Surface.Canvas, reTextClose);
+  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
+    DefaultButtonTop, Surface.Canvas, reTextClose);
   Button.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
 end;
@@ -356,6 +391,12 @@ begin
     K_SPACE:
       if TSaga.Wizard then
         NextTurn;
+    K_C:
+      if TSaga.Wizard then
+      begin
+        MediaPlayer.PlayMusic(mmDefeat);
+        Party[TLeaderParty.LeaderPartyIndex].Clear;
+      end;
     K_D:
       if TSaga.Wizard then
         Defeat;

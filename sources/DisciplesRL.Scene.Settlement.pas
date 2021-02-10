@@ -112,10 +112,13 @@ end;
 
 procedure RenderResources;
 begin
-  DrawImage(10, 10, reGold);
+  DrawImage(10, 10, reSmallFrame);
+  DrawImage(15, 10, reGold);
   LeftTextOut(45, 22, IntToStr(TSaga.Gold));
-  DrawImage(10, 40, reMana);
+  DrawImage(15, 40, reMana);
   LeftTextOut(45, 52, IntToStr(TSaga.Mana));
+//  DrawImage(15, 70, reMana);
+//  LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
 end;
 
 procedure Render;
@@ -135,8 +138,6 @@ begin
     stCapital:
       begin
         DrawTitle(CityNameTitle[CityArr[0]]);
-        CenterTextOut(100, Format('%s (Level %d)',
-          [GetName, TMap.Place[0].MaxLevel + 1]));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;

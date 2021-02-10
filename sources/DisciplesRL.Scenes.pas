@@ -430,7 +430,8 @@ procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
 begin
   if TSaga.NoMusic then
     Exit;
-  CurrentChannel := 0;
+  StopMusic;
+  CurrentChannel := MusicChannel;
   Play(MusicEnum);
   CurrentChannel := 1;
 end;

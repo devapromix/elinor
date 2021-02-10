@@ -349,8 +349,8 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmBattle, mmGame, mmMap, mmMenu, mmDay,
-    mmSettlement, mmLoot);
+  TMusicEnum = (mmClick, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap, mmMenu,
+    mmDay, mmSettlement, mmLoot);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -362,6 +362,12 @@ const
     (FileName: 'click.wav'; ResType: teSound;),
     // Battle
     (FileName: 'wasteland-showdown.mp3'; ResType: teMusic;),
+    // Victory
+    (FileName: 'warsong.mp3'; ResType: teMusic;),
+    // Defeat
+    (FileName: 'defeat.mp3'; ResType: teMusic;),
+    // Win in battle
+    (FileName: 'heavy_concept_b.wav'; ResType: teSound;),
     // Game
     (FileName: 'soliloquy.mp3'; ResType: teMusic;),
     // Map

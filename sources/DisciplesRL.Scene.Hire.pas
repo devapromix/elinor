@@ -84,6 +84,8 @@ begin
   end;
   SubScene := ASubScene;
   SetScene(scHire);
+  if ASubScene = stVictory then
+    MediaPlayer.PlayMusic(mmVictory);
 end;
 
 procedure Show(const Party: TParty; const Position: Integer);
