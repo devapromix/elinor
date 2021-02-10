@@ -91,7 +91,8 @@ type
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reScenarioDarkTower, reScenarioOverlord,
-    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable);
+    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
+    reWallpaperSettlement);
 
 {$ENDIF}
 
@@ -110,7 +111,7 @@ const
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
     teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine, teMusic,
-    teSound, teItem);
+    teSound, teItem, teBG);
 
 type
   TResBase = record
@@ -341,7 +342,9 @@ const
     // Item Mana
     (FileName: 'item.mana.png'; ResType: teItem;),
     // Item Stone Table
-    (FileName: 'item.stone_table.png'; ResType: teItem;)
+    (FileName: 'item.stone_table.png'; ResType: teItem;),
+    // Wallpaper Settlement
+    (FileName: 'wallpaper.settlement.png'; ResType: teBG;)
     //
     );
 

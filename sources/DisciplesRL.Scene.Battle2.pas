@@ -33,7 +33,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Vcl.Dialogs,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
   DisciplesRL.Saga,

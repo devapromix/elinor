@@ -121,6 +121,7 @@ end;
 procedure Render;
 begin
   CalcPoints;
+  DrawImage(0, 0, reWallpaperSettlement);
   case CurrentSettlementType of
     stCity:
       begin
