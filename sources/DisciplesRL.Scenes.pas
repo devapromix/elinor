@@ -41,6 +41,7 @@ procedure Timer;
 procedure MouseClick;
 procedure DrawTitle(Res: TResEnum);
 procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
+procedure DrawImage(Res: TResEnum); overload;
 procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
 procedure KeyDown(var Key: Word; Shift: TShiftState);
@@ -179,6 +180,12 @@ begin
   Surface.Canvas.Draw(X, Y, Image);
 end;
 
+procedure DrawImage(Res: TResEnum);
+begin
+  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
+    ResImage[Res]);
+end;
+
 procedure DrawImage(X, Y: Integer; Res: TResEnum);
 begin
   Surface.Canvas.Draw(X, Y, ResImage[Res]);
@@ -214,6 +221,7 @@ begin
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
+
   try
     MediaPlayer := TMediaPlayer.Create;
     MediaAvailable := True;
