@@ -77,6 +77,7 @@ begin
       end;
     stLoot:
       begin
+        MediaPlayer.Play(mmLoot);
         F := True;
         DisciplesRL.Scene.Map.Show;
         begin

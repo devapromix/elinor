@@ -114,7 +114,6 @@ uses
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
 {$ENDIF}
-
 { TParty }
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum;
@@ -325,6 +324,7 @@ begin
   with FCreature[APosition] do
   begin
     Experience := 0;
+    MediaPlayer.Play(mmLevel);
     MaxHitPoints := MaxHitPoints + (MaxHitPoints div 10);
     HitPoints := MaxHitPoints;
     Initiative := EnsureRange(Initiative + 1, 10, 100);

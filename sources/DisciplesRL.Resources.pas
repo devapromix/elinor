@@ -350,7 +350,7 @@ const
 
 type
   TMusicEnum = (mmClick, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap, mmMenu,
-    mmDay, mmSettlement, mmLoot);
+    mmDay, mmSettlement, mmLoot, mmLevel);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -367,7 +367,7 @@ const
     // Defeat
     (FileName: 'defeat.mp3'; ResType: teMusic;),
     // Win in battle
-    (FileName: 'heavy_concept_b.wav'; ResType: teSound;),
+    (FileName: 'himwar.wav'; ResType: teSound;),
     // Game
     (FileName: 'soliloquy.mp3'; ResType: teMusic;),
     // Map
@@ -377,9 +377,11 @@ const
     // New Day
     (FileName: 'day.ogg'; ResType: teSound;),
     // Settlement
-    (FileName: 'capital.ogg'; ResType: teSound;),
+    (FileName: 'capital.wav'; ResType: teSound;),
     // Loot
-    (FileName: 'loot.ogg'; ResType: teSound;)
+    (FileName: 'loot.wav'; ResType: teSound;),
+    // New level
+    (FileName: 'level.wav'; ResType: teSound;)
     //
     );
 
