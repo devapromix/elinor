@@ -159,6 +159,7 @@ end;
 procedure Finish;
 begin
   Log.Clear;
+  MediaPlayer.Stop;
   if Party[TLeaderParty.LeaderPartyIndex].IsClear then
     Defeat;
   if EnemyParty.IsClear then
