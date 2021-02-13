@@ -154,6 +154,7 @@ begin
   ActivePartyPosition := GetRandomActivePartyPosition
     (Party[TLeaderParty.LeaderPartyIndex]);
   CurrentPartyPosition := ActivePartyPosition;
+  MediaPlayer.Play(mmWar);
 end;
 
 procedure Finish;

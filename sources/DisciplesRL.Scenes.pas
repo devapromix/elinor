@@ -215,6 +215,8 @@ procedure Init;
 var
   I: TSceneEnum;
 begin
+  Randomize;
+
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;
   Surface.Height := MainForm.ClientHeight;

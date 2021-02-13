@@ -219,6 +219,8 @@ begin
     K_ESCAPE:
       begin
         SetSceneMusic(scMenu);
+        MediaPlayer.Play(mmClick);
+        MediaPlayer.Play(mmSettlement);
         SetScene(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:
