@@ -93,7 +93,8 @@ begin
           end;
           if TMap.LeaderTile = reNeutralCity then
           begin
-            SetSceneMusic(scSettlement);
+            MediaPlayer.PlayMusic(mmGame);
+            MediaPlayer.Play(mmSettlement);
             DisciplesRL.Scene.Settlement.Show(stCity);
             Exit;
           end;

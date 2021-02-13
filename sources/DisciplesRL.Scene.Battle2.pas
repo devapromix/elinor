@@ -125,7 +125,7 @@ end;
 
 procedure Victory;
 begin
-  SetSceneMusic(scMap);
+  MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
   if (TScenario.CurrentScenario = sgAncientKnowledge) and

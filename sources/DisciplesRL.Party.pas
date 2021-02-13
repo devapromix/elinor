@@ -482,7 +482,7 @@ begin
       reEnemy:
         begin
           DisciplesRL.Scene.Battle2.Start;
-          SetSceneMusic(scBattle2);
+          MediaPlayer.PlayMusic(mmBattle);
           SetScene(scBattle2);
           TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
@@ -500,13 +500,15 @@ begin
   end;
   if TMap.LeaderTile in Capitals then
   begin
-    SetSceneMusic(scSettlement);
+    MediaPlayer.PlayMusic(mmGame);
+    MediaPlayer.Play(mmSettlement);
     DisciplesRL.Scene.Settlement.Show(stCapital);
     F := False;
   end;
   if TMap.LeaderTile in Cities then
   begin
-    SetSceneMusic(scSettlement);
+    MediaPlayer.PlayMusic(mmGame);
+    MediaPlayer.Play(mmSettlement);
     DisciplesRL.Scene.Settlement.Show(stCity);
     F := False;
   end;

@@ -149,7 +149,8 @@ begin
       begin
         TSaga.Clear;
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
-        SetSceneMusic(scSettlement);
+        MediaPlayer.PlayMusic(mmGame);
+        MediaPlayer.Play(mmSettlement);
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
     stCharacter:
@@ -171,13 +172,13 @@ begin
       begin
         TSaga.IsGame := False;
         DisciplesRL.Scene.Hire.Show(stHighScores2);
-        SetSceneMusic(scMenu);
+        MediaPlayer.PlayMusic(mmMenu);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
         DisciplesRL.Scene.Hire.Show(stHighScores2);
-        SetSceneMusic(scMenu);
+        MediaPlayer.PlayMusic(mmMenu);
       end;
     stHighScores2:
       begin
