@@ -92,7 +92,7 @@ type
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reScenarioDarkTower, reScenarioOverlord,
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
-    reWallpaperSettlement, reWallpaperMenu);
+    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot);
 
 {$ENDIF}
 
@@ -346,7 +346,9 @@ const
     // Wallpaper Settlement
     (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
     // Wallpaper Menu
-    (FileName: 'wallpaper.menu.png'; ResType: teBG;)
+    (FileName: 'wallpaper.menu.png'; ResType: teBG;),
+    // Wallpaper Loot
+    (FileName: 'wallpaper.loot.png'; ResType: teBG;)
     //
     );
 

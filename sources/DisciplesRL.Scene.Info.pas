@@ -226,6 +226,7 @@ begin
       end;
     stLoot:
       begin
+        DrawImage(reWallpaperLoot);
         DrawTitle(reTitleLoot);
         case LootRes of
           reGold:
