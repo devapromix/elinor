@@ -145,6 +145,7 @@ end;
 
 procedure Render;
 begin
+  DrawImage(reWallpaperMenu);
   DrawTitle(reTitleLogo);
   RenderButtons;
   CenterTextOut(Surface.Height - 50, '2018-2021 by Apromix');

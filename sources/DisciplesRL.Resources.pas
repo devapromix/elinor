@@ -92,7 +92,7 @@ type
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reScenarioDarkTower, reScenarioOverlord,
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
-    reWallpaperSettlement);
+    reWallpaperSettlement, reWallpaperMenu);
 
 {$ENDIF}
 
@@ -344,13 +344,15 @@ const
     // Item Stone Table
     (FileName: 'item.stone_table.png'; ResType: teItem;),
     // Wallpaper Settlement
-    (FileName: 'wallpaper.settlement.png'; ResType: teBG;)
+    (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
+    // Wallpaper Menu
+    (FileName: 'wallpaper.menu.png'; ResType: teBG;)
     //
     );
 
 type
-  TMusicEnum = (mmClick, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap, mmMenu,
-    mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit);
+  TMusicEnum = (mmClick, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap,
+    mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
