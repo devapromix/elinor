@@ -503,6 +503,7 @@ begin
       end;
     stDefeat:
       begin
+        DrawImage(reWallpaperDefeat);
         DrawTitle(reTitleDefeat);
       end;
     stHighScores2:
