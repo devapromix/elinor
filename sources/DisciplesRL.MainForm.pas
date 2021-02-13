@@ -57,7 +57,6 @@ begin
   Top := 0;
   Left := 8;
   //
-  Randomize;
   TSaga.Wizard := False;
   TSaga.NoMusic := False;
   for I := 1 to ParamCount do

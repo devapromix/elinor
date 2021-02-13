@@ -350,7 +350,7 @@ const
 
 type
   TMusicEnum = (mmClick, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap, mmMenu,
-    mmDay, mmSettlement, mmLoot, mmLevel);
+    mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -377,11 +377,15 @@ const
     // New Day
     (FileName: 'day.ogg'; ResType: teSound;),
     // Settlement
-    (FileName: 'capital.wav'; ResType: teSound;),
+    (FileName: 'settlement.wav'; ResType: teSound;),
     // Loot
     (FileName: 'loot.wav'; ResType: teSound;),
     // New level
-    (FileName: 'level.wav'; ResType: teSound;)
+    (FileName: 'level.wav'; ResType: teSound;),
+    // Round in battle
+    (FileName: 'war.wav'; ResType: teSound;),
+    //
+    (FileName: 'exit.wav'; ResType: teSound;)
     //
     );
 
