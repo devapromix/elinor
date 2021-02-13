@@ -17,7 +17,7 @@ uses
   SimplePlayer;
 
 type
-  TSceneEnum = (scHire, scMenu, scInfo, scMap, scParty, scSettlement, scBattle,
+  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
     scBattle2);
 
 const
@@ -106,7 +106,6 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Party,
   DisciplesRL.Saga;
 
@@ -205,8 +204,6 @@ begin
     case I of
       scHire:
         DisciplesRL.Scene.Hire.Init;
-      scInfo:
-        DisciplesRL.Scene.Info.Init;
       scMenu:
         DisciplesRL.Scene.Menu.Init;
       scMap:
@@ -229,8 +226,6 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.Render;
-    scInfo:
-      DisciplesRL.Scene.Info.Render;
     scMenu:
       DisciplesRL.Scene.Menu.Render;
     scMap:
@@ -252,8 +247,6 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.Timer;
-    scInfo:
-      DisciplesRL.Scene.Info.Timer;
     scMenu:
       DisciplesRL.Scene.Menu.Timer;
     scMap:
@@ -274,8 +267,6 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.MouseClick(MouseX, MouseY);
-    scInfo:
-      DisciplesRL.Scene.Info.MouseClick(MouseX, MouseY);
     scMenu:
       DisciplesRL.Scene.Menu.MouseClick;
     scMap:
@@ -299,8 +290,6 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.MouseMove(Shift, X, Y);
-    scInfo:
-      DisciplesRL.Scene.Info.MouseMove(Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
     scMap:
@@ -321,8 +310,6 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.KeyDown(Key, Shift);
-    scInfo:
-      DisciplesRL.Scene.Info.KeyDown(Key, Shift);
     scMenu:
       DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
     scMap:
@@ -344,8 +331,6 @@ begin
   case CurrentScene of
     scHire:
       DisciplesRL.Scene.Hire.MouseDown(Button, Shift, X, Y);
-    scInfo:
-      DisciplesRL.Scene.Info.MouseDown(Button, Shift, X, Y);
     scMenu:
       DisciplesRL.Scene.Menu.MouseDown(Button, Shift, X, Y);
     scMap:
@@ -372,8 +357,6 @@ begin
     case I of
       scHire:
         DisciplesRL.Scene.Hire.Free;
-      scInfo:
-        DisciplesRL.Scene.Info.Free;
       scMenu:
         DisciplesRL.Scene.Menu.Free;
       scMap:
