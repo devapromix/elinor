@@ -171,8 +171,7 @@ end;
 
 procedure DrawTitle(Res: TResEnum);
 begin
-  Surface.Canvas.Draw((Surface.Width div 2) - (ResImage[Res].Width div 2), 10,
-    ResImage[Res]);
+  DrawImage((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, Res);
 end;
 
 procedure DrawImage(X, Y: Integer; Image: TPNGImage);
@@ -188,7 +187,7 @@ end;
 
 procedure DrawImage(X, Y: Integer; Res: TResEnum);
 begin
-  Surface.Canvas.Draw(X, Y, ResImage[Res]);
+  DrawImage(X, Y, ResImage[Res]);
 end;
 
 procedure LeftTextOut(const AX, AY: Integer; AText: string);
