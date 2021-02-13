@@ -205,7 +205,7 @@ uses
   Vcl.Dialogs,
   DisciplesRL.Map,
   DisciplesRL.Scenes,
-  DisciplesRL.Scene.Info,
+  DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Settlement;
 
 type
@@ -412,7 +412,7 @@ begin
         AddItem;
       end;
   end;
-  DisciplesRL.Scene.Info.Show(stLoot, scMap, LootRes);
+  DisciplesRL.Scene.Hire.Show(stLoot, scMap, LootRes);
 end;
 
 class procedure TSaga.NewDay;
@@ -421,7 +421,7 @@ begin
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     Mana := Mana + (ManaMines * ManaFromMinePerDay);
-    DisciplesRL.Scene.Info.Show(stDay, scMap);
+    DisciplesRL.Scene.Hire.Show(stDay, scMap);
   end;
 end;
 

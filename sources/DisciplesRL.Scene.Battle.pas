@@ -27,7 +27,6 @@ uses
   Vcl.Graphics,
   System.SysUtils,
   DisciplesRL.Scenes,
-  DisciplesRL.Scene.Info,
   DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Party,
