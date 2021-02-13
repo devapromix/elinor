@@ -218,7 +218,7 @@ begin
   case Key of
     K_ESCAPE:
       begin
-        SetSceneMusic(scMenu);
+        MediaPlayer.PlayMusic(mmMenu);
         MediaPlayer.Play(mmClick);
         MediaPlayer.Play(mmSettlement);
         SetScene(scMenu);

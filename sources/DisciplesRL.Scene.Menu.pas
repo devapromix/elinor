@@ -97,8 +97,7 @@ begin
         if TSaga.IsGame then
         begin
           MediaPlayer.Play(mmClick);
-          Sleep(100);
-          SetSceneMusic(scMap);
+          MediaPlayer.PlayMusic(mmMap);
           DisciplesRL.Scene.Map.Show;
         end;
       end;

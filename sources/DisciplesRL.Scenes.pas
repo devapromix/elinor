@@ -51,7 +51,6 @@ procedure InformDialog(const S: string);
 procedure Free;
 
 procedure SetScene(CurScene: TSceneEnum);
-procedure SetSceneMusic(CurScene: TSceneEnum);
 
 const
   K_ESCAPE = 27;
@@ -119,35 +118,6 @@ var
 procedure SetScene(CurScene: TSceneEnum);
 begin
   CurrentScene := CurScene;
-end;
-
-procedure SetSceneMusic(CurScene: TSceneEnum);
-begin
-  if not MediaAvailable then
-    Exit;
-  case CurScene of
-    scSettlement:
-      begin
-        MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmGame);
-        MediaPlayer.Play(mmSettlement);
-      end;
-    scBattle2:
-      begin
-        MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmBattle);
-      end;
-    scMap:
-      begin
-        MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmMap);
-      end;
-    scMenu:
-      begin
-        MediaPlayer.StopMusic;
-        MediaPlayer.PlayMusic(mmMenu);
-      end;
-  end;
 end;
 
 function ConfirmDialog(const S: string): Boolean;
@@ -229,7 +199,7 @@ begin
   except
     MediaAvailable := False;
   end;
-  SetSceneMusic(scMenu);
+  MediaPlayer.PlayMusic(mmMenu);
   SetScene(scMenu);
   for I := Low(TSceneEnum) to High(TSceneEnum) do
     case I of

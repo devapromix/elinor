@@ -404,7 +404,7 @@ begin
       Exit;
     end;
   end;
-  SetSceneMusic(scMap);
+  MediaPlayer.PlayMusic(mmMap);
   DisciplesRL.Scene.Map.Show;
   MediaPlayer.Play(mmClick);
   TSaga.NewDay;
