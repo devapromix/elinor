@@ -37,7 +37,6 @@ uses
   DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Battle,
-  DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Hire;
 
 type

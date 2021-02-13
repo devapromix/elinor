@@ -62,7 +62,6 @@ uses
   DisciplesRL.MainForm,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Map;
 
 type

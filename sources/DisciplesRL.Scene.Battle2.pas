@@ -43,7 +43,6 @@ uses
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Party,
-  DisciplesRL.Scene.Info,
   DisciplesRL.Scene.Hire;
 
 var
@@ -132,7 +131,7 @@ begin
     TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
-    DisciplesRL.Scene.Info.Show(stStoneTab, scInfo);
+    DisciplesRL.Scene.Hire.Show(stStoneTab, scHire);
   end
   else
     TSaga.AddLoot(reBag);
