@@ -164,7 +164,6 @@ type
   public
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
-
   class var
     Days: Integer;
     Gold: Integer;
@@ -183,6 +182,8 @@ type
     NoMusic: Boolean;
     IsGame: Boolean;
   public const
+    DifficultyName: array [TDifficultyEnum] of string = ('Легко',
+      'Нормально', 'Сложно');
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
     ManaFromMinePerDay = 10;
@@ -297,7 +298,8 @@ var
   Level, N: Integer;
   I: TPosition;
 begin
-  Level := EnsureRange((TMap.GetDistToCapital(AX, AY) div 3)+Ord(TSaga.Difficulty), 1, MaxLevel);
+  Level := EnsureRange((TMap.GetDistToCapital(AX, AY) div 3) +
+    Ord(TSaga.Difficulty), 1, MaxLevel);
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat

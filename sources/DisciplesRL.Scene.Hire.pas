@@ -357,6 +357,21 @@ var
     Inc(T, H);
   end;
 
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    LeftTextOut(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
   procedure Add(S: string; V, M: Integer); overload;
   begin
     LeftTextOut(L, T, Format('%s: %d/%d', [S, V, M]));
@@ -375,7 +390,8 @@ begin
   end;
   with TCreature.Character(C) do
   begin
-    Add(Name);
+    Add(Name, True);
+    Add;
     Add('Уровень', Level);
     Add('Точность', ChancesToHit, '%');
     Add('Инициатива', Initiative);
@@ -484,8 +500,40 @@ begin
 end;
 
 procedure RenderDifficultyInfo;
-begin
+const
+  H = 25;
+var
+  D: TSaga.TDifficultyEnum;
+  T, L, J: Integer;
 
+  procedure Add; overload;
+  begin
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    LeftTextOut(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  D := TSaga.TDifficultyEnum(CurrentIndex);
+  Add(TSaga.DifficultyName[D], True);
+  Add;
+  // for J := 0 to 10 do
+  // Add(DifficultyDescription[R][J]);
 end;
 
 procedure RenderScenarioInfo;
@@ -704,14 +752,14 @@ begin
         if GM and not MM then
         begin
           DrawGold;
-          CenterTextOut(Y, 'ЗОЛОТО +' + inttostr(TSaga.GoldMines *
+          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay));
           Inc(Y, 20);
         end
         else if MM and not GM then
         begin
           DrawMana;
-          CenterTextOut(Y, 'МАНА +' + inttostr(TSaga.ManaMines *
+          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
             TSaga.ManaFromMinePerDay));
           Inc(Y, 20);
         end
@@ -723,10 +771,10 @@ begin
           else
             DrawItem([reItemGold, reDay, reItemMana]);
           end;
-          CenterTextOut(Y, 'ЗОЛОТО +' + inttostr(TSaga.GoldMines *
+          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay));
           Inc(Y, 20);
-          CenterTextOut(Y, 'МАНА +' + inttostr(TSaga.ManaMines *
+          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
             TSaga.ManaFromMinePerDay));
           Inc(Y, 20);
         end
@@ -742,13 +790,13 @@ begin
             begin
               DrawGold;
               CenterTextOut(450, 'СОКРОВИЩЕ');
-              CenterTextOut(470, 'ЗОЛОТО +' + inttostr(TSaga.NewGold));
+              CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
             end;
           reMana:
             begin
               DrawMana;
               CenterTextOut(450, 'СОКРОВИЩЕ');
-              CenterTextOut(470, 'МАНА +' + inttostr(TSaga.NewMana));
+              CenterTextOut(470, 'МАНА +' + IntToStr(TSaga.NewMana));
             end;
           reBag:
             begin
@@ -757,7 +805,7 @@ begin
               if TSaga.NewGold > 0 then
               begin
                 It1 := reItemGold;
-                CenterTextOut(Y, 'ЗОЛОТО +' + inttostr(TSaga.NewGold));
+                CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
                 Inc(Y, 20);
               end;
               if TSaga.NewMana > 0 then
@@ -766,7 +814,7 @@ begin
                   It1 := reItemMana
                 else
                   It2 := reItemMana;
-                CenterTextOut(Y, 'МАНА +' + inttostr(TSaga.NewMana));
+                CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
                 Inc(Y, 20);
               end;
               if TSaga.NewItem > 0 then
@@ -778,7 +826,7 @@ begin
                   It2 := ItemRes
                 else
                   It3 := ItemRes;
-                CenterTextOut(Y, 'АРТЕФАКТ ' + inttostr(TSaga.NewItem));
+                CenterTextOut(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
                 Inc(Y, 20);
               end;
               DrawItem([It1, It2, It3]);
