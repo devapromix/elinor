@@ -78,21 +78,23 @@ type
     reGold, reMana, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
     reLegionsOfTheDamnedCapital, reRuin, reTower, reTreePine, reTreeOak,
-    reMineGold, reMineMana, reMountain1, reMountain2, reMountain3, reButtonDef,
-    reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage,
-    reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan,
-    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
-    reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc, reTextHighScores,
-    reTextCapitalDef, reTextCityDef, reTextPlay, reTextVictory, reTextDefeat,
-    reTextQuit, reTextContinue, reTextDismiss, reTextHire, reTextClose,
-    reTextOk, reTextCancel, reTextLeadParty, reTextHeal, reTextRevive,
-    reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
-    reTitleRace, reTitleScenario, reTitleLeader, reTitleNewDay, reTitleLoot,
-    reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
-    reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
-    reTitleSodek, reTitleSard, reScenarioDarkTower, reScenarioOverlord,
-    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
-    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat);
+    reMineGold, reMineMana, reMountain1, reMountain2, reMountain3, reMountain4,
+    reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger,
+    reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael,
+    reAshgan, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
+    reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc,
+    reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
+    reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
+    reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
+    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory,
+    reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
+    reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
+    reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
+    reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
+    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
+    reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
+    reDifficultyNormalLogo, reDifficultyHardLogo, reWallpaperSettlement,
+    reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat);
 
 {$ENDIF}
 
@@ -102,7 +104,7 @@ const
   Cities = [reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity];
   Tiles = [reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain];
-  MountainTiles = [reMountain1, reMountain2, reMountain3];
+  MountainTiles = [reMountain1, reMountain2, reMountain3, reMountain4];
   StopTiles = MountainTiles + [reDark];
 
 {$IFDEF FPC}
@@ -209,6 +211,8 @@ const
     (FileName: 'tile.mountain2.png'; ResType: teObject;),
     // Mountain #3
     (FileName: 'tile.mountain3.png'; ResType: teObject;),
+    // Mountain #4
+    (FileName: 'tile.mountain4.png'; ResType: teObject;),
     // Button
     (FileName: 'buttondef.png'; ResType: teGUI;),
     // Button
@@ -331,6 +335,8 @@ const
     (FileName: 'title.city.sodek.png'; ResType: teGUI;),
     // Title "Sard"
     (FileName: 'title.city.sard.png'; ResType: teGUI;),
+    // Title Difficulty
+    (FileName: 'title.difficulty.png'; ResType: teGUI;),
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
     // Scenario "Overlord"
@@ -343,6 +349,12 @@ const
     (FileName: 'item.mana.png'; ResType: teItem;),
     // Item Stone Table
     (FileName: 'item.stone_table.png'; ResType: teItem;),
+    // Difficulty Easy
+    (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
+    // Difficulty Normal
+    (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
+    // Difficulty Hard
+    (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
     // Wallpaper Settlement
     (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
     // Wallpaper Menu

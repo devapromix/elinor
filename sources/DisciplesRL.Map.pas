@@ -89,9 +89,8 @@ type
     class procedure Clear(const L: TLayerEnum);
     class procedure Init; static;
     class procedure Gen; static;
-    class procedure UpdateRadius(const AX, AY, AR: Integer;
-      MapLayer: TMapLayer; const AResEnum: TResEnum;
-      IgnoreRes: TIgnoreRes = []);
+    class procedure UpdateRadius(const AX, AY, AR: Integer; MapLayer: TMapLayer;
+      const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
     class function GetDist(X1, Y1, X2, Y2: Integer): Integer;
     class function GetDistToCapital(const AX, AY: Integer): Integer;
     class function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
@@ -148,13 +147,15 @@ end;
 
 procedure TMap.AddMountain(const X, Y: Integer);
 begin
-  case Random(3) of
+  case RandomRange(0, High(MountainTiles) + 1) of
     0:
       FMap[lrObj][X, Y] := reMountain1;
     1:
       FMap[lrObj][X, Y] := reMountain2;
     2:
       FMap[lrObj][X, Y] := reMountain3;
+  else
+    FMap[lrObj][X, Y] := reMountain4;
   end;
 end;
 
@@ -362,13 +363,15 @@ var
 
   procedure AddMountain(const X, Y: Integer);
   begin
-    case Random(3) of
+    case RandomRange(0, 4) of
       0:
         Map[lrObj][X, Y] := reMountain1;
       1:
         Map[lrObj][X, Y] := reMountain2;
       2:
         Map[lrObj][X, Y] := reMountain3;
+    else
+      Map[lrObj][X, Y] := reMountain4;
     end;
   end;
 
@@ -422,7 +425,7 @@ begin
       Y := RandomRange(2, MapHeight - 2);
     until (Map[lrTile][X, Y] = reNeutralTerrain) and
       (Map[lrObj][X, Y] = reNone);
-    if (GetDistToCapital(X, Y) <= 15) and (RandomRange(0, 9) > 2) then
+    if (GetDistToCapital(X, Y) <= (15 - (Ord(TSaga.Difficulty)*2))) and (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
         0:
           Map[lrObj][X, Y] := reGold;
@@ -460,8 +463,7 @@ begin
 end;
 
 class procedure TMap.UpdateRadius(const AX, AY, AR: Integer;
-  MapLayer: TMapLayer; const AResEnum: TResEnum;
-  IgnoreRes: TIgnoreRes = []);
+  MapLayer: TMapLayer; const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 var
   X, Y: Integer;
 begin
@@ -566,7 +568,29 @@ begin
   for I := 0 to High(TMap.Place) do
   begin
     repeat
-      TMap.Place[I].X := RandomRange(3, MapWidth - 3);
+      case I of
+        0: // Capital
+          case TSaga.Difficulty of
+            dfEasy:
+              TMap.Place[I].X := RandomRange(17, MapWidth - 17);
+            dfNormal:
+              case RandomRange(0, 2) of
+                0:
+                  TMap.Place[I].X := RandomRange(8, 15);
+                1:
+                  TMap.Place[I].X := RandomRange(MapWidth - 15, MapWidth - 8);
+              end;
+            dfHard:
+              case RandomRange(0, 2) of
+                0:
+                  TMap.Place[I].X := RandomRange(3, 5);
+                1:
+                  TMap.Place[I].X := RandomRange(MapWidth - 5, MapWidth - 3);
+              end;
+          end
+      else
+        TMap.Place[I].X := RandomRange(3, MapWidth - 3);
+      end;
       TMap.Place[I].Y := RandomRange(3, MapHeight - 3);
     until ChCity(I);
     case I of

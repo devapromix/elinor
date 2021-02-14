@@ -2,7 +2,17 @@ program DisciplesRL;
 
 uses
   {$IFDEF FPC}
-  SysUtils,
+  SysUtils, Classes,
+  MapObject in 'Third-Party\MapObject\MapObject.pas',
+  BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas',
+  DisciplesRL.Scene in 'DisciplesRL.Scene.pas',
+  DisciplesRL.Scene.Menu in 'DisciplesRL.Scene.Menu.pas',
+  DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
+  DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
+  DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
+  DisciplesRL.Items in 'DisciplesRL.Items.pas',
+  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
+  DisciplesRL.Map in 'DisciplesRL.Map.pas';
   {$ELSE}
   Vcl.Forms,
   DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},

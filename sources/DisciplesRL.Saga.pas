@@ -162,6 +162,9 @@ type
   private
 
   public
+  public type
+    TDifficultyEnum = (dfEasy, dfNormal, dfHard);
+
   class var
     Days: Integer;
     Gold: Integer;
@@ -174,6 +177,7 @@ type
     ManaMines: Integer;
     BattlesWon: Integer;
     LeaderRace: TRaceEnum;
+    Difficulty: TDifficultyEnum;
     IsDay: Boolean;
     Wizard: Boolean;
     NoMusic: Boolean;
@@ -293,7 +297,7 @@ var
   Level, N: Integer;
   I: TPosition;
 begin
-  Level := EnsureRange(TMap.GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
+  Level := EnsureRange((TMap.GetDistToCapital(AX, AY) div 3)+Ord(TSaga.Difficulty), 1, MaxLevel);
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat

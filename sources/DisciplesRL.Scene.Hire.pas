@@ -4,6 +4,7 @@ interface
 
 uses
   Vcl.Controls,
+  Vcl.Dialogs,
   System.Classes,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -11,7 +12,8 @@ uses
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
-    stVictory, stDefeat, stHighScores2, stDay, stLoot, stStoneTab);
+    stVictory, stDefeat, stHighScores2, stDay, stLoot, stStoneTab,
+    stDifficulty);
 
 procedure Init;
 procedure Render;
@@ -66,15 +68,16 @@ const
     // Loot
     (reTextClose, reTextClose),
     // StoneTab
-    (reTextClose, reTextClose)
-
-    );
+    (reTextClose, reTextClose),
+    // Difficulty
+    (reTextContinue, reTextCancel));
 
 const
   AddButtonScene = [stDay, stLoot, stStoneTab];
   CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
     AddButtonScene;
-  MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2];
+  MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
+    stDifficulty];
 
 var
   HireParty: TParty = nil;
@@ -165,10 +168,12 @@ begin
   case SubScene of
     stCharacter:
       SetScene(scSettlement);
+    stDifficulty:
+      DisciplesRL.Scene.Hire.Show(stScenario);
     stLeader:
       DisciplesRL.Scene.Hire.Show(stRace);
     stRace:
-      DisciplesRL.Scene.Hire.Show(stScenario);
+      DisciplesRL.Scene.Hire.Show(stDifficulty);
     stScenario:
       SetScene(scMenu);
     stJournal:
@@ -209,6 +214,11 @@ begin
         MediaPlayer.Play(mmSettlement);
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
+    stDifficulty:
+      begin
+        TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
+        DisciplesRL.Scene.Hire.Show(stRace);
+      end;
     stCharacter:
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
@@ -220,7 +230,7 @@ begin
     stScenario:
       begin
         TScenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
-        DisciplesRL.Scene.Hire.Show(stRace);
+        DisciplesRL.Scene.Hire.Show(stDifficulty);
       end;
     stJournal:
       DisciplesRL.Scene.Map.Show;
@@ -400,7 +410,6 @@ end;
 
 procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
 begin
-  // DrawImage(AX + 7, AY + 7, reBGChar);
   case Race of
     reTheEmpire:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
@@ -408,6 +417,19 @@ begin
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reUndeadHordesLogo]);
     reLegionsOfTheDamned:
       Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reLegionsOfTheDamnedLogo]);
+  end;
+end;
+
+procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
+  const AX, AY: Integer);
+begin
+  case Difficulty of
+    dfEasy:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reDifficultyEasyLogo]);
+    dfNormal:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reDifficultyNormalLogo]);
+    dfHard:
+      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reDifficultyHardLogo]);
   end;
 end;
 
@@ -459,6 +481,11 @@ begin
   Add;
   for J := 0 to 10 do
     Add(RaceDescription[R][J]);
+end;
+
+procedure RenderDifficultyInfo;
+begin
+
 end;
 
 procedure RenderScenarioInfo;
@@ -532,6 +559,7 @@ var
   R: TRaceEnum;
   K: TRaceCharKind;
   S: TScenario.TScenarioEnum;
+  D: TSaga.TDifficultyEnum;
   ItemRes: TResEnum;
   GM, MM: Boolean;
   It1, It2, It3: TResEnum;
@@ -608,6 +636,19 @@ begin
           Inc(Y, 120);
         end;
       end;
+    stDifficulty:
+      begin
+        DrawTitle(reTitleDifficulty);
+        for D := dfEasy to dfHard do
+        begin
+          if Ord(D) = CurrentIndex then
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+          else
+            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+          RenderDifficulty(D, Lf, Top + Y);
+          Inc(Y, 120);
+        end;
+      end;
     stRace:
       begin
         DrawTitle(reTitleRace);
@@ -663,14 +704,14 @@ begin
         if GM and not MM then
         begin
           DrawGold;
-          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
+          CenterTextOut(Y, 'ЗОЛОТО +' + inttostr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay));
           Inc(Y, 20);
         end
         else if MM and not GM then
         begin
           DrawMana;
-          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
+          CenterTextOut(Y, 'МАНА +' + inttostr(TSaga.ManaMines *
             TSaga.ManaFromMinePerDay));
           Inc(Y, 20);
         end
@@ -682,10 +723,10 @@ begin
           else
             DrawItem([reItemGold, reDay, reItemMana]);
           end;
-          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
+          CenterTextOut(Y, 'ЗОЛОТО +' + inttostr(TSaga.GoldMines *
             TSaga.GoldFromMinePerDay));
           Inc(Y, 20);
-          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
+          CenterTextOut(Y, 'МАНА +' + inttostr(TSaga.ManaMines *
             TSaga.ManaFromMinePerDay));
           Inc(Y, 20);
         end
@@ -701,13 +742,13 @@ begin
             begin
               DrawGold;
               CenterTextOut(450, 'СОКРОВИЩЕ');
-              CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+              CenterTextOut(470, 'ЗОЛОТО +' + inttostr(TSaga.NewGold));
             end;
           reMana:
             begin
               DrawMana;
               CenterTextOut(450, 'СОКРОВИЩЕ');
-              CenterTextOut(470, 'МАНА +' + IntToStr(TSaga.NewMana));
+              CenterTextOut(470, 'МАНА +' + inttostr(TSaga.NewMana));
             end;
           reBag:
             begin
@@ -716,7 +757,7 @@ begin
               if TSaga.NewGold > 0 then
               begin
                 It1 := reItemGold;
-                CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+                CenterTextOut(Y, 'ЗОЛОТО +' + inttostr(TSaga.NewGold));
                 Inc(Y, 20);
               end;
               if TSaga.NewMana > 0 then
@@ -725,7 +766,7 @@ begin
                   It1 := reItemMana
                 else
                   It2 := reItemMana;
-                CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
+                CenterTextOut(Y, 'МАНА +' + inttostr(TSaga.NewMana));
                 Inc(Y, 20);
               end;
               if TSaga.NewItem > 0 then
@@ -737,7 +778,7 @@ begin
                   It2 := ItemRes
                 else
                   It3 := ItemRes;
-                CenterTextOut(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
+                CenterTextOut(Y, 'АРТЕФАКТ ' + inttostr(TSaga.NewItem));
                 Inc(Y, 20);
               end;
               DrawItem([It1, It2, It3]);
@@ -753,6 +794,8 @@ begin
       RenderCharacterInfo;
     stRace:
       RenderRaceInfo;
+    stDifficulty:
+      RenderDifficultyInfo;
     stScenario, stJournal:
       RenderScenarioInfo;
     stVictory, stDefeat:
@@ -872,6 +915,25 @@ begin
             MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TRaceCharKind)));
+          end;
+      end;
+    stDifficulty:
+      case Key of
+        K_ESCAPE:
+          Back;
+        K_ENTER:
+          Ok;
+        K_UP:
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TSaga.TDifficultyEnum)));
+          end;
+        K_DOWN:
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TSaga.TDifficultyEnum)));
           end;
       end;
     stScenario:

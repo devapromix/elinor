@@ -3,6 +3,7 @@
 Simple roguelike game based on Disciples.
 
 ## Управление:
+
 ### 1. В столице/городе:
 * Esc/Enter - выход из города (карта мира)
 * WADX, Стрелки, Цифр. клавиатура - дв. курсора
@@ -24,6 +25,7 @@ Simple roguelike game based on Disciples.
 ### 4. В окне отряда:
 * Esc/Enter - выход
 * WADX, Стрелки, Цифр. клавиатура - дв. курсора
+* I - Открыть инвентарь
 
 ## Current State
 The game is currently in demo stage with very limited contents and lots of issues to solve and improve.
