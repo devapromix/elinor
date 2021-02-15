@@ -182,8 +182,8 @@ type
     NoMusic: Boolean;
     IsGame: Boolean;
   public const
-    DifficultyName: array [TDifficultyEnum] of string = ('Легко',
-      'Нормально', 'Сложно');
+    DifficultyName: array [TDifficultyEnum] of string = ('Легкий',
+      'Средний', 'Сложный');
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
     ManaFromMinePerDay = 10;

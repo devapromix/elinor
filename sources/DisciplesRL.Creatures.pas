@@ -69,6 +69,8 @@ type
     crRanger,
     // The Empire Mage Leader
     crArchmage,
+    // The Empire Thief Leader
+    crThief,
     // The Empire Fighters
     crSquire,
     // The Empire Ranged Attack Units
@@ -136,7 +138,7 @@ type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
 
 type
-  TRaceCharKind = (ckWarrior, ckScout, ckMage); // ckSupport
+  TRaceCharKind = (ckWarrior, ckScout, ckMage); // ckSupport, ckThief
 
 const
   ckGuardian = ckMage;
@@ -155,7 +157,7 @@ const
     // The Empire Capital Guardian
     ((crNone, crNone, crMyzrael),
     // The Empire Leaders
-    (crPegasusKnight, crRanger, crArchmage),
+    (crPegasusKnight, crRanger, crThief), // crArchmage),
     // The Empire Characters
     (crSquire, crArcher, crApprentice)),
     //
@@ -457,17 +459,29 @@ const
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Pegasus Knight
     (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе';
-    Description: ('', '', ''); HitPoints: 150; Initiative: 50; ChancesToHit: 80;
-    Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    Description: ('Оседлавший пегаса рыцарь - это бла-',
+    'городный воин, чей крылатый скакун', 'возносит его над полями и лесами.');
+    HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Ranger
-    (ResEnum: reRanger; Name: 'Следопыт'; Description: ('', '', '');
-    HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
-    Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;),
+    (ResEnum: reRanger; Name: 'Следопыт';
+    Description: ('Следопыты путешествуют быстро и хо-',
+    'рошо знают королевство, поэтому ко-',
+    'роль часто посылает их в разведку.'); HitPoints: 90; Initiative: 60;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny;),
     // Archmage
-    (ResEnum: reArchmage; Name: 'Архимаг'; Description: ('', '', '');
+    (ResEnum: reArchmage; Name: 'Архимаг';
+    Description: ('Мастер магии, архимаг - единственный',
+    'в Империи полководец, который уме-', 'ет испольовать свитки и посохи.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll;),
+    // Thief
+    (ResEnum: reArchmage; Name: 'Вор';
+    Description: ('Опытные обманщики и воры, легко',
+    'пробираются в тыл врага, и служат', 'Империи, добывая важные сведения.');
+    HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;),
     // Squire
     (ResEnum: reSquire; Name: 'Сквайр'; Description: ('', '', '');
     HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
