@@ -574,8 +574,8 @@ const
     // Wolf
     (ResEnum: reWolf; Name: 'Волк'; HitPoints: 180; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0; MMHit: mmHumHit;
-    MMDeath: mmHumDeath;)
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0; MMHit: mmWolfHit;
+    MMDeath: mmWolfDeath;)
     //
     );
 
