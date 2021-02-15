@@ -416,10 +416,23 @@ begin
           Add('Цели', 6);
         end;
     end;
-    if SubScene = stCharacter then
-    begin
-      Add('Цена', Gold);
-      Add('Золото', TSaga.Gold);
+    case SubScene of
+      stCharacter:
+        begin
+          RenderResources;
+          DrawImage(Lf + (ResImage[reActFrame].Width * 3), Top, reGold);
+          LeftTextOut(Lf + (ResImage[reActFrame].Width * 3) + 30, Top + 12,
+            IntToStr(Gold));
+        end;
+      stLeader:
+        begin
+          { Surface.Canvas.Draw(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
+            ResImage[reInfoFrame]);
+            T := Top + 6;
+            L := Lf + (ResImage[reActFrame].Width * 2) + 14;
+            Add('Умения', True);
+            Add; }
+        end;
     end;
   end;
 end;
@@ -646,6 +659,7 @@ begin
   case SubScene of
     stCharacter:
       begin
+        DrawImage(reWallpaperSettlement);
         DrawTitle(reTitleHire);
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
