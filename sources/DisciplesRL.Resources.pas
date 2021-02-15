@@ -367,7 +367,7 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap,
+  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap,
     mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit);
 
 var
@@ -378,6 +378,8 @@ const
   MusicBase: array [TMusicEnum] of TResBase = (
     // Click
     (FileName: 'click.wav'; ResType: teSound;),
+    // Step
+    (FileName: 'step.wav'; ResType: teSound;),
     // Battle
     (FileName: 'wasteland-showdown.mp3'; ResType: teMusic;),
     // Victory

@@ -453,6 +453,7 @@ begin
   else
   begin
     Leader.SetLocation(AX, AY);
+    MediaPlayer.Play(mmStep);
     with TLeaderParty(Party[LeaderPartyIndex]) do
     begin
       SetLocation(AX, AY);
