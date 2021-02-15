@@ -211,7 +211,7 @@ begin
         TSaga.Clear;
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
         MediaPlayer.PlayMusic(mmGame);
-        MediaPlayer.Play(mmSettlement);
+        MediaPlayer.Play(mmExit);
         DisciplesRL.Scene.Settlement.Show(stCapital);
       end;
     stDifficulty:

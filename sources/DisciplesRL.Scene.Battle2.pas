@@ -186,8 +186,16 @@ begin
       case AtkParty.Creature[AtkPos].ReachEnum of
         reAny:
           begin
+            MediaPlayer.Play(mmBowAttack);
+            Sleep(200);
             DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
             Log.Add('Damage');
+            if (DefParty.Creature[DefPos].HitPoints > 0) then
+              MediaPlayer.Play(TCreature.Character(DefParty.Creature[DefPos]
+                .Enum).MMHit)
+            else
+              MediaPlayer.Play(TCreature.Character(DefParty.Creature[DefPos]
+                .Enum).MMDeath);
             B := True;
           end;
         reAdj:
@@ -211,9 +219,19 @@ begin
                       ((DefParty.Creature[2].HitPoints > 0) or
                       (DefParty.Creature[4].HitPoints > 0)) then
                       Exit;
+                    MediaPlayer.Play(mmSwordAttack);
+                    Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
                     Log.Add('Damage');
+                    if (DefParty.Creature[DefPos].HitPoints > 0) then
+                      MediaPlayer.Play
+                        (TCreature.Character(DefParty.Creature[DefPos]
+                        .Enum).MMHit)
+                    else
+                      MediaPlayer.Play
+                        (TCreature.Character(DefParty.Creature[DefPos]
+                        .Enum).MMDeath);
                     B := True;
                   end;
                 1, 3, 5:
@@ -223,9 +241,19 @@ begin
                       (DefParty.Creature[4].HitPoints > 0);
                     if not F then
                     begin
+                      MediaPlayer.Play(mmSwordAttack);
+                      Sleep(200);
                       DefParty.TakeDamage
                         (AtkParty.Creature[AtkPos].Damage, DefPos);
                       Log.Add('Damage');
+                      if (DefParty.Creature[DefPos].HitPoints > 0) then
+                        MediaPlayer.Play
+                          (TCreature.Character(DefParty.Creature[DefPos]
+                          .Enum).MMHit)
+                      else
+                        MediaPlayer.Play
+                          (TCreature.Character(DefParty.Creature[DefPos]
+                          .Enum).MMDeath);
                       B := True;
                     end;
                   end;
@@ -233,18 +261,28 @@ begin
           end;
         reAll:
           begin
+            MediaPlayer.Play(mmStaffAttack);
+            Sleep(200);
             for P := Low(TPosition) to High(TPosition) do
               if DefParty.Creature[P].Active and
                 (DefParty.Creature[P].HitPoints > 0) then
               begin
                 DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, P);
                 Log.Add('Damage');
+                if (DefParty.Creature[P].HitPoints > 0) then
+                  MediaPlayer.Play
+                    (TCreature.Character(DefParty.Creature[P].Enum).MMHit)
+                else
+                  MediaPlayer.Play
+                    (TCreature.Character(DefParty.Creature[P].Enum).MMDeath);
               end;
             B := True;
           end;
       end;
       if B then
+      begin
         NextTurn;
+      end;
     end;
   if EnemyParty.IsClear then
   begin

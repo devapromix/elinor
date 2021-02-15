@@ -367,8 +367,10 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame, mmMap,
-    mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit);
+  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
+    mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
+    mmSwordAttack, mmStaffAttack, mmBowAttack, mmBlock, mmMiss, mmHumHit,
+    mmHumDeath, mmSpiderHit, mmSpiderDeath);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -404,8 +406,26 @@ const
     (FileName: 'level.wav'; ResType: teSound;),
     // Round in battle
     (FileName: 'war.wav'; ResType: teSound;),
-    //
-    (FileName: 'exit.wav'; ResType: teSound;)
+    // Exit
+    (FileName: 'exit.wav'; ResType: teSound;),
+    // Sword attack
+    (FileName: 'sword_attack.wav'; ResType: teSound;),
+    // Staff attack
+    (FileName: 'staff_attack.wav'; ResType: teSound;),
+    // Bow attack
+    (FileName: 'bow_attack.wav'; ResType: teSound;),
+    // Block
+    (FileName: 'block.wav'; ResType: teSound;),
+    // Miss
+    (FileName: 'miss.ogg'; ResType: teSound;),
+    // Humanoid Hit
+    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    // Humanoid Death
+    (FileName: 'hum_death.ogg'; ResType: teSound;),
+    // Spider Hit
+    (FileName: 'spider_hit.wav'; ResType: teSound;),
+    // Spider Death
+    (FileName: 'spider_death.wav'; ResType: teSound;)
     //
     );
 

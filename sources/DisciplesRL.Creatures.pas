@@ -1,6 +1,7 @@
 ﻿unit DisciplesRL.Creatures;
 
 interface
+
 {$IFDEF FPC}
 {$MODESWITCH ADVANCEDRECORDS}
 {$ENDIF}
@@ -9,33 +10,48 @@ uses
   DisciplesRL.Resources;
 
 type
-  TRaceEnum = (reNeutrals, reTheEmpire, reUndeadHordes, reLegionsOfTheDamned, reMountainClans, reElvenAlliance);
+  TRaceEnum = (reNeutrals, reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
+    reMountainClans, reElvenAlliance);
 
 const
   Races = [reTheEmpire, reUndeadHordes, reLegionsOfTheDamned];
 
 const
-  RaceName: array [TRaceEnum] of string = ('Нейтралы', 'Защитники Империи', 'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз');
-  RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
+  RaceName: array [TRaceEnum] of string = ('Нейтралы', 'Защитники Империи',
+    'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз');
+  RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain,
+    reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
     reNeutralTerrain, reNeutralTerrain);
 
 const
-  RaceDescription: array [TRaceEnum] of array [0 .. 10] of string = (('', '', '', '', '', '', '', '', '', '', ''),
+  RaceDescription: array [TRaceEnum] of array [0 .. 10] of string =
+    (('', '', '', '', '', '', '', '', '', '', ''),
     // The Empire
-    ('Империя пришла в упадок. Больше', 'не радуют глаз возделанные поля и цве-', 'тущие сады. Землю раздирают склоки и',
-    'раздоры. Аристократы и разбойничьи', 'атаманы провозгласили собственные', 'королевства. Старейшины всматривают-',
-    'ся в небеса, взывая к Небесному Отцу.', 'Но он глух к их просьбам и молитвам.', 'Некогда мирная, гордая и единая',
+    ('Империя пришла в упадок. Больше',
+    'не радуют глаз возделанные поля и цве-',
+    'тущие сады. Землю раздирают склоки и',
+    'раздоры. Аристократы и разбойничьи', 'атаманы провозгласили собственные',
+    'королевства. Старейшины всматривают-',
+    'ся в небеса, взывая к Небесному Отцу.',
+    'Но он глух к их просьбам и молитвам.', 'Некогда мирная, гордая и единая',
     'Империя, что создавалась тысячи лет,', 'осталась лишь в воспоминаниях…'),
     // Undead Hordes
-    ('Поглощенная ненавистью и страданием,', 'Мортис создала армию мертвецов.', 'Где теперь ее возлюбленный Галлеан?',
-    'В каком уголке Невендаара бродит его', 'душа? Почему не возвращается к ней?', 'Как его воскресить? И когда духи',
-    'открыли ей существование святого', 'отрока, Мортис поклялась, что она', 'воссоединится со своим возлюбленным,',
-    'даже если для этого ей придется', 'утопить весь мир в крови…'),
+    ('Поглощенная ненавистью и страданием,', 'Мортис создала армию мертвецов.',
+    'Где теперь ее возлюбленный Галлеан?',
+    'В каком уголке Невендаара бродит его',
+    'душа? Почему не возвращается к ней?', 'Как его воскресить? И когда духи',
+    'открыли ей существование святого', 'отрока, Мортис поклялась, что она',
+    'воссоединится со своим возлюбленным,', 'даже если для этого ей придется',
+    'утопить весь мир в крови…'),
     // Legions Of The Damned
-    ('И снова земные слуги Бетрезена бродят', 'миром Невендаар, сея хаос и разруху.', 'Им осталось провести последний ритуал',
-    'и даровать Бетрезену неограниченную', 'свободу. Десять лет назад они потерпе-', 'ли поражение и были заперты в Горном',
-    'Храме… И вот десять лет истекли:', 'теперь ничто не мешает легионам', 'снова попытаться совершить ритуал,', 'который освободит Бетрезена раз и',
-    'навсегда…'),
+    ('И снова земные слуги Бетрезена бродят',
+    'миром Невендаар, сея хаос и разруху.',
+    'Им осталось провести последний ритуал',
+    'и даровать Бетрезену неограниченную',
+    'свободу. Десять лет назад они потерпе-',
+    'ли поражение и были заперты в Горном', 'Храме… И вот десять лет истекли:',
+    'теперь ничто не мешает легионам', 'снова попытаться совершить ритуал,',
+    'который освободит Бетрезена раз и', 'навсегда…'),
     // Mountain Clans
     ('', '', '', '', '', '', '', '', '', '', ''),
     // Elven Alliance
@@ -109,10 +125,12 @@ type
   TReachEnum = (reAny, reAdj, reAll);
 
 type
-  TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth, seFire, seWater);
+  TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth,
+    seFire, seWater);
 
 const
-  SourceName: array [TSourceEnum] of string = ('Оружие', 'Жизнь', 'Разум', 'Смерть', 'Воздух', 'Земля', 'Огонь', 'Вода');
+  SourceName: array [TSourceEnum] of string = ('Оружие', 'Жизнь', 'Разум',
+    'Смерть', 'Воздух', 'Земля', 'Огонь', 'Вода');
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -124,13 +142,16 @@ const
   ckGuardian = ckMage;
 
 type
-  AttackEnum = (atLongSword, atCrossbow, atDrainLife, atHealing, atParalyze, atPoison);
+  AttackEnum = (atLongSword, atCrossbow, atDrainLife, atHealing, atParalyze,
+    atPoison);
 
 const
-  AttackName: array [AttackEnum] of string = ('Длинный Меч', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд');
+  AttackName: array [AttackEnum] of string = ('Длинный Меч', 'Арбалет',
+    'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд');
 
 const
-  Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array [TRaceCharGroup] of array [TRaceCharKind] of TCreatureEnum = (
+  Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
+    [TRaceCharGroup] of array [TRaceCharKind] of TCreatureEnum = (
     // The Empire Capital Guardian
     ((crNone, crNone, crMyzrael),
     // The Empire Leaders
@@ -153,7 +174,7 @@ const
     (crPossessed, crGargoyle, crCultist))
     //
     );
-{$region texts}
+{$REGION texts}
   {
     Ардоберт
     Верок
@@ -367,7 +388,7 @@ const
     Я превращу ваших солдат в ходячие осадные орудия.
     Я работал и с плохими бойцами, и с хорошими, и все они справлялись с большим успехом.
   }
-{$endregion texts}
+{$ENDREGION texts}
 
 type
   TCreatureBase = record
@@ -384,6 +405,8 @@ type
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
     Gold: Integer;
+    MMHit: TMusicEnum;
+    MMDeath: TMusicEnum;
   end;
 
 type
@@ -407,122 +430,159 @@ type
     function IsLeader(): Boolean;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
-    class procedure Assign(var ACreature: TCreature; const I: TCreatureEnum); static;
+    class procedure Assign(var ACreature: TCreature;
+      const I: TCreatureEnum); static;
   end;
 
 implementation
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   SysUtils;
-  {$ELSE}
+{$ELSE}
   System.SysUtils;
-  {$ENDIF}
+{$ENDIF}
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (ResEnum: reNone; Name: ''; HitPoints: 0; Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: reNone; Name: ''; HitPoints: 0; Initiative: 0; ChancesToHit: 0;
+    Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0; SourceEnum: seWeapon;
+    ReachEnum: reAdj;),
 
     // Myzrael
-    (ResEnum: reMyzrael; Name: 'Мизраэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    (ResEnum: reMyzrael; Name: 'Мизраэль'; HitPoints: 900; Initiative: 90;
+    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll;),
     // Pegasus Knight
-    (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
+    (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе'; HitPoints: 150;
+    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Ranger
-    (ResEnum: reRanger; Name: 'Следопыт'; HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    (ResEnum: reRanger; Name: 'Следопыт'; HitPoints: 90; Initiative: 60;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny;),
     // Archmage
-    (ResEnum: reArchmage; Name: 'Архимаг'; HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
+    (ResEnum: reArchmage; Name: 'Архимаг'; HitPoints: 65; Initiative: 40;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seAir; ReachEnum: reAll;),
     // Squire
-    (ResEnum: reSquire; Name: 'Сквайр'; HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    (ResEnum: reSquire; Name: 'Сквайр'; HitPoints: 100; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
     // Archer
-    (ResEnum: reArcher; Name: 'Лучник'; HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    (ResEnum: reArcher; Name: 'Лучник'; HitPoints: 45; Initiative: 60;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 40),
     // Apprentice
-    (ResEnum: reApprentice; Name: 'Ученик'; HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    (ResEnum: reApprentice; Name: 'Ученик'; HitPoints: 35; Initiative: 40;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seAir; ReachEnum: reAll; Gold: 60),
     // Acolyte
-    (ResEnum: reAcolyte; Name: 'Служка'; HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 20;
+    (ResEnum: reAcolyte; Name: 'Служка'; HitPoints: 50; Initiative: 10;
+    ChancesToHit: 100; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 20;
     SourceEnum: seAir; ReachEnum: reAny; Gold: 50),
 
     // Ashgan
-    (ResEnum: reAshgan; Name: 'Ашган'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    (ResEnum: reAshgan; Name: 'Ашган'; HitPoints: 900; Initiative: 90;
+    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll;),
     // Death Knight
-    (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0;
-    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти'; HitPoints: 150;
+    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Nosferat
-    (ResEnum: reRanger; Name: 'Носферату'; HitPoints: 90; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
+    (ResEnum: reRanger; Name: 'Носферату'; HitPoints: 90; Initiative: 50;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny;),
     // Lich Queen
-    (ResEnum: reArchmage; Name: 'Королева Личей'; HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0;
-    Heal: 0; SourceEnum: seFire; ReachEnum: reAll;),
+    (ResEnum: reArchmage; Name: 'Королева Личей'; HitPoints: 65; Initiative: 40;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
+    SourceEnum: seFire; ReachEnum: reAll;),
     // Fighter
-    (ResEnum: reSquire; Name: 'Воин'; HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    (ResEnum: reSquire; Name: 'Воин'; HitPoints: 120; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
     // Ghost
-    (ResEnum: reArcher; Name: 'Привидение'; HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
+    (ResEnum: reArcher; Name: 'Привидение'; HitPoints: 45; Initiative: 20;
+    ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seMind; ReachEnum: reAny; Gold: 50),
     // Initiate
-    (ResEnum: reApprentice; Name: 'Адепт'; HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    (ResEnum: reApprentice; Name: 'Адепт'; HitPoints: 45; Initiative: 40;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAll; Gold: 60),
     // Wyvern
-    (ResEnum: reAcolyte; Name: 'Виверна'; HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    (ResEnum: reAcolyte; Name: 'Виверна'; HitPoints: 225; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAll; Gold: 100),
 
     // Ashkael
-    (ResEnum: reAshkael; Name: 'Ашкаэль'; HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    (ResEnum: reAshkael; Name: 'Ашкаэль'; HitPoints: 900; Initiative: 90;
+    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll;),
     // Duke
-    (ResEnum: rePegasusKnight; Name: 'Герцог'; HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0;
-    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: rePegasusKnight; Name: 'Герцог'; HitPoints: 150; Initiative: 50;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Counselor
-    (ResEnum: reRanger; Name: 'Советник'; HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    (ResEnum: reRanger; Name: 'Советник'; HitPoints: 90; Initiative: 40;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny;),
     // Arch-Devil
-    (ResEnum: reArchmage; Name: 'Дьявол'; HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
+    (ResEnum: reArchmage; Name: 'Дьявол'; HitPoints: 65; Initiative: 40;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seFire; ReachEnum: reAll;),
     // Possessed
-    (ResEnum: reSquire; Name: 'Одержимый'; HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    (ResEnum: reSquire; Name: 'Одержимый'; HitPoints: 120; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
     // Gargoyle
-    (ResEnum: reArcher; Name: 'Горгулья'; HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 40; Heal: 0;
+    (ResEnum: reArcher; Name: 'Горгулья'; HitPoints: 90; Initiative: 60;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 40; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 80),
     // Cultist
-    (ResEnum: reApprentice; Name: 'Культист'; HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    (ResEnum: reApprentice; Name: 'Культист'; HitPoints: 45; Initiative: 40;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seFire; ReachEnum: reAll; Gold: 60),
     // Devil
-    (ResEnum: reAcolyte; Name: 'Черт'; HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    (ResEnum: reAcolyte; Name: 'Черт'; HitPoints: 170; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100),
 
     // Goblin
-    (ResEnum: reGoblin; Name: 'Гоблин'; HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAdj;),
+    (ResEnum: reGoblin; Name: 'Гоблин'; HitPoints: 50; Initiative: 30;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    SourceEnum: seLife; ReachEnum: reAdj; Gold: 0; MMHit: mmHumHit;
+    MMDeath: mmHumDeath),
     // Goblin Archer
-    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник'; HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0;
-    Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;),
+    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник'; HitPoints: 40;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
+    MMHit: mmHumHit; MMDeath: mmHumDeath),
     // Orc
-    (ResEnum: reOrc; Name: 'Орк'; HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: reOrc; Name: 'Орк'; HitPoints: 200; Initiative: 40;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0; MMHit: mmHumHit;
+    MMDeath: mmHumDeath),
 
     // Spider
-    (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; HitPoints: 420;
+    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    MMHit: mmSpiderHit; MMDeath: mmSpiderDeath),
 
     // Wolf
-    (ResEnum: reWolf; Name: 'Волк'; HitPoints: 180; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;)
+    (ResEnum: reWolf; Name: 'Волк'; HitPoints: 180; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0; MMHit: mmHumHit;
+    MMDeath: mmHumDeath;)
     //
     );
 
   { TCreature }
 
-class procedure TCreature.Assign(var ACreature: TCreature; const I: TCreatureEnum);
+class procedure TCreature.Assign(var ACreature: TCreature;
+  const I: TCreatureEnum);
 begin
   with ACreature do
   begin
@@ -580,7 +640,8 @@ var
 begin
   Result := False;
   for Race := Low(Characters) to High(Characters) do
-    for CharKind := Low(Characters[Race][cgLeaders]) to High(Characters[Race][cgLeaders]) do
+    for CharKind := Low(Characters[Race][cgLeaders])
+      to High(Characters[Race][cgLeaders]) do
       if Enum = Characters[Race][cgLeaders][CharKind] then
         Exit(True);
 end;

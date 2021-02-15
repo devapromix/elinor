@@ -106,6 +106,7 @@ uses
   DisciplesRL.Resources;
 {$ELSE}
   System.Math,
+  System.SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Resources,
@@ -300,7 +301,11 @@ begin
     begin
       if (HitPoints > 0) then
         if (ADamage - Armor > 0) then
+        begin
           HitPoints := HitPoints - (ADamage - Armor);
+        end
+        else
+          MediaPlayer.Play(mmBlock);
       if (HitPoints < 0) then
         HitPoints := 0;
     end;
