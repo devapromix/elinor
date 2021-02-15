@@ -214,9 +214,9 @@ const
     // Mountain #4
     (FileName: 'tile.mountain4.png'; ResType: teObject;),
     // Button
-    (FileName: 'buttondef.png'; ResType: teGUI;),
+    (FileName: 'button.def.png'; ResType: teGUI;),
     // Button
-    (FileName: 'buttonact.png'; ResType: teGUI;),
+    (FileName: 'button.act.png'; ResType: teGUI;),
     // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Myzrael

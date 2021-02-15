@@ -116,8 +116,8 @@ begin
   LeftTextOut(45, 22, IntToStr(TSaga.Gold));
   DrawImage(15, 40, reMana);
   LeftTextOut(45, 52, IntToStr(TSaga.Mana));
-//  DrawImage(15, 70, reMana);
-//  LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
+  // DrawImage(15, 70, reMana);
+  // LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
 end;
 
 procedure Render;
@@ -141,10 +141,9 @@ begin
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
   end;
-  CenterTextOut(60,
-    Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
-    [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
-
+  // CenterTextOut(60,
+  // Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
+  // [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
   if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
     or (CurrentSettlementType = stCity) then
     RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],

@@ -420,8 +420,8 @@ begin
       stCharacter:
         begin
           RenderResources;
-          DrawImage(Lf + (ResImage[reActFrame].Width * 3), Top, reGold);
-          LeftTextOut(Lf + (ResImage[reActFrame].Width * 3) + 30, Top + 12,
+          DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70, Top, reGold);
+          LeftTextOut(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
             IntToStr(Gold));
         end;
       stLeader:
