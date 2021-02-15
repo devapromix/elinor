@@ -332,17 +332,11 @@ const
 var
   C: TCreatureEnum;
   K: TRaceCharKind;
-  L, T: Integer;
+  L, T, J: Integer;
 
   procedure Add; overload;
   begin
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string); overload;
-  begin
-    LeftTextOut(L, T, S);
-    Inc(T, H);
+    Inc(T, H - 4);
   end;
 
   procedure Add(S, V: string); overload;
@@ -416,6 +410,8 @@ begin
           Add('Цели', 6);
         end;
     end;
+    for J := 0 to 2 do
+      Add(Description[J]);
     case SubScene of
       stCharacter:
         begin
@@ -521,7 +517,7 @@ var
 
   procedure Add; overload;
   begin
-    Inc(T, H);
+    Inc(T, H - 4);
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;

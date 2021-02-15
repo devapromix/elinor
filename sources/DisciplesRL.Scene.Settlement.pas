@@ -128,9 +128,9 @@ begin
     stCity:
       begin
         DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
-        CenterTextOut(100, Format('%s (Level %d)',
-          [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
-          .MaxLevel + 1]));
+        //CenterTextOut(100, Format('%s (Level %d)',
+        //  [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
+        //  .MaxLevel + 1]));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
       end;

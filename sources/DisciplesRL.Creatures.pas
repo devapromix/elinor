@@ -394,6 +394,7 @@ type
   TCreatureBase = record
     ResEnum: TResEnum;
     Name: string;
+    Description: array [0 .. 2] of string;
     HitPoints: Integer;
     Initiative: Integer;
     ChancesToHit: Integer;
@@ -446,136 +447,150 @@ uses
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (ResEnum: reNone; Name: ''; HitPoints: 0; Initiative: 0; ChancesToHit: 0;
-    Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj;),
+    (ResEnum: reNone; Name: ''; Description: ('', '', ''); HitPoints: 0;
+    Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0),
 
     // Myzrael
-    (ResEnum: reMyzrael; Name: 'Мизраэль'; HitPoints: 900; Initiative: 90;
-    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAll;),
+    (ResEnum: reMyzrael; Name: 'Мизраэль'; Description: ('', '', '');
+    HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
+    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Pegasus Knight
-    (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе'; HitPoints: 150;
-    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе';
+    Description: ('', '', ''); HitPoints: 150; Initiative: 50; ChancesToHit: 80;
+    Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Ranger
-    (ResEnum: reRanger; Name: 'Следопыт'; HitPoints: 90; Initiative: 60;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny;),
+    (ResEnum: reRanger; Name: 'Следопыт'; Description: ('', '', '');
+    HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;),
     // Archmage
-    (ResEnum: reArchmage; Name: 'Архимаг'; HitPoints: 65; Initiative: 40;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
-    SourceEnum: seAir; ReachEnum: reAll;),
+    (ResEnum: reArchmage; Name: 'Архимаг'; Description: ('', '', '');
+    HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll;),
     // Squire
-    (ResEnum: reSquire; Name: 'Сквайр'; HitPoints: 100; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
+    (ResEnum: reSquire; Name: 'Сквайр'; Description: ('', '', '');
+    HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 50),
     // Archer
-    (ResEnum: reArcher; Name: 'Лучник'; HitPoints: 45; Initiative: 60;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 40),
+    (ResEnum: reArcher; Name: 'Лучник'; Description: ('', '', '');
+    HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 40),
     // Apprentice
-    (ResEnum: reApprentice; Name: 'Ученик'; HitPoints: 35; Initiative: 40;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seAir; ReachEnum: reAll; Gold: 60),
+    (ResEnum: reApprentice; Name: 'Ученик'; Description: ('', '', '');
+    HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll;
+    Gold: 60),
     // Acolyte
-    (ResEnum: reAcolyte; Name: 'Служка'; HitPoints: 50; Initiative: 10;
-    ChancesToHit: 100; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 20;
-    SourceEnum: seAir; ReachEnum: reAny; Gold: 50),
+    (ResEnum: reAcolyte; Name: 'Служка'; Description: ('', '', '');
+    HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
+    Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
+    Gold: 50),
 
     // Ashgan
-    (ResEnum: reAshgan; Name: 'Ашган'; HitPoints: 900; Initiative: 90;
-    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAll;),
+    (ResEnum: reAshgan; Name: 'Ашган'; Description: ('', '', '');
+    HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
+    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Death Knight
-    (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти'; HitPoints: 150;
-    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти'; Description: ('', '', '');
+    HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Nosferat
-    (ResEnum: reRanger; Name: 'Носферату'; HitPoints: 90; Initiative: 50;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
-    SourceEnum: seDeath; ReachEnum: reAny;),
+    (ResEnum: reRanger; Name: 'Носферату'; Description: ('', '', '');
+    HitPoints: 90; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 10; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAny;),
     // Lich Queen
-    (ResEnum: reArchmage; Name: 'Королева Личей'; HitPoints: 65; Initiative: 40;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
-    SourceEnum: seFire; ReachEnum: reAll;),
+    (ResEnum: reArchmage; Name: 'Королева Личей'; Description: ('', '', '');
+    HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;),
     // Fighter
-    (ResEnum: reSquire; Name: 'Воин'; HitPoints: 120; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
+    (ResEnum: reSquire; Name: 'Воин'; Description: ('', '', ''); HitPoints: 120;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
     // Ghost
-    (ResEnum: reArcher; Name: 'Привидение'; HitPoints: 45; Initiative: 20;
-    ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
-    SourceEnum: seMind; ReachEnum: reAny; Gold: 50),
+    (ResEnum: reArcher; Name: 'Привидение'; Description: ('', '', '');
+    HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1;
+    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny;
+    Gold: 50),
     // Initiate
-    (ResEnum: reApprentice; Name: 'Адепт'; HitPoints: 45; Initiative: 40;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seDeath; ReachEnum: reAll; Gold: 60),
+    (ResEnum: reApprentice; Name: 'Адепт'; Description: ('', '', '');
+    HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
+    Gold: 60),
     // Wyvern
-    (ResEnum: reAcolyte; Name: 'Виверна'; HitPoints: 225; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seDeath; ReachEnum: reAll; Gold: 100),
+    (ResEnum: reAcolyte; Name: 'Виверна'; Description: ('', '', '');
+    HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
+    Gold: 100),
 
     // Ashkael
-    (ResEnum: reAshkael; Name: 'Ашкаэль'; HitPoints: 900; Initiative: 90;
-    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAll;),
+    (ResEnum: reAshkael; Name: 'Ашкаэль'; Description: ('', '', '');
+    HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
+    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Duke
-    (ResEnum: rePegasusKnight; Name: 'Герцог'; HitPoints: 150; Initiative: 50;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj;),
+    (ResEnum: rePegasusKnight; Name: 'Герцог';
+    Description: ('Воинственный герцог ведет демонов',
+    'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;
+    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;),
     // Counselor
-    (ResEnum: reRanger; Name: 'Советник'; HitPoints: 90; Initiative: 40;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny;),
+    (ResEnum: reRanger; Name: 'Советник'; Description: ('', '', '');
+    HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;),
     // Arch-Devil
-    (ResEnum: reArchmage; Name: 'Дьявол'; HitPoints: 65; Initiative: 40;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
-    SourceEnum: seFire; ReachEnum: reAll;),
+    (ResEnum: reArchmage; Name: 'Дьявол'; Description: ('', '', '');
+    HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;),
     // Possessed
-    (ResEnum: reSquire; Name: 'Одержимый'; HitPoints: 120; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50),
+    (ResEnum: reSquire; Name: 'Одержимый'; Description: ('', '', '');
+    HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 50),
     // Gargoyle
-    (ResEnum: reArcher; Name: 'Горгулья'; HitPoints: 90; Initiative: 60;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 40; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 80),
+    (ResEnum: reArcher; Name: 'Горгулья'; Description: ('', '', '');
+    HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 40; Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 80),
     // Cultist
-    (ResEnum: reApprentice; Name: 'Культист'; HitPoints: 45; Initiative: 40;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seFire; ReachEnum: reAll; Gold: 60),
+    (ResEnum: reApprentice; Name: 'Культист'; Description: ('', '', '');
+    HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
+    Gold: 60),
     // Devil
-    (ResEnum: reAcolyte; Name: 'Черт'; HitPoints: 170; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100),
+    (ResEnum: reAcolyte; Name: 'Черт'; Description: ('', '', '');
+    HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 100),
 
     // Goblin
-    (ResEnum: reGoblin; Name: 'Гоблин'; HitPoints: 50; Initiative: 30;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAdj; Gold: 0; MMHit: mmHumHit;
-    MMDeath: mmHumDeath),
+    (ResEnum: reGoblin; Name: 'Гоблин'; Description: ('', '', '');
+    HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
+    Gold: 0; MMHit: mmHumHit; MMDeath: mmHumDeath),
     // Goblin Archer
-    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник'; HitPoints: 40;
-    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    MMHit: mmHumHit; MMDeath: mmHumDeath),
+    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник'; Description: ('', '', '');
+    HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 0; MMHit: mmHumHit; MMDeath: mmHumDeath),
     // Orc
-    (ResEnum: reOrc; Name: 'Орк'; HitPoints: 200; Initiative: 40;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0; MMHit: mmHumHit;
-    MMDeath: mmHumDeath),
+    (ResEnum: reOrc; Name: 'Орк'; Description: ('', '', ''); HitPoints: 200;
+    Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    MMHit: mmHumHit; MMDeath: mmHumDeath),
 
     // Spider
-    (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; HitPoints: 420;
-    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    MMHit: mmSpiderHit; MMDeath: mmSpiderDeath),
+    (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; Description: ('', '', '');
+    HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 130; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 0; MMHit: mmSpiderHit; MMDeath: mmSpiderDeath),
 
     // Wolf
-    (ResEnum: reWolf; Name: 'Волк'; HitPoints: 180; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0; MMHit: mmWolfHit;
-    MMDeath: mmWolfDeath;)
+    (ResEnum: reWolf; Name: 'Волк'; Description: ('', '', ''); HitPoints: 180;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    MMHit: mmWolfHit; MMDeath: mmWolfDeath;)
     //
     );
 
