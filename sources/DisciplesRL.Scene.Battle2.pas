@@ -186,16 +186,17 @@ begin
       case AtkParty.Creature[AtkPos].ReachEnum of
         reAny:
           begin
-            MediaPlayer.Play(mmBowAttack);
+            MediaPlayer.Play(TCreature.Character(AtkParty.Creature[AtkPos].Enum)
+              .Sound[csAttack]);
             Sleep(200);
             DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
             Log.Add('Damage');
             if (DefParty.Creature[DefPos].HitPoints > 0) then
               MediaPlayer.Play(TCreature.Character(DefParty.Creature[DefPos]
-                .Enum).MMHit)
+                .Enum).Sound[csHit])
             else
               MediaPlayer.Play(TCreature.Character(DefParty.Creature[DefPos]
-                .Enum).MMDeath);
+                .Enum).Sound[csDeath]);
             B := True;
           end;
         reAdj:
@@ -219,19 +220,21 @@ begin
                       ((DefParty.Creature[2].HitPoints > 0) or
                       (DefParty.Creature[4].HitPoints > 0)) then
                       Exit;
-                    MediaPlayer.Play(mmSwordAttack);
+                    MediaPlayer.Play
+                      (TCreature.Character(AtkParty.Creature[AtkPos].Enum)
+                      .Sound[csAttack]);
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
                     Log.Add('Damage');
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
                       MediaPlayer.Play
-                        (TCreature.Character(DefParty.Creature[DefPos]
-                        .Enum).MMHit)
+                        (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                        .Sound[csHit])
                     else
                       MediaPlayer.Play
-                        (TCreature.Character(DefParty.Creature[DefPos]
-                        .Enum).MMDeath);
+                        (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                        .Sound[csDeath]);
                     B := True;
                   end;
                 1, 3, 5:
@@ -241,19 +244,21 @@ begin
                       (DefParty.Creature[4].HitPoints > 0);
                     if not F then
                     begin
-                      MediaPlayer.Play(mmSwordAttack);
+                      MediaPlayer.Play
+                        (TCreature.Character(AtkParty.Creature[AtkPos].Enum)
+                        .Sound[csAttack]);
                       Sleep(200);
                       DefParty.TakeDamage
                         (AtkParty.Creature[AtkPos].Damage, DefPos);
                       Log.Add('Damage');
                       if (DefParty.Creature[DefPos].HitPoints > 0) then
                         MediaPlayer.Play
-                          (TCreature.Character(DefParty.Creature[DefPos]
-                          .Enum).MMHit)
+                          (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                          .Sound[csHit])
                       else
                         MediaPlayer.Play
-                          (TCreature.Character(DefParty.Creature[DefPos]
-                          .Enum).MMDeath);
+                          (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                          .Sound[csDeath]);
                       B := True;
                     end;
                   end;
@@ -261,7 +266,8 @@ begin
           end;
         reAll:
           begin
-            MediaPlayer.Play(mmStaffAttack);
+            MediaPlayer.Play(TCreature.Character(AtkParty.Creature[AtkPos].Enum)
+              .Sound[csAttack]);
             Sleep(200);
             for P := Low(TPosition) to High(TPosition) do
               if DefParty.Creature[P].Active and
@@ -271,10 +277,12 @@ begin
                 Log.Add('Damage');
                 if (DefParty.Creature[P].HitPoints > 0) then
                   MediaPlayer.Play
-                    (TCreature.Character(DefParty.Creature[P].Enum).MMHit)
+                    (TCreature.Character(DefParty.Creature[P].Enum)
+                    .Sound[csHit])
                 else
                   MediaPlayer.Play
-                    (TCreature.Character(DefParty.Creature[P].Enum).MMDeath);
+                    (TCreature.Character(DefParty.Creature[P].Enum)
+                    .Sound[csDeath]);
               end;
             B := True;
           end;

@@ -376,8 +376,9 @@ const
 type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
-    mmSwordAttack, mmStaffAttack, mmBowAttack, mmBlock, mmMiss, mmHumHit,
-    mmHumDeath, mmWolfHit, mmWolfDeath, mmSpiderHit, mmSpiderDeath);
+    mmSwordAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack, mmBlock, mmMiss,
+    mmHumHit, mmHumDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
+    mmSpiderDeath, mmSpiderAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -421,6 +422,8 @@ const
     (FileName: 'staff_attack.wav'; ResType: teSound;),
     // Bow attack
     (FileName: 'bow_attack.wav'; ResType: teSound;),
+    // Dagger attack
+    (FileName: 'dagger_attack.wav'; ResType: teSound;),
     // Block
     (FileName: 'block.wav'; ResType: teSound;),
     // Miss
@@ -433,10 +436,14 @@ const
     (FileName: 'wolf_hit.wav'; ResType: teSound;),
     // Wolf Death
     (FileName: 'wolf_death.wav'; ResType: teSound;),
+    // Wolf Attack
+    (FileName: 'wolf_death.wav'; ResType: teSound;),
     // Spider Hit
     (FileName: 'spider_hit.wav'; ResType: teSound;),
     // Spider Death
-    (FileName: 'spider_death.wav'; ResType: teSound;)
+    (FileName: 'spider_death.wav'; ResType: teSound;),
+    // Spider Attack
+    (FileName: 'spider_attack.wav'; ResType: teSound;)
     //
     );
 
