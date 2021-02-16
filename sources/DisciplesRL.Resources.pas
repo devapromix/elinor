@@ -86,16 +86,16 @@ type
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTitleHire, reTitleHighScores, reTitleVictory,
-    reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
-    reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
-    reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
-    reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
-    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
-    reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
-    reDifficultyNormalLogo, reDifficultyHardLogo, reWallpaperSettlement,
-    reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat, reWallpaperDifficulty,
-    reWallpaperLeader);
+    reTextHeal, reTextRevive, reTextInventory, reTitleHire, reTitleHighScores,
+    reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario,
+    reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle,
+    reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton,
+    reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
+    reTitleDifficulty, reScenarioDarkTower, reScenarioOverlord,
+    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
+    reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
+    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
+    reWallpaperDifficulty, reWallpaperLeader);
 
 {$ENDIF}
 
@@ -292,6 +292,8 @@ const
     (FileName: 'text.heal.png'; ResType: teGUI;),
     // Text "Revive"
     (FileName: 'text.revive.png'; ResType: teGUI;),
+    // Text "Inventory"
+    (FileName: 'text.inventory.png'; ResType: teGUI;),
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),
     // Title "High Scores"

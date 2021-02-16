@@ -68,7 +68,7 @@ type
   TButtonEnum = (btClose, btInventory);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextClose, reTextClose);
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextClose, reTextInventory);
 
 var
   Button: array [TButtonEnum] of TButton;
