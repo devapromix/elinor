@@ -454,7 +454,9 @@ const
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0),
 
     // Myzrael
-    (ResEnum: reMyzrael; Name: 'Мизраэль'; Description: ('', '', '');
+    (ResEnum: reMyzrael; Name: 'Мизраэль';
+    Description: ('Мизраэль был послан, чтобы помочь',
+    'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Pegasus Knight
