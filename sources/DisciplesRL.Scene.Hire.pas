@@ -6,6 +6,7 @@ uses
   Vcl.Controls,
   Vcl.Dialogs,
   System.Classes,
+  DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
   DisciplesRL.Party;
@@ -18,6 +19,7 @@ type
 procedure Init;
 procedure Render;
 procedure Timer;
+procedure RenderCharacterInfo(C: TCreatureEnum);
 procedure Show(const ASubScene: THireSubSceneEnum); overload;
 procedure Show(const Party: TParty; const Position: Integer); overload;
 procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
@@ -36,7 +38,6 @@ uses
   System.SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Saga,
-  DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
@@ -326,12 +327,10 @@ begin
   Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
 end;
 
-procedure RenderCharacterInfo;
+procedure RenderCharacterInfo(C: TCreatureEnum);
 const
   H = 25;
 var
-  C: TCreatureEnum;
-  K: TRaceCharKind;
   L, T, J: Integer;
 
   procedure Add; overload;
@@ -375,13 +374,6 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
-  K := TRaceCharKind(CurrentIndex);
-  case SubScene of
-    stCharacter:
-      C := Characters[TSaga.LeaderRace][cgCharacters][K];
-    stLeader:
-      C := Characters[TSaga.LeaderRace][cgLeaders][K];
-  end;
   with TCreature.Character(C) do
   begin
     Add(Name, True);
@@ -412,24 +404,6 @@ begin
     end;
     for J := 0 to 2 do
       Add(Description[J]);
-    case SubScene of
-      stCharacter:
-        begin
-          RenderResources;
-          DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70, Top, reGold);
-          LeftTextOut(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
-            IntToStr(Gold));
-        end;
-      stLeader:
-        begin
-          { Surface.Canvas.Draw(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
-            ResImage[reInfoFrame]);
-            T := Top + 6;
-            L := Lf + (ResImage[reActFrame].Width * 2) + 14;
-            Add('Умения', True);
-            Add; }
-        end;
-    end;
   end;
 end;
 
@@ -620,6 +594,7 @@ var
   ItemRes: TResEnum;
   GM, MM: Boolean;
   It1, It2, It3: TResEnum;
+  C: TCreatureEnum;
 
   procedure DrawGold;
   begin
@@ -849,7 +824,36 @@ begin
       ResImage[reInfoFrame]);
   case SubScene of
     stCharacter, stLeader:
-      RenderCharacterInfo;
+      begin
+        K := TRaceCharKind(CurrentIndex);
+        case SubScene of
+          stCharacter:
+            C := Characters[TSaga.LeaderRace][cgCharacters][K];
+          stLeader:
+            C := Characters[TSaga.LeaderRace][cgLeaders][K];
+        end;
+        RenderCharacterInfo(C);
+        case SubScene of
+          stCharacter:
+            begin
+              RenderResources;
+              DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
+                Top, reGold);
+              LeftTextOut(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
+                IntToStr(TSaga.Gold));
+            end;
+          stLeader:
+            begin
+              { Surface.Canvas.Draw(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
+                ResImage[reInfoFrame]);
+                T := Top + 6;
+                L := Lf + (ResImage[reActFrame].Width * 2) + 14;
+                Add('Умения', True);
+                Add; }
+            end;
+        end;
+      end;
+
     stRace:
       RenderRaceInfo;
     stDifficulty:

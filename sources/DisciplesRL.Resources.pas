@@ -150,7 +150,7 @@ const
     // Big Frame
     (FileName: 'big_frame.png'; ResType: teGUI;),
     // Info Frame
-    (FileName: 'info_frame.png'; ResType: teGUI;),
+    (FileName: 'frame.info.png'; ResType: teGUI;),
     // Neutral Terrain
     (FileName: 'tile.dirt.png'; ResType: teTile;),
     // Empire Terrain

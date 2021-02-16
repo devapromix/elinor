@@ -59,6 +59,7 @@ uses
   System.TypInfo,
   DisciplesRL.Saga,
   DisciplesRL.GUI.Button,
+  DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Map,
   DisciplesRL.Scene.Map;
@@ -74,6 +75,7 @@ var
   CurrentParty: TParty;
   BackScene: TSceneEnum;
   ShowInventory: Boolean = False;
+  Lf: Integer = 0;
 
 const
   S = 2;
@@ -198,10 +200,12 @@ begin
       Button[I].Sellected := True;
   end;
   ShowInventory := False;
+  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
 end;
 
 procedure Inventory;
 begin
+  MediaPlayer.Play(mmClick);
   ShowInventory := not ShowInventory;
 end;
 
@@ -214,18 +218,43 @@ begin
 end;
 
 procedure Render;
+const
+  H = 25;
+var
+  C: TCreatureEnum;
+  L, T, J: Integer;
+
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    LeftTextOut(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
 begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
   DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
-  Surface.Canvas.Draw(GetFrameX(0, psRight), GetFrameY(0, psRight),
-    ResImage[reBigFrame]);
   if ShowInventory then
   begin
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
 
   end
   else
   begin
-
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
+    C := CurrentParty.Creature[ActivePartyPosition].Enum;
+    if (C <> crNone) then
+      RenderCharacterInfo(C);
   end;
   RenderResources;
   RenderButtons;
@@ -244,6 +273,8 @@ procedure MouseClick;
 begin
   if Button[btClose].MouseDown then
     Close;
+  if Button[btInventory].MouseDown then
+    Inventory;
 end;
 
 procedure MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -340,18 +371,17 @@ begin
   if IsExp then
     S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperience(Level)]);
-  LeftTextOut(AX + Left + 64, AY + 27,
-    Format('Уровень %d', [Level]) + S);
-  LeftTextOut(AX + Left + 64, AY + 48,
-    Format('Здоровье %d/%d', [HitPoints, MaxHitPoints]));
+  LeftTextOut(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]) + S);
+  LeftTextOut(AX + Left + 64, AY + 48, Format('Здоровье %d/%d',
+    [HitPoints, MaxHitPoints]));
   if Damage > 0 then
     LeftTextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d',
       [Damage, Armor]))
   else
-    LeftTextOut(AX + Left + 64, AY + 69,
-      Format('Исцеление %d Броня %d', [Heal, Armor]));
-  LeftTextOut(AX + Left + 64, AY + 90,
-    Format('Инициатива %d Точность %d', [Initiative, ChToHit]) + '%');
+    LeftTextOut(AX + Left + 64, AY + 69, Format('Исцеление %d Броня %d',
+      [Heal, Armor]));
+  LeftTextOut(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d',
+    [Initiative, ChToHit]) + '%');
 end;
 
 procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
