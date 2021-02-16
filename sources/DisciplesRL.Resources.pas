@@ -94,7 +94,8 @@ type
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
     reDifficultyNormalLogo, reDifficultyHardLogo, reWallpaperSettlement,
-    reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat, reWallpaperDifficulty);
+    reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat, reWallpaperDifficulty,
+    reWallpaperLeader);
 
 {$ENDIF}
 
@@ -364,7 +365,9 @@ const
     // Wallpaper Defeat
     (FileName: 'wallpaper.defeat.png'; ResType: teBG;),
     // Wallpaper Difficulty
-    (FileName: 'wallpaper.difficulty.png'; ResType: teBG;)
+    (FileName: 'wallpaper.difficulty.png'; ResType: teBG;),
+    // Wallpaper Leader
+    (FileName: 'wallpaper.leader.png'; ResType: teBG;)
     //
     );
 

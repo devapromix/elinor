@@ -242,6 +242,7 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
+  DrawImage(reWallpaperLeader);
   DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
   if ShowInventory then

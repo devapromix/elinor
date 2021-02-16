@@ -652,6 +652,7 @@ begin
       end;
     stLeader:
       begin
+        DrawImage(reWallpaperLeader);
         DrawTitle(reTitleLeader);
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
