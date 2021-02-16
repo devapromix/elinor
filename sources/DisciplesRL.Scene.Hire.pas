@@ -671,6 +671,7 @@ begin
       end;
     stDifficulty:
       begin
+        DrawImage(reWallpaperDifficulty);
         DrawTitle(reTitleDifficulty);
         for D := dfEasy to dfHard do
         begin
