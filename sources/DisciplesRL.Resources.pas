@@ -11,15 +11,15 @@ const
   //
   reNone = 0;
   reDark = 0;
-
   //
   //
-  reTreePine = $E009;
-  reTreeOak = $E010;
   reMountain1 = $E006;
   reMountain2 = $E007;
   reMountain3 = $E008;
-
+  reMountain4 = $E009;
+  //
+  reTreePine = $E014;
+  reTreeOak = $E015;
   //
   reNeutralTerrain = $E000;
   reTheEmpireTerrain = 1;
