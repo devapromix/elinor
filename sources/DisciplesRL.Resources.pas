@@ -377,8 +377,9 @@ type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
     mmSwordAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack, mmBlock, mmMiss,
-    mmHumHit, mmHumDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
-    mmSpiderDeath, mmSpiderAttack);
+    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmWolfHit,
+    mmWolfDeath, mmWolfAttack, mmSpiderHit, mmSpiderDeath, mmSpiderAttack,
+    mmGhostHit, mmGhostDeath, mmGhostAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -428,6 +429,10 @@ const
     (FileName: 'block.wav'; ResType: teSound;),
     // Miss
     (FileName: 'miss.ogg'; ResType: teSound;),
+    // Nosferat Attack
+    (FileName: 'nosferat_attack.wav'; ResType: teSound;),
+    // Lich Queen Attack
+    (FileName: 'lich_queen_attack.mp3'; ResType: teSound;),
     // Humanoid Hit
     (FileName: 'hum_hit.wav'; ResType: teSound;),
     // Humanoid Death
@@ -443,6 +448,12 @@ const
     // Spider Death
     (FileName: 'spider_death.wav'; ResType: teSound;),
     // Spider Attack
+    (FileName: 'spider_attack.wav'; ResType: teSound;),
+    // Ghost Hit
+    (FileName: 'spider_hit.wav'; ResType: teSound;),
+    // Ghost Death
+    (FileName: 'spider_death.wav'; ResType: teSound;),
+    // Ghost Attack
     (FileName: 'spider_attack.wav'; ResType: teSound;)
     //
     );

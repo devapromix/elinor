@@ -524,12 +524,12 @@ const
     (ResEnum: reRanger; Name: 'Носферату'; Description: ('', '', '');
     HitPoints: 90; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAny;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmNosferatAttack);),
     // Lich Queen
     (ResEnum: reArchmage; Name: 'Королева Личей'; Description: ('', '', '');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
     // Fighter
     (ResEnum: reSquire; Name: 'Воин'; Description: ('', '', ''); HitPoints: 120;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
@@ -539,7 +539,7 @@ const
     (ResEnum: reArcher; Name: 'Привидение'; Description: ('', '', '');
     HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny;
-    Gold: 50),
+    Gold: 50; Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
     // Initiate
     (ResEnum: reApprentice; Name: 'Адепт'; Description: ('', '', '');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
