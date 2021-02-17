@@ -107,9 +107,11 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="DisciplesRL.MainForm.pas">
+        <DCCReference Include="Forms\DisciplesRL.MainForm.pas">
             <Form>MainForm</Form>
-            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Forms\DisciplesRL.ConfirmationForm.pas">
+            <Form>ConfirmationForm</Form>
         </DCCReference>
         <DCCReference Include="DisciplesRL.Scenes.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Map.pas"/>
@@ -127,14 +129,10 @@
         <DCCReference Include="DisciplesRL.PascalScript.Vars.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Hire.pas"/>
         <DCCReference Include="DisciplesRL.Scene.Battle2.pas"/>
-        <DCCReference Include="DisciplesRL.ConfirmationForm.pas">
-            <Form>ConfirmationForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
+        <DCCReference Include="DisciplesRL.Saga.pas"/>
         <DCCReference Include="Third-Party\PathFind\PathFind.pas"/>
         <DCCReference Include="Third-Party\RLLog\RLLog.pas"/>
         <DCCReference Include="Third-Party\MapObject\MapObject.pas"/>
-        <DCCReference Include="DisciplesRL.Saga.pas"/>
         <DCCReference Include="Third-Party\Bass\Bass.pas"/>
         <DCCReference Include="Third-Party\SimplePlayer\SimplePlayer.pas"/>
         <BuildConfiguration Include="Release">

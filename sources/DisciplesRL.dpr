@@ -1,7 +1,7 @@
 program DisciplesRL;
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   SysUtils, Classes,
   MapObject in 'Third-Party\MapObject\MapObject.pas',
   BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas',
@@ -13,9 +13,11 @@ uses
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas';
-  {$ELSE}
+{$ELSE}
   Vcl.Forms,
-  DisciplesRL.MainForm in 'DisciplesRL.MainForm.pas' {MainForm},
+  DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm} ,
+  DisciplesRL.ConfirmationForm
+    in 'Forms\DisciplesRL.ConfirmationForm.pas' {ConfirmationForm} ,
   DisciplesRL.Scenes in 'DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'DisciplesRL.Scene.Map.pas',
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
@@ -32,27 +34,26 @@ uses
   DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
   DisciplesRL.Scene.Hire in 'DisciplesRL.Scene.Hire.pas',
   DisciplesRL.Scene.Battle2 in 'DisciplesRL.Scene.Battle2.pas',
-  DisciplesRL.ConfirmationForm in 'DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
+  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
-  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   Bass in 'Third-Party\Bass\Bass.pas',
   SimplePlayer in 'Third-Party\SimplePlayer\SimplePlayer.pas';
 
 {$R *.res}
-
 {$ENDIF}
 
 begin
   Randomize();
-  {$IFNDEF FPC}
-  ReportMemoryLeaksOnShutdown := True;
+{$IFNDEF FPC}
   Application.Initialize;
+  ReportMemoryLeaksOnShutdown := True;
   Application.MainFormOnTaskbar := True;
   Application.Title := 'DisciplesRL';
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TConfirmationForm, ConfirmationForm);
   Application.Run;
-  {$ENDIF}
+{$ENDIF}
+
 end.
