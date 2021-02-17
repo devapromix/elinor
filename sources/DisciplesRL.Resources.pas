@@ -433,7 +433,7 @@ const
     // Miss
     (FileName: 'miss.ogg'; ResType: teSound;),
     // Nosferat Attack
-    (FileName: 'nosferat_attack.wav'; ResType: teSound;),
+    (FileName: 'nosferat_attack.mp3'; ResType: teSound;),
     // Lich Queen Attack
     (FileName: 'lich_queen_attack.mp3'; ResType: teSound;),
     // Humanoid Hit
@@ -441,9 +441,9 @@ const
     // Humanoid Death
     (FileName: 'hum_death.ogg'; ResType: teSound;),
     // Goblin Hit
-    (FileName: 'goblin_hit.ogg'; ResType: teSound;),
+    (FileName: 'goblin_hit.wav'; ResType: teSound;),
     // Goblin Death
-    (FileName: 'goblin_death.ogg'; ResType: teSound;),
+    (FileName: 'goblin_death.wav'; ResType: teSound;),
     // Orc Hit
     (FileName: 'orc_hit.ogg'; ResType: teSound;),
     // Orc Death
