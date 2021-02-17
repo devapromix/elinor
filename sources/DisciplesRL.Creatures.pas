@@ -527,20 +527,29 @@ const
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Death Knight
-    (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти'; Description: ('', '', '');
-    HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
-    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти';
+    Description: ('Сильнейшие и благороднейшие воины',
+    'королевства Алкмаар были возвращены',
+    'Мортис из небытия Рыцарями Смерти.'); HitPoints: 150; Initiative: 50;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Nosferat
-    (ResEnum: reRanger; Name: 'Носферату'; Description: ('', '', '');
-    HitPoints: 90; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
-    Damage: 10; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAny;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmNosferatAttack);),
+    (ResEnum: reRanger; Name: 'Носферату';
+    Description: ('Первые вампиры Алкмаара, отринувшие',
+    'Всеотца и поклявшиеся в верности Мор-',
+    'тис в обмен на власть над смертью.'); HitPoints: 90; Initiative: 50;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
+    SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmNosferatAttack);),
     // Lich Queen
-    (ResEnum: reArchmage; Name: 'Королева Личей'; Description: ('', '', '');
+    (ResEnum: reArchmage; Name: 'Королева Личей';
+    Description: ('Жрицы культа смерти, процветавшего в',
+    'Алкмааре, вернулись по воле Мортис', 'безжалостными Королевами личей.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
+    // туг Своей властью Мортис вернула лучших из лучших в мир живых, чтобы те действовали хитростью там, где недостаточно одной лишь грубой силы.
     // Fighter
     (ResEnum: reSquire; Name: 'Воин';
     Description: ('Услышав зов Мортис, безропотно',
@@ -549,15 +558,18 @@ const
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Ghost
-    (ResEnum: reArcher; Name: 'Привидение'; Description: ('Привидения - это темные души, чье зло', 'навсегда приковало их к миру живых.', '');
-    HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1;
-    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny;
-    Gold: 50; Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
+    (ResEnum: reArcher; Name: 'Привидение';
+    Description: ('Привидения - это темные души, чье зло',
+    'навсегда приковало их к миру живых.', ''); HitPoints: 45; Initiative: 20;
+    ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
+    SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
+    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
     // Initiate
-    (ResEnum: reApprentice; Name: 'Адепт'; Description: ('Адепты обучены нести чуму и', 'смерть армиям живых во славу', 'своей богини Мортис.');
-    HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
-    Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
+    (ResEnum: reApprentice; Name: 'Адепт';
+    Description: ('Адепты обучены нести чуму и', 'смерть армиям живых во славу',
+    'своей богини Мортис.'); HitPoints: 45; Initiative: 40; ChancesToHit: 80;
+    Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath;
+    ReachEnum: reAll; Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Wyvern
     (ResEnum: reAcolyte; Name: 'Виверна';
     Description: ('Чародеи воскрешают мертвых драконов,',
