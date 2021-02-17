@@ -491,28 +491,39 @@ const
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
     // Squire
-    (ResEnum: reSquire; Name: 'Сквайр'; Description: ('', '', '');
-    HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    (ResEnum: reSquire; Name: 'Сквайр';
+    Description: ('Сквайр доблестно защищает в бою',
+    'своих более слабых соотечественников,',
+    'держа противников на расстоянии меча.'); HitPoints: 100; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Archer
-    (ResEnum: reArcher; Name: 'Лучник'; Description: ('', '', '');
+    (ResEnum: reArcher; Name: 'Лучник';
+    Description: ('Стрелы лучника успешно поражают',
+    'врагов, которые укрываются за спинами', 'своих более сильных соратников.');
     HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 40; Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Apprentice
-    (ResEnum: reApprentice; Name: 'Ученик'; Description: ('', '', '');
-    HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll;
-    Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
+    (ResEnum: reApprentice; Name: 'Ученик';
+    Description: ('Ученик мага атакует противников',
+    'с большого расстояния, обрушивая', 'на них молнии.'); HitPoints: 35;
+    Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
+    Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
+    Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Acolyte
-    (ResEnum: reAcolyte; Name: 'Служка'; Description: ('', '', '');
+    (ResEnum: reAcolyte; Name: 'Служка';
+    Description: ('Обученная искусству исцеления служка',
+    'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
     Gold: 50),
 
     // Ashgan
-    (ResEnum: reAshgan; Name: 'Ашган'; Description: ('', '', '');
+    (ResEnum: reAshgan; Name: 'Ашган';
+    Description: ('Ашган, несущий чуму, был некогда',
+    'верховным священником Алкмаара.', 'Он не оставляет столицу без охраны.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
     // Death Knight
@@ -531,22 +542,26 @@ const
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
     // Fighter
-    (ResEnum: reSquire; Name: 'Воин'; Description: ('', '', ''); HitPoints: 120;
-    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    (ResEnum: reSquire; Name: 'Воин';
+    Description: ('Услышав зов Мортис, безропотно',
+    'встают в строй мертвые воины.', 'Они не знают ни страха, ни жалости.');
+    HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Ghost
-    (ResEnum: reArcher; Name: 'Привидение'; Description: ('', '', '');
+    (ResEnum: reArcher; Name: 'Привидение'; Description: ('Привидения - это темные души, чье зло', 'навсегда приковало их к миру живых.', '');
     HitPoints: 45; Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny;
     Gold: 50; Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
     // Initiate
-    (ResEnum: reApprentice; Name: 'Адепт'; Description: ('', '', '');
+    (ResEnum: reApprentice; Name: 'Адепт'; Description: ('Адепты обучены нести чуму и', 'смерть армиям живых во славу', 'своей богини Мортис.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
     Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Wyvern
-    (ResEnum: reAcolyte; Name: 'Виверна'; Description: ('', '', '');
+    (ResEnum: reAcolyte; Name: 'Виверна';
+    Description: ('Чародеи воскрешают мертвых драконов,',
+    'тем самым создавая виверн,', 'которые сражаются в рядах армии мертвых.');
     HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
     Gold: 100),
@@ -610,15 +625,20 @@ const
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
     // Spider
-    (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; Description: ('', '', '');
-    HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 130; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);),
+    (ResEnum: reGiantSpider; Name: 'Гигантский Паук';
+    Description: ('Сильный яд гигантского паука',
+    'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
+    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);),
 
     // Wolf
-    (ResEnum: reWolf; Name: 'Волк'; Description: ('', '', ''); HitPoints: 180;
-    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    (ResEnum: reWolf; Name: 'Волк';
+    Description: ('Волки испокон веков бродят по этим',
+    'землям в поисках добычи. Смерть ждет',
+    'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack);)
     //
     );
