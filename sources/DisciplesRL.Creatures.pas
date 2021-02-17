@@ -607,7 +607,7 @@ const
     (ResEnum: reOrc; Name: 'Орк'; Description: ('', '', ''); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
     // Spider
     (ResEnum: reGiantSpider; Name: 'Гигантский Паук'; Description: ('', '', '');

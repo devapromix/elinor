@@ -376,10 +376,11 @@ const
 type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
-    mmSwordAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack, mmBlock, mmMiss,
+    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack, mmBlock, mmMiss,
     mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
-    mmGoblinDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
-    mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack);
+    mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack,
+    mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
+    mmGhostAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -419,6 +420,8 @@ const
     (FileName: 'exit.wav'; ResType: teSound;),
     // Sword attack
     (FileName: 'sword_attack.wav'; ResType: teSound;),
+    // Axe attack
+    (FileName: 'axe_attack.wav'; ResType: teSound;),
     // Staff attack
     (FileName: 'staff_attack.wav'; ResType: teSound;),
     // Bow attack
@@ -441,6 +444,10 @@ const
     (FileName: 'goblin_hit.ogg'; ResType: teSound;),
     // Goblin Death
     (FileName: 'goblin_death.ogg'; ResType: teSound;),
+    // Orc Hit
+    (FileName: 'orc_hit.ogg'; ResType: teSound;),
+    // Orc Death
+    (FileName: 'orc_death.ogg'; ResType: teSound;),
     // Wolf Hit
     (FileName: 'wolf_hit.wav'; ResType: teSound;),
     // Wolf Death
