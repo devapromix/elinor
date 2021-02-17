@@ -95,7 +95,7 @@ type
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
-    reWallpaperDifficulty, reWallpaperLeader);
+    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario);
 
 {$ENDIF}
 
@@ -369,18 +369,20 @@ const
     // Wallpaper Difficulty
     (FileName: 'wallpaper.difficulty.png'; ResType: teBG;),
     // Wallpaper Leader
-    (FileName: 'wallpaper.leader.png'; ResType: teBG;)
+    (FileName: 'wallpaper.leader.png'; ResType: teBG;),
+    // Wallpaper Scenario
+    (FileName: 'wallpaper.scenario.png'; ResType: teBG;)
     //
     );
 
 type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
-    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack, mmBlock, mmMiss,
-    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
-    mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack,
-    mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
-    mmGhostAttack);
+    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack,
+    mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath,
+    mmGoblinHit, mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath,
+    mmWolfAttack, mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit,
+    mmGhostDeath, mmGhostAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;

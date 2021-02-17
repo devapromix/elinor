@@ -699,6 +699,7 @@ begin
       end;
     stScenario, stJournal:
       begin
+        DrawImage(reWallpaperScenario);
         DrawTitle(reTitleScenario);
         for S := Low(TScenario.TScenarioEnum)
           to High(TScenario.TScenarioEnum) do
