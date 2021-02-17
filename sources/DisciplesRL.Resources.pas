@@ -377,9 +377,9 @@ type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
     mmSwordAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack, mmBlock, mmMiss,
-    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmWolfHit,
-    mmWolfDeath, mmWolfAttack, mmSpiderHit, mmSpiderDeath, mmSpiderAttack,
-    mmGhostHit, mmGhostDeath, mmGhostAttack);
+    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
+    mmGoblinDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
+    mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -437,6 +437,10 @@ const
     (FileName: 'hum_hit.wav'; ResType: teSound;),
     // Humanoid Death
     (FileName: 'hum_death.ogg'; ResType: teSound;),
+    // Goblin Hit
+    (FileName: 'goblin_hit.ogg'; ResType: teSound;),
+    // Goblin Death
+    (FileName: 'goblin_death.ogg'; ResType: teSound;),
     // Wolf Hit
     (FileName: 'wolf_hit.wav'; ResType: teSound;),
     // Wolf Death
