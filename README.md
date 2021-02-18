@@ -1,7 +1,7 @@
 ![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/title.logo.png)
 =================
-![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl?category=code)
-![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl?category=files)
+![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl/sources?category=code)
+![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl/sources?category=files)
 
 Simple roguelike game based on Disciples.
 
