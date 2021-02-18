@@ -843,7 +843,7 @@ begin
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
                 Top, reGold);
               LeftTextOut(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
-                IntToStr(TSaga.Gold));
+                IntToStr(TCreature.Character(C).Gold));
             end;
           stLeader:
             begin
