@@ -70,7 +70,7 @@ uses
   Vcl.Imaging.PNGImage;
 
 type
-  TResEnum = (reNone, reDay, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
+  TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
     reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame,
     reSmallFrame, reActFrame, reBigFrame, reInfoFrame, reNeutralTerrain,
     reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
@@ -88,7 +88,7 @@ type
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTitleHire, reTitleHighScores,
     reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario,
-    reTitleLeader, reTitleNewDay, reTitleLoot, reTitleParty, reTitleBattle,
+    reTitleLeader, reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle,
     reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton,
     reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
     reTitleDifficulty, reScenarioDarkTower, reScenarioOverlord,
@@ -126,8 +126,6 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
-    // Day
-    (FileName: 'day.png'; ResType: teGUI;),
     // Plus
     (FileName: 'plus.png'; ResType: teGUI;),
     // The Empire Logo
@@ -311,7 +309,7 @@ const
     // Title "Leader"
     (FileName: 'title.leader.png'; ResType: teGUI;),
     // Title "New Day"
-    (FileName: 'title.new_day.png'; ResType: teGUI;),
+    (FileName: 'text.new_day.png'; ResType: teGUI;),
     // Title "Loot"
     (FileName: 'title.loot.png'; ResType: teGUI;),
     // Title "Party"

@@ -164,6 +164,7 @@ type
   public
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
+
   class var
     Days: Integer;
     Gold: Integer;
@@ -181,9 +182,10 @@ type
     Wizard: Boolean;
     NoMusic: Boolean;
     IsGame: Boolean;
+    ShowNewDayMessage: ShortInt;
   public const
-    DifficultyName: array [TDifficultyEnum] of string = ('Легкий',
-      'Средний', 'Сложный');
+    DifficultyName: array [TDifficultyEnum] of string = ('Легкий', 'Средний',
+      'Сложный');
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
     ManaFromMinePerDay = 10;
@@ -427,7 +429,9 @@ begin
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     Mana := Mana + (ManaMines * ManaFromMinePerDay);
-    DisciplesRL.Scene.Hire.Show(stDay, scMap);
+    ShowNewDayMessage := 20;
+    MediaPlayer.Play(mmDay);
+    IsDay := False;
   end;
 end;
 
@@ -488,6 +492,7 @@ begin
   ManaMines := 0;
   BattlesWon := 0;
   IsDay := False;
+  ShowNewDayMessage := 0;
   PartyFree;
   TMap.Init;
   TMap.Gen;

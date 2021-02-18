@@ -115,6 +115,16 @@ begin
   end;
 end;
 
+procedure RenderNewDayMessage;
+begin
+  DrawImage(10, 10, reFrame);
+  DrawImage(60, 10, reTextNewDay);
+  DrawImage(45, 70, reGold);
+  LeftTextOut(75, 84, IntToStr(TSaga.GoldMines * TSaga.GoldFromMinePerDay));
+  DrawImage(170, 70, reMana);
+  LeftTextOut(205, 84, IntToStr(TSaga.ManaMines * TSaga.ManaFromMinePerDay));
+end;
+
 procedure Render;
 var
   X, Y: Integer;
@@ -186,11 +196,15 @@ begin
   else
     DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize,
       ResImage[reNoWay]);
+  // New Day Message
+  if TSaga.ShowNewDayMessage > 0 then
+    RenderNewDayMessage;
 end;
 
 procedure Timer;
 begin
-
+  if TSaga.ShowNewDayMessage > 0 then
+    Dec(TSaga.ShowNewDayMessage);
 end;
 
 procedure MouseClick;

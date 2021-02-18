@@ -113,9 +113,9 @@ procedure RenderResources;
 begin
   DrawImage(10, 10, reSmallFrame);
   DrawImage(15, 10, reGold);
-  LeftTextOut(45, 22, IntToStr(TSaga.Gold));
+  LeftTextOut(45, 24, IntToStr(TSaga.Gold));
   DrawImage(15, 40, reMana);
-  LeftTextOut(45, 52, IntToStr(TSaga.Mana));
+  LeftTextOut(45, 54, IntToStr(TSaga.Mana));
   // DrawImage(15, 70, reMana);
   // LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
 end;

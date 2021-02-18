@@ -13,7 +13,7 @@ uses
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
-    stVictory, stDefeat, stHighScores2, stDay, stLoot, stStoneTab,
+    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
     stDifficulty);
 
 procedure Init;
@@ -64,8 +64,6 @@ const
     (reTextClose, reTextClose),
     // Scores
     (reTextClose, reTextClose),
-    // Day
-    (reTextClose, reTextClose),
     // Loot
     (reTextClose, reTextClose),
     // StoneTab
@@ -74,7 +72,7 @@ const
     (reTextContinue, reTextCancel));
 
 const
-  AddButtonScene = [stDay, stLoot, stStoneTab];
+  AddButtonScene = [stLoot, stStoneTab];
   CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
     AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
@@ -119,8 +117,6 @@ begin
   BackScene := ABackScene;
   SetScene(scHire);
   case SubScene of
-    stDay:
-      MediaPlayer.Play(mmDay);
     stLoot, stStoneTab:
       MediaPlayer.Play(mmLoot);
   end;
@@ -265,12 +261,6 @@ begin
             DisciplesRL.Scene.Map.Show;
             Exit;
           end;
-      end;
-    stDay:
-      begin
-        MediaPlayer.Play(mmSettlement);
-        TSaga.IsDay := False;
-        DisciplesRL.Scene.Map.Show;
       end;
     stLoot:
       begin
@@ -731,43 +721,6 @@ begin
         DrawItem([reItemStoneTable]);
         CenterTextOut(450, 'КАМЕННАЯ ТАБЛИЧКА');
         CenterTextOut(470, TScenario.ScenarioAncientKnowledgeState);
-      end;
-    stDay:
-      begin
-        DrawTitle(reTitleNewDay);
-        CenterTextOut(450, Format('ДЕНЬ %d', [TSaga.Days]));
-        Y := 470;
-        if GM and not MM then
-        begin
-          DrawGold;
-          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
-            TSaga.GoldFromMinePerDay));
-          Inc(Y, 20);
-        end
-        else if MM and not GM then
-        begin
-          DrawMana;
-          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
-            TSaga.ManaFromMinePerDay));
-          Inc(Y, 20);
-        end
-        else if GM and MM then
-        begin
-          case MC of
-            0:
-              DrawItem([reItemMana, reDay, reItemGold]);
-          else
-            DrawItem([reItemGold, reDay, reItemMana]);
-          end;
-          CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.GoldMines *
-            TSaga.GoldFromMinePerDay));
-          Inc(Y, 20);
-          CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.ManaMines *
-            TSaga.ManaFromMinePerDay));
-          Inc(Y, 20);
-        end
-        else
-          DrawItem([reDay]);
       end;
     stLoot:
       begin

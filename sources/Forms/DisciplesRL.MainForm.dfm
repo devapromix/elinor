@@ -32,7 +32,7 @@ object MainForm: TMainForm
   object AutoTimer: TTimer
     Enabled = False
     Interval = 1500
-    Left = 72
-    Top = 24
+    Left = 32
+    Top = 80
   end
 end
