@@ -579,9 +579,12 @@ const
     Gold: 100),
 
     // Ashkael
-    (ResEnum: reAshkael; Name: 'Ашкаэль'; Description: ('', '', '');
-    HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
-    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
+    (ResEnum: reAshkael; Name: 'Ашкаэль';
+    Description: ('Командир 80 адских когорт, Ашкаэль был',
+    'избран Бетрезеном для защиты столицы Легионов,',
+    'никогда не оставляя её без защиты.'); HitPoints: 900; Initiative: 90;
+    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    SourceEnum: seLife; ReachEnum: reAll;),
     // Duke
     (ResEnum: rePegasusKnight; Name: 'Герцог';
     Description: ('Воинственный герцог ведет демонов',
@@ -590,36 +593,48 @@ const
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Counselor
-    (ResEnum: reRanger; Name: 'Советник'; Description: ('Советник ведёт авангард сил Легионов.', 'Он путешествует по землям Невендаара', 'с высокой скоростью.');
+    (ResEnum: reRanger; Name: 'Советник';
+    Description: ('Советник ведёт авангард сил Легионов.',
+    'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Arch-Devil
-    (ResEnum: reArchmage; Name: 'Архидьявол'; Description: ('Архидьявол является владыкой магии;', 'он обладает глубокими знаниями', 'о посохах и свитках.');
-    HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
-    Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
+    (ResEnum: reArchmage; Name: 'Архидьявол';
+    Description: ('Архидьявол является владыкой магии;',
+    'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
+    Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
+    Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     ///
     // Possessed
-    (ResEnum: reSquire; Name: 'Одержимый'; Description: ('', '', '');
-    HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    (ResEnum: reSquire; Name: 'Одержимый';
+    Description: ('Повелитель демонов поработил этих',
+    'сильных телом крестьян для того,',
+    'чтобы они сражались с ним в адских сражениях.'); HitPoints: 120;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Gargoyle
-    (ResEnum: reArcher; Name: 'Горгулья'; Description: ('', '', '');
-    HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 40; Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 80),
+    (ResEnum: reArcher; Name: 'Горгулья';
+    Description: ('Каменная кожа гаргулий поглощает',
+    'большую часть получаемого урона,',
+    'делая из него прекрасного защитного юнита.'); HitPoints: 90;
+    Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
+    Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 80),
     // Cultist
-    (ResEnum: reApprentice; Name: 'Культист'; Description: ('', '', '');
+    (ResEnum: reApprentice; Name: 'Культист';
+    Description: ('Еретики Империи, они взывают',
+    'к адским силам, дабы призвать', 'огонь на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Devil
-    (ResEnum: reAcolyte; Name: 'Черт'; Description: ('', '', '');
-    HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 100),
+    (ResEnum: reAcolyte; Name: 'Чёрт';
+    Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
+    'Тёмного Повелителя Бетрезена.'); HitPoints: 170; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100),
 
     // Goblin
     (ResEnum: reGoblin; Name: 'Гоблин'; Description: ('', '', '');
