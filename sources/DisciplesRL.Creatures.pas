@@ -637,15 +637,20 @@ const
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100),
 
     // Goblin
-    (ResEnum: reGoblin; Name: 'Гоблин'; Description: ('', '', '');
+    (ResEnum: reGoblin; Name: 'Гоблин';
+    Description: ('Гоблины — это дальние родственники',
+    'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);),
     // Goblin Archer
-    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник'; Description: ('', '', '');
-    HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
+    (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник';
+    Description: ('Гоблины-лучники сопровождают своих',
+    'собратьев в засадах и нападениях,',
+    'используя грубые стрелы.'); HitPoints: 40; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
+    Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
     // Orc
     (ResEnum: reOrc; Name: 'Орк'; Description: ('', '', ''); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
