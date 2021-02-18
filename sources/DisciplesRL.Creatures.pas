@@ -590,15 +590,16 @@ const
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Counselor
-    (ResEnum: reRanger; Name: 'Советник'; Description: ('', '', '');
+    (ResEnum: reRanger; Name: 'Советник'; Description: ('Советник ведёт авангард сил Легионов.', 'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Arch-Devil
-    (ResEnum: reArchmage; Name: 'Дьявол'; Description: ('', '', '');
+    (ResEnum: reArchmage; Name: 'Архидьявол'; Description: ('Архидьявол является владыкой магии;', 'он обладает глубокими знаниями', 'о посохах и свитках.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
+    ///
     // Possessed
     (ResEnum: reSquire; Name: 'Одержимый'; Description: ('', '', '');
     HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
