@@ -222,7 +222,7 @@ type
   end;
 
 const
-  PartyBase: array [1 .. 25] of TPartyBase = (
+  PartyBase: array [1 .. 26] of TPartyBase = (
     //
     (Level: 1; Character: (crNone, crGoblin_Archer, crGoblin, crNone, crNone,
     crGoblin_Archer)),
@@ -298,6 +298,9 @@ const
     //
     (Level: 8; Character: (crOrc, crGoblin_Archer, crOrc, crGoblin_Archer,
     crOrc, crGoblin_Archer)),
+    //
+    (Level: 8; Character: (crNone, crNone, crOgre, crNone,
+    crNone, crNone)),
 
     // Финальная партия в башне
     (Level: 99; Character: (crNone, crNone, crGiantSpider, crNone,

@@ -118,6 +118,8 @@ type
     crGoblin, crGoblin_Archer, crGoblin_Elder,
     // Orcs
     crOrc,
+    // Ogres
+    crOgre,
     // Spiders
     crGiantSpider,
     // Wolves
@@ -551,7 +553,7 @@ const
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
-    // туг Своей властью Мортис вернула лучших из лучших в мир живых, чтобы те действовали хитростью там, где недостаточно одной лишь грубой силы.
+    // Головорез Thug Своей властью Мортис вернула лучших из лучших в мир живых, чтобы те действовали хитростью там, где недостаточно одной лишь грубой силы.
     // Fighter
     (ResEnum: reSquire; Name: 'Воин';
     Description: ('Услышав зов Мортис, безропотно',
@@ -655,15 +657,24 @@ const
     // Goblin Elder
     (ResEnum: reGoblinElder; Name: 'Гоблин-старейшина';
     Description: ('Немногие гоблины настолько умны,',
-    'чтобы практиковать искусство магии,',
-    'но иногда появляются старейшины.'); HitPoints: 35; Initiative: 40;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 10; Armor: 0; Heal: 0;
-    SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
-    Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);),
+    'чтобы практиковать искусство магии,', 'но иногда появляются старейшины.');
+    HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
+    Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);),
 
     // Orc
-    (ResEnum: reOrc; Name: 'Орк'; Description: ('', '', ''); HitPoints: 200;
+    (ResEnum: reOrc; Name: 'Орк';
+    Description: ('Орки в битвах всегда на передних',
+    'рядах, так как они обладают крепким', 'телосложением.'); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
+
+    // Ogre
+    (ResEnum: reOrc; Name: 'Огр';
+    Description: ('Огры нападают на всех проходящих',
+    'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
+    Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
