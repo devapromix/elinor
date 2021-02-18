@@ -82,7 +82,7 @@ type
     reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger,
     reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael,
     reAshgan, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
-    reBlueDragon, reGoblin, reGoblinArcher, reGiantSpider, reWolf, reOrc,
+    reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reOrc,
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
@@ -251,7 +251,9 @@ const
     // Goblin
     (FileName: 'character.goblin.png'; ResType: teGUI;),
     // Goblin Archer
-    (FileName: 'character.goblin_archer.png'; ResType: teGUI;),
+    (FileName: 'character.goblin.archer.png'; ResType: teGUI;),
+    // Goblin Elder
+    (FileName: 'character.goblin.elder.png'; ResType: teGUI;),
     // Giant Spider
     (FileName: 'character.giant_spider.png'; ResType: teGUI;),
     // Wolf

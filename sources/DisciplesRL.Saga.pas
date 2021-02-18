@@ -222,7 +222,7 @@ type
   end;
 
 const
-  PartyBase: array [1 .. 20] of TPartyBase = (
+  PartyBase: array [1 .. 25] of TPartyBase = (
     //
     (Level: 1; Character: (crNone, crGoblin_Archer, crGoblin, crNone, crNone,
     crGoblin_Archer)),
@@ -232,6 +232,9 @@ const
     //
     (Level: 1; Character: (crGoblin, crNone, crNone, crGoblin_Archer,
     crGoblin, crNone)),
+    //
+    (Level: 1; Character: (crGoblin, crNone, crNone, crGoblin_Elder,
+    crGoblin, crNone)),
 
     //
     (Level: 2; Character: (crGoblin, crNone, crGoblin, crGoblin_Archer,
@@ -239,12 +242,24 @@ const
     //
     (Level: 2; Character: (crGoblin, crGoblin_Archer, crNone, crNone, crGoblin,
     crGoblin_Archer)),
+    //
+    (Level: 2; Character: (crGoblin, crGoblin_Elder, crNone, crNone, crGoblin,
+    crGoblin_Elder)),
+    //
+    (Level: 2; Character: (crGoblin, crNone, crGoblin, crGoblin_Elder,
+    crGoblin, crNone)),
 
     //
     (Level: 3; Character: (crGoblin, crGoblin_Archer, crNone, crGoblin_Archer,
     crGoblin, crGoblin_Archer)),
     //
+    (Level: 3; Character: (crGoblin, crGoblin_Archer, crNone, crGoblin_Elder,
+    crGoblin, crGoblin_Archer)),
+    //
     (Level: 3; Character: (crGoblin, crGoblin_Archer, crGoblin, crNone,
+    crGoblin, crGoblin_Archer)),
+    //
+    (Level: 3; Character: (crGoblin, crGoblin_Archer, crGoblin, crGoblin_Elder,
     crGoblin, crGoblin_Archer)),
 
     //

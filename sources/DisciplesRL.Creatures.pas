@@ -114,8 +114,10 @@ type
     // Legions Of The Damned Support units
     crDevil,
 
-    // Goblins and Orcs
-    crGoblin, crGoblin_Archer, crOrc,
+    // Goblins
+    crGoblin, crGoblin_Archer, crGoblin_Elder,
+    // Orcs
+    crOrc,
     // Spiders
     crGiantSpider,
     // Wolves
@@ -610,22 +612,22 @@ const
     // Possessed
     (ResEnum: reSquire; Name: 'Одержимый';
     Description: ('Повелитель демонов поработил этих',
-    'сильных телом крестьян для того,',
-    'чтобы они сражались с ним в адских сражениях.'); HitPoints: 120;
-    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
+    'сильных телом крестьян для того, что-',
+    'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Gargoyle
     (ResEnum: reArcher; Name: 'Горгулья';
     Description: ('Каменная кожа гаргулий поглощает',
-    'большую часть получаемого урона,',
-    'делая из него прекрасного защитного юнита.'); HitPoints: 90;
-    Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
-    Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 80),
+    'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
+    HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 40; Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 80),
     // Cultist
     (ResEnum: reApprentice; Name: 'Культист';
-    Description: ('Еретики Империи, они взывают',
-    'к адским силам, дабы призвать', 'огонь на всех своих врагов в битве.');
+    Description: ('Еретики Империи, они взывают к',
+    'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
@@ -646,11 +648,19 @@ const
     // Goblin Archer
     (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник';
     Description: ('Гоблины-лучники сопровождают своих',
-    'собратьев в засадах и нападениях,',
-    'используя грубые стрелы.'); HitPoints: 40; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
+    'собратьев в засадах и нападениях,', 'используя грубые стрелы.');
+    HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
+    // Goblin Elder
+    (ResEnum: reGoblinElder; Name: 'Гоблин-старейшина';
+    Description: ('Немногие гоблины настолько умны,',
+    'чтобы практиковать искусство магии,',
+    'но иногда появляются старейшины.'); HitPoints: 35; Initiative: 40;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 10; Armor: 0; Heal: 0;
+    SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
+    Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);),
+
     // Orc
     (ResEnum: reOrc; Name: 'Орк'; Description: ('', '', ''); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
