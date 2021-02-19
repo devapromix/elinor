@@ -2,106 +2,6 @@
 
 interface
 
-{$IFDEF FPC}
-
-uses
-  DisciplesRL.Party,
-  DisciplesRL.Creatures;
-
-type
-  TScenario = class(TObject)
-  public const
-    ScenarioPlacesMax = 30;
-  end;
-
-type
-
-  { TSaga }
-
-  TSaga = class(TObject)
-  public
-  class var
-    Days: Integer;
-    Gold: Integer;
-    NewGold: Integer;
-    Mana: Integer;
-    NewMana: Integer;
-    Scores: Integer;
-    GoldMines: Integer;
-    ManaMines: Integer;
-    BattlesWon: Integer;
-    LeaderRace: TRaceEnum;
-    IsDay: Boolean;
-    Wizard: Boolean;
-    IsGame: Boolean;
-  public const
-    GoldFromMinePerDay = 100;
-    GoldForRevivePerLevel = 250;
-    ManaFromMinePerDay = 10;
-  public
-    class procedure ModifyGold(Amount: Integer); static;
-    class procedure ModifyMana(Amount: Integer); static;
-    class function GetPartyCount: Integer; static;
-    class function GetPartyIndex(const AX, AY: Integer): Integer;
-    class procedure AddLoot; static;
-    class procedure NewDay; static;
-  end;
-
-implementation
-
-uses
-  Math, SysUtils,
-  DisciplesRL.Map;
-
-class procedure TSaga.ModifyGold(Amount: Integer);
-begin
-  Inc(Gold, Amount);
-end;
-
-class procedure TSaga.ModifyMana(Amount: Integer);
-begin
-  Inc(Mana, Amount);
-end;
-
-class function TSaga.GetPartyCount: Integer;
-begin
-  Result := Length(Party);
-end;
-
-class function TSaga.GetPartyIndex(const AX, AY: Integer): Integer;
-var
-  I: Integer;
-begin
-  Result := -1;
-  for I := 0 to GetPartyCount - 1 do
-    if (Party[I].X = AX) and (Party[I].Y = AY) then
-    begin
-      Result := I;
-      Exit;
-    end;
-end;
-
-class procedure TSaga.AddLoot;
-var
-  Level: Integer;
-begin
-  Level := TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  NewGold := RandomRange(Level * 20, Level * 30);
-  ModifyGold(NewGold);
-  // DisciplesRL.Scene.Info.Show(stLoot, scMap);
-end;
-
-class procedure TSaga.NewDay;
-begin
-  if IsDay then
-  begin
-    Gold := Gold + (GoldMines * GoldFromMinePerDay);
-    // DisciplesRL.Scene.Info.Show(stDay, scMap);
-  end;
-end;
-
-{$ELSE}
-
 uses
   System.Types,
   DisciplesRL.Resources,
@@ -517,7 +417,5 @@ begin
   DisciplesRL.Scene.Settlement.Gen;
   TLeaderParty.Leader.Clear;
 end;
-
-{$ENDIF}
 
 end.

@@ -446,11 +446,7 @@ type
 implementation
 
 uses
-{$IFDEF FPC}
-  SysUtils;
-{$ELSE}
   System.SysUtils;
-{$ENDIF}
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (

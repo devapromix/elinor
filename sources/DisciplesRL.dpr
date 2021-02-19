@@ -1,19 +1,6 @@
 program DisciplesRL;
 
 uses
-{$IFDEF FPC}
-  SysUtils, Classes,
-  MapObject in 'Third-Party\MapObject\MapObject.pas',
-  BearLibTerminal in 'Third-Party\BearLibTerminal\BearLibTerminal.pas',
-  DisciplesRL.Items in 'DisciplesRL.Items.pas',
-  DisciplesRL.Map in 'DisciplesRL.Map.pas',
-  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
-  DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
-  DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
-  DisciplesRL.Scene in 'Scenes\DisciplesRL.Scene.pas',
-  DisciplesRL.Scene.Menu in 'Scenes\DisciplesRL.Scene.Menu.pas',
-  DisciplesRL.Scene.Map in 'Scenes\DisciplesRL.Scene.Map.pas';
-{$ELSE}
   Vcl.Forms,
   DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm} ,
   DisciplesRL.ConfirmationForm
@@ -42,11 +29,9 @@ uses
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas';
 
 {$R *.res}
-{$ENDIF}
 
 begin
   Randomize();
-{$IFNDEF FPC}
   Application.Initialize;
   ReportMemoryLeaksOnShutdown := True;
   Application.MainFormOnTaskbar := True;
@@ -54,6 +39,5 @@ begin
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TConfirmationForm, ConfirmationForm);
   Application.Run;
-{$ENDIF}
 
 end.

@@ -3,11 +3,7 @@
 interface
 
 uses
-{$IFDEF FPC}
-  Types,
-{$ELSE}
   System.Types,
-{$ENDIF}
   DisciplesRL.Creatures,
   MapObject;
 
@@ -98,13 +94,6 @@ var
 implementation
 
 uses
-{$IFDEF FPC}
-  Math,
-  DisciplesRL.Map,
-  DisciplesRL.Saga,
-  DisciplesRL.Scene,
-  DisciplesRL.Resources;
-{$ELSE}
   System.Math,
   System.SysUtils,
   DisciplesRL.Map,
@@ -114,7 +103,7 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
-{$ENDIF}
+
 { TParty }
 
 procedure TParty.AddCreature(const ACreatureEnum: TCreatureEnum;
@@ -353,16 +342,6 @@ end;
 
 procedure TLeaderParty.ChCityOwner;
 begin
-{$IFDEF FPC}
-  case Party[LeaderPartyIndex].Owner of
-    reTheEmpire:
-      Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
-    reUndeadHordes:
-      Game.Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
-    reLegionsOfTheDamned:
-      Game.Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
-  end;
-{$ELSE}
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
       TMap.SetTile(lrTile, X, Y, reTheEmpireCity);
@@ -371,7 +350,6 @@ begin
     reLegionsOfTheDamned:
       TMap.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
-{$ENDIF}
 end;
 
 procedure TLeaderParty.Clear;
@@ -412,12 +390,6 @@ var
   I: Integer;
   F: Boolean;
 begin
-{$IFDEF FPC}
-  if not Game.Map.InMap(AX, AY) then
-    Exit;
-  if (Game.Map.GetTile(lrObj, AX, AY) in StopTiles) then
-    Exit;
-{$ELSE}
   if not TMap.InMap(AX, AY) then
     Exit;
   if (TMap.GetTile(lrObj, AX, AY) in StopTiles) then
@@ -520,7 +492,6 @@ begin
   end;
   if F then
     TSaga.NewDay;
-{$ENDIF}
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -557,10 +528,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-{$IFDEF FPC}
-{$ELSE}
   TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.GetLayer(lrDark), reNone);
-{$ENDIF}
 end;
 
 end.
