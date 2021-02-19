@@ -2,10 +2,6 @@
 
 interface
 
-{$IFDEF FPC}
-{$ELSE}
-{$ENDIF}
-
 uses
   Vcl.Graphics,
   Vcl.Controls,
