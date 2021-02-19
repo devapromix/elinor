@@ -14,7 +14,7 @@ uses
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
-    scBattle2);
+    scBattle2, scBattle3);
 
 const
   DefaultButtonTop = 600;
@@ -102,6 +102,7 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
+  DisciplesRL.Scene.Battle3,
   DisciplesRL.Scene.Party,
   DisciplesRL.Saga;
 
@@ -178,6 +179,7 @@ end;
 procedure Init;
 var
   I: TSceneEnum;
+  J: Integer;
 begin
   Randomize;
 
@@ -187,6 +189,19 @@ begin
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
+
+  TSaga.Wizard := False;
+  TSaga.NoMusic := False;
+  TSaga.NewBattle := False;
+  for J := 1 to ParamCount do
+  begin
+    if (LowerCase(ParamStr(J)) = '-w') then
+      TSaga.Wizard := True;
+    if (LowerCase(ParamStr(J)) = '-m') then
+      TSaga.NoMusic := True;
+    if (LowerCase(ParamStr(J)) = '-b') then
+      TSaga.NewBattle := True;
+  end;
 
   try
     MediaPlayer := TMediaPlayer.Create;
@@ -210,6 +225,8 @@ begin
         DisciplesRL.Scene.Battle.Init;
       scBattle2:
         DisciplesRL.Scene.Battle2.Init;
+      scBattle3:
+        DisciplesRL.Scene.Battle3.Init;
       scSettlement:
         DisciplesRL.Scene.Settlement.Init;
     end;
@@ -232,6 +249,8 @@ begin
       DisciplesRL.Scene.Battle.Render;
     scBattle2:
       DisciplesRL.Scene.Battle2.Render;
+    scBattle3:
+      DisciplesRL.Scene.Battle3.Render;
     scSettlement:
       DisciplesRL.Scene.Settlement.Render;
   end;
@@ -253,6 +272,8 @@ begin
       DisciplesRL.Scene.Battle.Timer;
     scBattle2:
       DisciplesRL.Scene.Battle2.Timer;
+    scBattle3:
+      DisciplesRL.Scene.Battle3.Timer;
     scSettlement:
       DisciplesRL.Scene.Settlement.Timer;
   end;
@@ -273,6 +294,8 @@ begin
       DisciplesRL.Scene.Battle.MouseClick;
     scBattle2:
       DisciplesRL.Scene.Battle2.MouseClick;
+    scBattle3:
+      DisciplesRL.Scene.Battle3.MouseClick;
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseClick;
   end;
@@ -296,6 +319,8 @@ begin
       DisciplesRL.Scene.Battle.MouseMove(Shift, X, Y);
     scBattle2:
       DisciplesRL.Scene.Battle2.MouseMove(Shift, X, Y);
+    scBattle3:
+      DisciplesRL.Scene.Battle3.MouseMove(Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
   end;
@@ -316,6 +341,8 @@ begin
       DisciplesRL.Scene.Battle.KeyDown(Key, Shift);
     scBattle2:
       DisciplesRL.Scene.Battle2.KeyDown(Key, Shift);
+    scBattle3:
+      DisciplesRL.Scene.Battle3.KeyDown(Key, Shift);
     scSettlement:
       DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
   end;
@@ -337,6 +364,8 @@ begin
       DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
     scBattle2:
       DisciplesRL.Scene.Battle2.MouseDown(Button, Shift, X, Y);
+    scBattle3:
+      DisciplesRL.Scene.Battle3.MouseDown(Button, Shift, X, Y);
     scSettlement:
       DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
   end;
@@ -363,10 +392,13 @@ begin
         DisciplesRL.Scene.Battle.Free;
       scBattle2:
         DisciplesRL.Scene.Battle2.Free;
+      scBattle3:
+        DisciplesRL.Scene.Battle3.Free;
       scSettlement:
         DisciplesRL.Scene.Settlement.Free;
     end;
   FreeAndNil(Surface);
+  TSaga.PartyFree;
 end;
 
 { TMediaPlayer }

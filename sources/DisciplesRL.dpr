@@ -1,4 +1,4 @@
-program DisciplesRL;
+﻿program DisciplesRL;
 
 uses
   Vcl.Forms,
@@ -18,12 +18,13 @@ uses
   DisciplesRL.Scenes in 'Scenes\DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'Scenes\DisciplesRL.Scene.Map.pas',
   DisciplesRL.Scene.Menu in 'Scenes\DisciplesRL.Scene.Menu.pas',
-  DisciplesRL.Scene.Battle in 'Scenes\DisciplesRL.Scene.Battle.pas',
   DisciplesRL.Scene.Party in 'Scenes\DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'Scenes\DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
+  DisciplesRL.Scene.Battle in 'Scenes\DisciplesRL.Scene.Battle.pas',
   DisciplesRL.Scene.Battle2 in 'Scenes\DisciplesRL.Scene.Battle2.pas',
+  DisciplesRL.Scene.Battle3 in 'Scenes\DisciplesRL.Scene.Battle3.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas';
 
 {$R *.res}
