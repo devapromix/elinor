@@ -3,7 +3,6 @@
 interface
 
 uses
-  DisciplesRL.PascalScript.Vars,
   Vcl.Dialogs;
 
 procedure Run(Script: string);
@@ -14,7 +13,6 @@ var
   FlagEnabled: Boolean = True;
   UnitMessage: array [0 .. 11] of string;
   UnitMessageColor: array [0 .. 11] of Integer;
-  V: TVars;
 
 implementation
 
@@ -51,77 +49,77 @@ end;
 
 function _GetStr(S: string): string;
 begin
-  Result := V.GetStr(S);
+  //Result := V.GetStr(S);
 end;
 
 procedure _SetStr(S, D: string);
 begin
-  V.SetStr(S, D);
+  //V.SetStr(S, D);
 end;
 
 function _GetInt(S: string): Integer;
 begin
-  Result := V.GetInt(S);
+  //Result := V.GetInt(S);
 end;
 
 procedure _SetInt(S: string; A: Integer);
 begin
-  V.SetInt(S, A);
+  //V.SetInt(S, A);
 end;
 
 procedure _IncInt(S: string; A: Integer);
 begin
-  V.Inc(S, A);
+  //V.Inc(S, A);
 end;
 
 procedure _DecInt(S: string; A: Integer);
 begin
-  V.Dec(S, A);
+  //V.Dec(S, A);
 end;
 
 function _GetBool(S: string): Boolean;
 begin
-  Result := V.GetBool(S);
+  //Result := V.GetBool(S);
 end;
 
 procedure _SetBool(S: string; B: Boolean);
 begin
-  V.SetBool(S, B);
+  //V.SetBool(S, B);
 end;
 
 procedure _LetVar(S1, S2: string);
 begin
-  V.LetVar(S1, S2);
+  //V.LetVar(S1, S2);
 end;
 
 function _Flag(const S: string): Boolean;
 begin
-  Result := (V.GetStr('Flag' + S) = '') or (V.GetStr('Flag' + S) = 'TRUE');
+  //Result := (V.GetStr('Flag' + S) = '') or (V.GetStr('Flag' + S) = 'TRUE');
 end;
 
 procedure _FlagTrue(const S: string);
 begin
-  V.SetBool('Flag' + S, True);
+  //V.SetBool('Flag' + S, True);
 end;
 
 procedure _FlagFalse(const S: string);
 begin
-  V.SetBool('Flag' + S, False);
+  //V.SetBool('Flag' + S, False);
 end;
 
 procedure _SetVar(S: string; V: Variant);
 begin
-  V.SetVar(S, V);
+  //V.SetVar(S, V);
 end;
 
 procedure _IncVar(S: string; V: Variant);
 begin
-  V.IncVar(S, V);
+  //V.IncVar(S, V);
 end;
 
 procedure _DecVar(S: string; V: Variant);
 begin
-  V.DecVar(S, V);
+  //V.DecVar(S, V);
 end;
 
 function _Rand(A, B: Integer): Integer;
@@ -325,10 +323,10 @@ end;
 
 initialization
 
-V := TVars.Create;
+//V := TVars.Create;
 
 finalization
 
-FreeAndNil(V);
+//FreeAndNil(V);
 
 end.

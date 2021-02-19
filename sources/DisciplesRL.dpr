@@ -2,9 +2,8 @@ program DisciplesRL;
 
 uses
   Vcl.Forms,
-  DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm} ,
-  DisciplesRL.ConfirmationForm
-    in 'Forms\DisciplesRL.ConfirmationForm.pas' {ConfirmationForm} ,
+  DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
+  DisciplesRL.ConfirmationForm in 'Forms\DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
@@ -23,7 +22,6 @@ uses
   DisciplesRL.Scene.Party in 'Scenes\DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'Scenes\DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
-  DisciplesRL.PascalScript.Vars in 'DisciplesRL.PascalScript.Vars.pas',
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
   DisciplesRL.Scene.Battle2 in 'Scenes\DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas';

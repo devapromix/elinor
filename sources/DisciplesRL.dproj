@@ -131,7 +131,6 @@
         <DCCReference Include="Scenes\DisciplesRL.Scene.Party.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Settlement.pas"/>
         <DCCReference Include="DisciplesRL.PascalScript.Battle.pas"/>
-        <DCCReference Include="DisciplesRL.PascalScript.Vars.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Hire.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle2.pas"/>
         <DCCReference Include="DisciplesRL.Saga.pas"/>

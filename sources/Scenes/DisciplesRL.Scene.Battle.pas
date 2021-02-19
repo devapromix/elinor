@@ -188,7 +188,7 @@ var
   ActSlot: Integer;
   F: Boolean;
 begin
-  ActSlot := V.GetInt('ActiveCell');
+  //ActSlot := V.GetInt('ActiveCell');
   CalcPoints;
   with Surface.Canvas do
   begin
@@ -197,9 +197,9 @@ begin
     begin
       F := I in [1 .. 6];
       Surface.Canvas.Draw(P[I].X, P[I].Y, ResImage[reFrame]);
-      if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
+      //if V.GetInt('Slot' + IntToStr(I) + 'HP') > 0 then
       begin
-        G := V.GetInt('Slot' + IntToStr(I) + 'Type');
+        //G := V.GetInt('Slot' + IntToStr(I) + 'Type');
         if (G > 0) then
         begin
           RenderUnit(TCreature.Character(TCreatureEnum(G)).ResEnum, P[I].X, P[I].Y, F);
@@ -207,24 +207,24 @@ begin
           // V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
         end;
       end
-      else
-      begin
-        G := V.GetInt('Slot' + IntToStr(I) + 'Type');
-        H := V.GetInt('Slot' + IntToStr(I) + 'Use');
-        if (G > 0) and (H > 0) then
-        begin
-          RenderUnit(reDead, P[I].X, P[I].Y, F);
+      //else
+      //begin
+        //G := V.GetInt('Slot' + IntToStr(I) + 'Type');
+        //H := V.GetInt('Slot' + IntToStr(I) + 'Use');
+        //if (G > 0) and (H > 0) then
+        //begin
+          //RenderUnit(reDead, P[I].X, P[I].Y, F);
           // RenderUnitInfo(V.GetStr('Slot' + IntToStr(I) + 'Name'), P[I].X, P[I].Y, V.GetInt('Slot' + IntToStr(I) + 'Level'),
           // V.GetInt('Slot' + IntToStr(I) + 'HP'), V.GetInt('Slot' + IntToStr(I) + 'MHP'), V.GetInt('Slot' + IntToStr(I) + 'Use'), 0);
-        end;
-      end;
+        //end;
+      //end;
     end;
     if (ActSlot > 0) then
       Draw(P[ActSlot].X, P[ActSlot].Y, ResImage[reActFrame]);
 
     for I := 1 to 12 do
     begin
-      G := V.GetInt('Slot' + IntToStr(I) + 'Type');
+      //G := V.GetInt('Slot' + IntToStr(I) + 'Type');
       if (G > 0) then
       begin
         with Surface.Canvas.Font do
@@ -240,7 +240,7 @@ begin
             Color := clGreen;
           end;
         end;
-        L := V.GetInt('Slot' + I.ToString + 'HP');
+        //L := V.GetInt('Slot' + I.ToString + 'HP');
         if (L <= 0) then
           Continue;
         Surface.Canvas.Font.Color := clGreen;
@@ -270,7 +270,7 @@ begin
   end;
   if F then
   begin
-    V.SetInt('ActiveCell', -1);
+    //V.SetInt('ActiveCell', -1);
     Button.Render;
   end;
   // else
@@ -311,7 +311,7 @@ begin
     mbLeft:
       begin
         N := TransformTo(N);
-        V.SetInt('SlotClick', N);
+        //V.SetInt('SlotClick', N);
         Run('Battles\SlotClick.pas');
         DisciplesRL.Scenes.Render;
       end;
