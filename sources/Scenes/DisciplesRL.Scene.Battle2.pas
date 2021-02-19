@@ -4,19 +4,7 @@ interface
 
 uses
   System.Classes,
-  Vcl.Graphics,
-  Vcl.Controls,
-  RLLog;
-
-type
-  TLog = class(TRLLog)
-  private
-    FTop: Integer;
-    FLeft: Integer;
-  public
-    constructor Create(const ALeft, ATop: Integer);
-    procedure Render;
-  end;
+  Vcl.Controls;
 
 procedure Init;
 procedure Start;
@@ -31,6 +19,7 @@ procedure Free;
 implementation
 
 uses
+  RLLog,
   System.Math,
   System.SysUtils,
   DisciplesRL.Scenes,
@@ -44,6 +33,16 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Party,
   DisciplesRL.Scene.Hire;
+
+type
+  TLog = class(TRLLog)
+  private
+    FTop: Integer;
+    FLeft: Integer;
+  public
+    constructor Create(const ALeft, ATop: Integer);
+    procedure Render;
+  end;
 
 var
   Log: TLog;
