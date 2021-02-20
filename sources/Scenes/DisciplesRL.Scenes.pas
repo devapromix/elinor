@@ -13,8 +13,8 @@ uses
   SimplePlayer;
 
 type
-  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
-    scBattle2, scBattle3);
+  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,
+    scBattle3);
 
 const
   DefaultButtonTop = 600;
@@ -31,22 +31,12 @@ type
 procedure LeftTextOut(const AX, AY: Integer; AText: string);
 procedure CenterTextOut(const AY: Integer; AText: string);
 procedure RenderDark;
-procedure Init;
-procedure Render;
-procedure Timer;
-procedure MouseClick;
 procedure DrawTitle(Res: TResEnum);
 procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
 procedure DrawImage(Res: TResEnum); overload;
 procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 function ConfirmDialog(const S: string): Boolean;
 procedure InformDialog(const S: string);
-procedure Free;
-
-procedure SetScene(CurScene: TSceneEnum);
 
 const
   K_ESCAPE = 27;
@@ -85,7 +75,66 @@ const
   K_KP_8 = 104;
   K_KP_9 = 105;
 
+  { TScene }
+
+type
+  IScene = interface
+    procedure Show(const S: TSceneEnum);
+    procedure Render;
+    procedure Update(var Key: Word);
+    procedure Timer;
+    procedure Click;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer);
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+  end;
+
+type
+  TScene = class(TInterfacedObject, IScene)
+  private
+
+  public
+    MouseX, MouseY: Integer;
+    constructor Create;
+    destructor Destroy; override;
+    procedure Show(const S: TSceneEnum); virtual;
+    procedure Render; virtual;
+    procedure Update(var Key: Word); virtual;
+    procedure Timer; virtual;
+    procedure Click; virtual;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); virtual;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); virtual;
+  end;
+
+type
+  TScenes = class(TScene)
+  private
+    FSceneEnum: TSceneEnum;
+    FScene: array [TSceneEnum] of IScene;
+    FPrevSceneEnum: TSceneEnum;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Show(const S: TSceneEnum); override;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    property SceneEnum: TSceneEnum read FSceneEnum write FSceneEnum;
+    property PrevSceneEnum: TSceneEnum read FPrevSceneEnum;
+    function GetScene(const I: TSceneEnum): TScene;
+    procedure SetScene(const ASceneEnum: TSceneEnum); overload;
+    procedure SetScene(const ASceneEnum: TSceneEnum;
+      const CurrSceneEnum: TSceneEnum); overload;
+    procedure GoBack;
+  end;
+
 var
+  Scenes: TScenes;
   MediaPlayer: TMediaPlayer;
 
 implementation
@@ -98,7 +147,6 @@ uses
   DisciplesRL.ConfirmationForm,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
-  DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
@@ -107,13 +155,59 @@ uses
   DisciplesRL.Saga;
 
 var
-  MouseX, MouseY: Integer;
   CurrentScene: TSceneEnum;
   MediaAvailable: Boolean;
+  MouseX, MouseY: Integer;
 
-procedure SetScene(CurScene: TSceneEnum);
+  { TScene }
+
+procedure TScene.Click;
 begin
-  CurrentScene := CurScene;
+
+end;
+
+constructor TScene.Create;
+begin
+  inherited;
+
+end;
+
+destructor TScene.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TScene.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
+begin
+
+end;
+
+procedure TScene.MouseMove(Shift: TShiftState; X, Y: Integer);
+begin
+  MouseX := X;
+  MouseY := Y;
+end;
+
+procedure TScene.Render;
+begin
+
+end;
+
+procedure TScene.Show;
+begin
+
+end;
+
+procedure TScene.Timer;
+begin
+
+end;
+
+procedure TScene.Update(var Key: Word);
+begin
+
 end;
 
 function ConfirmDialog(const S: string): Boolean;
@@ -171,25 +265,51 @@ end;
 
 procedure RenderDark;
 begin
-  DisciplesRL.Scene.Map.Render;
+  Scenes.Render;
   Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
     ResImage[reDark]);
 end;
 
-procedure Init;
+{ TMediaPlayer }
+
+procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
+begin
+  Play(ResMusicPath[MusicEnum], MusicBase[MusicEnum].ResType = teMusic);
+end;
+
+procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
+begin
+  if TSaga.NoMusic or not MediaAvailable then
+    Exit;
+  StopMusic;
+  CurrentChannel := MusicChannel;
+  Play(MusicEnum);
+  CurrentChannel := 1;
+end;
+
+{ TScenes }
+
+procedure TScenes.Click;
+begin
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    FScene[SceneEnum].Click;
+  end;
+end;
+
+constructor TScenes.Create;
 var
-  I: TSceneEnum;
   J: Integer;
 begin
   Randomize;
-
+  //
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;
   Surface.Height := MainForm.ClientHeight;
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
-
+  //
   TSaga.Wizard := False;
   TSaga.NoMusic := False;
   TSaga.NewBattle := False;
@@ -202,7 +322,7 @@ begin
     if (LowerCase(ParamStr(J)) = '-b') then
       TSaga.NewBattle := True;
   end;
-
+  //
   try
     MediaPlayer := TMediaPlayer.Create;
     MediaAvailable := True;
@@ -210,212 +330,103 @@ begin
     MediaAvailable := False;
   end;
   MediaPlayer.PlayMusic(mmMenu);
-  SetScene(scMenu);
-  for I := Low(TSceneEnum) to High(TSceneEnum) do
-    case I of
-      scHire:
-        DisciplesRL.Scene.Hire.Init;
-      scMenu:
-        DisciplesRL.Scene.Menu.Init;
-      scMap:
-        DisciplesRL.Scene.Map.Init;
-      scParty:
-        DisciplesRL.Scene.Party.Init;
-      scBattle:
-        DisciplesRL.Scene.Battle.Init;
-      scBattle2:
-        DisciplesRL.Scene.Battle2.Init;
-      scBattle3:
-        DisciplesRL.Scene.Battle3.Init;
-      scSettlement:
-        DisciplesRL.Scene.Settlement.Init;
-    end;
+  SceneEnum := scMenu;
+  //
+  FScene[scMap] := TSceneMap.Create;
+  FScene[scMenu] := TSceneMenu.Create;
+  FScene[scHire] := TSceneHire.Create;
+  FScene[scParty] := TSceneParty.Create;
+  FScene[scBattle2] := TSceneBattle2.Create;
+  FScene[scBattle3] := TSceneBattle3.Create;
+  FScene[scSettlement] := TSceneSettlement.Create;
 end;
 
-procedure Render;
-begin
-  Surface.Canvas.Brush.Color := clBlack;
-  Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
-  case CurrentScene of
-    scHire:
-      DisciplesRL.Scene.Hire.Render;
-    scMenu:
-      DisciplesRL.Scene.Menu.Render;
-    scMap:
-      DisciplesRL.Scene.Map.Render;
-    scParty:
-      DisciplesRL.Scene.Party.Render;
-    scBattle:
-      DisciplesRL.Scene.Battle.Render;
-    scBattle2:
-      DisciplesRL.Scene.Battle2.Render;
-    scBattle3:
-      DisciplesRL.Scene.Battle3.Render;
-    scSettlement:
-      DisciplesRL.Scene.Settlement.Render;
-  end;
-  MainForm.Canvas.Draw(0, 0, Surface);
-end;
-
-procedure Timer;
-begin
-  case CurrentScene of
-    scHire:
-      DisciplesRL.Scene.Hire.Timer;
-    scMenu:
-      DisciplesRL.Scene.Menu.Timer;
-    scMap:
-      DisciplesRL.Scene.Map.Timer;
-    scParty:
-      DisciplesRL.Scene.Party.Timer;
-    scBattle:
-      DisciplesRL.Scene.Battle.Timer;
-    scBattle2:
-      DisciplesRL.Scene.Battle2.Timer;
-    scBattle3:
-      DisciplesRL.Scene.Battle3.Timer;
-    scSettlement:
-      DisciplesRL.Scene.Settlement.Timer;
-  end;
-end;
-
-procedure MouseClick;
-begin
-  case CurrentScene of
-    scHire:
-      DisciplesRL.Scene.Hire.MouseClick(MouseX, MouseY);
-    scMenu:
-      DisciplesRL.Scene.Menu.MouseClick;
-    scMap:
-      DisciplesRL.Scene.Map.MouseClick;
-    scParty:
-      DisciplesRL.Scene.Party.MouseClick;
-    scBattle:
-      DisciplesRL.Scene.Battle.MouseClick;
-    scBattle2:
-      DisciplesRL.Scene.Battle2.MouseClick;
-    scBattle3:
-      DisciplesRL.Scene.Battle3.MouseClick;
-    scSettlement:
-      DisciplesRL.Scene.Settlement.MouseClick;
-  end;
-  DisciplesRL.Scenes.Render;
-end;
-
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-begin
-  MouseX := X;
-  MouseY := Y;
-  case CurrentScene of
-    scHire:
-      DisciplesRL.Scene.Hire.MouseMove(Shift, X, Y);
-    scMenu:
-      DisciplesRL.Scene.Menu.MouseMove(Shift, X, Y);
-    scMap:
-      DisciplesRL.Scene.Map.MouseMove(Shift, X, Y);
-    scParty:
-      DisciplesRL.Scene.Party.MouseMove(Shift, X, Y);
-    scBattle:
-      DisciplesRL.Scene.Battle.MouseMove(Shift, X, Y);
-    scBattle2:
-      DisciplesRL.Scene.Battle2.MouseMove(Shift, X, Y);
-    scBattle3:
-      DisciplesRL.Scene.Battle3.MouseMove(Shift, X, Y);
-    scSettlement:
-      DisciplesRL.Scene.Settlement.MouseMove(Shift, X, Y);
-  end;
-end;
-
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-begin
-  case CurrentScene of
-    scHire:
-      DisciplesRL.Scene.Hire.KeyDown(Key, Shift);
-    scMenu:
-      DisciplesRL.Scene.Menu.KeyDown(Key, Shift);
-    scMap:
-      DisciplesRL.Scene.Map.KeyDown(Key, Shift);
-    scParty:
-      DisciplesRL.Scene.Party.KeyDown(Key, Shift);
-    scBattle:
-      DisciplesRL.Scene.Battle.KeyDown(Key, Shift);
-    scBattle2:
-      DisciplesRL.Scene.Battle2.KeyDown(Key, Shift);
-    scBattle3:
-      DisciplesRL.Scene.Battle3.KeyDown(Key, Shift);
-    scSettlement:
-      DisciplesRL.Scene.Settlement.KeyDown(Key, Shift);
-  end;
-  DisciplesRL.Scenes.Render;
-end;
-
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  case CurrentScene of
-    scHire:
-      DisciplesRL.Scene.Hire.MouseDown(Button, Shift, X, Y);
-    scMenu:
-      DisciplesRL.Scene.Menu.MouseDown(Button, Shift, X, Y);
-    scMap:
-      DisciplesRL.Scene.Map.MouseDown(Button, Shift, X, Y);
-    scParty:
-      DisciplesRL.Scene.Party.MouseDown(Button, Shift, X, Y);
-    scBattle:
-      DisciplesRL.Scene.Battle.MouseDown(Button, Shift, X, Y);
-    scBattle2:
-      DisciplesRL.Scene.Battle2.MouseDown(Button, Shift, X, Y);
-    scBattle3:
-      DisciplesRL.Scene.Battle3.MouseDown(Button, Shift, X, Y);
-    scSettlement:
-      DisciplesRL.Scene.Settlement.MouseDown(Button, Shift, X, Y);
-  end;
-  DisciplesRL.Scenes.Render;
-end;
-
-procedure Free;
-var
-  I: TSceneEnum;
+destructor TScenes.Destroy;
 begin
   MediaPlayer.Stop;
   FreeAndNil(MediaPlayer);
-  for I := Low(TSceneEnum) to High(TSceneEnum) do
-    case I of
-      scHire:
-        DisciplesRL.Scene.Hire.Free;
-      scMenu:
-        DisciplesRL.Scene.Menu.Free;
-      scMap:
-        DisciplesRL.Scene.Map.Free;
-      scParty:
-        DisciplesRL.Scene.Party.Free;
-      scBattle:
-        DisciplesRL.Scene.Battle.Free;
-      scBattle2:
-        DisciplesRL.Scene.Battle2.Free;
-      scBattle3:
-        DisciplesRL.Scene.Battle3.Free;
-      scSettlement:
-        DisciplesRL.Scene.Settlement.Free;
-    end;
   FreeAndNil(Surface);
   TSaga.PartyFree;
+  inherited;
 end;
 
-{ TMediaPlayer }
-
-procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
+function TScenes.GetScene(const I: TSceneEnum): TScene;
 begin
-  Play(ResMusicPath[MusicEnum], MusicBase[MusicEnum].ResType = teMusic);
+  Result := TScene(FScene[I]);
 end;
 
-procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
+procedure TScenes.GoBack;
 begin
-  if TSaga.NoMusic then
-    Exit;
-  StopMusic;
-  CurrentChannel := MusicChannel;
-  Play(MusicEnum);
-  CurrentChannel := 1;
+  Self.SceneEnum := FPrevSceneEnum;
+end;
+
+procedure TScenes.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    FScene[SceneEnum].MouseDown(Button, Shift, X, Y);
+    Self.Render;
+  end;
+end;
+
+procedure TScenes.MouseMove(Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    FScene[SceneEnum].MouseMove(Shift, X, Y);
+  end;
+end;
+
+procedure TScenes.Render;
+begin
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    Surface.Canvas.Brush.Color := clBlack;
+    Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
+    FScene[SceneEnum].Render;
+    MainForm.Canvas.Draw(0, 0, Surface);
+  end;
+end;
+
+procedure TScenes.SetScene(const ASceneEnum: TSceneEnum);
+begin
+  Self.SceneEnum := ASceneEnum;
+  Scenes.SetScene(ASceneEnum);
+end;
+
+procedure TScenes.SetScene(const ASceneEnum, CurrSceneEnum: TSceneEnum);
+begin
+  FPrevSceneEnum := CurrSceneEnum;
+  Self.SetScene(ASceneEnum);
+end;
+
+procedure TScenes.Show(const S: TSceneEnum);
+begin
+  SetScene(S);
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    FScene[SceneEnum].Show(S);
+    Scenes.Render;
+  end;
+end;
+
+procedure TScenes.Timer;
+begin
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    FScene[SceneEnum].Timer;
+  end;
+end;
+
+procedure TScenes.Update(var Key: Word);
+begin
+  if (FScene[SceneEnum] <> nil) then
+  begin
+    FScene[SceneEnum].Update(Key);
+    Self.Render;
+  end;
 end;
 
 end.

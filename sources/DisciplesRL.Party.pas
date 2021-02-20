@@ -462,8 +462,8 @@ begin
           DisciplesRL.Scene.Battle2.Start;
           MediaPlayer.PlayMusic(mmBattle);
           if TSaga.NewBattle then
-            SetScene(scBattle3)
-          else SetScene(scBattle2);
+            Scenes.SetScene(scBattle3)
+          else Scenes.SetScene(scBattle2);
           TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;
