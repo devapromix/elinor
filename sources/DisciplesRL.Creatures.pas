@@ -88,6 +88,8 @@ type
     crNosferat,
     // Undead Hordes Mage Leader
     crLichQueen,
+    // Undead Hordes Thief Leader
+    crThug,
     // Undead Hordes Fighters
     crFighter,
     // Undead Hordes Ranged Attack Units
@@ -168,7 +170,7 @@ const
     // Undead Hordes Capital Guardian
     ((crNone, crNone, crAshgan),
     // Undead Hordes Leaders
-    (crDeathKnight, crNosferat, crLichQueen),
+    (crDeathKnight, crNosferat, crThug), // crLichQueen
     // Undead Hordes Characters
     (crFighter, crGhost, crInitiate)),
     //
@@ -549,7 +551,14 @@ const
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
-    // Головорез Thug Своей властью Мортис вернула лучших из лучших в мир живых, чтобы те действовали хитростью там, где недостаточно одной лишь грубой силы.
+    // Thug
+    (ResEnum: reArchmage; Name: 'Головорез';
+    Description: ('Мортис вернула лучших из лучших в',
+    'мир живых, чтобы те действовали хит-',
+    'ростью там, где недостаточно силы.'); HitPoints: 100; Initiative: 60;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
     // Fighter
     (ResEnum: reSquire; Name: 'Воин';
     Description: ('Услышав зов Мортис, безропотно',
