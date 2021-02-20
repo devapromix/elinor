@@ -33,7 +33,6 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
-  DisciplesRL.PascalScript.Battle,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Hire;
 
@@ -229,7 +228,7 @@ begin
       begin
         with Surface.Canvas.Font do
         begin
-          case UnitMessageColor[I] of
+          {case UnitMessageColor[I] of
             4:
               Color := clRed;
             12:
@@ -238,7 +237,7 @@ begin
               Color := clYellow;
           else
             Color := clGreen;
-          end;
+          end; }
         end;
         //L := V.GetInt('Slot' + I.ToString + 'HP');
         if (L <= 0) then
@@ -306,13 +305,13 @@ begin
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if Party[I].IsClear then
     Exit;
-  ClearMessages;
+  //ClearMessages;
   case Button of
     mbLeft:
       begin
         N := TransformTo(N);
         //V.SetInt('SlotClick', N);
-        Run('Battles\SlotClick.pas');
+        //Run('Battles\SlotClick.pas');
         DisciplesRL.Scenes.Render;
       end;
   end;

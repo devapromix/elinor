@@ -20,7 +20,6 @@ uses
   DisciplesRL.Scene.Menu in 'Scenes\DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Party in 'Scenes\DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'Scenes\DisciplesRL.Scene.Settlement.pas',
-  DisciplesRL.PascalScript.Battle in 'DisciplesRL.PascalScript.Battle.pas',
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
   DisciplesRL.Scene.Battle in 'Scenes\DisciplesRL.Scene.Battle.pas',
   DisciplesRL.Scene.Battle2 in 'Scenes\DisciplesRL.Scene.Battle2.pas',
