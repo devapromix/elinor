@@ -376,6 +376,7 @@ begin
   if (FScene[SceneEnum] <> nil) then
   begin
     FScene[SceneEnum].MouseMove(Shift, X, Y);
+    Self.Render;
   end;
 end;
 
@@ -393,7 +394,6 @@ end;
 procedure TScenes.SetScene(const ASceneEnum: TSceneEnum);
 begin
   Self.SceneEnum := ASceneEnum;
-  Scenes.SetScene(ASceneEnum);
 end;
 
 procedure TScenes.SetScene(const ASceneEnum, CurrSceneEnum: TSceneEnum);

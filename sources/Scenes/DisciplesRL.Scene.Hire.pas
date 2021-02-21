@@ -13,23 +13,28 @@ uses
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
-    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
-    stDifficulty);
+    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stDifficulty);
 
-procedure Init;
-procedure Render;
-procedure Timer;
+type
+  TSceneHire = class(TScene)
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  end;
+
 procedure RenderCharacterInfo(C: TCreatureEnum);
 procedure Show(const ASubScene: THireSubSceneEnum); overload;
 procedure Show(const Party: TParty; const Position: Integer); overload;
 procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
   const ALootRes: TResEnum = reGold); overload;
-procedure MouseClick(X, Y: Integer);
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-procedure KeyDown(var Key: Word; Shift: TShiftState);
 function HireIndex: Integer;
-procedure Free;
 
 implementation
 
@@ -98,7 +103,7 @@ begin
     CurrentIndex := 0;
   end;
   SubScene := ASubScene;
-  SetScene(scHire);
+  Scenes.SetScene(scHire);
   if ASubScene = stVictory then
     MediaPlayer.PlayMusic(mmVictory);
 end;
@@ -115,7 +120,7 @@ procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
-  SetScene(scHire);
+  Scenes.SetScene(scHire);
   case SubScene of
     stLoot, stStoneTab:
       MediaPlayer.Play(mmLoot);
@@ -154,17 +159,12 @@ begin
   end;
 end;
 
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-
-end;
-
 procedure Back;
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
     stCharacter:
-      SetScene(scSettlement);
+      Scenes.SetScene(scSettlement);
     stDifficulty:
       DisciplesRL.Scene.Hire.Show(stScenario);
     stLeader:
@@ -172,9 +172,9 @@ begin
     stRace:
       DisciplesRL.Scene.Hire.Show(stDifficulty);
     stScenario:
-      SetScene(scMenu);
+      Scenes.SetScene(scMenu);
     stJournal:
-      DisciplesRL.Scene.Map.Show;
+      Scenes.Show(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -187,7 +187,7 @@ begin
       end;
     stHighScores2:
       begin
-        SetScene(scMenu);
+        Scenes.SetScene(scMenu);
       end;
   end;
 end;
@@ -220,7 +220,7 @@ begin
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
           [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
-          SetScene(scSettlement)
+          Scenes.SetScene(scSettlement)
         else
           InformDialog('Не хватает денег!');
       end;
@@ -230,7 +230,7 @@ begin
         DisciplesRL.Scene.Hire.Show(stDifficulty);
       end;
     stJournal:
-      DisciplesRL.Scene.Map.Show;
+      Scenes.Show(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -245,7 +245,7 @@ begin
       end;
     stHighScores2:
       begin
-        SetScene(scMenu);
+        Scenes.SetScene(scMenu);
       end;
     stStoneTab:
       begin
@@ -253,20 +253,20 @@ begin
           if TScenario.StoneTab >= TScenario.ScenarioStoneTabMax then
           begin
             DisciplesRL.Scene.Hire.Show(stVictory);
-            Exit;
+            exit;
           end
           else
           begin
             F := True;
-            DisciplesRL.Scene.Map.Show;
-            Exit;
+            Scenes.Show(scMap);
+            exit;
           end;
       end;
     stLoot:
       begin
         MediaPlayer.Play(mmLoot);
         F := True;
-        DisciplesRL.Scene.Map.Show;
+        Scenes.Show(scMap);
         begin
           if (TScenario.CurrentScenario = sgDarkTower) then
           begin
@@ -274,7 +274,7 @@ begin
               reTower:
                 begin
                   DisciplesRL.Scene.Hire.Show(stVictory);
-                  Exit;
+                  exit;
                 end;
             end;
           end;
@@ -283,38 +283,13 @@ begin
             MediaPlayer.PlayMusic(mmGame);
             MediaPlayer.Play(mmSettlement);
             DisciplesRL.Scene.Settlement.Show(stCity);
-            Exit;
+            exit;
           end;
           if F then
             TSaga.NewDay;
         end;
       end;
   end;
-end;
-
-procedure Init;
-var
-  I: TButtonEnum;
-  J: THireSubSceneEnum;
-  L, W: Integer;
-begin
-  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
-  begin
-    W := ResImage[reButtonDef].Width + 4;
-    if (J in CloseButtonScene) then
-      L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2)
-    else
-      L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-    begin
-      Button[J][I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[J][I]);
-      if not(J in CloseButtonScene) then
-        Inc(L, W);
-      if (I = btOk) then
-        Button[J][I].Sellected := True;
-    end;
-  end;
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
 end;
 
 procedure RenderCharacterInfo(C: TCreatureEnum);
@@ -505,8 +480,8 @@ begin
   D := TSaga.TDifficultyEnum(CurrentIndex);
   Add(TSaga.DifficultyName[D], True);
   Add;
-  // for J := 0 to 10 do
-  // Add(DifficultyDescription[R][J]);
+  for J := 0 to 11 do
+    Add(TSaga.DifficultyDescription[D][J]);
 end;
 
 procedure RenderScenarioInfo;
@@ -574,7 +549,116 @@ begin
       Button[SubScene][I].Render;
 end;
 
-procedure Render;
+{ Malavien's Camp	My mercenaries will join your army ... for a price.
+  Guther's Camp	My soldiers are the finest in the region.
+  Turion's Camp	My soldiers are the most formidable in the land.
+  Uther's Camp	Are you in need of recruits?
+  Dennar's Camp	We will join your army, for a price.
+  Purthen's Camp	My mercenaries will join your army ... for a price.
+  Luther's Camp	My soldiers are the finest in the region.
+  Richard's Camp	My soldiers are the most formidable in the land.
+  Ebbon's Camp	Are you in need of recruits?
+  Righon's Camp	We will join your army, for a price.
+  Kigger's Camp	My mercenaries will join your army ... for a price.
+  Luggen's Camp	My soldiers are the finest in the region.
+  Werric's Camp	My soldiers are the most formidable in the land.
+  Xennon's Camp	Are you in need of recruits? }
+
+{ TSceneHire }
+
+procedure TSceneHire.Click;
+
+begin
+  inherited;
+  if not(SubScene in CloseButtonScene) then
+  begin
+    if MouseOver(Lf, Top, MouseX, MouseY) then
+    begin
+      MediaPlayer.Play(mmClick);
+      CurrentIndex := 0;
+    end;
+    if MouseOver(Lf, Top + 120, MouseX, MouseY) then
+    begin
+      MediaPlayer.Play(mmClick);
+      CurrentIndex := 1;
+    end;
+    if MouseOver(Lf, Top + 240, MouseX, MouseY) then
+    begin
+      MediaPlayer.Play(mmClick);
+      CurrentIndex := 2;
+    end;
+  end;
+
+  if SubScene in MainButtonsScene then
+    if Button[SubScene][btOk].MouseDown then
+      Ok
+    else if Button[SubScene][btClose].MouseDown then
+      Back;
+
+  if (SubScene in CloseButtonScene) then
+  begin
+    if Button[SubScene][btOk].MouseDown then
+      Ok;
+  end;
+end;
+
+constructor TSceneHire.Create;
+var
+  I: TButtonEnum;
+  J: THireSubSceneEnum;
+  L, W: Integer;
+begin
+  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
+  begin
+    W := ResImage[reButtonDef].Width + 4;
+    if (J in CloseButtonScene) then
+      L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2)
+    else
+      L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+    begin
+      Button[J][I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[J][I]);
+      if not(J in CloseButtonScene) then
+        Inc(L, W);
+      if (I = btOk) then
+        Button[J][I].Sellected := True;
+    end;
+  end;
+  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+end;
+
+destructor TSceneHire.Destroy;
+var
+  J: THireSubSceneEnum;
+  I: TButtonEnum;
+begin
+  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      FreeAndNil(Button[J][I]);
+  inherited;
+end;
+
+procedure TSceneHire.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  inherited;
+
+end;
+
+procedure TSceneHire.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
+begin
+  inherited;
+  if (SubScene in CloseButtonScene) then
+    Button[SubScene][btOk].MouseMove(X, Y)
+  else
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[SubScene][I].MouseMove(X, Y);
+  Render;
+end;
+
+procedure TSceneHire.Render;
 var
   Y: Integer;
   R: TRaceEnum;
@@ -611,6 +695,7 @@ var
   end;
 
 begin
+  inherited;
   Y := 0;
   It1 := reNone;
   It2 := reNone;
@@ -824,59 +909,17 @@ begin
   RenderButtons;
 end;
 
-procedure Timer;
+procedure TSceneHire.Timer;
+
 begin
+  inherited;
 
 end;
 
-procedure MouseClick(X, Y: Integer); { TODO: Можно сократить код }
+procedure TSceneHire.Update(var Key: Word);
+
 begin
-  if not(SubScene in CloseButtonScene) then
-  begin
-    if MouseOver(Lf, Top, X, Y) then
-    begin
-      MediaPlayer.Play(mmClick);
-      CurrentIndex := 0;
-    end;
-    if MouseOver(Lf, Top + 120, X, Y) then
-    begin
-      MediaPlayer.Play(mmClick);
-      CurrentIndex := 1;
-    end;
-    if MouseOver(Lf, Top + 240, X, Y) then
-    begin
-      MediaPlayer.Play(mmClick);
-      CurrentIndex := 2;
-    end;
-  end;
-
-  if SubScene in MainButtonsScene then
-    if Button[SubScene][btOk].MouseDown then
-      Ok
-    else if Button[SubScene][btClose].MouseDown then
-      Back;
-
-  if (SubScene in CloseButtonScene) then
-  begin
-    if Button[SubScene][btOk].MouseDown then
-      Ok;
-  end;
-end;
-
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-var
-  I: TButtonEnum;
-begin
-  if (SubScene in CloseButtonScene) then
-    Button[SubScene][btOk].MouseMove(X, Y)
-  else
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[SubScene][I].MouseMove(X, Y);
-  Render;
-end;
-
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-begin
+  inherited;
   case SubScene of
     stCharacter:
       case Key of
@@ -1010,31 +1053,6 @@ begin
         Ok;
     end;
 end;
-
-procedure Free;
-var
-  J: THireSubSceneEnum;
-  I: TButtonEnum;
-begin
-  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      FreeAndNil(Button[J][I]);
-end;
-
-{ Malavien's Camp	My mercenaries will join your army ... for a price.
-  Guther's Camp	My soldiers are the finest in the region.
-  Turion's Camp	My soldiers are the most formidable in the land.
-  Uther's Camp	Are you in need of recruits?
-  Dennar's Camp	We will join your army, for a price.
-  Purthen's Camp	My mercenaries will join your army ... for a price.
-  Luther's Camp	My soldiers are the finest in the region.
-  Richard's Camp	My soldiers are the most formidable in the land.
-  Ebbon's Camp	Are you in need of recruits?
-  Righon's Camp	We will join your army, for a price.
-  Kigger's Camp	My mercenaries will join your army ... for a price.
-  Luggen's Camp	My soldiers are the finest in the region.
-  Werric's Camp	My soldiers are the most formidable in the land.
-  Xennon's Camp	Are you in need of recruits? }
 
 end.
 

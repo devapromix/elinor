@@ -4,17 +4,24 @@ interface
 
 uses
   System.Classes,
+  DisciplesRL.Scenes,
   Vcl.Controls;
 
-procedure Init;
+type
+  TSceneBattle2 = class(TScene)
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  end;
+
 procedure Start;
-procedure Render;
-procedure Timer;
-procedure MouseClick;
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure Free;
 
 implementation
 
@@ -22,7 +29,6 @@ uses
   RLLog,
   System.Math,
   System.SysUtils,
-  DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
   DisciplesRL.Saga,
   DisciplesRL.Map,
@@ -361,8 +367,34 @@ begin
   end;
 end;
 
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+{ TSceneBattle2 }
+
+procedure TSceneBattle2.Click;
 begin
+  inherited;
+  if Button.MouseDown then
+    Finish;
+end;
+
+constructor TSceneBattle2.Create;
+begin
+  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
+    DefaultButtonTop, Surface.Canvas, reTextClose);
+  Button.Sellected := True;
+  Log := TLog.Create(Left, DefaultButtonTop - 20);
+end;
+
+destructor TSceneBattle2.Destroy;
+begin
+  FreeAndNil(Button);
+  FreeAndNil(Log);
+  inherited;
+end;
+
+procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  inherited;
   CurrentPartyPosition := GetPartyPosition(X, Y);
   if CurrentPartyPosition < 0 then
     Exit;
@@ -372,23 +404,23 @@ begin
     mbLeft:
       begin
         ClickOnPosition;
-        DisciplesRL.Scenes.Render;
+        Scenes.Render;
       end;
   end;
 end;
 
-procedure Init;
+procedure TSceneBattle2.MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
-    DefaultButtonTop, Surface.Canvas, reTextClose);
-  Button.Sellected := True;
-  Log := TLog.Create(Left, DefaultButtonTop - 20);
+  inherited;
+  Button.MouseMove(X, Y);
+  Render;
 end;
 
-procedure Render;
+procedure TSceneBattle2.Render;
 var
   F: Boolean;
 begin
+  inherited;
   RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex]);
   RenderParty(psRight, EnemyParty, False, False);
   F := False;
@@ -412,25 +444,15 @@ begin
   Log.Render;
 end;
 
-procedure Timer;
+procedure TSceneBattle2.Timer;
 begin
+  inherited;
 
 end;
 
-procedure MouseClick;
+procedure TSceneBattle2.Update(var Key: Word);
 begin
-  if Button.MouseDown then
-    Finish;
-end;
-
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-begin
-  Button.MouseMove(X, Y);
-  Render;
-end;
-
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-begin
+  inherited;
   case Key of
     K_ESCAPE, K_ENTER:
       Finish;
@@ -450,12 +472,6 @@ begin
       if TSaga.Wizard then
         Victory;
   end;
-end;
-
-procedure Free;
-begin
-  FreeAndNil(Button);
-  FreeAndNil(Log);
 end;
 
 end.

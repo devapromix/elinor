@@ -17,16 +17,22 @@ const
 type
   TPartySide = (psLeft, psRight);
 
-procedure Init;
-procedure Render;
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure MouseClick;
-procedure Timer;
+type
+  TSceneParty = class(TScene)
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  end;
+
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
 procedure Show(Party: TParty; CloseScene: TSceneEnum);
-procedure Free;
 function GetFrameX(const Position: TPosition;
   const PartySide: TPartySide): Integer;
 function GetFrameY(const Position: TPosition;
@@ -85,7 +91,7 @@ begin
   CurrentParty := Party;
   BackScene := CloseScene;
   ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
-  SetScene(scParty);
+  Scenes.SetScene(scParty);
   MediaPlayer.Play(mmSettlement);
 end;
 
@@ -115,22 +121,7 @@ begin
       end;
   end;
   MediaPlayer.Play(mmClick);
-  Render;
-end;
-
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  case Button of
-    mbLeft:
-      begin
-        CurrentPartyPosition := GetPartyPosition(X, Y);
-        if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
-          Exit;
-        ActivePartyPosition := CurrentPartyPosition;
-        MediaPlayer.Play(mmClick);
-        Render;
-      end;
-  end;
+  Scenes.Render;
 end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
@@ -184,138 +175,19 @@ begin
   end;
 end;
 
-procedure Init;
-var
-  I: TButtonEnum;
-  L, W: Integer;
-begin
-  W := ResImage[reButtonDef].Width + 4;
-  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-  begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas,
-      ButtonText[I]);
-    Inc(L, W);
-    if (I = btClose) then
-      Button[I].Sellected := True;
-  end;
-  ShowInventory := False;
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
-end;
-
 procedure Inventory;
 begin
   MediaPlayer.Play(mmClick);
   ShowInventory := not ShowInventory;
 end;
 
-procedure RenderButtons;
-var
-  I: TButtonEnum;
-begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].Render;
-end;
-
-procedure Render;
-const
-  H = 25;
-var
-  C: TCreatureEnum;
-  L, T, J: Integer;
-
-  procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
-  begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    LeftTextOut(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
-    Inc(T, H);
-  end;
-
-begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
-  DrawImage(reWallpaperLeader);
-  DrawTitle(reTitleParty);
-  RenderParty(psLeft, CurrentParty);
-  if ShowInventory then
-  begin
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
-
-  end
-  else
-  begin
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
-    C := CurrentParty.Creature[ActivePartyPosition].Enum;
-    if (C <> crNone) then
-      RenderCharacterInfo(C);
-  end;
-  RenderResources;
-  RenderButtons;
-end;
-
 procedure Close;
 begin
   if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
-  SetScene(BackScene);
+  Scenes.SetScene(BackScene);
   MediaPlayer.Play(mmClick);
   MediaPlayer.Play(mmSettlement);
-end;
-
-procedure MouseClick;
-begin
-  if Button[btClose].MouseDown then
-    Close;
-  if Button[btInventory].MouseDown then
-    Inventory;
-end;
-
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-var
-  I: TButtonEnum;
-begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].MouseMove(X, Y);
-  Render;
-end;
-
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-begin
-  case Key of
-    K_ESCAPE, K_ENTER:
-      Close;
-    K_I:
-      Inventory;
-    K_LEFT, K_KP_4, K_A:
-      MoveCursor(drWest);
-    K_RIGHT, K_KP_6, K_D:
-      MoveCursor(drEast);
-    K_UP, K_KP_8, K_W:
-      MoveCursor(drNorth);
-    K_DOWN, K_KP_2, K_X:
-      MoveCursor(drSouth);
-  end;
-end;
-
-procedure Timer;
-begin
-
-end;
-
-procedure Free;
-var
-  I: TButtonEnum;
-begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[I]);
 end;
 
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
@@ -451,6 +323,150 @@ begin
     if (Party <> nil) then
       RenderUnit(Position, Party, GetFrameX(Position, PartySide),
         GetFrameY(Position, PartySide), CanHire, ShowExp);
+  end;
+end;
+
+{ TSceneParty }
+
+procedure TSceneParty.Click;
+begin
+  inherited;
+  if Button[btClose].MouseDown then
+    Close;
+  if Button[btInventory].MouseDown then
+    Inventory;
+end;
+
+constructor TSceneParty.Create;
+var
+  I: TButtonEnum;
+  L, W: Integer;
+begin
+  W := ResImage[reButtonDef].Width + 4;
+  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas,
+      ButtonText[I]);
+    Inc(L, W);
+    if (I = btClose) then
+      Button[I].Sellected := True;
+  end;
+  ShowInventory := False;
+  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+end;
+
+destructor TSceneParty.Destroy;
+var
+  I: TButtonEnum;
+begin
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[I]);
+  inherited;
+end;
+
+procedure TSceneParty.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  inherited;
+  case Button of
+    mbLeft:
+      begin
+        CurrentPartyPosition := GetPartyPosition(X, Y);
+        if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
+          Exit;
+        ActivePartyPosition := CurrentPartyPosition;
+        MediaPlayer.Play(mmClick);
+        Render;
+      end;
+  end;
+end;
+
+procedure TSceneParty.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
+begin
+  inherited;
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[I].MouseMove(X, Y);
+  Render;
+end;
+
+procedure TSceneParty.Render;
+const
+  H = 25;
+var
+  C: TCreatureEnum;
+  L, T, J: Integer;
+
+  procedure RenderButtons;
+  var
+    I: TButtonEnum;
+  begin
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[I].Render;
+  end;
+
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    LeftTextOut(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
+begin
+  inherited;
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  DrawImage(reWallpaperLeader);
+  DrawTitle(reTitleParty);
+  RenderParty(psLeft, CurrentParty);
+  if ShowInventory then
+  begin
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
+
+  end
+  else
+  begin
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
+    C := CurrentParty.Creature[ActivePartyPosition].Enum;
+    if (C <> crNone) then
+      RenderCharacterInfo(C);
+  end;
+  RenderResources;
+  RenderButtons;
+end;
+
+procedure TSceneParty.Timer;
+begin
+  inherited;
+
+end;
+
+procedure TSceneParty.Update(var Key: Word);
+begin
+  inherited;
+  case Key of
+    K_ESCAPE, K_ENTER:
+      Close;
+    K_I:
+      Inventory;
+    K_LEFT, K_KP_4, K_A:
+      MoveCursor(drWest);
+    K_RIGHT, K_KP_6, K_D:
+      MoveCursor(drEast);
+    K_UP, K_KP_8, K_W:
+      MoveCursor(drNorth);
+    K_DOWN, K_KP_2, K_X:
+      MoveCursor(drSouth);
   end;
 end;
 

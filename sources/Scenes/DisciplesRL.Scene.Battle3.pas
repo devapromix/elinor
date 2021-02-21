@@ -4,16 +4,22 @@ interface
 
 uses
   System.Classes,
+  DisciplesRL.Scenes,
   Vcl.Controls;
 
-procedure Init;
-procedure Render;
-procedure Timer;
-procedure MouseClick;
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure Free;
+type
+  TSceneBattle3 = class(TScene)
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  end;
 
 implementation
 
@@ -21,19 +27,11 @@ uses
   System.SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.GUI.Button,
-  DisciplesRL.Scenes,
   DisciplesRL.Resources,
   DisciplesRL.Scene.Party;
 
 var
   Button: TButton;
-
-procedure Init;
-begin
-  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
-    DefaultButtonTop, Surface.Canvas, reTextClose);
-  Button.Sellected := True;
-end;
 
 procedure Start;
 begin
@@ -45,45 +43,62 @@ begin
   MediaPlayer.Stop;
 end;
 
-procedure Render;
-begin
-  DrawTitle(reTitleBattle);
-  Button.Render;
-end;
+{ TSceneBattle3 }
 
-procedure Timer;
+procedure TSceneBattle3.Click;
 begin
-
-end;
-
-procedure MouseClick;
-begin
+  inherited;
   if Button.MouseDown then
     Finish;
 end;
 
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+constructor TSceneBattle3.Create;
 begin
+  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
+    DefaultButtonTop, Surface.Canvas, reTextClose);
+  Button.Sellected := True;
+end;
+
+destructor TSceneBattle3.Destroy;
+begin
+  FreeAndNil(Button);
+  inherited;
+end;
+
+procedure TSceneBattle3.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  inherited;
 
 end;
 
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TSceneBattle3.MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
+  inherited;
   Button.MouseMove(X, Y);
   Render;
 end;
 
-procedure KeyDown(var Key: Word; Shift: TShiftState);
+procedure TSceneBattle3.Render;
 begin
+  inherited;
+  DrawTitle(reTitleBattle);
+  Button.Render;
+end;
+
+procedure TSceneBattle3.Timer;
+begin
+  inherited;
+
+end;
+
+procedure TSceneBattle3.Update(var Key: Word);
+begin
+  inherited;
   case Key of
     K_ESCAPE, K_ENTER:
       Finish;
   end;
-end;
-
-procedure Free;
-begin
-  FreeAndNil(Button);
 end;
 
 end.

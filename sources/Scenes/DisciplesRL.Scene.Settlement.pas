@@ -4,30 +4,41 @@ interface
 
 uses
   System.Classes,
-  Vcl.Controls;
+  Vcl.Controls,
+  DisciplesRL.Scenes;
 
 type
   TSettlementSubSceneEnum = (stCity, stCapital);
 
-procedure Init;
+  { TSceneMap }
+
+type
+  TSceneSettlement = class(TScene)
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Show(const S: TSceneEnum); override;
+    procedure Show2(const S: TSceneEnum;
+      const SettlementType: TSettlementSubSceneEnum); overload;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  end;
+
 procedure Gen;
-procedure Render;
 procedure RenderResources;
-procedure RenderButtons;
-procedure Timer;
-procedure MouseClick;
 procedure Show(SettlementType: TSettlementSubSceneEnum);
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure Free;
 
 implementation
 
 uses
   System.Math,
+  System.Types,
   System.SysUtils,
-  DisciplesRL.Scenes,
   DisciplesRL.Scene.Map,
   DisciplesRL.Resources,
   DisciplesRL.Saga,
@@ -36,7 +47,6 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Creatures,
   DisciplesRL.GUI.Button,
-  DisciplesRL.Scene.Battle,
   DisciplesRL.Scene.Hire;
 
 type
@@ -62,23 +72,7 @@ var
   SettlementParty: TParty = nil;
   CurrentCityIndex: Integer = -1;
   CityArr: array [T] of Integer;
-
-procedure Init;
-var
-  I: TButtonEnum;
-  L, W: Integer;
-begin
-  W := ResImage[reButtonDef].Width + 4;
-  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-  begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas,
-      ButtonText[I]);
-    Inc(L, W);
-    if (I = btClose) then
-      Button[I].Sellected := True;
-  end;
-end;
+  P: array [1 .. 12] of TPoint;
 
 procedure Gen;
 var
@@ -96,14 +90,6 @@ begin
   end;
 end;
 
-procedure RenderButtons;
-var
-  I: TButtonEnum;
-begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].Render;
-end;
-
 function GetName(const I: Integer = 0): string;
 begin
   Result := CityNameText[CityArr[I]];
@@ -118,42 +104,6 @@ begin
   LeftTextOut(45, 54, IntToStr(TSaga.Mana));
   // DrawImage(15, 70, reMana);
   // LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
-end;
-
-procedure Render;
-begin
-  CalcPoints;
-  DrawImage(reWallpaperSettlement);
-  case CurrentSettlementType of
-    stCity:
-      begin
-        DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
-        //CenterTextOut(100, Format('%s (Level %d)',
-        //  [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
-        //  .MaxLevel + 1]));
-        DrawImage(20, 160, reTextLeadParty);
-        DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
-      end;
-    stCapital:
-      begin
-        DrawTitle(CityNameTitle[CityArr[0]]);
-        DrawImage(20, 160, reTextLeadParty);
-        DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
-      end;
-  end;
-  // CenterTextOut(60,
-  // Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
-  // [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
-  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
-    or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
-      Party[TLeaderParty.LeaderPartyIndex].Count <
-      TLeaderParty.Leader.MaxLeadership)
-  else
-    RenderParty(psLeft, nil);
-  RenderParty(psRight, SettlementParty, True);
-  RenderResources;
-  RenderButtons;
 end;
 
 procedure MoveCursor(Dir: TDirectionEnum);
@@ -196,12 +146,7 @@ begin
           Dec(ActivePartyPosition, 4);
       end;
   end;
-  Render;
-end;
-
-procedure Timer;
-begin
-
+  Scenes.Render;
 end;
 
 procedure Hire;
@@ -403,23 +348,9 @@ begin
     end;
   end;
   MediaPlayer.PlayMusic(mmMap);
-  DisciplesRL.Scene.Map.Show;
+  Scenes.Show(scMap);
   MediaPlayer.Play(mmClick);
   TSaga.NewDay;
-end;
-
-procedure MouseClick;
-begin
-  if Button[btHire].MouseDown then
-    Hire;
-  if Button[btHeal].MouseDown then
-    Heal;
-  if Button[btDismiss].MouseDown then
-    Dismiss;
-  if Button[btRevive].MouseDown then
-    Revive;
-  if Button[btClose].MouseDown then
-    Close;
 end;
 
 procedure Show(SettlementType: TSettlementSubSceneEnum);
@@ -436,20 +367,57 @@ begin
   else
     SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
   end;
-  SetScene(scSettlement);
+  Scenes.Show(scSettlement);
 end;
 
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
+{ TSceneSettlement }
+
+procedure TSceneSettlement.Click;
+begin
+  inherited;
+  if Button[btHire].MouseDown then
+    Hire;
+  if Button[btHeal].MouseDown then
+    Heal;
+  if Button[btDismiss].MouseDown then
+    Dismiss;
+  if Button[btRevive].MouseDown then
+    Revive;
+  if Button[btClose].MouseDown then
+    Close;
+end;
+
+constructor TSceneSettlement.Create;
+var
+  I: TButtonEnum;
+  L, W: Integer;
+begin
+  inherited;
+  W := ResImage[reButtonDef].Width + 4;
+  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas,
+      ButtonText[I]);
+    Inc(L, W);
+    if (I = btClose) then
+      Button[I].Sellected := True;
+  end;
+end;
+
+destructor TSceneSettlement.Destroy;
 var
   I: TButtonEnum;
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].MouseMove(X, Y);
-  Render;
+    FreeAndNil(Button[I]);
+  inherited;
 end;
 
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TSceneSettlement.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
 begin
+  inherited;
   if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
     and (CurrentSettlementType = stCapital) and (Button = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
@@ -492,8 +460,104 @@ begin
   end;
 end;
 
-procedure KeyDown(var Key: Word; Shift: TShiftState);
+procedure TSceneSettlement.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
 begin
+  inherited;
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[I].MouseMove(X, Y);
+  Scenes.Render;
+end;
+
+procedure CalcPoints;
+var
+  I: Byte;
+  X, Y: Byte;
+  X4: Integer;
+begin
+  X := 0;
+  Y := 0;
+  X4 := Surface.Width div 4;
+  for I := 1 to 12 do
+  begin
+    P[I].X := Left + (X * X4);
+    P[I].Y := Top + (Y * 120);
+    Inc(Y);
+    if (Y > 2) then
+    begin
+      Y := 0;
+      Inc(X);
+    end;
+  end;
+end;
+
+procedure TSceneSettlement.Render;
+
+  procedure RenderButtons;
+  var
+    I: TButtonEnum;
+  begin
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[I].Render;
+  end;
+
+begin
+  inherited;
+  CalcPoints;
+  DrawImage(reWallpaperSettlement);
+  case CurrentSettlementType of
+    stCity:
+      begin
+        DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
+        // CenterTextOut(100, Format('%s (Level %d)',
+        // [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
+        // .MaxLevel + 1]));
+        DrawImage(20, 160, reTextLeadParty);
+        DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
+      end;
+    stCapital:
+      begin
+        DrawTitle(CityNameTitle[CityArr[0]]);
+        DrawImage(20, 160, reTextLeadParty);
+        DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
+      end;
+  end;
+  // CenterTextOut(60,
+  // Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
+  // [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
+  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
+    or (CurrentSettlementType = stCity) then
+    RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
+      Party[TLeaderParty.LeaderPartyIndex].Count <
+      TLeaderParty.Leader.MaxLeadership)
+  else
+    RenderParty(psLeft, nil);
+  RenderParty(psRight, SettlementParty, True);
+  RenderResources;
+  RenderButtons;
+end;
+
+procedure TSceneSettlement.Show(const S: TSceneEnum);
+begin
+
+end;
+
+procedure TSceneSettlement.Show2(const S: TSceneEnum;
+  const SettlementType: TSettlementSubSceneEnum);
+begin
+
+end;
+
+procedure TSceneSettlement.Timer;
+begin
+  inherited;
+
+end;
+
+procedure TSceneSettlement.Update(var Key: Word);
+begin
+  inherited;
   case Key of
     K_ESCAPE, K_ENTER:
       Close;
@@ -517,14 +581,6 @@ begin
     K_DOWN, K_KP_2, K_X:
       MoveCursor(drSouth);
   end;
-end;
-
-procedure Free;
-var
-  I: TButtonEnum;
-begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[I]);
 end;
 
 end.

@@ -123,28 +123,6 @@ begin
     Result := 11;
 end;
 
-procedure CalcPoints;
-var
-  I: Byte;
-  X, Y: Byte;
-  X4: Integer;
-begin
-  X := 0;
-  Y := 0;
-  X4 := Surface.Width div 4;
-  for I := 1 to 12 do
-  begin
-    P[I].X := Left + (X * X4);
-    P[I].Y := Top + (Y * 120);
-    Inc(Y);
-    if (Y > 2) then
-    begin
-      Y := 0;
-      Inc(X);
-    end;
-  end;
-end;
-
 procedure Victory;
 begin
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)].Clear;
@@ -312,7 +290,7 @@ begin
         N := TransformTo(N);
         //V.SetInt('SlotClick', N);
         //Run('Battles\SlotClick.pas');
-        DisciplesRL.Scenes.Render;
+        Scenes.Render;
       end;
   end;
 end;

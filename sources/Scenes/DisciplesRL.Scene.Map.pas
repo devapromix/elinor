@@ -7,15 +7,20 @@ uses
   DisciplesRL.Scenes,
   Vcl.Controls;
 
-procedure Init;
-procedure Render;
-procedure Timer;
-procedure MouseClick;
-procedure Show;
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-procedure Free;
+{ TSceneMap }
+
+type
+  TSceneMap = class(TScene)
+  public
+    procedure Show(const S: TSceneEnum); override;
+    procedure Render; override;
+    procedure Update(var Key: Word); override;
+    procedure Timer; override;
+    procedure Click; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+  end;
 
 implementation
 
@@ -35,19 +40,22 @@ uses
 var
   LastMousePos, MousePos: TPoint;
 
-procedure Init;
-begin
+{ TSceneMap }
 
+procedure TSceneMap.Click;
+begin
+  inherited;
+  if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
+    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
+  else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and
+    TMap.InMap(MousePos.X, MousePos.Y) then
+    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
 end;
 
-procedure Show;
+procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
 begin
-  MediaPlayer.Play(mmSettlement);
-  SetScene(scMap);
-end;
-
-procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
+  inherited;
   case Button of
     mbMiddle:
       begin
@@ -56,21 +64,37 @@ begin
   end;
 end;
 
-procedure RenderNewDayMessage;
+procedure TSceneMap.MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-  DrawImage(10, 10, reFrame);
-  DrawImage(60, 10, reTextNewDay);
-  DrawImage(45, 70, reGold);
-  LeftTextOut(75, 84, IntToStr(TSaga.GoldMines * TSaga.GoldFromMinePerDay));
-  DrawImage(170, 70, reMana);
-  LeftTextOut(205, 84, IntToStr(TSaga.ManaMines * TSaga.ManaFromMinePerDay));
+  inherited;
+  MousePos := Point(X div TMap.TileSize, Y div TMap.TileSize);
+  if (MousePos.X <> LastMousePos.X) or (MousePos.Y <> LastMousePos.Y) then
+  begin
+    Scenes.Render;
+    LastMousePos.X := MousePos.X;
+    LastMousePos.Y := MousePos.Y;
+  end;
 end;
 
-procedure Render;
+procedure TSceneMap.Render;
 var
   X, Y: Integer;
   F: Boolean;
+
+  procedure RenderNewDayMessage;
+  begin
+    DrawImage(10, 10, reFrame);
+    DrawImage(60, 10, reTextNewDay);
+    DrawImage(45, 70, reGold);
+    LeftTextOut(75, 84, '+' + IntToStr(TSaga.GoldMines *
+      TSaga.GoldFromMinePerDay));
+    DrawImage(170, 70, reMana);
+    LeftTextOut(205, 84, '+' + IntToStr(TSaga.ManaMines *
+      TSaga.ManaFromMinePerDay));
+  end;
+
 begin
+  inherited;
   for Y := 0 to TMap.Height - 1 do
     for X := 0 to TMap.Width - 1 do
     begin
@@ -142,41 +166,30 @@ begin
     RenderNewDayMessage;
 end;
 
-procedure Timer;
+procedure TSceneMap.Show;
 begin
+  inherited;
+  MediaPlayer.Play(mmSettlement);
+  Scenes.SetScene(scMap);
+end;
+
+procedure TSceneMap.Timer;
+begin
+  inherited;
   if TSaga.ShowNewDayMessage > 0 then
     Dec(TSaga.ShowNewDayMessage);
 end;
 
-procedure MouseClick;
+procedure TSceneMap.Update(var Key: Word);
 begin
-  if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
-    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-  else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and
-    TMap.InMap(MousePos.X, MousePos.Y) then
-    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
-end;
-
-procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-begin
-  MousePos := Point(X div TMap.TileSize, Y div TMap.TileSize);
-  if (MousePos.X <> LastMousePos.X) or (MousePos.Y <> LastMousePos.Y) then
-  begin
-    DisciplesRL.Scenes.Render;
-    LastMousePos.X := MousePos.X;
-    LastMousePos.Y := MousePos.Y;
-  end;
-end;
-
-procedure KeyDown(var Key: Word; Shift: TShiftState);
-begin
+  inherited;
   case Key of
     K_ESCAPE:
       begin
         MediaPlayer.PlayMusic(mmMenu);
         MediaPlayer.Play(mmClick);
         MediaPlayer.Play(mmSettlement);
-        SetScene(scMenu);
+        Scenes.SetScene(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:
       TLeaderParty.Leader.Move(drWest);
@@ -201,12 +214,6 @@ begin
     K_J:
       DisciplesRL.Scene.Hire.Show(stJournal);
   end;
-
-end;
-
-procedure Free;
-begin
-
 end;
 
 end.
