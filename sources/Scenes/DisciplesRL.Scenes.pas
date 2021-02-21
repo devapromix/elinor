@@ -157,7 +157,6 @@ uses
 var
   CurrentScene: TSceneEnum;
   MediaAvailable: Boolean;
-  MouseX, MouseY: Integer;
 
   { TScene }
 

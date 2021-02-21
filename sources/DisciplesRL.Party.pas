@@ -463,7 +463,8 @@ begin
           MediaPlayer.PlayMusic(mmBattle);
           if TSaga.NewBattle then
             Scenes.SetScene(scBattle3)
-          else Scenes.SetScene(scBattle2);
+          else
+            Scenes.SetScene(scBattle2);
           TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;
@@ -518,6 +519,7 @@ begin
     end;
     Inc(C);
   until (C >= ACount);
+  TSaga.ShowNewDayMessage := 0;
 end;
 
 procedure TLeaderParty.UpdateLevel(const APosition: TPosition);

@@ -6,7 +6,7 @@ object MainForm: TMainForm
   Caption = 'DisciplesRL'
   ClientHeight = 596
   ClientWidth = 795
-  Color = clBtnFace
+  Color = clBlack
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
