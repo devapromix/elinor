@@ -248,23 +248,79 @@ const
   { TSaga }
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
+
 var
-  Level, N: Integer;
+  Level, N, P: Integer;
   I: TPosition;
+  Cr: TCreatureEnum;
 begin
   Level := EnsureRange((TMap.GetDistToCapital(AX, AY) div 3) +
     Ord(TSaga.Difficulty), 1, MaxLevel);
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
-  repeat
+  { repeat
     N := RandomRange(0, High(PartyBase) - 1) + 1;
-  until PartyBase[N].Level = Level;
-  if IsFinal then
+    until PartyBase[N].Level = Level;
+    if IsFinal then
     N := High(PartyBase);
+    with Party[TSaga.GetPartyCount - 1] do
+    begin
+    for I := Low(TPosition) to High(TPosition) do
+    AddCreature(PartyBase[N].Character[I], I);
+    end;
+  }
+  // P:= Level*50;
+  P := 50+50;//+50;
   with Party[TSaga.GetPartyCount - 1] do
   begin
-    for I := Low(TPosition) to High(TPosition) do
-      AddCreature(PartyBase[N].Character[I], I);
+    //
+    Cr := TCreature.GetRandomEnum(P, 2);
+    case RandomRange(0, 4) of
+      0:
+        AddCreature(Cr, 2);
+      1:
+        begin
+          AddCreature(Cr, 0);
+          AddCreature(Cr, 4);
+        end;
+      2:
+        begin
+          AddCreature(Cr, 0);
+          AddCreature(Cr, 2);
+          AddCreature(Cr, 4);
+        end;
+      3:
+        begin
+          AddCreature(Cr, 0);
+          AddCreature(Cr, 4);
+          Cr := TCreature.GetRandomEnum(P, 2);
+          AddCreature(Cr, 2);
+        end;
+    end;
+    //
+    Cr := TCreature.GetRandomEnum(P, 3);
+    case RandomRange(0, 4) of
+      0:
+        AddCreature(Cr, 3);
+      1:
+        begin
+          AddCreature(Cr, 1);
+          AddCreature(Cr, 5);
+        end;
+      2:
+        begin
+          AddCreature(Cr, 1);
+          AddCreature(Cr, 3);
+          AddCreature(Cr, 5);
+        end;
+      3:
+        begin
+          AddCreature(Cr, 1);
+          AddCreature(Cr, 5);
+          Cr := TCreature.GetRandomEnum(P, 3);
+          AddCreature(Cr, 3);
+        end;
+    end;
   end;
 end;
 

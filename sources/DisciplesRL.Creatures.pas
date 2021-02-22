@@ -443,12 +443,15 @@ type
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
     class procedure Assign(var ACreature: TCreature;
       const I: TCreatureEnum); static;
+    class function GetRandomEnum(const P, Position: Integer)
+      : TCreatureEnum; static;
   end;
 
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  System.Math;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
@@ -462,7 +465,8 @@ const
     Description: ('Мизраэль был послан, чтобы помочь',
     'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
-    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
+    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
+    Gold: 0;),
     // Pegasus Knight
     (ResEnum: rePegasusKnight; Name: 'Рыцарь на Пегасе';
     Description: ('Оседлавший пегаса рыцарь - это бла-',
@@ -520,14 +524,15 @@ const
     'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
-    Gold: 50),
+    Gold: 100),
 
     // Ashgan
     (ResEnum: reAshgan; Name: 'Ашган';
     Description: ('Ашган, несущий чуму, был некогда',
     'верховным священником Алкмаара.', 'Он не оставляет столицу без охраны.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
-    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;),
+    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
+    Gold: 0;),
     // Death Knight
     (ResEnum: rePegasusKnight; Name: 'Рыцарь Смерти';
     Description: ('Сильнейшие и благороднейшие воины',
@@ -593,7 +598,7 @@ const
     'избран Бетрезеном для защиты столицы Легионов,',
     'никогда не оставляя её без защиты.'); HitPoints: 900; Initiative: 90;
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAll;),
+    SourceEnum: seLife; ReachEnum: reAll; Gold: 0;),
     // Duke
     (ResEnum: rePegasusKnight; Name: 'Герцог';
     Description: ('Воинственный герцог ведет демонов',
@@ -607,13 +612,13 @@ const
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Arch-Devil
     (ResEnum: reArchmage; Name: 'Архидьявол';
     Description: ('Архидьявол является владыкой магии;',
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
-    Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
+    Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     ///
     // Possessed
@@ -651,28 +656,28 @@ const
     'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);),
+    Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);),
     // Goblin Archer
     (ResEnum: reGoblinArcher; Name: 'Гоблин-лучник';
     Description: ('Гоблины-лучники сопровождают своих',
     'собратьев в засадах и нападениях,', 'используя грубые стрелы.');
     HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
+    Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
     // Goblin Elder
     (ResEnum: reGoblinElder; Name: 'Гоблин-старейшина';
     Description: ('Немногие гоблины настолько умны,',
     'чтобы практиковать искусство магии,', 'но иногда появляются старейшины.');
     HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 0; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);),
+    Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);),
 
     // Orc
     (ResEnum: reOrc; Name: 'Орк';
     Description: ('Орки в битвах всегда на передних',
     'рядах, так как они обладают крепким', 'телосложением.'); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
     // Ogre
@@ -680,7 +685,7 @@ const
     Description: ('Огры нападают на всех проходящих',
     'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
     Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
     // Spider
@@ -688,7 +693,7 @@ const
     Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400;
     Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);),
 
     // Wolf
@@ -697,7 +702,7 @@ const
     'землям в поисках добычи. Смерть ждет',
     'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack);)
     //
     );
@@ -754,6 +759,31 @@ begin
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
   end;
+end;
+
+class function TCreature.GetRandomEnum(const P, Position: Integer)
+  : TCreatureEnum;
+var
+  N, G: Integer;
+  R: TReachEnum;
+begin
+  case Position of
+    0, 2, 4:
+      R := reAdj;
+  else
+    case RandomRange(0, 2) of
+      0:
+        R := reAll;
+    else
+      R := reAny;
+    end;
+  end;
+  repeat
+    N := RandomRange(0, Ord(High(TCreatureEnum))) + 1;
+    G := CreatureBase[TCreatureEnum(N)].Gold;
+  until (G > 0) and (G >= P - 25) and (G <= P + 25) and
+    (CreatureBase[TCreatureEnum(N)].ReachEnum = R);
+  Result := TCreatureEnum(N);
 end;
 
 function TCreature.IsLeader(): Boolean;
