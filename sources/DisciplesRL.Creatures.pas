@@ -130,6 +130,9 @@ type
     // Ogres
     crOgre,
 
+    // Undeads
+    crGhoul,
+
     // Spiders
     crGiantSpider,
     // Wolves
@@ -703,6 +706,14 @@ const
     Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
+
+    // Ghoul
+    (Race: reNeutrals; SubRace: reUndead; ResEnum: reSquire; Name: 'Упырь';
+    Description: ('Упыри - опасные создания-нежить,',
+    'способные воздействовать на разум', 'своей жертвы.');
+    HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
 
     // Spider
     (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;
