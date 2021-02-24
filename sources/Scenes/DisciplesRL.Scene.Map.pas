@@ -40,7 +40,7 @@ uses
 var
   LastMousePos, MousePos: TPoint;
 
-{ TSceneMap }
+  { TSceneMap }
 
 procedure TSceneMap.Click;
 begin
@@ -209,6 +209,9 @@ begin
       TLeaderParty.Leader.Move(drSouthEast);
     K_ENTER, K_KP_5, K_S:
       TLeaderParty.Leader.Move(drOrigin);
+    K_I:
+      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
+        scMap, True);
     K_P:
       DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:

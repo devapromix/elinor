@@ -564,6 +564,9 @@ begin
     K_P:
       DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement);
+    K_I:
+      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
+        scSettlement, True);
     // K_A:
     // Hire;
     K_H:

@@ -717,11 +717,10 @@ const
     // Dark Elf Gast
     (Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire;
     Name: 'Тёмный эльф-гаст'; Description: ('Когда-то гасты были благородными',
-    'эльфами, пострадавшими от чумы.',
-    'Смерть передала их в руки Мортис.'); HitPoints: 110; Initiative: 40;
-    ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 125;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
+    HitPoints: 110; Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1;
+    Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
 
     // Spider
     (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;

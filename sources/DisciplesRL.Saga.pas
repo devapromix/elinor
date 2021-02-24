@@ -248,7 +248,6 @@ const
   { TSaga }
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
-
 var
   Level, N, P: Integer;
   I: TPosition;
@@ -284,6 +283,7 @@ begin
   begin
     //
     Cr := TCreature.GetRandomEnum(P, 2);
+    //TCreature.Character(Cr).Race
     case RandomRange(0, 4) of
       0:
         AddCreature(Cr, 2);

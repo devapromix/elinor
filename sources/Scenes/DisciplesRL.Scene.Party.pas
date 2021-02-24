@@ -32,7 +32,7 @@ type
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
-procedure Show(Party: TParty; CloseScene: TSceneEnum);
+procedure Show(Party: TParty; CloseScene: TSceneEnum; F: Boolean = False);
 function GetFrameX(const Position: TPosition;
   const PartySide: TPartySide): Integer;
 function GetFrameY(const Position: TPosition;
@@ -86,13 +86,14 @@ var
 const
   S = 2;
 
-procedure Show(Party: TParty; CloseScene: TSceneEnum);
+procedure Show(Party: TParty; CloseScene: TSceneEnum; F: Boolean = False);
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
   ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
   Scenes.SetScene(scParty);
   MediaPlayer.Play(mmSettlement);
+  ShowInventory := F;
 end;
 
 procedure MoveCursor(Dir: TDirectionEnum);
