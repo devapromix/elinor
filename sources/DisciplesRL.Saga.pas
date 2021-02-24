@@ -269,8 +269,17 @@ begin
     AddCreature(PartyBase[N].Character[I], I);
     end;
   }
-  // P:= Level*50;
-  P := 50+50;//+50;
+  P := EnsureRange(Level * 50, 1, 100);
+  {
+    1: 25..75
+    2: 75..125
+    3: 125..175
+    4: 175..225
+    5: 225..275
+    6: 275..325
+    7: 325..375
+    8: 375..425
+  }
   with Party[TSaga.GetPartyCount - 1] do
   begin
     //
