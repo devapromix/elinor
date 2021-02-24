@@ -129,6 +129,7 @@ type
     crOrc,
     // Ogres
     crOgre,
+
     // Spiders
     crGiantSpider,
     // Wolves
@@ -460,7 +461,8 @@ implementation
 
 uses
   System.SysUtils,
-  System.Math;
+  System.Math,
+  DisciplesRL.Saga;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
@@ -703,7 +705,7 @@ const
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
     // Spider
-    (Race: reNeutralAnimal; SubRace: reAnimal; ResEnum: reGiantSpider;
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;
     Name: 'Гигантский Паук'; Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
@@ -711,7 +713,7 @@ const
     Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);),
 
     // Wolf
-    (Race: reNeutralAnimal; SubRace: reAnimal; ResEnum: reWolf; Name: 'Волк';
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reWolf; Name: 'Волк';
     Description: ('Волки испокон веков бродят по этим',
     'землям в поисках добычи. Смерть ждет',
     'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
@@ -796,7 +798,8 @@ begin
     N := RandomRange(0, Ord(High(TCreatureEnum))) + 1;
     G := CreatureBase[TCreatureEnum(N)].Gold;
   until (G > 0) and (G >= P - 25) and (G <= P + 25) and
-    (CreatureBase[TCreatureEnum(N)].ReachEnum = R);
+    (CreatureBase[TCreatureEnum(N)].ReachEnum = R)
+    and (TSaga.LeaderRace <> CreatureBase[TCreatureEnum(N)].Race);
   Result := TCreatureEnum(N);
 end;
 
