@@ -131,7 +131,7 @@ type
     crOgre,
 
     // Undeads
-    crGhoul,
+    crGhoul, crDarkElfGast,
 
     // Spiders
     crGiantSpider,
@@ -710,10 +710,18 @@ const
     // Ghoul
     (Race: reNeutrals; SubRace: reUndead; ResEnum: reSquire; Name: 'Упырь';
     Description: ('Упыри - опасные создания-нежить,',
-    'способные воздействовать на разум', 'своей жертвы.');
-    HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
+    // Dark Elf Gast
+    (Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire;
+    Name: 'Тёмный эльф-гаст'; Description: ('Когда-то гасты были благородными',
+    'эльфами, пострадавшими от чумы.',
+    'Смерть передала их в руки Мортис.'); HitPoints: 110; Initiative: 40;
+    ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 125;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
 
     // Spider
     (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;
@@ -809,8 +817,8 @@ begin
     N := RandomRange(0, Ord(High(TCreatureEnum))) + 1;
     G := CreatureBase[TCreatureEnum(N)].Gold;
   until (G > 0) and (G >= P - 25) and (G <= P + 25) and
-    (CreatureBase[TCreatureEnum(N)].ReachEnum = R)
-    and (TSaga.LeaderRace <> CreatureBase[TCreatureEnum(N)].Race);
+    (CreatureBase[TCreatureEnum(N)].ReachEnum = R) and
+    (TSaga.LeaderRace <> CreatureBase[TCreatureEnum(N)].Race);
   Result := TCreatureEnum(N);
 end;
 
