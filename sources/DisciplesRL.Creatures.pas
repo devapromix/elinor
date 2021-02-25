@@ -130,6 +130,9 @@ type
     // Ogres
     crOgre,
 
+    // Humans
+    crPeasant, crManAtArms,
+
     // Undeads
     crGhoul, crDarkElfGast,
 
@@ -420,6 +423,7 @@ type
     Race: TRaceEnum;
     SubRace: TSubRaceEnum;
     ResEnum: TResEnum;
+    Size: TCreatureSize;
     Name: string;
     Description: array [0 .. 2] of string;
     HitPoints: Integer;
@@ -473,95 +477,96 @@ uses
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (Race: reNeutrals; SubRace: reCustom; ResEnum: reNone; Name: '';
-    Description: ('', '', ''); HitPoints: 0; Initiative: 0; ChancesToHit: 0;
-    Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Gold: 0),
+    (Race: reNeutrals; SubRace: reCustom; ResEnum: reNone; Size: szSmall;
+    Name: ''; Description: ('', '', ''); HitPoints: 0; Initiative: 0;
+    ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0),
 
     // Myzrael
-    (Race: reTheEmpire; SubRace: reCustom; ResEnum: reMyzrael; Name: 'Мизраэль';
-    Description: ('Мизраэль был послан, чтобы помочь',
+    (Race: reTheEmpire; SubRace: reCustom; ResEnum: reMyzrael; Size: szSmall;
+    Name: 'Мизраэль'; Description: ('Мизраэль был послан, чтобы помочь',
     'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
     Gold: 0;),
     // Pegasus Knight
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: rePegasusKnight;
-    Name: 'Рыцарь на Пегасе';
+    Size: szSmall; Name: 'Рыцарь на Пегасе';
     Description: ('Оседлавший пегаса рыцарь - это бла-',
     'городный воин, чей крылатый скакун', 'возносит его над полями и лесами.');
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Ranger
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reRanger; Name: 'Следопыт';
-    Description: ('Следопыты путешествуют быстро и хо-',
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reRanger; Size: szSmall;
+    Name: 'Следопыт'; Description: ('Следопыты путешествуют быстро и хо-',
     'рошо знают королевство, поэтому ко-',
     'роль часто посылает их в разведку.'); HitPoints: 90; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Archmage
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Name: 'Архимаг';
-    Description: ('Мастер магии, архимаг - единственный',
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
+    Name: 'Архимаг'; Description: ('Мастер магии, архимаг - единственный',
     'в Империи полководец, который уме-', 'ет испольовать свитки и посохи.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Thief
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Name: 'Вор';
-    Description: ('Опытные обманщики и воры, легко',
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
+    Name: 'Вор'; Description: ('Опытные обманщики и воры, легко',
     'пробираются в тыл врага, и служат', 'Империи, добывая важные сведения.');
     HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
     // Squire
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Name: 'Сквайр';
-    Description: ('Сквайр доблестно защищает в бою',
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
+    Name: 'Сквайр'; Description: ('Сквайр доблестно защищает в бою',
     'своих более слабых соотечественников,',
     'держа противников на расстоянии меча.'); HitPoints: 100; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Archer
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher; Name: 'Лучник';
-    Description: ('Стрелы лучника успешно поражают',
-    'врагов, которые укрываются за спинами', 'своих более сильных соратников.');
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher; Size: szSmall;
+    Name: 'Лучник'; Description: ('Стрелы лучника успешно поражают',
+    'врагов, которые укрываются за спи-', 'нами своих более сильных соратников.');
     HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 40; Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Apprentice
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reApprentice; Name: 'Ученик';
-    Description: ('Ученик мага атакует противников',
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reApprentice; Size: szSmall;
+    Name: 'Ученик'; Description: ('Ученик мага атакует противников',
     'с большого расстояния, обрушивая', 'на них молнии.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Acolyte
-    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reAcolyte; Name: 'Служка';
-    Description: ('Обученная искусству исцеления служка',
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reAcolyte; Size: szSmall;
+    Name: 'Служка'; Description: ('Обученная искусству исцеления служка',
     'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
     Gold: 100),
 
     // Ashgan
-    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reAshgan; Name: 'Ашган';
-    Description: ('Ашган, несущий чуму, был некогда',
+    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reAshgan; Size: szSmall;
+    Name: 'Ашган'; Description: ('Ашган, несущий чуму, был некогда',
     'верховным священником Алкмаара.', 'Он не оставляет столицу без охраны.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
     Gold: 0;),
     // Death Knight
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: rePegasusKnight;
-    Name: 'Рыцарь Смерти'; Description: ('Сильнейшие и благороднейшие воины',
+    Size: szSmall; Name: 'Рыцарь Смерти';
+    Description: ('Сильнейшие и благороднейшие воины',
     'королевства Алкмаар были возвращены',
     'Мортис из небытия Рыцарями Смерти.'); HitPoints: 150; Initiative: 50;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Nosferat
-    (Race: reUndeadHordes; SubRace: reVampire; ResEnum: reRanger;
+    (Race: reUndeadHordes; SubRace: reVampire; ResEnum: reRanger; Size: szSmall;
     Name: 'Носферату'; Description: ('Первые вампиры Алкмаара, отринувшие',
     'Всеотца и поклявшиеся в верности Мор-',
     'тис в обмен на власть над смертью.'); HitPoints: 90; Initiative: 50;
@@ -570,7 +575,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack);),
     // Lich Queen
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
-    Name: 'Королева Личей';
+    Size: szSmall; Name: 'Королева Личей';
     Description: ('Жрицы культа смерти, процветавшего в',
     'Алкмааре, вернулись по воле Мортис', 'безжалостными Королевами личей.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -578,65 +583,71 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
     // Thug
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
-    Name: 'Головорез'; Description: ('Мортис вернула лучших из лучших в',
+    Size: szSmall; Name: 'Головорез';
+    Description: ('Мортис вернула лучших из лучших в',
     'мир живых, чтобы те действовали хит-',
     'ростью там, где недостаточно силы.'); HitPoints: 100; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
     // Fighter
-    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire; Name: 'Воин';
-    Description: ('Услышав зов Мортис, безропотно',
+    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire; Size: szSmall;
+    Name: 'Воин'; Description: ('Услышав зов Мортис, безропотно',
     'встают в строй мертвые воины.', 'Они не знают ни страха, ни жалости.');
     HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Ghost
-    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher;
-    Name: 'Привидение'; Description: ('Привидения - это темные души, чье зло',
-    'навсегда приковало их к миру живых.', ''); HitPoints: 45; Initiative: 20;
+    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher; Size: szSmall;
+    Name: 'Привидение'; Description: ('Привидения - это темные души,',
+    ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45; Initiative: 20;
     ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
     Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
     // Initiate
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reApprentice;
-    Name: 'Адепт'; Description: ('Адепты обучены нести чуму и',
+    Size: szSmall; Name: 'Адепт'; Description: ('Адепты обучены нести чуму и',
     'смерть армиям живых во славу', 'своей богини Мортис.'); HitPoints: 45;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll; Gold: 60;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Wyvern
     (Race: reUndeadHordes; SubRace: reUndeadDragon; ResEnum: reAcolyte;
-    Name: 'Виверна'; Description: ('Чародеи воскрешают мертвых драконов,',
-    'тем самым создавая виверн,', 'которые сражаются в рядах армии мертвых.');
+    Size: szBig; Name: 'Виверна';
+    Description: ('Чародеи воскрешают мертвых драко-',
+    'нов, тем самым создавая виверн, кото-', 'рые сражаются в рядах армии мертвых.');
     HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
     Gold: 100),
 
     // Ashkael
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAshkael;
-    Name: 'Ашкаэль'; Description: ('Командир 80 адских когорт, Ашкаэль был',
+    Size: szSmall; Name: 'Ашкаэль';
+    Description: ('Командир 80 адских когорт, Ашкаэль был',
     'избран Бетрезеном для защиты столицы Легионов,',
     'никогда не оставляя её без защиты.'); HitPoints: 900; Initiative: 90;
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll; Gold: 0;),
     // Duke
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: rePegasusKnight;
-    Name: 'Герцог'; Description: ('Воинственный герцог ведет демонов',
+    Size: szSmall; Name: 'Герцог';
+    Description: ('Воинственный герцог ведет демонов',
     'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Counselor
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reRanger;
-    Name: 'Советник'; Description: ('Советник ведёт авангард сил Легионов.',
+    Size: szSmall; Name: 'Советник';
+    Description: ('Советник ведёт авангард сил Легионов.',
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Arch-Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
-    Name: 'Архидьявол'; Description: ('Архидьявол является владыкой магии;',
+    Size: szSmall; Name: 'Архидьявол';
+    Description: ('Архидьявол является владыкой магии;',
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
@@ -644,7 +655,8 @@ const
     ///
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
-    Name: 'Одержимый'; Description: ('Повелитель демонов поработил этих',
+    Size: szSmall; Name: 'Одержимый';
+    Description: ('Повелитель демонов поработил этих',
     'сильных телом крестьян для того, что-',
     'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
@@ -652,81 +664,110 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Gargoyle
     (Race: reLegionsOfTheDamned; SubRace: reGargoyle; ResEnum: reArcher;
-    Name: 'Горгулья'; Description: ('Каменная кожа гаргулий поглощает',
+    Size: szBig; Name: 'Горгулья';
+    Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 40; Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 80),
     // Cultist
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reApprentice;
-    Name: 'Культист'; Description: ('Еретики Империи, они взывают к',
+    Size: szSmall; Name: 'Культист';
+    Description: ('Еретики Империи, они взывают к',
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);),
     // Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAcolyte;
-    Name: 'Чёрт'; Description: ('Это нечестивое создание',
+    Size: szBig; Name: 'Чёрт'; Description: ('Это нечестивое создание',
     'держит земли в страхе во имя его', 'Тёмного Повелителя Бетрезена.');
     HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 100),
 
+    // Neutral Green Skins
+{$REGION Green Skins}
     // Goblin
-    (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblin; Name: 'Гоблин';
-    Description: ('Гоблины — это дальние родственники',
+    (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblin; Size: szSmall;
+    Name: 'Гоблин'; Description: ('Гоблины — это дальние родственники',
     'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);),
     // Goblin Archer
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblinArcher;
-    Name: 'Гоблин-лучник'; Description: ('Гоблины-лучники сопровождают своих',
+    Size: szSmall; Name: 'Гоблин-лучник';
+    Description: ('Гоблины-лучники сопровождают своих',
     'собратьев в засадах и нападениях,', 'используя грубые стрелы.');
     HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack);),
     // Goblin Elder
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblinElder;
-    Name: 'Гоблин-старейшина'; Description: ('Немногие гоблины настолько умны,',
+    Size: szSmall; Name: 'Гоблин-старейшина';
+    Description: ('Немногие гоблины настолько умны,',
     'чтобы практиковать искусство магии,', 'но иногда появляются старейшины.');
     HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);),
 
     // Orc
-    (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc; Name: 'Орк';
-    Description: ('Орки в битвах всегда на передних',
+    (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc; Size: szSmall;
+    Name: 'Орк'; Description: ('Орки в битвах всегда на передних',
     'рядах, так как они обладают крепким', 'телосложением.'); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
 
     // Ogre
-    (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc; Name: 'Огр';
-    Description: ('Огры нападают на всех проходящих',
+    (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc; Size: szBig;
+    Name: 'Огр'; Description: ('Огры нападают на всех проходящих',
     'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
     Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack);),
+{$ENDREGION Green Skins}
+    // Neutral Humans
+{$REGION Humans}
+    // Peasant
+    (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;
+    Name: 'Крестьянин'; Description: ('Крестьяне защищают тот',
+    'маленький кусочек земли, который', 'они называют своим домом.');
+    HitPoints: 40; Initiative: 30; ChancesToHit: 75; Leadership: 0; Level: 1;
+    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
+    // Man at Arms
+    (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;
+    Name: 'Пехотинец';
+    Description: ('Наёмники, предоставляющие свои',
+    'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
 
+{$ENDREGION Humans}
+    // Neutral Undeads
+{$REGION Undeads}
     // Ghoul
-    (Race: reNeutrals; SubRace: reUndead; ResEnum: reSquire; Name: 'Упырь';
-    Description: ('Упыри - опасные создания-нежить,',
+    (Race: reNeutrals; SubRace: reUndead; ResEnum: reSquire; Size: szSmall;
+    Name: 'Упырь'; Description: ('Упыри - опасные создания-нежить,',
     'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
     // Dark Elf Gast
-    (Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire;
+    (Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire; Size: szSmall;
     Name: 'Тёмный эльф-гаст'; Description: ('Когда-то гасты были благородными',
     'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
     HitPoints: 110; Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack);),
-
+{$ENDREGION Undeads}
+    // Neutral Animals
+{$REGION Animals}
     // Spider
-    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider; Size: szBig;
     Name: 'Гигантский Паук'; Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
@@ -734,13 +775,14 @@ const
     Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);),
 
     // Wolf
-    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reWolf; Name: 'Волк';
-    Description: ('Волки испокон веков бродят по этим',
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reWolf; Size: szSmall;
+    Name: 'Волк'; Description: ('Волки испокон веков бродят по этим',
     'землям в поисках добычи. Смерть ждет',
     'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack);)
+{$ENDREGION Animals}
     //
     );
 
