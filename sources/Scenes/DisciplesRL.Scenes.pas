@@ -30,7 +30,6 @@ type
 
 procedure DrawText(const AX, AY: Integer; AText: string); overload;
 procedure DrawText(const AY: Integer; AText: string); overload;
-procedure DrawTitle(Res: TResEnum);
 procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
 procedure DrawImage(Res: TResEnum); overload;
 procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
@@ -104,6 +103,7 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); virtual;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); virtual;
+    procedure DrawTitle(Res: TResEnum);
   end;
 
 type
@@ -208,6 +208,11 @@ begin
 
 end;
 
+procedure TScene.DrawTitle(Res: TResEnum);
+begin
+  DrawImage((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, Res);
+end;
+
 function ConfirmDialog(const S: string): Boolean;
 begin
   Result := False;
@@ -225,11 +230,6 @@ begin
   ConfirmationForm.Msg := S;
   ConfirmationForm.SubScene := stInform;
   ConfirmationForm.ShowModal;
-end;
-
-procedure DrawTitle(Res: TResEnum);
-begin
-  DrawImage((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, Res);
 end;
 
 procedure DrawImage(X, Y: Integer; Image: TPNGImage);
