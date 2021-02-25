@@ -30,7 +30,6 @@ type
 
 procedure LeftTextOut(const AX, AY: Integer; AText: string);
 procedure CenterTextOut(const AY: Integer; AText: string);
-procedure RenderDark;
 procedure DrawTitle(Res: TResEnum);
 procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
 procedure DrawImage(Res: TResEnum); overload;
@@ -260,13 +259,6 @@ var
 begin
   S := Surface.Canvas.TextWidth(AText);
   LeftTextOut((Surface.Width div 2) - (S div 2), AY, AText);
-end;
-
-procedure RenderDark;
-begin
-  Scenes.Render;
-  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
-    ResImage[reDark]);
 end;
 
 { TMediaPlayer }
