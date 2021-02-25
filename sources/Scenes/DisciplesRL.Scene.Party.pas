@@ -240,21 +240,21 @@ procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
 var
   S: string;
 begin
-  LeftTextOut(AX + Left + 64, AY + 6, Name);
+  DrawText(AX + Left + 64, AY + 6, Name);
   S := '';
   if IsExp then
     S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperience(Level)]);
-  LeftTextOut(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]) + S);
-  LeftTextOut(AX + Left + 64, AY + 48, Format('Здоровье %d/%d',
+  DrawText(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]) + S);
+  DrawText(AX + Left + 64, AY + 48, Format('Здоровье %d/%d',
     [HitPoints, MaxHitPoints]));
   if Damage > 0 then
-    LeftTextOut(AX + Left + 64, AY + 69, Format('Урон %d Броня %d',
+    DrawText(AX + Left + 64, AY + 69, Format('Урон %d Броня %d',
       [Damage, Armor]))
   else
-    LeftTextOut(AX + Left + 64, AY + 69, Format('Исцеление %d Броня %d',
+    DrawText(AX + Left + 64, AY + 69, Format('Исцеление %d Броня %d',
       [Heal, Armor]));
-  LeftTextOut(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d',
+  DrawText(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d',
     [Initiative, ChToHit]) + '%');
 end;
 
@@ -417,7 +417,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    LeftTextOut(L, T, S);
+    DrawText(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);

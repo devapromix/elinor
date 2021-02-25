@@ -305,13 +305,13 @@ var
 
   procedure Add(S, V: string); overload;
   begin
-    LeftTextOut(L, T, Format('%s: %s', [S, V]));
+    DrawText(L, T, Format('%s: %s', [S, V]));
     Inc(T, H);
   end;
 
   procedure Add(S: string; V: Integer; R: string = ''); overload;
   begin
-    LeftTextOut(L, T, Format('%s: %d%s', [S, V, R]));
+    DrawText(L, T, Format('%s: %d%s', [S, V, R]));
     Inc(T, H);
   end;
 
@@ -324,7 +324,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    LeftTextOut(L, T, S);
+    DrawText(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);
@@ -332,7 +332,7 @@ var
 
   procedure Add(S: string; V, M: Integer); overload;
   begin
-    LeftTextOut(L, T, Format('%s: %d/%d', [S, V, M]));
+    DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
     Inc(T, H);
   end;
 
@@ -431,7 +431,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    LeftTextOut(L, T, S);
+    DrawText(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);
@@ -468,7 +468,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    LeftTextOut(L, T, S);
+    DrawText(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);
@@ -505,7 +505,7 @@ var
       N := Surface.Canvas.Font.Size;
       Surface.Canvas.Font.Size := N * 2;
     end;
-    LeftTextOut(L, T, S);
+    DrawText(L, T, S);
     if F then
       Surface.Canvas.Font.Size := N;
     Inc(T, H);
@@ -804,8 +804,8 @@ begin
       begin
         DrawTitle(reTitleLoot);
         DrawItem([reItemStoneTable]);
-        CenterTextOut(450, 'КАМЕННАЯ ТАБЛИЧКА');
-        CenterTextOut(470, TScenario.ScenarioAncientKnowledgeState);
+        DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');
+        DrawText(470, TScenario.ScenarioAncientKnowledgeState);
       end;
     stLoot:
       begin
@@ -815,23 +815,23 @@ begin
           reGold:
             begin
               DrawGold;
-              CenterTextOut(450, 'СОКРОВИЩЕ');
-              CenterTextOut(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+              DrawText(450, 'СОКРОВИЩЕ');
+              DrawText(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
             end;
           reMana:
             begin
               DrawMana;
-              CenterTextOut(450, 'СОКРОВИЩЕ');
-              CenterTextOut(470, 'МАНА +' + IntToStr(TSaga.NewMana));
+              DrawText(450, 'СОКРОВИЩЕ');
+              DrawText(470, 'МАНА +' + IntToStr(TSaga.NewMana));
             end;
           reBag:
             begin
               Y := 470;
-              CenterTextOut(450, 'СОКРОВИЩЕ');
+              DrawText(450, 'СОКРОВИЩЕ');
               if TSaga.NewGold > 0 then
               begin
                 It1 := reItemGold;
-                CenterTextOut(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+                DrawText(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
                 Inc(Y, 20);
               end;
               if TSaga.NewMana > 0 then
@@ -840,7 +840,7 @@ begin
                   It1 := reItemMana
                 else
                   It2 := reItemMana;
-                CenterTextOut(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
+                DrawText(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
                 Inc(Y, 20);
               end;
               if TSaga.NewItem > 0 then
@@ -852,7 +852,7 @@ begin
                   It2 := ItemRes
                 else
                   It3 := ItemRes;
-                CenterTextOut(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
+                DrawText(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
                 Inc(Y, 20);
               end;
               DrawItem([It1, It2, It3]);
@@ -880,7 +880,7 @@ begin
               RenderResources;
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
                 Top, reGold);
-              LeftTextOut(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
+              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
                 IntToStr(TCreature.Character(C).Gold));
             end;
           stLeader:

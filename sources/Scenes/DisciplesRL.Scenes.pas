@@ -28,8 +28,8 @@ type
     procedure PlayMusic(const MusicEnum: TMusicEnum);
   end;
 
-procedure LeftTextOut(const AX, AY: Integer; AText: string);
-procedure CenterTextOut(const AY: Integer; AText: string);
+procedure DrawText(const AX, AY: Integer; AText: string); overload;
+procedure DrawText(const AY: Integer; AText: string); overload;
 procedure DrawTitle(Res: TResEnum);
 procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
 procedure DrawImage(Res: TResEnum); overload;
@@ -248,17 +248,17 @@ begin
   DrawImage(X, Y, ResImage[Res]);
 end;
 
-procedure LeftTextOut(const AX, AY: Integer; AText: string);
+procedure DrawText(const AX, AY: Integer; AText: string);
 begin
   Surface.Canvas.TextOut(AX, AY, AText);
 end;
 
-procedure CenterTextOut(const AY: Integer; AText: string);
+procedure DrawText(const AY: Integer; AText: string);
 var
   S: Integer;
 begin
   S := Surface.Canvas.TextWidth(AText);
-  LeftTextOut((Surface.Width div 2) - (S div 2), AY, AText);
+  DrawText((Surface.Width div 2) - (S div 2), AY, AText);
 end;
 
 { TMediaPlayer }

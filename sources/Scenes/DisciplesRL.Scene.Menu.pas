@@ -154,7 +154,7 @@ begin
   DrawImage(reWallpaperMenu);
   DrawTitle(reTitleLogo);
   RenderButtons;
-  CenterTextOut(Surface.Height - 50, '2018-2021 by Apromix');
+  DrawText(Surface.Height - 50, '2018-2021 by Apromix');
 end;
 
 procedure TSceneMenu.Timer;
