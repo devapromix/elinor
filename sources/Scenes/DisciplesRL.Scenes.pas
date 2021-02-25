@@ -30,9 +30,6 @@ type
 
 procedure DrawText(const AX, AY: Integer; AText: string); overload;
 procedure DrawText(const AY: Integer; AText: string); overload;
-procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
-procedure DrawImage(Res: TResEnum); overload;
-procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
 function ConfirmDialog(const S: string): Boolean;
 procedure InformDialog(const S: string);
 
@@ -104,6 +101,10 @@ type
       X, Y: Integer); virtual;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); virtual;
     procedure DrawTitle(Res: TResEnum);
+    procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
+    procedure DrawImage(Res: TResEnum); overload;
+    procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
+    procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
   end;
 
 type
@@ -232,18 +233,28 @@ begin
   ConfirmationForm.ShowModal;
 end;
 
-procedure DrawImage(X, Y: Integer; Image: TPNGImage);
+procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
 begin
   Surface.Canvas.Draw(X, Y, Image);
 end;
 
-procedure DrawImage(Res: TResEnum);
+procedure TScene.DrawImage(Res: TResEnum);
 begin
   Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
     ResImage[Res]);
 end;
 
-procedure DrawImage(X, Y: Integer; Res: TResEnum);
+procedure TScene.RenderUnit(AResEnum: TResEnum; const AX, AY: Integer;
+  F: Boolean);
+begin
+  if F then
+    DrawImage(AX + 7, AY + 7, reBGChar)
+  else
+    DrawImage(AX + 7, AY + 7, reBGEnemy);
+  Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
+end;
+
+procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
 begin
   DrawImage(X, Y, ResImage[Res]);
 end;

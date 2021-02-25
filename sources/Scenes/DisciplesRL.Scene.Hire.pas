@@ -27,6 +27,7 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure DrawItem(ItemRes: array of TResEnum);
   end;
 
 procedure RenderCharacterInfo(C: TCreatureEnum);
@@ -135,7 +136,7 @@ begin
   Result := CurrentIndex;
 end;
 
-procedure DrawItem(ItemRes: array of TResEnum);
+procedure TSceneHire.DrawItem(ItemRes: array of TResEnum);
 var
   I, X: Integer;
 begin

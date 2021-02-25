@@ -48,8 +48,6 @@ procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
   ShowExp: Boolean = True); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
   IsAdv: Boolean = True); overload;
-procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer;
-  F: Boolean); overload;
 procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
   CanHire: Boolean = False; ShowExp: Boolean = True); overload;
 
@@ -277,15 +275,6 @@ begin
       Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
-procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
-begin
-  if F then
-    DrawImage(AX + 7, AY + 7, reBGChar)
-  else
-    DrawImage(AX + 7, AY + 7, reBGEnemy);
-  Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
-end;
-
 procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
   CanHire: Boolean = False; ShowExp: Boolean = True);
 var
@@ -295,19 +284,20 @@ begin
   with Party.Creature[Position] do
   begin
     if Active then
-    begin
-      if HitPoints <= 0 then
-        RenderUnit(reDead, AX, AY, F)
-      else
-        RenderUnit(ResEnum, AX, AY, F);
-      RenderUnitInfo(Position, Party, AX, AY, ShowExp);
-    end
+      with Scenes.GetScene(scParty) do
+      begin
+        if HitPoints <= 0 then
+          RenderUnit(reDead, AX, AY, F)
+        else
+          RenderUnit(ResEnum, AX, AY, F);
+        RenderUnitInfo(Position, Party, AX, AY, ShowExp);
+      end
     else if CanHire then
     begin
-      DrawImage(((ResImage[reFrame].Width div 2) -
+      Surface.Canvas.Draw(((ResImage[reFrame].Width div 2) -
         (ResImage[rePlus].Width div 2)) + AX,
         ((ResImage[reFrame].Height div 2) - (ResImage[rePlus].Height div 2)) +
-        AY, rePlus);
+        AY, ResImage[rePlus]);
     end;
   end;
 end;

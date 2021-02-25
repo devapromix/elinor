@@ -97,10 +97,10 @@ end;
 
 procedure RenderResources;
 begin
-  DrawImage(10, 10, reSmallFrame);
-  DrawImage(15, 10, reGold);
+  //DrawImage(10, 10, reSmallFrame);
+  //DrawImage(15, 10, reGold);
   DrawText(45, 24, IntToStr(TSaga.Gold));
-  DrawImage(15, 40, reMana);
+  //DrawImage(15, 40, reMana);
   DrawText(45, 54, IntToStr(TSaga.Mana));
   // DrawImage(15, 70, reMana);
   // LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
