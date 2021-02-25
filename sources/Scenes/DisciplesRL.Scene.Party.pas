@@ -287,9 +287,9 @@ begin
       with Scenes.GetScene(scParty) do
       begin
         if HitPoints <= 0 then
-          RenderUnit(reDead, AX, AY, F)
+          DrawUnit(reDead, AX, AY, F)
         else
-          RenderUnit(ResEnum, AX, AY, F);
+          DrawUnit(ResEnum, AX, AY, F);
         RenderUnitInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then

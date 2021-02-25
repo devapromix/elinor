@@ -104,7 +104,7 @@ type
     procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
-    procedure RenderUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
   end;
 
 type
@@ -244,14 +244,14 @@ begin
     ResImage[Res]);
 end;
 
-procedure TScene.RenderUnit(AResEnum: TResEnum; const AX, AY: Integer;
+procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
   F: Boolean);
 begin
   if F then
     DrawImage(AX + 7, AY + 7, reBGChar)
   else
     DrawImage(AX + 7, AY + 7, reBGEnemy);
-  Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[AResEnum]);
+  DrawImage(AX + 7, AY + 7, AResEnum);
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);

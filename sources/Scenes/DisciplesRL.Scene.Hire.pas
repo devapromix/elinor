@@ -711,14 +711,14 @@ begin
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
           if K = TRaceCharKind(CurrentIndex) then
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+            DrawImage(Lf, Top + Y, reActFrame)
           else
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+            DrawImage(Lf, Top + Y, reFrame);
           with TCreature.Character
             (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
             [cgCharacters][K]) do
           begin
-            RenderUnit(ResEnum, Lf, Top + Y, True);
+            DrawUnit(ResEnum, Lf, Top + Y, True);
             RenderUnitInfo(Lf, Top + Y,
               Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
               [cgCharacters][K], False);
@@ -733,13 +733,13 @@ begin
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
           if K = TRaceCharKind(CurrentIndex) then
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+            DrawImage(Lf, Top + Y, reActFrame)
           else
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+            DrawImage(Lf, Top + Y, reFrame);
           with TCreature.Character(Characters[TSaga.LeaderRace]
             [cgLeaders][K]) do
           begin
-            RenderUnit(ResEnum, Lf, Top + Y, True);
+            DrawUnit(ResEnum, Lf, Top + Y, True);
             RenderUnitInfo(Lf, Top + Y, Characters[TSaga.LeaderRace][cgLeaders]
               [K], False);
           end;
@@ -753,9 +753,9 @@ begin
         for D := dfEasy to dfHard do
         begin
           if Ord(D) = CurrentIndex then
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+            DrawImage(Lf, Top + Y, reActFrame)
           else
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+            DrawImage(Lf, Top + Y, reFrame);
           RenderDifficulty(D, Lf, Top + Y);
           Inc(Y, 120);
         end;
@@ -766,9 +766,9 @@ begin
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
           if Ord(R) - 1 = CurrentIndex then
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+            DrawImage(Lf, Top + Y, reActFrame)
           else
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+            DrawImage(Lf, Top + Y, reFrame);
           RenderRace(R, Lf, Top + Y);
           Inc(Y, 120);
         end;
@@ -781,9 +781,9 @@ begin
           to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reActFrame])
+            DrawImage(Lf, Top + Y, reActFrame)
           else
-            Surface.Canvas.Draw(Lf, Top + Y, ResImage[reFrame]);
+            DrawImage(Lf, Top + Y, reFrame);
           RenderScenario(S, Lf, Top + Y);
           Inc(Y, 120);
         end;
@@ -862,8 +862,7 @@ begin
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
-    Surface.Canvas.Draw(Lf + ResImage[reActFrame].Width + 2, Top,
-      ResImage[reInfoFrame]);
+    DrawImage(Lf + ResImage[reActFrame].Width + 2, Top, reInfoFrame);
   case SubScene of
     stCharacter, stLeader:
       begin
@@ -886,8 +885,8 @@ begin
             end;
           stLeader:
             begin
-              { Surface.Canvas.Draw(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
-                ResImage[reInfoFrame]);
+              { DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
+                reInfoFrame);
                 T := Top + 6;
                 L := Lf + (ResImage[reActFrame].Width * 2) + 14;
                 Add('Умения', True);
