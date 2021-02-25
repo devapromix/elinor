@@ -164,6 +164,9 @@ type
   AttackEnum = (atLongSword, atCrossbow, atDrainLife, atHealing, atParalyze,
     atPoison);
 
+type
+  TCreatureSize = (szSmall, szBig);
+
 const
   AttackName: array [AttackEnum] of string = ('Длинный Меч', 'Арбалет',
     'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд');
