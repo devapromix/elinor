@@ -18,6 +18,7 @@ type
     procedure Heal;
     procedure Dismiss;
     procedure Revive;
+    procedure Hire;
   public
     constructor Create;
     destructor Destroy; override;
@@ -153,7 +154,7 @@ begin
   Scenes.Render;
 end;
 
-procedure Hire;
+procedure TSceneSettlement.Hire;
 
   procedure Hire(const AParty: TParty; const APosition: Integer);
   begin

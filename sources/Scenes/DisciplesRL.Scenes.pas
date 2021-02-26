@@ -30,8 +30,6 @@ type
 
 procedure DrawText(const AX, AY: Integer; AText: string); overload;
 procedure DrawText(const AY: Integer; AText: string); overload;
-//function ConfirmDialog(const S: string): Boolean;
-procedure InformDialog(const S: string);
 
 const
   K_ESCAPE = 27;
@@ -106,6 +104,7 @@ type
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
     function ConfirmDialog(const S: string): Boolean;
+    procedure InformDialog(const S: string);
   end;
 
 type
@@ -227,7 +226,7 @@ begin
   end;
 end;
 
-procedure InformDialog(const S: string);
+procedure TScene.InformDialog(const S: string);
 begin
   ConfirmationForm.Msg := S;
   ConfirmationForm.SubScene := stInform;

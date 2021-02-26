@@ -152,7 +152,8 @@ begin
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(TMap.Place[0].X,
     TMap.Place[0].Y, TSaga.LeaderRace);
-  C := Characters[TSaga.LeaderRace][cgLeaders][TRaceCharKind(HireIndex)];
+  C := Characters[TSaga.LeaderRace][cgLeaders]
+    [TRaceCharKind(TSceneHire.HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
       begin
@@ -245,7 +246,8 @@ begin
       Y := RandomRange(2, MapHeight - 2);
     until (Map[lrTile][X, Y] = reNeutralTerrain) and
       (Map[lrObj][X, Y] = reNone);
-    if (GetDistToCapital(X, Y) <= (15 - (Ord(TSaga.Difficulty)*2))) and (RandomRange(0, 9) > 2) then
+    if (GetDistToCapital(X, Y) <= (15 - (Ord(TSaga.Difficulty) * 2))) and
+      (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
         0:
           Map[lrObj][X, Y] := reGold;

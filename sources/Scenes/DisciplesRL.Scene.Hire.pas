@@ -17,6 +17,9 @@ type
 
 type
   TSceneHire = class(TScene)
+  private
+    procedure Ok;
+    procedure Back;
   public
     constructor Create;
     destructor Destroy; override;
@@ -28,6 +31,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
+    class function HireIndex: Integer; static;
   end;
 
 procedure RenderCharacterInfo(C: TCreatureEnum);
@@ -35,7 +39,6 @@ procedure Show(const ASubScene: THireSubSceneEnum); overload;
 procedure Show(const Party: TParty; const Position: Integer); overload;
 procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
   const ALootRes: TResEnum = reGold); overload;
-function HireIndex: Integer;
 
 implementation
 
@@ -131,7 +134,7 @@ begin
   MC := RandomRange(0, 3);
 end;
 
-function HireIndex: Integer;
+class function TSceneHire.HireIndex: Integer;
 begin
   Result := CurrentIndex;
 end;
@@ -160,7 +163,7 @@ begin
   end;
 end;
 
-procedure Back;
+procedure TSceneHire.Back;
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
@@ -193,7 +196,7 @@ begin
   end;
 end;
 
-procedure Ok;
+procedure TSceneHire.Ok;
 var
   F: Boolean;
 begin
