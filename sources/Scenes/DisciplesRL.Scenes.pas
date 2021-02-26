@@ -30,7 +30,7 @@ type
 
 procedure DrawText(const AX, AY: Integer; AText: string); overload;
 procedure DrawText(const AY: Integer; AText: string); overload;
-function ConfirmDialog(const S: string): Boolean;
+//function ConfirmDialog(const S: string): Boolean;
 procedure InformDialog(const S: string);
 
 const
@@ -105,6 +105,7 @@ type
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
+    function ConfirmDialog(const S: string): Boolean;
   end;
 
 type
@@ -214,7 +215,7 @@ begin
   DrawImage((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, Res);
 end;
 
-function ConfirmDialog(const S: string): Boolean;
+function TScene.ConfirmDialog(const S: string): Boolean;
 begin
   Result := False;
   ConfirmationForm.Msg := S;

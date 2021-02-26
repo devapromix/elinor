@@ -14,6 +14,10 @@ type
 
 type
   TSceneSettlement = class(TScene)
+  private
+    procedure Heal;
+    procedure Dismiss;
+    procedure Revive;
   public
     constructor Create;
     destructor Destroy; override;
@@ -97,10 +101,10 @@ end;
 
 procedure RenderResources;
 begin
-  //DrawImage(10, 10, reSmallFrame);
-  //DrawImage(15, 10, reGold);
+  // DrawImage(10, 10, reSmallFrame);
+  // DrawImage(15, 10, reGold);
   DrawText(45, 24, IntToStr(TSaga.Gold));
-  //DrawImage(15, 40, reMana);
+  // DrawImage(15, 40, reMana);
   DrawText(45, 54, IntToStr(TSaga.Mana));
   // DrawImage(15, 70, reMana);
   // LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
@@ -190,7 +194,7 @@ begin
   end;
 end;
 
-procedure Dismiss;
+procedure TSceneSettlement.Dismiss;
 
   procedure Dismiss(const AParty: TParty; const APosition: Integer);
   begin
@@ -225,7 +229,7 @@ begin
   end;
 end;
 
-procedure Heal;
+procedure TSceneSettlement.Heal;
 
   procedure Heal(const AParty: TParty; const APosition: Integer);
   var
@@ -284,7 +288,7 @@ begin
   end;
 end;
 
-procedure Revive;
+procedure TSceneSettlement.Revive;
 
   procedure Revive(const AParty: TParty; const APosition: Integer);
   var
