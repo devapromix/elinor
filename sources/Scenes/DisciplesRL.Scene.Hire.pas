@@ -214,7 +214,7 @@ begin
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
         MediaPlayer.PlayMusic(mmGame);
         MediaPlayer.Play(mmExit);
-        TSceneSettlement.ShowScene(stCapital);
+        TSceneSettlement.Show(stCapital);
       end;
     stDifficulty:
       begin
@@ -287,7 +287,7 @@ begin
           begin
             MediaPlayer.PlayMusic(mmGame);
             MediaPlayer.Play(mmSettlement);
-            TSceneSettlement.ShowScene(stCity);
+            TSceneSettlement.Show(stCity);
             Exit;
           end;
           if F then

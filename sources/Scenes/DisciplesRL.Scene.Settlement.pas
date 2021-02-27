@@ -30,7 +30,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure Gen;
-    class procedure ShowScene(SettlementType: TSettlementSubSceneEnum);
+    class procedure Show(SettlementType: TSettlementSubSceneEnum);
       overload;
   end;
 
@@ -413,11 +413,11 @@ begin
       begin
         case TSceneParty.GetPartyPosition(X, Y) of
           0 .. 5:
-            TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex],
+            TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
               scSettlement);
         else
           if not SettlementParty.IsClear then
-            TSceneParty.ShowScene(SettlementParty, scSettlement);
+            TSceneParty.Show(SettlementParty, scSettlement);
         end;
         MediaPlayer.Play(mmClick);
         Exit;
@@ -514,7 +514,7 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneSettlement.ShowScene(SettlementType
+class procedure TSceneSettlement.Show(SettlementType
   : TSettlementSubSceneEnum);
 begin
   CurrentSettlementType := SettlementType;
@@ -545,9 +545,9 @@ begin
     K_ESCAPE, K_ENTER:
       Close;
     K_P:
-      TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
     K_I:
-      TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex],
+      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement, True);
     // K_A:
     // Hire;

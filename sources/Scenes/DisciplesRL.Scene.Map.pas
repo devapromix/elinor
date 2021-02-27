@@ -210,9 +210,9 @@ begin
     K_ENTER, K_KP_5, K_S:
       TLeaderParty.Leader.Move(drOrigin);
     K_I:
-      TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
     K_P:
-      TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scMap);
+      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:
       TSceneHire.Show(stJournal);
   end;

@@ -32,8 +32,8 @@ type
     procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
       CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class function GetPartyPosition(const MX, MY: Integer): Integer;
-    class procedure ShowScene(Party: TParty; CloseScene: TSceneEnum;
-      F: Boolean = False);
+    class procedure Show(Party: TParty; CloseScene: TSceneEnum;
+      F: Boolean = False); overload;
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
@@ -79,7 +79,7 @@ var
 const
   S = 2;
 
-class procedure TSceneParty.ShowScene(Party: TParty; CloseScene: TSceneEnum;
+class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
   F: Boolean = False);
 begin
   CurrentParty := Party;

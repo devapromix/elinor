@@ -22,9 +22,6 @@ const
   Left = 10;
   DefaultButtonTop = 600;
 
-var
-  Surface: TBitmap;
-
 type
   TMediaPlayer = class(TSimplePlayer)
     procedure Play(const MusicEnum: TMusicEnum); overload;
@@ -142,6 +139,7 @@ type
 
 var
   Scenes: TScenes;
+  Surface: TBitmap;
   MediaPlayer: TMediaPlayer;
 
 implementation
