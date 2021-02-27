@@ -89,6 +89,7 @@ type
     class procedure Move(Dir: TDirectionEnum); overload;
     class procedure PutAt(const AX, AY: ShortInt;
       const IsInfo: Boolean = False);
+    class function GetPosition: TPosition;
   end;
 
 var
@@ -375,6 +376,19 @@ destructor TLeaderParty.Destroy;
 begin
 
   inherited;
+end;
+
+class function TLeaderParty.GetPosition: TPosition;
+var
+  I: TPosition;
+begin
+  with TLeaderParty(Party[LeaderPartyIndex]) do
+  begin
+    repeat
+      I := RandomRange(Low(TPosition), High(TPosition) + 1);
+    until Creature[i].IsLeader;
+    Result := I;
+  end;
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;

@@ -30,8 +30,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure Gen;
-    class procedure Show(SettlementType: TSettlementSubSceneEnum);
-      overload;
+    class procedure Show(SettlementType: TSettlementSubSceneEnum); overload;
   end;
 
 implementation
@@ -514,8 +513,7 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneSettlement.Show(SettlementType
-  : TSettlementSubSceneEnum);
+class procedure TSceneSettlement.Show(SettlementType: TSettlementSubSceneEnum);
 begin
   CurrentSettlementType := SettlementType;
   case CurrentSettlementType of
@@ -529,6 +527,7 @@ begin
   else
     SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
   end;
+  ActivePartyPosition := TLeaderParty.GetPosition;
   Scenes.Show(scSettlement);
 end;
 

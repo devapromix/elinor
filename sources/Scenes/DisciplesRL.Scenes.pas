@@ -289,7 +289,7 @@ begin
   else
     J := I + 6;
   end;
-  if (ActivePartyPosition = J) and (CurrentPartyPosition > -1) then
+  if (ActivePartyPosition = J) then
     DrawImage(AX, AY, reActFrame)
   else
     DrawImage(AX, AY, reFrame);

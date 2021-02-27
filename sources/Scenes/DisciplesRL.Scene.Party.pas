@@ -36,8 +36,8 @@ type
     procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
       MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
       IsExp: Boolean); overload;
-    procedure DrawUnitInfo(Position: TPosition; Party: TParty;
-      AX, AY: Integer; ShowExp: Boolean = True); overload;
+    procedure DrawUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
+      ShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
       IsAdv: Boolean = True); overload;
   end;
@@ -82,7 +82,7 @@ class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
-  ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
+  ActivePartyPosition := TLeaderParty.GetPosition;
   Scenes.Show(scParty);
   MediaPlayer.Play(mmSettlement);
   ShowInventory := F;
