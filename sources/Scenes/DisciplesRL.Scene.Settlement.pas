@@ -22,9 +22,6 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure Show(const S: TSceneEnum); override;
-    procedure Show2(const S: TSceneEnum;
-      const SettlementType: TSettlementSubSceneEnum); overload;
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
@@ -33,10 +30,9 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure Gen;
-
+    class procedure ShowScene(SettlementType: TSettlementSubSceneEnum);
+      overload;
   end;
-
-procedure Show(SettlementType: TSettlementSubSceneEnum);
 
 implementation
 
@@ -159,7 +155,7 @@ procedure TSceneSettlement.Hire;
         TLeaderParty.Leader.MaxLeadership)) or
         (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
       begin
-        DisciplesRL.Scene.Hire.Show(AParty, APosition);
+        TSceneHire.Show(AParty, APosition);
       end
       else
       begin
@@ -337,7 +333,7 @@ begin
   begin
     if (TPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
     begin
-      DisciplesRL.Scene.Hire.Show(stVictory);
+      TSceneHire.Show(stVictory);
       Exit;
     end;
   end;
@@ -345,23 +341,6 @@ begin
   Scenes.Show(scMap);
   MediaPlayer.Play(mmClick);
   TSaga.NewDay;
-end;
-
-procedure Show(SettlementType: TSettlementSubSceneEnum);
-begin
-  CurrentSettlementType := SettlementType;
-  case CurrentSettlementType of
-    stCity:
-      begin
-        CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X,
-          TLeaderParty.Leader.Y);
-        SettlementParty := Party[CurrentCityIndex];
-        SettlementParty.Owner := Party[TLeaderParty.LeaderPartyIndex].Owner;
-      end
-  else
-    SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
-  end;
-  Scenes.Show(scSettlement);
 end;
 
 { TSceneSettlement }
@@ -434,11 +413,11 @@ begin
       begin
         case TSceneParty.GetPartyPosition(X, Y) of
           0 .. 5:
-            DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
+            TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex],
               scSettlement);
         else
           if not SettlementParty.IsClear then
-            DisciplesRL.Scene.Party.Show(SettlementParty, scSettlement);
+            TSceneParty.ShowScene(SettlementParty, scSettlement);
         end;
         MediaPlayer.Play(mmClick);
         Exit;
@@ -535,15 +514,22 @@ begin
   RenderButtons;
 end;
 
-procedure TSceneSettlement.Show(const S: TSceneEnum);
+class procedure TSceneSettlement.ShowScene(SettlementType
+  : TSettlementSubSceneEnum);
 begin
-
-end;
-
-procedure TSceneSettlement.Show2(const S: TSceneEnum;
-  const SettlementType: TSettlementSubSceneEnum);
-begin
-
+  CurrentSettlementType := SettlementType;
+  case CurrentSettlementType of
+    stCity:
+      begin
+        CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X,
+          TLeaderParty.Leader.Y);
+        SettlementParty := Party[CurrentCityIndex];
+        SettlementParty.Owner := Party[TLeaderParty.LeaderPartyIndex].Owner;
+      end
+  else
+    SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
+  end;
+  Scenes.Show(scSettlement);
 end;
 
 procedure TSceneSettlement.Timer;
@@ -559,10 +545,9 @@ begin
     K_ESCAPE, K_ENTER:
       Close;
     K_P:
-      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
-        scSettlement);
+      TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
     K_I:
-      DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
+      TSceneParty.ShowScene(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement, True);
     // K_A:
     // Hire;

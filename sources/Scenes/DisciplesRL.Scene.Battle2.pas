@@ -147,7 +147,7 @@ begin
     TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
-    DisciplesRL.Scene.Hire.Show(stStoneTab, scHire);
+    TSceneHire.Show(stStoneTab, scHire);
   end
   else
     TSaga.AddLoot(reBag);
@@ -155,7 +155,7 @@ end;
 
 procedure TSceneBattle2.Defeat;
 begin
-  DisciplesRL.Scene.Hire.Show(stDefeat);
+  TSceneHire.Show(stDefeat);
 end;
 
 procedure TSceneBattle2.Start;

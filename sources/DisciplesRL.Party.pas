@@ -411,21 +411,21 @@ begin
   begin
     if TMap.GetTile(lrTile, AX, AY) in Capitals then
     begin
-      DisciplesRL.Scene.Party.Show(Party[CapitalPartyIndex], scMap);
+      TSceneParty.ShowScene(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
     if TMap.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
-        DisciplesRL.Scene.Party.Show(Party[I], scMap);
+        TSceneParty.ShowScene(Party[I], scMap);
       Exit;
     end;
     case TMap.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
           I := TSaga.GetPartyIndex(AX, AY);
-          DisciplesRL.Scene.Party.Show(Party[I], scMap);
+          TSceneParty.ShowScene(Party[I], scMap);
         end;
     end;
     Exit;
@@ -484,14 +484,14 @@ begin
   begin
     MediaPlayer.PlayMusic(mmGame);
     MediaPlayer.Play(mmSettlement);
-    DisciplesRL.Scene.Settlement.Show(stCapital);
+    TSceneSettlement.ShowScene(stCapital);
     F := False;
   end;
   if TMap.LeaderTile in Cities then
   begin
     MediaPlayer.PlayMusic(mmGame);
     MediaPlayer.Play(mmSettlement);
-    DisciplesRL.Scene.Settlement.Show(stCity);
+    TSceneSettlement.ShowScene(stCity);
     F := False;
   end;
   if F then

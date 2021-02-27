@@ -32,10 +32,11 @@ type
     procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
       CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class function GetPartyPosition(const MX, MY: Integer): Integer;
+    class procedure ShowScene(Party: TParty; CloseScene: TSceneEnum;
+      F: Boolean = False);
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
-procedure Show(Party: TParty; CloseScene: TSceneEnum; F: Boolean = False);
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
   MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
@@ -78,7 +79,8 @@ var
 const
   S = 2;
 
-procedure Show(Party: TParty; CloseScene: TSceneEnum; F: Boolean = False);
+class procedure TSceneParty.ShowScene(Party: TParty; CloseScene: TSceneEnum;
+  F: Boolean = False);
 begin
   CurrentParty := Party;
   BackScene := CloseScene;

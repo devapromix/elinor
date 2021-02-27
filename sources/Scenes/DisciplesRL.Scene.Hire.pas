@@ -38,13 +38,14 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
-procedure RenderCharacterInfo(C: TCreatureEnum);
+    procedure RenderCharacterInfo(C: TCreatureEnum);
+    class procedure Show(const ASubScene: THireSubSceneEnum); overload;
+    class procedure Show(const Party: TParty; const Position: Integer);
+      overload;
+    class procedure Show(const ASubScene: THireSubSceneEnum;
+      const ABackScene: TSceneEnum; const ALootRes: TResEnum = reGold);
+      overload;
   end;
-
-procedure Show(const ASubScene: THireSubSceneEnum); overload;
-procedure Show(const Party: TParty; const Position: Integer); overload;
-procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
-  const ALootRes: TResEnum = reGold); overload;
 
 implementation
 
@@ -98,7 +99,7 @@ var
   GC, MC: Integer;
   LootRes: TResEnum;
 
-procedure Show(const ASubScene: THireSubSceneEnum);
+class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
     stJournal:
@@ -112,15 +113,15 @@ begin
     MediaPlayer.PlayMusic(mmVictory);
 end;
 
-procedure Show(const Party: TParty; const Position: Integer);
+class procedure TSceneHire.Show(const Party: TParty; const Position: Integer);
 begin
   HireParty := Party;
   HirePosition := Position;
   Show(stCharacter);
 end;
 
-procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
-  const ALootRes: TResEnum = reGold);
+class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
+  const ABackScene: TSceneEnum; const ALootRes: TResEnum = reGold);
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
@@ -170,11 +171,11 @@ begin
     stCharacter:
       Scenes.SetScene(scSettlement);
     stDifficulty:
-      DisciplesRL.Scene.Hire.Show(stScenario);
+      TSceneHire.Show(stScenario);
     stLeader:
-      DisciplesRL.Scene.Hire.Show(stRace);
+      TSceneHire.Show(stRace);
     stRace:
-      DisciplesRL.Scene.Hire.Show(stDifficulty);
+      TSceneHire.Show(stDifficulty);
     stScenario:
       Scenes.SetScene(scMenu);
     stJournal:
@@ -182,12 +183,12 @@ begin
     stDefeat:
       begin
         TSaga.IsGame := False;
-        DisciplesRL.Scene.Hire.Show(stHighScores2);
+        TSceneHire.Show(stHighScores2);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
-        DisciplesRL.Scene.Hire.Show(stHighScores2);
+        TSceneHire.Show(stHighScores2);
       end;
     stHighScores2:
       begin
@@ -205,7 +206,7 @@ begin
     stRace:
       begin
         TSaga.LeaderRace := TRaceEnum(CurrentIndex + 1);
-        DisciplesRL.Scene.Hire.Show(stLeader);
+        TSceneHire.Show(stLeader);
       end;
     stLeader:
       begin
@@ -213,12 +214,12 @@ begin
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
         MediaPlayer.PlayMusic(mmGame);
         MediaPlayer.Play(mmExit);
-        DisciplesRL.Scene.Settlement.Show(stCapital);
+        TSceneSettlement.ShowScene(stCapital);
       end;
     stDifficulty:
       begin
         TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
-        DisciplesRL.Scene.Hire.Show(stRace);
+        TSceneHire.Show(stRace);
       end;
     stCharacter:
       begin
@@ -231,20 +232,20 @@ begin
     stScenario:
       begin
         TScenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
-        DisciplesRL.Scene.Hire.Show(stDifficulty);
+        TSceneHire.Show(stDifficulty);
       end;
     stJournal:
       Scenes.Show(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
-        DisciplesRL.Scene.Hire.Show(stHighScores2);
+        TSceneHire.Show(stHighScores2);
         MediaPlayer.PlayMusic(mmMenu);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
-        DisciplesRL.Scene.Hire.Show(stHighScores2);
+        TSceneHire.Show(stHighScores2);
         MediaPlayer.PlayMusic(mmMenu);
       end;
     stHighScores2:
@@ -256,14 +257,14 @@ begin
         if (TScenario.CurrentScenario = sgAncientKnowledge) then
           if TScenario.StoneTab >= TScenario.ScenarioStoneTabMax then
           begin
-            DisciplesRL.Scene.Hire.Show(stVictory);
-            exit;
+            TSceneHire.Show(stVictory);
+            Exit;
           end
           else
           begin
             F := True;
             Scenes.Show(scMap);
-            exit;
+            Exit;
           end;
       end;
     stLoot:
@@ -277,8 +278,8 @@ begin
             case TMap.LeaderTile of
               reTower:
                 begin
-                  DisciplesRL.Scene.Hire.Show(stVictory);
-                  exit;
+                  TSceneHire.Show(stVictory);
+                  Exit;
                 end;
             end;
           end;
@@ -286,8 +287,8 @@ begin
           begin
             MediaPlayer.PlayMusic(mmGame);
             MediaPlayer.Play(mmSettlement);
-            DisciplesRL.Scene.Settlement.Show(stCity);
-            exit;
+            TSceneSettlement.ShowScene(stCity);
+            Exit;
           end;
           if F then
             TSaga.NewDay;

@@ -54,7 +54,7 @@ begin
       begin
         MediaPlayer.Play(mmClick);
         TSaga.IsGame := False;
-        DisciplesRL.Scene.Hire.Show(stScenario);
+        TSceneHire.Show(stScenario);
       end;
     1: // Continue
       begin
@@ -68,7 +68,7 @@ begin
     2: // High Scores
       begin
         MediaPlayer.Play(mmClick);
-        DisciplesRL.Scene.Hire.Show(stHighScores2);
+        TSceneHire.Show(stHighScores2);
       end;
     3: // Exit;
       begin

@@ -437,7 +437,7 @@ begin
         AddItem;
       end;
   end;
-  DisciplesRL.Scene.Hire.Show(stLoot, scMap, LootRes);
+  TSceneHire.Show(stLoot, scMap, LootRes);
 end;
 
 class procedure TSaga.NewDay;
