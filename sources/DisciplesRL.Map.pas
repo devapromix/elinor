@@ -7,6 +7,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Saga,
   DisciplesRL.Party;
+
 {$IFDEF FPC}
 {$MODESWITCH ADVANCEDRECORDS}
 {$ENDIF}

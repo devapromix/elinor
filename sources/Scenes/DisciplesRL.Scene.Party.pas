@@ -15,10 +15,8 @@ const
   Left = 10;
 
 type
-  TPartySide = (psLeft, psRight);
-
-type
   TSceneParty = class(TScene)
+  private
   public
     constructor Create;
     destructor Destroy; override;
@@ -29,18 +27,18 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    class procedure RenderParty(const PartySide: TPartySide;
+      const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
+    class function GetFrameY(const Position: TPosition;
+      const PartySide: TPartySide): Integer;
+    class function GetFrameX(const Position: TPosition;
+      const PartySide: TPartySide): Integer;
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
 procedure Show(Party: TParty; CloseScene: TSceneEnum; F: Boolean = False);
-function GetFrameX(const Position: TPosition;
-  const PartySide: TPartySide): Integer;
-function GetFrameY(const Position: TPosition;
-  const PartySide: TPartySide): Integer;
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
 function GetPartyPosition(const MX, MY: Integer): Integer;
-procedure RenderParty(const PartySide: TPartySide; const Party: TParty;
-  CanHire: Boolean = False; ShowExp: Boolean = True);
 procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
   MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
   IsExp: Boolean); overload;
@@ -133,7 +131,7 @@ begin
   Result := I;
 end;
 
-function GetFrameX(const Position: TPosition;
+class function TSceneParty.GetFrameX(const Position: TPosition;
   const PartySide: TPartySide): Integer;
 var
   W: Integer;
@@ -161,7 +159,7 @@ begin
   end;
 end;
 
-function GetFrameY(const Position: TPosition;
+class function TSceneParty.GetFrameY(const Position: TPosition;
   const PartySide: TPartySide): Integer;
 begin
   case Position of
@@ -207,29 +205,13 @@ begin
     for Position := Low(TPosition) to High(TPosition) do
     begin
       Inc(R);
-      if MouseOver(GetFrameX(Position, PartySide),
-        GetFrameY(Position, PartySide), MX, MY) then
+      if MouseOver(TSceneParty.GetFrameX(Position, PartySide),
+        TSceneParty.GetFrameY(Position, PartySide), MX, MY) then
       begin
         Result := R;
         Exit;
       end;
     end;
-end;
-
-procedure RenderFrame(const PartySide: TPartySide; const I, AX, AY: Integer);
-var
-  J: Integer;
-begin
-  case PartySide of
-    psLeft:
-      J := I;
-  else
-    J := I + 6;
-  end;
-  if (ActivePartyPosition = J) and (CurrentPartyPosition > -1) then
-    Surface.Canvas.Draw(AX, AY, ResImage[reActFrame])
-  else
-    Surface.Canvas.Draw(AX, AY, ResImage[reFrame]);
 end;
 
 procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
@@ -302,15 +284,15 @@ begin
   end;
 end;
 
-procedure RenderParty(const PartySide: TPartySide; const Party: TParty;
-  CanHire: Boolean = False; ShowExp: Boolean = True);
+class procedure TSceneParty.RenderParty(const PartySide: TPartySide;
+  const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   Position: TPosition;
 begin
   for Position := Low(TPosition) to High(TPosition) do
   begin
-    RenderFrame(PartySide, Position, GetFrameX(Position, PartySide),
-      GetFrameY(Position, PartySide));
+    Scenes.GetScene(scParty).RenderFrame(PartySide, Position, TSceneParty.GetFrameX(Position, PartySide),
+      TSceneParty.GetFrameY(Position, PartySide));
     if (Party <> nil) then
       RenderUnit(Position, Party, GetFrameX(Position, PartySide),
         GetFrameY(Position, PartySide), CanHire, ShowExp);

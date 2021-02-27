@@ -32,9 +32,10 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    class procedure Gen;
+
   end;
 
-procedure Gen;
 procedure RenderResources;
 procedure Show(SettlementType: TSettlementSubSceneEnum);
 
@@ -79,7 +80,7 @@ var
   CityArr: array [T] of Integer;
   P: array [1 .. 12] of TPoint;
 
-procedure Gen;
+class procedure TSceneSettlement.Gen;
 var
   N: set of T;
   J, K: Integer;
@@ -531,14 +532,17 @@ begin
   // CenterTextOut(60,
   // Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
   // [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
-  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
-    or (CurrentSettlementType = stCity) then
-    RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
-      Party[TLeaderParty.LeaderPartyIndex].Count <
-      TLeaderParty.Leader.MaxLeadership)
-  else
-    RenderParty(psLeft, nil);
-  RenderParty(psRight, SettlementParty, True);
+  with TSceneParty do
+  begin
+    if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
+      or (CurrentSettlementType = stCity) then
+      RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
+        Party[TLeaderParty.LeaderPartyIndex].Count <
+        TLeaderParty.Leader.MaxLeadership)
+    else
+      RenderParty(psLeft, nil);
+    RenderParty(psRight, SettlementParty, True);
+  end;
   RenderResources;
   RenderButtons;
 end;

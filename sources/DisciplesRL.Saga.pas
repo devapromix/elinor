@@ -513,7 +513,7 @@ begin
   PartyFree;
   TMap.Init;
   TMap.Gen;
-  DisciplesRL.Scene.Settlement.Gen;
+  TSceneSettlement.Gen;
   TLeaderParty.Leader.Clear;
 end;
 

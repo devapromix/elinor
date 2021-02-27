@@ -6,6 +6,7 @@ uses
   Vcl.Controls,
   Vcl.Dialogs,
   System.Classes,
+  DisciplesRL.Saga,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -20,6 +21,11 @@ type
   private
     procedure Ok;
     procedure Back;
+    procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
+    procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
+      const AX, AY: Integer);
+    procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
+      const AX, AY: Integer);
   public
     constructor Create;
     destructor Destroy; override;
@@ -42,15 +48,9 @@ procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
 
 implementation
 
-uses
-  System.Math,
-  System.SysUtils,
-  DisciplesRL.Map,
-  DisciplesRL.Saga,
-  DisciplesRL.GUI.Button,
-  DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Settlement,
-  DisciplesRL.Scene.Map;
+uses System.Math, System.SysUtils, DisciplesRL.Map,
+  DisciplesRL.GUI.Button, DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Settlement, DisciplesRL.Scene.Map;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -376,41 +376,41 @@ begin
   end;
 end;
 
-procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
+procedure TSceneHire.RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
 begin
   case Race of
     reTheEmpire:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reTheEmpireLogo]);
+      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
     reUndeadHordes:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reUndeadHordesLogo]);
+      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
     reLegionsOfTheDamned:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reLegionsOfTheDamnedLogo]);
+      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
   end;
 end;
 
-procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
+procedure TSceneHire.RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
   const AX, AY: Integer);
 begin
   case Difficulty of
     dfEasy:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reDifficultyEasyLogo]);
+      DrawImage(AX + 7, AY + 7, reDifficultyEasyLogo);
     dfNormal:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reDifficultyNormalLogo]);
+      DrawImage(AX + 7, AY + 7, reDifficultyNormalLogo);
     dfHard:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reDifficultyHardLogo]);
+      DrawImage(AX + 7, AY + 7, reDifficultyHardLogo);
   end;
 end;
 
-procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
+procedure TSceneHire.RenderScenario(const AScenario: TScenario.TScenarioEnum;
   const AX, AY: Integer);
 begin
   case AScenario of
     sgDarkTower:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reScenarioDarkTower]);
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
     sgOverlord:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reScenarioOverlord]);
+      DrawImage(AX + 7, AY + 7, reScenarioOverlord);
     sgAncientKnowledge:
-      Surface.Canvas.Draw(AX + 7, AY + 7, ResImage[reScenarioAncientKnowledge]);
+      DrawImage(AX + 7, AY + 7, reScenarioAncientKnowledge);
   end;
 end;
 

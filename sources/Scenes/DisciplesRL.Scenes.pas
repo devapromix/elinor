@@ -16,6 +16,9 @@ type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,
     scBattle3);
 
+type
+  TPartySide = (psLeft, psRight);
+
 const
   DefaultButtonTop = 600;
 
@@ -102,6 +105,8 @@ type
     procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
+    procedure RenderFrame(const PartySide: TPartySide;
+  const I, AX, AY: Integer);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
     function ConfirmDialog(const S: string): Boolean;
     procedure InformDialog(const S: string);
@@ -148,14 +153,13 @@ uses
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Settlement,
+  DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Battle3,
-  DisciplesRL.Scene.Party,
   DisciplesRL.Saga;
 
 var
-  CurrentScene: TSceneEnum;
   MediaAvailable: Boolean;
 
   { TScene }
@@ -270,6 +274,23 @@ var
 begin
   S := Surface.Canvas.TextWidth(AText);
   DrawText((Surface.Width div 2) - (S div 2), AY, AText);
+end;
+
+procedure TScene.RenderFrame(const PartySide: TPartySide;
+  const I, AX, AY: Integer);
+var
+  J: Integer;
+begin
+  case PartySide of
+    psLeft:
+      J := I;
+  else
+    J := I + 6;
+  end;
+  if (ActivePartyPosition = J) and (CurrentPartyPosition > -1) then
+    DrawImage(AX, AY, reActFrame)
+  else
+    DrawImage(AX, AY, reFrame);
 end;
 
 { TMediaPlayer }
