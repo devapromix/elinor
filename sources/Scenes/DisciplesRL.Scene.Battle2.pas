@@ -5,10 +5,21 @@ interface
 uses
   System.Classes,
   DisciplesRL.Scenes,
+  DisciplesRL.Party,
   Vcl.Controls;
 
 type
   TSceneBattle2 = class(TScene)
+  private
+    procedure ClickOnPosition;
+    procedure ChExperience;
+    procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+    procedure Defeat;
+    procedure Finish;
+    procedure Heal(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+    procedure NextTurn;
+    procedure Start;
+    procedure Victory;
   public
     constructor Create;
     destructor Destroy; override;
@@ -19,9 +30,8 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure Show(const S: TSceneEnum); override;
   end;
-
-procedure Start;
 
 implementation
 
@@ -37,7 +47,6 @@ uses
   DisciplesRL.Scene.Settlement,
   DisciplesRL.GUI.Button,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Party,
   DisciplesRL.Scene.Hire;
 
 type
@@ -85,7 +94,9 @@ begin
   end;
 end;
 
-procedure ChExperience;
+{ TSceneBattle2 }
+
+procedure TSceneBattle2.ChExperience;
 var
   P: TPosition;
   ChCnt, ChExp: Integer;
@@ -127,7 +138,7 @@ begin
   end;
 end;
 
-procedure Victory;
+procedure TSceneBattle2.Victory;
 begin
   MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
@@ -142,12 +153,12 @@ begin
     TSaga.AddLoot(reBag);
 end;
 
-procedure Defeat;
+procedure TSceneBattle2.Defeat;
 begin
   DisciplesRL.Scene.Hire.Show(stDefeat);
 end;
 
-procedure Start;
+procedure TSceneBattle2.Start;
 var
   I: Integer;
 begin
@@ -161,7 +172,7 @@ begin
   MediaPlayer.Play(mmWar);
 end;
 
-procedure Finish;
+procedure TSceneBattle2.Finish;
 begin
   Log.Clear;
   MediaPlayer.Stop;
@@ -171,13 +182,14 @@ begin
     Victory;
 end;
 
-procedure NextTurn;
+procedure TSceneBattle2.NextTurn;
 begin
   ActivePartyPosition := GetRandomActivePartyPosition
     (Party[TLeaderParty.LeaderPartyIndex]);
 end;
 
-procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+procedure TSceneBattle2.Damage(AtkParty, DefParty: TParty;
+  AtkPos, DefPos: TPosition);
 var
   P: TPosition;
   F, B: Boolean;
@@ -309,7 +321,8 @@ begin
 
 end;
 
-procedure Heal(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+procedure TSceneBattle2.Heal(AtkParty, DefParty: TParty;
+  AtkPos, DefPos: TPosition);
 var
   P: TPosition;
 begin
@@ -342,7 +355,7 @@ begin
     end;
 end;
 
-procedure ClickOnPosition;
+procedure TSceneBattle2.ClickOnPosition;
 begin
   case CurrentPartyPosition of
     0 .. 5:
@@ -366,8 +379,6 @@ begin
       end;
   end;
 end;
-
-{ TSceneBattle2 }
 
 procedure TSceneBattle2.Click;
 begin
@@ -442,6 +453,13 @@ begin
     Button.Render;
   end;
   Log.Render;
+end;
+
+procedure TSceneBattle2.Show(const S: TSceneEnum);
+begin
+  inherited;
+  Start;
+  MediaPlayer.PlayMusic(mmBattle);
 end;
 
 procedure TSceneBattle2.Timer;

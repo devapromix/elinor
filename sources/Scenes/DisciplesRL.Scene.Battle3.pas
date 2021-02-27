@@ -9,6 +9,9 @@ uses
 
 type
   TSceneBattle3 = class(TScene)
+  private
+    procedure Start;
+    procedure Finish;
   public
     constructor Create;
     destructor Destroy; override;
@@ -19,6 +22,7 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure Show(const S: TSceneEnum); override;
   end;
 
 implementation
@@ -33,17 +37,17 @@ uses
 var
   Button: TButton;
 
-procedure Start;
+  { TSceneBattle3 }
+
+procedure TSceneBattle3.Start;
 begin
   MediaPlayer.Play(mmWar);
 end;
 
-procedure Finish;
+procedure TSceneBattle3.Finish;
 begin
   MediaPlayer.Stop;
 end;
-
-{ TSceneBattle3 }
 
 procedure TSceneBattle3.Click;
 begin
@@ -65,8 +69,8 @@ begin
   inherited;
 end;
 
-procedure TSceneBattle3.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: Integer);
+procedure TSceneBattle3.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
 begin
   inherited;
 
@@ -84,6 +88,13 @@ begin
   inherited;
   DrawTitle(reTitleBattle);
   Button.Render;
+end;
+
+procedure TSceneBattle3.Show(const S: TSceneEnum);
+begin
+  inherited;
+  Start;
+  MediaPlayer.PlayMusic(mmBattle);
 end;
 
 procedure TSceneBattle3.Timer;
