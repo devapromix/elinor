@@ -5,6 +5,7 @@ interface
 uses
   System.Classes,
   Vcl.Controls,
+  DisciplesRL.Party,
   DisciplesRL.Scenes;
 
 type
@@ -19,6 +20,10 @@ type
     procedure Dismiss;
     procedure Revive;
     procedure Hire;
+    procedure CalcPoints;
+    procedure Close;
+    procedure MoveCursor(Dir: TDirectionEnum);
+    function GetName(const I: Integer): string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -42,7 +47,6 @@ uses
   DisciplesRL.Scene.Map,
   DisciplesRL.Resources,
   DisciplesRL.Saga,
-  DisciplesRL.Party,
   DisciplesRL.Map,
   DisciplesRL.Scene.Party,
   DisciplesRL.Creatures,
@@ -90,12 +94,12 @@ begin
   end;
 end;
 
-function GetName(const I: Integer = 0): string;
+function TSceneSettlement.GetName(const I: Integer): string;
 begin
   Result := CityNameText[CityArr[I]];
 end;
 
-procedure MoveCursor(Dir: TDirectionEnum);
+procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
   case Dir of
     drWest:
@@ -318,7 +322,7 @@ begin
   end;
 end;
 
-procedure Close;
+procedure TSceneSettlement.Close;
 begin
   case TMap.LeaderTile of
     reNeutralCity:
@@ -442,7 +446,7 @@ begin
   Scenes.Render;
 end;
 
-procedure CalcPoints;
+procedure TSceneSettlement.CalcPoints;
 var
   I: Byte;
   X, Y: Byte;
@@ -482,9 +486,6 @@ begin
     stCity:
       begin
         DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
-        // CenterTextOut(100, Format('%s (Level %d)',
-        // [GetName(CurrentCityIndex + 1), TMap.Place[CurrentCityIndex]
-        // .MaxLevel + 1]));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
       end;
@@ -495,9 +496,6 @@ begin
         DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
       end;
   end;
-  // CenterTextOut(60,
-  // Format('ActivePartyPosition=%d, CurrentPartyPosition=%d, CurrentCityIndex=%d',
-  // [ActivePartyPosition, CurrentPartyPosition, CurrentCityIndex]));
   with TSceneParty do
   begin
     if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)

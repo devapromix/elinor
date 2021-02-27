@@ -166,8 +166,7 @@ begin
   PartyExperience := 0;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
-  ActivePartyPosition := GetRandomActivePartyPosition
-    (Party[TLeaderParty.LeaderPartyIndex]);
+  ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
   MediaPlayer.Play(mmWar);
 end;
@@ -184,8 +183,7 @@ end;
 
 procedure TSceneBattle2.NextTurn;
 begin
-  ActivePartyPosition := GetRandomActivePartyPosition
-    (Party[TLeaderParty.LeaderPartyIndex]);
+  ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
 end;
 
 procedure TSceneBattle2.Damage(AtkParty, DefParty: TParty;

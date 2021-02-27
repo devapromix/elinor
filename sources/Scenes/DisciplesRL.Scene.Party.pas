@@ -13,6 +13,10 @@ uses
 type
   TSceneParty = class(TScene)
   private
+    class var FShowInventory: Boolean;
+    procedure MoveCursor(Dir: TDirectionEnum);
+    procedure Close;
+    procedure Inventory;
   public
     constructor Create;
     destructor Destroy; override;
@@ -42,8 +46,6 @@ type
       IsAdv: Boolean = True); overload;
   end;
 
-function GetRandomActivePartyPosition(Party: TParty): TPosition;
-
 var
   ActivePartyPosition: Integer = 2;
   CurrentPartyPosition: Integer = 2;
@@ -71,7 +73,6 @@ var
   Button: array [TButtonEnum] of TButton;
   CurrentParty: TParty;
   BackScene: TSceneEnum;
-  ShowInventory: Boolean = False;
   Lf: Integer = 0;
 
 const
@@ -85,10 +86,10 @@ begin
   ActivePartyPosition := TLeaderParty.GetPosition;
   Scenes.Show(scParty);
   MediaPlayer.Play(mmSettlement);
-  ShowInventory := F;
+  FShowInventory := F;
 end;
 
-procedure MoveCursor(Dir: TDirectionEnum);
+procedure TSceneParty.MoveCursor(Dir: TDirectionEnum);
 begin
   case Dir of
     drWest, drEast:
@@ -115,16 +116,6 @@ begin
   end;
   MediaPlayer.Play(mmClick);
   Scenes.Render;
-end;
-
-function GetRandomActivePartyPosition(Party: TParty): TPosition;
-var
-  I: TPosition;
-begin
-  repeat
-    I := RandomRange(Low(TPosition), High(TPosition) + 1);
-  until Party.GetHitPoints(I) > 0;
-  Result := I;
 end;
 
 class function TSceneParty.GetFrameX(const Position: TPosition;
@@ -168,13 +159,13 @@ begin
   end;
 end;
 
-procedure Inventory;
+procedure TSceneParty.Inventory;
 begin
   MediaPlayer.Play(mmClick);
-  ShowInventory := not ShowInventory;
+  FShowInventory := not FShowInventory;
 end;
 
-procedure Close;
+procedure TSceneParty.Close;
 begin
   if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
@@ -296,7 +287,7 @@ begin
     if (I = btClose) then
       Button[I].Sellected := True;
   end;
-  ShowInventory := False;
+  FShowInventory := False;
   Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
 end;
 
@@ -373,7 +364,7 @@ begin
   DrawImage(reWallpaperLeader);
   DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
-  if ShowInventory then
+  if FShowInventory then
   begin
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
 

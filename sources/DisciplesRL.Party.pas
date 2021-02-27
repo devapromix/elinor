@@ -45,6 +45,7 @@ type
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
     function IsClear: Boolean;
+    function GetRandomPosition: TPosition;
     function Hire(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition): Boolean;
     procedure Dismiss(const APosition: TPosition);
@@ -199,6 +200,16 @@ end;
 function TParty.GetMaxExperience(const Level: Integer): Integer;
 begin
   Result := Level * 250;
+end;
+
+function TParty.GetRandomPosition: TPosition;
+var
+  I: TPosition;
+begin
+  repeat
+    I := RandomRange(Low(TPosition), High(TPosition) + 1);
+  until GetHitPoints(I) > 0;
+  Result := I;
 end;
 
 function TParty.GetCount: Integer;
@@ -379,16 +390,10 @@ begin
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
-var
-  I: TPosition;
 begin
-  with TLeaderParty(Party[LeaderPartyIndex]) do
-  begin
-    repeat
-      I := RandomRange(Low(TPosition), High(TPosition) + 1);
-    until Creature[i].IsLeader;
-    Result := I;
-  end;
+  Result := 0;
+  while not Leader.Creature[Result].IsLeader do
+    Inc(Result);
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;
@@ -448,7 +453,7 @@ begin
   begin
     Leader.SetLocation(AX, AY);
     MediaPlayer.Play(mmStep);
-    with TLeaderParty(Party[LeaderPartyIndex]) do
+    with TLeaderParty.Leader do
     begin
       SetLocation(AX, AY);
       UpdateRadius;
