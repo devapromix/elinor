@@ -10,10 +10,6 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Creatures;
 
-const
-  Top = 220;
-  Left = 10;
-
 type
   TSceneParty = class(TScene)
   private
@@ -33,6 +29,8 @@ type
       const PartySide: TPartySide): Integer;
     class function GetFrameX(const Position: TPosition;
       const PartySide: TPartySide): Integer;
+    procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
+      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
@@ -46,8 +44,6 @@ procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
   ShowExp: Boolean = True); overload;
 procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
   IsAdv: Boolean = True); overload;
-procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
-  CanHire: Boolean = False; ShowExp: Boolean = True); overload;
 
 var
   ActivePartyPosition: Integer = 2;
@@ -257,8 +253,8 @@ begin
       Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
-procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
-  CanHire: Boolean = False; ShowExp: Boolean = True);
+procedure TSceneParty.RenderUnit(Position: TPosition; Party: TParty;
+  AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   F: Boolean;
 begin
@@ -276,10 +272,10 @@ begin
       end
     else if CanHire then
     begin
-      Surface.Canvas.Draw(((ResImage[reFrame].Width div 2) -
+      DrawImage(((ResImage[reFrame].Width div 2) -
         (ResImage[rePlus].Width div 2)) + AX,
         ((ResImage[reFrame].Height div 2) - (ResImage[rePlus].Height div 2)) +
-        AY, ResImage[rePlus]);
+        AY, rePlus);
     end;
   end;
 end;
@@ -291,11 +287,13 @@ var
 begin
   for Position := Low(TPosition) to High(TPosition) do
   begin
-    Scenes.GetScene(scParty).RenderFrame(PartySide, Position, TSceneParty.GetFrameX(Position, PartySide),
+    Scenes.GetScene(scParty).RenderFrame(PartySide, Position,
+      TSceneParty.GetFrameX(Position, PartySide),
       TSceneParty.GetFrameY(Position, PartySide));
     if (Party <> nil) then
-      RenderUnit(Position, Party, GetFrameX(Position, PartySide),
-        GetFrameY(Position, PartySide), CanHire, ShowExp);
+      TSceneParty(Scenes.GetScene(scParty)).RenderUnit(Position, Party,
+        GetFrameX(Position, PartySide), GetFrameY(Position, PartySide),
+        CanHire, ShowExp);
   end;
 end;
 

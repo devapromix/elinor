@@ -8,6 +8,9 @@ uses
   MapObject;
 
 type
+  TPartySide = (psLeft, psRight);
+
+type
   TPosition = 0 .. 5;
 
 type

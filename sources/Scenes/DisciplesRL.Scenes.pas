@@ -7,6 +7,7 @@ uses
   Vcl.Controls,
   System.Types,
   System.Classes,
+  DisciplesRL.Party,
   Vcl.Imaging.PNGImage,
   DisciplesRL.Resources,
   DisciplesRL.GUI.Button,
@@ -16,10 +17,9 @@ type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,
     scBattle3);
 
-type
-  TPartySide = (psLeft, psRight);
-
 const
+  Top = 220;
+  Left = 10;
   DefaultButtonTop = 600;
 
 var
@@ -106,7 +106,7 @@ type
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
     procedure RenderFrame(const PartySide: TPartySide;
-  const I, AX, AY: Integer);
+      const I, AX, AY: Integer);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
     function ConfirmDialog(const S: string): Boolean;
     procedure InformDialog(const S: string);
