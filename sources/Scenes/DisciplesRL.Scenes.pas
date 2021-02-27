@@ -33,6 +33,7 @@ type
 
 procedure DrawText(const AX, AY: Integer; AText: string); overload;
 procedure DrawText(const AY: Integer; AText: string); overload;
+procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
 
 const
   K_ESCAPE = 27;
@@ -110,6 +111,7 @@ type
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
     function ConfirmDialog(const S: string): Boolean;
     procedure InformDialog(const S: string);
+    procedure RenderResources;
   end;
 
 type
@@ -268,6 +270,11 @@ begin
   Surface.Canvas.TextOut(AX, AY, AText);
 end;
 
+procedure DrawText(const AX, AY: Integer; Value: Integer);
+begin
+  DrawText(AX, AY, Value.ToString);
+end;
+
 procedure DrawText(const AY: Integer; AText: string);
 var
   S: Integer;
@@ -291,6 +298,15 @@ begin
     DrawImage(AX, AY, reActFrame)
   else
     DrawImage(AX, AY, reFrame);
+end;
+
+procedure TScene.RenderResources;
+begin
+  // DrawImage(10, 10, reSmallFrame);
+  // DrawImage(15, 10, reGold);
+  DrawText(45, 24, TSaga.Gold);
+  // DrawImage(15, 40, reMana);
+  DrawText(45, 54, TSaga.Mana);
 end;
 
 { TMediaPlayer }

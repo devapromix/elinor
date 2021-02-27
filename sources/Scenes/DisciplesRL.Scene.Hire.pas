@@ -38,9 +38,9 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
+procedure RenderCharacterInfo(C: TCreatureEnum);
   end;
 
-procedure RenderCharacterInfo(C: TCreatureEnum);
 procedure Show(const ASubScene: THireSubSceneEnum); overload;
 procedure Show(const Party: TParty; const Position: Integer); overload;
 procedure Show(const ASubScene: THireSubSceneEnum; const ABackScene: TSceneEnum;
@@ -296,7 +296,7 @@ begin
   end;
 end;
 
-procedure RenderCharacterInfo(C: TCreatureEnum);
+procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum);
 const
   H = 25;
 var
@@ -884,7 +884,7 @@ begin
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
                 Top, reGold);
               DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
-                IntToStr(TCreature.Character(C).Gold));
+                TCreature.Character(C).Gold);
             end;
           stLeader:
             begin

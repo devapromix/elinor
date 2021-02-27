@@ -6,3 +6,5 @@ sources/DisciplesRL.dproj.local
 *.a
 sources/backup/
 sources/lib/
+/sources/*.stat
+/*.exe

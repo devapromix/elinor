@@ -36,7 +36,6 @@ type
 
   end;
 
-procedure RenderResources;
 procedure Show(SettlementType: TSettlementSubSceneEnum);
 
 implementation
@@ -99,17 +98,6 @@ end;
 function GetName(const I: Integer = 0): string;
 begin
   Result := CityNameText[CityArr[I]];
-end;
-
-procedure RenderResources;
-begin
-  // DrawImage(10, 10, reSmallFrame);
-  // DrawImage(15, 10, reGold);
-  DrawText(45, 24, IntToStr(TSaga.Gold));
-  // DrawImage(15, 40, reMana);
-  DrawText(45, 54, IntToStr(TSaga.Mana));
-  // DrawImage(15, 70, reMana);
-  // LeftTextOut(45, 82, IntToStr(TMap.Place[0].MaxLevel + 1));
 end;
 
 procedure MoveCursor(Dir: TDirectionEnum);
@@ -426,13 +414,13 @@ begin
   inherited;
   if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
     and (CurrentSettlementType = stCapital) and (Button = mbRight) and
-    (GetPartyPosition(X, Y) < 6) then
+    (TSceneParty.GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of
     mbRight:
       begin
-        ActivePartyPosition := GetPartyPosition(X, Y);
+        ActivePartyPosition := TSceneParty.GetPartyPosition(X, Y);
         if (ActivePartyPosition < 0) or
           ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
           (Party[TLeaderParty.LeaderPartyIndex].Count >=
@@ -444,7 +432,7 @@ begin
       end;
     mbMiddle:
       begin
-        case GetPartyPosition(X, Y) of
+        case TSceneParty.GetPartyPosition(X, Y) of
           0 .. 5:
             DisciplesRL.Scene.Party.Show(Party[TLeaderParty.LeaderPartyIndex],
               scSettlement);
@@ -457,7 +445,7 @@ begin
       end;
     mbLeft:
       begin
-        CurrentPartyPosition := GetPartyPosition(X, Y);
+        CurrentPartyPosition := TSceneParty.GetPartyPosition(X, Y);
         if CurrentPartyPosition < 0 then
           Exit;
         ActivePartyPosition := CurrentPartyPosition;

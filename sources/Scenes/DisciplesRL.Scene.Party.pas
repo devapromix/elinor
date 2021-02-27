@@ -31,12 +31,12 @@ type
       const PartySide: TPartySide): Integer;
     procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
       CanHire: Boolean = False; ShowExp: Boolean = True); overload;
+    class function GetPartyPosition(const MX, MY: Integer): Integer;
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
 procedure Show(Party: TParty; CloseScene: TSceneEnum; F: Boolean = False);
 function MouseOver(AX, AY, MX, MY: Integer): Boolean;
-function GetPartyPosition(const MX, MY: Integer): Integer;
 procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
   MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
   IsExp: Boolean); overload;
@@ -189,7 +189,7 @@ begin
     (MY < AY + ResImage[reFrame].Height);
 end;
 
-function GetPartyPosition(const MX, MY: Integer): Integer;
+class function TSceneParty.GetPartyPosition(const MX, MY: Integer): Integer;
 var
   R: Integer;
   Position: TPosition;
@@ -410,7 +410,7 @@ begin
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
     if (C <> crNone) then
-      RenderCharacterInfo(C);
+      TSceneHire(Scenes.GetScene(scHire)).RenderCharacterInfo(C);
   end;
   RenderResources;
   RenderButtons;

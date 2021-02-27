@@ -406,7 +406,7 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  CurrentPartyPosition := GetPartyPosition(X, Y);
+  CurrentPartyPosition := TSceneParty.GetPartyPosition(X, Y);
   if CurrentPartyPosition < 0 then
     Exit;
   if Party[TLeaderParty.LeaderPartyIndex].IsClear or EnemyParty.IsClear then
