@@ -5,13 +5,13 @@ interface
 uses
   Vcl.Graphics,
   Vcl.Controls,
+  Vcl.Imaging.PNGImage,
   System.Types,
   System.Classes,
+  SimplePlayer,
   DisciplesRL.Party,
-  Vcl.Imaging.PNGImage,
   DisciplesRL.Resources,
-  DisciplesRL.GUI.Button,
-  SimplePlayer;
+  DisciplesRL.GUI.Button;
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,
@@ -88,7 +88,8 @@ type
   private
 
   public
-    MouseX, MouseY: Integer;
+    MouseX: Integer;
+    MouseY: Integer;
     constructor Create;
     destructor Destroy; override;
     procedure Show(const S: TSceneEnum); virtual;
@@ -108,7 +109,9 @@ type
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
     function ConfirmDialog(const S: string): Boolean;
     procedure InformDialog(const S: string);
-    procedure RenderResources;
+    procedure DrawResources;
+    function MouseOver(AX, AY, MX, MY: Integer): Boolean;
+    function GetPartyPosition(const MX, MY: Integer): Integer;
   end;
 
 type
@@ -116,7 +119,7 @@ type
   private
     FSceneEnum: TSceneEnum;
     FScene: array [TSceneEnum] of IScene;
-    FPrevSceneEnum: TSceneEnum;
+    procedure SetScene(const ASceneEnum: TSceneEnum);
   public
     constructor Create;
     destructor Destroy; override;
@@ -129,12 +132,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     property SceneEnum: TSceneEnum read FSceneEnum write FSceneEnum;
-    property PrevSceneEnum: TSceneEnum read FPrevSceneEnum;
     function GetScene(const I: TSceneEnum): TScene;
-    procedure SetScene(const ASceneEnum: TSceneEnum); overload;
-    procedure SetScene(const ASceneEnum: TSceneEnum;
-      const CurrSceneEnum: TSceneEnum); overload;
-    procedure GoBack;
   end;
 
 var
@@ -145,7 +143,6 @@ var
 implementation
 
 uses
-  Vcl.Forms,
   Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.MainForm,
@@ -298,13 +295,40 @@ begin
     DrawImage(AX, AY, reFrame);
 end;
 
-procedure TScene.RenderResources;
+procedure TScene.DrawResources;
 begin
   DrawImage(10, 10, reSmallFrame);
   DrawImage(15, 10, reGold);
   DrawText(45, 24, TSaga.Gold);
   DrawImage(15, 40, reMana);
   DrawText(45, 54, TSaga.Mana);
+end;
+
+function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;
+begin
+  Result := (MX > AX) and (MX < AX + ResImage[reFrame].Width) and (MY > AY) and
+    (MY < AY + ResImage[reFrame].Height);
+end;
+
+function TScene.GetPartyPosition(const MX, MY: Integer): Integer;
+var
+  R: Integer;
+  Position: TPosition;
+  PartySide: TPartySide;
+begin
+  R := -1;
+  Result := R;
+  for PartySide := Low(TPartySide) to High(TPartySide) do
+    for Position := Low(TPosition) to High(TPosition) do
+    begin
+      Inc(R);
+      if MouseOver(TSceneParty.GetFrameX(Position, PartySide),
+        TSceneParty.GetFrameY(Position, PartySide), MX, MY) then
+      begin
+        Result := R;
+        Exit;
+      end;
+    end;
 end;
 
 { TMediaPlayer }
@@ -392,11 +416,6 @@ begin
   Result := TScene(FScene[I]);
 end;
 
-procedure TScenes.GoBack;
-begin
-  Self.SceneEnum := FPrevSceneEnum;
-end;
-
 procedure TScenes.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
@@ -431,12 +450,6 @@ end;
 procedure TScenes.SetScene(const ASceneEnum: TSceneEnum);
 begin
   Self.SceneEnum := ASceneEnum;
-end;
-
-procedure TScenes.SetScene(const ASceneEnum, CurrSceneEnum: TSceneEnum);
-begin
-  FPrevSceneEnum := CurrSceneEnum;
-  Self.SetScene(ASceneEnum);
 end;
 
 procedure TScenes.Show(const S: TSceneEnum);

@@ -170,7 +170,6 @@ procedure TSceneMap.Show;
 begin
   inherited;
   MediaPlayer.Play(mmSettlement);
-  Scenes.SetScene(scMap);
 end;
 
 procedure TSceneMap.Timer;
@@ -189,7 +188,7 @@ begin
         MediaPlayer.PlayMusic(mmMenu);
         MediaPlayer.Play(mmClick);
         MediaPlayer.Play(mmSettlement);
-        Scenes.SetScene(scMenu);
+        Scenes.Show(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:
       TLeaderParty.Leader.Move(drWest);

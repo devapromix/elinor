@@ -393,13 +393,13 @@ begin
   inherited;
   if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
     and (CurrentSettlementType = stCapital) and (Button = mbRight) and
-    (TSceneParty.GetPartyPosition(X, Y) < 6) then
+    (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
   case Button of
     mbRight:
       begin
-        ActivePartyPosition := TSceneParty.GetPartyPosition(X, Y);
+        ActivePartyPosition := GetPartyPosition(X, Y);
         if (ActivePartyPosition < 0) or
           ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
           (Party[TLeaderParty.LeaderPartyIndex].Count >=
@@ -411,7 +411,7 @@ begin
       end;
     mbMiddle:
       begin
-        case TSceneParty.GetPartyPosition(X, Y) of
+        case GetPartyPosition(X, Y) of
           0 .. 5:
             TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
               scSettlement);
@@ -424,7 +424,7 @@ begin
       end;
     mbLeft:
       begin
-        CurrentPartyPosition := TSceneParty.GetPartyPosition(X, Y);
+        CurrentPartyPosition := GetPartyPosition(X, Y);
         if CurrentPartyPosition < 0 then
           Exit;
         ActivePartyPosition := CurrentPartyPosition;
@@ -510,7 +510,7 @@ begin
       RenderParty(psLeft, nil);
     RenderParty(psRight, SettlementParty, True);
   end;
-  RenderResources;
+  DrawResources;
   RenderButtons;
 end;
 

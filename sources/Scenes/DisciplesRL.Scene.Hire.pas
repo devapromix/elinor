@@ -108,7 +108,7 @@ begin
     CurrentIndex := 0;
   end;
   SubScene := ASubScene;
-  Scenes.SetScene(scHire);
+  Scenes.Show(scHire);
   if ASubScene = stVictory then
     MediaPlayer.PlayMusic(mmVictory);
 end;
@@ -125,7 +125,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
-  Scenes.SetScene(scHire);
+  Scenes.Show(scHire);
   case SubScene of
     stLoot, stStoneTab:
       MediaPlayer.Play(mmLoot);
@@ -169,7 +169,7 @@ begin
   MediaPlayer.Play(mmClick);
   case SubScene of
     stCharacter:
-      Scenes.SetScene(scSettlement);
+      Scenes.Show(scSettlement);
     stDifficulty:
       TSceneHire.Show(stScenario);
     stLeader:
@@ -177,7 +177,7 @@ begin
     stRace:
       TSceneHire.Show(stDifficulty);
     stScenario:
-      Scenes.SetScene(scMenu);
+      Scenes.Show(scMenu);
     stJournal:
       Scenes.Show(scMap);
     stDefeat:
@@ -192,7 +192,7 @@ begin
       end;
     stHighScores2:
       begin
-        Scenes.SetScene(scMenu);
+        Scenes.Show(scMenu);
       end;
   end;
 end;
@@ -225,7 +225,7 @@ begin
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
           [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
-          Scenes.SetScene(scSettlement)
+          Scenes.Show(scSettlement)
         else
           InformDialog('Не хватает денег!');
       end;
@@ -250,7 +250,7 @@ begin
       end;
     stHighScores2:
       begin
-        Scenes.SetScene(scMenu);
+        Scenes.Show(scMenu);
       end;
     stStoneTab:
       begin
@@ -723,7 +723,7 @@ begin
             [cgCharacters][K]) do
           begin
             DrawUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y,
+            TSceneParty(Scenes.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
               Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
               [cgCharacters][K], False);
           end;
@@ -744,8 +744,8 @@ begin
             [cgLeaders][K]) do
           begin
             DrawUnit(ResEnum, Lf, Top + Y, True);
-            RenderUnitInfo(Lf, Top + Y, Characters[TSaga.LeaderRace][cgLeaders]
-              [K], False);
+            TSceneParty(Scenes.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
+              Characters[TSaga.LeaderRace][cgLeaders][K], False);
           end;
           Inc(Y, 120);
         end;
@@ -881,7 +881,7 @@ begin
         case SubScene of
           stCharacter:
             begin
-              RenderResources;
+              DrawResources;
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
                 Top, reGold);
               DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,

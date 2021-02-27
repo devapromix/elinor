@@ -23,28 +23,26 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
+      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class procedure RenderParty(const PartySide: TPartySide;
       const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
     class function GetFrameY(const Position: TPosition;
       const PartySide: TPartySide): Integer;
     class function GetFrameX(const Position: TPosition;
       const PartySide: TPartySide): Integer;
-    procedure RenderUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
-      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
-    class function GetPartyPosition(const MX, MY: Integer): Integer;
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
       F: Boolean = False); overload;
+    procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
+      MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
+      IsExp: Boolean); overload;
+    procedure DrawUnitInfo(Position: TPosition; Party: TParty;
+      AX, AY: Integer; ShowExp: Boolean = True); overload;
+    procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
+      IsAdv: Boolean = True); overload;
   end;
 
 function GetRandomActivePartyPosition(Party: TParty): TPosition;
-function MouseOver(AX, AY, MX, MY: Integer): Boolean;
-procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
-  MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
-  IsExp: Boolean); overload;
-procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
-  ShowExp: Boolean = True); overload;
-procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
-  IsAdv: Boolean = True); overload;
 
 var
   ActivePartyPosition: Integer = 2;
@@ -85,7 +83,7 @@ begin
   CurrentParty := Party;
   BackScene := CloseScene;
   ActivePartyPosition := GetRandomActivePartyPosition(CurrentParty);
-  Scenes.SetScene(scParty);
+  Scenes.Show(scParty);
   MediaPlayer.Play(mmSettlement);
   ShowInventory := F;
 end;
@@ -180,41 +178,14 @@ procedure Close;
 begin
   if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
-  Scenes.SetScene(BackScene);
+  Scenes.Show(BackScene);
   MediaPlayer.Play(mmClick);
   MediaPlayer.Play(mmSettlement);
 end;
 
-function MouseOver(AX, AY, MX, MY: Integer): Boolean;
-begin
-  Result := (MX > AX) and (MX < AX + ResImage[reFrame].Width) and (MY > AY) and
-    (MY < AY + ResImage[reFrame].Height);
-end;
-
-class function TSceneParty.GetPartyPosition(const MX, MY: Integer): Integer;
-var
-  R: Integer;
-  Position: TPosition;
-  PartySide: TPartySide;
-begin
-  R := -1;
-  Result := R;
-  for PartySide := Low(TPartySide) to High(TPartySide) do
-    for Position := Low(TPosition) to High(TPosition) do
-    begin
-      Inc(R);
-      if MouseOver(TSceneParty.GetFrameX(Position, PartySide),
-        TSceneParty.GetFrameY(Position, PartySide), MX, MY) then
-      begin
-        Result := R;
-        Exit;
-      end;
-    end;
-end;
-
-procedure RenderUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
-  MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
-  IsExp: Boolean);
+procedure TSceneParty.DrawUnitInfo(Name: string;
+  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
+  Initiative, ChToHit: Integer; IsExp: Boolean);
 var
   S: string;
 begin
@@ -236,26 +207,26 @@ begin
     [Initiative, ChToHit]) + '%');
 end;
 
-procedure RenderUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
-  ShowExp: Boolean = True);
+procedure TSceneParty.DrawUnitInfo(Position: TPosition; Party: TParty;
+  AX, AY: Integer; ShowExp: Boolean = True);
 begin
   with Party.Creature[Position] do
   begin
     if Active then
-      RenderUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints,
+      DrawUnitInfo(Name, AX, AY, Level, Experience, HitPoints, MaxHitPoints,
         Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
   end;
 end;
 
-procedure RenderUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
+procedure TSceneParty.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
   IsAdv: Boolean = True);
 begin
   with TCreature.Character(ACreature) do
-    RenderUnitInfo(Name, AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
+    DrawUnitInfo(Name, AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
       Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
-procedure TSceneParty.RenderUnit(Position: TPosition; Party: TParty;
+procedure TSceneParty.DrawUnit(Position: TPosition; Party: TParty;
   AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   F: Boolean;
@@ -270,7 +241,7 @@ begin
           DrawUnit(reDead, AX, AY, F)
         else
           DrawUnit(ResEnum, AX, AY, F);
-        RenderUnitInfo(Position, Party, AX, AY, ShowExp);
+        DrawUnitInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then
     begin
@@ -293,7 +264,7 @@ begin
       TSceneParty.GetFrameX(Position, PartySide),
       TSceneParty.GetFrameY(Position, PartySide));
     if (Party <> nil) then
-      TSceneParty(Scenes.GetScene(scParty)).RenderUnit(Position, Party,
+      TSceneParty(Scenes.GetScene(scParty)).DrawUnit(Position, Party,
         GetFrameX(Position, PartySide), GetFrameY(Position, PartySide),
         CanHire, ShowExp);
   end;
@@ -414,7 +385,7 @@ begin
     if (C <> crNone) then
       TSceneHire(Scenes.GetScene(scHire)).RenderCharacterInfo(C);
   end;
-  RenderResources;
+  DrawResources;
   RenderButtons;
 end;
 
