@@ -83,7 +83,10 @@ class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
-  ActivePartyPosition := TLeaderParty.GetPosition;
+  if Party = TLeaderParty.Leader then
+    ActivePartyPosition := TLeaderParty.GetPosition
+  else
+    ActivePartyPosition := Party.GetRandomPosition;
   Scenes.Show(scParty);
   MediaPlayer.Play(mmSettlement);
   FShowInventory := F;
