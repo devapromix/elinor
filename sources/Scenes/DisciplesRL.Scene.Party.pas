@@ -13,7 +13,9 @@ uses
 type
   TSceneParty = class(TScene)
   private
-    class var FShowInventory: Boolean;
+  class var
+    FShowInventory: Boolean;
+    FShowResources: Boolean;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure Close;
     procedure Inventory;
@@ -83,7 +85,8 @@ class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
-  if Party = TLeaderParty.Leader then
+  FShowResources := Party = TLeaderParty.Leader;
+  if FShowResources then
     ActivePartyPosition := TLeaderParty.GetPosition
   else
     ActivePartyPosition := Party.GetRandomPosition;
@@ -379,7 +382,8 @@ begin
     if (C <> crNone) then
       TSceneHire(Scenes.GetScene(scHire)).RenderCharacterInfo(C);
   end;
-  DrawResources;
+  if FShowResources then
+    DrawResources;
   RenderButtons;
 end;
 
