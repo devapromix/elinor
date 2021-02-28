@@ -16,6 +16,7 @@ type
 type
   TSceneSettlement = class(TScene)
   private
+    IsUnitSelected: Boolean;
     procedure Heal;
     procedure Dismiss;
     procedure Revive;
@@ -24,6 +25,7 @@ type
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
     function GetName(const I: Integer): string;
+    procedure MoveUnit;
   public
     constructor Create;
     destructor Destroy; override;
@@ -402,14 +404,7 @@ begin
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
-        if (ActivePartyPosition < 0) or
-          ((ActivePartyPosition < 6) and (CurrentPartyPosition >= 6) and
-          (Party[TLeaderParty.LeaderPartyIndex].Count >=
-          TLeaderParty.Leader.MaxLeadership)) then
-          Exit;
-        Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
-          ActivePartyPosition, CurrentPartyPosition);
-        MediaPlayer.Play(mmClick);
+        Self.MoveUnit;
       end;
     mbMiddle:
       begin
@@ -525,7 +520,20 @@ begin
     SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
   end;
   ActivePartyPosition := TLeaderParty.GetPosition;
+  SelectPartyPosition := -1;
   Scenes.Show(scSettlement);
+end;
+
+procedure TSceneSettlement.MoveUnit;
+begin
+  if not((ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and
+    (CurrentPartyPosition >= 6) and (Party[TLeaderParty.LeaderPartyIndex].Count
+    >= TLeaderParty.Leader.MaxLeadership))) then
+  begin
+    Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
+      ActivePartyPosition, CurrentPartyPosition);
+    MediaPlayer.Play(mmClick);
+  end;
 end;
 
 procedure TSceneSettlement.Timer;
@@ -538,6 +546,21 @@ procedure TSceneSettlement.Update(var Key: Word);
 begin
   inherited;
   case Key of
+    K_SPACE:
+      begin
+        if IsUnitSelected then
+        begin
+          IsUnitSelected := False;
+          SelectPartyPosition := -1;
+          Self.MoveUnit;
+        end
+        else
+        begin
+          IsUnitSelected := True;
+          SelectPartyPosition := ActivePartyPosition;
+          CurrentPartyPosition := ActivePartyPosition;
+        end;
+      end;
     K_ESCAPE, K_ENTER:
       Close;
     K_P:

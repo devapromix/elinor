@@ -291,6 +291,8 @@ begin
   end;
   if (ActivePartyPosition = J) then
     DrawImage(AX, AY, reActFrame)
+  else if (SelectPartyPosition = J) then
+    DrawImage(AX, AY, reSelectFrame)
   else
     DrawImage(AX, AY, reFrame);
 end;

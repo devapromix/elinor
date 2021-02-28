@@ -49,6 +49,7 @@ type
   end;
 
 var
+  SelectPartyPosition: Integer = -1;
   ActivePartyPosition: Integer = 2;
   CurrentPartyPosition: Integer = 2;
 
