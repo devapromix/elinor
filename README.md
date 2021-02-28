@@ -1,4 +1,4 @@
-![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/title.logo.png)
+﻿![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/title.logo.png)
 =================
 ![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl/sources?category=code)
 ![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl/sources?category=files)
@@ -12,9 +12,10 @@ Simple roguelike game based on Disciples.
 * WADX, Стрелки, Цифр. клавиатура - дв. курсора
 * ПКМ по пустому слоту - переместить персонажа в другой слот
 * P, СКМ по персонажу - инвентарь и информация об отряде (см. пункт 4)
-* A - наём новых персонажей
+* V - наём новых персонажей
 * H - исцеление персонажа
 * R - воскресить персонажа
+* J - отпустить персонажа
 * I - Открыть инвентарь отряда
 
 ### 2. На карте мира:

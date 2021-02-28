@@ -545,12 +545,12 @@ begin
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement, True);
-    // K_A:
-    // Hire;
+    K_V:
+      Hire;
     K_H:
       Heal;
-    // K_D:
-    // Dismiss;
+    K_J:
+      Dismiss;
     K_R:
       Revive;
     K_LEFT, K_KP_4, K_A:
