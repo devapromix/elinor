@@ -18,16 +18,16 @@ type
     reButtonDef, reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger,
     reArchmage, reSquire, reArcher, reApprentice, reAcolyte, reAshkael,
     reAshgan, reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon,
-    reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reOrc,
-    reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
-    reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
-    reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTextInventory, reTitleHire, reTitleHighScores,
-    reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario,
-    reTitleLeader, reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle,
-    reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton,
-    reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
-    reTitleDifficulty, reScenarioDarkTower, reScenarioOverlord,
+    reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider,
+    reWolf, reOrc, reTextHighScores, reTextCapitalDef, reTextCityDef,
+    reTextPlay, reTextVictory, reTextDefeat, reTextQuit, reTextContinue,
+    reTextDismiss, reTextHire, reTextClose, reTextOk, reTextCancel,
+    reTextLeadParty, reTextHeal, reTextRevive, reTextInventory, reTitleHire,
+    reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace,
+    reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot, reTitleParty,
+    reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond,
+    reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek,
+    reTitleSard, reTitleDifficulty, reScenarioDarkTower, reScenarioOverlord,
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
@@ -446,10 +446,10 @@ end;
 
 initialization
 
-  Init;
+Init;
 
 finalization
 
-  Free;
+Free;
 
 end.
