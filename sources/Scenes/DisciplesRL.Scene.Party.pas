@@ -59,7 +59,7 @@ uses
   System.SysUtils,
   System.TypInfo,
   DisciplesRL.Saga,
-  DisciplesRL.GUI.Button,
+  DisciplesRL.Button,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Map,
@@ -287,8 +287,7 @@ begin
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, Surface.Canvas,
-      ButtonText[I]);
+    Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
     Inc(L, W);
     if (I = btClose) then
       Button[I].Sellected := True;

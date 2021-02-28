@@ -45,7 +45,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.GUI.Button,
+  DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire;
 
@@ -388,7 +388,7 @@ end;
 constructor TSceneBattle2.Create;
 begin
   Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
-    DefaultButtonTop, Surface.Canvas, reTextClose);
+    DefaultButtonTop, reTextClose);
   Button.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
 end;

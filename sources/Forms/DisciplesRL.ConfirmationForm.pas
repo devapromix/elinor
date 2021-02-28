@@ -48,7 +48,7 @@ implementation
 uses
   DisciplesRL.MainForm,
   DisciplesRL.Resources,
-  DisciplesRL.GUI.Button,
+  DisciplesRL.Button,
   DisciplesRL.Scenes;
 
 type
@@ -121,7 +121,7 @@ begin
   Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Buttons[I] := TButton.Create(L, Y, Surface.Canvas, ButtonsText[I]);
+    Buttons[I] := TButton.Create(L, Y, ButtonsText[I]);
     Inc(L, W);
     if (I = btOk) then
       Buttons[I].Sellected := True;

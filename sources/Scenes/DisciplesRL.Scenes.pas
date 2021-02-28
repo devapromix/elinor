@@ -11,7 +11,7 @@ uses
   SimplePlayer,
   DisciplesRL.Party,
   DisciplesRL.Resources,
-  DisciplesRL.GUI.Button;
+  DisciplesRL.Button;
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,

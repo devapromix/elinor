@@ -30,7 +30,7 @@ implementation
 uses
   System.SysUtils,
   DisciplesRL.Saga,
-  DisciplesRL.GUI.Button,
+  DisciplesRL.Button,
   DisciplesRL.Resources,
   DisciplesRL.Scene.Party;
 
@@ -59,7 +59,7 @@ end;
 constructor TSceneBattle3.Create;
 begin
   Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
-    DefaultButtonTop, Surface.Canvas, reTextClose);
+    DefaultButtonTop, reTextClose);
   Button.Sellected := True;
 end;
 

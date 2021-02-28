@@ -9,7 +9,6 @@ uses
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
-  DisciplesRL.GUI.Button in 'DisciplesRL.GUI.Button.pas',
   PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
@@ -23,7 +22,9 @@ uses
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
   DisciplesRL.Scene.Battle2 in 'Scenes\DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Battle3 in 'Scenes\DisciplesRL.Scene.Battle3.pas',
-  DisciplesRL.Saga in 'DisciplesRL.Saga.pas';
+  DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
+  DisciplesRL.Button in 'DisciplesRL.Button.pas',
+  DisciplesRL.Frame in 'DisciplesRL.Frame.pas';
 
 {$R *.res}
 

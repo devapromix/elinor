@@ -9,6 +9,8 @@ uses
 
 type
   TSceneMenu = class(TScene)
+  private
+    procedure Next;
   public
     constructor Create;
     destructor Destroy; override;
@@ -28,7 +30,7 @@ uses
   Vcl.Dialogs,
   System.SysUtils,
   DisciplesRL.Resources,
-  DisciplesRL.GUI.Button,
+  DisciplesRL.Button,
   DisciplesRL.MainForm,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
@@ -45,14 +47,11 @@ var
   MainMenuCursorPos: Integer = 0;
   Button: array [TButtonEnum] of TButton;
 
-procedure Ok(K: Integer = -1);
+procedure TSceneMenu.Next;
 begin
-  if (K >= 0) then
-    MainMenuCursorPos := K;
   case MainMenuCursorPos of
     0: // Play
       begin
-        MediaPlayer.Play(mmClick);
         TSaga.IsGame := False;
         TSceneHire.Show(stScenario);
       end;
@@ -60,37 +59,31 @@ begin
       begin
         if TSaga.IsGame then
         begin
-          MediaPlayer.Play(mmClick);
           MediaPlayer.PlayMusic(mmMap);
           Scenes.Show(scMap);
         end;
       end;
     2: // High Scores
-      begin
-        MediaPlayer.Play(mmClick);
         TSceneHire.Show(stHighScores2);
-      end;
     3: // Exit;
-      begin
-        MediaPlayer.Play(mmClick);
         DisciplesRL.MainForm.MainForm.Close;
-      end;
   end;
 end;
 
 { TSceneMenu }
 
 procedure TSceneMenu.Click;
+var
+  I: TButtonEnum;
 begin
   inherited;
-  if Button[btPlay].MouseDown then
-    Ok(0);
-  if Button[btContinue].MouseDown then
-    Ok(1);
-  if Button[btHighScores].MouseDown then
-    Ok(2);
-  if Button[btQuit].MouseDown then
-    Ok(3);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    if Button[I].MouseDown then
+    begin
+      MainMenuCursorPos := Ord(I);
+      MediaPlayer.Play(mmClick);
+      Next;
+    end;
 end;
 
 constructor TSceneMenu.Create;
@@ -103,7 +96,7 @@ begin
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, T, Surface.Canvas, ButtonText[I]);
+    Button[I] := TButton.Create(L, T, ButtonText[I]);
     if (I = btPlay) then
       Button[I].Sellected := True;
     Inc(T, H);
@@ -168,7 +161,7 @@ begin
   inherited;
   case Key of
     K_ENTER:
-      Ok;
+      Next;
     K_ESCAPE:
       DisciplesRL.MainForm.MainForm.Close;
     K_UP:

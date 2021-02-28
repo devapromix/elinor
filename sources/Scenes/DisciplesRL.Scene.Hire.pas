@@ -49,9 +49,14 @@ type
 
 implementation
 
-uses System.Math, System.SysUtils, DisciplesRL.Map,
-  DisciplesRL.GUI.Button, DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Settlement, DisciplesRL.Scene.Map;
+uses
+  System.Math,
+  System.SysUtils,
+  DisciplesRL.Map,
+  DisciplesRL.Button,
+  DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Scene.Map;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -622,7 +627,7 @@ begin
       L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
     for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
-      Button[J][I] := TButton.Create(L, 600, Surface.Canvas, ButtonText[J][I]);
+      Button[J][I] := TButton.Create(L, 600, ButtonText[J][I]);
       if not(J in CloseButtonScene) then
         Inc(L, W);
       if (I = btOk) then
