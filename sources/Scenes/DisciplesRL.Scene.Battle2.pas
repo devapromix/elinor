@@ -6,11 +6,18 @@ uses
   System.Classes,
   DisciplesRL.Scenes,
   DisciplesRL.Party,
-  Vcl.Controls;
+  Vcl.Controls,
+  Vcl.Dialogs;
 
 type
   TSceneBattle2 = class(TScene)
   private
+    Ini: TStringList;
+    CurrentIni: Integer;
+    EnemyParty: TParty;
+    LeaderParty: TParty;
+    PartyExperience: Integer;
+    procedure SetIni;
     procedure ClickOnPosition;
     procedure ChExperience;
     procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
@@ -20,6 +27,8 @@ type
     procedure NextTurn;
     procedure Start;
     procedure Victory;
+    procedure StartRound;
+    function GetHitPoints(Position: Integer): Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -64,8 +73,7 @@ var
 
 var
   Button: TButton;
-  EnemyParty: TParty = nil;
-  PartyExperience: Integer = 0;
+  // IniArr: array [0 .. 11] of Integer;
 
 const
   Rows = 7;
@@ -109,7 +117,7 @@ begin
   begin
     ChCnt := 0;
     for P := Low(TPosition) to High(TPosition) do
-      with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
+      with LeaderParty.Creature[P] do
         if Active and (HitPoints > 0) then
         begin
           Inc(ChCnt);
@@ -118,20 +126,19 @@ begin
     begin
       ChExp := EnsureRange(PartyExperience div ChCnt, 1, 9999);
       for P := Low(TPosition) to High(TPosition) do
-        with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
+        with LeaderParty.Creature[P] do
           if Active and (HitPoints > 0) then
           begin
-            Party[TLeaderParty.LeaderPartyIndex].UpdateXP(ChExp, P);
+            LeaderParty.UpdateXP(ChExp, P);
             Log.Add(Format('%s получил опыт +%d', [Name, ChExp]));
           end;
     end;
     for P := Low(TPosition) to High(TPosition) do
-      with Party[TLeaderParty.LeaderPartyIndex].Creature[P] do
+      with LeaderParty.Creature[P] do
         if Active and (HitPoints > 0) then
-          if Experience >= Party[TLeaderParty.LeaderPartyIndex].GetMaxExperience
-            (Level) then
+          if Experience >= LeaderParty.GetMaxExperience(Level) then
           begin
-            Party[TLeaderParty.LeaderPartyIndex].UpdateLevel(P);
+            LeaderParty.UpdateLevel(P);
             Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
           end;
     PartyExperience := 0;
@@ -166,24 +173,22 @@ begin
   PartyExperience := 0;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
+  LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
+  // SelectPartyPosition := ActivePartyPosition;
   MediaPlayer.Play(mmWar);
+  StartRound;
 end;
 
 procedure TSceneBattle2.Finish;
 begin
   Log.Clear;
   MediaPlayer.Stop;
-  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
+  if LeaderParty.IsClear then
     Defeat;
   if EnemyParty.IsClear then
     Victory;
-end;
-
-procedure TSceneBattle2.NextTurn;
-begin
-  ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
 end;
 
 procedure TSceneBattle2.Damage(AtkParty, DefParty: TParty;
@@ -312,7 +317,7 @@ begin
     ChExperience;
     MediaPlayer.Play(mmWin);
   end;
-  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
+  if LeaderParty.IsClear then
   begin
     MediaPlayer.PlayMusic(mmDefeat);
   end;
@@ -359,18 +364,17 @@ begin
     0 .. 5:
       case ActivePartyPosition of
         0 .. 5:
-          Heal(Party[TLeaderParty.LeaderPartyIndex],
-            Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition,
+          Heal(LeaderParty, LeaderParty, ActivePartyPosition,
             CurrentPartyPosition);
         6 .. 11:
-          Damage(EnemyParty, Party[TLeaderParty.LeaderPartyIndex],
-            ActivePartyPosition - 6, CurrentPartyPosition);
+          Damage(EnemyParty, LeaderParty, ActivePartyPosition - 6,
+            CurrentPartyPosition);
       end;
     6 .. 11:
       case ActivePartyPosition of
         0 .. 5:
-          Damage(Party[TLeaderParty.LeaderPartyIndex], EnemyParty,
-            ActivePartyPosition, CurrentPartyPosition - 6);
+          Damage(LeaderParty, EnemyParty, ActivePartyPosition,
+            CurrentPartyPosition - 6);
         6 .. 11:
           Heal(EnemyParty, EnemyParty, ActivePartyPosition - 6,
             CurrentPartyPosition - 6);
@@ -391,10 +395,12 @@ begin
     DefaultButtonTop, reTextClose);
   Button.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
+  Ini := TStringList.Create;
 end;
 
 destructor TSceneBattle2.Destroy;
 begin
+  FreeAndNil(Ini);
   FreeAndNil(Button);
   FreeAndNil(Log);
   inherited;
@@ -407,7 +413,7 @@ begin
   CurrentPartyPosition := GetPartyPosition(X, Y);
   if CurrentPartyPosition < 0 then
     Exit;
-  if Party[TLeaderParty.LeaderPartyIndex].IsClear or EnemyParty.IsClear then
+  if LeaderParty.IsClear or EnemyParty.IsClear then
     Exit;
   case Button of
     mbLeft:
@@ -430,10 +436,10 @@ var
   F: Boolean;
 begin
   inherited;
-  TSceneParty.RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex]);
+  TSceneParty.RenderParty(psLeft, LeaderParty);
   TSceneParty.RenderParty(psRight, EnemyParty, False, False);
   F := False;
-  if Party[TLeaderParty.LeaderPartyIndex].IsClear then
+  if LeaderParty.IsClear then
   begin
     DrawTitle(reTitleDefeat);
     F := True;
@@ -451,6 +457,85 @@ begin
     Button.Render;
   end;
   Log.Render;
+end;
+
+procedure TSceneBattle2.StartRound;
+begin
+  SetIni;
+  NextTurn;
+end;
+
+procedure TSceneBattle2.SetIni;
+var
+  I: Integer;
+  S: string;
+begin
+  Ini.Clear;
+  CurrentIni := 11;
+  for I := 0 to 11 do
+  begin
+    Ini.Add('');
+    case I of
+      0 .. 5:
+        if LeaderParty.Creature[I].Active and (LeaderParty.GetHitPoints(I) > 0)
+        then
+          Ini[I] := Format('%d:%d', [LeaderParty.GetInitiative(I), I]);
+    else
+      begin
+        if EnemyParty.Creature[I - 6].Active and
+          (EnemyParty.GetHitPoints(I - 6) > 0) then
+          Ini[I] := Format('%d:%d', [EnemyParty.GetInitiative(I - 6), I]);
+      end;
+    end;
+  end;
+  Ini.Sort;
+{  S := '';
+  for I := Ini.Count - 1 downto 0 do
+    if I = 0 then
+      S := S + Ini[I]
+    else
+      S := S + Ini[I] + ';';
+  ShowMessage(S);   }
+end;
+
+procedure TSceneBattle2.NextTurn;
+var
+  Position: Integer;
+  S: string;
+  A: TArray<string>;
+begin
+  Position := -1;
+  repeat
+    S := Ini[CurrentIni];
+    if S <> '' then
+    begin
+      A := S.Split([':']);
+      Position := A[1].ToInteger;
+    end;
+    Ini[CurrentIni] := '';
+    Dec(CurrentIni);
+    if CurrentIni < 0 then
+    begin
+      StartRound;
+      Exit;
+    end;
+  until (Position <> -1) and (GetHitPoints(Position) > 0);
+  ActivePartyPosition := Position;
+end;
+
+function TSceneBattle2.GetHitPoints(Position: Integer): Integer;
+begin
+  Result := 0;
+  if Position < 0 then
+    Exit;
+  case Position of
+    0 .. 5:
+      if LeaderParty.Creature[Position].Active then
+        Result := LeaderParty.GetHitPoints(Position);
+    6 .. 11:
+      if EnemyParty.Creature[Position - 6].Active then
+        Result := EnemyParty.GetHitPoints(Position - 6);
+  end;
 end;
 
 procedure TSceneBattle2.Show(const S: TSceneEnum);
@@ -475,12 +560,9 @@ begin
     K_SPACE:
       if TSaga.Wizard then
         NextTurn;
-    K_C:
+    K_N:
       if TSaga.Wizard then
-      begin
-        MediaPlayer.PlayMusic(mmDefeat);
-        Party[TLeaderParty.LeaderPartyIndex].Clear;
-      end;
+        NextTurn;
     K_D:
       if TSaga.Wizard then
         Defeat;

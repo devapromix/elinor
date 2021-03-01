@@ -269,6 +269,7 @@ begin
     end;
   }
   P := EnsureRange(Level * 50, 1, 100);
+  P := 50;
   {
     1: 25..75
     2: 75..125
@@ -284,7 +285,7 @@ begin
     //
     Cr := TCreature.GetRandomEnum(P, 2);
     //TCreature.Character(Cr).Race
-    case RandomRange(0, 4) of
+    case RandomRange(0, 1) of
       0:
         AddCreature(Cr, 2);
       1:
@@ -308,7 +309,7 @@ begin
     end;
     //
     Cr := TCreature.GetRandomEnum(P, 3);
-    case RandomRange(0, 4) of
+    case RandomRange(0, 1) of
       0:
         AddCreature(Cr, 3);
       1:

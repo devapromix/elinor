@@ -530,10 +530,11 @@ const
     // Archer
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher; Size: szSmall;
     Name: 'Лучник'; Description: ('Стрелы лучника успешно поражают',
-    'врагов, которые укрываются за спи-', 'нами своих более сильных соратников.');
-    HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 40; Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
+    'врагов, которые укрываются за спи-',
+    'нами своих более сильных соратников.'); HitPoints: 45; Initiative: 60;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 40;
+    Sound: (mmHumHit, mmHumDeath, mmBowAttack);),
     // Apprentice
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reApprentice; Size: szSmall;
     Name: 'Ученик'; Description: ('Ученик мага атакует противников',
@@ -600,9 +601,9 @@ const
     // Ghost
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher; Size: szSmall;
     Name: 'Привидение'; Description: ('Привидения - это темные души,',
-    ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45; Initiative: 20;
-    ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
-    SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
+    ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
+    Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20;
+    Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
     Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
     // Initiate
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reApprentice;
@@ -615,10 +616,10 @@ const
     (Race: reUndeadHordes; SubRace: reUndeadDragon; ResEnum: reAcolyte;
     Size: szBig; Name: 'Виверна';
     Description: ('Чародеи воскрешают мертвых драко-',
-    'нов, тем самым создавая виверн, кото-', 'рые сражаются в рядах армии мертвых.');
-    HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
-    Gold: 100),
+    'нов, тем самым создавая виверн, кото-',
+    'рые сражаются в рядах армии мертвых.'); HitPoints: 225; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seDeath; ReachEnum: reAll; Gold: 100),
 
     // Ashkael
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAshkael;
@@ -739,11 +740,10 @@ const
     Gold: 50; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
     // Man at Arms
     (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;
-    Name: 'Пехотинец';
-    Description: ('Наёмники, предоставляющие свои',
-    'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
+    Name: 'Пехотинец'; Description: ('Наёмники, предоставляющие свои',
+    'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack);),
 
 {$ENDREGION Humans}

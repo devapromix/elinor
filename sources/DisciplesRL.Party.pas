@@ -42,6 +42,7 @@ type
     procedure SetHitPoints(const APosition: TPosition;
       const AHitPoints: Integer);
     function GetHitPoints(const APosition: TPosition): Integer;
+    function GetInitiative(const APosition: TPosition): Integer;
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
     function IsClear: Boolean;
@@ -194,7 +195,16 @@ end;
 
 function TParty.GetHitPoints(const APosition: TPosition): Integer;
 begin
-  Result := FCreature[APosition].HitPoints;
+  Result := 0;
+  if FCreature[APosition].Active then
+    Result := FCreature[APosition].HitPoints;
+end;
+
+function TParty.GetInitiative(const APosition: TPosition): Integer;
+begin
+  Result := 0;
+  if FCreature[APosition].Active then
+    Result := FCreature[APosition].Initiative;
 end;
 
 function TParty.GetMaxExperience(const Level: Integer): Integer;

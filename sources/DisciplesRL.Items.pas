@@ -1,6 +1,7 @@
 ﻿unit DisciplesRL.Items;
 
 interface
+
 {$IFDEF FPC}
 {$MODESWITCH ADVANCEDRECORDS}
 {$ENDIF}
