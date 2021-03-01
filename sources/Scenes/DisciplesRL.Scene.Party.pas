@@ -191,7 +191,7 @@ begin
   S := '';
   if IsExp then
     S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
-      .GetMaxExperience(Level)]);
+      .GetMaxExperiencePerLevel(Level)]);
   DrawText(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]) + S);
   DrawText(AX + Left + 64, AY + 48, Format('Здоровье %d/%d',
     [HitPoints, MaxHitPoints]));

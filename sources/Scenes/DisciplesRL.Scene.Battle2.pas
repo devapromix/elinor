@@ -6,28 +6,30 @@ uses
   System.Classes,
   DisciplesRL.Scenes,
   DisciplesRL.Party,
-  Vcl.Controls,
-  Vcl.Dialogs;
+  Vcl.Controls;
 
 type
   TSceneBattle2 = class(TScene)
   private
-    Ini: TStringList;
-    CurrentIni: Integer;
+    InitiativeList: TStringList;
+    CurrentPosition: Integer;
+    ttt: Integer;
     EnemyParty: TParty;
     LeaderParty: TParty;
-    procedure SetIni;
+    FEnabled: Boolean;
+    procedure SetInitiative;
     procedure ClickOnPosition;
     procedure ChExperience;
     procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
     procedure Defeat;
-    procedure Finish;
+    procedure FinishBattle;
     procedure Heal(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
     procedure NextTurn;
-    procedure Start;
+    procedure StartBattle;
     procedure Victory;
     procedure StartRound;
     function GetHitPoints(Position: Integer): Integer;
+    procedure AI;
   public
     constructor Create;
     destructor Destroy; override;
@@ -39,6 +41,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure Show(const S: TSceneEnum); override;
+    property Enabled: Boolean read FEnabled write FEnabled;
   end;
 
 implementation
@@ -57,6 +60,15 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire;
 
+var
+  Button: TButton;
+
+const
+  Rows = 7;
+  Speed = 12;
+
+{$REGION RLLog}
+
 type
   TLog = class(TRLLog)
   private
@@ -69,13 +81,6 @@ type
 
 var
   Log: TLog;
-
-var
-  Button: TButton;
-  // IniArr: array [0 .. 11] of Integer;
-
-const
-  Rows = 7;
 
   { TLog }
 
@@ -100,15 +105,20 @@ begin
     Inc(Y, 16);
   end;
 end;
-
+{$ENDREGION RLLog}
 { TSceneBattle2 }
+
+procedure TSceneBattle2.AI;
+begin
+  NextTurn;
+end;
 
 procedure TSceneBattle2.ChExperience;
 var
   P: TPosition;
   ChCnt, ChExp: Integer;
 begin
-  if EnemyParty.GetExperience > 0 then
+  if (EnemyParty.GetExperience > 0) then
   begin
     ChCnt := 0;
     for P := Low(TPosition) to High(TPosition) do
@@ -131,7 +141,7 @@ begin
     for P := Low(TPosition) to High(TPosition) do
       with LeaderParty.Creature[P] do
         if Active and (HitPoints > 0) then
-          if Experience >= LeaderParty.GetMaxExperience(Level) then
+          if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(P);
             Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
@@ -159,11 +169,12 @@ begin
   TSceneHire.Show(stDefeat);
 end;
 
-procedure TSceneBattle2.Start;
+procedure TSceneBattle2.StartBattle;
 var
   I: Integer;
 begin
   Log.Clear;
+  Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
   LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
@@ -174,8 +185,9 @@ begin
   StartRound;
 end;
 
-procedure TSceneBattle2.Finish;
+procedure TSceneBattle2.FinishBattle;
 begin
+  Enabled := True;
   Log.Clear;
   MediaPlayer.Stop;
   if LeaderParty.IsClear then
@@ -378,8 +390,10 @@ end;
 procedure TSceneBattle2.Click;
 begin
   inherited;
+  if not Enabled then
+    Exit;
   if Button.MouseDown then
-    Finish;
+    FinishBattle;
 end;
 
 constructor TSceneBattle2.Create;
@@ -388,12 +402,12 @@ begin
     DefaultButtonTop, reTextClose);
   Button.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
-  Ini := TStringList.Create;
+  InitiativeList := TStringList.Create;
 end;
 
 destructor TSceneBattle2.Destroy;
 begin
-  FreeAndNil(Ini);
+  FreeAndNil(InitiativeList);
   FreeAndNil(Button);
   FreeAndNil(Log);
   inherited;
@@ -403,6 +417,8 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
+  if not Enabled then
+    Exit;
   CurrentPartyPosition := GetPartyPosition(X, Y);
   if CurrentPartyPosition < 0 then
     Exit;
@@ -420,17 +436,27 @@ end;
 procedure TSceneBattle2.MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
   inherited;
+  if not Enabled then
+    Exit;
   Button.MouseMove(X, Y);
-  Render;
+  Scenes.Render;
 end;
 
 procedure TSceneBattle2.Render;
 var
   F: Boolean;
+
+  procedure RenderWait;
+  begin
+    DrawImage(reDark);
+  end;
+
 begin
   inherited;
   TSceneParty.RenderParty(psLeft, LeaderParty);
   TSceneParty.RenderParty(psRight, EnemyParty, False, False);
+  if not Enabled then
+    RenderWait;
   F := False;
   if LeaderParty.IsClear then
   begin
@@ -454,41 +480,36 @@ end;
 
 procedure TSceneBattle2.StartRound;
 begin
-  SetIni;
+  SetInitiative;
   NextTurn;
 end;
 
-procedure TSceneBattle2.SetIni;
+procedure TSceneBattle2.SetInitiative;
 var
   I: Integer;
   S: string;
 begin
-  Ini.Clear;
-  CurrentIni := 11;
+  InitiativeList.Clear;
+  CurrentPosition := 11;
   for I := 0 to 11 do
   begin
-    Ini.Add('');
+    InitiativeList.Add('');
     case I of
       0 .. 5:
         if LeaderParty.Creature[I].Active and (LeaderParty.GetHitPoints(I) > 0)
         then
-          Ini[I] := Format('%d:%d', [LeaderParty.GetInitiative(I), I]);
+          InitiativeList[I] :=
+            Format('%d:%d', [LeaderParty.GetInitiative(I), I]);
     else
       begin
         if EnemyParty.Creature[I - 6].Active and
           (EnemyParty.GetHitPoints(I - 6) > 0) then
-          Ini[I] := Format('%d:%d', [EnemyParty.GetInitiative(I - 6), I]);
+          InitiativeList[I] :=
+            Format('%d:%d', [EnemyParty.GetInitiative(I - 6), I]);
       end;
     end;
   end;
-  Ini.Sort;
-{  S := '';
-  for I := Ini.Count - 1 downto 0 do
-    if I = 0 then
-      S := S + Ini[I]
-    else
-      S := S + Ini[I] + ';';
-  ShowMessage(S);   }
+  InitiativeList.Sort;
 end;
 
 procedure TSceneBattle2.NextTurn;
@@ -499,21 +520,25 @@ var
 begin
   Position := -1;
   repeat
-    S := Ini[CurrentIni];
+    S := InitiativeList[CurrentPosition];
     if S <> '' then
     begin
       A := S.Split([':']);
       Position := A[1].ToInteger;
     end;
-    Ini[CurrentIni] := '';
-    Dec(CurrentIni);
-    if CurrentIni < 0 then
+    Enabled := Position <= 5;
+    InitiativeList[CurrentPosition] := '';
+    Dec(CurrentPosition);
+    if CurrentPosition < 0 then
     begin
       StartRound;
       Exit;
     end;
   until (Position <> -1) and (GetHitPoints(Position) > 0);
   ActivePartyPosition := Position;
+  if Position > 5 then
+    ttt := Speed;
+  Render;
 end;
 
 function TSceneBattle2.GetHitPoints(Position: Integer): Integer;
@@ -534,22 +559,32 @@ end;
 procedure TSceneBattle2.Show(const S: TSceneEnum);
 begin
   inherited;
-  Start;
+  StartBattle;
   MediaPlayer.PlayMusic(mmBattle);
 end;
 
 procedure TSceneBattle2.Timer;
 begin
   inherited;
-
+  if ttt > 0 then
+  begin
+    Dec(ttt);
+    if ttt = 0 then
+    begin
+      AI;
+      Scenes.Render;
+    end;
+  end;
 end;
 
 procedure TSceneBattle2.Update(var Key: Word);
 begin
+  if Enabled then
+    Exit;
   inherited;
   case Key of
     K_ESCAPE, K_ENTER:
-      Finish;
+      FinishBattle;
     K_SPACE:
       if TSaga.Wizard then
         NextTurn;

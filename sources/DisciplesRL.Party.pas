@@ -64,7 +64,7 @@ type
     procedure ChPosition(Party: TParty; const ActPosition: Integer;
       var CurPosition: Integer);
     function GetExperience: Integer;
-    function GetMaxExperience(const Level: Integer): Integer;
+    function GetMaxExperiencePerLevel(const Level: Integer): Integer;
   end;
 
 type
@@ -219,7 +219,7 @@ begin
     Result := FCreature[APosition].Initiative;
 end;
 
-function TParty.GetMaxExperience(const Level: Integer): Integer;
+function TParty.GetMaxExperiencePerLevel(const Level: Integer): Integer;
 begin
   Result := Level * 250;
 end;
