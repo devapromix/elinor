@@ -63,6 +63,7 @@ type
     property Count: Integer read GetCount;
     procedure ChPosition(Party: TParty; const ActPosition: Integer;
       var CurPosition: Integer);
+    function GetExperience: Integer;
     function GetMaxExperience(const Level: Integer): Integer;
   end;
 
@@ -191,6 +192,17 @@ end;
 function TParty.GetCreature(APosition: TPosition): TCreature;
 begin
   Result := FCreature[APosition]
+end;
+
+function TParty.GetExperience: Integer;
+var
+  Position: TPosition;
+begin
+  Result := 0;
+  for Position := Low(TPosition) to High(TPosition) do
+    with Creature[Position] do
+      if Active then
+        Inc(Result, MaxHitPoints);
 end;
 
 function TParty.GetHitPoints(const APosition: TPosition): Integer;

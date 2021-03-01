@@ -16,7 +16,6 @@ type
     CurrentIni: Integer;
     EnemyParty: TParty;
     LeaderParty: TParty;
-    PartyExperience: Integer;
     procedure SetIni;
     procedure ClickOnPosition;
     procedure ChExperience;
@@ -109,11 +108,7 @@ var
   P: TPosition;
   ChCnt, ChExp: Integer;
 begin
-  for P := Low(TPosition) to High(TPosition) do
-    with EnemyParty.Creature[P] do
-      if Active then
-        Inc(PartyExperience, MaxHitPoints);
-  if PartyExperience > 0 then
+  if EnemyParty.GetExperience > 0 then
   begin
     ChCnt := 0;
     for P := Low(TPosition) to High(TPosition) do
@@ -124,7 +119,7 @@ begin
         end;
     if ChCnt > 0 then
     begin
-      ChExp := EnsureRange(PartyExperience div ChCnt, 1, 9999);
+      ChExp := EnsureRange(EnemyParty.GetExperience div ChCnt, 1, 9999);
       for P := Low(TPosition) to High(TPosition) do
         with LeaderParty.Creature[P] do
           if Active and (HitPoints > 0) then
@@ -141,7 +136,6 @@ begin
             LeaderParty.UpdateLevel(P);
             Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
           end;
-    PartyExperience := 0;
   end;
 end;
 
@@ -170,7 +164,6 @@ var
   I: Integer;
 begin
   Log.Clear;
-  PartyExperience := 0;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   EnemyParty := Party[I];
   LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
