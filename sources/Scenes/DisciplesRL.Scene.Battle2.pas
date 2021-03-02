@@ -449,6 +449,7 @@ var
   procedure RenderWait;
   begin
     DrawImage(reDark);
+    DrawImage(reTime);
   end;
 
 begin

@@ -8,7 +8,7 @@ uses
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
     reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame,
-    reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
+    reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame, reTime,
     reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
     reNoWay, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
@@ -84,6 +84,8 @@ const
     (FileName: 'big_frame.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'frame.info.png'; ResType: teGUI;),
+    // Time
+    (FileName: 'time.png'; ResType: teGUI;),
     // Neutral Terrain
     (FileName: 'tile.dirt.png'; ResType: teTile;),
     // Empire Terrain
