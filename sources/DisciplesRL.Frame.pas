@@ -1,4 +1,4 @@
-unit DisciplesRL.Frame;
+﻿unit DisciplesRL.Frame;
 
 interface
 

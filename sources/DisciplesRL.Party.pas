@@ -30,6 +30,7 @@ type
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
     function GetCount: Integer;
+  private
   public
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum); overload;
@@ -61,6 +62,7 @@ type
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
     property Count: Integer read GetCount;
+    function GetAliveCreatures: Integer;
     procedure ChPosition(Party: TParty; const ActPosition: Integer;
       var CurPosition: Integer);
     function GetExperience: Integer;
@@ -145,21 +147,21 @@ end;
 
 function TParty.IsClear: Boolean;
 var
-  I: TPosition;
+  Position: TPosition;
 begin
   Result := False;
-  for I := Low(TPosition) to High(TPosition) do
-    if (Creature[I].HitPoints > 0) then
+  for Position := Low(TPosition) to High(TPosition) do
+    if (Creature[Position].HitPoints > 0) then
       Exit;
   Result := True;
 end;
 
 procedure TParty.Clear;
 var
-  I: TPosition;
+  Position: TPosition;
 begin
-  for I := Low(TPosition) to High(TPosition) do
-    TCreature.Clear(FCreature[I]);
+  for Position := Low(TPosition) to High(TPosition) do
+    TCreature.Clear(FCreature[Position]);
 end;
 
 constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -226,12 +228,12 @@ end;
 
 function TParty.GetRandomPosition: TPosition;
 var
-  I: TPosition;
+  Position: TPosition;
 begin
   repeat
-    I := RandomRange(Low(TPosition), High(TPosition) + 1);
-  until GetHitPoints(I) > 0;
-  Result := I;
+    Position := RandomRange(Low(TPosition), High(TPosition) + 1);
+  until GetHitPoints(Position) > 0;
+  Result := Position;
 end;
 
 function TParty.GetCount: Integer;
@@ -243,6 +245,19 @@ begin
     with FCreature[Position] do
       if Active then
         Inc(Result);
+end;
+
+function TParty.GetAliveCreatures: Integer;
+var
+  Position: TPosition;
+begin
+  Result := 0;
+  for Position := Low(TPosition) to High(TPosition) do
+    with FCreature[Position] do
+      if Active and (HitPoints > 0) then
+      begin
+        Inc(Result);
+      end;
 end;
 
 procedure TParty.Heal(const APosition: TPosition);

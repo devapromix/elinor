@@ -115,35 +115,28 @@ end;
 
 procedure TSceneBattle2.ChExperience;
 var
-  P: TPosition;
-  ChCnt, ChExp: Integer;
+  Position: TPosition;
+  CharExp: Integer;
 begin
   if (EnemyParty.GetExperience > 0) then
   begin
-    ChCnt := 0;
-    for P := Low(TPosition) to High(TPosition) do
-      with LeaderParty.Creature[P] do
-        if Active and (HitPoints > 0) then
-        begin
-          Inc(ChCnt);
-        end;
-    if ChCnt > 0 then
+    if LeaderParty.GetAliveCreatures > 0 then
     begin
-      ChExp := EnsureRange(EnemyParty.GetExperience div ChCnt, 1, 9999);
-      for P := Low(TPosition) to High(TPosition) do
-        with LeaderParty.Creature[P] do
+      CharExp := EnsureRange(EnemyParty.GetExperience div LeaderParty.GetAliveCreatures , 1, 9999);
+      for Position := Low(TPosition) to High(TPosition) do
+        with LeaderParty.Creature[Position] do
           if Active and (HitPoints > 0) then
           begin
-            LeaderParty.UpdateXP(ChExp, P);
-            Log.Add(Format('%s получил опыт +%d', [Name, ChExp]));
+            LeaderParty.UpdateXP(CharExp, Position);
+            Log.Add(Format('%s получил опыт +%d', [Name, CharExp]));
           end;
     end;
-    for P := Low(TPosition) to High(TPosition) do
-      with LeaderParty.Creature[P] do
+    for Position := Low(TPosition) to High(TPosition) do
+      with LeaderParty.Creature[Position] do
         if Active and (HitPoints > 0) then
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
-            LeaderParty.UpdateLevel(P);
+            LeaderParty.UpdateLevel(Position);
             Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
           end;
   end;
@@ -199,7 +192,7 @@ end;
 procedure TSceneBattle2.Damage(AtkParty, DefParty: TParty;
   AtkPos, DefPos: TPosition);
 var
-  P: TPosition;
+  Position: TPosition;
   F, B: Boolean;
 begin
   if AtkParty.Creature[AtkPos].Active and DefParty.Creature[DefPos].Active then
@@ -294,19 +287,19 @@ begin
             MediaPlayer.Play(TCreature.Character(AtkParty.Creature[AtkPos].Enum)
               .Sound[csAttack]);
             Sleep(200);
-            for P := Low(TPosition) to High(TPosition) do
-              if DefParty.Creature[P].Active and
-                (DefParty.Creature[P].HitPoints > 0) then
+            for Position := Low(TPosition) to High(TPosition) do
+              if DefParty.Creature[Position].Active and
+                (DefParty.Creature[Position].HitPoints > 0) then
               begin
-                DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, P);
+                DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
                 Log.Add('Damage');
-                if (DefParty.Creature[P].HitPoints > 0) then
+                if (DefParty.Creature[Position].HitPoints > 0) then
                   MediaPlayer.Play
-                    (TCreature.Character(DefParty.Creature[P].Enum)
+                    (TCreature.Character(DefParty.Creature[Position].Enum)
                     .Sound[csHit])
                 else
                   MediaPlayer.Play
-                    (TCreature.Character(DefParty.Creature[P].Enum)
+                    (TCreature.Character(DefParty.Creature[Position].Enum)
                     .Sound[csDeath]);
               end;
             B := True;
@@ -332,7 +325,7 @@ end;
 procedure TSceneBattle2.Heal(AtkParty, DefParty: TParty;
   AtkPos, DefPos: TPosition);
 var
-  P: TPosition;
+  Position: TPosition;
 begin
   if AtkParty.Creature[AtkPos].Active and DefParty.Creature[DefPos].Active then
     if (AtkParty.Creature[AtkPos].HitPoints > 0) and
@@ -342,12 +335,12 @@ begin
       case AtkParty.Creature[AtkPos].ReachEnum of
         reAll:
           begin
-            for P := Low(TPosition) to High(TPosition) do
-              with DefParty.Creature[P] do
+            for Position := Low(TPosition) to High(TPosition) do
+              with DefParty.Creature[Position] do
                 if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints)
                 then
                 begin
-                  DefParty.Heal(P, AtkParty.Creature[AtkPos].Heal);
+                  DefParty.Heal(Position, AtkParty.Creature[AtkPos].Heal);
                   Log.Add('Heal');
                 end;
           end
@@ -580,7 +573,7 @@ end;
 
 procedure TSceneBattle2.Update(var Key: Word);
 begin
-  if Enabled then
+  if not Enabled then
     Exit;
   inherited;
   case Key of

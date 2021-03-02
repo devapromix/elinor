@@ -1,4 +1,4 @@
-unit DisciplesRL.Button;
+﻿unit DisciplesRL.Button;
 
 interface
 
