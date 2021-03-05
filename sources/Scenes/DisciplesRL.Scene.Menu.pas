@@ -3,7 +3,7 @@
 interface
 
 uses
-  System.Classes,
+  Classes,
   Vcl.Controls,
   DisciplesRL.Scenes;
 

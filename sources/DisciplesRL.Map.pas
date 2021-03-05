@@ -57,9 +57,8 @@ type
 implementation
 
 uses
-  Vcl.Dialogs,
-  System.Math,
-  System.SysUtils,
+  Math,
+  SysUtils,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party,
   PathFind;
