@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.Controls,
-  System.Classes,
+  Classes,
   DisciplesRL.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -57,8 +57,7 @@ implementation
 
 uses
   Math,
-  System.SysUtils,
-  System.TypInfo,
+  SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Button,
   DisciplesRL.Scene.Hire,

@@ -470,8 +470,7 @@ type
 implementation
 
 uses
-  System.SysUtils,
-  System.Math,
+  Math,
   DisciplesRL.Saga;
 
 const

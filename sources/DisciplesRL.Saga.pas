@@ -3,7 +3,7 @@
 interface
 
 uses
-  System.Types,
+  Types,
   DisciplesRL.Resources,
   DisciplesRL.Party,
   DisciplesRL.Creatures;
@@ -142,9 +142,8 @@ type
 implementation
 
 uses
-  System.Math,
-  System.SysUtils,
-  Vcl.Dialogs,
+  Math,
+  SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,

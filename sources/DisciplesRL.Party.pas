@@ -3,7 +3,7 @@
 interface
 
 uses
-  System.Types,
+  Types,
   DisciplesRL.Creatures,
   MapObject;
 
@@ -103,8 +103,8 @@ var
 implementation
 
 uses
-  System.Math,
-  System.SysUtils,
+  Math,
+  SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Resources,

@@ -6,8 +6,8 @@ uses
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
-  System.Types,
-  System.Classes,
+  Types,
+  Classes,
   SimplePlayer,
   DisciplesRL.Party,
   DisciplesRL.Resources,
@@ -144,8 +144,7 @@ var
 implementation
 
 uses
-  Vcl.Dialogs,
-  System.SysUtils,
+  SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.ConfirmationForm,
   DisciplesRL.Scene.Map,

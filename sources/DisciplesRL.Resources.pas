@@ -410,8 +410,7 @@ const
 implementation
 
 uses
-  System.SysUtils,
-  Vcl.Graphics;
+  SysUtils;
 
 function GetPath(SubDir: string): string;
 begin

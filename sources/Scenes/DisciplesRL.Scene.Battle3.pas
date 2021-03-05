@@ -3,7 +3,7 @@
 interface
 
 uses
-  System.Classes,
+  Classes,
   DisciplesRL.Scenes,
   Vcl.Controls;
 
@@ -28,7 +28,7 @@ type
 implementation
 
 uses
-  System.SysUtils,
+  SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Button,
   DisciplesRL.Resources,

@@ -3,7 +3,8 @@
 interface
 
 uses
-  System.Classes, System.SysUtils;
+  Classes,
+  SysUtils;
 
 type
   TRLLog = class(TObject)
