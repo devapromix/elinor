@@ -122,7 +122,8 @@ begin
   begin
     if LeaderParty.GetAliveCreatures > 0 then
     begin
-      CharExp := EnsureRange(EnemyParty.GetExperience div LeaderParty.GetAliveCreatures , 1, 9999);
+      CharExp := EnsureRange(EnemyParty.GetExperience div LeaderParty.
+        GetAliveCreatures, 1, 9999);
       for Position := Low(TPosition) to High(TPosition) do
         with LeaderParty.Creature[Position] do
           if Active and (HitPoints > 0) then
@@ -449,8 +450,8 @@ begin
   inherited;
   TSceneParty.RenderParty(psLeft, LeaderParty);
   TSceneParty.RenderParty(psRight, EnemyParty, False, False);
-  if not Enabled then
-    RenderWait;
+  // if not Enabled then
+  // RenderWait;
   F := False;
   if LeaderParty.IsClear then
   begin

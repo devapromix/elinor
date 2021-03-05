@@ -5,9 +5,9 @@ interface
 uses
   Winapi.Windows,
   Winapi.Messages,
-  System.SysUtils,
-  System.Variants,
-  System.Classes,
+  SysUtils,
+  Variants,
+  Classes,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,

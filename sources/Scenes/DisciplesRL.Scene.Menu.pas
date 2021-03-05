@@ -27,8 +27,7 @@ implementation
 
 uses
   Math,
-  Vcl.Dialogs,
-  System.SysUtils,
+  SysUtils,
   DisciplesRL.Resources,
   DisciplesRL.Button,
   DisciplesRL.MainForm,
@@ -49,6 +48,7 @@ var
 
 procedure TSceneMenu.Next;
 begin
+  MediaPlayer.Play(mmClick);
   case MainMenuCursorPos of
     0: // Play
       begin
@@ -64,9 +64,9 @@ begin
         end;
       end;
     2: // High Scores
-        TSceneHire.Show(stHighScores2);
+      TSceneHire.Show(stHighScores2);
     3: // Exit;
-        DisciplesRL.MainForm.MainForm.Close;
+      DisciplesRL.MainForm.MainForm.Close;
   end;
 end;
 
@@ -81,7 +81,6 @@ begin
     if Button[I].MouseDown then
     begin
       MainMenuCursorPos := Ord(I);
-      MediaPlayer.Play(mmClick);
       Next;
     end;
 end;
