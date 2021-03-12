@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="11"/>
@@ -30,9 +30,9 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="25">
+    <Units Count="24">
       <Unit0>
-        <Filename Value="DisciplesRL.lpr"/>
+        <Filename Value="DisciplesRL.dpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -84,57 +84,53 @@
         <IsPartOfProject Value="True"/>
       </Unit11>
       <Unit12>
-        <Filename Value="Third-Party\PathFind\PathFind.pas"/>
+        <Filename Value="Third-Party\RLLog\RLLog.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit12>
       <Unit13>
-        <Filename Value="Third-Party\RLLog\RLLog.pas"/>
+        <Filename Value="Third-Party\Bass\Bass.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit13>
       <Unit14>
-        <Filename Value="Third-Party\Bass\Bass.pas"/>
+        <Filename Value="Third-Party\SimplePlayer\SimplePlayer.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit14>
       <Unit15>
-        <Filename Value="Third-Party\SimplePlayer\SimplePlayer.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scenes.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit15>
       <Unit16>
-        <Filename Value="Scenes\DisciplesRL.Scenes.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Map.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit16>
       <Unit17>
-        <Filename Value="Scenes\DisciplesRL.Scene.Map.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Party.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="Scenes\DisciplesRL.Scene.Party.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Settlement.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit18>
       <Unit19>
-        <Filename Value="Scenes\DisciplesRL.Scene.Settlement.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Hire.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit19>
       <Unit20>
-        <Filename Value="Scenes\DisciplesRL.Scene.Hire.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Battle2.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="Scenes\DisciplesRL.Scene.Battle2.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Battle3.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="Scenes\DisciplesRL.Scene.Battle3.pas"/>
+        <Filename Value="DisciplesRL.Button.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit22>
       <Unit23>
-        <Filename Value="DisciplesRL.Button.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit23>
-      <Unit24>
         <Filename Value="DisciplesRL.Frame.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit24>
+      </Unit23>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -145,7 +141,22 @@
       <OtherUnitFiles Value="..;Forms;Third-Party\PathFind;Third-Party\RLLog;Third-Party\MapObject;Third-Party\Bass;Third-Party\SimplePlayer;Scenes"/>
       <UnitOutputDirectory Value=".."/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+        <AllowLabel Value="False"/>
+        <CPPInline Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+    </CodeGeneration>
     <Linking>
+      <Debugging>
+        <StripSymbols Value="True"/>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>

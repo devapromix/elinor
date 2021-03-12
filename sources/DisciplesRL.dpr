@@ -1,7 +1,12 @@
 ﻿program DisciplesRL;
 
 uses
+  {$IFDEF FPC}
+  Interfaces,
+  Forms,
+  {$ELSE}
   Vcl.Forms,
+  {$ENDIF}
   DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
   DisciplesRL.ConfirmationForm in 'Forms\DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
@@ -9,7 +14,6 @@ uses
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
-  PathFind in 'Third-Party\PathFind\PathFind.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
   Bass in 'Third-Party\Bass\Bass.pas',
@@ -31,8 +35,10 @@ uses
 begin
   Randomize();
   Application.Initialize;
+  {$IFNDEF FPC}
   ReportMemoryLeaksOnShutdown := True;
   Application.MainFormOnTaskbar := True;
+  {$ENDIF}
   Application.Title := 'DisciplesRL';
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TConfirmationForm, ConfirmationForm);

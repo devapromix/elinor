@@ -1,4 +1,4 @@
-unit DisciplesRL.ConfirmationForm;
+﻿unit DisciplesRL.ConfirmationForm;
 
 {$MODE Delphi}
 
@@ -57,7 +57,11 @@ var
 
 implementation
 
+{$IFDEF FPC}
 {$R *.lfm}
+{$ELSE}
+{$R *.dfm}
+{$ENDIF}
 
 uses
   DisciplesRL.MainForm,

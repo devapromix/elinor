@@ -1,4 +1,4 @@
-unit DisciplesRL.MainForm;
+﻿unit DisciplesRL.MainForm;
 
 {$MODE Delphi}
 
@@ -51,7 +51,11 @@ var
 
 implementation
 
+{$IFDEF FPC}
 {$R *.lfm}
+{$ELSE}
+{$R *.dfm}
+{$ENDIF}
 
 uses
   DisciplesRL.Scenes,
