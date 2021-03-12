@@ -3,8 +3,12 @@
 interface
 
 uses
-  Classes,
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
   Vcl.Controls,
+  {$ENDIF}
+  Classes,
   DisciplesRL.Scenes;
 
 type

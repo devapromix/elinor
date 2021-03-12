@@ -1,9 +1,13 @@
 ﻿unit DisciplesRL.Scene.Hire;
-
+
 interface
 
 uses
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
   Vcl.Controls,
+  {$ENDIF}
   Classes,
   DisciplesRL.Saga,
   DisciplesRL.Creatures,
@@ -1063,4 +1067,3 @@ begin
 end;
 
 end.
-

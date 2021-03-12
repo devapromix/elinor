@@ -3,9 +3,13 @@
 interface
 
 uses
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
+  Vcl.Controls,
+  {$ENDIF}
   Classes,
-  DisciplesRL.Scenes,
-  Vcl.Controls;
+  DisciplesRL.Scenes;
 
 type
   TSceneBattle3 = class(TScene)

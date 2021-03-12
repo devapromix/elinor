@@ -1,11 +1,15 @@
 ﻿unit DisciplesRL.Scenes;
-
 interface
 
 uses
+  {$IFDEF FPC}
+  Graphics,
+  Controls,
+  {$ELSE}
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
+  {$ENDIF}
   Types,
   Classes,
   SimplePlayer,
@@ -195,7 +199,7 @@ begin
 
 end;
 
-procedure TScene.Show;
+procedure TScene.Show(const S: TSceneEnum);
 begin
 
 end;

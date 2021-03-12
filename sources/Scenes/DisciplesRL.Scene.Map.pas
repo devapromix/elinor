@@ -3,9 +3,13 @@
 interface
 
 uses
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
+  Vcl.Controls,
+  {$ENDIF}
   Classes,
-  DisciplesRL.Scenes,
-  Vcl.Controls;
+  DisciplesRL.Scenes;
 
 { TSceneMap }
 
@@ -165,9 +169,9 @@ begin
     RenderNewDayMessage;
 end;
 
-procedure TSceneMap.Show;
+procedure TSceneMap.Show(const S: TSceneEnum);
 begin
-  inherited;
+  inherited Show(S);
   MediaPlayer.Play(mmSettlement);
 end;
 

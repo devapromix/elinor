@@ -1,8 +1,20 @@
-﻿unit DisciplesRL.ConfirmationForm;
+unit DisciplesRL.ConfirmationForm;
+
+{$MODE Delphi}
 
 interface
 
 uses
+  {$IFDEF FPC}
+  Classes,
+  SysUtils,
+  Forms,
+  Controls,
+  Graphics,
+  Dialogs,
+  ExtCtrls,
+  StdCtrls;
+  {$ELSE}
   Winapi.Windows,
   Winapi.Messages,
   SysUtils,
@@ -12,7 +24,9 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Dialogs,
+  Vcl.ExtCtrls,
   Vcl.StdCtrls;
+  {$ENDIF}
 
 type
   TConfirmationSubSceneEnum = (stConfirm, stInform);
@@ -43,7 +57,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 uses
   DisciplesRL.MainForm,

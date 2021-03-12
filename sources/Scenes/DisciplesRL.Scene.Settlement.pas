@@ -3,8 +3,12 @@
 interface
 
 uses
-  Classes,
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
   Vcl.Controls,
+  {$ENDIF}
+  Classes,
   DisciplesRL.Party,
   DisciplesRL.Scenes;
 
@@ -146,7 +150,7 @@ end;
 
 procedure TSceneSettlement.Hire;
 
-  procedure Hire(const AParty: TParty; const APosition: Integer);
+  procedure HireIt(const AParty: TParty; const APosition: Integer);
   begin
     with AParty.Creature[APosition] do
     begin
@@ -179,15 +183,15 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Hire(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
+      HireIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
-      Hire(SettlementParty, ActivePartyPosition - 6);
+      HireIt(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 
 procedure TSceneSettlement.Dismiss;
 
-  procedure Dismiss(const AParty: TParty; const APosition: Integer);
+  procedure DismissIt(const AParty: TParty; const APosition: Integer);
   begin
     with AParty.Creature[APosition] do
     begin
@@ -214,15 +218,15 @@ begin
   MediaPlayer.Play(mmClick);
   case ActivePartyPosition of
     0 .. 5:
-      Dismiss(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
+      DismissIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
-      Dismiss(SettlementParty, ActivePartyPosition - 6);
+      DismissIt(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 
 procedure TSceneSettlement.Heal;
 
-  procedure Heal(const AParty: TParty; const APosition: Integer);
+  procedure HealIt(const AParty: TParty; const APosition: Integer);
   var
     V, R: Integer;
   begin
@@ -273,15 +277,15 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Heal(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
+      HealIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
-      Heal(SettlementParty, ActivePartyPosition - 6);
+      HealIt(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 
 procedure TSceneSettlement.Revive;
 
-  procedure Revive(const AParty: TParty; const APosition: Integer);
+  procedure ReviveIt(const AParty: TParty; const APosition: Integer);
   var
     V: Integer;
   begin
@@ -318,9 +322,9 @@ begin
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
-      Revive(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
+      ReviveIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
     6 .. 11:
-      Revive(SettlementParty, ActivePartyPosition - 6);
+      ReviveIt(SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 

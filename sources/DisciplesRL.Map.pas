@@ -2,15 +2,15 @@
 
 interface
 
+{$IFDEF FPC}
+{$MODESWITCH ADVANCEDRECORDS}
+{$ENDIF}
+
 uses
   DisciplesRL.Creatures,
   DisciplesRL.Resources,
   DisciplesRL.Saga,
   DisciplesRL.Party;
-
-{$IFDEF FPC}
-{$MODESWITCH ADVANCEDRECORDS}
-{$ENDIF}
 
 type
   TPlace = record
@@ -60,12 +60,23 @@ uses
   Math,
   SysUtils,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Party,
-  PathFind;
+  DisciplesRL.Scene.Party;
+
+  type
+    TGetXYVal = function(X, Y: Integer): Boolean; stdcall;
+
+function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
+    Callback: TGetXYVal; var TargetX, TargetY: Integer): Boolean;
+    external 'BeaRLibPF.dll';
 
 var
   MapWidth: Integer = 40 + 2;
   MapHeight: Integer = 20 + 2;
+
+function ChTile(X, Y: Integer): Boolean; stdcall;
+begin
+  Result := True;
+end;
 
 class function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin
@@ -127,11 +138,6 @@ begin
         lrDark:
           Map[L][X, Y] := reDark;
       end;
-end;
-
-function ChTile(X, Y: Integer): Boolean; stdcall;
-begin
-  Result := True;
 end;
 
 procedure AddCapitalParty;
@@ -221,8 +227,8 @@ begin
   for I := 1 to High(TMap.Place) do
   begin
     repeat
-      if IsPathFind(MapWidth, MapHeight, X, Y, TMap.Place[I].X, TMap.Place[I].Y,
-        ChTile, RX, RY) then
+      if DoAStar(MapWidth, MapHeight, X, Y, TMap.Place[I].X, TMap.Place[I].Y,
+        @ChTile, RX, RY) then
       begin
         // if (RandomRange(0, 2) = 0) then
         begin

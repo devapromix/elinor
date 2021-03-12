@@ -1,0 +1,34 @@
+object MainForm: TMainForm
+  Left = 428
+  Height = 596
+  Top = 301
+  Width = 795
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'DisciplesRL'
+  Color = clBlack
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  OnClick = FormClick
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnMouseDown = FormMouseDown
+  OnMouseMove = FormMouseMove
+  OnPaint = FormPaint
+  Position = poScreenCenter
+  LCLVersion = '2.0.8.0'
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    left = 32
+    top = 24
+  end
+  object AutoTimer: TTimer
+    Enabled = False
+    Interval = 1500
+    left = 32
+    top = 80
+  end
+end

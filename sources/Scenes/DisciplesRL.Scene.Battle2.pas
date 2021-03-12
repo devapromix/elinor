@@ -1,12 +1,16 @@
 ﻿unit DisciplesRL.Scene.Battle2;
-
+
 interface
 
 uses
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
+  Vcl.Controls,
+  {$ENDIF}
   Classes,
   DisciplesRL.Scenes,
-  DisciplesRL.Party,
-  Vcl.Controls;
+  DisciplesRL.Party;
 
 type
   TSceneBattle2 = class(TScene)
@@ -511,7 +515,7 @@ procedure TSceneBattle2.NextTurn;
 var
   Position: Integer;
   S: string;
-  A: TArray<string>;
+  A: array of string;
 begin
   Position := -1;
   repeat
@@ -596,4 +600,3 @@ begin
 end;
 
 end.
-

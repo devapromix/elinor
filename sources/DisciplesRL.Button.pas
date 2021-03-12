@@ -3,9 +3,13 @@
 interface
 
 uses
+  {$IFDEF FPC}
+  Graphics,
+  {$ELSE}
   Vcl.Graphics,
-  DisciplesRL.Resources,
-  Vcl.Imaging.PNGImage;
+  Vcl.Imaging.PNGImage,
+  {$ENDIF}
+  DisciplesRL.Resources;
 
 type
   TButtonState = (bsNone, bsOver, bsSell, bsDown);

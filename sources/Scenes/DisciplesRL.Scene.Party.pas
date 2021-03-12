@@ -3,7 +3,11 @@
 interface
 
 uses
+  {$IFDEF FPC}
+  Controls,
+  {$ELSE}
   Vcl.Controls,
+  {$ENDIF}
   Classes,
   DisciplesRL.Party,
   DisciplesRL.Scenes,

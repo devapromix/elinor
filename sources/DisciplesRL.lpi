@@ -5,9 +5,8 @@
     <PathDelim Value="\"/>
     <General>
       <Flags>
-        <MainUnitHasCreateFormStatements Value="False"/>
-        <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
+        <AlwaysBuild Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -26,9 +25,14 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <Units Count="12">
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="25">
       <Unit0>
-        <Filename Value="DisciplesRL.dpr"/>
+        <Filename Value="DisciplesRL.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -36,58 +40,121 @@
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="DisciplesRL.Scene.pas"/>
+        <Filename Value="DisciplesRL.Resources.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="DisciplesRL.Resources.pas"/>
+        <Filename Value="DisciplesRL.Map.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="DisciplesRL.Map.pas"/>
+        <Filename Value="Scenes\DisciplesRL.Scene.Menu.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="Scenes\DisciplesRL.Scene.Menu.pas"/>
+        <Filename Value="DisciplesRL.Saga.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
       <Unit6>
-        <Filename Value="Scenes\DisciplesRL.Scene.Game.pas"/>
+        <Filename Value="DisciplesRL.Creatures.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit6>
       <Unit7>
-        <Filename Value="DisciplesRL.Scene.Menu.pas"/>
+        <Filename Value="Third-Party\MapObject\MapObject.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit7>
       <Unit8>
-        <Filename Value="DisciplesRL.Scene.Map.pas"/>
+        <Filename Value="Forms\DisciplesRL.MainForm.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit8>
       <Unit9>
-        <Filename Value="DisciplesRL.Saga.pas"/>
+        <Filename Value="Forms\DisciplesRL.ConfirmationForm.pas"/>
         <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
       </Unit9>
       <Unit10>
-        <Filename Value="DisciplesRL.Creatures.pas"/>
+        <Filename Value="DisciplesRL.Items.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit10>
       <Unit11>
-        <Filename Value="Third-Party\MapObject\MapObject.pas"/>
+        <Filename Value="DisciplesRL.Party.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="Third-Party\PathFind\PathFind.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="Third-Party\RLLog\RLLog.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="Third-Party\Bass\Bass.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="Third-Party\SimplePlayer\SimplePlayer.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="Scenes\DisciplesRL.Scenes.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="Scenes\DisciplesRL.Scene.Map.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="Scenes\DisciplesRL.Scene.Party.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="Scenes\DisciplesRL.Scene.Settlement.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="Scenes\DisciplesRL.Scene.Hire.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="Scenes\DisciplesRL.Scene.Battle2.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="Scenes\DisciplesRL.Scene.Battle3.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="DisciplesRL.Button.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="DisciplesRL.Frame.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit24>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
-    <Target>
-      <Filename Value="..\DisciplesRL"/>
-    </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value=".."/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <IncludeFiles Value="Forms;Third-Party\PathFind;Third-Party\RLLog;Third-Party\MapObject;Third-Party\Bass;Third-Party\SimplePlayer;Scenes;$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..;Forms;Third-Party\PathFind;Third-Party\RLLog;Third-Party\MapObject;Third-Party\Bass;Third-Party\SimplePlayer;Scenes"/>
+      <UnitOutputDirectory Value=".."/>
     </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CustomOptions Value="-dBorland -dVer150 -dDelphi7 -dCompiler6_Up -dPUREPASCAL"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

@@ -1,8 +1,19 @@
-﻿unit DisciplesRL.MainForm;
+unit DisciplesRL.MainForm;
+
+{$MODE Delphi}
 
 interface
 
 uses
+  {$IFDEF FPC}
+  Classes,
+  SysUtils,
+  Forms,
+  Controls,
+  Graphics,
+  Dialogs,
+  ExtCtrls;
+  {$ELSE}
   Winapi.Windows,
   Winapi.Messages,
   SysUtils,
@@ -14,6 +25,7 @@ uses
   Vcl.Dialogs,
   Vcl.ExtCtrls,
   Vcl.StdCtrls;
+  {$ENDIF}
 
 type
   TMainForm = class(TForm)
@@ -39,7 +51,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 uses
   DisciplesRL.Scenes,

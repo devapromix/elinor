@@ -3,7 +3,16 @@
 interface
 
 uses
+  {$IFDEF FPC}
+  Graphics;
+  {$ELSE}
   Vcl.Imaging.PNGImage;
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  type
+    TPNGImage = TPortableNetworkGraphic;
+  {$ENDIF}
 
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
