@@ -609,10 +609,12 @@ type
              the stream.
   }
 
+{$IFNDEF FPC}
 const
   // special STREAMPROCs
   STREAMPROC_DUMMY: STREAMPROC = STREAMPROC(0); // "dummy" stream
   STREAMPROC_PUSH: STREAMPROC = STREAMPROC(-1); // push stream
+{$ENDIF}
 
 type
 
