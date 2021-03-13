@@ -503,6 +503,8 @@ begin
       end;
     end;
   end;
+  for I := 0 to 11 do
+    InitiativeList.Exchange(Random(I),Random(I));
   InitiativeList.Sort;
 end;
 
