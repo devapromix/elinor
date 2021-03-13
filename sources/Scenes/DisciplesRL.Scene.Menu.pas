@@ -21,8 +21,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
   end;
@@ -76,19 +75,6 @@ end;
 
 { TSceneMenu }
 
-procedure TSceneMenu.Click;
-var
-  I: TButtonEnum;
-begin
-  inherited;
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    if Button[I].MouseDown then
-    begin
-      MainMenuCursorPos := Ord(I);
-      Next;
-    end;
-end;
-
 constructor TSceneMenu.Create;
 var
   L, T, H: Integer;
@@ -115,11 +101,23 @@ begin
   inherited;
 end;
 
-procedure TSceneMenu.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TSceneMenu.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  I: TButtonEnum;
 begin
   inherited;
-
+  case AButton of
+    mbLeft:
+      begin
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    if Button[I].MouseDown then
+    begin
+      MainMenuCursorPos := Ord(I);
+      Next;
+    end;
+      end;
+  end;
 end;
 
 procedure TSceneMenu.MouseMove(Shift: TShiftState; X, Y: Integer);

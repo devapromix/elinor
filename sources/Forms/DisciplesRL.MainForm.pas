@@ -64,7 +64,7 @@ uses
 
 procedure TMainForm.FormClick(Sender: TObject);
 begin
-  Scenes.Click;
+
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);

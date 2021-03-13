@@ -1,4 +1,5 @@
 ﻿unit DisciplesRL.Scenes;
+
 interface
 
 uses
@@ -82,8 +83,7 @@ type
     procedure Render;
     procedure Update(var Key: Word);
     procedure Timer;
-    procedure Click;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer);
     procedure MouseMove(Shift: TShiftState; X, Y: Integer);
   end;
@@ -101,8 +101,7 @@ type
     procedure Render; virtual;
     procedure Update(var Key: Word); virtual;
     procedure Timer; virtual;
-    procedure Click; virtual;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); virtual;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); virtual;
     procedure DrawTitle(Res: TResEnum);
@@ -132,8 +131,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     property SceneEnum: TSceneEnum read FSceneEnum write FSceneEnum;
@@ -165,11 +163,6 @@ var
 
   { TScene }
 
-procedure TScene.Click;
-begin
-
-end;
-
 constructor TScene.Create;
 begin
   inherited;
@@ -182,7 +175,7 @@ begin
   inherited;
 end;
 
-procedure TScene.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TScene.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
 
@@ -356,14 +349,6 @@ end;
 
 { TScenes }
 
-procedure TScenes.Click;
-begin
-  if (FScene[SceneEnum] <> nil) then
-  begin
-    FScene[SceneEnum].Click;
-  end;
-end;
-
 constructor TScenes.Create;
 var
   J: Integer;
@@ -422,12 +407,12 @@ begin
   Result := TScene(FScene[I]);
 end;
 
-procedure TScenes.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TScenes.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   if (FScene[SceneEnum] <> nil) then
   begin
-    FScene[SceneEnum].MouseDown(Button, Shift, X, Y);
+    FScene[SceneEnum].MouseDown(AButton, Shift, X, Y);
     Self.Render;
   end;
 end;

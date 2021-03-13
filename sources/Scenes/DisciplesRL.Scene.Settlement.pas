@@ -36,8 +36,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure Gen;
@@ -354,21 +353,6 @@ end;
 
 { TSceneSettlement }
 
-procedure TSceneSettlement.Click;
-begin
-  inherited;
-  if Button[btHire].MouseDown then
-    Hire;
-  if Button[btHeal].MouseDown then
-    Heal;
-  if Button[btDismiss].MouseDown then
-    Dismiss;
-  if Button[btRevive].MouseDown then
-    Revive;
-  if Button[btClose].MouseDown then
-    Close;
-end;
-
 constructor TSceneSettlement.Create;
 var
   I: TButtonEnum;
@@ -395,16 +379,16 @@ begin
   inherited;
 end;
 
-procedure TSceneSettlement.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TSceneSettlement.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
   if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
-    and (CurrentSettlementType = stCapital) and (Button = mbRight) and
+    and (CurrentSettlementType = stCapital) and (AButton = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
-  case Button of
+  case AButton of
     mbRight:
       begin
         ActivePartyPosition := GetPartyPosition(X, Y);
@@ -425,11 +409,23 @@ begin
       end;
     mbLeft:
       begin
-        CurrentPartyPosition := GetPartyPosition(X, Y);
-        if CurrentPartyPosition < 0 then
-          Exit;
-        ActivePartyPosition := CurrentPartyPosition;
-        MediaPlayer.Play(mmClick);
+        if Button[btHire].MouseDown then
+          Hire else
+        if Button[btHeal].MouseDown then
+          Heal else
+        if Button[btDismiss].MouseDown then
+          Dismiss else
+        if Button[btRevive].MouseDown then
+          Revive else
+        if Button[btClose].MouseDown then
+          Close else
+        begin
+          CurrentPartyPosition := GetPartyPosition(X, Y);
+          if CurrentPartyPosition < 0 then
+            Exit;
+          ActivePartyPosition := CurrentPartyPosition;
+          MediaPlayer.Play(mmClick);
+        end;
       end;
   end;
 end;

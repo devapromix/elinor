@@ -20,7 +20,6 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
@@ -45,21 +44,19 @@ var
 
   { TSceneMap }
 
-procedure TSceneMap.Click;
-begin
-  inherited;
-  if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
-    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-  else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and
-    TMap.InMap(MousePos.X, MousePos.Y) then
-    TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
-end;
-
 procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
   case Button of
+    mbLeft:
+      begin
+        if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
+          TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
+        else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and
+          TMap.InMap(MousePos.X, MousePos.Y) then
+          TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
+      end;
     mbMiddle:
       begin
         TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);

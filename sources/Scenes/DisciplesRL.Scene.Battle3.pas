@@ -22,8 +22,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure Show(const S: TSceneEnum); override;
@@ -53,13 +52,6 @@ begin
   MediaPlayer.Stop;
 end;
 
-procedure TSceneBattle3.Click;
-begin
-  inherited;
-  if Button.MouseDown then
-    Finish;
-end;
-
 constructor TSceneBattle3.Create;
 begin
   Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
@@ -73,11 +65,15 @@ begin
   inherited;
 end;
 
-procedure TSceneBattle3.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TSceneBattle3.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-
+  case AButton of
+    mbLeft:
+      if Button.MouseDown then
+        Finish;
+  end;
 end;
 
 procedure TSceneBattle3.MouseMove(Shift: TShiftState; X, Y: Integer);

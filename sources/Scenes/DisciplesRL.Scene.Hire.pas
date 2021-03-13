@@ -35,8 +35,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
@@ -579,42 +578,6 @@ end;
 
 { TSceneHire }
 
-procedure TSceneHire.Click;
-
-begin
-  inherited;
-  if not(SubScene in CloseButtonScene) then
-  begin
-    if MouseOver(Lf, Top, MouseX, MouseY) then
-    begin
-      MediaPlayer.Play(mmClick);
-      CurrentIndex := 0;
-    end;
-    if MouseOver(Lf, Top + 120, MouseX, MouseY) then
-    begin
-      MediaPlayer.Play(mmClick);
-      CurrentIndex := 1;
-    end;
-    if MouseOver(Lf, Top + 240, MouseX, MouseY) then
-    begin
-      MediaPlayer.Play(mmClick);
-      CurrentIndex := 2;
-    end;
-  end;
-
-  if SubScene in MainButtonsScene then
-    if Button[SubScene][btOk].MouseDown then
-      Ok
-    else if Button[SubScene][btClose].MouseDown then
-      Back;
-
-  if (SubScene in CloseButtonScene) then
-  begin
-    if Button[SubScene][btOk].MouseDown then
-      Ok;
-  end;
-end;
-
 constructor TSceneHire.Create;
 var
   I: TButtonEnum;
@@ -651,11 +614,46 @@ begin
   inherited;
 end;
 
-procedure TSceneHire.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TSceneHire.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
+  case AButton of
+    mbLeft:
+      begin
+        if not(SubScene in CloseButtonScene) then
+        begin
+          if MouseOver(Lf, Top, MouseX, MouseY) then
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := 0;
+          end;
+          if MouseOver(Lf, Top + 120, MouseX, MouseY) then
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := 1;
+          end;
+          if MouseOver(Lf, Top + 240, MouseX, MouseY) then
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := 2;
+          end;
+        end;
 
+        if SubScene in MainButtonsScene then
+          if Button[SubScene][btOk].MouseDown then
+            Ok
+          else if Button[SubScene][btClose].MouseDown then
+            Back;
+
+        if (SubScene in CloseButtonScene) then
+        begin
+          if Button[SubScene][btOk].MouseDown then
+            Ok;
+        end;
+
+      end;
+  end;
 end;
 
 procedure TSceneHire.MouseMove(Shift: TShiftState; X, Y: Integer);

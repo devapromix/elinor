@@ -40,7 +40,6 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
@@ -65,7 +64,7 @@ uses
   DisciplesRL.Scene.Hire;
 
 var
-  Button: TButton;
+  CloseButton: TButton;
 
 const
   Rows = 7;
@@ -109,7 +108,9 @@ begin
     Inc(Y, 16);
   end;
 end;
+
 {$ENDREGION RLLog}
+
 { TSceneBattle2 }
 
 procedure TSceneBattle2.AI;
@@ -385,20 +386,11 @@ begin
   end;
 end;
 
-procedure TSceneBattle2.Click;
-begin
-  inherited;
-  if not Enabled then
-    Exit;
-  if Button.MouseDown then
-    FinishBattle;
-end;
-
 constructor TSceneBattle2.Create;
 begin
-  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
+  CloseButton := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
     DefaultButtonTop, reTextClose);
-  Button.Sellected := True;
+  CloseButton.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
   InitiativeList := TStringList.Create;
 end;
@@ -406,7 +398,7 @@ end;
 destructor TSceneBattle2.Destroy;
 begin
   FreeAndNil(InitiativeList);
-  FreeAndNil(Button);
+  FreeAndNil(CloseButton);
   FreeAndNil(Log);
   inherited;
 end;
@@ -424,6 +416,9 @@ begin
     Exit;
   case Button of
     mbLeft:
+      if CloseButton.MouseDown then
+        FinishBattle
+      else
       begin
         ClickOnPosition;
         Scenes.Render;
@@ -436,8 +431,8 @@ begin
   inherited;
   if not Enabled then
     Exit;
-  Button.MouseMove(X, Y);
-  Scenes.Render;
+  CloseButton.MouseMove(X, Y);
+//  Scenes.Render;
 end;
 
 procedure TSceneBattle2.Render;
@@ -472,7 +467,7 @@ begin
   if F then
   begin
     ActivePartyPosition := -1;
-    Button.Render;
+    CloseButton.Render;
   end;
   Log.Render;
 end;

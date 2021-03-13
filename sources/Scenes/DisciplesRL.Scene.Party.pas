@@ -29,8 +29,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
-    procedure Click; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
@@ -273,15 +272,6 @@ end;
 
 { TSceneParty }
 
-procedure TSceneParty.Click;
-begin
-  inherited;
-  if Button[btClose].MouseDown then
-    Close;
-  if Button[btInventory].MouseDown then
-    Inventory;
-end;
-
 constructor TSceneParty.Create;
 var
   I: TButtonEnum;
@@ -309,19 +299,25 @@ begin
   inherited;
 end;
 
-procedure TSceneParty.MouseDown(Button: TMouseButton; Shift: TShiftState;
+procedure TSceneParty.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  case Button of
+  case AButton of
     mbLeft:
       begin
-        CurrentPartyPosition := GetPartyPosition(X, Y);
-        if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
-          Exit;
-        ActivePartyPosition := CurrentPartyPosition;
-        MediaPlayer.Play(mmClick);
-        Render;
+        if Button[btClose].MouseDown then
+          Close else
+        if Button[btInventory].MouseDown then
+           Inventory else
+        begin
+          CurrentPartyPosition := GetPartyPosition(X, Y);
+          if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
+            Exit;
+          ActivePartyPosition := CurrentPartyPosition;
+          MediaPlayer.Play(mmClick);
+          Render;
+        end;
       end;
   end;
 end;
