@@ -93,8 +93,6 @@ type
   private
 
   public
-    MouseX: Integer;
-    MouseY: Integer;
     constructor Create;
     destructor Destroy; override;
     procedure Show(const S: TSceneEnum); virtual;
@@ -183,8 +181,7 @@ end;
 
 procedure TScene.MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
-  MouseX := X;
-  MouseY := Y;
+
 end;
 
 procedure TScene.Render;

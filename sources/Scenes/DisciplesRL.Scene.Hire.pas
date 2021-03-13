@@ -623,17 +623,17 @@ begin
       begin
         if not(SubScene in CloseButtonScene) then
         begin
-          if MouseOver(Lf, Top, MouseX, MouseY) then
+          if MouseOver(Lf, Top, X, Y) then
           begin
             MediaPlayer.Play(mmClick);
             CurrentIndex := 0;
           end;
-          if MouseOver(Lf, Top + 120, MouseX, MouseY) then
+          if MouseOver(Lf, Top + 120, X, Y) then
           begin
             MediaPlayer.Play(mmClick);
             CurrentIndex := 1;
           end;
-          if MouseOver(Lf, Top + 240, MouseX, MouseY) then
+          if MouseOver(Lf, Top + 240, X, Y) then
           begin
             MediaPlayer.Play(mmClick);
             CurrentIndex := 2;

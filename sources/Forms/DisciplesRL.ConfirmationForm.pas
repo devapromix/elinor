@@ -76,7 +76,6 @@ const
   ButtonsText: array [TButtonEnum] of TResEnum = (reTextOk, reTextCancel);
 
 var
-  MouseX, MouseY: Integer;
   Buttons: array [TButtonEnum] of TButton;
   Button: TButton;
   Lf: Integer;
@@ -164,8 +163,6 @@ procedure TConfirmationForm.FormMouseMove(Sender: TObject; Shift: TShiftState;
 var
   I: TButtonEnum;
 begin
-  MouseX := X;
-  MouseY := Y;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     Buttons[I].MouseMove(X, Y);
   Button.MouseMove(X, Y);
