@@ -186,7 +186,7 @@ end;
 
 procedure TSceneBattle2.FinishBattle;
 begin
-  Enabled := True;
+  Enabled := False;
   Log.Clear;
   MediaPlayer.Stop;
   if LeaderParty.IsClear then
@@ -407,22 +407,19 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if not Enabled then
-    Exit;
-  CurrentPartyPosition := GetPartyPosition(X, Y);
-  if CurrentPartyPosition < 0 then
-    Exit;
-  if LeaderParty.IsClear or EnemyParty.IsClear then
-    Exit;
-  case Button of
-    mbLeft:
-      if CloseButton.MouseDown then
-        FinishBattle
-      else
-      begin
-        ClickOnPosition;
-        Scenes.Render;
-      end;
+  if not Enabled or (Button <> mbLeft) then
+    Exit;  
+  if CloseButton.MouseDown then
+    FinishBattle
+  else
+  begin
+    CurrentPartyPosition := GetPartyPosition(X, Y);
+    if CurrentPartyPosition < 0 then
+      Exit;
+    if LeaderParty.IsClear or EnemyParty.IsClear then
+      Exit;
+    ClickOnPosition;
+    Scenes.Render;
   end;
 end;
 
