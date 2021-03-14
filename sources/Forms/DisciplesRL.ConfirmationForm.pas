@@ -95,7 +95,7 @@ var
   S: Integer;
 begin
   S := Surface.Canvas.TextWidth(Msg);
-  Surface.Canvas.TextOut((Surface.Width div 2) - (S div 2), Y, Msg);
+  DrawText((Surface.Width div 2) - (S div 2), Y, Msg);
 end;
 
 procedure TConfirmationForm.FormClick(Sender: TObject);

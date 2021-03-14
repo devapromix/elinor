@@ -104,7 +104,7 @@ begin
   D := EnsureRange(Count - Rows, 0, Count - 1);
   for I := D to Count - 1 do
   begin
-    Surface.Canvas.TextOut(FLeft, FTop + Y, Get(I));
+    DrawText(FLeft, FTop + Y, Get(I));
     Inc(Y, 16);
   end;
 end;

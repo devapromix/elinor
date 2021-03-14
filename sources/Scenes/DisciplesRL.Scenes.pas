@@ -255,8 +255,13 @@ begin
 end;
 
 procedure DrawText(const AX, AY: Integer; AText: string);
+var
+  vStyle: TBrushStyle;
 begin
+  vStyle := Surface.Canvas.Brush.Style;
+  Surface.Canvas.Brush.Style := bsClear;
   Surface.Canvas.TextOut(AX, AY, AText);
+  Surface.Canvas.Brush.Style := vStyle;
 end;
 
 procedure DrawText(const AX, AY: Integer; Value: Integer);
