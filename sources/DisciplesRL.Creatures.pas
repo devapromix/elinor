@@ -417,6 +417,7 @@ const
 
 type
   TCrSoundEnum = (csHit, csDeath, csAttack);
+  TCreatureGender = (cgMale, cgFemale, cgNeuter, cgPlural);
 
 type
   TCreatureBase = record
@@ -438,6 +439,7 @@ type
     ReachEnum: TReachEnum;
     Gold: Integer;
     Sound: array [TCrSoundEnum] of TMusicEnum;
+    Gender: TCreatureGender;
   end;
 
 type
@@ -459,6 +461,7 @@ type
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
     function IsLeader(): Boolean;
+    function GenderEnding(VerbForm: Byte = 0): string;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
     class procedure Assign(var ACreature: TCreature;
@@ -580,7 +583,7 @@ const
     'Алкмааре, вернулись по воле Мортис', 'безжалостными Королевами личей.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale),
     // Thug
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
     Size: szSmall; Name: 'Головорез';
@@ -603,7 +606,7 @@ const
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
     Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20;
     Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
-    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack);),
+    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgNeuter),
     // Initiate
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reApprentice;
     Size: szSmall; Name: 'Адепт'; Description: ('Адепты обучены нести чуму и',
@@ -618,7 +621,7 @@ const
     'нов, тем самым создавая виверн, кото-',
     'рые сражаются в рядах армии мертвых.'); HitPoints: 225; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seDeath; ReachEnum: reAll; Gold: 100),
+    SourceEnum: seDeath; ReachEnum: reAll; Gold: 100; Gender: cgFemale),
 
     // Ashkael
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAshkael;
@@ -669,7 +672,7 @@ const
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 40; Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 80),
+    Gold: 80; Gender: cgFemale),
     // Cultist
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reApprentice;
     Size: szSmall; Name: 'Культист';
@@ -837,6 +840,18 @@ begin
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
   end;
+end;
+
+function TCreature.GenderEnding(VerbForm: Byte = 0): string;
+const
+  GenderEndings: array[0..1, TCreatureGender] of string =
+    // обычные глаголы
+    (('', 'а', 'о', 'и'),
+    // для глаголов типа "нанес"
+    ('', 'ла', 'ло', 'ли'));
+begin
+  Assert(VerbForm < Length(GenderEndings));
+  Result := GenderEndings[VerbForm, Character(Enum).Gender];
 end;
 
 class function TCreature.GetRandomEnum(const P, Position: Integer)

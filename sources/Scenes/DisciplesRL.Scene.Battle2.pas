@@ -134,7 +134,7 @@ begin
           if Active and (HitPoints > 0) then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Log.Add(Format('%s получил опыт +%d', [Name, CharExp]));
+            Log.Add(Format('%s получил%s опыт +%d', [Name, GenderEnding, CharExp]));
           end;
     end;
     for Position := Low(TPosition) to High(TPosition) do
@@ -143,7 +143,7 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
+            Log.Add(Format('%s повысил%s уровень до %d!', [Name, GenderEnding, Level + 1]));
           end;
   end;
 end;
