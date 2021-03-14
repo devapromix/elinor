@@ -1,7 +1,5 @@
 ﻿unit DisciplesRL.MainForm;
 
-{$MODE Delphi}
-
 interface
 
 uses
@@ -39,7 +37,6 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure FormClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,11 +58,6 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Map,
   DisciplesRL.Saga;
-
-procedure TMainForm.FormClick(Sender: TObject);
-begin
-
-end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin

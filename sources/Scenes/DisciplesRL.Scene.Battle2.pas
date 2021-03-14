@@ -512,7 +512,7 @@ procedure TSceneBattle2.NextTurn;
 var
   Position: Integer;
   S: string;
-  A: array of string;
+  A: {$IFDEF FPC}array of string{$ELSE}TArray<string>{$ENDIF};
 begin
   Position := -1;
   repeat

@@ -15,7 +15,7 @@ del /s *.or
 del /s *.compiled
 del /S *.*proj.local
 del /S *.tvsconfig
-del *.res
+del /S *.stat
 del *.dbg
 del sources/*.lfm
 del *.lfm

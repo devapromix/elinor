@@ -1,7 +1,5 @@
 ﻿unit DisciplesRL.ConfirmationForm;
 
-{$MODE Delphi}
-
 interface
 
 uses
