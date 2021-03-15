@@ -3,14 +3,14 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Graphics,
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
-  {$ENDIF}
+{$ENDIF}
   Types,
   Classes,
   SimplePlayer,
@@ -223,9 +223,8 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  ConfirmationForm.Msg := S;
-  ConfirmationForm.SubScene := stInform;
-  ConfirmationForm.ShowModal;
+  TSceneHire.Msg := S;
+  TSceneHire.Show(stInform, scSettlement);
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);

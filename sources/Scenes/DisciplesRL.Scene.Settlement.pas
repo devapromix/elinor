@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Party,
   DisciplesRL.Scenes;
@@ -410,15 +410,16 @@ begin
     mbLeft:
       begin
         if Button[btHire].MouseDown then
-          Hire else
-        if Button[btHeal].MouseDown then
-          Heal else
-        if Button[btDismiss].MouseDown then
-          Dismiss else
-        if Button[btRevive].MouseDown then
-          Revive else
-        if Button[btClose].MouseDown then
-          Close else
+          Hire
+        else if Button[btHeal].MouseDown then
+          Heal
+        else if Button[btDismiss].MouseDown then
+          Dismiss
+        else if Button[btRevive].MouseDown then
+          Revive
+        else if Button[btClose].MouseDown then
+          Close
+        else
         begin
           CurrentPartyPosition := GetPartyPosition(X, Y);
           if CurrentPartyPosition < 0 then

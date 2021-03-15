@@ -157,7 +157,7 @@ begin
     TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
     Inc(TScenario.StoneTab);
-    TSceneHire.Show(stStoneTab, scHire);
+    TSceneHire.Show(stStoneTab, scHire, reGold);
   end
   else
     TSaga.AddLoot(reBag);
