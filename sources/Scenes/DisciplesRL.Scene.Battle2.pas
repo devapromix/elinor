@@ -104,7 +104,7 @@ begin
   D := EnsureRange(Count - Rows, 0, Count - 1);
   for I := D to Count - 1 do
   begin
-    Surface.Canvas.TextOut(FLeft, FTop + Y, Get(I));
+    DrawText(FLeft, FTop + Y, Get(I));
     Inc(Y, 16);
   end;
 end;
@@ -134,7 +134,7 @@ begin
           if Active and (HitPoints > 0) then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Log.Add(Format('%s получил опыт +%d', [Name, CharExp]));
+            Log.Add(Format('%s получил%s опыт +%d', [Name, GenderEnding, CharExp]));
           end;
     end;
     for Position := Low(TPosition) to High(TPosition) do
@@ -143,7 +143,7 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Log.Add(Format('%s повысил уровень до %d!', [Name, Level + 1]));
+            Log.Add(Format('%s повысил%s уровень до %d!', [Name, GenderEnding, Level + 1]));
           end;
   end;
 end;
@@ -186,7 +186,7 @@ end;
 
 procedure TSceneBattle2.FinishBattle;
 begin
-  Enabled := True;
+  Enabled := False;
   Log.Clear;
   MediaPlayer.Stop;
   if LeaderParty.IsClear then
@@ -407,22 +407,19 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if not Enabled then
-    Exit;
-  CurrentPartyPosition := GetPartyPosition(X, Y);
-  if CurrentPartyPosition < 0 then
-    Exit;
-  if LeaderParty.IsClear or EnemyParty.IsClear then
-    Exit;
-  case Button of
-    mbLeft:
-      if CloseButton.MouseDown then
-        FinishBattle
-      else
-      begin
-        ClickOnPosition;
-        Scenes.Render;
-      end;
+  if not Enabled or (Button <> mbLeft) then
+    Exit;  
+  if CloseButton.MouseDown then
+    FinishBattle
+  else
+  begin
+    CurrentPartyPosition := GetPartyPosition(X, Y);
+    if CurrentPartyPosition < 0 then
+      Exit;
+    if LeaderParty.IsClear or EnemyParty.IsClear then
+      Exit;
+    ClickOnPosition;
+    Scenes.Render;
   end;
 end;
 
