@@ -3,16 +3,16 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Graphics;
-  {$ELSE}
+{$ELSE}
   Vcl.Imaging.PNGImage;
-  {$ENDIF}
+{$ENDIF}
+{$IFDEF FPC}
 
-  {$IFDEF FPC}
-  type
-    TPNGImage = TPortableNetworkGraphic;
-  {$ENDIF}
+type
+  TPNGImage = TPortableNetworkGraphic;
+{$ENDIF}
 
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
@@ -327,7 +327,7 @@ type
     mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath,
     mmGoblinHit, mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath,
     mmWolfAttack, mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit,
-    mmGhostDeath, mmGhostAttack);
+    mmGhostDeath, mmGhostAttack, mmHit, mmDeath, mmAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -412,7 +412,13 @@ const
     // Ghost Death
     (FileName: 'spider_death.wav'; ResType: teSound;),
     // Ghost Attack
-    (FileName: 'spider_attack.wav'; ResType: teSound;)
+    (FileName: 'spider_attack.wav'; ResType: teSound;),
+    // Hit
+    (FileName: 'step.wav'; ResType: teSound;),
+    // Death
+    (FileName: 'step.wav'; ResType: teSound;),
+    // Attack
+    (FileName: 'step.wav'; ResType: teSound;)
     //
     );
 
