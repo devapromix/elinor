@@ -24,7 +24,7 @@ type
     ipTemporary);
 
 type
-  TItemEffect = ();
+  TItemEffect = (ieNone);
 
 type
   TItem = record
