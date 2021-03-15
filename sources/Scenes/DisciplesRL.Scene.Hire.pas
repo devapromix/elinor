@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Saga,
   DisciplesRL.Creatures,
@@ -17,7 +17,8 @@ uses
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
-    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stDifficulty);
+    stVictory, stDefeat, stHighScores2, stLoot, stInform, stStoneTab,
+    stDifficulty);
 
 type
   TSceneHire = class(TScene)
@@ -30,6 +31,7 @@ type
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
   public
+    class var Msg: string;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -45,8 +47,9 @@ type
     class procedure Show(const Party: TParty; const Position: Integer);
       overload;
     class procedure Show(const ASubScene: THireSubSceneEnum;
-      const ABackScene: TSceneEnum; const ALootRes: TResEnum = reGold);
-      overload;
+      const ABackScene: TSceneEnum; const ALootRes: TResEnum); overload;
+    class procedure Show(const ASubScene: THireSubSceneEnum;
+      const ABackScene: TSceneEnum); overload;
   end;
 
 implementation
@@ -83,14 +86,16 @@ const
     (reTextClose, reTextClose),
     // Loot
     (reTextClose, reTextClose),
+    // Inform
+    (reTextClose, reTextClose),
     // StoneTab
     (reTextClose, reTextClose),
     // Difficulty
     (reTextContinue, reTextCancel));
 
 const
-  AddButtonScene = [stLoot, stStoneTab];
-  CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
+  AddButtonScene = [stLoot, stStoneTab, stInform];
+  CloseButtonScene = [stJournal, stVictory, stDefeat, stInform, stHighScores2] +
     AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
     stDifficulty];
@@ -128,11 +133,17 @@ begin
 end;
 
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
-  const ABackScene: TSceneEnum; const ALootRes: TResEnum = reGold);
+  const ABackScene: TSceneEnum);
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
   Scenes.Show(scHire);
+end;
+
+class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
+  const ABackScene: TSceneEnum; const ALootRes: TResEnum);
+begin
+  TSceneHire.Show(ASubScene, ABackScene);
   case SubScene of
     stLoot, stStoneTab:
       MediaPlayer.Play(mmLoot);
@@ -151,20 +162,20 @@ procedure TSceneHire.DrawItem(ItemRes: array of TResEnum);
 var
   I, X: Integer;
 begin
-  DrawImage((Surface.Width div 2) - 59 - 120, 295, reSmallFrame);
-  DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
-  DrawImage((Surface.Width div 2) - 59 + 120, 295, reSmallFrame);
+  DrawImage(ScrWidth - 59 - 120, 295, reSmallFrame);
+  DrawImage(ScrWidth - 59, 295, reSmallFrame);
+  DrawImage(ScrWidth - 59 + 120, 295, reSmallFrame);
   case Length(ItemRes) of
     1:
       if ItemRes[0] <> reNone then
-        DrawImage((Surface.Width div 2) - 32, 300, ItemRes[0]);
+        DrawImage(ScrWidth - 32, 300, ItemRes[0]);
     2, 3:
       begin
         X := -120;
         for I := 0 to Length(ItemRes) - 1 do
         begin
           if ItemRes[I] <> reNone then
-            DrawImage((Surface.Width div 2) - 32 + X, 300, ItemRes[I]);
+            DrawImage(ScrWidth - 32 + X, 300, ItemRes[I]);
           Inc(X, 120);
         end;
       end;
@@ -210,6 +221,10 @@ var
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
+    stInform:
+      begin
+        Scenes.Show(BackScene);
+      end;
     stRace:
       begin
         TSaga.LeaderRace := TRaceEnum(CurrentIndex + 1);
@@ -584,13 +599,14 @@ var
   J: THireSubSceneEnum;
   L, W: Integer;
 begin
+  inherited;
   for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
     W := ResImage[reButtonDef].Width + 4;
     if (J in CloseButtonScene) then
-      L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2)
+      L := ScrWidth - (ResImage[reButtonDef].Width div 2)
     else
-      L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+      L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
     for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
       Button[J][I] := TButton.Create(L, 600, ButtonText[J][I]);
@@ -600,7 +616,7 @@ begin
         Button[J][I].Sellected := True;
     end;
   end;
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+  Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
 end;
 
 destructor TSceneHire.Destroy;
@@ -869,6 +885,13 @@ begin
               DrawItem([It1, It2, It3]);
             end;
         end;
+      end;
+    stInform:
+      begin
+        DrawImage(reWallpaperScenario);
+        DrawImage(ScrWidth - (ResImage[reBigFrame].Width div 2), 150,
+          ResImage[reBigFrame]);
+        DrawText(300, Msg);
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then

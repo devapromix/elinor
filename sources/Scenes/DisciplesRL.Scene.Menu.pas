@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Scenes;
 
@@ -80,7 +80,8 @@ var
   L, T, H: Integer;
   I: TButtonEnum;
 begin
-  L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2);
+  inherited;
+  L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   H := ResImage[reButtonDef].Height + 10;
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
@@ -110,12 +111,12 @@ begin
   case AButton of
     mbLeft:
       begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    if Button[I].MouseDown then
-    begin
-      MainMenuCursorPos := Ord(I);
-      Next;
-    end;
+        for I := Low(TButtonEnum) to High(TButtonEnum) do
+          if Button[I].MouseDown then
+          begin
+            MainMenuCursorPos := Ord(I);
+            Next;
+          end;
       end;
   end;
 end;

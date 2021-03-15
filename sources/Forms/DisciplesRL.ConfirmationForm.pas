@@ -27,7 +27,7 @@ uses
   {$ENDIF}
 
 type
-  TConfirmationSubSceneEnum = (stConfirm, stInform);
+  TConfirmationSubSceneEnum = (stConfirm);
 
 type
   TConfirmationForm = class(TForm)
@@ -101,11 +101,6 @@ end;
 procedure TConfirmationForm.FormClick(Sender: TObject);
 begin
   case SubScene of
-    stInform:
-      begin
-        if Button.MouseDown then
-          Back;
-      end;
     stConfirm:
       begin
         if Buttons[btOk].MouseDown then
@@ -174,11 +169,6 @@ begin
   Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
   Surface.Canvas.Draw(0, 0, ResImage[reBigFrame]);
   case SubScene of
-    stInform:
-      begin
-        CenterTextOut(150, Msg);
-        Button.Render;
-      end;
     stConfirm:
       begin
         CenterTextOut(150, Msg);

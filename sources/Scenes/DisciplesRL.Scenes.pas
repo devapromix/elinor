@@ -3,14 +3,14 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Graphics,
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
-  {$ENDIF}
+{$ENDIF}
   Types,
   Classes,
   SimplePlayer,
@@ -91,7 +91,7 @@ type
 type
   TScene = class(TInterfacedObject, IScene)
   private
-
+    FScrWidth: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -114,6 +114,7 @@ type
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean;
     function GetPartyPosition(const MX, MY: Integer): Integer;
+    property ScrWidth: Integer read FScrWidth write FScrWidth;
   end;
 
 type
@@ -164,7 +165,7 @@ var
 constructor TScene.Create;
 begin
   inherited;
-
+  ScrWidth := Surface.Width div 2;
 end;
 
 destructor TScene.Destroy;
@@ -206,7 +207,7 @@ end;
 
 procedure TScene.DrawTitle(Res: TResEnum);
 begin
-  DrawImage((Surface.Width div 2) - (ResImage[Res].Width div 2), 10, Res);
+  DrawImage(ScrWidth - (ResImage[Res].Width div 2), 10, Res);
 end;
 
 function TScene.ConfirmDialog(const S: string): Boolean;
@@ -223,9 +224,8 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  ConfirmationForm.Msg := S;
-  ConfirmationForm.SubScene := stInform;
-  ConfirmationForm.ShowModal;
+  TSceneHire.Msg := S;
+  TSceneHire.Show(stInform, scSettlement);
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
