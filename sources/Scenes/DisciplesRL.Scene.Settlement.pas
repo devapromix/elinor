@@ -360,7 +360,7 @@ var
 begin
   inherited;
   W := ResImage[reButtonDef].Width + 4;
-  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
@@ -482,13 +482,13 @@ begin
       begin
         DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
         DrawImage(20, 160, reTextLeadParty);
-        DrawImage((Surface.Width div 2) + 20, 160, reTextCityDef);
+        DrawImage(ScrWidth + 20, 160, reTextCityDef);
       end;
     stCapital:
       begin
         DrawTitle(CityNameTitle[CityArr[0]]);
         DrawImage(20, 160, reTextLeadParty);
-        DrawImage((Surface.Width div 2) + 20, 160, reTextCapitalDef);
+        DrawImage(ScrWidth + 20, 160, reTextCapitalDef);
       end;
   end;
   with TSceneParty do

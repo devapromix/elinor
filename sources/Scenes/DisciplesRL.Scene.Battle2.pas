@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Scenes,
   DisciplesRL.Party;
@@ -110,7 +110,6 @@ begin
 end;
 
 {$ENDREGION RLLog}
-
 { TSceneBattle2 }
 
 procedure TSceneBattle2.AI;
@@ -134,7 +133,8 @@ begin
           if Active and (HitPoints > 0) then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Log.Add(Format('%s получил%s опыт +%d', [Name, GenderEnding, CharExp]));
+            Log.Add(Format('%s получил%s опыт +%d', [Name, GenderEnding,
+              CharExp]));
           end;
     end;
     for Position := Low(TPosition) to High(TPosition) do
@@ -143,7 +143,8 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Log.Add(Format('%s повысил%s уровень до %d!', [Name, GenderEnding, Level + 1]));
+            Log.Add(Format('%s повысил%s уровень до %d!', [Name, GenderEnding,
+              Level + 1]));
           end;
   end;
 end;
@@ -388,8 +389,9 @@ end;
 
 constructor TSceneBattle2.Create;
 begin
-  CloseButton := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
-    DefaultButtonTop, reTextClose);
+  inherited;
+  CloseButton := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width +
+    Left), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
   InitiativeList := TStringList.Create;
@@ -408,7 +410,7 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
 begin
   inherited;
   if not Enabled or (Button <> mbLeft) then
-    Exit;  
+    Exit;
   if CloseButton.MouseDown then
     FinishBattle
   else
@@ -429,7 +431,7 @@ begin
   if not Enabled then
     Exit;
   CloseButton.MouseMove(X, Y);
-//  Scenes.Render;
+  // Scenes.Render;
 end;
 
 procedure TSceneBattle2.Render;
@@ -501,7 +503,7 @@ begin
     end;
   end;
   for I := 0 to 11 do
-    InitiativeList.Exchange(Random(I),Random(I));
+    InitiativeList.Exchange(Random(I), Random(I));
   InitiativeList.Sort;
 end;
 
@@ -509,7 +511,7 @@ procedure TSceneBattle2.NextTurn;
 var
   Position: Integer;
   S: string;
-  A: {$IFDEF FPC}array of string{$ELSE}TArray<string>{$ENDIF};
+  A: {$IFDEF FPC} array of string{$ELSE}TArray<string>{$ENDIF};
 begin
   Position := -1;
   repeat

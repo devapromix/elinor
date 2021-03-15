@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Scenes;
 
@@ -54,6 +54,7 @@ end;
 
 constructor TSceneBattle3.Create;
 begin
+  inherited;
   Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
     DefaultButtonTop, reTextClose);
   Button.Sellected := True;

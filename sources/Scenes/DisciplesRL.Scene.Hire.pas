@@ -162,20 +162,20 @@ procedure TSceneHire.DrawItem(ItemRes: array of TResEnum);
 var
   I, X: Integer;
 begin
-  DrawImage((Surface.Width div 2) - 59 - 120, 295, reSmallFrame);
-  DrawImage((Surface.Width div 2) - 59, 295, reSmallFrame);
-  DrawImage((Surface.Width div 2) - 59 + 120, 295, reSmallFrame);
+  DrawImage(ScrWidth - 59 - 120, 295, reSmallFrame);
+  DrawImage(ScrWidth - 59, 295, reSmallFrame);
+  DrawImage(ScrWidth - 59 + 120, 295, reSmallFrame);
   case Length(ItemRes) of
     1:
       if ItemRes[0] <> reNone then
-        DrawImage((Surface.Width div 2) - 32, 300, ItemRes[0]);
+        DrawImage(ScrWidth - 32, 300, ItemRes[0]);
     2, 3:
       begin
         X := -120;
         for I := 0 to Length(ItemRes) - 1 do
         begin
           if ItemRes[I] <> reNone then
-            DrawImage((Surface.Width div 2) - 32 + X, 300, ItemRes[I]);
+            DrawImage(ScrWidth - 32 + X, 300, ItemRes[I]);
           Inc(X, 120);
         end;
       end;
@@ -599,13 +599,14 @@ var
   J: THireSubSceneEnum;
   L, W: Integer;
 begin
+  inherited;
   for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
     W := ResImage[reButtonDef].Width + 4;
     if (J in CloseButtonScene) then
-      L := (Surface.Width div 2) - (ResImage[reButtonDef].Width div 2)
+      L := ScrWidth - (ResImage[reButtonDef].Width div 2)
     else
-      L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+      L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
     for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
       Button[J][I] := TButton.Create(L, 600, ButtonText[J][I]);
@@ -615,7 +616,7 @@ begin
         Button[J][I].Sellected := True;
     end;
   end;
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+  Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
 end;
 
 destructor TSceneHire.Destroy;
@@ -888,8 +889,8 @@ begin
     stInform:
       begin
         DrawImage(reWallpaperScenario);
-        DrawImage((Surface.Width div 2) - (ResImage[reBigFrame].Width div 2),
-          150, ResImage[reBigFrame]);
+        DrawImage(ScrWidth - (ResImage[reBigFrame].Width div 2), 150,
+          ResImage[reBigFrame]);
         DrawText(300, Msg);
       end;
   end;

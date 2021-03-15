@@ -3,11 +3,11 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Party,
   DisciplesRL.Scenes,
@@ -277,8 +277,9 @@ var
   I: TButtonEnum;
   L, W: Integer;
 begin
+  inherited;
   W := ResImage[reButtonDef].Width + 4;
-  L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
@@ -287,7 +288,7 @@ begin
       Button[I].Sellected := True;
   end;
   FShowInventory := False;
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
+  Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
 end;
 
 destructor TSceneParty.Destroy;
@@ -307,9 +308,10 @@ begin
     mbLeft:
       begin
         if Button[btClose].MouseDown then
-          Close else
-        if Button[btInventory].MouseDown then
-           Inventory else
+          Close
+        else if Button[btInventory].MouseDown then
+          Inventory
+        else
         begin
           CurrentPartyPosition := GetPartyPosition(X, Y);
           if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
