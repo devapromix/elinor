@@ -13,10 +13,18 @@ uses
   DisciplesRL.Resources;
 
 type
-  TItemType = (itStaff, itElixir, itBook);
+  TItemType = (itSpecial, itValuable, itArtifact,
+    // Potions
+    itTemporaryPotion, itPermanentPotion, itHealingPotion,
+    // Equipable
+    itWand, itOrb, itTalisman, itBoots, itBanner, itTome);
 
 type
-  TItemProp = (ipEquipable, ipConsumable, ipReadable);
+  TItemProp = (ipEquipable, ipConsumable, ipReadable, ipUsable, ipPermanent,
+    ipTemporary);
+
+type
+  TItemEffect = (ieNone);
 
 type
   TItem = record
