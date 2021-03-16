@@ -89,6 +89,9 @@ type
   end;
 
 type
+  TBGStat = (bsCharacter, bsEnemy, bsParalyze);
+
+type
   TScene = class(TInterfacedObject, IScene)
   private
     FScrWidth: Integer;
@@ -108,7 +111,7 @@ type
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
     procedure RenderFrame(const PartySide: TPartySide;
       const I, AX, AY: Integer);
-    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: Boolean);
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
     function ConfirmDialog(const S: string): Boolean;
     procedure InformDialog(const S: string);
     procedure DrawResources;
@@ -240,12 +243,16 @@ begin
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-  F: Boolean);
+  F: TBGStat);
 begin
-  if F then
-    DrawImage(AX + 7, AY + 7, reBGChar)
-  else
-    DrawImage(AX + 7, AY + 7, reBGEnemy);
+  case F of
+    bsCharacter:
+      DrawImage(AX + 7, AY + 7, reBGChar);
+    bsEnemy:
+      DrawImage(AX + 7, AY + 7, reBGEnemy);
+    bsParalyze:
+      DrawImage(AX + 7, AY + 7, reBGParalyze);
+  end;
   DrawImage(AX + 7, AY + 7, AResEnum);
 end;
 

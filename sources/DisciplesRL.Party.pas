@@ -38,6 +38,7 @@ type
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
+    procedure ClearParalyze(const APosition: TPosition);
     property Creature[APosition: TPosition]: TCreature read GetCreature
       write SetCreature;
     procedure SetHitPoints(const APosition: TPosition;
@@ -54,6 +55,7 @@ type
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
+    procedure Paralyze(const APosition: TPosition);
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
@@ -154,6 +156,16 @@ begin
     if (Creature[Position].HitPoints > 0) then
       Exit;
   Result := True;
+end;
+
+procedure TParty.Paralyze(const APosition: TPosition);
+begin
+  FCreature[APosition].Paralyze := True;
+end;
+
+procedure TParty.ClearParalyze(const APosition: TPosition);
+begin
+  FCreature[APosition].Paralyze := False;
 end;
 
 procedure TParty.Clear;
@@ -337,6 +349,8 @@ end;
 
 procedure TParty.TakeDamage(const ADamage: Integer; const APosition: TPosition);
 begin
+  if ADamage <= 0 then
+    Exit;
   with FCreature[APosition] do
     if Active then
     begin
@@ -349,6 +363,7 @@ begin
           MediaPlayer.Play(mmBlock);
       if (HitPoints < 0) then
         HitPoints := 0;
+      Paralyze := False;
     end;
 end;
 

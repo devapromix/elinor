@@ -165,15 +165,15 @@ const
 
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
-    atDrainLife, atHealing, atParalyze, atPoison, atMagic);
+    atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites);
 
 type
   TCreatureSize = (szSmall, szBig);
 
 const
   AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
-    'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич',
-    'Яд', 'Магия');
+    'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
+    'Магия', 'Когти', 'Укус');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -183,7 +183,7 @@ const
     // The Empire Leaders
     (crPegasusKnight, crRanger, crThief), // crArchmage),
     // The Empire Characters
-    (crSquire, crArcher, crApprentice)),
+    (crSquire, crArcher, crAcolyte)), // crApprentice
     //
     // Undead Hordes Capital Guardian
     ((crNone, crNone, crAshgan),
@@ -450,6 +450,7 @@ type
 type
   TCreature = record
     Active: Boolean;
+    Paralyze: Boolean;
     Enum: TCreatureEnum;
     ResEnum: TResEnum;
     Name: string;
@@ -565,7 +566,8 @@ const
     'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
-    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale),
+    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    AttackEnum: atHealing;),
 
     // Ashgan
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reAshgan; Size: szSmall;
@@ -625,9 +627,10 @@ const
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher; Size: szSmall;
     Name: 'Привидение'; Description: ('Привидения - это темные души,',
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
-    Initiative: 20; ChancesToHit: 65; Leadership: 0; Level: 1; Damage: 20;
+    Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
-    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgNeuter),
+    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgNeuter;
+    AttackEnum: atParalyze;),
     // Initiate
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reApprentice;
     Size: szSmall; Name: 'Адепт'; Description: ('Адепты обучены нести чуму и',
@@ -793,14 +796,16 @@ const
     'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atClaws;),
     // Dark Elf Gast
     (Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire; Size: szSmall;
     Name: 'Тёмный эльф-гаст'; Description: ('Когда-то гасты были благородными',
     'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
     HitPoints: 110; Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atDagger;),
 {$ENDREGION Undeads}
     // Neutral Animals
 {$REGION Animals}
@@ -810,7 +815,8 @@ const
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400;
-    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale),
+    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
+    AttackEnum: atBites;),
 
     // Wolf
     (Race: reNeutrals; SubRace: reAnimal; ResEnum: reWolf; Size: szSmall;
@@ -819,7 +825,8 @@ const
     'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
-    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale)
+    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    AttackEnum: atBites;)
 {$ENDREGION Animals}
     //
     );
@@ -832,6 +839,7 @@ begin
   with ACreature do
   begin
     Active := I <> crNone;
+    Paralyze := False;
     Enum := I;
     ResEnum := CreatureBase[I].ResEnum;
     Name := CreatureBase[I].Name;
@@ -860,6 +868,7 @@ begin
   with ACreature do
   begin
     Active := False;
+    Paralyze := False;
     Enum := crNone;
     ResEnum := reNone;
     Name := '';
