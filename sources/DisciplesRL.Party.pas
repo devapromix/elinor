@@ -363,6 +363,7 @@ begin
           MediaPlayer.Play(mmBlock);
       if (HitPoints < 0) then
         HitPoints := 0;
+      Paralyze := False;
     end;
 end;
 

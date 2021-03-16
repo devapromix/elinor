@@ -16,7 +16,7 @@ type
 
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
-    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reDead, reFrame,
+    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead, reFrame,
     reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame, reTime,
     reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -79,6 +79,8 @@ const
     (FileName: 'bg.character.png'; ResType: teGUI;),
     // Фон для врагов
     (FileName: 'bg.enemy.png'; ResType: teGUI;),
+    // Фон для эф. паралич
+    (FileName: 'bg.paralyze.png'; ResType: teGUI;),
     // Череп
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame

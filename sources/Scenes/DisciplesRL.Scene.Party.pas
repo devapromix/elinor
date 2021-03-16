@@ -230,6 +230,7 @@ procedure TSceneParty.DrawUnit(Position: TPosition; Party: TParty;
   AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   F: Boolean;
+  V: TBGStat;
 begin
   F := Party.Owner = TSaga.LeaderRace;
   with Party.Creature[Position] do
@@ -237,10 +238,16 @@ begin
     if Active then
       with Scenes.GetScene(scParty) do
       begin
-        if HitPoints <= 0 then
-          DrawUnit(reDead, AX, AY, F)
+        if F then
+          V := bsCharacter
         else
-          DrawUnit(ResEnum, AX, AY, F);
+          V := bsEnemy;
+        if Paralyze then
+          V := bsParalyze;
+        if HitPoints <= 0 then
+          DrawUnit(reDead, AX, AY, V)
+        else
+          DrawUnit(ResEnum, AX, AY, V);
         DrawUnitInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then

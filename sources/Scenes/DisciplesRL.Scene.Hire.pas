@@ -744,7 +744,7 @@ begin
             (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
             [cgCharacters][K]) do
           begin
-            DrawUnit(ResEnum, Lf, Top + Y, True);
+            DrawUnit(ResEnum, Lf, Top + Y, bsCharacter);
             TSceneParty(Scenes.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
               Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
               [cgCharacters][K], False);
@@ -765,7 +765,7 @@ begin
           with TCreature.Character(Characters[TSaga.LeaderRace]
             [cgLeaders][K]) do
           begin
-            DrawUnit(ResEnum, Lf, Top + Y, True);
+            DrawUnit(ResEnum, Lf, Top + Y, bsCharacter);
             TSceneParty(Scenes.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
               Characters[TSaga.LeaderRace][cgLeaders][K], False);
           end;
