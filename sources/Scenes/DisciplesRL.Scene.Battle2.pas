@@ -227,7 +227,27 @@ begin
     begin
       if AtkParty.Creature[AtkPos].ChancesToHit < RandomRange(0, 100) + 1 then
       begin
-        Log.Add('Промах.');
+        case RandomRange(0, 6) of
+          0:
+            Log.Add(Format('%s пытается атаковать, но внезапно промахивается.',
+              [AtkParty.Creature[AtkPos].Name]));
+          1:
+            Log.Add(Format('%s атакует мимо цели.',
+              [AtkParty.Creature[AtkPos].Name]));
+          2:
+            Log.Add(Format('%s атакует... пустоту.',
+              [AtkParty.Creature[AtkPos].Name]));
+          3:
+            Log.Add(Format('%s тщетно пытается атаковать.',
+              [AtkParty.Creature[AtkPos].Name]));
+          4:
+            Log.Add(Format('%s атакует %s, но промахивается.',
+              [AtkParty.Creature[AtkPos].Name,
+              DefParty.Creature[DefPos].Name]));
+        else
+          Log.Add(Format('%s промахивается.',
+            [AtkParty.Creature[AtkPos].Name]));
+        end;
         NextTurn;
         Exit;
       end;
