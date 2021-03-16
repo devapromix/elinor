@@ -122,8 +122,81 @@ end;
 { TSceneBattle2 }
 
 procedure TSceneBattle2.AI;
+var
+  Position: TPosition;
+  CurrentPosition: Integer;
+  MinHitPoints: Integer;
+  F: Boolean;
+
+  procedure AtkAny;
+  var
+    Position: TPosition;
+  begin
+    CurrentPosition := -1;
+    MinHitPoints := 99999;
+    for Position := 0 to 5 do
+      if LeaderParty.Creature[Position].Active and
+        (LeaderParty.Creature[Position].HitPoints > 0) then
+      begin
+        if (LeaderParty.Creature[Position].HitPoints < MinHitPoints) then
+        begin
+          MinHitPoints := LeaderParty.Creature[Position].HitPoints;
+          CurrentPosition := Position;
+        end;
+      end;
+    if (CurrentPosition > -1) then
+    begin
+      CurrentPartyPosition := CurrentPosition;
+      ClickOnPosition;
+    end;
+  end;
+
 begin
-  NextTurn;
+  case ActivePartyPosition of
+    6 .. 11:
+      case EnemyParty.Creature[ActivePartyPosition - 6].ReachEnum of
+        reAny:
+          begin
+            AtkAny;
+          end;
+        reAdj:
+          begin
+            F := False;
+            CurrentPosition := -1;
+            F := (LeaderParty.Creature[1].HitPoints > 0) or
+              (LeaderParty.Creature[3].HitPoints > 0) or
+              (LeaderParty.Creature[5].HitPoints > 0);
+            if F then
+            begin
+              for Position := 0 to 5 do
+                case Position of
+                  1, 3, 5:
+                    begin
+                      if (LeaderParty.Creature[Position].HitPoints > 0) then
+                      begin
+                        CurrentPartyPosition := CurrentPosition;
+                        ClickOnPosition;
+                        Break;
+                      end;
+                    end;
+                end
+            end
+            else
+              AtkAny;
+          end;
+        reAll:
+          begin
+            for Position := 0 to 5 do
+              if LeaderParty.Creature[Position].Active and
+                (LeaderParty.Creature[Position].HitPoints > 0) then
+              begin
+                CurrentPartyPosition := Position;
+                ClickOnPosition;
+                Break;
+              end;
+          end;
+      end;
+  end;
 end;
 
 procedure TSceneBattle2.ChExperience;
