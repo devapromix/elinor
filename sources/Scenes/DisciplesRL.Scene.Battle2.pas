@@ -32,7 +32,7 @@ type
       AtkPos, DefPos: TPosition);
     procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
     procedure Paralyze(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
-    procedure Heal(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+    procedure Heal(Party: TParty; AtkPos, DefPos: TPosition);
     procedure Defeat;
     procedure FinishBattle;
     procedure NextTurn;
@@ -236,7 +236,7 @@ begin
         ttDamage:
           Damage(AtkParty, DefParty, AtkPos, DefPos);
         ttHeal:
-          Heal(AtkParty, DefParty, AtkPos, DefPos);
+          Heal(AtkParty, AtkPos, DefPos);
       end;
     end;
   end;
@@ -385,30 +385,33 @@ begin
   end;
 end;
 
-procedure TSceneBattle2.Heal(AtkParty, DefParty: TParty;
+procedure TSceneBattle2.Heal(Party: TParty;
   AtkPos, DefPos: TPosition);
 var
   Position: TPosition;
 begin
-  if (AtkParty.Creature[AtkPos].Heal > 0) then
+  if (Party.Creature[AtkPos].Heal > 0) then
   begin
-    case AtkParty.Creature[AtkPos].ReachEnum of
+    case Party.Creature[AtkPos].ReachEnum of
       reAll:
         begin
           for Position := Low(TPosition) to High(TPosition) do
-            with DefParty.Creature[Position] do
+            with Party.Creature[Position] do
               if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
               begin
-                DefParty.Heal(Position, AtkParty.Creature[AtkPos].Heal);
-                Log.Add('Heal');
+                Party.Heal(Position, Party.Creature[AtkPos].Heal);
+                Log.Add(Format('%s исцеляет %s.',
+                  [Party.Creature[AtkPos].Name,
+                  Party.Creature[Position].Name]));
               end;
         end
     else
-      with DefParty.Creature[DefPos] do
+      with Party.Creature[DefPos] do
         if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
         begin
-          DefParty.Heal(DefPos, AtkParty.Creature[AtkPos].Heal);
-          Log.Add('Heal');
+          Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
+          Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name,
+            Party.Creature[DefPos].Name]));
         end;
     end;
     NextTurn;

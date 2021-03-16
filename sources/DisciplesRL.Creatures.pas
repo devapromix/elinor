@@ -183,7 +183,7 @@ const
     // The Empire Leaders
     (crPegasusKnight, crRanger, crThief), // crArchmage),
     // The Empire Characters
-    (crSquire, crArcher, crApprentice)),
+    (crSquire, crArcher, crAcolyte)), // crApprentice
     //
     // Undead Hordes Capital Guardian
     ((crNone, crNone, crAshgan),
@@ -566,7 +566,8 @@ const
     'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
-    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale),
+    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    AttackEnum: atHealing;),
 
     // Ashgan
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reAshgan; Size: szSmall;
