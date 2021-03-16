@@ -225,6 +225,12 @@ begin
     if (AtkParty.Creature[AtkPos].HitPoints > 0) and
       (DefParty.Creature[DefPos].HitPoints > 0) then
     begin
+      if AtkParty.Creature[AtkPos].ChancesToHit < RandomRange(0, 100) + 1 then
+      begin
+        Log.Add('Промах.');
+        NextTurn;
+        Exit;
+      end;
       if AtkParty.Creature[AtkPos].Paralyze then
       begin
         Log.Add('Паралич прошел.');
@@ -385,8 +391,7 @@ begin
   end;
 end;
 
-procedure TSceneBattle2.Heal(Party: TParty;
-  AtkPos, DefPos: TPosition);
+procedure TSceneBattle2.Heal(Party: TParty; AtkPos, DefPos: TPosition);
 var
   Position: TPosition;
 begin
@@ -400,8 +405,7 @@ begin
               if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
               begin
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
-                Log.Add(Format('%s исцеляет %s.',
-                  [Party.Creature[AtkPos].Name,
+                Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name,
                   Party.Creature[Position].Name]));
               end;
         end
