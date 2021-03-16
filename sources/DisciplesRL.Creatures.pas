@@ -164,15 +164,16 @@ const
   ckGuardian = ckMage;
 
 type
-  AttackEnum = (atLongSword, atCrossbow, atDrainLife, atHealing, atParalyze,
-    atPoison);
+  TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
+    atDrainLife, atHealing, atParalyze, atPoison, atMagic);
 
 type
   TCreatureSize = (szSmall, szBig);
 
 const
-  AttackName: array [AttackEnum] of string = ('Длинный Меч', 'Арбалет',
-    'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд');
+  AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
+    'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич',
+    'Яд', 'Магия');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -420,6 +421,9 @@ type
   TCreatureGender = (cgMale, cgFemale, cgNeuter, cgPlural);
 
 type
+  TLogMessage = function: string of object;
+
+type
   TCreatureBase = record
     Race: TRaceEnum;
     SubRace: TSubRaceEnum;
@@ -440,6 +444,7 @@ type
     Gold: Integer;
     Sound: array [TCrSoundEnum] of TMusicEnum;
     Gender: TCreatureGender;
+    AttackEnum: TAttackEnum;
   end;
 
 type
@@ -470,11 +475,12 @@ type
       : TCreatureEnum; static;
   end;
 
+var
+  BowAttack: TLogMessage;
+
 implementation
 
-uses
-  Math,
-  DisciplesRL.Saga;
+uses Math, DisciplesRL.Saga;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
@@ -483,7 +489,7 @@ const
     Name: ''; Description: ('', '', ''); HitPoints: 0; Initiative: 0;
     ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale),
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;),
 
     // Myzrael
     (Race: reTheEmpire; SubRace: reCustom; ResEnum: reMyzrael; Size: szSmall;
@@ -491,7 +497,8 @@ const
     'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHit, mmDeath, mmAttack);),
+    Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     // Pegasus Knight
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: rePegasusKnight;
     Size: szSmall; Name: 'Рыцарь на Пегасе';
@@ -499,7 +506,8 @@ const
     'городный воин, чей крылатый скакун', 'возносит его над полями и лесами.');
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword),
     // Ranger
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reRanger; Size: szSmall;
     Name: 'Следопыт'; Description: ('Следопыты путешествуют быстро и хо-',
@@ -507,21 +515,24 @@ const
     'роль часто посылает их в разведку.'); HitPoints: 90; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    AttackEnum: atBow),
     // Archmage
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
     Name: 'Архимаг'; Description: ('Мастер магии, архимаг - единственный',
     'в Империи полководец, который уме-', 'ет испольовать свитки и посохи.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     // Thief
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
     Name: 'Вор'; Description: ('Опытные обманщики и воры, легко',
     'пробираются в тыл врага, и служат', 'Империи, добывая важные сведения.');
     HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atDagger;),
     // Squire
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
     Name: 'Сквайр'; Description: ('Сквайр доблестно защищает в бою',
@@ -529,7 +540,8 @@ const
     'держа противников на расстоянии меча.'); HitPoints: 100; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Archer
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher; Size: szSmall;
     Name: 'Лучник'; Description: ('Стрелы лучника успешно поражают',
@@ -537,14 +549,16 @@ const
     'нами своих более сильных соратников.'); HitPoints: 45; Initiative: 60;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 40;
-    Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    AttackEnum: atBow),
     // Apprentice
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reApprentice; Size: szSmall;
     Name: 'Ученик'; Description: ('Ученик мага атакует противников',
     'с большого расстояния, обрушивая', 'на них молнии.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     // Acolyte
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reAcolyte; Size: szSmall;
     Name: 'Служка'; Description: ('Обученная искусству исцеления служка',
@@ -559,7 +573,8 @@ const
     'верховным священником Алкмаара.', 'Он не оставляет столицу без охраны.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale),
+    Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     // Death Knight
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: rePegasusKnight;
     Size: szSmall; Name: 'Рыцарь Смерти';
@@ -568,7 +583,8 @@ const
     'Мортис из небытия Рыцарями Смерти.'); HitPoints: 150; Initiative: 50;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Nosferat
     (Race: reUndeadHordes; SubRace: reVampire; ResEnum: reRanger; Size: szSmall;
     Name: 'Носферату'; Description: ('Первые вампиры Алкмаара, отринувшие',
@@ -576,7 +592,8 @@ const
     'тис в обмен на власть над смертью.'); HitPoints: 90; Initiative: 50;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
+    AttackEnum: atDrainLife;),
     // Lich Queen
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
     Size: szSmall; Name: 'Королева Личей';
@@ -584,8 +601,8 @@ const
     'Алкмааре, вернулись по воле Мортис', 'безжалостными Королевами личей.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack);
-    Gender: cgFemale),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
+    AttackEnum: atMagic;),
     // Thug
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
     Size: szSmall; Name: 'Головорез';
@@ -594,14 +611,16 @@ const
     'ростью там, где недостаточно силы.'); HitPoints: 100; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atDagger;),
     // Fighter
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire; Size: szSmall;
     Name: 'Воин'; Description: ('Услышав зов Мортис, безропотно',
     'встают в строй мертвые воины.', 'Они не знают ни страха, ни жалости.');
     HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Ghost
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher; Size: szSmall;
     Name: 'Привидение'; Description: ('Привидения - это темные души,',
@@ -615,7 +634,8 @@ const
     'смерть армиям живых во славу', 'своей богини Мортис.'); HitPoints: 45;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll; Gold: 60;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     // Wyvern
     (Race: reUndeadHordes; SubRace: reUndeadDragon; ResEnum: reAcolyte;
     Size: szBig; Name: 'Виверна';
@@ -634,7 +654,7 @@ const
     'никогда не оставляя её без защиты.'); HitPoints: 900; Initiative: 90;
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale),
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;),
     // Duke
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: rePegasusKnight;
     Size: szSmall; Name: 'Герцог';
@@ -642,7 +662,8 @@ const
     'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Counselor
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reRanger;
     Size: szSmall; Name: 'Советник';
@@ -650,7 +671,8 @@ const
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    AttackEnum: atCrossbow;),
     // Arch-Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
     Size: szSmall; Name: 'Архидьявол';
@@ -658,7 +680,8 @@ const
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     ///
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
@@ -668,7 +691,8 @@ const
     'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Gargoyle
     (Race: reLegionsOfTheDamned; SubRace: reGargoyle; ResEnum: reArcher;
     Size: szBig; Name: 'Горгулья';
@@ -684,14 +708,16 @@ const
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale),
+    Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    AttackEnum: atMagic;),
     // Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAcolyte;
     Size: szBig; Name: 'Чёрт'; Description: ('Это нечестивое создание',
     'держит земли в страхе во имя его', 'Тёмного Повелителя Бетрезена.');
     HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale),
+    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
 
     // Neutral Green Skins
 {$REGION Green Skins}
@@ -702,7 +728,7 @@ const
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
-    Gender: cgMale),
+    Gender: cgMale; AttackEnum: atDagger;),
     // Goblin Archer
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblinArcher;
     Size: szSmall; Name: 'Гоблин-лучник';
@@ -710,7 +736,8 @@ const
     'собратьев в засадах и нападениях,', 'используя грубые стрелы.');
     HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale),
+    Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
+    AttackEnum: atBow),
     // Goblin Elder
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblinElder;
     Size: szSmall; Name: 'Гоблин-старейшина';
@@ -719,7 +746,7 @@ const
     HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);
-    Gender: cgMale),
+    Gender: cgMale; AttackEnum: atMagic;),
 
     // Orc
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc; Size: szSmall;
@@ -727,7 +754,8 @@ const
     'рядах, так как они обладают крепким', 'телосложением.'); HitPoints: 200;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
-    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale),
+    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
+    AttackEnum: atBattleAxe;),
 
     // Ogre
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc; Size: szBig;
@@ -735,7 +763,8 @@ const
     'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
     Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
-    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale),
+    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
+    AttackEnum: atBattleAxe;),
 {$ENDREGION Green Skins}
     // Neutral Humans
 {$REGION Humans}
@@ -752,7 +781,8 @@ const
     'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale),
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
 
 {$ENDREGION Humans}
     // Neutral Undeads
