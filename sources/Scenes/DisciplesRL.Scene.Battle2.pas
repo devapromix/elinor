@@ -9,6 +9,7 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
+  DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   DisciplesRL.Party;
 
@@ -34,6 +35,9 @@ type
     procedure StartRound;
     function GetHitPoints(Position: Integer): Integer;
     procedure AI;
+    function GetLogMessage(AttackEnum: TAttackEnum;
+      SourceEnum: TSourceEnum): string;
+    procedure StartCastSpell(CrName: string; SourceEnum: TSourceEnum);
   public
     constructor Create;
     destructor Destroy; override;
@@ -57,7 +61,6 @@ uses
   DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Creatures,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
@@ -185,6 +188,18 @@ begin
   StartRound;
 end;
 
+procedure TSceneBattle2.StartCastSpell(CrName: string; SourceEnum: TSourceEnum);
+begin
+  case RandomRange(0, 2) of
+    0:
+      Log.Add(Format('%s готовит заклинание. Его источник: %s.',
+        [CrName, SourceName[SourceEnum]]));
+    1:
+      Log.Add(Format('%s начинает колдовать. Источник магии: %s.',
+        [CrName, SourceName[SourceEnum]]));
+  end;
+end;
+
 procedure TSceneBattle2.FinishBattle;
 begin
   Enabled := False;
@@ -201,6 +216,7 @@ procedure TSceneBattle2.Damage(AtkParty, DefParty: TParty;
 var
   Position: TPosition;
   F, B: Boolean;
+  AtkCrEnum, DefCrEnum: TCreatureEnum;
 begin
   if AtkParty.Creature[AtkPos].Active and DefParty.Creature[DefPos].Active then
     if (AtkParty.Creature[AtkPos].HitPoints > 0) and
@@ -208,20 +224,22 @@ begin
       (AtkParty.Creature[AtkPos].Damage > 0) then
     begin
       B := False;
+      AtkCrEnum := AtkParty.Creature[AtkPos].Enum;
+      DefCrEnum := DefParty.Creature[DefPos].Enum;
       case AtkParty.Creature[AtkPos].ReachEnum of
         reAny:
           begin
-            MediaPlayer.Play(TCreature.Character(AtkParty.Creature[AtkPos].Enum)
-              .Sound[csAttack]);
+            MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
             Sleep(200);
             DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-            Log.Add('Damage');
+            Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+              .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
+              [AtkParty.Creature[AtkPos].Name, DefParty.Creature[DefPos].Name,
+              AtkParty.Creature[AtkPos].Damage]));
             if (DefParty.Creature[DefPos].HitPoints > 0) then
-              MediaPlayer.Play(TCreature.Character(DefParty.Creature[DefPos]
-                .Enum).Sound[csHit])
+              MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
             else
-              MediaPlayer.Play(TCreature.Character(DefParty.Creature[DefPos]
-                .Enum).Sound[csDeath]);
+              MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
             B := True;
           end;
         reAdj:
@@ -245,20 +263,21 @@ begin
                       ((DefParty.Creature[2].HitPoints > 0) or
                       (DefParty.Creature[4].HitPoints > 0)) then
                       Exit;
-                    MediaPlayer.Play
-                      (TCreature.Character(AtkParty.Creature[AtkPos].Enum)
+                    MediaPlayer.Play(TCreature.Character(AtkCrEnum)
                       .Sound[csAttack]);
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
-                    Log.Add('Damage');
+                    Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+                      .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
+                      [AtkParty.Creature[AtkPos].Name,
+                      DefParty.Creature[DefPos].Name,
+                      AtkParty.Creature[AtkPos].Damage]));
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
-                      MediaPlayer.Play
-                        (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                      MediaPlayer.Play(TCreature.Character(DefCrEnum)
                         .Sound[csHit])
                     else
-                      MediaPlayer.Play
-                        (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                      MediaPlayer.Play(TCreature.Character(DefCrEnum)
                         .Sound[csDeath]);
                     B := True;
                   end;
@@ -269,20 +288,22 @@ begin
                       (DefParty.Creature[4].HitPoints > 0);
                     if not F then
                     begin
-                      MediaPlayer.Play
-                        (TCreature.Character(AtkParty.Creature[AtkPos].Enum)
+                      MediaPlayer.Play(TCreature.Character(AtkCrEnum)
                         .Sound[csAttack]);
                       Sleep(200);
                       DefParty.TakeDamage
                         (AtkParty.Creature[AtkPos].Damage, DefPos);
-                      Log.Add('Damage');
+                      Log.Add(Format
+                        (GetLogMessage(TCreature.Character(AtkCrEnum)
+                        .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
+                        [AtkParty.Creature[AtkPos].Name,
+                        DefParty.Creature[DefPos].Name,
+                        AtkParty.Creature[AtkPos].Damage]));
                       if (DefParty.Creature[DefPos].HitPoints > 0) then
-                        MediaPlayer.Play
-                          (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                        MediaPlayer.Play(TCreature.Character(DefCrEnum)
                           .Sound[csHit])
                       else
-                        MediaPlayer.Play
-                          (TCreature.Character(DefParty.Creature[DefPos].Enum)
+                        MediaPlayer.Play(TCreature.Character(DefCrEnum)
                           .Sound[csDeath]);
                       B := True;
                     end;
@@ -291,22 +312,24 @@ begin
           end;
         reAll:
           begin
-            MediaPlayer.Play(TCreature.Character(AtkParty.Creature[AtkPos].Enum)
-              .Sound[csAttack]);
+            StartCastSpell(TCreature.Character(AtkCrEnum).Name,
+              TCreature.Character(AtkCrEnum).SourceEnum);
+            MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
             Sleep(200);
             for Position := Low(TPosition) to High(TPosition) do
               if DefParty.Creature[Position].Active and
                 (DefParty.Creature[Position].HitPoints > 0) then
               begin
                 DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
-                Log.Add('Damage');
+                Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+                  .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
+                  [AtkParty.Creature[AtkPos].Name,
+                  DefParty.Creature[Position].Name,
+                  AtkParty.Creature[AtkPos].Damage]));
                 if (DefParty.Creature[Position].HitPoints > 0) then
-                  MediaPlayer.Play
-                    (TCreature.Character(DefParty.Creature[Position].Enum)
-                    .Sound[csHit])
+                  MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
                 else
-                  MediaPlayer.Play
-                    (TCreature.Character(DefParty.Creature[Position].Enum)
+                  MediaPlayer.Play(TCreature.Character(DefCrEnum)
                     .Sound[csDeath]);
               end;
             B := True;
@@ -548,6 +571,46 @@ begin
     6 .. 11:
       if EnemyParty.Creature[Position - 6].Active then
         Result := EnemyParty.GetHitPoints(Position - 6);
+  end;
+end;
+
+function TSceneBattle2.GetLogMessage(AttackEnum: TAttackEnum;
+  SourceEnum: TSourceEnum): string;
+begin
+  case AttackEnum of
+    atLongSword:
+      Result := '%s атакует мечем %s и наносит %d урона.';
+    atBattleAxe:
+      Result := '%s атакует боевым топором %s и наносит %d урона.';
+    atDagger:
+      Result := '%s атакует кинжалом %s и наносит %d урона.';
+    atBow:
+      Result := 'Метким выстрелом %s поражает стрелой %s и наносит %d урона.';
+    atCrossbow:
+      Result := 'Молниеносно %s взводит арбалет и поражает %s, нанося %d урона.';
+    atDrainLife:
+      Result := '%s пьет жизнь у %s и наносит %d урона.';
+    atHealing:
+      ;
+    atParalyze:
+      ;
+    atPoison:
+      ;
+    atMagic:
+      case SourceEnum of
+        seFire:
+          Result := '%s атакует огнем %s и наносит %d урона.';
+        seAir:
+          Result := '%s атакует молниями %s и наносит %d урона.';
+        seEarth:
+          Result := '%s атакует магией земли %s и наносит %d урона.';
+        seWater:
+          Result := '%s атакует водной магией %s и наносит %d урона.';
+      else
+        Result := '%s атакует магией %s и наносит %d урона.';
+      end;
+  else
+    Result := '%s атакует %s и наносит %d урона.';
   end;
 end;
 
