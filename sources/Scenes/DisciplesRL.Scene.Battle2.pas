@@ -161,8 +161,6 @@ begin
           end;
         reAdj:
           begin
-            F := False;
-            CurrentPosition := -1;
             F := (LeaderParty.Creature[1].HitPoints > 0) or
               (LeaderParty.Creature[3].HitPoints > 0) or
               (LeaderParty.Creature[5].HitPoints > 0);
@@ -174,7 +172,7 @@ begin
                     begin
                       if (LeaderParty.Creature[Position].HitPoints > 0) then
                       begin
-                        CurrentPartyPosition := CurrentPosition;
+                        CurrentPartyPosition := Position;
                         ClickOnPosition;
                         Break;
                       end;
@@ -281,7 +279,6 @@ end;
 
 procedure TSceneBattle2.FinishBattle;
 begin
-  Enabled := False;
   Log.Clear;
   MediaPlayer.Stop;
   if LeaderParty.IsClear then
@@ -347,6 +344,7 @@ begin
   if LeaderParty.IsClear then
   begin
     MediaPlayer.PlayMusic(mmDefeat);
+    Enabled := True;
   end;
 end;
 
@@ -739,7 +737,7 @@ function TSceneBattle2.GetLogMessage(AttackEnum: TAttackEnum;
 begin
   case AttackEnum of
     atLongSword:
-      Result := '%s атакует мечем %s и наносит %d урона.';
+      Result := '%s атакует мечом %s и наносит %d урона.';
     atBattleAxe:
       Result := '%s атакует боевым топором %s и наносит %d урона.';
     atDagger:
