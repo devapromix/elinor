@@ -174,7 +174,7 @@ type
 const
   AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
     'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
-    'Магия', 'Когти', 'Укус', 'Копье');
+    'Магия', 'Когти', 'Укус', 'Копье', 'Камни');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array

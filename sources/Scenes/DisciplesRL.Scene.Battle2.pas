@@ -123,16 +123,14 @@ end;
 
 procedure TSceneBattle2.AI;
 var
-  Position: TPosition;
-  CurrentPosition: Integer;
+  CurPosition: Integer;
   MinHitPoints: Integer;
-  F: Boolean;
 
   procedure AtkAny;
   var
     Position: TPosition;
   begin
-    CurrentPosition := -1;
+    CurPosition := -1;
     MinHitPoints := 99999;
     for Position := 0 to 5 do
       if LeaderParty.Creature[Position].Active and
@@ -141,58 +139,71 @@ var
         if (LeaderParty.Creature[Position].HitPoints < MinHitPoints) then
         begin
           MinHitPoints := LeaderParty.Creature[Position].HitPoints;
-          CurrentPosition := Position;
+          CurPosition := Position;
         end;
       end;
-    if (CurrentPosition > -1) then
+    if (CurPosition > -1) then
     begin
-      CurrentPartyPosition := CurrentPosition;
+      CurrentPartyPosition := CurPosition;
       ClickOnPosition;
     end;
   end;
+
+  procedure AtkAll;
+  var
+    Position: TPosition;
+  begin
+    for Position := 0 to 5 do
+      if LeaderParty.Creature[Position].Active and
+        (LeaderParty.Creature[Position].HitPoints > 0) then
+      begin
+        CurrentPartyPosition := Position;
+        ClickOnPosition;
+        Break;
+      end;
+  end;
+
+  function HasWarriors: Boolean;
+  begin
+    Result := (LeaderParty.Creature[1].HitPoints > 0) or
+      (LeaderParty.Creature[3].HitPoints > 0) or
+      (LeaderParty.Creature[5].HitPoints > 0);
+  end;
+
+  procedure AtkAdj;
+  var
+    Position: TPosition;
+  begin
+    begin
+      if HasWarriors then
+      begin
+        for Position := 0 to 5 do
+        begin
+          MediaPlayer.Play(mmWar);
+        if LeaderParty.Creature[Position].Active and
+          (LeaderParty.Creature[Position].HitPoints > 0) then
+        begin
+          CurrentPartyPosition := Position;
+          ClickOnPosition;
+          Exit;
+        end;
+      end
+    end
+  else
+    AtkAny;
+  end;
+end;
 
 begin
   case ActivePartyPosition of
     6 .. 11:
       case EnemyParty.Creature[ActivePartyPosition - 6].ReachEnum of
         reAny:
-          begin
-            AtkAny;
-          end;
+          AtkAny;
         reAdj:
-          begin
-            F := (LeaderParty.Creature[1].HitPoints > 0) or
-              (LeaderParty.Creature[3].HitPoints > 0) or
-              (LeaderParty.Creature[5].HitPoints > 0);
-            if F then
-            begin
-              for Position := 0 to 5 do
-                case Position of
-                  1, 3, 5:
-                    begin
-                      if (LeaderParty.Creature[Position].HitPoints > 0) then
-                      begin
-                        CurrentPartyPosition := Position;
-                        ClickOnPosition;
-                        Break;
-                      end;
-                    end;
-                end
-            end
-            else
-              AtkAny;
-          end;
+          AtkAdj;
         reAll:
-          begin
-            for Position := 0 to 5 do
-              if LeaderParty.Creature[Position].Active and
-                (LeaderParty.Creature[Position].HitPoints > 0) then
-              begin
-                CurrentPartyPosition := Position;
-                ClickOnPosition;
-                Break;
-              end;
-          end;
+          AtkAll;
       end;
   end;
 end;
