@@ -179,7 +179,6 @@ var
       begin
         for Position := 0 to 5 do
         begin
-          MediaPlayer.Play(mmWar);
           if LeaderParty.Creature[Position].Active and
             (LeaderParty.Creature[Position].HitPoints > 0) then
           begin
@@ -224,7 +223,7 @@ begin
           if Active and (HitPoints > 0) then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Log.Add(Format('%s получил%s опыт +%d', [Name, GenderEnding,
+            Log.Add(Format('%s получил%s опыт +%d', [Name[0], GenderEnding,
               CharExp]));
           end;
     end;
@@ -234,7 +233,7 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Log.Add(Format('%s повысил%s уровень до %d!', [Name, GenderEnding,
+            Log.Add(Format('%s повысил%s уровень до %d!', [Name[0], GenderEnding,
               Level + 1]));
           end;
   end;
@@ -311,23 +310,23 @@ begin
         case RandomRange(0, 6) of
           0:
             Log.Add(Format('%s пытается атаковать, но внезапно промахивается.',
-              [AtkParty.Creature[AtkPos].Name]));
+              [AtkParty.Creature[AtkPos].Name[0]]));
           1:
             Log.Add(Format('%s атакует мимо цели.',
-              [AtkParty.Creature[AtkPos].Name]));
+              [AtkParty.Creature[AtkPos].Name[0]]));
           2:
             Log.Add(Format('%s атакует... пустоту.',
-              [AtkParty.Creature[AtkPos].Name]));
+              [AtkParty.Creature[AtkPos].Name[0]]));
           3:
             Log.Add(Format('%s тщетно пытается атаковать.',
-              [AtkParty.Creature[AtkPos].Name]));
+              [AtkParty.Creature[AtkPos].Name[0]]));
           4:
             Log.Add(Format('%s атакует %s, но промахивается.',
-              [AtkParty.Creature[AtkPos].Name,
-              DefParty.Creature[DefPos].Name]));
+              [AtkParty.Creature[AtkPos].Name[0],
+              DefParty.Creature[DefPos].Name[1]]));
         else
           Log.Add(Format('%s промахивается.',
-            [AtkParty.Creature[AtkPos].Name]));
+            [AtkParty.Creature[AtkPos].Name[0]]));
         end;
         NextTurn;
         Exit;
@@ -388,7 +387,7 @@ begin
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
           Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
             .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-            [AtkParty.Creature[AtkPos].Name, DefParty.Creature[DefPos].Name,
+            [AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name[1],
             AtkParty.Creature[AtkPos].Damage]));
           if (DefParty.Creature[DefPos].HitPoints > 0) then
             MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
@@ -423,8 +422,8 @@ begin
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
                   Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
                     .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-                    [AtkParty.Creature[AtkPos].Name,
-                    DefParty.Creature[DefPos].Name,
+                    [AtkParty.Creature[AtkPos].Name[0],
+                    DefParty.Creature[DefPos].Name[1],
                     AtkParty.Creature[AtkPos].Damage]));
                   if (DefParty.Creature[DefPos].HitPoints > 0) then
                     MediaPlayer.Play(TCreature.Character(DefCrEnum)
@@ -448,8 +447,8 @@ begin
                       .Damage, DefPos);
                     Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
                       .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-                      [AtkParty.Creature[AtkPos].Name,
-                      DefParty.Creature[DefPos].Name,
+                      [AtkParty.Creature[AtkPos].Name[0],
+                      DefParty.Creature[DefPos].Name[1],
                       AtkParty.Creature[AtkPos].Damage]));
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
                       MediaPlayer.Play(TCreature.Character(DefCrEnum)
@@ -468,7 +467,7 @@ begin
             crWyvern:
               ;
           else
-            StartCastSpell(TCreature.Character(AtkCrEnum).Name,
+            StartCastSpell(TCreature.Character(AtkCrEnum).Name[0],
               TCreature.Character(AtkCrEnum).SourceEnum);
           end;
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
@@ -480,8 +479,8 @@ begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
               Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
                 .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-                [AtkParty.Creature[AtkPos].Name,
-                DefParty.Creature[Position].Name,
+                [AtkParty.Creature[AtkPos].Name[0],
+                DefParty.Creature[Position].Name[1],
                 AtkParty.Creature[AtkPos].Damage]));
               if (DefParty.Creature[Position].HitPoints > 0) then
                 MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
@@ -512,8 +511,8 @@ begin
               if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
               begin
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
-                Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name,
-                  Party.Creature[Position].Name]));
+                Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
+                  Party.Creature[Position].Name[1]]));
               end;
         end
     else
@@ -521,8 +520,8 @@ begin
         if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
         begin
           Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
-          Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name,
-            Party.Creature[DefPos].Name]));
+          Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
+            Party.Creature[DefPos].Name[1]]));
         end;
     end;
     NextTurn;
@@ -543,8 +542,8 @@ begin
             begin
               DefParty.Paralyze(Position);
               Log.Add(Format('%s парализует %s.',
-                [AtkParty.Creature[AtkPos].Name,
-                DefParty.Creature[Position].Name]));
+                [AtkParty.Creature[AtkPos].Name[0],
+                DefParty.Creature[Position].Name[1]]));
             end;
       end
   else
@@ -552,8 +551,8 @@ begin
       if Active and (HitPoints > 0) then
       begin
         DefParty.Paralyze(DefPos);
-        Log.Add(Format('%s парализует %s.', [AtkParty.Creature[AtkPos].Name,
-          DefParty.Creature[DefPos].Name]));
+        Log.Add(Format('%s парализует %s.', [AtkParty.Creature[AtkPos].Name[0],
+          DefParty.Creature[DefPos].Name[1]]));
       end;
   end;
   NextTurn;
@@ -758,6 +757,8 @@ begin
       Result := '%s атакует боевым топором %s и наносит %d урона.';
     atDagger:
       Result := '%s атакует кинжалом %s и наносит %d урона.';
+    atDaggerOfShadows:
+      Result := '%s атакует Кинжалом Теней %s и наносит %d урона.';
     atBow:
       Result := 'Метким выстрелом %s поражает стрелой %s и наносит %d урона.';
     atCrossbow:

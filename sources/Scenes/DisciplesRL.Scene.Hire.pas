@@ -367,7 +367,7 @@ begin
   L := Lf + ResImage[reActFrame].Width + 12;
   with TCreature.Character(C) do
   begin
-    Add(Name, True);
+    Add(Name[0], True);
     Add;
     Add('Уровень', Level);
     Add('Точность', ChancesToHit, '%');
