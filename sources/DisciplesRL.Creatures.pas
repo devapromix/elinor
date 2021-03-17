@@ -166,7 +166,7 @@ const
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
     atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones);
+    atSpear, atStones, atPoisonousBreath);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -174,7 +174,7 @@ type
 const
   AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
     'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
-    'Магия', 'Когти', 'Укус', 'Копье', 'Камни');
+    'Магия', 'Когти', 'Укус', 'Копье', 'Камни', 'Ядовитое Дыхание');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -191,7 +191,7 @@ const
     // Undead Hordes Leaders
     (crDeathKnight, crNosferat, crThug), // crLichQueen
     // Undead Hordes Characters
-    (crFighter, crGhost, crInitiate)),
+    (crFighter, crGhost, crWyvern)), // crInitiate
     //
     // Legions Of The Damned Capital Guardian
     ((crNone, crNone, crAshkael),
@@ -648,7 +648,8 @@ const
     'рые сражаются в рядах армии мертвых.'); HitPoints: 225; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAll; Gold: 100;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale),
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    AttackEnum: atPoisonousBreath;),
 
     // Ashkael
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAshkael;

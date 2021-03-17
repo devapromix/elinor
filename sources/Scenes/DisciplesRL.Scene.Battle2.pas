@@ -180,19 +180,19 @@ var
         for Position := 0 to 5 do
         begin
           MediaPlayer.Play(mmWar);
-        if LeaderParty.Creature[Position].Active and
-          (LeaderParty.Creature[Position].HitPoints > 0) then
-        begin
-          CurrentPartyPosition := Position;
-          ClickOnPosition;
-          Exit;
-        end;
+          if LeaderParty.Creature[Position].Active and
+            (LeaderParty.Creature[Position].HitPoints > 0) then
+          begin
+            CurrentPartyPosition := Position;
+            ClickOnPosition;
+            Exit;
+          end;
+        end
       end
-    end
-  else
-    AtkAny;
+      else
+        AtkAny;
+    end;
   end;
-end;
 
 begin
   case ActivePartyPosition of
@@ -464,8 +464,13 @@ begin
         end;
       reAll:
         begin
-          StartCastSpell(TCreature.Character(AtkCrEnum).Name,
-            TCreature.Character(AtkCrEnum).SourceEnum);
+          case AtkCrEnum of
+            crWyvern:
+              ;
+          else
+            StartCastSpell(TCreature.Character(AtkCrEnum).Name,
+              TCreature.Character(AtkCrEnum).SourceEnum);
+          end;
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           for Position := Low(TPosition) to High(TPosition) do
@@ -759,6 +764,8 @@ begin
       Result := 'Молниеносно %s взводит арбалет и поражает %s, нанося %d урона.';
     atStones:
       Result := 'Метким броском %s поражает камнем %s и наносит %d урона.';
+    atPoisonousBreath:
+      Result := '%s атакует ядовитым дыханием %s и наносит %d урона.';
     atDrainLife:
       case RandomRange(0, 4) of
         0:
