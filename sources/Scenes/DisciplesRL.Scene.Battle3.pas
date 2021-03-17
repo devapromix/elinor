@@ -32,10 +32,8 @@ implementation
 
 uses
   SysUtils,
-  DisciplesRL.Saga,
   DisciplesRL.Button,
-  DisciplesRL.Resources,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Resources;
 
 var
   Button: TButton;

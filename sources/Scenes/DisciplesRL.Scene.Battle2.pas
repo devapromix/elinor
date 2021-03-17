@@ -63,9 +63,7 @@ uses
   RLLog,
   Math,
   SysUtils,
-  DisciplesRL.Scene.Map,
   DisciplesRL.Saga,
-  DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Button,
@@ -675,7 +673,6 @@ end;
 procedure TSceneBattle2.SetInitiative;
 var
   I: Integer;
-  S: string;
 begin
   InitiativeList.Clear;
   CurrentPosition := 11;

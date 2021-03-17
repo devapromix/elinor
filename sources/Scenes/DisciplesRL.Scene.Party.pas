@@ -62,8 +62,7 @@ uses
   SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Button,
-  DisciplesRL.Scene.Hire,
-  DisciplesRL.Map;
+  DisciplesRL.Scene.Hire;
 
 type
   TButtonEnum = (btClose, btInventory);
@@ -343,7 +342,7 @@ const
   H = 25;
 var
   C: TCreatureEnum;
-  L, T, J: Integer;
+  L, T: Integer;
 
   procedure RenderButtons;
   var

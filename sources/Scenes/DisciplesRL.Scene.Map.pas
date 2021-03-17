@@ -29,8 +29,6 @@ implementation
 
 uses
   SysUtils,
-  Math,
-  Types,
   DisciplesRL.Map,
   DisciplesRL.Resources,
   DisciplesRL.Scene.Settlement,

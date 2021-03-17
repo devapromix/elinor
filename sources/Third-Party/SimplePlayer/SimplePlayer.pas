@@ -14,7 +14,7 @@ type
 type
   TSimplePlayer = class
   private
-    FC: Byte;
+    FC: Integer;
     FChannelType: TChannelType;
     FChannel: array [Byte] of DWORD;
     FVolume: ShortInt;
@@ -24,7 +24,7 @@ type
     constructor Create;
     destructor Destroy; override;
     property Volume: ShortInt read GetVolume write SetVolume;
-    property CurrentChannel: Byte read FC write FC;
+    property CurrentChannel: Integer read FC write FC;
     function Play(const FileName: string; F: Boolean): Boolean;
     procedure Stop;
     procedure StopMusic;
@@ -35,13 +35,9 @@ implementation
 { TSimplePlayer }
 
 constructor TSimplePlayer.Create;
-var
-  BassInfo: BASS_INFO;
-  I: Integer;
 begin
   BASS_Init(1, 44100, BASS_DEVICE_3D, 0, nil);
   BASS_Start;
-  BASS_GetInfo(BassInfo);
   Volume := 100;
   FC := 1;
 end;

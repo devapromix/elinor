@@ -25,7 +25,6 @@ type
     procedure Dismiss;
     procedure Revive;
     procedure Hire;
-    procedure CalcPoints;
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
     function GetName(const I: Integer): string;
@@ -80,7 +79,6 @@ var
   SettlementParty: TParty = nil;
   CurrentCityIndex: Integer = -1;
   CityArr: array [T] of Integer;
-  P: array [1 .. 12] of TPoint;
 
 class procedure TSceneSettlement.Gen;
 var
@@ -440,28 +438,6 @@ begin
   Scenes.Render;
 end;
 
-procedure TSceneSettlement.CalcPoints;
-var
-  I: Byte;
-  X, Y: Byte;
-  X4: Integer;
-begin
-  X := 0;
-  Y := 0;
-  X4 := Surface.Width div 4;
-  for I := 1 to 12 do
-  begin
-    P[I].X := Left + (X * X4);
-    P[I].Y := Top + (Y * 120);
-    Inc(Y);
-    if (Y > 2) then
-    begin
-      Y := 0;
-      Inc(X);
-    end;
-  end;
-end;
-
 procedure TSceneSettlement.Render;
 
   procedure RenderButtons;
@@ -474,7 +450,7 @@ procedure TSceneSettlement.Render;
 
 begin
   inherited;
-  CalcPoints;
+//  CalcPoints;
   DrawImage(reWallpaperSettlement);
   case CurrentSettlementType of
     stCity:
