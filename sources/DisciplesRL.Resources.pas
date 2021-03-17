@@ -16,9 +16,9 @@ type
 
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
-    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead, reFrame,
-    reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame, reTime,
-    reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
+    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead,
+    reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
+    reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
     reNoWay, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
     reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
@@ -325,11 +325,12 @@ const
 type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
-    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmDaggerAttack,
-    mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath,
-    mmGoblinHit, mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath,
-    mmWolfAttack, mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit,
-    mmGhostDeath, mmGhostAttack, mmHit, mmDeath, mmAttack);
+    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmSpearAttack,
+    mmDaggerAttack, mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack,
+    mmHumHit, mmHumDeath, mmGoblinHit, mmGoblinDeath, mmOrcHit, mmOrcDeath,
+    mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit, mmSpiderDeath,
+    mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack, mmHit, mmDeath,
+    mmAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -375,6 +376,8 @@ const
     (FileName: 'staff_attack.wav'; ResType: teSound;),
     // Bow attack
     (FileName: 'bow_attack.wav'; ResType: teSound;),
+    // Spear attack
+    (FileName: 'spear_attack.wav'; ResType: teSound;),
     // Dagger attack
     (FileName: 'dagger_attack.wav'; ResType: teSound;),
     // Block
@@ -402,7 +405,7 @@ const
     // Wolf Death
     (FileName: 'wolf_death.wav'; ResType: teSound;),
     // Wolf Attack
-    (FileName: 'wolf_death.wav'; ResType: teSound;),
+    (FileName: 'wolf_attack.wav'; ResType: teSound;),
     // Spider Hit
     (FileName: 'spider_hit.wav'; ResType: teSound;),
     // Spider Death

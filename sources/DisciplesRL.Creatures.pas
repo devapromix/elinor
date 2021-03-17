@@ -735,7 +735,7 @@ const
     'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
+    Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
     Gender: cgMale; AttackEnum: atSpear;),
     // Goblin Archer
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblinArcher;
@@ -782,7 +782,7 @@ const
     'маленький кусочек земли, который', 'они называют своим домом.');
     HitPoints: 40; Initiative: 30; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
     AttackEnum: atSpear;),
     // Man at Arms
     (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;

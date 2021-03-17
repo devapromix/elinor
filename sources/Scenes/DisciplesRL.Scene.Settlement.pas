@@ -450,7 +450,6 @@ procedure TSceneSettlement.Render;
 
 begin
   inherited;
-//  CalcPoints;
   DrawImage(reWallpaperSettlement);
   case CurrentSettlementType of
     stCity:

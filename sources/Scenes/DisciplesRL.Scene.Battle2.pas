@@ -231,8 +231,8 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Log.Add(Format('%s повысил%s уровень до %d!', [Name[0], GenderEnding,
-              Level + 1]));
+            Log.Add(Format('%s повысил%s уровень до %d!',
+              [Name[0], GenderEnding, Level + 1]));
           end;
   end;
 end;
@@ -326,6 +326,8 @@ begin
           Log.Add(Format('%s промахивается.',
             [AtkParty.Creature[AtkPos].Name[0]]));
         end;
+        MediaPlayer.Play(mmMiss);
+        Sleep(200);
         NextTurn;
         Exit;
       end;
@@ -385,7 +387,8 @@ begin
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
           Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
             .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-            [AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name[1],
+            [AtkParty.Creature[AtkPos].Name[0],
+            DefParty.Creature[DefPos].Name[1],
             AtkParty.Creature[AtkPos].Damage]));
           if (DefParty.Creature[DefPos].HitPoints > 0) then
             MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
@@ -509,7 +512,8 @@ begin
               if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
               begin
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
-                Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
+                Log.Add(Format('%s исцеляет %s.',
+                  [Party.Creature[AtkPos].Name[0],
                   Party.Creature[Position].Name[1]]));
               end;
         end

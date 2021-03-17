@@ -6,6 +6,7 @@ uses
   {$IFDEF FPC}
   Controls,
   {$ELSE}
+  Types,
   Vcl.Controls,
   {$ENDIF}
   Classes,
