@@ -62,7 +62,6 @@ implementation
 {$ENDIF}
 
 uses
-  DisciplesRL.MainForm,
   DisciplesRL.Resources,
   DisciplesRL.Button,
   DisciplesRL.Scenes;
@@ -76,7 +75,6 @@ const
 var
   Buttons: array [TButtonEnum] of TButton;
   Button: TButton;
-  Lf: Integer;
 
 procedure TConfirmationForm.Ok;
 begin
@@ -128,7 +126,6 @@ begin
   W := ResImage[reButtonDef].Width + 4;
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   Y := ResImage[reBigFrame].Height - (ResImage[reButtonDef].Height + 10);
-  Lf := (Surface.Width div 2) - (ResImage[reFrame].Width) - 2;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Buttons[I] := TButton.Create(L, Y, ButtonsText[I]);

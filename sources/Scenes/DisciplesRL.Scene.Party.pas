@@ -59,14 +59,11 @@ var
 implementation
 
 uses
-  Math,
   SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Button,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Settlement,
-  DisciplesRL.Map,
-  DisciplesRL.Scene.Map;
+  DisciplesRL.Map;
 
 type
   TButtonEnum = (btClose, btInventory);

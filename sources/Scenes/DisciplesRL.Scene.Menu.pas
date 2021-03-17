@@ -35,8 +35,7 @@ uses
   DisciplesRL.Button,
   DisciplesRL.MainForm,
   DisciplesRL.Saga,
-  DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Map;
+  DisciplesRL.Scene.Hire;
 
 type
   TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);

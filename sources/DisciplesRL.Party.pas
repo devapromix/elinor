@@ -112,7 +112,6 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
 
 { TParty }

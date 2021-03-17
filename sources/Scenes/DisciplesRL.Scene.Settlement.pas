@@ -49,7 +49,6 @@ uses
   Math,
   Types,
   SysUtils,
-  DisciplesRL.Scene.Map,
   DisciplesRL.Resources,
   DisciplesRL.Saga,
   DisciplesRL.Map,

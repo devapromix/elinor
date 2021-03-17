@@ -11,12 +11,10 @@ uses
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
 {$ENDIF}
-  Types,
   Classes,
   SimplePlayer,
   DisciplesRL.Party,
-  DisciplesRL.Resources,
-  DisciplesRL.Button;
+  DisciplesRL.Resources;
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,

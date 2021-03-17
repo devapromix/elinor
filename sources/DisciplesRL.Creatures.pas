@@ -165,7 +165,8 @@ const
 
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
-    atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites);
+    atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
+    atSpear);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -173,7 +174,7 @@ type
 const
   AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
     'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
-    'Магия', 'Когти', 'Укус');
+    'Магия', 'Когти', 'Укус', 'Копье');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -731,7 +732,7 @@ const
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
-    Gender: cgMale; AttackEnum: atDagger;),
+    Gender: cgMale; AttackEnum: atSpear;),
     // Goblin Archer
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblinArcher;
     Size: szSmall; Name: 'Гоблин-лучник';
@@ -777,14 +778,15 @@ const
     'маленький кусочек земли, который', 'они называют своим домом.');
     HitPoints: 40; Initiative: 30; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale),
+    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atSpear;),
     // Man at Arms
     (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;
     Name: 'Пехотинец'; Description: ('Наёмники, предоставляющие свои',
     'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword;),
 
 {$ENDREGION Humans}

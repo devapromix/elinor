@@ -60,8 +60,7 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Settlement,
-  DisciplesRL.Scene.Map;
+  DisciplesRL.Scene.Settlement;
 
 type
   TButtonEnum = (btOk, btClose);
