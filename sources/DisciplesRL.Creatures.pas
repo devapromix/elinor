@@ -166,7 +166,7 @@ const
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
     atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear);
+    atSpear, atStones);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -703,8 +703,9 @@ const
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 40; Armor: 40; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 80; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale),
+    Damage: 40; Armor: 40; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
+    Gold: 80; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    AttackEnum: atStones;),
     // Cultist
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reApprentice;
     Size: szSmall; Name: 'Культист';
