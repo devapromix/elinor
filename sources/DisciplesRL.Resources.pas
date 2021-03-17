@@ -326,7 +326,7 @@ type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
     mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmSpearAttack,
-    mmDaggerAttack, mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack,
+    mmDaggerAttack, mmClubAttack, mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack,
     mmHumHit, mmHumDeath, mmGoblinHit, mmGoblinDeath, mmOrcHit, mmOrcDeath,
     mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit, mmSpiderDeath,
     mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack, mmHit, mmDeath,
@@ -380,6 +380,8 @@ const
     (FileName: 'spear_attack.wav'; ResType: teSound;),
     // Dagger attack
     (FileName: 'dagger_attack.wav'; ResType: teSound;),
+    // Club attack
+    (FileName: 'club_attack.wav'; ResType: teSound;),
     // Block
     (FileName: 'block.wav'; ResType: teSound;),
     // Miss

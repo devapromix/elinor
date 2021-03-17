@@ -166,7 +166,7 @@ const
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
     atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows);
+    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,  atClub);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -771,8 +771,8 @@ const
     'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
     Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
-    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe;),
+    Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
+    AttackEnum: atClub;),
 {$ENDREGION Green Skins}
     // Neutral Humans
 {$REGION Humans}
@@ -811,8 +811,8 @@ const
     'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
     HitPoints: 110; Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atDagger;),
+    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atDaggerOfShadows;),
 {$ENDREGION Undeads}
     // Neutral Animals
 {$REGION Animals}
