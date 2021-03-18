@@ -60,8 +60,7 @@ begin
     mbMiddle:
       begin
         if TSaga.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
-          and (TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum
-          in LeaderThief)) then
+          and (TLeaderParty.Leader.Enum in LeaderThief)) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);
       end;
   end;

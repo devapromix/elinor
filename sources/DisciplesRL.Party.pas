@@ -98,6 +98,7 @@ type
       const IsInfo: Boolean = False);
     class function GetPosition: TPosition;
     function InRadius(const AX, AY: Integer): Boolean;
+    function Enum: TCreatureEnum;
   end;
 
 var
@@ -442,6 +443,11 @@ destructor TLeaderParty.Destroy;
 begin
 
   inherited;
+end;
+
+function TLeaderParty.Enum: TCreatureEnum;
+begin
+  Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum;
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
