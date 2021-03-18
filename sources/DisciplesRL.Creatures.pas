@@ -114,6 +114,8 @@ type
     crCounselor,
     // Legions Of The Damned Mage Leader
     crArchDevil,
+    // Legions Of The Damned Thief Leader
+    crRipper,
     // Legions Of The Damned Fighters
     crPossessed,
     // Legions Of The Damned Ranged Attack Units
@@ -145,7 +147,7 @@ type
 
 const
   // Leader Thief
-  LeaderThief: set of TCreatureEnum = [crThief, crThug];
+  LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -170,7 +172,7 @@ const
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
     atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows, atClub);
+    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,  atFireDagger, atClub);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -179,7 +181,7 @@ const
   AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
     'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
     'Магия', 'Когти', 'Укус', 'Копье', 'Камни', 'Ядовитое Дыхание',
-    'Кинжал Теней', 'Булава');
+    'Кинжал Теней', 'Кинжал Пламени', 'Булава');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -201,7 +203,7 @@ const
     // Legions Of The Damned Capital Guardian
     ((crNone, crNone, crAshkael),
     // Legions Of The Damned Leaders
-    (crDuke, crCounselor, crArchDevil),
+    (crDuke, crCounselor, crRipper), // crArchDevil
     // Legions Of The Damned Characters
     (crPossessed, crGargoyle, crDevil)) // crCultist
     //
@@ -701,7 +703,16 @@ const
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic;),
-    ///
+    //  Ripper
+    (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
+    Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
+    Description: ('Талант потрошителя заключается в',
+    'медленном и мастерском извлечении',
+    'правды из его жертв.'); HitPoints: 90; Initiative: 60;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atFireDagger;),
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
     Size: szSmall; Name: ('Одержимый', 'Одержимого');
