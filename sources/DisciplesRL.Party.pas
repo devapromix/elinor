@@ -389,7 +389,10 @@ begin
     HitPoints := MaxHitPoints;
     Initiative := EnsureRange(Initiative + 1, 10, 100);
     ChancesToHit := EnsureRange(ChancesToHit + 1, 10, 100);
-    Damage := Damage + (Damage div 10);
+    if Damage > 0 then
+      Damage := Damage + (Damage div 10);
+    if Heal > 0 then
+      Heal := Heal + (Heal div 15);
     Level := Level + 1;
   end;
 end;
