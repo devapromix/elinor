@@ -22,7 +22,7 @@ type
     FShowResources: Boolean;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure Close;
-    procedure Inventory;
+    procedure OpenOrCloseInventory;
   public
     constructor Create;
     destructor Destroy; override;
@@ -79,6 +79,8 @@ var
 const
   S = 2;
 
+  { TSceneParty }
+
 class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
   F: Boolean = False);
 begin
@@ -86,7 +88,9 @@ begin
   BackScene := CloseScene;
   FShowResources := Party = TLeaderParty.Leader;
   if FShowResources then
-    ActivePartyPosition := TLeaderParty.GetPosition
+  begin
+    ActivePartyPosition := TLeaderParty.GetPosition;
+  end
   else
     ActivePartyPosition := Party.GetRandomPosition;
   Scenes.Show(scParty);
@@ -164,7 +168,7 @@ begin
   end;
 end;
 
-procedure TSceneParty.Inventory;
+procedure TSceneParty.OpenOrCloseInventory;
 begin
   MediaPlayer.Play(mmClick);
   FShowInventory := not FShowInventory;
@@ -273,8 +277,6 @@ begin
   end;
 end;
 
-{ TSceneParty }
-
 constructor TSceneParty.Create;
 var
   I: TButtonEnum;
@@ -311,18 +313,21 @@ begin
     mbLeft:
       begin
         if Button[btClose].MouseDown then
-          Close
-        else if Button[btInventory].MouseDown then
-          Inventory
-        else
         begin
-          CurrentPartyPosition := GetPartyPosition(X, Y);
-          if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
-            Exit;
-          ActivePartyPosition := CurrentPartyPosition;
-          MediaPlayer.Play(mmClick);
-          Render;
+          Close;
+          Exit;
         end;
+        if Button[btInventory].MouseDown and FShowResources then
+        begin
+          OpenOrCloseInventory;
+          Exit;
+        end;
+        CurrentPartyPosition := GetPartyPosition(X, Y);
+        if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
+          Exit;
+        ActivePartyPosition := CurrentPartyPosition;
+        MediaPlayer.Play(mmClick);
+        Render;
       end;
   end;
 end;
@@ -349,7 +354,8 @@ var
     I: TButtonEnum;
   begin
     for I := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[I].Render;
+      if FShowResources or (not FShowResources and (I = btClose)) then
+        Button[I].Render;
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;
@@ -404,7 +410,8 @@ begin
     K_ESCAPE, K_ENTER:
       Close;
     K_I:
-      Inventory;
+      if FShowResources then
+        OpenOrCloseInventory;
     K_LEFT, K_KP_4, K_A:
       MoveCursor(drWest);
     K_RIGHT, K_KP_6, K_D:
