@@ -421,7 +421,7 @@ begin
   PartyFree;
   TMap.Init;
   TMap.Gen;
-  TSceneSettlement.Gen;
+  TSceneSettlement.GenCityName;
   TLeaderParty.Leader.Clear;
 end;
 

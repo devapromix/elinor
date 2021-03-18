@@ -27,7 +27,7 @@ type
     procedure Hire;
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
-    function GetName(const I: Integer): string;
+    function GetCityName(const I: Integer): string;
     procedure MoveUnit;
   public
     constructor Create;
@@ -38,7 +38,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure Gen;
+    class procedure GenCityName;
     class procedure Show(SettlementType: TSettlementSubSceneEnum); overload;
   end;
 
@@ -80,7 +80,7 @@ var
   CurrentCityIndex: Integer = -1;
   CityArr: array [T] of Integer;
 
-class procedure TSceneSettlement.Gen;
+class procedure TSceneSettlement.GenCityName;
 var
   N: set of T;
   J, K: Integer;
@@ -96,7 +96,7 @@ begin
   end;
 end;
 
-function TSceneSettlement.GetName(const I: Integer): string;
+function TSceneSettlement.GetCityName(const I: Integer): string;
 begin
   Result := CityNameText[CityArr[I]];
 end;
