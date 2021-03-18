@@ -36,7 +36,8 @@ uses
   DisciplesRL.Saga,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Party;
+  DisciplesRL.Party,
+  DisciplesRL.Creatures;
 
 var
   LastMousePos, MousePos: TPoint;
@@ -58,8 +59,9 @@ begin
       end;
     mbMiddle:
       begin
-        if TSaga.Wizard or TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
-        then
+        if TSaga.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
+          and (TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum
+          in LeaderThief)) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);
       end;
   end;

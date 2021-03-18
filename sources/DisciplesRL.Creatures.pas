@@ -143,6 +143,10 @@ type
     //
     );
 
+const
+  // Leader Thief
+  LeaderThief: set of TCreatureEnum = [crThief, crThug];
+
 type
   TReachEnum = (reAny, reAdj, reAll);
 
@@ -166,7 +170,7 @@ const
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
     atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,  atClub);
+    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows, atClub);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -496,7 +500,8 @@ const
 
     // Myzrael
     (Race: reTheEmpire; SubRace: reCustom; ResEnum: reMyzrael; Size: szSmall;
-    Name: ('Мизраэль', 'Мизраэля'); Description: ('Мизраэль был послан, чтобы помочь',
+    Name: ('Мизраэль', 'Мизраэля');
+    Description: ('Мизраэль был послан, чтобы помочь',
     'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
@@ -513,7 +518,8 @@ const
     AttackEnum: atLongSword),
     // Ranger
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reRanger; Size: szSmall;
-    Name: ('Следопыт', 'Следопыта'); Description: ('Следопыты путешествуют быстро и хо-',
+    Name: ('Следопыт', 'Следопыта');
+    Description: ('Следопыты путешествуют быстро и хо-',
     'рошо знают королевство, поэтому ко-',
     'роль часто посылает их в разведку.'); HitPoints: 90; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
@@ -522,7 +528,8 @@ const
     AttackEnum: atBow),
     // Archmage
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
-    Name: ('Архимаг', 'Архимага'); Description: ('Мастер магии, архимаг - единственный',
+    Name: ('Архимаг', 'Архимага');
+    Description: ('Мастер магии, архимаг - единственный',
     'в Империи полководец, который уме-', 'ет испольовать свитки и посохи.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
@@ -538,7 +545,8 @@ const
     AttackEnum: atDagger;),
     // Squire
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
-    Name: ('Сквайр', 'Сквайра'); Description: ('Сквайр доблестно защищает в бою',
+    Name: ('Сквайр', 'Сквайра');
+    Description: ('Сквайр доблестно защищает в бою',
     'своих более слабых соотечественников,',
     'держа противников на расстоянии меча.'); HitPoints: 100; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
@@ -547,7 +555,8 @@ const
     AttackEnum: atLongSword;),
     // Archer
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher; Size: szSmall;
-    Name: ('Лучник', 'Лучника'); Description: ('Стрелы лучника успешно поражают',
+    Name: ('Лучник', 'Лучника');
+    Description: ('Стрелы лучника успешно поражают',
     'врагов, которые укрываются за спи-',
     'нами своих более сильных соратников.'); HitPoints: 45; Initiative: 60;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
@@ -556,7 +565,8 @@ const
     AttackEnum: atBow),
     // Apprentice
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reApprentice; Size: szSmall;
-    Name: ('Ученик', 'Ученика'); Description: ('Ученик мага атакует противников',
+    Name: ('Ученик', 'Ученика');
+    Description: ('Ученик мага атакует противников',
     'с большого расстояния, обрушивая', 'на них молнии.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
@@ -564,7 +574,8 @@ const
     AttackEnum: atMagic;),
     // Acolyte
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reAcolyte; Size: szSmall;
-    Name: ('Служка', 'Служку'); Description: ('Обученная искусству исцеления служка',
+    Name: ('Служка', 'Служку');
+    Description: ('Обученная искусству исцеления служка',
     'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
@@ -628,7 +639,8 @@ const
     AttackEnum: atLongSword;),
     // Ghost
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher; Size: szSmall;
-    Name: ('Привидение', 'Привидение'); Description: ('Привидения - это темные души,',
+    Name: ('Привидение', 'Привидение');
+    Description: ('Привидения - это темные души,',
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
     Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
@@ -720,18 +732,20 @@ const
     AttackEnum: atMagic;),
     // Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAcolyte;
-    Size: szBig; Name: ('Чёрт', 'Чёрта'); Description: ('Это нечестивое создание',
-    'держит земли в страхе во имя его', 'Тёмного Повелителя Бетрезена.');
-    HitPoints: 170; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
+    Size: szBig; Name: ('Чёрт', 'Чёрта');
+    Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
+    'Тёмного Повелителя Бетрезена.'); HitPoints: 170; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
     AttackEnum: atLongSword;),
 
     // Neutral Green Skins
 {$REGION Green Skins}
     // Goblin
     (Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reGoblin; Size: szSmall;
-    Name: ('Гоблин', 'Гоблина'); Description: ('Гоблины — это дальние родственники',
+    Name: ('Гоблин', 'Гоблина');
+    Description: ('Гоблины — это дальние родственники',
     'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
@@ -778,15 +792,17 @@ const
 {$REGION Humans}
     // Peasant
     (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;
-    Name: ('Крестьянин', 'Крестьянина'); Description: ('Крестьяне защищают тот',
-    'маленький кусочек земли, который', 'они называют своим домом.');
-    HitPoints: 40; Initiative: 30; ChancesToHit: 75; Leadership: 0; Level: 1;
-    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
+    Name: ('Крестьянин', 'Крестьянина');
+    Description: ('Крестьяне защищают тот', 'маленький кусочек земли, который',
+    'они называют своим домом.'); HitPoints: 40; Initiative: 30;
+    ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
+    Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
     AttackEnum: atSpear;),
     // Man at Arms
     (Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin; Size: szSmall;
-    Name: ('Пехотинец', 'Пехотинца'); Description: ('Наёмники, предоставляющие свои',
+    Name: ('Пехотинец', 'Пехотинца');
+    Description: ('Наёмники, предоставляющие свои',
     'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
@@ -818,7 +834,8 @@ const
 {$REGION Animals}
     // Spider
     (Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider; Size: szBig;
-    Name: ('Гигантский Паук', 'Гигантского Паука'); Description: ('Сильный яд гигантского паука',
+    Name: ('Гигантский Паук', 'Гигантского Паука');
+    Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400;
