@@ -203,7 +203,7 @@ procedure TSceneSettlement.Dismiss;
       end
       else
       begin
-        if not ConfirmDialog('Отпустить?') then
+        if not ConfirmDialog('Отпустить воина?') then
           Exit;
       end;
     end;

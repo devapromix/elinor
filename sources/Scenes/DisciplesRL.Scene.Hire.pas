@@ -86,7 +86,7 @@ const
     // Loot
     (reTextClose, reTextClose),
     // Inform
-    (reTextClose, reTextClose),
+    (reTextOk, reTextOk),
     // StoneTab
     (reTextClose, reTextClose),
     // Difficulty
@@ -246,7 +246,10 @@ begin
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
           [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
-          Scenes.Show(scSettlement)
+        begin
+          MediaPlayer.Play(mmGold);
+          Scenes.Show(scSettlement);
+        end
         else
           InformDialog('Не хватает денег!');
       end;
