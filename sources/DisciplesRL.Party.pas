@@ -97,6 +97,7 @@ type
     class procedure PutAt(const AX, AY: ShortInt;
       const IsInfo: Boolean = False);
     class function GetPosition: TPosition;
+    function InRadius(const AX, AY: Integer): Boolean;
   end;
 
 var
@@ -448,6 +449,11 @@ begin
   Result := 0;
   while not Leader.Creature[Result].IsLeader do
     Inc(Result);
+end;
+
+function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;
+begin
+  Result := (TMap.GetDist(AX, AY, X, Y) <= Radius);
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;

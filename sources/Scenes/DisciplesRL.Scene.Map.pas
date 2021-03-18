@@ -3,12 +3,12 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Controls,
-  {$ELSE}
+{$ELSE}
   Types,
   Vcl.Controls,
-  {$ENDIF}
+{$ENDIF}
   Classes,
   DisciplesRL.Scenes;
 
@@ -58,7 +58,9 @@ begin
       end;
     mbMiddle:
       begin
-        TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);
+        if TSaga.Wizard or TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
+        then
+          TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);
       end;
   end;
 end;
@@ -114,8 +116,7 @@ begin
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
           ResImage[reNeutralTerrain]);
       end;
-      F := (TMap.GetDist(X, Y, TLeaderParty.Leader.X, TLeaderParty.Leader.Y) >
-        TLeaderParty.Leader.Radius) and
+      F := not TLeaderParty.Leader.InRadius(X, Y) and
         not(TMap.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
         (TMap.GetTile(lrDark, X, Y) = reNone);
 
