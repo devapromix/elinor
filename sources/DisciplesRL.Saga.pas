@@ -64,7 +64,6 @@ type
   public
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
-
   class var
     Days: Integer;
     Gold: Integer;
@@ -126,6 +125,7 @@ type
     ManaFromMinePerDay = 10;
     LeaderWarriorHealAllInPartyPerDay = 10;
     LeaderScoutAdvRadius = 2;
+    LeaderMageCanCastSpellsPerDay = 3;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
@@ -358,6 +358,7 @@ begin
     Mana := Mana + (ManaMines * ManaFromMinePerDay);
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
       TLeaderParty.Leader.HealAll(LeaderWarriorHealAllInPartyPerDay);
+    TLeaderParty.Leader.Spells := TLeaderParty.Leader.MaxSpells;
     ShowNewDayMessage := 20;
     MediaPlayer.Play(mmDay);
     IsDay := False;

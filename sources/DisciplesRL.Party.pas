@@ -77,7 +77,10 @@ type
   private
     FMaxLeadership: Integer;
     FRadius: Integer;
+    FSpells: Integer;
+    FMaxSpells: Integer;
     function GetRadius: Integer;
+    function GetMaxSpells: Integer;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -89,6 +92,8 @@ type
     procedure Clear;
     property MaxLeadership: Integer read FMaxLeadership;
     property Radius: Integer read GetRadius;
+    property Spells: Integer read FSpells write FSpells;
+    property MaxSpells: Integer read GetMaxSpells;
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
@@ -447,6 +452,8 @@ begin
   inherited Create(AX, AY, AOwner);
   FMaxLeadership := 1;
   FRadius := 1;
+  FMaxSpells := 1;
+  FSpells := FMaxSpells;
 end;
 
 destructor TLeaderParty.Destroy;
@@ -458,6 +465,12 @@ end;
 function TLeaderParty.Enum: TCreatureEnum;
 begin
   Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum;
+end;
+
+function TLeaderParty.GetMaxSpells: Integer;
+begin
+  Result := IfThen(TLeaderParty.Leader.Enum in LeaderMage,
+    TSaga.LeaderMageCanCastSpellsPerDay, FMaxSpells);
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
