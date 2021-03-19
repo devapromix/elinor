@@ -124,7 +124,8 @@ type
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
     ManaFromMinePerDay = 10;
-    HealAllInPartyPerDay = 10;
+    LeaderWarriorHealAllInPartyPerDay = 10;
+    LeaderScoutAdvRadius = 2;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
@@ -356,7 +357,7 @@ begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     Mana := Mana + (ManaMines * ManaFromMinePerDay);
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
-      TLeaderParty.Leader.HealAll(HealAllInPartyPerDay);
+      TLeaderParty.Leader.HealAll(LeaderWarriorHealAllInPartyPerDay);
     ShowNewDayMessage := 20;
     MediaPlayer.Play(mmDay);
     IsDay := False;

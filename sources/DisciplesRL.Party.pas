@@ -77,6 +77,7 @@ type
   private
     FMaxLeadership: Integer;
     FRadius: Integer;
+    function GetRadius: Integer;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -87,7 +88,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     property MaxLeadership: Integer read FMaxLeadership;
-    property Radius: Integer read FRadius;
+    property Radius: Integer read GetRadius;
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
@@ -464,6 +465,12 @@ begin
   Result := 0;
   while not Leader.Creature[Result].IsLeader do
     Inc(Result);
+end;
+
+function TLeaderParty.GetRadius: Integer;
+begin
+  Result := IfThen(TLeaderParty.Leader.Enum in LeaderScout,
+    FRadius + TSaga.LeaderScoutAdvRadius, FRadius);
 end;
 
 function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;

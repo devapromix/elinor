@@ -146,10 +146,11 @@ type
     );
 
 const
-  // Leader Class
-  LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
   LeaderWarrior: set of TCreatureEnum = [crPegasusKnight,
     crDeathKnight, crDuke];
+  LeaderScout: set of TCreatureEnum = [crRanger, crNosferat, crCounselor];
+  LeaderMage: set of TCreatureEnum = [crArchmage, crLichQueen, crArchDevil];
+  LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
