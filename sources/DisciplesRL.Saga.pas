@@ -124,6 +124,7 @@ type
     GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
     ManaFromMinePerDay = 10;
+    HealAllInPartyPerDay = 10;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
@@ -191,7 +192,7 @@ begin
   begin
     //
     Cr := TCreature.GetRandomEnum(P, 2);
-    //TCreature.Character(Cr).Race
+    // TCreature.Character(Cr).Race
     case RandomRange(0, 1) of
       0:
         AddCreature(Cr, 2);
@@ -354,6 +355,8 @@ begin
   begin
     Gold := Gold + (GoldMines * GoldFromMinePerDay);
     Mana := Mana + (ManaMines * ManaFromMinePerDay);
+    if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+      TLeaderParty.Leader.HealAll(HealAllInPartyPerDay);
     ShowNewDayMessage := 20;
     MediaPlayer.Play(mmDay);
     IsDay := False;

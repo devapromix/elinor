@@ -146,8 +146,10 @@ type
     );
 
 const
-  // Leader Thief
+  // Leader Class
   LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
+  LeaderWarrior: set of TCreatureEnum = [crPegasusKnight,
+    crDeathKnight, crDuke];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -172,7 +174,8 @@ const
 type
   TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
     atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,  atFireDagger, atClub);
+    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,
+    atFireDagger, atClub);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -703,14 +706,13 @@ const
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic;),
-    //  Ripper
+    // Ripper
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
     Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
     Description: ('Талант потрошителя заключается в',
-    'медленном и мастерском извлечении',
-    'правды из его жертв.'); HitPoints: 90; Initiative: 60;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
+    'медленном и мастерском извлечении', 'правды из его жертв.'); HitPoints: 90;
+    Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atFireDagger;),
     // Possessed

@@ -844,6 +844,9 @@ begin
     K_N:
       if TSaga.Wizard then
         NextTurn;
+    K_H:
+      if TSaga.Wizard then
+        TLeaderParty.Leader.HealAll(100);
     K_D:
       if TSaga.Wizard then
         Defeat;

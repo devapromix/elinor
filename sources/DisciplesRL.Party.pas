@@ -55,6 +55,7 @@ type
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
+    procedure HealAll(const AHitPoints: Integer);
     procedure Paralyze(const APosition: TPosition);
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
@@ -285,6 +286,14 @@ begin
   with FCreature[APosition] do
     if (Active and (HitPoints > 0)) then
       HitPoints := EnsureRange(HitPoints + AHitPoints, 0, MaxHitPoints);
+end;
+
+procedure TParty.HealAll(const AHitPoints: Integer);
+var
+  Position: TPosition;
+begin
+  for Position := Low(TPosition) to High(TPosition) do
+    Heal(Position, AHitPoints);
 end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum;
