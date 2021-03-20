@@ -169,6 +169,9 @@ type
 type
   TRaceCharKind = (ckWarrior, ckScout, ckMage); // ckSupport, ckThief
 
+type
+  TLeaderThiefSpyVar = (svIntroduceSpy, svDuel, svPoison);
+
 const
   ckGuardian = ckMage;
 

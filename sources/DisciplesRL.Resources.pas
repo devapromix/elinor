@@ -37,6 +37,7 @@ type
     reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
     reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
+    reTitleThief,
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
     reDifficultyNormalLogo, reDifficultyHardLogo, reWallpaperSettlement,
@@ -287,6 +288,8 @@ const
     (FileName: 'title.city.sard.png'; ResType: teGUI;),
     // Title Difficulty
     (FileName: 'title.difficulty.png'; ResType: teGUI;),
+    // Title Thief
+    (FileName: 'title.thief.png'; ResType: teGUI;),
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
     // Scenario "Overlord"

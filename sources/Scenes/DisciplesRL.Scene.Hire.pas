@@ -18,20 +18,29 @@ uses
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
     stVictory, stDefeat, stHighScores2, stLoot, stInform, stStoneTab,
-    stDifficulty);
+    stDifficulty, stSpy);
 
 type
+
+  { TSceneHire }
+
   TSceneHire = class(TScene)
   private
+    FMPX: Integer;
+    FMPY: Integer;
     procedure Ok;
     procedure Back;
     procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
+    procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
       const AX, AY: Integer);
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
   public
-    class var Msg: string;
+    class var
+      Msg: string;
+      MPX: Integer;
+      MPY: Integer;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -89,6 +98,8 @@ const
     (reTextOk, reTextOk),
     // StoneTab
     (reTextClose, reTextClose),
+    // Spy
+    (reTextContinue, reTextCancel),
     // Difficulty
     (reTextContinue, reTextCancel));
 
@@ -97,7 +108,7 @@ const
   CloseButtonScene = [stJournal, stVictory, stDefeat, stInform, stHighScores2] +
     AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
-    stDifficulty];
+    stDifficulty, stSpy];
 
 var
   HireParty: TParty = nil;
@@ -195,7 +206,7 @@ begin
       TSceneHire.Show(stDifficulty);
     stScenario:
       Scenes.Show(scMenu);
-    stJournal:
+    stJournal, stSpy:
       Scenes.Show(scMap);
     stDefeat:
       begin
@@ -217,6 +228,7 @@ end;
 procedure TSceneHire.Ok;
 var
   F: Boolean;
+  I: Integer;
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
@@ -290,6 +302,27 @@ begin
             Scenes.Show(scMap);
             Exit;
           end;
+      end;
+    stSpy:
+      begin
+        case TLeaderThiefSpyVar(CurrentIndex) of
+          svIntroduceSpy:
+            begin
+              TLeaderParty.Leader.PutAt(MPX, MPY, True);
+            end;
+          svDuel:
+            begin
+
+            end;
+          svPoison:
+            begin
+              I := TSaga.GetPartyIndex(MPX, MPY);
+              Party[I].TakeDamageAll(10);
+              Scenes.Show(scMap);
+            end
+          else
+            Scenes.Show(scMap);
+        end;
       end;
     stLoot:
       begin
@@ -409,6 +442,18 @@ begin
     reUndeadHordes:
       DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
     reLegionsOfTheDamned:
+      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
+  end;
+end;
+
+procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
+begin
+  case N of
+    svIntroduceSpy:
+      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
+    svDuel:
+      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
+    svPoison:
       DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
   end;
 end;
@@ -567,6 +612,11 @@ begin
 
 end;
 
+procedure RenderSpyInfo;
+begin
+
+end;
+
 procedure RenderButtons;
 var
   I: TButtonEnum;
@@ -602,6 +652,8 @@ var
   L, W: Integer;
 begin
   inherited;
+  MPX := 0;
+  MPY := 0;
   for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
     W := ResImage[reButtonDef].Width + 4;
@@ -694,6 +746,7 @@ var
   K: TRaceCharKind;
   S: TScenario.TScenarioEnum;
   D: TSaga.TDifficultyEnum;
+  Z: TLeaderThiefSpyVar;
   ItemRes: TResEnum;
   GM, MM: Boolean;
   It1, It2, It3: TResEnum;
@@ -798,6 +851,19 @@ begin
           else
             DrawImage(Lf, Top + Y, reFrame);
           RenderRace(R, Lf, Top + Y);
+          Inc(Y, 120);
+        end;
+      end;
+    stSpy:
+      begin
+        DrawTitle(reTitleThief);
+        for Z := svIntroduceSpy to svPoison do
+        begin
+          if Ord(Z) = CurrentIndex then
+            DrawImage(Lf, Top + Y, reActFrame)
+          else
+            DrawImage(Lf, Top + Y, reFrame);
+          RenderSpy(Z, Lf, Top + Y);
           Inc(Y, 120);
         end;
       end;
@@ -940,6 +1006,8 @@ begin
       RenderFinalInfo;
     stHighScores2:
       RenderHighScores;
+    stSpy:
+      RenderSpyInfo;
   end;
   RenderButtons;
 end;
@@ -973,6 +1041,25 @@ begin
             MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TRaceCharKind)));
+          end;
+      end;
+    stSpy:
+      case Key of
+        K_ESCAPE:
+          Back;
+        K_ENTER:
+          Ok;
+        K_UP:
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TLeaderThiefSpyVar)));
+          end;
+        K_DOWN:
+          begin
+            MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TLeaderThiefSpyVar)));
           end;
       end;
     stLeader:

@@ -61,7 +61,11 @@ begin
       begin
         if TSaga.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
           and (TLeaderParty.Leader.Enum in LeaderThief)) then
-          TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y, True);
+            begin
+              TSceneHire.MPX := MousePos.X;
+              TSceneHire.MPY := MousePos.Y;
+              TSceneHire.Show(stSpy);
+            end;
       end;
   end;
 end;

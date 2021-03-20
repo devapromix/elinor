@@ -23,6 +23,9 @@ const
     (X: - 1; Y: - 1), (X: 0; Y: 0));
 
 type
+
+  { TParty }
+
   TParty = class(TMapObject)
   strict private
     FOwner: TRaceEnum;
@@ -62,6 +65,7 @@ type
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
     procedure UpdateLevel(const APosition: TPosition); virtual;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
+    procedure TakeDamageAll(const ADamage: Integer);
     procedure Swap(Party: TParty; A, B: Integer); overload;
     procedure Swap(A, B: Integer); overload;
     property Count: Integer read GetCount;
@@ -379,8 +383,15 @@ begin
           MediaPlayer.Play(mmBlock);
       if (HitPoints < 0) then
         HitPoints := 0;
-      Paralyze := False;
     end;
+end;
+
+procedure TParty.TakeDamageAll(const ADamage: Integer);
+var
+  Position: TPosition;
+begin
+  for Position := Low(TPosition) to High(TPosition) do
+    TakeDamage(ADamage, Position);
 end;
 
 procedure TParty.UpdateHP(const AHitPoints: Integer;
