@@ -77,12 +77,18 @@ type
   end;
 
 type
+
+  { TLeaderParty }
+
   TLeaderParty = class(TParty)
   private
     FMaxLeadership: Integer;
     FRadius: Integer;
     FSpells: Integer;
     FMaxSpells: Integer;
+    FSpy: Integer;
+    FMaxSpy: Integer;
+    function GetMaxSpy: Integer;
     function GetRadius: Integer;
     function GetMaxSpells: Integer;
   public
@@ -98,6 +104,8 @@ type
     property Radius: Integer read GetRadius;
     property Spells: Integer read FSpells write FSpells;
     property MaxSpells: Integer read GetMaxSpells;
+    property Spy: Integer read FSpy write FSpy;
+    property MaxSpy: Integer read GetMaxSpy;
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
@@ -455,6 +463,10 @@ begin
   Speed := MaxSpeed;
   FMaxLeadership := 1;
   FRadius := IfThen(TSaga.Wizard, 9, 1);
+  FMaxSpells := 1;
+  FSpells := FMaxSpells;
+  FMaxSpy := 1;
+  FSpy := FMaxSpy;
   Self.UpdateRadius;
 end;
 
@@ -465,6 +477,8 @@ begin
   FRadius := 1;
   FMaxSpells := 1;
   FSpells := FMaxSpells;
+  FMaxSpy := 1;
+  FSpy := FMaxSpy;
 end;
 
 destructor TLeaderParty.Destroy;
@@ -495,6 +509,12 @@ function TLeaderParty.GetRadius: Integer;
 begin
   Result := IfThen(TLeaderParty.Leader.Enum in LeaderScout,
     FRadius + TSaga.LeaderScoutAdvRadius, FRadius);
+end;
+
+function TLeaderParty.GetMaxSpy: Integer;
+begin
+  Result := IfThen(TLeaderParty.Leader.Enum in LeaderThief,
+    TSaga.LeaderThiefSpyAttemptCountPerDay, FMaxSpy);
 end;
 
 function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;

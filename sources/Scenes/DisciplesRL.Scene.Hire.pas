@@ -228,7 +228,7 @@ end;
 procedure TSceneHire.Ok;
 var
   F: Boolean;
-  I: Integer;
+  I, Damage: Integer;
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
@@ -316,9 +316,13 @@ begin
             end;
           svPoison:
             begin
-              I := TSaga.GetPartyIndex(MPX, MPY);
-              Party[I].TakeDamageAll(10);
-              Scenes.Show(scMap);
+              if TLeaderParty.Leader.Spy > 0 then
+              begin
+                TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
+                I := TSaga.GetPartyIndex(MPX, MPY);
+                Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
+                Party[I].TakeDamageAll(Damage);
+              end
             end
           else
             Scenes.Show(scMap);
@@ -613,8 +617,41 @@ begin
 end;
 
 procedure RenderSpyInfo;
-begin
+const
+  H = 25;
+  V: array [TLeaderThiefSpyVar] of string =
+    ('Заслать Шпиона', 'Вызвать на Дуэль', 'Отравить Колодцы');
+var
+  T, L: Integer;
+  S: TLeaderThiefSpyVar;
 
+  procedure Add; overload;
+  begin
+    Inc(T, H);
+  end;
+
+  procedure Add(S: string; F: Boolean = False); overload;
+  var
+    N: Integer;
+  begin
+    if F then
+    begin
+      N := Surface.Canvas.Font.Size;
+      Surface.Canvas.Font.Size := N * 2;
+    end;
+    DrawText(L, T, S);
+    if F then
+      Surface.Canvas.Font.Size := N;
+    Inc(T, H);
+  end;
+
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  S := TLeaderThiefSpyVar(CurrentIndex);
+  Add(V[S], True);
+  Add;
+  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.MaxSpy]));
 end;
 
 procedure RenderButtons;

@@ -126,6 +126,8 @@ type
     LeaderWarriorHealAllInPartyPerDay = 10;
     LeaderScoutAdvRadius = 2;
     LeaderMageCanCastSpellsPerDay = 3;
+    LeaderThiefSpyAttemptCountPerDay = 3;
+    LeaderThiefPoisonDamageAllInPartyPerLevel = 10;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
@@ -359,6 +361,7 @@ begin
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
       TLeaderParty.Leader.HealAll(LeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.MaxSpells;
+    TLeaderParty.Leader.Spy := TLeaderParty.Leader.MaxSpy;
     ShowNewDayMessage := 20;
     MediaPlayer.Play(mmDay);
     IsDay := False;
