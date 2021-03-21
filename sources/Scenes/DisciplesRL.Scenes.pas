@@ -111,7 +111,7 @@ type
       const I, AX, AY: Integer);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
     function ConfirmDialog(const S: string): Boolean;
-    procedure InformDialog(const S: string);
+    procedure InformDialog(const S: string; ABackScene: TSceneEnum = scSettlement);
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean;
     function GetPartyPosition(const MX, MY: Integer): Integer;
@@ -223,10 +223,11 @@ begin
   end;
 end;
 
-procedure TScene.InformDialog(const S: string);
+procedure TScene.InformDialog(const S: string; ABackScene: TSceneEnum = scSettlement);
 begin
+  MediaPlayer.Play(mmExit);
   TSceneHire.Msg := S;
-  TSceneHire.Show(stInform, scSettlement);
+  TSceneHire.Show(stInform, ABackScene);
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);

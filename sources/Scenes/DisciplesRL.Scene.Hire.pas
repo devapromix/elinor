@@ -229,6 +229,12 @@ procedure TSceneHire.Ok;
 var
   F: Boolean;
   I, Damage: Integer;
+
+  procedure NoSpy;
+  begin
+    InformDialog('Вы использовали все попытки!', scMap);
+  end;
+
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
@@ -308,14 +314,19 @@ begin
         case TLeaderThiefSpyVar(CurrentIndex) of
           svIntroduceSpy:
             begin
-              TLeaderParty.Leader.PutAt(MPX, MPY, True);
+              if TLeaderParty.Leader.Spy > 0 then
+              begin
+                TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
+                TLeaderParty.Leader.PutAt(MPX, MPY, True);
+              end else NoSpy;
             end;
           svDuel:
             begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
+                TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
 
-              end;
+              end else NoSpy;
             end;
           svPoison:
             begin
@@ -325,7 +336,8 @@ begin
                 I := TSaga.GetPartyIndex(MPX, MPY);
                 Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
                 Party[I].TakeDamageAll(Damage);
-              end
+                InformDialog('Вам удалось отравить провизию врага!', scMap);
+              end else NoSpy;
             end
           else
             Scenes.Show(scMap);
@@ -654,10 +666,7 @@ begin
   S := TLeaderThiefSpyVar(CurrentIndex);
   Add(V[S], True);
   Add;
-  case S of
-    svDuel, svPoison:
-    Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.GetMaxSpy]));
-  end;
+  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.GetMaxSpy]));
 end;
 
 procedure RenderButtons;
