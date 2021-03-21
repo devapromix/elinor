@@ -26,8 +26,6 @@ type
 
   TSceneHire = class(TScene)
   private
-    FMPX: Integer;
-    FMPY: Integer;
     procedure Ok;
     procedure Back;
     procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
@@ -222,6 +220,18 @@ begin
   end;
 end;
 
+function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
+const
+  S: array [TLeaderThiefSpyVar] of Byte = (95, 80, 65);
+begin
+    Result := S[V] - (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
+end;
+
+function ThiefPoisonDamage: Integer;
+begin
+  Result := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
+end;
+
 procedure TSceneHire.Ok;
 var
   F: Boolean;
@@ -232,15 +242,11 @@ var
     InformDialog('Вы использовали все попытки!');
   end;
 
-  function TrySpy(ChanceOfSuccess: Byte): Boolean;
+  function TrySpy(V: TLeaderThiefSpyVar): Boolean;
   begin
-    Result := RandomRange(0, 100) <= ChanceOfSuccess -
-      (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
-    // Failure
+    Result := RandomRange(0, 100) <= ThiefChanceOfSuccess(V);
     if not Result then
-      begin
-        TLeaderParty.Leader.PutAt(MPX, MPY)
-      end;
+      TLeaderParty.Leader.PutAt(MPX, MPY);
   end;
 
 begin
@@ -321,7 +327,7 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                if TrySpy(90) then
+                if TrySpy(svIntroduceSpy) then
                 begin
                   TLeaderParty.Leader.PutAt(MPX, MPY, True);
                 end;
@@ -332,7 +338,7 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                if TrySpy(80) then
+                if TrySpy(svDuel) then
                 begin
 
                 end;
@@ -343,11 +349,9 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                if TrySpy(70) then
+                if TrySpy(svPoison) then
                 begin
-                  I := TSaga.GetPartyIndex(MPX, MPY);
-                  Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
-                  Party[I].TakeDamageAll(Damage);
+                  Party[I].TakeDamageAll(ThiefPoisonDamage);
                   InformDialog('Вы успешно отравили провизию врага!');
                 end;
               end else NoSpy;
@@ -647,10 +651,8 @@ end;
 procedure RenderSpyInfo;
 const
   H = 25;
-  V: array [TLeaderThiefSpyVar] of string =
-    ('Заслать Шпиона', 'Вызвать на Дуэль', 'Отравить Колодцы');
 var
-  T, L: Integer;
+  T, L, J: Integer;
   S: TLeaderThiefSpyVar;
 
   procedure Add; overload;
@@ -677,9 +679,20 @@ begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderThiefSpyVar(CurrentIndex);
-  Add(V[S], True);
+  Add(TSaga.SpyName[S], True);
+  Add;
+  for J := 0 to 4 do
+    Add(TSaga.SpyDescription[S][J]);
+  Add;
+  Add;
+  Add;
   Add;
   Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.GetMaxSpy]));
+  Add(Format('Вероятность успеха: %d %', [ThiefChanceOfSuccess(S)]));
+  case S of
+    svPoison:
+      Add(Format('Сила ядов: %d', [ThiefPoisonDamage]));
+  end;
 end;
 
 procedure RenderButtons;
