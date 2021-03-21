@@ -111,7 +111,7 @@ type
       const I, AX, AY: Integer);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
     function ConfirmDialog(const S: string): Boolean;
-    procedure InformDialog(const S: string; ABackScene: TSceneEnum = scSettlement);
+    procedure InformDialog(const S: string);
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean;
     function GetPartyPosition(const MX, MY: Integer): Integer;
@@ -125,6 +125,8 @@ type
     FScene: array [TSceneEnum] of IScene;
     procedure SetScene(const ASceneEnum: TSceneEnum);
   public
+    InformMsg: string;
+    IsShowInform: Boolean;
     constructor Create;
     destructor Destroy; override;
     procedure Show(const S: TSceneEnum); override;
@@ -149,6 +151,7 @@ uses
   SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.ConfirmationForm,
+  DisciplesRL.Button,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Settlement,
@@ -160,6 +163,7 @@ uses
 
 var
   MediaAvailable: Boolean;
+  Button: TButton;
 
   { TScene }
 
@@ -223,12 +227,11 @@ begin
   end;
 end;
 
-procedure TScene.InformDialog(const S: string; ABackScene: TSceneEnum =
-  scSettlement);
+procedure TScene.InformDialog(const S: string);
 begin
   MediaPlayer.Play(mmExit);
-  TSceneHire.Msg := S;
-  TSceneHire.Show(stInform, ABackScene);
+  Scenes.InformMsg := S;
+  Scenes.IsShowInform := True;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
@@ -360,7 +363,7 @@ end;
 
 constructor TScenes.Create;
 var
-  J: Integer;
+  J, L: Integer;
 begin
   Randomize;
   //
@@ -370,6 +373,9 @@ begin
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
+  inherited Create;
+  InformMsg := '';
+  IsShowInform := False;
   //
   TSaga.Wizard := False;
   TSaga.NoMusic := False;
@@ -400,11 +406,16 @@ begin
   FScene[scBattle2] := TSceneBattle2.Create;
   FScene[scBattle3] := TSceneBattle3.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
+  //
+  L := ScrWidth - (ResImage[reButtonDef].Width div 2);
+  Button := TButton.Create(L, 400, reTextOk);
+  Button.Sellected := True;
 end;
 
 destructor TScenes.Destroy;
 begin
   MediaPlayer.Stop;
+  FreeAndNil(Button);
   FreeAndNil(MediaPlayer);
   FreeAndNil(Surface);
   TSaga.PartyFree;
@@ -421,6 +432,21 @@ procedure TScenes.MouseDown(AButton: TMouseButton; Shift: TShiftState;
 begin
   if (FScene[SceneEnum] <> nil) then
   begin
+    if IsShowInform then
+    begin
+      case AButton of
+        mbLeft:
+          begin
+            if Button.MouseDown then
+            begin
+              IsShowInform := False;
+              Self.Render;
+              Exit;
+            end else
+              Exit;
+          end;
+      end;
+    end;
     FScene[SceneEnum].MouseDown(AButton, Shift, X, Y);
     Self.Render;
   end;
@@ -431,6 +457,11 @@ begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
   begin
+    if IsShowInform then
+    begin
+      Button.MouseMove(X, Y);
+      Exit;
+    end;
     FScene[SceneEnum].MouseMove(Shift, X, Y);
     Self.Render;
   end;
@@ -438,11 +469,19 @@ end;
 
 procedure TScenes.Render;
 begin
+  inherited;
   if (FScene[SceneEnum] <> nil) then
   begin
     Surface.Canvas.Brush.Color := clBlack;
     Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
     FScene[SceneEnum].Render;
+    if IsShowInform then
+    begin
+      DrawImage(ScrWidth - (ResImage[reBigFrame].Width div 2), 150,
+        ResImage[reBigFrame]);
+      DrawText(250, InformMsg);
+      Button.Render;
+    end;
     MainForm.Canvas.Draw(0, 0, Surface);
   end;
 end;
@@ -474,6 +513,19 @@ procedure TScenes.Update(var Key: Word);
 begin
   if (FScene[SceneEnum] <> nil) then
   begin
+    if IsShowInform then
+    begin
+      case Key of
+        K_ESCAPE, K_ENTER:
+          begin
+            IsShowInform := False;
+            Self.Render;
+            Exit;
+          end
+        else
+          Exit;
+      end;
+    end;
     FScene[SceneEnum].Update(Key);
     Self.Render;
   end;

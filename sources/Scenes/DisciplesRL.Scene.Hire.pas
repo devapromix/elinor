@@ -17,7 +17,7 @@ uses
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
-    stVictory, stDefeat, stHighScores2, stLoot, stInform, stStoneTab,
+    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
     stDifficulty, stSpy);
 
 type
@@ -38,7 +38,6 @@ type
       const AX, AY: Integer);
   public
     class var
-      Msg: string;
       MPX: Integer;
       MPY: Integer;
     constructor Create;
@@ -94,8 +93,6 @@ const
     (reTextClose, reTextClose),
     // Loot
     (reTextClose, reTextClose),
-    // Inform
-    (reTextOk, reTextOk),
     // StoneTab
     (reTextClose, reTextClose),
     // Spy
@@ -104,8 +101,8 @@ const
     (reTextContinue, reTextCancel));
 
 const
-  AddButtonScene = [stLoot, stStoneTab, stInform];
-  CloseButtonScene = [stJournal, stVictory, stDefeat, stInform, stHighScores2] +
+  AddButtonScene = [stLoot, stStoneTab];
+  CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
     AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
     stDifficulty, stSpy];
@@ -232,7 +229,7 @@ var
 
   procedure NoSpy;
   begin
-    InformDialog('Вы использовали все попытки!', scMap);
+    InformDialog('Вы использовали все попытки!');
   end;
 
   function TrySpy(ChanceOfSuccess: Byte): Boolean;
@@ -249,10 +246,6 @@ var
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
-    stInform:
-      begin
-        Scenes.Show(BackScene);
-      end;
     stRace:
       begin
         TSaga.LeaderRace := TRaceEnum(CurrentIndex + 1);
@@ -355,7 +348,7 @@ begin
                   I := TSaga.GetPartyIndex(MPX, MPY);
                   Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
                   Party[I].TakeDamageAll(Damage);
-                  InformDialog('Вы успешно отравили провизию врага!', scMap);
+                  InformDialog('Вы успешно отравили провизию врага!');
                 end;
               end else NoSpy;
             end
@@ -1026,13 +1019,6 @@ begin
             end;
         end;
       end;
-    stInform:
-      begin
-        DrawImage(reWallpaperScenario);
-        DrawImage(ScrWidth - (ResImage[reBigFrame].Width div 2), 150,
-          ResImage[reBigFrame]);
-        DrawText(300, Msg);
-      end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reActFrame].Width + 2, Top, reInfoFrame);
@@ -1067,7 +1053,6 @@ begin
             end;
         end;
       end;
-
     stRace:
       RenderRaceInfo;
     stDifficulty:
