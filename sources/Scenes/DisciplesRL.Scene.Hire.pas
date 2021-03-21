@@ -246,7 +246,10 @@ var
   begin
     Result := RandomRange(0, 100) <= ThiefChanceOfSuccess(V);
     if not Result then
-      TLeaderParty.Leader.PutAt(MPX, MPY);
+      begin
+        InformDialog('Вы потерпели неудачу и вступаете в схватку!');
+        TLeaderParty.Leader.PutAt(MPX, MPY);
+      end;
   end;
 
 begin
