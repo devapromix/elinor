@@ -360,8 +360,8 @@ begin
     Mana := Mana + (ManaMines * ManaFromMinePerDay);
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
       TLeaderParty.Leader.HealAll(LeaderWarriorHealAllInPartyPerDay);
-    TLeaderParty.Leader.Spells := TLeaderParty.Leader.MaxSpells;
-    TLeaderParty.Leader.Spy := TLeaderParty.Leader.MaxSpy;
+    TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
+    TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
     ShowNewDayMessage := 20;
     MediaPlayer.Play(mmDay);
     IsDay := False;

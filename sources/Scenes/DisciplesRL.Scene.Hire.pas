@@ -312,7 +312,10 @@ begin
             end;
           svDuel:
             begin
+              if TLeaderParty.Leader.Spy > 0 then
+              begin
 
+              end;
             end;
           svPoison:
             begin
@@ -651,7 +654,10 @@ begin
   S := TLeaderThiefSpyVar(CurrentIndex);
   Add(V[S], True);
   Add;
-  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.MaxSpy]));
+  case S of
+    svDuel, svPoison:
+    Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.GetMaxSpy]));
+  end;
 end;
 
 procedure RenderButtons;

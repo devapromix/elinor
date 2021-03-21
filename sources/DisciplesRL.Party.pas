@@ -85,12 +85,8 @@ type
     FMaxLeadership: Integer;
     FRadius: Integer;
     FSpells: Integer;
-    FMaxSpells: Integer;
     FSpy: Integer;
-    FMaxSpy: Integer;
-    function GetMaxSpy: Integer;
     function GetRadius: Integer;
-    function GetMaxSpells: Integer;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -103,9 +99,7 @@ type
     property MaxLeadership: Integer read FMaxLeadership;
     property Radius: Integer read GetRadius;
     property Spells: Integer read FSpells write FSpells;
-    property MaxSpells: Integer read GetMaxSpells;
     property Spy: Integer read FSpy write FSpy;
-    property MaxSpy: Integer read GetMaxSpy;
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
@@ -118,6 +112,8 @@ type
     class function GetPosition: TPosition;
     function InRadius(const AX, AY: Integer): Boolean;
     function Enum: TCreatureEnum;
+    function GetMaxSpy: Integer;
+    function GetMaxSpells: Integer;
   end;
 
 var
@@ -463,10 +459,8 @@ begin
   Speed := MaxSpeed;
   FMaxLeadership := 1;
   FRadius := IfThen(TSaga.Wizard, 9, 1);
-  FMaxSpells := 1;
-  FSpells := FMaxSpells;
-  FMaxSpy := 1;
-  FSpy := FMaxSpy;
+  FSpells := GetMaxSpells;
+  FSpy := GetMaxSpy;
   Self.UpdateRadius;
 end;
 
@@ -475,10 +469,6 @@ begin
   inherited Create(AX, AY, AOwner);
   FMaxLeadership := 1;
   FRadius := 1;
-  FMaxSpells := 1;
-  FSpells := FMaxSpells;
-  FMaxSpy := 1;
-  FSpy := FMaxSpy;
 end;
 
 destructor TLeaderParty.Destroy;
@@ -495,7 +485,7 @@ end;
 function TLeaderParty.GetMaxSpells: Integer;
 begin
   Result := IfThen(TLeaderParty.Leader.Enum in LeaderMage,
-    TSaga.LeaderMageCanCastSpellsPerDay, FMaxSpells);
+    TSaga.LeaderMageCanCastSpellsPerDay, 1);
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
@@ -514,7 +504,7 @@ end;
 function TLeaderParty.GetMaxSpy: Integer;
 begin
   Result := IfThen(TLeaderParty.Leader.Enum in LeaderThief,
-    TSaga.LeaderThiefSpyAttemptCountPerDay, FMaxSpy);
+    TSaga.LeaderThiefSpyAttemptCountPerDay, 1);
 end;
 
 function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;
