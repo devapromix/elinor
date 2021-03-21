@@ -223,7 +223,8 @@ begin
   end;
 end;
 
-procedure TScene.InformDialog(const S: string; ABackScene: TSceneEnum = scSettlement);
+procedure TScene.InformDialog(const S: string; ABackScene: TSceneEnum =
+  scSettlement);
 begin
   MediaPlayer.Play(mmExit);
   TSceneHire.Msg := S;

@@ -235,6 +235,16 @@ var
     InformDialog('Вы использовали все попытки!', scMap);
   end;
 
+  function TrySpy(ChanceOfSuccess: Byte): Boolean;
+  begin
+    Result := RandomRange(0, 100) <= ChanceOfSuccess;
+    // Failure
+    if not Result then
+      begin
+        TLeaderParty.Leader.PutAt(MPX, MPY)
+      end;
+  end;
+
 begin
   MediaPlayer.Play(mmClick);
   case SubScene of
@@ -317,7 +327,10 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                TLeaderParty.Leader.PutAt(MPX, MPY, True);
+                if TrySpy(90) then
+                begin
+                  TLeaderParty.Leader.PutAt(MPX, MPY, True);
+                end;
               end else NoSpy;
             end;
           svDuel:
@@ -325,7 +338,10 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
+                if TrySpy(90) then
+                begin
 
+                end;
               end else NoSpy;
             end;
           svPoison:
@@ -333,10 +349,13 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                I := TSaga.GetPartyIndex(MPX, MPY);
-                Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
-                Party[I].TakeDamageAll(Damage);
-                InformDialog('Вам удалось отравить провизию врага!', scMap);
+                if TrySpy(90) then
+                begin
+                  I := TSaga.GetPartyIndex(MPX, MPY);
+                  Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
+                  Party[I].TakeDamageAll(Damage);
+                  InformDialog('Вы успешно отравили провизию врага!', scMap);
+                end;
               end else NoSpy;
             end
           else
