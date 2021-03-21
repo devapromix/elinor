@@ -351,6 +351,7 @@ begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TrySpy(svPoison) then
                 begin
+                  I := TSaga.GetPartyIndex(MPX, MPY);
                   Party[I].TakeDamageAll(ThiefPoisonDamage);
                   InformDialog('Вы успешно отравили провизию врага!');
                 end;
