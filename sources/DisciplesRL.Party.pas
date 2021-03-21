@@ -603,7 +603,6 @@ begin
         end;
       reEnemy:
         begin
-          TSaga.IsDuel := True;
           if TSaga.NewBattle then
             Scenes.Show(scBattle3)
           else

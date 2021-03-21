@@ -244,7 +244,7 @@ var
 
   function TrySpy(V: TLeaderThiefSpyVar): Boolean;
   begin
-    Result := RandomRange(0, 100) <= ThiefChanceOfSuccess(V);
+    Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V)) or TSaga.Wizard;
     if not Result then
       begin
         InformDialog('Вы потерпели неудачу и вступаете в схватку!');
@@ -343,7 +343,9 @@ begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TrySpy(svDuel) then
                 begin
-
+                  InformDialog('Вы вызвали противника на дуэль!');
+                  TSaga.IsDuel := True;
+                  TLeaderParty.Leader.PutAt(MPX, MPY);
                 end;
               end else NoSpy;
             end;
@@ -356,7 +358,7 @@ begin
                 begin
                   I := TSaga.GetPartyIndex(MPX, MPY);
                   Party[I].TakeDamageAll(ThiefPoisonDamage);
-                  InformDialog('Вы успешно отравили провизию врага!');
+                  InformDialog('Вы отравили все колодцы в округе!');
                 end;
               end else NoSpy;
             end

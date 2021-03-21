@@ -243,6 +243,11 @@ end;
 
 procedure TSceneBattle2.Victory;
 begin
+  if TSaga.IsDuel then
+  begin
+    TSaga.IsDuel := False;
+    InformDialog('Вы победили на дуэли и воины вражеского отряда разбежались!');
+  end;
   MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
