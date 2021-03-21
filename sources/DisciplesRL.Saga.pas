@@ -78,6 +78,7 @@ type
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
     IsDay: Boolean;
+    IsDuel: Boolean;
     Wizard: Boolean;
     NoMusic: Boolean;
     NewBattle: Boolean;

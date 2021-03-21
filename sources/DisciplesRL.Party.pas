@@ -261,7 +261,7 @@ var
 begin
   repeat
     Position := RandomRange(Low(TPosition), High(TPosition) + 1);
-  until GetHitPoints(Position) > 0;
+  until FCreature[Position].Active and (GetHitPoints(Position) > 0);
   Result := Position;
 end;
 
@@ -603,6 +603,7 @@ begin
         end;
       reEnemy:
         begin
+          TSaga.IsDuel := True;
           if TSaga.NewBattle then
             Scenes.Show(scBattle3)
           else

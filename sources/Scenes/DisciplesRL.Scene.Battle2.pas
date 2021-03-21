@@ -17,6 +17,9 @@ type
   TTurnType = (ttHeal, ttDamage, ttFear);
 
 type
+
+  { TSceneBattle2 }
+
   TSceneBattle2 = class(TScene)
   private
     InitiativeList: TStringList;
@@ -72,6 +75,7 @@ uses
 
 var
   CloseButton: TButton;
+  DuelEnemyParty: TParty;
 
 const
   Rows = 7;
@@ -260,12 +264,22 @@ end;
 procedure TSceneBattle2.StartBattle;
 var
   I: Integer;
+  Position: TPosition;
 begin
   Log.Clear;
   Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  EnemyParty := Party[I];
-  LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+  if TSaga.IsDuel then
+  begin
+    DuelEnemyParty.Clear;
+    Position := Party[I].GetRandomPosition;
+    DuelEnemyParty.AddCreature(Party[I].Creature[Position].Enum, Position);
+    EnemyParty := DuelEnemyParty;
+    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+  end else begin
+    EnemyParty := Party[I];
+    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+  end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
   // SelectPartyPosition := ActivePartyPosition;
@@ -592,10 +606,12 @@ begin
   CloseButton.Sellected := True;
   Log := TLog.Create(Left, DefaultButtonTop - 20);
   InitiativeList := TStringList.Create;
+  DuelEnemyParty := TParty.Create;
 end;
 
 destructor TSceneBattle2.Destroy;
 begin
+  FreeAndNil(DuelEnemyParty);
   FreeAndNil(InitiativeList);
   FreeAndNil(CloseButton);
   FreeAndNil(Log);
