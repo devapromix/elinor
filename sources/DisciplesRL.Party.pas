@@ -112,6 +112,7 @@ type
     class function GetPosition: TPosition;
     function InRadius(const AX, AY: Integer): Boolean;
     function Enum: TCreatureEnum;
+    function Level: Integer;
     function GetMaxSpy: Integer;
     function GetMaxSpells: Integer;
   end;
@@ -480,6 +481,11 @@ end;
 function TLeaderParty.Enum: TCreatureEnum;
 begin
   Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum;
+end;
+
+function TLeaderParty.Level: Integer;
+begin
+  Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Level;
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;

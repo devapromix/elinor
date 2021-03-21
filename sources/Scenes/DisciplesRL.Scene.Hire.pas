@@ -237,7 +237,8 @@ var
 
   function TrySpy(ChanceOfSuccess: Byte): Boolean;
   begin
-    Result := RandomRange(0, 100) <= ChanceOfSuccess;
+    Result := RandomRange(0, 100) <= ChanceOfSuccess -
+      (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
     // Failure
     if not Result then
       begin
@@ -338,7 +339,7 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                if TrySpy(90) then
+                if TrySpy(80) then
                 begin
 
                 end;
@@ -349,7 +350,7 @@ begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                if TrySpy(90) then
+                if TrySpy(70) then
                 begin
                   I := TSaga.GetPartyIndex(MPX, MPY);
                   Damage := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
