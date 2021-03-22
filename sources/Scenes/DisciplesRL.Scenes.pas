@@ -34,6 +34,7 @@ type
 procedure DrawText(const AX, AY: Integer; AText: string); overload;
 procedure DrawText(const AY: Integer; AText: string); overload;
 procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
+procedure DrawText(const AX, AY: Integer; AText: string; F: Boolean); overload;
 
 const
   K_ESCAPE = 27;
@@ -285,6 +286,20 @@ var
 begin
   S := Surface.Canvas.TextWidth(AText);
   DrawText((Surface.Width div 2) - (S div 2), AY, AText);
+end;
+
+procedure DrawText(const AX, AY: Integer; AText: string; F: Boolean);
+var
+  N: Integer;
+begin
+  if F then
+  begin
+    N := Surface.Canvas.Font.Size;
+    Surface.Canvas.Font.Size := N * 2;
+  end;
+  DrawText(AX, AY, AText);
+  if F then
+    Surface.Canvas.Font.Size := N;
 end;
 
 procedure TScene.RenderFrame(const PartySide: TPartySide;

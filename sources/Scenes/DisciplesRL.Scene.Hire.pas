@@ -420,17 +420,8 @@ var
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
   begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    DrawText(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
+    DrawText(L, T, S, F);
     Inc(T, H);
   end;
 
@@ -539,17 +530,8 @@ var
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
   begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    DrawText(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
+    DrawText(L, T, S, F);
     Inc(T, H);
   end;
 
@@ -576,17 +558,8 @@ var
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
   begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    DrawText(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
+    DrawText(L, T, S, F);
     Inc(T, H);
   end;
 
@@ -613,17 +586,8 @@ var
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
   begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    DrawText(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
+    DrawText(L, T, S, F);
     Inc(T, H);
   end;
 
@@ -667,17 +631,8 @@ var
   end;
 
   procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
   begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    DrawText(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
+    DrawText(L, T, S, F);
     Inc(T, H);
   end;
 
