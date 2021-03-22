@@ -147,8 +147,7 @@ type
     class procedure PartyFree; static;
     class function GetPartyCount: Integer; static;
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
-    class procedure AddPartyAt(const AX, AY: Integer;
-      IsFinal: Boolean = False); static;
+    class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
     class procedure ModifyGold(Amount: Integer); static;
     class procedure ModifyMana(Amount: Integer); static;

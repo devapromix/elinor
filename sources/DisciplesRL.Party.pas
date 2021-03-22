@@ -115,6 +115,7 @@ type
     function Level: Integer;
     function GetMaxSpy: Integer;
     function GetMaxSpells: Integer;
+    function IsPartyOwner(const AX, AY: Integer): Boolean;
   end;
 
 var
@@ -492,6 +493,14 @@ function TLeaderParty.GetMaxSpells: Integer;
 begin
   Result := IfThen(TLeaderParty.Leader.Enum in LeaderMage,
     TSaga.LeaderMageCanCastSpellsPerDay, 1);
+end;
+
+function TLeaderParty.IsPartyOwner(const AX, AY: Integer): Boolean;
+var
+  CurrentPartyIndex: Integer;
+begin
+  CurrentPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  Result := TLeaderParty.Leader.Owner = Party[CurrentPartyIndex].Owner;
 end;
 
 class function TLeaderParty.GetPosition: TPosition;

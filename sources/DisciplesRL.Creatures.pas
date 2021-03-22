@@ -436,9 +436,6 @@ type
   TCreatureGender = (cgMale, cgFemale, cgNeuter, cgPlural);
 
 type
-  TLogMessage = function: string of object;
-
-type
   TCreatureBase = record
     Race: TRaceEnum;
     SubRace: TSubRaceEnum;
@@ -490,9 +487,6 @@ type
     class function GetRandomEnum(const P, Position: Integer)
       : TCreatureEnum; static;
   end;
-
-var
-  BowAttack: TLogMessage;
 
 implementation
 

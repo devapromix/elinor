@@ -60,7 +60,8 @@ begin
     mbMiddle:
       begin
         if TSaga.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
-          and (TLeaderParty.Leader.Enum in LeaderThief)) then
+          and (TLeaderParty.Leader.Enum in LeaderThief)
+          and not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y)) then
             begin
               TSceneHire.MPX := MousePos.X;
               TSceneHire.MPY := MousePos.Y;
