@@ -25,6 +25,10 @@ type
   { TSceneHire }
 
   TSceneHire = class(TScene)
+  private const
+    H = 25;
+  private var
+    T, L: Integer;
   private
     procedure Ok;
     procedure Back;
@@ -34,6 +38,9 @@ type
       const AX, AY: Integer);
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
+    procedure Add; overload;
+    procedure Add(S: string; F: Boolean = False); overload;
+    procedure RenderRaceInfo;
   public
     class var
       MPX: Integer;
@@ -517,24 +524,21 @@ begin
   end;
 end;
 
-procedure RenderRaceInfo;
-const
-  H = 25;
+procedure TSceneHire.Add;
+begin
+  Inc(T, H);
+end;
+
+procedure TSceneHire.Add(S: string; F: Boolean = False);
+begin
+  DrawText(L, T, S, F);
+  Inc(T, H);
+end;
+
+procedure TSceneHire.RenderRaceInfo;
 var
   R: TRaceEnum;
-  T, L, J: Integer;
-
-  procedure Add; overload;
-  begin
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string; F: Boolean = False); overload;
-  begin
-    DrawText(L, T, S, F);
-    Inc(T, H);
-  end;
-
+  J: Integer;
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
