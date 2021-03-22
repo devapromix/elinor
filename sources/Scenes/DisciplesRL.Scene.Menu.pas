@@ -9,10 +9,20 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
+  DisciplesRL.Button,
+  DisciplesRL.Resources,
   DisciplesRL.Scenes;
 
 type
   TSceneMenu = class(TScene)
+  private type
+    TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
+  private const
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
+      reTextHighScores, reTextQuit);
+  private var
+    MainMenuCursorPos: Integer;
+    Button: array [TButtonEnum] of TButton;
   private
     procedure Next;
   public
@@ -31,22 +41,9 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Resources,
-  DisciplesRL.Button,
   DisciplesRL.MainForm,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire;
-
-type
-  TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
-
-const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
-    reTextHighScores, reTextQuit);
-
-var
-  MainMenuCursorPos: Integer = 0;
-  Button: array [TButtonEnum] of TButton;
 
 procedure TSceneMenu.Next;
 begin
@@ -83,7 +80,7 @@ begin
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   H := ResImage[reButtonDef].Height + 10;
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for I in TButtonEnum do
   begin
     Button[I] := TButton.Create(L, T, ButtonText[I]);
     if (I = btPlay) then
@@ -96,7 +93,7 @@ destructor TSceneMenu.Destroy;
 var
   I: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for I in TButtonEnum do
     FreeAndNil(Button[I]);
   inherited;
 end;
@@ -110,7 +107,7 @@ begin
   case AButton of
     mbLeft:
       begin
-        for I := Low(TButtonEnum) to High(TButtonEnum) do
+        for I in TButtonEnum do
           if Button[I].MouseDown then
           begin
             MainMenuCursorPos := Ord(I);
@@ -125,7 +122,7 @@ var
   I: TButtonEnum;
 begin
   inherited;
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for I in TButtonEnum do
     Button[I].MouseMove(X, Y);
   Render;
 end;
@@ -136,7 +133,7 @@ procedure TSceneMenu.Render;
   var
     I: TButtonEnum;
   begin
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
+    for I in TButtonEnum do
     begin
       Button[I].Sellected := (Ord(I) = MainMenuCursorPos);
       Button[I].Render;
