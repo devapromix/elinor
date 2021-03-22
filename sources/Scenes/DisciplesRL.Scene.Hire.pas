@@ -832,7 +832,6 @@ var
   D: TSaga.TDifficultyEnum;
   Z: TLeaderThiefSpyVar;
   ItemRes: TResEnum;
-  GM, MM: Boolean;
   It1, It2, It3: TResEnum;
   C: TCreatureEnum;
 
@@ -866,8 +865,6 @@ begin
   It1 := reNone;
   It2 := reNone;
   It3 := reNone;
-  GM := TSaga.GoldMines > 0;
-  MM := TSaga.ManaMines > 0;
   case SubScene of
     stCharacter:
       begin
@@ -915,7 +912,7 @@ begin
       begin
         DrawImage(reWallpaperDifficulty);
         DrawTitle(reTitleDifficulty);
-        for D := dfEasy to dfHard do
+        for D in TSaga.TDifficultyEnum do
         begin
           if Ord(D) = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -928,7 +925,7 @@ begin
     stRace:
       begin
         DrawTitle(reTitleRace);
-        for R := reTheEmpire to reLegionsOfTheDamned do
+        for R in Races do
         begin
           if Ord(R) - 1 = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)

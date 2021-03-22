@@ -490,7 +490,9 @@ type
 
 implementation
 
-uses Math, DisciplesRL.Saga;
+uses
+  Math,
+  DisciplesRL.Saga;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (

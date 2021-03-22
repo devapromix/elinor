@@ -46,7 +46,6 @@ implementation
 
 uses
   Math,
-  Types,
   SysUtils,
   DisciplesRL.Resources,
   DisciplesRL.Saga,

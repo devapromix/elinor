@@ -222,6 +222,8 @@ begin
     end;
   // Capital and Cities
   TPlace.Gen;
+  RX := 0;
+  RY := 0;
   X := TMap.Place[0].X;
   Y := TMap.Place[0].Y;
   for I := 1 to High(TMap.Place) do

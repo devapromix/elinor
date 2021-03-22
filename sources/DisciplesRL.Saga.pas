@@ -172,8 +172,7 @@ const
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
-  Level, N, P: Integer;
-  I: TPosition;
+  Level, P: Integer;
   Cr: TCreatureEnum;
 begin
   Level := EnsureRange((TMap.GetDistToCapital(AX, AY) div 3) +
