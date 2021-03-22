@@ -9,11 +9,13 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
+  DisciplesRL.Button,
   DisciplesRL.Scenes;
 
 type
   TSceneBattle3 = class(TScene)
   private
+    Button: TButton;
     procedure Start;
     procedure Finish;
   public
@@ -32,11 +34,7 @@ implementation
 
 uses
   SysUtils,
-  DisciplesRL.Button,
   DisciplesRL.Resources;
-
-var
-  Button: TButton;
 
   { TSceneBattle3 }
 

@@ -16,6 +16,8 @@ uses
 
 type
   TSceneMap = class(TScene)
+  private var
+    LastMousePos, MousePos: TPoint;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -38,9 +40,6 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Party,
   DisciplesRL.Creatures;
-
-var
-  LastMousePos, MousePos: TPoint;
 
   { TSceneMap }
 

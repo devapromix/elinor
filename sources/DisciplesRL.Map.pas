@@ -111,7 +111,7 @@ var
   L: TLayerEnum;
   I: Integer;
 begin
-  for L := Low(TLayerEnum) to High(TLayerEnum) do
+  for L in TLayerEnum do
   begin
     SetLength(Map[L], MapWidth, MapHeight);
     Clear(L);
