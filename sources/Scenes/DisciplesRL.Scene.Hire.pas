@@ -29,9 +29,15 @@ type
     H = 25;
   private var
     T, L: Integer;
-  private
+  strict private
+    function ThiefPoisonDamage: Integer;
+    function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
+    procedure RenderButtons;
     procedure Ok;
     procedure Back;
+    procedure RenderDifficultyInfo;
+    procedure RenderScenarioInfo;
+    procedure RenderSpyInfo;
     procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
@@ -40,7 +46,12 @@ type
       const AX, AY: Integer);
     procedure Add; overload;
     procedure Add(S: string; F: Boolean = False); overload;
+    procedure Add(S, V: string); overload;
+    procedure Add(S: string; V, M: Integer); overload;
+    procedure Add(S: string; V: Integer; R: string = ''); overload;
     procedure RenderRaceInfo;
+    procedure RenderHighScores;
+    procedure RenderFinalInfo;
   public
     class var
       MPX: Integer;
@@ -227,14 +238,14 @@ begin
   end;
 end;
 
-function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
+function TSceneHire.ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
 const
   S: array [TLeaderThiefSpyVar] of Byte = (95, 80, 65);
 begin
     Result := S[V] - (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
 end;
 
-function ThiefPoisonDamage: Integer;
+function TSceneHire.ThiefPoisonDamage: Integer;
 begin
   Result := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
 end;
@@ -404,40 +415,8 @@ begin
 end;
 
 procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum);
-const
-  H = 25;
 var
-  L, T, J: Integer;
-
-  procedure Add; overload;
-  begin
-    Inc(T, H - 4);
-  end;
-
-  procedure Add(S, V: string); overload;
-  begin
-    DrawText(L, T, Format('%s: %s', [S, V]));
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string; V: Integer; R: string = ''); overload;
-  begin
-    DrawText(L, T, Format('%s: %d%s', [S, V, R]));
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string; F: Boolean = False); overload;
-  begin
-    DrawText(L, T, S, F);
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string; V, M: Integer); overload;
-  begin
-    DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
-    Inc(T, H);
-  end;
-
+  J: Integer;
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
@@ -535,6 +514,24 @@ begin
   Inc(T, H);
 end;
 
+procedure TSceneHire.Add(S, V: string);
+begin
+  DrawText(L, T, Format('%s: %s', [S, V]));
+  Inc(T, H);
+end;
+
+procedure TSceneHire.Add(S: string; V: Integer; R: string = ''); overload;
+begin
+  DrawText(L, T, Format('%s: %d%s', [S, V, R]));
+  Inc(T, H);
+end;
+
+procedure TSceneHire.Add(S: string; V, M: Integer); overload;
+begin
+  DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
+  Inc(T, H);
+end;
+
 procedure TSceneHire.RenderRaceInfo;
 var
   R: TRaceEnum;
@@ -549,24 +546,10 @@ begin
     Add(RaceDescription[R][J]);
 end;
 
-procedure RenderDifficultyInfo;
-const
-  H = 25;
+procedure TSceneHire.RenderDifficultyInfo;
 var
   D: TSaga.TDifficultyEnum;
-  T, L, J: Integer;
-
-  procedure Add; overload;
-  begin
-    Inc(T, H - 4);
-  end;
-
-  procedure Add(S: string; F: Boolean = False); overload;
-  begin
-    DrawText(L, T, S, F);
-    Inc(T, H);
-  end;
-
+  J: Integer;
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
@@ -577,24 +560,10 @@ begin
     Add(TSaga.DifficultyDescription[D][J]);
 end;
 
-procedure RenderScenarioInfo;
-const
-  H = 25;
+procedure TSceneHire.RenderScenarioInfo;
 var
   S: TScenario.TScenarioEnum;
-  T, L, J: Integer;
-
-  procedure Add; overload;
-  begin
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string; F: Boolean = False); overload;
-  begin
-    DrawText(L, T, S, F);
-    Inc(T, H);
-  end;
-
+  J: Integer;
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
@@ -612,34 +581,20 @@ begin
     end;
 end;
 
-procedure RenderFinalInfo;
+procedure TSceneHire.RenderFinalInfo;
 begin
 
 end;
 
-procedure RenderHighScores;
+procedure TSceneHire.RenderHighScores;
 begin
 
 end;
 
-procedure RenderSpyInfo;
-const
-  H = 25;
+procedure TSceneHire.RenderSpyInfo;
 var
-  T, L, J: Integer;
+  J: Integer;
   S: TLeaderThiefSpyVar;
-
-  procedure Add; overload;
-  begin
-    Inc(T, H);
-  end;
-
-  procedure Add(S: string; F: Boolean = False); overload;
-  begin
-    DrawText(L, T, S, F);
-    Inc(T, H);
-  end;
-
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
@@ -652,7 +607,8 @@ begin
   Add;
   Add;
   Add;
-  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy, TLeaderParty.Leader.GetMaxSpy]));
+  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+    TLeaderParty.Leader.GetMaxSpy]));
   Add(Format('Вероятность успеха: %d %', [ThiefChanceOfSuccess(S)]));
   case S of
     svPoison:
@@ -660,14 +616,14 @@ begin
   end;
 end;
 
-procedure RenderButtons;
+procedure TSceneHire.RenderButtons;
 var
   I: TButtonEnum;
 begin
   if (SubScene in CloseButtonScene) then
     Button[SubScene][btOk].Render
   else
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
+    for I in TButtonEnum do
       Button[SubScene][I].Render;
 end;
 
@@ -692,23 +648,23 @@ constructor TSceneHire.Create;
 var
   I: TButtonEnum;
   J: THireSubSceneEnum;
-  L, W: Integer;
+  Lc, W: Integer;
 begin
   inherited;
   MPX := 0;
   MPY := 0;
-  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
+  for J in THireSubSceneEnum do
   begin
     W := ResImage[reButtonDef].Width + 4;
     if (J in CloseButtonScene) then
-      L := ScrWidth - (ResImage[reButtonDef].Width div 2)
+      Lc := ScrWidth - (ResImage[reButtonDef].Width div 2)
     else
-      L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
+      Lc := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+    for I in TButtonEnum do
     begin
-      Button[J][I] := TButton.Create(L, 600, ButtonText[J][I]);
+      Button[J][I] := TButton.Create(Lc, 600, ButtonText[J][I]);
       if not(J in CloseButtonScene) then
-        Inc(L, W);
+        Inc(Lc, W);
       if (I = btOk) then
         Button[J][I].Sellected := True;
     end;
@@ -721,8 +677,8 @@ var
   J: THireSubSceneEnum;
   I: TButtonEnum;
 begin
-  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for J in THireSubSceneEnum do
+    for I in TButtonEnum do
       FreeAndNil(Button[J][I]);
   inherited;
 end;
@@ -777,7 +733,7 @@ begin
   if (SubScene in CloseButtonScene) then
     Button[SubScene][btOk].MouseMove(X, Y)
   else
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
+    for I in TButtonEnum do
       Button[SubScene][I].MouseMove(X, Y);
   Render;
 end;
@@ -829,7 +785,7 @@ begin
       begin
         DrawImage(reWallpaperSettlement);
         DrawTitle(reTitleHire);
-        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
+        for K in TRaceCharKind do
         begin
           if K = TRaceCharKind(CurrentIndex) then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -851,7 +807,7 @@ begin
       begin
         DrawImage(reWallpaperLeader);
         DrawTitle(reTitleLeader);
-        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
+        for K in TRaceCharKind do
         begin
           if K = TRaceCharKind(CurrentIndex) then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -911,8 +867,7 @@ begin
       begin
         DrawImage(reWallpaperScenario);
         DrawTitle(reTitleScenario);
-        for S := Low(TScenario.TScenarioEnum)
-          to High(TScenario.TScenarioEnum) do
+        for S in TScenario.TScenarioEnum do
         begin
           if Ord(S) = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)
