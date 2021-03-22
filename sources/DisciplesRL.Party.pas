@@ -170,7 +170,7 @@ var
   Position: TPosition;
 begin
   Result := False;
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     if (Creature[Position].HitPoints > 0) then
       Exit;
   Result := True;
@@ -190,7 +190,7 @@ procedure TParty.Clear;
 var
   Position: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     TCreature.Clear(FCreature[Position]);
 end;
 
@@ -231,7 +231,7 @@ var
   Position: TPosition;
 begin
   Result := 0;
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     with Creature[Position] do
       if Active then
         Inc(Result, MaxHitPoints);
@@ -271,7 +271,7 @@ var
   Position: TPosition;
 begin
   Result := -1;
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     with FCreature[Position] do
       if Active then
         Inc(Result);
@@ -282,7 +282,7 @@ var
   Position: TPosition;
 begin
   Result := 0;
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     with FCreature[Position] do
       if Active and (HitPoints > 0) then
       begin
@@ -308,7 +308,7 @@ procedure TParty.HealAll(const AHitPoints: Integer);
 var
   Position: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     Heal(Position, AHitPoints);
 end;
 
@@ -396,7 +396,7 @@ procedure TParty.TakeDamageAll(const ADamage: Integer);
 var
   Position: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
+  for Position in TPosition do
     TakeDamage(ADamage, Position);
 end;
 

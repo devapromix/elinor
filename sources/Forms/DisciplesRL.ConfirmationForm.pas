@@ -126,7 +126,7 @@ begin
   W := ResImage[reButtonDef].Width + 4;
   L := (Surface.Width div 2) - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   Y := ResImage[reBigFrame].Height - (ResImage[reButtonDef].Height + 10);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for I in TButtonEnum do
   begin
     Buttons[I] := TButton.Create(L, Y, ButtonsText[I]);
     Inc(L, W);
@@ -142,7 +142,7 @@ procedure TConfirmationForm.FormDestroy(Sender: TObject);
 var
   I: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for I in TButtonEnum do
     FreeAndNil(Buttons[I]);
   FreeAndNil(Button);
   FreeAndNil(Surface);
@@ -153,7 +153,7 @@ procedure TConfirmationForm.FormMouseMove(Sender: TObject; Shift: TShiftState;
 var
   I: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for I in TButtonEnum do
     Buttons[I].MouseMove(X, Y);
   Button.MouseMove(X, Y);
 end;

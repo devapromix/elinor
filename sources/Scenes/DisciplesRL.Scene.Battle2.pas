@@ -17,9 +17,6 @@ type
   TTurnType = (ttHeal, ttDamage, ttFear);
 
 type
-
-  { TSceneBattle2 }
-
   TSceneBattle2 = class(TScene)
   private
     InitiativeList: TStringList;
@@ -220,7 +217,7 @@ begin
     begin
       CharExp := EnsureRange(EnemyParty.GetExperience div LeaderParty.
         GetAliveCreatures, 1, 9999);
-      for Position := Low(TPosition) to High(TPosition) do
+      for Position in TPosition do
         with LeaderParty.Creature[Position] do
           if Active and (HitPoints > 0) then
           begin
@@ -229,7 +226,7 @@ begin
               CharExp]));
           end;
     end;
-    for Position := Low(TPosition) to High(TPosition) do
+    for Position in TPosition do
       with LeaderParty.Creature[Position] do
         if Active and (HitPoints > 0) then
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
@@ -492,7 +489,7 @@ begin
           end;
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
-          for Position := Low(TPosition) to High(TPosition) do
+          for Position in TPosition do
             if DefParty.Creature[Position].Active and
               (DefParty.Creature[Position].HitPoints > 0) then
             begin
@@ -526,7 +523,7 @@ begin
     case Party.Creature[AtkPos].ReachEnum of
       reAll:
         begin
-          for Position := Low(TPosition) to High(TPosition) do
+          for Position in TPosition do
             with Party.Creature[Position] do
               if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
               begin
@@ -557,7 +554,7 @@ begin
   case AtkParty.Creature[AtkPos].ReachEnum of
     reAll:
       begin
-        for Position := Low(TPosition) to High(TPosition) do
+        for Position in TPosition do
           with DefParty.Creature[Position] do
             if Active and (HitPoints > 0) then
             begin

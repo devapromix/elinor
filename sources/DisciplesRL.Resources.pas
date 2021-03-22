@@ -450,13 +450,13 @@ var
   I: TResEnum;
   J: TMusicEnum;
 begin
-  for I := Low(TResEnum) to High(TResEnum) do
+  for I in TResEnum do
   begin
     ResImage[I] := TPNGImage.Create;
     if (ResBase[I].FileName <> '') then
       ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
   end;
-  for J := Low(TMusicEnum) to High(TMusicEnum) do
+  for J in TMusicEnum do
   begin
     case MusicBase[J].ResType of
       teSound:
@@ -471,7 +471,7 @@ procedure Free;
 var
   I: TResEnum;
 begin
-  for I := Low(TResEnum) to High(TResEnum) do
+  for I in TResEnum do
     FreeAndNil(ResImage[I]);
 end;
 
