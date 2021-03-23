@@ -132,8 +132,7 @@ var
     CurPosition := -1;
     MinHitPoints := 99999;
     for Position := 0 to 5 do
-      if LeaderParty.Creature[Position].Active and
-        (LeaderParty.Creature[Position].HitPoints > 0) then
+      if LeaderParty.Creature[Position].Alive then
       begin
         if (LeaderParty.Creature[Position].HitPoints < MinHitPoints) then
         begin
@@ -153,8 +152,7 @@ var
     Position: TPosition;
   begin
     for Position := 0 to 5 do
-      if LeaderParty.Creature[Position].Active and
-        (LeaderParty.Creature[Position].HitPoints > 0) then
+      if LeaderParty.Creature[Position].Alive then
       begin
         CurrentPartyPosition := Position;
         ClickOnPosition;
@@ -178,8 +176,7 @@ var
       begin
         for Position := 0 to 5 do
         begin
-          if LeaderParty.Creature[Position].Active and
-            (LeaderParty.Creature[Position].HitPoints > 0) then
+          if LeaderParty.Creature[Position].Alive then
           begin
             CurrentPartyPosition := Position;
             ClickOnPosition;
@@ -219,7 +216,7 @@ begin
         GetAliveCreatures, 1, 9999);
       for Position in TPosition do
         with LeaderParty.Creature[Position] do
-          if Active and (HitPoints > 0) then
+          if Alive then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
             Log.Add(Format('%s получил%s опыт +%d', [Name[0], GenderEnding,
@@ -228,7 +225,7 @@ begin
     end;
     for Position in TPosition do
       with LeaderParty.Creature[Position] do
-        if Active and (HitPoints > 0) then
+        if Alive then
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
@@ -314,10 +311,8 @@ end;
 procedure TSceneBattle2.Turn(const TurnType: TTurnType;
   AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
 begin
-  if AtkParty.Creature[AtkPos].Active and DefParty.Creature[DefPos].Active then
+  if AtkParty.Creature[AtkPos].Alive and DefParty.Creature[DefPos].Alive then
   begin
-    if (AtkParty.Creature[AtkPos].HitPoints > 0) and
-      (DefParty.Creature[DefPos].HitPoints > 0) then
     begin
       if AtkParty.Creature[AtkPos].ChancesToHit < RandomRange(0, 100) + 1 then
       begin
@@ -490,8 +485,7 @@ begin
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           for Position in TPosition do
-            if DefParty.Creature[Position].Active and
-              (DefParty.Creature[Position].HitPoints > 0) then
+            if DefParty.Creature[Position].Alive then
             begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
               Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
@@ -525,7 +519,7 @@ begin
         begin
           for Position in TPosition do
             with Party.Creature[Position] do
-              if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
+              if Alive and (HitPoints < MaxHitPoints) then
               begin
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
                 Log.Add(Format('%s исцеляет %s.',
@@ -535,7 +529,7 @@ begin
         end
     else
       with Party.Creature[DefPos] do
-        if Active and (HitPoints > 0) and (HitPoints < MaxHitPoints) then
+        if Alive and (HitPoints < MaxHitPoints) then
         begin
           Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
           Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
@@ -556,7 +550,7 @@ begin
       begin
         for Position in TPosition do
           with DefParty.Creature[Position] do
-            if Active and (HitPoints > 0) then
+            if Alive then
             begin
               DefParty.Paralyze(Position);
               Log.Add(Format('%s парализует %s.',
@@ -566,7 +560,7 @@ begin
       end
   else
     with DefParty.Creature[DefPos] do
-      if Active and (HitPoints > 0) then
+      if Alive then
       begin
         DefParty.Paralyze(DefPos);
         Log.Add(Format('%s парализует %s.', [AtkParty.Creature[AtkPos].Name[0],
@@ -703,14 +697,12 @@ begin
     InitiativeList.Add('');
     case I of
       0 .. 5:
-        if LeaderParty.Creature[I].Active and (LeaderParty.GetHitPoints(I) > 0)
-        then
+        if LeaderParty.Creature[I].Alive then
           InitiativeList[I] :=
             Format('%d:%d', [LeaderParty.GetInitiative(I), I]);
     else
       begin
-        if EnemyParty.Creature[I - 6].Active and
-          (EnemyParty.GetHitPoints(I - 6) > 0) then
+        if EnemyParty.Creature[I - 6].Alive then
           InitiativeList[I] :=
             Format('%d:%d', [EnemyParty.GetInitiative(I - 6), I]);
       end;

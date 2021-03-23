@@ -257,13 +257,10 @@ begin
 end;
 
 function TParty.GetRandomPosition: TPosition;
-var
-  Position: TPosition;
 begin
   repeat
-    Position := RandomRange(Low(TPosition), High(TPosition) + 1);
-  until FCreature[Position].Active and (GetHitPoints(Position) > 0);
-  Result := Position;
+    Result := RandomRange(Low(TPosition), High(TPosition) + 1);
+  until FCreature[Result].Alive;
 end;
 
 function TParty.GetCount: Integer;
@@ -284,23 +281,21 @@ begin
   Result := 0;
   for Position in TPosition do
     with FCreature[Position] do
-      if Active and (HitPoints > 0) then
-      begin
+      if Alive then
         Inc(Result);
-      end;
 end;
 
 procedure TParty.Heal(const APosition: TPosition);
 begin
   with FCreature[APosition] do
-    if (Active and (HitPoints > 0)) then
+    if Alive then
       HitPoints := MaxHitPoints;
 end;
 
 procedure TParty.Heal(const APosition: TPosition; const AHitPoints: Integer);
 begin
   with FCreature[APosition] do
-    if (Active and (HitPoints > 0)) then
+    if Alive then
       HitPoints := EnsureRange(HitPoints + AHitPoints, 0, MaxHitPoints);
 end;
 
@@ -332,7 +327,7 @@ end;
 procedure TParty.Revive(const APosition: TPosition);
 begin
   with FCreature[APosition] do
-    if (Active and (HitPoints <= 0)) then
+    if Alive then
       HitPoints := 1;
 end;
 
@@ -404,13 +399,12 @@ procedure TParty.UpdateHP(const AHitPoints: Integer;
   const APosition: TPosition);
 begin
   with FCreature[APosition] do
-    if Active then
-      if (HitPoints > 0) then
-        if (AHitPoints > 0) then
-          if (HitPoints + AHitPoints <= MaxHitPoints) then
-            HitPoints := HitPoints + AHitPoints
-          else
-            HitPoints := MaxHitPoints;
+    if Alive then
+      if (AHitPoints > 0) then
+        if (HitPoints + AHitPoints <= MaxHitPoints) then
+          HitPoints := HitPoints + AHitPoints
+        else
+          HitPoints := MaxHitPoints;
 end;
 
 procedure TParty.UpdateLevel(const APosition: TPosition);
@@ -435,10 +429,9 @@ procedure TParty.UpdateXP(const AExperience: Integer;
   const APosition: TPosition);
 begin
   with FCreature[APosition] do
-    if Active then
-      if (HitPoints > 0) then
-        if (AExperience > 0) then
-          Experience := Experience + AExperience;
+    if Alive then
+      if (AExperience > 0) then
+        Experience := Experience + AExperience;
 end;
 
 { TLeaderParty }

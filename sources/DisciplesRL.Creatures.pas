@@ -460,6 +460,9 @@ type
   end;
 
 type
+
+  { TCreature }
+
   TCreature = record
     Active: Boolean;
     Paralyze: Boolean;
@@ -478,6 +481,7 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
+    function Alive: Boolean;
     function IsLeader(): Boolean;
     function GenderEnding(VerbForm: Byte = 0): string;
     class procedure Clear(var ACreature: TCreature); static;
@@ -966,6 +970,11 @@ begin
     (CreatureBase[TCreatureEnum(N)].ReachEnum = R) and
     (TSaga.LeaderRace <> CreatureBase[TCreatureEnum(N)].Race);
   Result := TCreatureEnum(N);
+end;
+
+function TCreature.Alive: Boolean;
+begin
+  Result := Active and (HitPoints > 0);
 end;
 
 function TCreature.IsLeader(): Boolean;
