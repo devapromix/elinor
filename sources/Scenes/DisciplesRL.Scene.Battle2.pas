@@ -214,7 +214,7 @@ begin
     begin
       CharExp := EnsureRange(EnemyParty.GetExperience div LeaderParty.
         GetAliveCreatures, 1, 9999);
-      for Position in TPosition do
+      for Position := Low(TPosition) to High(TPosition) do
         with LeaderParty.Creature[Position] do
           if Alive then
           begin
@@ -223,7 +223,7 @@ begin
               CharExp]));
           end;
     end;
-    for Position in TPosition do
+    for Position := Low(TPosition) to High(TPosition) do
       with LeaderParty.Creature[Position] do
         if Alive then
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
@@ -275,7 +275,9 @@ begin
     DuelEnemyParty.AddCreature(Party[I].Creature[Position].Enum, Position);
     EnemyParty := DuelEnemyParty;
     LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
-  end else begin
+  end
+  else
+  begin
     EnemyParty := Party[I];
     LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   end;
@@ -484,7 +486,7 @@ begin
           end;
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
-          for Position in TPosition do
+          for Position := Low(TPosition) to High(TPosition) do
             if DefParty.Creature[Position].Alive then
             begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
@@ -517,7 +519,7 @@ begin
     case Party.Creature[AtkPos].ReachEnum of
       reAll:
         begin
-          for Position in TPosition do
+          for Position := Low(TPosition) to High(TPosition) do
             with Party.Creature[Position] do
               if Alive and (HitPoints < MaxHitPoints) then
               begin
@@ -548,7 +550,7 @@ begin
   case AtkParty.Creature[AtkPos].ReachEnum of
     reAll:
       begin
-        for Position in TPosition do
+        for Position := Low(TPosition) to High(TPosition) do
           with DefParty.Creature[Position] do
             if Alive then
             begin

@@ -85,7 +85,7 @@ var
   J, K: Integer;
 begin
   N := [];
-  for K in T do
+  for K := Low(T) to High(T) do
   begin
     repeat
       J := Random(10);
@@ -357,7 +357,7 @@ begin
   inherited;
   W := ResImage[reButtonDef].Width + 4;
   L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I in TButtonEnum do
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
     Inc(L, W);
@@ -370,7 +370,7 @@ destructor TSceneSettlement.Destroy;
 var
   I: TButtonEnum;
 begin
-  for I in TButtonEnum do
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Button[I]);
   inherited;
 end;
@@ -432,7 +432,7 @@ var
   I: TButtonEnum;
 begin
   inherited;
-  for I in TButtonEnum do
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
     Button[I].MouseMove(X, Y);
   Scenes.Render;
 end;
@@ -443,7 +443,7 @@ procedure TSceneSettlement.Render;
   var
     I: TButtonEnum;
   begin
-    for I in TButtonEnum do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
       Button[I].Render;
   end;
 

@@ -62,12 +62,12 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party;
 
-  type
-    TGetXYVal = function(X, Y: Integer): Boolean; stdcall;
+type
+  TGetXYVal = function(X, Y: Integer): Boolean; stdcall;
 
 function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
-    Callback: TGetXYVal; var TargetX, TargetY: Integer): Boolean;
-    external 'BeaRLibPF.dll';
+  Callback: TGetXYVal; var TargetX, TargetY: Integer): Boolean;
+  external 'BeaRLibPF.dll';
 
 var
   MapWidth: Integer = 40 + 2;
@@ -111,7 +111,7 @@ var
   L: TLayerEnum;
   I: Integer;
 begin
-  for L in TLayerEnum do
+  for L := Low(TLayerEnum) to High(TLayerEnum) do
   begin
     SetLength(Map[L], MapWidth, MapHeight);
     Clear(L);

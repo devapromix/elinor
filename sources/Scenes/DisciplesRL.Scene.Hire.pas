@@ -27,7 +27,8 @@ type
   TSceneHire = class(TScene)
   private const
     H = 25;
-  private var
+  private
+  var
     T, L: Integer;
   strict private
     function ThiefPoisonDamage: Integer;
@@ -53,9 +54,9 @@ type
     procedure RenderHighScores;
     procedure RenderFinalInfo;
   public
-    class var
-      MPX: Integer;
-      MPY: Integer;
+  class var
+    MPX: Integer;
+    MPY: Integer;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -242,7 +243,7 @@ function TSceneHire.ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
 const
   S: array [TLeaderThiefSpyVar] of Byte = (95, 80, 65);
 begin
-    Result := S[V] - (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
+  Result := S[V] - (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
 end;
 
 function TSceneHire.ThiefPoisonDamage: Integer;
@@ -264,10 +265,10 @@ var
   begin
     Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V)) or TSaga.Wizard;
     if not Result then
-      begin
-        InformDialog('Вы потерпели неудачу и вступаете в схватку!');
-        TLeaderParty.Leader.PutAt(MPX, MPY);
-      end;
+    begin
+      InformDialog('Вы потерпели неудачу и вступаете в схватку!');
+      TLeaderParty.Leader.PutAt(MPX, MPY);
+    end;
   end;
 
 begin
@@ -352,7 +353,9 @@ begin
                 begin
                   TLeaderParty.Leader.PutAt(MPX, MPY, True);
                 end;
-              end else NoSpy;
+              end
+              else
+                NoSpy;
             end;
           svDuel:
             begin
@@ -365,7 +368,9 @@ begin
                   TSaga.IsDuel := True;
                   TLeaderParty.Leader.PutAt(MPX, MPY);
                 end;
-              end else NoSpy;
+              end
+              else
+                NoSpy;
             end;
           svPoison:
             begin
@@ -378,10 +383,12 @@ begin
                   Party[I].TakeDamageAll(ThiefPoisonDamage);
                   InformDialog('Вы отравили все колодцы в округе!');
                 end;
-              end else NoSpy;
+              end
+              else
+                NoSpy;
             end
-          else
-            Scenes.Show(scMap);
+        else
+          Scenes.Show(scMap);
         end;
       end;
     stLoot:
@@ -465,7 +472,8 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
+procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar;
+  const AX, AY: Integer);
 begin
   case N of
     svIntroduceSpy:
@@ -520,13 +528,13 @@ begin
   Inc(T, H);
 end;
 
-procedure TSceneHire.Add(S: string; V: Integer; R: string = ''); overload;
+procedure TSceneHire.Add(S: string; V: Integer; R: string = '');
 begin
   DrawText(L, T, Format('%s: %d%s', [S, V, R]));
   Inc(T, H);
 end;
 
-procedure TSceneHire.Add(S: string; V, M: Integer); overload;
+procedure TSceneHire.Add(S: string; V, M: Integer);
 begin
   DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
   Inc(T, H);
@@ -623,7 +631,7 @@ begin
   if (SubScene in CloseButtonScene) then
     Button[SubScene][btOk].Render
   else
-    for I in TButtonEnum do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
       Button[SubScene][I].Render;
 end;
 
@@ -653,14 +661,14 @@ begin
   inherited;
   MPX := 0;
   MPY := 0;
-  for J in THireSubSceneEnum do
+  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
     W := ResImage[reButtonDef].Width + 4;
     if (J in CloseButtonScene) then
       Lc := ScrWidth - (ResImage[reButtonDef].Width div 2)
     else
       Lc := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-    for I in TButtonEnum do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
       Button[J][I] := TButton.Create(Lc, 600, ButtonText[J][I]);
       if not(J in CloseButtonScene) then
@@ -677,8 +685,8 @@ var
   J: THireSubSceneEnum;
   I: TButtonEnum;
 begin
-  for J in THireSubSceneEnum do
-    for I in TButtonEnum do
+  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
       FreeAndNil(Button[J][I]);
   inherited;
 end;
@@ -733,7 +741,7 @@ begin
   if (SubScene in CloseButtonScene) then
     Button[SubScene][btOk].MouseMove(X, Y)
   else
-    for I in TButtonEnum do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
       Button[SubScene][I].MouseMove(X, Y);
   Render;
 end;
@@ -785,7 +793,7 @@ begin
       begin
         DrawImage(reWallpaperSettlement);
         DrawTitle(reTitleHire);
-        for K in TRaceCharKind do
+        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
           if K = TRaceCharKind(CurrentIndex) then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -807,7 +815,7 @@ begin
       begin
         DrawImage(reWallpaperLeader);
         DrawTitle(reTitleLeader);
-        for K in TRaceCharKind do
+        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
           if K = TRaceCharKind(CurrentIndex) then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -827,7 +835,7 @@ begin
       begin
         DrawImage(reWallpaperDifficulty);
         DrawTitle(reTitleDifficulty);
-        for D in TSaga.TDifficultyEnum do
+        for D := dfEasy to dfHard do
         begin
           if Ord(D) = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -840,7 +848,7 @@ begin
     stRace:
       begin
         DrawTitle(reTitleRace);
-        for R in Races do
+        for R := reTheEmpire to reLegionsOfTheDamned do
         begin
           if Ord(R) - 1 = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)
@@ -867,7 +875,8 @@ begin
       begin
         DrawImage(reWallpaperScenario);
         DrawTitle(reTitleScenario);
-        for S in TScenario.TScenarioEnum do
+        for S := Low(TScenario.TScenarioEnum)
+          to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)

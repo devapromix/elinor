@@ -37,12 +37,11 @@ type
     reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
     reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
-    reTitleThief,
-    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
-    reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
-    reDifficultyNormalLogo, reDifficultyHardLogo, reWallpaperSettlement,
-    reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat, reWallpaperDifficulty,
-    reWallpaperLeader, reWallpaperScenario);
+    reTitleThief, reScenarioDarkTower, reScenarioOverlord,
+    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
+    reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
+    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
+    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -329,11 +328,11 @@ type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
     mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
     mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmSpearAttack,
-    mmDaggerAttack, mmClubAttack, mmBlock, mmMiss, mmNosferatAttack, mmLichQueenAttack,
-    mmHumHit, mmHumDeath, mmGoblinHit, mmGoblinDeath, mmOrcHit, mmOrcDeath,
-    mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit, mmSpiderDeath,
-    mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack, mmHit, mmDeath,
-    mmAttack, mmGold);
+    mmDaggerAttack, mmClubAttack, mmBlock, mmMiss, mmNosferatAttack,
+    mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit, mmGoblinDeath,
+    mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
+    mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack,
+    mmHit, mmDeath, mmAttack, mmGold);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -450,13 +449,13 @@ var
   I: TResEnum;
   J: TMusicEnum;
 begin
-  for I in TResEnum do
+  for I := Low(TResEnum) to High(TResEnum) do
   begin
     ResImage[I] := TPNGImage.Create;
     if (ResBase[I].FileName <> '') then
       ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
   end;
-  for J in TMusicEnum do
+  for J := Low(TMusicEnum) to High(TMusicEnum) do
   begin
     case MusicBase[J].ResType of
       teSound:
@@ -471,7 +470,7 @@ procedure Free;
 var
   I: TResEnum;
 begin
-  for I in TResEnum do
+  for I := Low(TResEnum) to High(TResEnum) do
     FreeAndNil(ResImage[I]);
 end;
 

@@ -20,7 +20,8 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
       reTextHighScores, reTextQuit);
-  private var
+  private
+  var
     MainMenuCursorPos: Integer;
     Button: array [TButtonEnum] of TButton;
   private
@@ -80,7 +81,7 @@ begin
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   H := ResImage[reButtonDef].Height + 10;
   T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I in TButtonEnum do
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Button[I] := TButton.Create(L, T, ButtonText[I]);
     if (I = btPlay) then
@@ -93,7 +94,7 @@ destructor TSceneMenu.Destroy;
 var
   I: TButtonEnum;
 begin
-  for I in TButtonEnum do
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Button[I]);
   inherited;
 end;
@@ -107,7 +108,7 @@ begin
   case AButton of
     mbLeft:
       begin
-        for I in TButtonEnum do
+        for I := Low(TButtonEnum) to High(TButtonEnum) do
           if Button[I].MouseDown then
           begin
             MainMenuCursorPos := Ord(I);
@@ -122,7 +123,7 @@ var
   I: TButtonEnum;
 begin
   inherited;
-  for I in TButtonEnum do
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
     Button[I].MouseMove(X, Y);
   Render;
 end;
@@ -133,7 +134,7 @@ procedure TSceneMenu.Render;
   var
     I: TButtonEnum;
   begin
-    for I in TButtonEnum do
+    for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
       Button[I].Sellected := (Ord(I) = MainMenuCursorPos);
       Button[I].Render;
