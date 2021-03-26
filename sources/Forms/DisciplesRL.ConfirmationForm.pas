@@ -3,7 +3,7 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Classes,
   SysUtils,
   Forms,
@@ -12,7 +12,7 @@ uses
   Dialogs,
   ExtCtrls,
   StdCtrls;
-  {$ELSE}
+{$ELSE}
   Winapi.Windows,
   Winapi.Messages,
   SysUtils,
@@ -24,10 +24,7 @@ uses
   Vcl.Dialogs,
   Vcl.ExtCtrls,
   Vcl.StdCtrls;
-  {$ENDIF}
-
-type
-  TConfirmationSubSceneEnum = (stConfirm);
+{$ENDIF}
 
 type
   TConfirmationForm = class(TForm)
@@ -47,7 +44,6 @@ type
   public
     { Public declarations }
     Msg: string;
-    SubScene: TConfirmationSubSceneEnum;
   end;
 
 var
@@ -74,7 +70,6 @@ const
 
 var
   Buttons: array [TButtonEnum] of TButton;
-  Button: TButton;
 
 procedure TConfirmationForm.Ok;
 begin
@@ -98,15 +93,10 @@ end;
 
 procedure TConfirmationForm.FormClick(Sender: TObject);
 begin
-  case SubScene of
-    stConfirm:
-      begin
-        if Buttons[btOk].MouseDown then
-          Ok;
-        if Buttons[btCancel].MouseDown then
-          Back;
-      end;
-  end;
+  if Buttons[btOk].MouseDown then
+    Ok;
+  if Buttons[btCancel].MouseDown then
+    Back;
 end;
 
 procedure TConfirmationForm.FormCreate(Sender: TObject);
@@ -129,13 +119,11 @@ begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Buttons[I] := TButton.Create(L, Y, ButtonsText[I]);
+    Buttons[I].Canvas := Surface.Canvas;
     Inc(L, W);
     if (I = btOk) then
       Buttons[I].Sellected := True;
   end;
-  Button := TButton.Create((Surface.Width div 2) -
-    (ResImage[reButtonDef].Width div 2), Y, Surface.Canvas, reTextClose);
-  Button.Sellected := True;
 end;
 
 procedure TConfirmationForm.FormDestroy(Sender: TObject);
@@ -144,7 +132,6 @@ var
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[I]);
-  FreeAndNil(Button);
   FreeAndNil(Surface);
 end;
 
@@ -155,7 +142,6 @@ var
 begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     Buttons[I].MouseMove(X, Y);
-  Button.MouseMove(X, Y);
 end;
 
 procedure TConfirmationForm.FormPaint(Sender: TObject);
@@ -165,14 +151,9 @@ begin
   Surface.Canvas.Brush.Color := clBlack;
   Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
   Surface.Canvas.Draw(0, 0, ResImage[reBigFrame]);
-  case SubScene of
-    stConfirm:
-      begin
-        CenterTextOut(150, Msg);
-        for I := Low(Buttons) to High(Buttons) do
-          Buttons[I].Render;
-      end;
-  end;
+  CenterTextOut(150, Msg);
+  for I := Low(Buttons) to High(Buttons) do
+    Buttons[I].Render;
   Canvas.Draw(0, 0, Surface);
 end;
 

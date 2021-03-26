@@ -159,6 +159,10 @@ procedure TSceneMenu.Update(var Key: Word);
 begin
   inherited;
   case Key of
+    K_B:
+      begin
+        ConfirmDialog('???');
+      end;
     K_ENTER:
       Next;
     K_ESCAPE:

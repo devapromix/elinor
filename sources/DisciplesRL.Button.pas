@@ -3,12 +3,12 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Graphics,
-  {$ELSE}
+{$ELSE}
   Vcl.Graphics,
   Vcl.Imaging.PNGImage,
-  {$ENDIF}
+{$ENDIF}
   DisciplesRL.Resources;
 
 type
@@ -39,6 +39,7 @@ type
     property Left: Integer read FLeft;
     property Sellected: Boolean read FSellected write FSellected;
     property State: TButtonState read FState write FState;
+    property Canvas: TCanvas read FCanvas write FCanvas;
     procedure MouseMove(X, Y: Integer);
     function Width: Integer;
     function Height: Integer;

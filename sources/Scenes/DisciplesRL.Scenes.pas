@@ -220,7 +220,6 @@ function TScene.ConfirmDialog(const S: string): Boolean;
 begin
   Result := False;
   ConfirmationForm.Msg := S;
-  ConfirmationForm.SubScene := stConfirm;
   ConfirmationForm.ShowModal;
   case ConfirmationForm.ModalResult of
     mrOk:
