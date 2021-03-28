@@ -23,7 +23,7 @@ type
     reNoWay, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
     reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
     reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
-    reRuin, reTower, reTreePine, reTreeOak, reMineGold, reMineMana, reMountain1,
+    reRuin, reTower, reTreePine, reTreeOak, reUndeadHordesTree, reMineGold, reMineMana, reMountain1,
     reMountain2, reMountain3, reMountain4, reButtonDef, reButtonAct, reCorpse,
     reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher,
     reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon,
@@ -51,6 +51,7 @@ const
     reLegionsOfTheDamnedTerrain];
   MountainTiles = [reMountain1, reMountain2, reMountain3, reMountain4];
   StopTiles = MountainTiles + [reDark];
+  TreesTiles = [reTreePine, reTreeOak];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
@@ -147,6 +148,8 @@ const
     (FileName: 'tile.tree.pine.png'; ResType: teTree;),
     // Oak
     (FileName: 'tile.tree.oak.png'; ResType: teTree;),
+    // Undead Hordes Tree
+    (FileName: 'tile.tree.undead_hordes.png'; ResType: teTree;),
     // Gold Mine
     (FileName: 'tile.mine.gold.png'; ResType: teMine;),
     // Mana Mine
