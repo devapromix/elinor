@@ -305,10 +305,14 @@ begin
           Continue
         else
         begin
-          // Undead Hordes Tree
-          if (Map[lrObj][AX + X, AY + Y] in TreesTiles) and
-            (Map[lrTile][AX + X, AY + Y] = reUndeadHordesTerrain) then
+          // Dead Trees
+          if (Map[lrObj][AX + X, AY + Y] in TreesTiles) then
+          case Map[lrTile][AX + X, AY + Y] of
+            reUndeadHordesTerrain:
               Map[lrObj][AX + X, AY + Y] := reUndeadHordesTree;
+            reLegionsOfTheDamnedTerrain:
+              Map[lrObj][AX + X, AY + Y] := reLegionsOfTheDamnedTree;
+          end;
           // Add Gold Mine
           if (MapLayer = Map[lrTile]) and
             (Map[lrObj][AX + X, AY + Y] = reMineGold) and

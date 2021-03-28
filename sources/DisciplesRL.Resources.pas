@@ -23,7 +23,8 @@ type
     reNoWay, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
     reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
     reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
-    reRuin, reTower, reTreePine, reTreeOak, reUndeadHordesTree, reMineGold, reMineMana, reMountain1,
+    reRuin, reTower, reTreePine, reTreeOak, reUndeadHordesTree,
+    reLegionsOfTheDamnedTree, reMineGold, reMineMana, reMountain1,
     reMountain2, reMountain3, reMountain4, reButtonDef, reButtonAct, reCorpse,
     reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher,
     reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon,
@@ -150,6 +151,8 @@ const
     (FileName: 'tile.tree.oak.png'; ResType: teTree;),
     // Undead Hordes Tree
     (FileName: 'tile.tree.undead_hordes.png'; ResType: teTree;),
+    // Legions Of The Damned Tree
+    (FileName: 'tile.tree.legions_of_the_damned.png'; ResType: teTree;),
     // Gold Mine
     (FileName: 'tile.mine.gold.png'; ResType: teMine;),
     // Mana Mine
