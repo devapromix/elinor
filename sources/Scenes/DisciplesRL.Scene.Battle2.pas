@@ -11,7 +11,8 @@ uses
   Classes,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
-  DisciplesRL.Party;
+  DisciplesRL.Party,
+  DisciplesRL.Battle;
 
 type
   TTurnType = (ttHeal, ttDamage, ttFear);
@@ -25,6 +26,7 @@ type
     EnemyParty: TParty;
     LeaderParty: TParty;
     FEnabled: Boolean;
+    Battle: TBattle;
     procedure SetInitiative;
     procedure ClickOnPosition;
     procedure ChExperience;
@@ -41,9 +43,6 @@ type
     procedure StartRound;
     function GetHitPoints(Position: Integer): Integer;
     procedure AI;
-    function GetLogMessage(AttackEnum: TAttackEnum;
-      SourceEnum: TSourceEnum): string;
-    procedure StartCastSpell(CrName: string; SourceEnum: TSourceEnum);
   public
     constructor Create;
     destructor Destroy; override;
@@ -288,18 +287,6 @@ begin
   StartRound;
 end;
 
-procedure TSceneBattle2.StartCastSpell(CrName: string; SourceEnum: TSourceEnum);
-begin
-  case RandomRange(0, 2) of
-    0:
-      Log.Add(Format('%s готовит заклинание. Его источник: %s.',
-        [CrName, SourceName[SourceEnum]]));
-    1:
-      Log.Add(Format('%s начинает колдовать. Источник магии: %s.',
-        [CrName, SourceName[SourceEnum]]));
-  end;
-end;
-
 procedure TSceneBattle2.FinishBattle;
 begin
   Log.Clear;
@@ -398,7 +385,7 @@ begin
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-          Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+          Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
             .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
             [AtkParty.Creature[AtkPos].Name[0],
             DefParty.Creature[DefPos].Name[1],
@@ -434,7 +421,7 @@ begin
                     .Sound[csAttack]);
                   Sleep(200);
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-                  Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+                  Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                     .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                     [AtkParty.Creature[AtkPos].Name[0],
                     DefParty.Creature[DefPos].Name[1],
@@ -459,7 +446,7 @@ begin
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
-                    Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+                    Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                       .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                       [AtkParty.Creature[AtkPos].Name[0],
                       DefParty.Creature[DefPos].Name[1],
@@ -481,8 +468,9 @@ begin
             crWyvern:
               ;
           else
-            StartCastSpell(TCreature.Character(AtkCrEnum).Name[0],
-              TCreature.Character(AtkCrEnum).SourceEnum);
+            Log.Add(Format(Battle.StartCastSpell,[
+              TCreature.Character(AtkCrEnum).Name[0],
+              SourceName[TCreature.Character(AtkCrEnum).SourceEnum]]));
           end;
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
@@ -490,7 +478,7 @@ begin
             if DefParty.Creature[Position].Alive then
             begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
-              Log.Add(Format(GetLogMessage(TCreature.Character(AtkCrEnum)
+              Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                 .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                 [AtkParty.Creature[AtkPos].Name[0],
                 DefParty.Creature[Position].Name[1],
@@ -605,10 +593,12 @@ begin
   Log := TLog.Create(Left, DefaultButtonTop - 20);
   InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;
+  Battle := TBattle.Create;
 end;
 
 destructor TSceneBattle2.Destroy;
 begin
+  FreeAndNil(Battle);
   FreeAndNil(DuelEnemyParty);
   FreeAndNil(InitiativeList);
   FreeAndNil(CloseButton);
@@ -756,67 +746,6 @@ begin
     6 .. 11:
       if EnemyParty.Creature[Position - 6].Active then
         Result := EnemyParty.GetHitPoints(Position - 6);
-  end;
-end;
-
-function TSceneBattle2.GetLogMessage(AttackEnum: TAttackEnum;
-  SourceEnum: TSourceEnum): string;
-begin
-  case AttackEnum of
-    atLongSword:
-      Result := '%s атакует мечом %s и наносит %d урона.';
-    atBattleAxe:
-      Result := '%s атакует боевым топором %s и наносит %d урона.';
-    atDagger:
-      Result := '%s атакует кинжалом %s и наносит %d урона.';
-    atDaggerOfShadows:
-      Result := '%s атакует Кинжалом Теней %s и наносит %d урона.';
-    atFireDagger:
-      Result := '%s атакует Кинжалом Пламени %s и наносит %d урона.';
-    atBow:
-      Result := 'Метким выстрелом %s поражает стрелой %s и наносит %d урона.';
-    atClub:
-      Result := '%s атакует булавой %s и наносит %d урона.';
-    atCrossbow:
-      Result := 'Молниеносно %s взводит арбалет и поражает %s, нанося %d урона.';
-    atStones:
-      Result := 'Метким броском %s поражает камнем %s и наносит %d урона.';
-    atPoisonousBreath:
-      Result := '%s атакует ядовитым дыханием %s и наносит %d урона.';
-    atDrainLife:
-      case RandomRange(0, 4) of
-        0:
-          Result := '%s пьет жизнь у %s и наносит %d урона.';
-        1:
-          Result := '%s забирает жизнь у %s и наносит %d урона.';
-        2:
-          Result := '%s выпивает жизнь у %s и наносит %d урона.';
-      else
-        Result := '%s высасывает жизнь у %s и наносит %d урона.';
-      end;
-    atHealing:
-      ;
-    atPoison:
-      ;
-    atMagic:
-      case SourceEnum of
-        seFire:
-          Result := '%s атакует огнем %s и наносит %d урона.';
-        seAir:
-          Result := '%s атакует молниями %s и наносит %d урона.';
-        seEarth:
-          Result := '%s атакует магией земли %s и наносит %d урона.';
-        seWater:
-          Result := '%s атакует водной магией %s и наносит %d урона.';
-      else
-        Result := '%s атакует магией %s и наносит %d урона.';
-      end;
-    atClaws:
-      Result := '%s разрывает когтями %s и наносит %d урона.';
-    atBites:
-      Result := '%s кусает %s и наносит %d урона.';
-  else
-    Result := '%s атакует %s и наносит %d урона.';
   end;
 end;
 
