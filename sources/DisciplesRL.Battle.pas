@@ -3,13 +3,20 @@
 interface
 
 uses
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.Button;
 
 type
 
   { TBattle }
 
   TBattle = class(TObject)
+  public
+    Log: TLog;
+    constructor Create;
+    destructor Destroy; override;
+    procedure Clear;
+    procedure Miss(AtkCrName, DefCrName: string);
     function StartCastSpell: string;
     function GetLogMessage(AttackEnum: TAttackEnum;
       SourceEnum: TSourceEnum): string;
@@ -20,9 +27,45 @@ implementation
 uses
   Classes,
   SysUtils,
-  Math;
+  Math,
+  DisciplesRL.Scenes;
 
 { TBattle }
+
+constructor TBattle.Create;
+begin
+  inherited;
+  Log := TLog.Create(Left, DefaultButtonTop - 20);
+end;
+
+destructor TBattle.Destroy;
+begin
+  inherited;
+  FreeAndNil(Log);
+end;
+
+procedure TBattle.Clear;
+begin
+  Log.Clear;
+end;
+
+procedure TBattle.Miss(AtkCrName, DefCrName: string);
+begin
+  case RandomRange(0, 6) of
+    0:
+      Log.Add(Format('%s пытается атаковать, но внезапно промахивается.', [AtkCrName]));
+    1:
+      Log.Add(Format('%s атакует мимо цели.', [AtkCrName]));
+    2:
+      Log.Add(Format('%s атакует... пустоту.', [AtkCrName]));
+    3:
+      Log.Add(Format('%s тщетно пытается атаковать.', [AtkCrName]));
+    4:
+      Log.Add(Format('%s атакует %s, но промахивается.', [AtkCrName, DefCrName]));
+  else
+    Log.Add(Format('%s промахивается.', [AtkCrName]));
+  end;
+end;
 
 function TBattle.StartCastSpell: string;
 begin

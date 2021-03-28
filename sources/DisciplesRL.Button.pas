@@ -9,6 +9,7 @@ uses
   Vcl.Graphics,
   Vcl.Imaging.PNGImage,
 {$ENDIF}
+  RLLog,
   DisciplesRL.Resources;
 
 type
@@ -48,12 +49,26 @@ type
     function MouseDown: Boolean;
   end;
 
+type
+  TLog = class(TRLLog)
+  private
+    FTop: Integer;
+    FLeft: Integer;
+  public
+    constructor Create(const ALeft, ATop: Integer);
+    procedure Render;
+  end;
+
 implementation
 
 { TButton }
 
 uses
+  Math,
   DisciplesRL.Scenes;
+
+const
+  LogRows = 7;
 
 constructor TButton.Create(ALeft, ATop: Integer; ARes: TResEnum);
 var
@@ -187,6 +202,30 @@ begin
   FCanvas.Draw(FTextLeft, FTextTop, ResImage[FText]);
   if (State = bsDown) and not MouseOver then
     State := bsNone;
+end;
+
+{ TLog }
+
+constructor TLog.Create(const ALeft, ATop: Integer);
+begin
+  inherited Create;
+  FTop := ATop;
+  FLeft := ALeft;
+end;
+
+procedure TLog.Render;
+var
+  I, Y, D: Integer;
+begin
+  if Count <= 0 then
+    Exit;
+  Y := 0;
+  D := EnsureRange(Count - LogRows, 0, Count - 1);
+  for I := D to Count - 1 do
+  begin
+    DrawText(FLeft, FTop + Y, Get(I));
+    Inc(Y, 16);
+  end;
 end;
 
 end.

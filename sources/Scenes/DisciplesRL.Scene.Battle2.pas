@@ -59,7 +59,6 @@ type
 implementation
 
 uses
-  RLLog,
   Math,
   SysUtils,
   DisciplesRL.Saga,
@@ -74,49 +73,8 @@ var
   DuelEnemyParty: TParty;
 
 const
-  Rows = 7;
   Speed = 12;
 
-{$REGION RLLog}
-
-type
-  TLog = class(TRLLog)
-  private
-    FTop: Integer;
-    FLeft: Integer;
-  public
-    constructor Create(const ALeft, ATop: Integer);
-    procedure Render;
-  end;
-
-var
-  Log: TLog;
-
-  { TLog }
-
-constructor TLog.Create(const ALeft, ATop: Integer);
-begin
-  inherited Create;
-  FTop := ATop;
-  FLeft := ALeft;
-end;
-
-procedure TLog.Render;
-var
-  I, Y, D: Integer;
-begin
-  if Count <= 0 then
-    Exit;
-  Y := 0;
-  D := EnsureRange(Count - Rows, 0, Count - 1);
-  for I := D to Count - 1 do
-  begin
-    DrawText(FLeft, FTop + Y, Get(I));
-    Inc(Y, 16);
-  end;
-end;
-
-{$ENDREGION RLLog}
 { TSceneBattle2 }
 
 procedure TSceneBattle2.AI;
@@ -218,7 +176,7 @@ begin
           if Alive then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Log.Add(Format('%s получил%s опыт +%d', [Name[0], GenderEnding,
+            Battle.Log.Add(Format('%s получил%s опыт +%d', [Name[0], GenderEnding,
               CharExp]));
           end;
     end;
@@ -228,7 +186,7 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Log.Add(Format('%s повысил%s уровень до %d!',
+            Battle.Log.Add(Format('%s повысил%s уровень до %d!',
               [Name[0], GenderEnding, Level + 1]));
           end;
   end;
@@ -264,7 +222,7 @@ var
   I: Integer;
   Position: TPosition;
 begin
-  Log.Clear;
+  Battle.Clear;
   Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if TSaga.IsDuel then
@@ -289,7 +247,7 @@ end;
 
 procedure TSceneBattle2.FinishBattle;
 begin
-  Log.Clear;
+  Battle.Clear;
   MediaPlayer.Stop;
   if LeaderParty.IsClear then
     Defeat;
@@ -305,27 +263,8 @@ begin
     begin
       if AtkParty.Creature[AtkPos].ChancesToHit < RandomRange(0, 100) + 1 then
       begin
-        case RandomRange(0, 6) of
-          0:
-            Log.Add(Format('%s пытается атаковать, но внезапно промахивается.',
-              [AtkParty.Creature[AtkPos].Name[0]]));
-          1:
-            Log.Add(Format('%s атакует мимо цели.',
-              [AtkParty.Creature[AtkPos].Name[0]]));
-          2:
-            Log.Add(Format('%s атакует... пустоту.',
-              [AtkParty.Creature[AtkPos].Name[0]]));
-          3:
-            Log.Add(Format('%s тщетно пытается атаковать.',
-              [AtkParty.Creature[AtkPos].Name[0]]));
-          4:
-            Log.Add(Format('%s атакует %s, но промахивается.',
-              [AtkParty.Creature[AtkPos].Name[0],
-              DefParty.Creature[DefPos].Name[1]]));
-        else
-          Log.Add(Format('%s промахивается.',
-            [AtkParty.Creature[AtkPos].Name[0]]));
-        end;
+        Battle.Miss(AtkParty.Creature[AtkPos].Name[0],
+          DefParty.Creature[DefPos].Name[1]);
         MediaPlayer.Play(mmMiss);
         Sleep(200);
         NextTurn;
@@ -333,7 +272,7 @@ begin
       end;
       if AtkParty.Creature[AtkPos].Paralyze then
       begin
-        Log.Add('Паралич прошел.');
+        Battle.Log.Add('Паралич прошел.');
         AtkParty.ClearParalyze(AtkPos);
         NextTurn;
         Exit;
@@ -385,7 +324,7 @@ begin
           MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-          Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+          Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
             .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
             [AtkParty.Creature[AtkPos].Name[0],
             DefParty.Creature[DefPos].Name[1],
@@ -421,7 +360,7 @@ begin
                     .Sound[csAttack]);
                   Sleep(200);
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-                  Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+                  Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                     .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                     [AtkParty.Creature[AtkPos].Name[0],
                     DefParty.Creature[DefPos].Name[1],
@@ -446,7 +385,7 @@ begin
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
-                    Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+                    Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                       .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                       [AtkParty.Creature[AtkPos].Name[0],
                       DefParty.Creature[DefPos].Name[1],
@@ -468,7 +407,7 @@ begin
             crWyvern:
               ;
           else
-            Log.Add(Format(Battle.StartCastSpell,[
+            Battle.Log.Add(Format(Battle.StartCastSpell,[
               TCreature.Character(AtkCrEnum).Name[0],
               SourceName[TCreature.Character(AtkCrEnum).SourceEnum]]));
           end;
@@ -478,7 +417,7 @@ begin
             if DefParty.Creature[Position].Alive then
             begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
-              Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+              Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                 .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                 [AtkParty.Creature[AtkPos].Name[0],
                 DefParty.Creature[Position].Name[1],
@@ -512,7 +451,7 @@ begin
               if Alive and (HitPoints < MaxHitPoints) then
               begin
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
-                Log.Add(Format('%s исцеляет %s.',
+                Battle.Log.Add(Format('%s исцеляет %s.',
                   [Party.Creature[AtkPos].Name[0],
                   Party.Creature[Position].Name[1]]));
               end;
@@ -522,7 +461,7 @@ begin
         if Alive and (HitPoints < MaxHitPoints) then
         begin
           Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
-          Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
+          Battle.Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
             Party.Creature[DefPos].Name[1]]));
         end;
     end;
@@ -543,7 +482,7 @@ begin
             if Alive then
             begin
               DefParty.Paralyze(Position);
-              Log.Add(Format('%s парализует %s.',
+              Battle.Log.Add(Format('%s парализует %s.',
                 [AtkParty.Creature[AtkPos].Name[0],
                 DefParty.Creature[Position].Name[1]]));
             end;
@@ -553,7 +492,7 @@ begin
       if Alive then
       begin
         DefParty.Paralyze(DefPos);
-        Log.Add(Format('%s парализует %s.', [AtkParty.Creature[AtkPos].Name[0],
+        Battle.Log.Add(Format('%s парализует %s.', [AtkParty.Creature[AtkPos].Name[0],
           DefParty.Creature[DefPos].Name[1]]));
       end;
   end;
@@ -590,7 +529,6 @@ begin
   CloseButton := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width +
     Left), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
-  Log := TLog.Create(Left, DefaultButtonTop - 20);
   InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;
   Battle := TBattle.Create;
@@ -602,7 +540,6 @@ begin
   FreeAndNil(DuelEnemyParty);
   FreeAndNil(InitiativeList);
   FreeAndNil(CloseButton);
-  FreeAndNil(Log);
   inherited;
 end;
 
@@ -669,7 +606,7 @@ begin
     ActivePartyPosition := -1;
     CloseButton.Render;
   end;
-  Log.Render;
+  Battle.Log.Render;
 end;
 
 procedure TSceneBattle2.StartRound;
