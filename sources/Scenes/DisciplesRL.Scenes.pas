@@ -74,6 +74,12 @@ const
   K_KP_8 = 104;
   K_KP_9 = 105;
 
+type
+  TConfirmMethod = procedure() of object;
+
+var
+  ConfirmHandler: TConfirmMethod;
+
   { TScene }
 
 type
@@ -112,6 +118,7 @@ type
       const I, AX, AY: Integer);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
     function ConfirmDialog(const S: string): Boolean;
+    procedure ConfirmDialog2(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean;
@@ -172,6 +179,7 @@ constructor TScene.Create;
 begin
   inherited;
   ScrWidth := Surface.Width div 2;
+  ConfirmHandler := nil;
 end;
 
 destructor TScene.Destroy;
@@ -225,6 +233,27 @@ begin
     mrOk:
       Result := True;
   end;
+end;
+
+procedure TScene.ConfirmDialog2(const S: string; OnYes: TConfirmMethod);
+begin
+  MediaPlayer.Play(mmExit);
+  Scenes.InformMsg := S;
+  //Scenes.IsShowConfirm := True;
+  ConfirmHandler := OnYes;
+  {
+  Confirm('Confirm?', @Ok);
+
+  procedure TForm1.ButtonClick(Sender: TObject);
+  begin
+    ......
+    if Assigned(ConfirmHandler) then
+    begin
+      ConfirmHandler();
+      ConfirmHandler := nil;
+    end;
+  end;
+  }
 end;
 
 procedure TScene.InformDialog(const S: string);
