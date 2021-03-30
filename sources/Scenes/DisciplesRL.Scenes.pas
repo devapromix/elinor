@@ -135,6 +135,7 @@ type
   public
     InformMsg: string;
     IsShowInform: Boolean;
+    IsShowConfirm: Boolean;
     constructor Create;
     destructor Destroy; override;
     procedure Show(const S: TSceneEnum); override;
@@ -172,6 +173,15 @@ uses
 var
   MediaAvailable: Boolean;
   Button: TButton;
+
+type
+  TButtonEnum = (btOk, btCancel);
+
+const
+  ButtonsText: array [TButtonEnum] of TResEnum = (reTextOk, reTextCancel);
+
+var
+  Buttons: array [TButtonEnum] of TButton;
 
   { TScene }
 
@@ -239,21 +249,8 @@ procedure TScene.ConfirmDialog2(const S: string; OnYes: TConfirmMethod);
 begin
   MediaPlayer.Play(mmExit);
   Scenes.InformMsg := S;
-  //Scenes.IsShowConfirm := True;
+  Scenes.IsShowConfirm := True;
   ConfirmHandler := OnYes;
-  {
-  Confirm('Confirm?', @Ok);
-
-  procedure TForm1.ButtonClick(Sender: TObject);
-  begin
-    ......
-    if Assigned(ConfirmHandler) then
-    begin
-      ConfirmHandler();
-      ConfirmHandler := nil;
-    end;
-  end;
-  }
 end;
 
 procedure TScene.InformDialog(const S: string);
@@ -407,6 +404,7 @@ end;
 constructor TScenes.Create;
 var
   J, L: Integer;
+  I: TButtonEnum;
 begin
   Randomize;
   //
@@ -416,9 +414,12 @@ begin
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
+  //
   inherited Create;
+  //
   InformMsg := '';
   IsShowInform := False;
+  IsShowConfirm := False;
   //
   TSaga.Wizard := False;
   TSaga.NoMusic := False;
@@ -450,14 +451,28 @@ begin
   FScene[scBattle3] := TSceneBattle3.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
   //
+  //Inform
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   Button := TButton.Create(L, 400, reTextOk);
   Button.Sellected := True;
+  //Confirm
+  L := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Buttons[I] := TButton.Create(L, 400, ButtonsText[I]);
+    Inc(L, ResImage[reButtonDef].Width);
+    if (I = btOk) then
+      Buttons[I].Sellected := True;
+  end;
 end;
 
 destructor TScenes.Destroy;
+var
+  I: TButtonEnum;
 begin
   MediaPlayer.Stop;
+  for I := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Buttons[I]);
   FreeAndNil(Button);
   FreeAndNil(MediaPlayer);
   FreeAndNil(Surface);
@@ -489,6 +504,34 @@ begin
               Exit;
           end;
       end;
+      Exit;
+    end;
+    if IsShowConfirm then
+    begin
+      case AButton of
+          mbLeft:
+            begin
+              if Buttons[btOk].MouseDown then
+              begin
+                IsShowConfirm := False;
+                if Assigned(ConfirmHandler) then
+                begin
+                  ConfirmHandler();
+                  ConfirmHandler := nil;
+                end;
+                Self.Render;
+                Exit;
+              end else
+              if Buttons[btCancel].MouseDown then
+              begin
+                IsShowConfirm := False;
+                Self.Render;
+                Exit;
+              end else
+                Exit;
+            end;
+      end;
+      Exit;
     end;
     FScene[SceneEnum].MouseDown(AButton, Shift, X, Y);
     Self.Render;
@@ -496,6 +539,8 @@ begin
 end;
 
 procedure TScenes.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  I: TButtonEnum;
 begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
@@ -505,12 +550,20 @@ begin
       Button.MouseMove(X, Y);
       Exit;
     end;
+    if IsShowConfirm then
+    begin
+      for I := Low(TButtonEnum) to High(TButtonEnum) do
+        Buttons[I].MouseMove(X, Y);
+      Exit;
+    end;
     FScene[SceneEnum].MouseMove(Shift, X, Y);
     Self.Render;
   end;
 end;
 
 procedure TScenes.Render;
+var
+  I: TButtonEnum;
 begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
@@ -518,12 +571,16 @@ begin
     Surface.Canvas.Brush.Color := clBlack;
     Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
     FScene[SceneEnum].Render;
-    if IsShowInform then
+    if IsShowInform or IsShowConfirm then
     begin
       DrawImage(ScrWidth - (ResImage[reBigFrame].Width div 2), 150,
         ResImage[reBigFrame]);
       DrawText(250, InformMsg);
-      Button.Render;
+      if IsShowInform then
+        Button.Render;
+      if IsShowConfirm then
+        for I := Low(Buttons) to High(Buttons) do
+          Buttons[I].Render;
     end;
     MainForm.Canvas.Draw(0, 0, Surface);
   end;
@@ -562,6 +619,30 @@ begin
         K_ESCAPE, K_ENTER:
           begin
             IsShowInform := False;
+            Self.Render;
+            Exit;
+          end
+        else
+          Exit;
+      end;
+    end;
+    if IsShowConfirm then
+    begin
+      case Key of
+        K_ENTER:
+          begin
+            IsShowConfirm := False;
+            if Assigned(ConfirmHandler) then
+            begin
+              ConfirmHandler();
+              ConfirmHandler := nil;
+            end;
+            Self.Render;
+            Exit;
+          end;
+        K_ESCAPE:
+          begin
+            IsShowConfirm := False;
             Self.Render;
             Exit;
           end

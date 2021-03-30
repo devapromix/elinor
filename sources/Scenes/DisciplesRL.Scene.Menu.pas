@@ -14,18 +14,24 @@ uses
   DisciplesRL.Scenes;
 
 type
+
+  { TSceneMenu }
+
   TSceneMenu = class(TScene)
   private type
     TButtonEnum = (btPlay, btContinue, btHighScores, btQuit);
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
       reTextHighScores, reTextQuit);
-  private
-  var
+  private var
     MainMenuCursorPos: Integer;
     Button: array [TButtonEnum] of TButton;
   private
     procedure Next;
+    procedure Quit;
+    procedure ConfirmQuit;
+    procedure PlayGame;
+    procedure ContinueGame;
   public
     constructor Create;
     destructor Destroy; override;
@@ -51,22 +57,38 @@ begin
   MediaPlayer.Play(mmClick);
   case MainMenuCursorPos of
     0: // Play
-      begin
-        TSaga.IsGame := False;
-        TSceneHire.Show(stScenario);
-      end;
+      PlayGame;
     1: // Continue
-      begin
-        if TSaga.IsGame then
-        begin
-          MediaPlayer.PlayMusic(mmMap);
-          Scenes.Show(scMap);
-        end;
-      end;
+      ContinueGame;
     2: // High Scores
       TSceneHire.Show(stHighScores2);
     3: // Exit;
-      DisciplesRL.MainForm.MainForm.Close;
+      ConfirmQuit;
+  end;
+end;
+
+procedure TSceneMenu.Quit;
+begin
+  DisciplesRL.MainForm.MainForm.Close;
+end;
+
+procedure TSceneMenu.ConfirmQuit;
+begin
+  ConfirmDialog2('Завершить игру?', {$IFDEF FPC}@{$ENDIF}Quit);
+end;
+
+procedure TSceneMenu.PlayGame;
+begin
+  TSaga.IsGame := False;
+  TSceneHire.Show(stScenario);
+end;
+
+procedure TSceneMenu.ContinueGame;
+begin
+  if TSaga.IsGame then
+  begin
+    MediaPlayer.PlayMusic(mmMap);
+    Scenes.Show(scMap);
   end;
 end;
 
@@ -159,14 +181,10 @@ procedure TSceneMenu.Update(var Key: Word);
 begin
   inherited;
   case Key of
-    K_B:
-      begin
-        ConfirmDialog('???');
-      end;
     K_ENTER:
       Next;
     K_ESCAPE:
-      DisciplesRL.MainForm.MainForm.Close;
+      ConfirmQuit;
     K_UP:
       MainMenuCursorPos := EnsureRange(MainMenuCursorPos - 1, 0,
         Ord(High(TButtonEnum)));
