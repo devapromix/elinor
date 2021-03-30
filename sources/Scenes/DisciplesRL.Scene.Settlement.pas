@@ -231,8 +231,6 @@ end;
 procedure TSceneSettlement.Heal;
 
   procedure HealIt(const AParty: TParty; const APosition: Integer);
-  var
-    V, R: Integer;
   begin
     with AParty.Creature[APosition] do
     begin
@@ -251,29 +249,17 @@ procedure TSceneSettlement.Heal;
         InformDialog('Не нуждается в исцелении!');
         Exit;
       end;
-      V := Min((MaxHitPoints - HitPoints) * Level, TSaga.Gold);
-      if (V <= 0) then
+      ConfirmGold := MaxHitPoints - HitPoints;
+      if (ConfirmGold < TSaga.Gold) then
       begin
         InformDialog('Нужно больше золота!');
         Exit;
       end;
-      R := (V div Level) * Level;
-      if (HitPoints + (V div Level) < MaxHitPoints) then
-      begin
-        if not ConfirmDialog(Format('Исцелить на %d HP за %d золота?',
-          [V div Level, R])) then
-          Exit;
-      end
-      else
-      begin
-        if not ConfirmDialog(Format('Полностью исцелить за %d золота?', [R]))
-        then
-          Exit;
-      end;
-      TSaga.Gold := TSaga.Gold - R;
-      AParty.Heal(APosition, V div Level);
+      ConfirmParty := AParty;
+      ConfirmPartyPosition := APosition;
+      ConfirmDialog2(Format('Исцелить за %d золота?', [ConfirmGold]),
+        {$IFDEF FPC}@{$ENDIF}HealCreature);
     end;
-
   end;
 
 begin
@@ -530,7 +516,8 @@ end;
 
 procedure TSceneSettlement.HealCreature;
 begin
-
+  TSaga.Gold := TSaga.Gold - ConfirmGold;
+  ConfirmParty.Heal(ConfirmPartyPosition);
 end;
 
 procedure TSceneSettlement.Timer;
