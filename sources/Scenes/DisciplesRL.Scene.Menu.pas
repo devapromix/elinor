@@ -24,7 +24,7 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
       reTextHighScores, reTextQuit);
   private var
-    MainMenuCursorPos: Integer;
+    CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;
   private
     procedure Next;
@@ -55,14 +55,14 @@ uses
 procedure TSceneMenu.Next;
 begin
   MediaPlayer.Play(mmClick);
-  case MainMenuCursorPos of
-    0: // Play
+  case CursorPos of
+    btPlay:
       PlayGame;
-    1: // Continue
+    btContinue:
       ContinueGame;
-    2: // High Scores
+    btHighScores:
       TSceneHire.Show(stHighScores2);
-    3: // Exit;
+    btQuit:
       ConfirmQuit;
   end;
 end;
@@ -133,7 +133,7 @@ begin
         for I := Low(TButtonEnum) to High(TButtonEnum) do
           if Button[I].MouseDown then
           begin
-            MainMenuCursorPos := Ord(I);
+            CursorPos := I;
             Next;
           end;
       end;
@@ -158,7 +158,7 @@ procedure TSceneMenu.Render;
   begin
     for I := Low(TButtonEnum) to High(TButtonEnum) do
     begin
-      Button[I].Sellected := (Ord(I) = MainMenuCursorPos);
+      Button[I].Sellected := (I = CursorPos);
       Button[I].Render;
     end;
   end;
@@ -186,11 +186,11 @@ begin
     K_ESCAPE:
       ConfirmQuit;
     K_UP:
-      MainMenuCursorPos := EnsureRange(MainMenuCursorPos - 1, 0,
-        Ord(High(TButtonEnum)));
+      CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) - 1, 0,
+        Ord(High(TButtonEnum))));
     K_DOWN:
-      MainMenuCursorPos := EnsureRange(MainMenuCursorPos + 1, 0,
-        Ord(High(TButtonEnum)));
+      CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) + 1, 0,
+        Ord(High(TButtonEnum))));
   end;
 end;
 
