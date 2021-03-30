@@ -250,7 +250,7 @@ procedure TSceneSettlement.Heal;
         Exit;
       end;
       ConfirmGold := MaxHitPoints - HitPoints;
-      if (ConfirmGold < TSaga.Gold) then
+      if (ConfirmGold > TSaga.Gold) then
       begin
         InformDialog('Нужно больше золота!');
         Exit;
