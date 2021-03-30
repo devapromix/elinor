@@ -8,7 +8,6 @@ uses
   Vcl.Forms,
   {$ENDIF}
   DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
-  DisciplesRL.ConfirmationForm in 'Forms\DisciplesRL.ConfirmationForm.pas' {ConfirmationForm},
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
@@ -42,7 +41,6 @@ begin
   {$ENDIF}
   Application.Title := 'DisciplesRL';
   Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(TConfirmationForm, ConfirmationForm);
   Application.Run;
 
 end.

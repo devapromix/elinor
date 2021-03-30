@@ -117,8 +117,7 @@ type
     procedure RenderFrame(const PartySide: TPartySide;
       const I, AX, AY: Integer);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
-    function ConfirmDialog(const S: string): Boolean;
-    procedure ConfirmDialog2(const S: string; OnYes: TConfirmMethod = nil);
+    procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean;
@@ -159,7 +158,6 @@ implementation
 uses
   SysUtils,
   DisciplesRL.MainForm,
-  DisciplesRL.ConfirmationForm,
   DisciplesRL.Button,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
@@ -234,18 +232,7 @@ begin
   DrawImage(ScrWidth - (ResImage[Res].Width div 2), 10, Res);
 end;
 
-function TScene.ConfirmDialog(const S: string): Boolean;
-begin
-  Result := False;
-  ConfirmationForm.Msg := S;
-  ConfirmationForm.ShowModal;
-  case ConfirmationForm.ModalResult of
-    mrOk:
-      Result := True;
-  end;
-end;
-
-procedure TScene.ConfirmDialog2(const S: string; OnYes: TConfirmMethod);
+procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
 begin
   MediaPlayer.Play(mmExit);
   Scenes.InformMsg := S;
