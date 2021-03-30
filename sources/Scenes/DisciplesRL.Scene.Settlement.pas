@@ -18,9 +18,15 @@ type
   { TSceneMap }
 
 type
+
+  { TSceneSettlement }
+
   TSceneSettlement = class(TScene)
   private
     IsUnitSelected: Boolean;
+    ConfirmGold: Integer;
+    ConfirmParty: TParty;
+    ConfirmPartyPosition: TPosition;
     procedure Heal;
     procedure Dismiss;
     procedure Revive;
@@ -29,6 +35,9 @@ type
     procedure MoveCursor(Dir: TDirectionEnum);
     function GetCityName(const I: Integer): string;
     procedure MoveUnit;
+    procedure DismissCreature;
+    procedure ReviveCreature;
+    procedure HealCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -202,11 +211,11 @@ procedure TSceneSettlement.Dismiss;
       end
       else
       begin
-        if not ConfirmDialog('Отпустить воина?') then
-          Exit;
+        ConfirmParty := AParty;
+        ConfirmPartyPosition := APosition;
+        ConfirmDialog2('Отпустить воина?', {$IFDEF FPC}@{$ENDIF}DismissCreature);
       end;
     end;
-    AParty.Dismiss(APosition);
   end;
 
 begin
@@ -281,8 +290,6 @@ end;
 procedure TSceneSettlement.Revive;
 
   procedure ReviveIt(const AParty: TParty; const APosition: Integer);
-  var
-    V: Integer;
   begin
     with AParty.Creature[APosition] do
     begin
@@ -298,18 +305,18 @@ procedure TSceneSettlement.Revive;
       end
       else
       begin
-        V := Level * TSaga.GoldForRevivePerLevel;
-        if (TSaga.Gold < V) then
+        ConfirmGold := Level * TSaga.GoldForRevivePerLevel;
+        if (TSaga.Gold < ConfirmGold) then
         begin
-          InformDialog(Format('Для воскрешения нужно %d золота!', [V]));
+          InformDialog(Format('Для воскрешения нужно %d золота!', [ConfirmGold]));
           Exit;
         end;
-        if not ConfirmDialog(Format('Воскресить за %d золота?', [V])) then
-          Exit;
-        TSaga.Gold := TSaga.Gold - V;
+        ConfirmParty := AParty;
+        ConfirmPartyPosition := APosition;
+        ConfirmDialog2(Format('Воскресить за %d золота?', [ConfirmGold]),
+          {$IFDEF FPC}@{$ENDIF}ReviveCreature);
       end;
     end;
-    AParty.Revive(APosition);
   end;
 
 begin
@@ -508,6 +515,22 @@ begin
       ActivePartyPosition, CurrentPartyPosition);
     MediaPlayer.Play(mmClick);
   end;
+end;
+
+procedure TSceneSettlement.DismissCreature;
+begin
+  ConfirmParty.Dismiss(ConfirmPartyPosition);
+end;
+
+procedure TSceneSettlement.ReviveCreature;
+begin
+  TSaga.Gold := TSaga.Gold - ConfirmGold;
+  ConfirmParty.Revive(ConfirmPartyPosition);
+end;
+
+procedure TSceneSettlement.HealCreature;
+begin
+
 end;
 
 procedure TSceneSettlement.Timer;
