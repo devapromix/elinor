@@ -17,7 +17,7 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle2,
+  TSceneEnum = (scHire, scMenu, scMenu2, scMap, scParty, scSettlement, scBattle2,
     scBattle3);
 
 const
@@ -161,6 +161,7 @@ uses
   DisciplesRL.Button,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
+  DisciplesRL.Scene.Menu2,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
@@ -428,10 +429,11 @@ begin
     MediaAvailable := False;
   end;
   MediaPlayer.PlayMusic(mmMenu);
-  SceneEnum := scMenu;
+  SceneEnum := scMenu2;
   //
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu.Create;
+  FScene[scMenu2] := TSceneMenu2.Create;
   FScene[scHire] := TSceneHire.Create;
   FScene[scParty] := TSceneParty.Create;
   FScene[scBattle2] := TSceneBattle2.Create;

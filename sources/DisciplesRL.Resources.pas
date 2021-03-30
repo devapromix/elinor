@@ -42,7 +42,8 @@ type
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
-    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario);
+    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario, reIconScores,
+    reIconClosedGates, reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -57,7 +58,7 @@ const
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
     teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine, teMusic,
-    teSound, teItem, teBG);
+    teSound, teItem, teBG, teIcon);
 
 type
   TResBase = record
@@ -326,7 +327,13 @@ const
     // Wallpaper Leader
     (FileName: 'wallpaper.leader.png'; ResType: teBG;),
     // Wallpaper Scenario
-    (FileName: 'wallpaper.scenario.png'; ResType: teBG;)
+    (FileName: 'wallpaper.scenario.png'; ResType: teBG;),
+    // Scores
+    (FileName: 'icon.scores.png'; ResType: teIcon;),
+    // Closed Gates
+    (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
+    // Opened Gates
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
     //
     );
 

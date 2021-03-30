@@ -59,9 +59,34 @@ type
     procedure Render;
   end;
 
-implementation
+type
+  TIconState = (isDef, isOver);
 
-{ TButton }
+type
+
+  { TIcon }
+
+  TIcon = class(TObject)
+  private
+    FLeft: Integer;
+    FTop: Integer;
+    FState: TIconState;
+    FSurface: array [TIconState] of TPNGImage;
+  public
+    constructor Create(ALeft, ATop: Integer; ADefRes, AOverRes: TResEnum);
+    destructor Destroy; override;
+    procedure Render;
+    property Top: Integer read FTop;
+    property Left: Integer read FLeft;
+    procedure MouseMove(X, Y: Integer);
+    function Width: Integer;
+    function Height: Integer;
+    function MouseOver(X, Y: Integer): Boolean; overload;
+    function MouseOver: Boolean; overload;
+    function MouseDown: Boolean;
+  end;
+
+implementation
 
 uses
   Math,
@@ -69,6 +94,76 @@ uses
 
 const
   LogRows = 7;
+
+{ TIcon }
+
+constructor TIcon.Create(ALeft, ATop: Integer; ADefRes, AOverRes: TResEnum);
+var
+  J: TIconState;
+begin
+  FTop := ATop;
+  FLeft := ALeft;
+  for J := Low(TIconState) to High(TIconState) do
+  begin
+    FSurface[J] := TPNGImage.Create;
+    case J of
+      isDef:
+        FSurface[J].Assign(ResImage[ADefRes]);
+      isOver:
+        FSurface[J].Assign(ResImage[AOverRes]);
+    end;
+  end;
+end;
+
+destructor TIcon.Destroy;
+var
+  J: TIconState;
+begin
+  for J := Low(TIconState) to High(TIconState) do
+    FSurface[J].Free;
+  inherited;
+end;
+
+procedure TIcon.Render;
+begin
+  if MouseOver then
+    Surface.Canvas.Draw(FLeft, FTop, FSurface[isOver])
+  else
+    Surface.Canvas.Draw(FLeft, FTop, FSurface[isDef]);
+  //Refresh;
+end;
+
+procedure TIcon.MouseMove(X, Y: Integer);
+begin
+
+end;
+
+function TIcon.Width: Integer;
+begin
+
+end;
+
+function TIcon.Height: Integer;
+begin
+
+end;
+
+function TIcon.MouseOver(X, Y: Integer): Boolean;
+begin
+
+end;
+
+function TIcon.MouseOver: Boolean;
+begin
+
+end;
+
+function TIcon.MouseDown: Boolean;
+begin
+
+end;
+
+{ TButton }
 
 constructor TButton.Create(ALeft, ATop: Integer; ARes: TResEnum);
 var

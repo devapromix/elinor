@@ -21,6 +21,7 @@ uses
   DisciplesRL.Scenes in 'Scenes\DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'Scenes\DisciplesRL.Scene.Map.pas',
   DisciplesRL.Scene.Menu in 'Scenes\DisciplesRL.Scene.Menu.pas',
+  DisciplesRL.Scene.Menu2 in 'Scenes\DisciplesRL.Scene.Menu2.pas',
   DisciplesRL.Scene.Party in 'Scenes\DisciplesRL.Scene.Party.pas',
   DisciplesRL.Scene.Settlement in 'Scenes\DisciplesRL.Scene.Settlement.pas',
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
