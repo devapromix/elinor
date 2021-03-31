@@ -26,7 +26,7 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue);
     IconDef: array [TIconEnum] of TResEnum = (reIconScores, reIconClosedGates);
-    IconOver: array [TIconEnum] of TResEnum = (reIconScores, reIconOpenedGates);
+    IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver, reIconOpenedGates);
   private
     CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;

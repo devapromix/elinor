@@ -43,7 +43,7 @@ type
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
     reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario, reIconScores,
-    reIconClosedGates, reIconOpenedGates);
+    reIconScoresOver, reIconClosedGates, reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -330,6 +330,8 @@ const
     (FileName: 'wallpaper.scenario.png'; ResType: teBG;),
     // Scores
     (FileName: 'icon.scores.png'; ResType: teIcon;),
+    // Scores
+    (FileName: 'icon.scores.over.png'; ResType: teIcon;),
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates

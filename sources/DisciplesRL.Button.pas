@@ -70,8 +70,11 @@ type
   private
     FLeft: Integer;
     FTop: Integer;
+    FMouseX: Integer;
+    FMouseY: Integer;
     FState: TIconState;
     FSurface: array [TIconState] of TPNGImage;
+    procedure Refresh;
   public
     constructor Create(ALeft, ATop: Integer; ADefRes, AOverRes: TResEnum);
     destructor Destroy; override;
@@ -96,6 +99,11 @@ const
   LogRows = 7;
 
 { TIcon }
+
+procedure TIcon.Refresh;
+begin
+
+end;
 
 constructor TIcon.Create(ALeft, ATop: Integer; ADefRes, AOverRes: TResEnum);
 var
@@ -130,37 +138,40 @@ begin
     Surface.Canvas.Draw(FLeft, FTop, FSurface[isOver])
   else
     Surface.Canvas.Draw(FLeft, FTop, FSurface[isDef]);
-  //Refresh;
+  Refresh;
 end;
 
 procedure TIcon.MouseMove(X, Y: Integer);
 begin
-
+  FMouseX := X;
+  FMouseY := Y;
 end;
 
 function TIcon.Width: Integer;
 begin
-
+  Result := FSurface[isOver].Width;
 end;
 
 function TIcon.Height: Integer;
 begin
-
+  Result := FSurface[isOver].Height;
 end;
 
 function TIcon.MouseOver(X, Y: Integer): Boolean;
 begin
-
+  Result := (X > Left) and (X < Left + FSurface[isOver].Width) and (Y > Top) and
+    (Y < Top + FSurface[isOver].Height);
 end;
 
 function TIcon.MouseOver: Boolean;
 begin
-
+  Result := MouseOver(FMouseX, FMouseY);
 end;
 
 function TIcon.MouseDown: Boolean;
 begin
-
+  Result := MouseOver(FMouseX, FMouseY);
+  Refresh;
 end;
 
 { TButton }
