@@ -26,6 +26,9 @@ uses
   {$ENDIF}
 
 type
+
+  { TMainForm }
+
   TMainForm = class(TForm)
     Timer1: TTimer;
     AutoTimer: TTimer;
@@ -61,8 +64,6 @@ uses
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  ClientWidth := TMap.Width * TMap.TileSize;
-  ClientHeight := TMap.Height * TMap.TileSize;
   Scenes := TScenes.Create;
 end;
 

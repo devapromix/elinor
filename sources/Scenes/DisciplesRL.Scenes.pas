@@ -159,6 +159,7 @@ uses
   SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.Button,
+  DisciplesRL.Map,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Menu2,
@@ -395,6 +396,9 @@ var
   I: TButtonEnum;
 begin
   Randomize;
+  //
+  MainForm.ClientWidth := TMap.Width * TMap.TileSize;
+  MainForm.ClientHeight := TMap.Height * TMap.TileSize;
   //
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;

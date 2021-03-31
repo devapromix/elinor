@@ -196,8 +196,7 @@ procedure TSceneBattle2.Victory;
 begin
   //
   Inc(TSaga.BattlesWon);
-  Inc(TSaga.KilledCreatures, Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
-    TLeaderParty.Leader.Y)].Count + 1);
+  Inc(TSaga.KilledCreatures, EnemyParty.Count + 1);
   //
   if TSaga.IsDuel then
   begin

@@ -1,5 +1,7 @@
 ﻿program DisciplesRL;
 
+{$DEFINE BLT}
+
 uses
   {$IFDEF FPC}
   Interfaces,
@@ -34,7 +36,6 @@ uses
 {$R *.res}
 
 begin
-  Randomize();
   Application.Initialize;
   {$IFNDEF FPC}
   ReportMemoryLeaksOnShutdown := True;
