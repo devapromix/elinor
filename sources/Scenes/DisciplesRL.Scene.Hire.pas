@@ -50,6 +50,7 @@ type
     procedure Add(S, V: string); overload;
     procedure Add(S: string; V, M: Integer); overload;
     procedure Add(S: string; V: Integer; R: string = ''); overload;
+    procedure Add2(S: string; V: Integer); overload;
     procedure RenderRaceInfo;
     procedure RenderHighScores;
     procedure RenderFinalInfo;
@@ -431,6 +432,7 @@ begin
   begin
     Add(Name[0], True);
     Add;
+    Add2('Побед', TLeaderParty.Kills);
     Add('Уровень', Level);
     Add('Точность', ChancesToHit, '%');
     Add('Инициатива', Initiative);
@@ -532,6 +534,11 @@ procedure TSceneHire.Add(S: string; V: Integer; R: string = '');
 begin
   DrawText(L, T, Format('%s: %d%s', [S, V, R]));
   Inc(T, H);
+end;
+
+procedure TSceneHire.Add2(S: string; V: Integer);
+begin
+  DrawText(L + 200, T, Format('%s: %d', [S, V]));
 end;
 
 procedure TSceneHire.Add(S: string; V, M: Integer);

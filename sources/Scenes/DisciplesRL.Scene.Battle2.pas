@@ -194,6 +194,7 @@ end;
 
 procedure TSceneBattle2.Victory;
 begin
+  Inc(TLeaderParty.Kills);
   if TSaga.IsDuel then
   begin
     TSaga.IsDuel := False;
