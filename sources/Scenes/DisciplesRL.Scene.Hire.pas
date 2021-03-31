@@ -432,8 +432,9 @@ begin
   begin
     Add(Name[0], True);
     Add;
-    Add2('Побед', TLeaderParty.Kills);
+    Add2('Побед', TSaga.BattlesWon);
     Add('Уровень', Level);
+    Add2('Убито', TSaga.KilledCreatures);
     Add('Точность', ChancesToHit, '%');
     Add('Инициатива', Initiative);
     Add('Здоровье', HitPoints, HitPoints);
@@ -598,7 +599,12 @@ end;
 
 procedure TSceneHire.RenderFinalInfo;
 begin
-
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  Add('Статистика', True);
+  Add;
+  Add('Выиграно боев', TSaga.BattlesWon);
+  Add('Убито существ', TSaga.KilledCreatures);
 end;
 
 procedure TSceneHire.RenderHighScores;

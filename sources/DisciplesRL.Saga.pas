@@ -74,6 +74,7 @@ type
     Scores: Integer;
     GoldMines: Integer;
     ManaMines: Integer;
+    KilledCreatures: Integer;
     BattlesWon: Integer;
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
@@ -435,6 +436,7 @@ begin
   GoldMines := 0;
   ManaMines := 0;
   BattlesWon := 0;
+  KilledCreatures := 0;
   IsDay := False;
   ShowNewDayMessage := 0;
   PartyFree;

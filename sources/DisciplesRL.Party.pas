@@ -93,7 +93,7 @@ type
     CapitalPartyIndex: Byte;
     Speed: Integer;
     MaxSpeed: Integer;
-    Kills: Integer;
+  public
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
     destructor Destroy; override;
     procedure Clear;
@@ -465,7 +465,6 @@ begin
   inherited Create(AX, AY, AOwner);
   FMaxLeadership := 1;
   FRadius := 1;
-  Kills := 0;
 end;
 
 destructor TLeaderParty.Destroy;
