@@ -2,15 +2,10 @@
 
 interface
 
-{$IFDEF FPC}
-{$MODESWITCH ADVANCEDRECORDS}
-{$ENDIF}
-
 uses
   DisciplesRL.Creatures,
   DisciplesRL.Resources,
   DisciplesRL.Saga,
-  DisciplesRL.Party,
   MapObject;
 
 type
@@ -74,6 +69,7 @@ implementation
 uses
   Math,
   SysUtils,
+  DisciplesRL.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party;
 
