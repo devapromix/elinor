@@ -39,8 +39,11 @@ type
     TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
   public const
     TileSize = 32;
+  private const
+    MapWidth = 40 + 2;
+    MapHeight = 20 + 2;
   private
-    Map: array [TLayerEnum] of TMapLayer;
+    FMap: array [TLayerEnum] of TMapLayer;
   public
     Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
     constructor Create;
@@ -81,10 +84,6 @@ function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
   Callback: TGetXYVal; var TargetX, TargetY: Integer): Boolean;
   external 'BeaRLibPF.dll';
 
-var
-  MapWidth: Integer = 40 + 2;
-  MapHeight: Integer = 20 + 2;
-
 function ChTile(X, Y: Integer): Boolean; stdcall;
 begin
   Result := True;
@@ -102,13 +101,13 @@ end;
 
 function TMap.GetLayer(const L: TLayerEnum): TMapLayer;
 begin
-  Result := Map[L];
+  Result := FMap[L];
 end;
 
 function TMap.GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
 begin
   if InMap(X, Y) then
-    Result := Map[L][X, Y]
+    Result := FMap[L][X, Y]
   else
     Result := reNone;
 end;
@@ -124,7 +123,7 @@ var
 begin
   for L := Low(TLayerEnum) to High(TLayerEnum) do
   begin
-    SetLength(Map[L], MapWidth, MapHeight);
+    SetLength(FMap[L], MapWidth, MapHeight);
     Clear(L);
   end;
 end;
@@ -154,9 +153,9 @@ begin
     for X := 0 to MapWidth - 1 do
       case L of
         lrTile, lrPath, lrObj:
-          Map[L][X, Y] := reNone;
+          FMap[L][X, Y] := reNone;
         lrDark:
-          Map[L][X, Y] := reDark;
+          FMap[L][X, Y] := reDark;
       end;
 end;
 
@@ -202,9 +201,9 @@ var
   begin
     case Random(2) of
       0:
-        Map[lrObj][X, Y] := reTreePine;
+        FMap[lrObj][X, Y] := reTreePine;
       1:
-        Map[lrObj][X, Y] := reTreeOak;
+        FMap[lrObj][X, Y] := reTreeOak;
     end;
   end;
 
@@ -212,13 +211,13 @@ var
   begin
     case RandomRange(0, 4) of
       0:
-        Map[lrObj][X, Y] := reMountain1;
+        FMap[lrObj][X, Y] := reMountain1;
       1:
-        Map[lrObj][X, Y] := reMountain2;
+        FMap[lrObj][X, Y] := reMountain2;
       2:
-        Map[lrObj][X, Y] := reMountain3;
+        FMap[lrObj][X, Y] := reMountain3;
     else
-      Map[lrObj][X, Y] := reMountain4;
+      FMap[lrObj][X, Y] := reMountain4;
     end;
   end;
 
@@ -226,7 +225,7 @@ begin
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
     begin
-      Map[lrTile][X, Y] := reNeutralTerrain;
+      FMap[lrTile][X, Y] := reNeutralTerrain;
       if (X = 0) or (X = MapWidth - 1) or (Y = 0) or (Y = MapHeight - 1) then
       begin
         AddMountain(X, Y);
@@ -256,13 +255,13 @@ begin
         begin
           X := RX + RandomRange(-1, 2);
           Y := RY + RandomRange(-1, 2);
-          if Map[lrObj][X, Y] in MountainTiles then
-            Map[lrObj][X, Y] := reNone;
+          if FMap[lrObj][X, Y] in MountainTiles then
+            FMap[lrObj][X, Y] := reNone;
         end;
         X := RX;
         Y := RY;
-        if Map[lrObj][X, Y] in MountainTiles then
-          Map[lrObj][X, Y] := reNone;
+        if FMap[lrObj][X, Y] in MountainTiles then
+          FMap[lrObj][X, Y] := reNone;
       end;
     until ((X = Place[I].X) and (Y = Place[I].Y));
   end;
@@ -272,18 +271,18 @@ begin
     repeat
       X := RandomRange(2, MapWidth - 2);
       Y := RandomRange(2, MapHeight - 2);
-    until (Map[lrTile][X, Y] = reNeutralTerrain) and
-      (Map[lrObj][X, Y] = reNone);
+    until (FMap[lrTile][X, Y] = reNeutralTerrain) and
+      (FMap[lrObj][X, Y] = reNone);
     if (GetDistToCapital(X, Y) <= (15 - (Ord(TSaga.Difficulty) * 2))) and
       (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
         0:
-          Map[lrObj][X, Y] := reGold;
+          FMap[lrObj][X, Y] := reGold;
         1:
-          Map[lrObj][X, Y] := reMana;
+          FMap[lrObj][X, Y] := reMana;
       end
     else
-      Map[lrObj][X, Y] := reBag;
+      FMap[lrObj][X, Y] := reBag;
   end;
   // Enemies
   for I := 0 to High(Place) do
@@ -291,7 +290,7 @@ begin
     repeat
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
-    until (Map[lrObj][X, Y] = reNone) and (Map[lrTile][X, Y] = reNeutralTerrain)
+    until (FMap[lrObj][X, Y] = reNone) and (FMap[lrTile][X, Y] = reNeutralTerrain)
       and (GetDistToCapital(X, Y) >= 3);
     TSaga.AddPartyAt(X, Y);
     if (TScenario.CurrentScenario = sgAncientKnowledge) and
@@ -326,22 +325,22 @@ begin
         else
         begin
           // Dead Trees
-          if (Map[lrObj][AX + X, AY + Y] in TreesTiles) then
-          case Map[lrTile][AX + X, AY + Y] of
+          if (FMap[lrObj][AX + X, AY + Y] in TreesTiles) then
+          case FMap[lrTile][AX + X, AY + Y] of
             reUndeadHordesTerrain:
-              Map[lrObj][AX + X, AY + Y] := reUndeadHordesTree;
+              FMap[lrObj][AX + X, AY + Y] := reUndeadHordesTree;
             reLegionsOfTheDamnedTerrain:
-              Map[lrObj][AX + X, AY + Y] := reLegionsOfTheDamnedTree;
+              FMap[lrObj][AX + X, AY + Y] := reLegionsOfTheDamnedTree;
           end;
           // Add Gold Mine
-          if (MapLayer = Map[lrTile]) and
-            (Map[lrObj][AX + X, AY + Y] = reMineGold) and
-            (Map[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
+          if (MapLayer = FMap[lrTile]) and
+            (FMap[lrObj][AX + X, AY + Y] = reMineGold) and
+            (FMap[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
             Inc(TSaga.GoldMines);
           // Add Mana Mine
-          if (MapLayer = Map[lrTile]) and
-            (Map[lrObj][AX + X, AY + Y] = reMineMana) and
-            (Map[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
+          if (MapLayer = FMap[lrTile]) and
+            (FMap[lrObj][AX + X, AY + Y] = reMineMana) and
+            (FMap[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
             Inc(TSaga.ManaMines);
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
@@ -354,20 +353,20 @@ end;
 
 function TMap.LeaderTile: TResEnum;
 begin
-  Result := Map[lrTile][TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
+  Result := FMap[lrTile][TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
 end;
 
 procedure TMap.SetTile(const L: TLayerEnum; X, Y: Integer;
   Tile: TResEnum);
 begin
-  Map[L][X, Y] := Tile;
+  FMap[L][X, Y] := Tile;
 end;
 
 function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
 begin
   Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
     TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or TSaga.Wizard) and
-    not(Map[lrObj][X, Y] in StopTiles);
+    not(FMap[lrObj][X, Y] in StopTiles);
 end;
 
 function GetRadius(const N: Integer): Integer;
@@ -411,10 +410,10 @@ begin
       if (X = AX - 2) or (X = AX + 2) or (Y = AY - 2) or (Y = AY + 2) then
       begin
         if (RandomRange(0, 5) = 0) then
-          Map.Map[lrObj][X, Y] := reNone
+          Map.FMap[lrObj][X, Y] := reNone
       end
       else
-        Map.Map[lrObj][X, Y] := reNone;
+        Map.FMap[lrObj][X, Y] := reNone;
 end;
 
 { TPlace }
@@ -430,26 +429,26 @@ begin
         0: // Capital
           case TSaga.Difficulty of
             dfEasy:
-              PX := RandomRange(17, MapWidth - 17);
+              PX := RandomRange(17, Map.Width - 17);
             dfNormal:
               case RandomRange(0, 2) of
                 0:
                   PX := RandomRange(8, 15);
                 1:
-                  PX := RandomRange(MapWidth - 15, MapWidth - 8);
+                  PX := RandomRange(Map.Width - 15, Map.Width - 8);
               end;
             dfHard:
               case RandomRange(0, 2) of
                 0:
                   PX := RandomRange(3, 5);
                 1:
-                  PX := RandomRange(MapWidth - 5, MapWidth - 3);
+                  PX := RandomRange(Map.Width - 5, Map.Width - 3);
               end;
           end
       else
-        PX := RandomRange(3, MapWidth - 3);
+        PX := RandomRange(3, Map.Width - 3);
       end;
-      PY := RandomRange(3, MapHeight - 3);
+      PY := RandomRange(3, Map.Height - 3);
       Map.Place[I].SetLocation(PX, PY);
     until ChCity(I);
     case I of
@@ -457,13 +456,13 @@ begin
         begin
           case TSaga.LeaderRace of
             reTheEmpire:
-              Map.Map[lrTile][Map.Place[I].X, Map.Place[I].Y] :=
+              Map.FMap[lrTile][Map.Place[I].X, Map.Place[I].Y] :=
                 reTheEmpireCapital;
             reUndeadHordes:
-              Map.Map[lrTile][Map.Place[I].X, Map.Place[I].Y] :=
+              Map.FMap[lrTile][Map.Place[I].X, Map.Place[I].Y] :=
                 reUndeadHordesCapital;
             reLegionsOfTheDamned:
-              Map.Map[lrTile][Map.Place[I].X, Map.Place[I].Y] :=
+              Map.FMap[lrTile][Map.Place[I].X, Map.Place[I].Y] :=
                 reLegionsOfTheDamnedCapital;
           end;
           ClearObj(Map.Place[I].X, Map.Place[I].Y);
@@ -471,18 +470,18 @@ begin
         end;
       1 .. TScenario.ScenarioCitiesMax: // City
         begin
-          Map.Map[lrTile][Map.Place[I].X, Map.Place[I].Y] := reNeutralCity;
+          Map.FMap[lrTile][Map.Place[I].X, Map.Place[I].Y] := reNeutralCity;
           ClearObj(Map.Place[I].X, Map.Place[I].Y);
           TSaga.AddPartyAt(Map.Place[I].X, Map.Place[I].Y);
         end;
       TScenario.ScenarioTowerIndex: // Tower
         begin
-          Map.Map[lrTile][Map.Place[I].X, Map.Place[I].Y] := reTower;
+          Map.FMap[lrTile][Map.Place[I].X, Map.Place[I].Y] := reTower;
           TSaga.AddPartyAt(Map.Place[I].X, Map.Place[I].Y, True);
         end
     else // Ruin
       begin
-        Map.Map[lrTile][Map.Place[I].X, Map.Place[I].Y] := reRuin;
+        Map.FMap[lrTile][Map.Place[I].X, Map.Place[I].Y] := reRuin;
         TSaga.AddPartyAt(Map.Place[I].X, Map.Place[I].Y);
       end;
     end;
@@ -498,9 +497,9 @@ begin
     case I of
       0 .. TScenario.ScenarioCitiesMax:
         begin
-          Map.Map[lrObj][Map.Place[I].X + DX, Map.Place[I].Y + DY] :=
+          Map.FMap[lrObj][Map.Place[I].X + DX, Map.Place[I].Y + DY] :=
             reMineGold;
-          Map.Map[lrObj][Map.Place[I].X + FX, Map.Place[I].Y + FY] :=
+          Map.FMap[lrObj][Map.Place[I].X + FX, Map.Place[I].Y + FY] :=
             reMineMana;
         end;
     end;
@@ -531,10 +530,10 @@ end;
 class procedure TPlace.UpdateRadius(const AID: Integer);
 begin
   Map.UpdateRadius(Map.Place[AID].X, Map.Place[AID].Y,
-    Map.Place[AID].CurLevel, Map.Map[lrTile], RaceTerrain[TSaga.LeaderRace],
+    Map.Place[AID].CurLevel, Map.FMap[lrTile], RaceTerrain[TSaga.LeaderRace],
     [reNeutralCity, reRuin, reTower] + Capitals + Cities);
   Map.UpdateRadius(Map.Place[AID].X, Map.Place[AID].Y,
-    Map.Place[AID].CurLevel, Map.Map[lrDark], reNone);
+    Map.Place[AID].CurLevel, Map.FMap[lrDark], reNone);
   Map.Place[AID].Owner := TSaga.LeaderRace;
 end;
 
@@ -549,11 +548,5 @@ begin
       Inc(Result);
   end;
 end;
-
-initialization
-  Map := TMap.Create;
-
-finalization
-  FreeAndNil(Map);
 
 end.

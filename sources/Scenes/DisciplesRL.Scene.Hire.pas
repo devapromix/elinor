@@ -255,7 +255,7 @@ end;
 procedure TSceneHire.Ok;
 var
   F: Boolean;
-  I, Damage: Integer;
+  I: Integer;
 
   procedure NoSpy;
   begin

@@ -72,7 +72,6 @@ type
     FTop: Integer;
     FMouseX: Integer;
     FMouseY: Integer;
-    FState: TIconState;
     FSurface: array [TIconState] of TPNGImage;
     procedure Refresh;
   public

@@ -54,7 +54,6 @@ type
 implementation
 
 uses
-  Math,
   SysUtils,
   DisciplesRL.Resources,
   DisciplesRL.Saga,

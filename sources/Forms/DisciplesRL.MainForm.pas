@@ -64,6 +64,7 @@ uses
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
+  Map := TMap.Create;
   Scenes := TScenes.Create;
 end;
 
@@ -80,6 +81,7 @@ end;
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(Scenes);
+  FreeAndNil(Map);
 end;
 
 procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word;
