@@ -397,8 +397,8 @@ var
 begin
   Randomize;
   //
-  MainForm.ClientWidth := TMap.Width * TMap.TileSize;
-  MainForm.ClientHeight := TMap.Height * TMap.TileSize;
+  MainForm.ClientWidth := Map.Width * Map.TileSize;
+  MainForm.ClientHeight := Map.Height * Map.TileSize;
   //
   Surface := TBitmap.Create;
   Surface.Width := MainForm.ClientWidth;

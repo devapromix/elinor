@@ -50,10 +50,10 @@ begin
   case Button of
     mbLeft:
       begin
-        if TSaga.Wizard and TMap.InMap(MousePos.X, MousePos.Y) then
+        if TSaga.Wizard and Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-        else if TMap.IsLeaderMove(MousePos.X, MousePos.Y) and
-          TMap.InMap(MousePos.X, MousePos.Y) then
+        else if Map.IsLeaderMove(MousePos.X, MousePos.Y) and
+          Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
       end;
     mbMiddle:
@@ -101,12 +101,12 @@ var
 
 begin
   inherited;
-  for Y := 0 to TMap.Height - 1 do
-    for X := 0 to TMap.Width - 1 do
+  for Y := 0 to Map.Height - 1 do
+    for X := 0 to Map.Width - 1 do
     begin
-      if (TMap.GetTile(lrDark, X, Y) = reDark) then
+      if (Map.GetTile(lrDark, X, Y) = reDark) then
         Continue;
-      case TMap.GetTile(lrTile, X, Y) of
+      case Map.GetTile(lrTile, X, Y) of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
             ResImage[reTheEmpireTerrain]);
@@ -122,49 +122,49 @@ begin
           ResImage[reNeutralTerrain]);
       end;
       F := not TLeaderParty.Leader.InRadius(X, Y) and
-        not(TMap.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
-        (TMap.GetTile(lrDark, X, Y) = reNone);
+        not(Map.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
+        (Map.GetTile(lrDark, X, Y) = reNone);
 
       // Special
       if TSaga.Wizard and (((TScenario.CurrentScenario = sgAncientKnowledge) and
         TScenario.IsStoneTab(X, Y)) or
         ((TScenario.CurrentScenario = sgDarkTower) and
-        (ResBase[TMap.GetTile(lrTile, X, Y)].ResType = teTower)) or
+        (ResBase[Map.GetTile(lrTile, X, Y)].ResType = teTower)) or
         ((TScenario.CurrentScenario = sgOverlord) and
-        (ResBase[TMap.GetTile(lrTile, X, Y)].ResType = teCity))) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+        (ResBase[Map.GetTile(lrTile, X, Y)].ResType = teCity))) then
+        DrawImage(X * TMap.TileSize, Y * Map.TileSize,
           ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
-      if (ResBase[TMap.GetTile(lrTile, X, Y)].ResType in [teCapital, teCity,
+      if (ResBase[Map.GetTile(lrTile, X, Y)].ResType in [teCapital, teCity,
         teRuin, teTower]) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-          ResImage[TMap.GetTile(lrTile, X, Y)]);
+          ResImage[Map.GetTile(lrTile, X, Y)]);
 
       //
-      if (ResBase[TMap.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag]) then
+      if (ResBase[Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag]) then
         if F then
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reUnk])
+          DrawImage(X * Map.TileSize, Y * Map.TileSize, ResImage[reUnk])
         else
-          DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-            ResImage[TMap.GetTile(lrObj, X, Y)])
-      else if (TMap.GetTile(lrObj, X, Y) <> reNone) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-          ResImage[TMap.GetTile(lrObj, X, Y)]);
+          DrawImage(X * Map.TileSize, Y * Map.TileSize,
+            ResImage[Map.GetTile(lrObj, X, Y)])
+      else if (Map.GetTile(lrObj, X, Y) <> reNone) then
+        DrawImage(X * Map.TileSize, Y * Map.TileSize,
+          ResImage[Map.GetTile(lrObj, X, Y)]);
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[rePlayer]);
+        DrawImage(X * Map.TileSize, Y * Map.TileSize, ResImage[rePlayer]);
       // Fog
       if F then
-        DrawImage(X * TMap.TileSize, Y * TMap.TileSize, ResImage[reDark]);
+        DrawImage(X * Map.TileSize, Y * Map.TileSize, ResImage[reDark]);
     end;
   // Cursor
-  if TMap.IsLeaderMove(MousePos.X, MousePos.Y) then
-    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize,
+  if Map.IsLeaderMove(MousePos.X, MousePos.Y) then
+    DrawImage(MousePos.X * Map.TileSize, MousePos.Y * Map.TileSize,
       ResImage[reCursor])
   else
-    DrawImage(MousePos.X * TMap.TileSize, MousePos.Y * TMap.TileSize,
+    DrawImage(MousePos.X * Map.TileSize, MousePos.Y * Map.TileSize,
       ResImage[reNoWay]);
   // New Day Message
   if TSaga.ShowNewDayMessage > 0 then

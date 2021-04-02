@@ -318,7 +318,7 @@ end;
 
 procedure TSceneSettlement.Close;
 begin
-  case TMap.LeaderTile of
+  case Map.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
@@ -372,7 +372,7 @@ procedure TSceneSettlement.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
+  if (Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
     and (CurrentSettlementType = stCapital) and (AButton = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
     Exit;
@@ -459,7 +459,7 @@ begin
   end;
   with TSceneParty do
   begin
-    if (TMap.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
+    if (Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
       or (CurrentSettlementType = stCity) then
       RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
         Party[TLeaderParty.LeaderPartyIndex].Count <

@@ -400,7 +400,7 @@ begin
         begin
           if (TScenario.CurrentScenario = sgDarkTower) then
           begin
-            case TMap.LeaderTile of
+            case Map.LeaderTile of
               reTower:
                 begin
                   TSceneHire.Show(stVictory);
@@ -408,7 +408,7 @@ begin
                 end;
             end;
           end;
-          if TMap.LeaderTile = reNeutralCity then
+          if Map.LeaderTile = reNeutralCity then
           begin
             MediaPlayer.PlayMusic(mmGame);
             MediaPlayer.Play(mmSettlement);

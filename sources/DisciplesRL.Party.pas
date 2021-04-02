@@ -441,11 +441,11 @@ procedure TLeaderParty.ChCityOwner;
 begin
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
-      TMap.SetTile(lrTile, X, Y, reTheEmpireCity);
+      Map.SetTile(lrTile, X, Y, reTheEmpireCity);
     reUndeadHordes:
-      TMap.SetTile(lrTile, X, Y, reUndeadHordesCity);
+      Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
     reLegionsOfTheDamned:
-      TMap.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
+      Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
 end;
 
@@ -518,7 +518,7 @@ end;
 
 function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;
 begin
-  Result := (TMap.GetDist(AX, AY, X, Y) <= Radius);
+  Result := (Map.GetDist(AX, AY, X, Y) <= Radius);
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;
@@ -537,35 +537,35 @@ var
   I: Integer;
   F: Boolean;
 begin
-  if not TMap.InMap(AX, AY) then
+  if not Map.InMap(AX, AY) then
     Exit;
-  if (TMap.GetTile(lrObj, AX, AY) in StopTiles) then
+  if (Map.GetTile(lrObj, AX, AY) in StopTiles) then
     Exit;
   if not IsInfo then
-    for I := 0 to High(TMap.Place) do
+    for I := 0 to High(Map.Place) do
     begin
-      if (TMap.Place[I].Owner in Races) then
-        if (TMap.Place[I].CurLevel < TMap.Place[I].MaxLevel) then
+      if (Map.Place[I].Owner in Races) then
+        if (Map.Place[I].CurLevel < Map.Place[I].MaxLevel) then
         begin
-          Inc(TMap.Place[I].CurLevel);
+          Inc(Map.Place[I].CurLevel);
           TPlace.UpdateRadius(I);
         end;
     end;
   if IsInfo then
   begin
-    if TMap.GetTile(lrTile, AX, AY) in Capitals then
+    if Map.GetTile(lrTile, AX, AY) in Capitals then
     begin
       TSceneParty.Show(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
-    if TMap.GetTile(lrTile, AX, AY) in Cities then
+    if Map.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
         TSceneParty.Show(Party[I], scMap);
       Exit;
     end;
-    case TMap.GetTile(lrObj, AX, AY) of
+    case Map.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
           I := TSaga.GetPartyIndex(AX, AY);
@@ -585,22 +585,22 @@ begin
       Turn(1);
     end;
     F := True;
-    case TMap.GetTile(lrObj, Leader.X, Leader.Y) of
+    case Map.GetTile(lrObj, Leader.X, Leader.Y) of
       reGold:
         begin
-          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reGold);
           F := False;
         end;
       reMana:
         begin
-          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reMana);
           F := False;
         end;
       reBag:
         begin
-          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reBag);
           F := False;
         end;
@@ -610,13 +610,13 @@ begin
             Scenes.Show(scBattle3)
           else
             Scenes.Show(scBattle2);
-          TMap.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;
         end;
     end;
   end;
-  case TMap.LeaderTile of
+  case Map.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
@@ -624,14 +624,14 @@ begin
         F := False;
       end;
   end;
-  if TMap.LeaderTile in Capitals then
+  if Map.LeaderTile in Capitals then
   begin
     MediaPlayer.PlayMusic(mmGame);
     MediaPlayer.Play(mmSettlement);
     TSceneSettlement.Show(stCapital);
     F := False;
   end;
-  if TMap.LeaderTile in Cities then
+  if Map.LeaderTile in Cities then
   begin
     MediaPlayer.PlayMusic(mmGame);
     MediaPlayer.Play(mmSettlement);
@@ -677,7 +677,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  TMap.UpdateRadius(Self.X, Self.Y, Self.Radius, TMap.GetLayer(lrDark), reNone);
+  Map.UpdateRadius(Self.X, Self.Y, Self.Radius, Map.GetLayer(lrDark), reNone);
 end;
 
 end.
