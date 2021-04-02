@@ -51,7 +51,7 @@ end;
 constructor TSceneBattle3.Create;
 begin
   inherited;
-  Button := TButton.Create(Surface.Width - (ResImage[reButtonDef].Width + Left),
+  Button := TButton.Create(1100 - (ResImage[reButtonDef].Width + Left),
     DefaultButtonTop, reTextClose);
   Button.Sellected := True;
 end;

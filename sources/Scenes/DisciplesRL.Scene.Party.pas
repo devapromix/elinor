@@ -132,7 +132,7 @@ class function TSceneParty.GetFrameX(const Position: TPosition;
 var
   W: Integer;
 begin
-  W := Surface.Width div 4;
+  W := Scenes.Width div 4;
   case Position of
     0, 2, 4:
       begin
@@ -140,7 +140,7 @@ begin
           psLeft:
             Result := (W + Left) - (W - ResImage[reFrame].Width - S);
         else
-          Result := Surface.Width - (Left + S + (ResImage[reFrame].Width * 2));
+          Result := Scenes.Width - (Left + S + (ResImage[reFrame].Width * 2));
         end;
       end;
   else
@@ -149,7 +149,7 @@ begin
         psLeft:
           Result := Left;
       else
-        Result := Surface.Width - ResImage[reFrame].Width - Left;
+        Result := Scenes.Width - ResImage[reFrame].Width - Left;
       end;
     end;
   end;
@@ -347,7 +347,6 @@ const
   H = 25;
 var
   C: TCreatureEnum;
-  L, T: Integer;
 
   procedure RenderButtons;
   var
@@ -358,32 +357,14 @@ var
         Button[I].Render;
   end;
 
-  procedure Add(S: string; F: Boolean = False); overload;
-  var
-    N: Integer;
-  begin
-    if F then
-    begin
-      N := Surface.Canvas.Font.Size;
-      Surface.Canvas.Font.Size := N * 2;
-    end;
-    DrawText(L, T, S);
-    if F then
-      Surface.Canvas.Font.Size := N;
-    Inc(T, H);
-  end;
-
 begin
   inherited;
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
   DrawImage(reWallpaperLeader);
   DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
   if FShowInventory then
   begin
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
-
   end
   else
   begin

@@ -99,6 +99,7 @@ type
 type
   TScene = class(TInterfacedObject, IScene)
   private
+    FWidth: Integer;
     FScrWidth: Integer;
   public
     constructor Create;
@@ -123,6 +124,7 @@ type
     function MouseOver(AX, AY, MX, MY: Integer): Boolean;
     function GetPartyPosition(const MX, MY: Integer): Integer;
     property ScrWidth: Integer read FScrWidth write FScrWidth;
+    property Width: Integer read FWidth write FWidth;
   end;
 
 type
@@ -188,6 +190,7 @@ var
 constructor TScene.Create;
 begin
   inherited;
+  Width := Surface.Width;
   ScrWidth := Surface.Width div 2;
   ConfirmHandler := nil;
 end;

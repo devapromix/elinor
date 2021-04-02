@@ -102,7 +102,7 @@ begin
   inherited;
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   H := ResImage[reButtonDef].Height + 10;
-  T := (Surface.Height div 3 * 2) - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
+  T := 500 - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
     Button[I] := TButton.Create(L, T, ButtonText[I]);
@@ -168,7 +168,7 @@ begin
   DrawImage(reWallpaperMenu);
   DrawTitle(reTitleLogo);
   RenderButtons;
-  DrawText(Surface.Height - 50, '2018-2021 by Apromix');
+  DrawText(650, '2018-2021 by Apromix');
 end;
 
 procedure TSceneMenu.Timer;
