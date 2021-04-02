@@ -10,14 +10,18 @@ uses
   DisciplesRL.Creatures,
   DisciplesRL.Resources,
   DisciplesRL.Saga,
-  DisciplesRL.Party;
+  DisciplesRL.Party,
+  MapObject;
 
 type
-  TPlace = record
-    X, Y: Integer;
+
+  { TPlace }
+
+  TPlace = class(TMapObject)
     CurLevel: Integer;
     MaxLevel: Integer;
     Owner: TRaceEnum;
+    constructor Create;
     class function GetIndex(const AX, AY: Integer): Integer; static;
     class procedure UpdateRadius(const AID: Integer); static;
     class function GetCityCount: Integer; static;
@@ -25,6 +29,9 @@ type
   end;
 
 type
+
+  { TMap }
+
   TMap = class(TObject)
   public type
     TMapLayer = array of array of TResEnum;
@@ -35,6 +42,8 @@ type
   private
     class var Map: array [TLayerEnum] of TMapLayer;
   public
+    constructor Create;
+    destructor Destroy; override;
     class var Place: array [0 .. TScenario.ScenarioPlacesMax - 1] of TPlace;
     class procedure Clear(const L: TLayerEnum);
     class procedure Init; static;
@@ -108,8 +117,8 @@ end;
 
 class procedure TMap.Init;
 var
-  L: TLayerEnum;
   I: Integer;
+  L: TLayerEnum;
 begin
   for L := Low(TLayerEnum) to High(TLayerEnum) do
   begin
@@ -117,13 +126,21 @@ begin
     Clear(L);
   end;
   for I := 0 to High(TMap.Place) do
-  begin
-    TMap.Place[I].X := 0;
-    TMap.Place[I].Y := 0;
-    TMap.Place[I].CurLevel := 0;
-    TMap.Place[I].MaxLevel := 2;
-    TMap.Place[I].Owner := reNeutrals;
-  end;
+    TMap.Place[I] := TPlace.Create;
+end;
+
+constructor TMap.Create;
+begin
+
+end;
+
+destructor TMap.Destroy;
+var
+  I: Integer;
+begin
+  inherited;
+  for I := 0 to High(TMap.Place) do
+    FreeAndNil(TMap.Place[I]);
 end;
 
 class procedure TMap.Clear(const L: TLayerEnum);
@@ -401,7 +418,7 @@ end;
 
 class procedure TPlace.Gen;
 var
-  DX, DY, FX, FY, I: Integer;
+  DX, DY, FX, FY, PX, PY, I: Integer;
 begin
   for I := 0 to High(TMap.Place) do
   begin
@@ -410,26 +427,27 @@ begin
         0: // Capital
           case TSaga.Difficulty of
             dfEasy:
-              TMap.Place[I].X := RandomRange(17, MapWidth - 17);
+              PX := RandomRange(17, MapWidth - 17);
             dfNormal:
               case RandomRange(0, 2) of
                 0:
-                  TMap.Place[I].X := RandomRange(8, 15);
+                  PX := RandomRange(8, 15);
                 1:
-                  TMap.Place[I].X := RandomRange(MapWidth - 15, MapWidth - 8);
+                  PX := RandomRange(MapWidth - 15, MapWidth - 8);
               end;
             dfHard:
               case RandomRange(0, 2) of
                 0:
-                  TMap.Place[I].X := RandomRange(3, 5);
+                  PX := RandomRange(3, 5);
                 1:
-                  TMap.Place[I].X := RandomRange(MapWidth - 5, MapWidth - 3);
+                  PX := RandomRange(MapWidth - 5, MapWidth - 3);
               end;
           end
       else
-        TMap.Place[I].X := RandomRange(3, MapWidth - 3);
+        PX := RandomRange(3, MapWidth - 3);
       end;
-      TMap.Place[I].Y := RandomRange(3, MapHeight - 3);
+      PY := RandomRange(3, MapHeight - 3);
+      TMap.Place[I].SetLocation(PX, PY);
     until ChCity(I);
     case I of
       0: // Capital
@@ -484,6 +502,14 @@ begin
         end;
     end;
   end;
+end;
+
+constructor TPlace.Create;
+begin
+  inherited;
+  CurLevel := 0;
+  MaxLevel := 2;
+  Owner := reNeutrals;
 end;
 
 class function TPlace.GetIndex(const AX, AY: Integer): Integer;
