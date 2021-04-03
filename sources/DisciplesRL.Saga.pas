@@ -9,13 +9,12 @@ uses
   DisciplesRL.Creatures;
 
 type
-  TStatisticsEnum = (stKilledCreatures, stBattlesWon);
-
-type
 
   { TStatistics }
 
   TStatistics = class(TObject)
+  public type
+    TStatisticsEnum = (stKilledCreatures, stBattlesWon);
   private
     FValue: array [TStatisticsEnum] of Integer;
   public
@@ -45,7 +44,6 @@ type
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
-  public const
     ScenarioName: array [TScenarioEnum] of string = ('Темная Башня',
       'Повелитель', 'Древние Знания');
     ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
@@ -59,18 +57,15 @@ type
       //
       );
   public
-    class var StoneTab: Integer;
-    class var CurrentScenario: TScenarioEnum;
-  strict private
-  class var
+    StoneTab: Integer;
+    CurrentScenario: TScenarioEnum;
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
-    J: Integer;
-  public
-    class procedure Clear; static;
-    class function IsStoneTab(const X, Y: Integer): Boolean; static;
-    class procedure AddStoneTab(const X, Y: Integer); static;
-    class function ScenarioOverlordState: string; static;
-    class function ScenarioAncientKnowledgeState: string; static;
+    StoneCounter: Integer;
+    procedure Clear;
+    function IsStoneTab(const X, Y: Integer): Boolean;
+    procedure AddStoneTab(const X, Y: Integer);
+    function ScenarioOverlordState: string;
+    function ScenarioAncientKnowledgeState: string;
   end;
 
 type
@@ -172,6 +167,7 @@ type
 
 var
   Statistics: TStatistics;
+  Scenario: TScenario;
 
 implementation
 
@@ -419,20 +415,20 @@ end;
 
 { TScenario }
 
-class procedure TScenario.AddStoneTab(const X, Y: Integer);
+procedure TScenario.AddStoneTab(const X, Y: Integer);
 begin
-  Inc(J);
-  FStoneTab[J].X := X;
-  FStoneTab[J].Y := Y;
+  Inc(StoneCounter);
+  FStoneTab[StoneCounter].X := X;
+  FStoneTab[StoneCounter].Y := Y;
 end;
 
-class procedure TScenario.Clear;
+procedure TScenario.Clear;
 begin
-  J := 0;
+  StoneCounter := 0;
   StoneTab := 0;
 end;
 
-class function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
+function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
 var
   I: Integer;
 begin
@@ -445,13 +441,13 @@ begin
     end;
 end;
 
-class function TScenario.ScenarioAncientKnowledgeState: string;
+function TScenario.ScenarioAncientKnowledgeState: string;
 begin
   Result := Format('Найдено каменных табличек: %d из %d',
     [StoneTab, ScenarioStoneTabMax]);
 end;
 
-class function TScenario.ScenarioOverlordState: string;
+function TScenario.ScenarioOverlordState: string;
 begin
   Result := Format('Захвачено городов: %d из %d',
     [TPlace.GetCityCount, ScenarioCitiesMax]);
@@ -463,7 +459,7 @@ class procedure TSaga.Clear;
 begin
   IsGame := True;
   Statistics.Clear;
-  TScenario.Clear;
+  Scenario.Clear;
   Days := 1;
   Gold := 250;
   NewGold := 0;
@@ -484,8 +480,10 @@ end;
 
 initialization
   Statistics := TStatistics.Create;
+  Scenario := TScenario.Create;
 
 finalization
   FreeAndNil(Statistics);
+  FreeAndNil(Scenario);
 
 end.

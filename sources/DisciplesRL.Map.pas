@@ -289,9 +289,9 @@ begin
     until (FMap[lrObj][X, Y] = reNone) and (FMap[lrTile][X, Y] = reNeutralTerrain)
       and (GetDistToCapital(X, Y) >= 3);
     TSaga.AddPartyAt(X, Y);
-    if (TScenario.CurrentScenario = sgAncientKnowledge) and
+    if (Scenario.CurrentScenario = sgAncientKnowledge) and
       (I < TScenario.ScenarioStoneTabMax) then
-      TScenario.AddStoneTab(X, Y);
+      Scenario.AddStoneTab(X, Y);
   end;
   AddCapitalParty;
   AddLeaderParty;

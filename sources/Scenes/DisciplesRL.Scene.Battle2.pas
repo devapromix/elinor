@@ -205,10 +205,10 @@ begin
   MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
-  if (TScenario.CurrentScenario = sgAncientKnowledge) and
-    TScenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
+  if (Scenario.CurrentScenario = sgAncientKnowledge) and
+    Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
-    Inc(TScenario.StoneTab);
+    Inc(Scenario.StoneTab);
     TSceneHire.Show(stStoneTab, scHire, reGold);
   end
   else

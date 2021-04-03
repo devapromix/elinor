@@ -140,7 +140,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
     stJournal:
-      CurrentIndex := Ord(TScenario.CurrentScenario);
+      CurrentIndex := Ord(Scenario.CurrentScenario);
   else
     CurrentIndex := 0;
   end;
@@ -306,7 +306,7 @@ begin
       end;
     stScenario:
       begin
-        TScenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
+        Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
         TSceneHire.Show(stDifficulty);
       end;
     stJournal:
@@ -329,8 +329,8 @@ begin
       end;
     stStoneTab:
       begin
-        if (TScenario.CurrentScenario = sgAncientKnowledge) then
-          if TScenario.StoneTab >= TScenario.ScenarioStoneTabMax then
+        if (Scenario.CurrentScenario = sgAncientKnowledge) then
+          if Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
           begin
             TSceneHire.Show(stVictory);
             Exit;
@@ -398,7 +398,7 @@ begin
         F := True;
         Scenes.Show(scMap);
         begin
-          if (TScenario.CurrentScenario = sgDarkTower) then
+          if (Scenario.CurrentScenario = sgDarkTower) then
           begin
             case Map.LeaderTile of
               reTower:
@@ -589,11 +589,11 @@ begin
   for J := 0 to 10 do
     Add(TScenario.ScenarioDescription[S][J]);
   if TSaga.IsGame then
-    case TScenario.CurrentScenario of
+    case Scenario.CurrentScenario of
       sgOverlord:
-        Add(TScenario.ScenarioOverlordState);
+        Add(Scenario.ScenarioOverlordState);
       sgAncientKnowledge:
-        Add(TScenario.ScenarioAncientKnowledgeState);
+        Add(Scenario.ScenarioAncientKnowledgeState);
     end;
 end;
 
@@ -917,7 +917,7 @@ begin
         DrawTitle(reTitleLoot);
         DrawItem([reItemStoneTable]);
         DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');
-        DrawText(470, TScenario.ScenarioAncientKnowledgeState);
+        DrawText(470, Scenario.ScenarioAncientKnowledgeState);
       end;
     stLoot:
       begin
