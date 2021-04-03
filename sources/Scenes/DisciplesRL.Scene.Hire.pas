@@ -432,9 +432,9 @@ begin
   begin
     Add(Name[0], True);
     Add;
-    Add2('Побед', TSaga.BattlesWon);
+    Add2('Побед', Statistics.GetValue(stBattlesWon));
     Add('Уровень', Level);
-    Add2('Убито', TSaga.KilledCreatures);
+    Add2('Убито', Statistics.GetValue(stKilledCreatures));
     Add('Точность', ChancesToHit, '%');
     Add('Инициатива', Initiative);
     Add('Здоровье', HitPoints, HitPoints);
@@ -603,8 +603,8 @@ begin
   L := Lf + ResImage[reActFrame].Width + 12;
   Add('Статистика', True);
   Add;
-  Add('Выиграно боев', TSaga.BattlesWon);
-  Add('Убито существ', TSaga.KilledCreatures);
+  Add('Выиграно боев', Statistics.GetValue(stBattlesWon));
+  Add('Убито врагов', Statistics.GetValue(stKilledCreatures));
 end;
 
 procedure TSceneHire.RenderHighScores;

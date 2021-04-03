@@ -8,6 +8,22 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
+type
+  TStatisticsEnum = (stKilledCreatures, stBattlesWon);
+
+type
+
+  { TStatistics }
+
+  TStatistics = class(TObject)
+  private
+    FValue: array [TStatisticsEnum] of Integer;
+  public
+    procedure Clear;
+    procedure IncValue(const I: TStatisticsEnum; const Value: Integer = 1);
+    function GetValue(const I: TStatisticsEnum): Integer;
+  end;
+
 {
   Сценарии:
   [1] Темная Башня - победить чародея в башне.
@@ -50,7 +66,7 @@ type
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
     J: Integer;
   public
-    class procedure Init; static;
+    class procedure Clear; static;
     class function IsStoneTab(const X, Y: Integer): Boolean; static;
     class procedure AddStoneTab(const X, Y: Integer); static;
     class function ScenarioOverlordState: string; static;
@@ -74,8 +90,6 @@ type
     Scores: Integer;
     GoldMines: Integer;
     ManaMines: Integer;
-    KilledCreatures: Integer;
-    BattlesWon: Integer;
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
     IsDay: Boolean;
@@ -156,6 +170,9 @@ type
     class procedure AddScores(I: Integer); static;
   end;
 
+var
+  Statistics: TStatistics;
+
 implementation
 
 uses
@@ -168,6 +185,26 @@ uses
 
 const
   MaxLevel = 8;
+
+{ TStatistics }
+
+procedure TStatistics.Clear;
+var
+  I: TStatisticsEnum;
+begin
+  for I := Low(TStatisticsEnum) to High(TStatisticsEnum) do
+    FValue[I] := 0;
+end;
+
+procedure TStatistics.IncValue(const I: TStatisticsEnum; const Value: Integer);
+begin
+  FValue[I] := FValue[I] + Value;
+end;
+
+function TStatistics.GetValue(const I: TStatisticsEnum): Integer;
+begin
+  Result := FValue[I];
+end;
 
   { TSaga }
 
@@ -389,7 +426,7 @@ begin
   FStoneTab[J].Y := Y;
 end;
 
-class procedure TScenario.Init;
+class procedure TScenario.Clear;
 begin
   J := 0;
   StoneTab := 0;
@@ -425,7 +462,8 @@ end;
 class procedure TSaga.Clear;
 begin
   IsGame := True;
-  TScenario.Init;
+  Statistics.Clear;
+  TScenario.Clear;
   Days := 1;
   Gold := 250;
   NewGold := 0;
@@ -435,8 +473,6 @@ begin
   Scores := 0;
   GoldMines := 0;
   ManaMines := 0;
-  BattlesWon := 0;
-  KilledCreatures := 0;
   IsDay := False;
   ShowNewDayMessage := 0;
   PartyFree;
@@ -445,5 +481,11 @@ begin
   TSceneSettlement.GenCityName;
   TLeaderParty.Leader.Clear;
 end;
+
+initialization
+  Statistics := TStatistics.Create;
+
+finalization
+  FreeAndNil(Statistics);
 
 end.
