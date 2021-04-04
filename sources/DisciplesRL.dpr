@@ -18,7 +18,6 @@ uses
   RLLog in 'Third-Party\RLLog\RLLog.pas',
   MapObject in 'Third-Party\MapObject\MapObject.pas',
   Bass in 'Third-Party\Bass\Bass.pas',
-  SimplePlayer in 'Third-Party\SimplePlayer\SimplePlayer.pas',
   DisciplesRL.Battle in 'DisciplesRL.Battle.pas',
   DisciplesRL.Scenes in 'Scenes\DisciplesRL.Scenes.pas',
   DisciplesRL.Scene.Map in 'Scenes\DisciplesRL.Scene.Map.pas',
