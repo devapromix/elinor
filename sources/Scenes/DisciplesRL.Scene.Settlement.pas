@@ -321,13 +321,13 @@ begin
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
-        TPlace.UpdateRadius(TPlace.GetIndex(TLeaderParty.Leader.X,
+        TMapPlace.UpdateRadius(TMapPlace.GetIndex(TLeaderParty.Leader.X,
           TLeaderParty.Leader.Y));
       end;
   end;
   if (Scenario.CurrentScenario = sgOverlord) then
   begin
-    if (TPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
+    if (TMapPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
     begin
       TSceneHire.Show(stVictory);
       Exit;

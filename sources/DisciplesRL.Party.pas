@@ -542,13 +542,13 @@ begin
   if (Map.GetTile(lrObj, AX, AY) in StopTiles) then
     Exit;
   if not IsInfo then
-    for I := 0 to High(Map.Place) do
+    for I := 0 to High(Map.MapPlace) do
     begin
-      if (Map.Place[I].Owner in Races) then
-        if (Map.Place[I].CurLevel < Map.Place[I].MaxLevel) then
+      if (Map.MapPlace[I].Owner in Races) then
+        if (Map.MapPlace[I].CurLevel < Map.MapPlace[I].MaxLevel) then
         begin
-          Inc(Map.Place[I].CurLevel);
-          TPlace.UpdateRadius(I);
+          Inc(Map.MapPlace[I].CurLevel);
+          TMapPlace.UpdateRadius(I);
         end;
     end;
   if IsInfo then
@@ -620,7 +620,7 @@ begin
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
-        TPlace.UpdateRadius(TPlace.GetIndex(Leader.X, Leader.Y));
+        TMapPlace.UpdateRadius(TMapPlace.GetIndex(Leader.X, Leader.Y));
         F := False;
       end;
   end;

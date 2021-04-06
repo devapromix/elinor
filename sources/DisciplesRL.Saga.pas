@@ -450,7 +450,7 @@ end;
 function TScenario.ScenarioOverlordState: string;
 begin
   Result := Format('Захвачено городов: %d из %d',
-    [TPlace.GetCityCount, ScenarioCitiesMax]);
+    [TMapPlace.GetCityCount, ScenarioCitiesMax]);
 end;
 
 { TSaga }
