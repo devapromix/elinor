@@ -15,7 +15,6 @@ uses
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
-  RLLog in 'Third-Party\RLLog\RLLog.pas',
   Bass in 'Third-Party\Bass\Bass.pas',
   DisciplesRL.Battle in 'DisciplesRL.Battle.pas',
   DisciplesRL.Scenes in 'Scenes\DisciplesRL.Scenes.pas',

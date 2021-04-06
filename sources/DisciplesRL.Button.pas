@@ -9,7 +9,7 @@ uses
   Vcl.Graphics,
   Vcl.Imaging.PNGImage,
 {$ENDIF}
-  RLLog,
+  Classes,
   DisciplesRL.Resources;
 
 type
@@ -50,13 +50,24 @@ type
   end;
 
 type
-  TLog = class(TRLLog)
+  TLog = class(TObject)
   private
     FTop: Integer;
     FLeft: Integer;
+    FMsg: string;
+    FLog: TStringList;
   public
     constructor Create(const ALeft, ATop: Integer);
     procedure Render;
+    destructor Destroy; override;
+    procedure Append(const S: string);
+    property Msg: string read FMsg write FMsg;
+    function Get(const I: Integer): string;
+    function GetLast(const I: Integer): string;
+    procedure Add(const S: string);
+    function Count: Integer;
+    procedure Clear;
+    procedure Turn;
   end;
 
 type
@@ -92,6 +103,7 @@ implementation
 
 uses
   Math,
+  SysUtils,
   DisciplesRL.Scenes;
 
 const
@@ -313,7 +325,7 @@ end;
 
 constructor TLog.Create(const ALeft, ATop: Integer);
 begin
-  inherited Create;
+  FLog := TStringList.Create;
   FTop := ATop;
   FLeft := ALeft;
 end;
@@ -331,6 +343,49 @@ begin
     DrawText(FLeft, FTop + Y, Get(I));
     Inc(Y, 16);
   end;
+end;
+
+procedure TLog.Add(const S: string);
+begin
+  FLog.Append(S);
+end;
+
+procedure TLog.Append(const S: string);
+begin
+  FMsg := FMsg + ' ' + Trim(S);
+end;
+
+procedure TLog.Clear;
+begin
+  FMsg := '';
+  FLog.Clear;
+end;
+
+function TLog.Count: Integer;
+begin
+  Result := FLog.Count;
+end;
+
+destructor TLog.Destroy;
+begin
+  FreeAndNil(FLog);
+  inherited;
+end;
+
+function TLog.Get(const I: Integer): string;
+begin
+  Result := FLog[I];
+end;
+
+function TLog.GetLast(const I: Integer): string;
+begin
+  Result := FLog[Count - I];
+end;
+
+procedure TLog.Turn;
+begin
+  if not FMsg.Trim.IsEmpty then
+    FLog.Append(FMsg.Trim);
 end;
 
 end.
