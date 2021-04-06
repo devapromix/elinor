@@ -4,9 +4,28 @@ interface
 
 uses
   DisciplesRL.Creatures,
-  DisciplesRL.Resources,
-  DisciplesRL.Saga,
-  MapObject;
+  DisciplesRL.Resources;
+
+type
+  TLocation = record
+    X: Integer;
+    Y: Integer;
+  end;
+
+type
+  TMapObject = class(TObject)
+  private
+    FLocation: TLocation;
+  public
+    constructor Create(const AX, AY: Integer); overload;
+    constructor Create; overload;
+    destructor Destroy; override;
+    property Location: TLocation read FLocation write FLocation;
+    procedure SetLocation(const AX, AY: Integer);
+    function GetLocation: TLocation;
+    property X: Integer read FLocation.X;
+    property Y: Integer read FLocation.Y;
+  end;
 
 type
 
@@ -34,13 +53,14 @@ type
     TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
   public const
     TileSize = 32;
+    MapPlacesCount = 30;
   private const
     MapWidth = 40 + 2;
     MapHeight = 20 + 2;
   private
     FMap: array [TLayerEnum] of TMapLayer;
   public
-    MapPlace: array [0 .. TScenario.ScenarioPlacesMax - 1] of TMapPlace;
+    MapPlace: array [0 .. MapPlacesCount - 1] of TMapPlace;
     constructor Create;
     destructor Destroy; override;
     procedure Clear(const L: TLayerEnum); overload;
@@ -69,6 +89,7 @@ implementation
 uses
   Math,
   SysUtils,
+  DisciplesRL.Saga,
   DisciplesRL.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party;
@@ -83,6 +104,34 @@ function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
 function ChTile(X, Y: Integer): Boolean; stdcall;
 begin
   Result := True;
+end;
+
+constructor TMapObject.Create(const AX, AY: Integer);
+begin
+  FLocation.X := AX;
+  FLocation.Y := AY;
+end;
+
+constructor TMapObject.Create;
+begin
+  Create(0, 0);
+end;
+
+destructor TMapObject.Destroy;
+begin
+
+  inherited;
+end;
+
+function TMapObject.GetLocation: TLocation;
+begin
+  Result := FLocation;
+end;
+
+procedure TMapObject.SetLocation(const AX, AY: Integer);
+begin
+  FLocation.X := AX;
+  FLocation.Y := AY;
 end;
 
 function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;

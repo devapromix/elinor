@@ -16,7 +16,6 @@ uses
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',
   RLLog in 'Third-Party\RLLog\RLLog.pas',
-  MapObject in 'Third-Party\MapObject\MapObject.pas',
   Bass in 'Third-Party\Bass\Bass.pas',
   DisciplesRL.Battle in 'DisciplesRL.Battle.pas',
   DisciplesRL.Scenes in 'Scenes\DisciplesRL.Scenes.pas',

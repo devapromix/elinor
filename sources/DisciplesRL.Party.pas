@@ -5,7 +5,7 @@ interface
 uses
   Types,
   DisciplesRL.Creatures,
-  MapObject;
+  DisciplesRL.Map;
 
 type
   TPartySide = (psLeft, psRight);
@@ -127,7 +127,6 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Map,
   DisciplesRL.Saga,
   DisciplesRL.Resources,
   DisciplesRL.Scenes,

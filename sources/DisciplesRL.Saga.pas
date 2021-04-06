@@ -40,7 +40,6 @@ type
   public type
     TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
   public const
-    ScenarioPlacesMax = 30;
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
