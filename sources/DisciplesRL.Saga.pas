@@ -14,7 +14,7 @@ type
 
   TStatistics = class(TObject)
   public type
-    TStatisticsEnum = (stKilledCreatures, stBattlesWon);
+    TStatisticsEnum = (stKilledCreatures, stBattlesWon, stScore);
   private
     FValue: array [TStatisticsEnum] of Integer;
   public
@@ -81,7 +81,6 @@ type
     Mana: Integer;
     NewMana: Integer;
     NewItem: Integer;
-    Scores: Integer;
     GoldMines: Integer;
     ManaMines: Integer;
     LeaderRace: TRaceEnum;
@@ -161,7 +160,6 @@ type
     class procedure ModifyGold(Amount: Integer); static;
     class procedure ModifyMana(Amount: Integer); static;
     class procedure NewDay; static;
-    class procedure AddScores(I: Integer); static;
   end;
 
 var
@@ -326,13 +324,6 @@ begin
   Party[I].Owner := reNeutrals;
 end;
 
-class procedure TSaga.AddScores(I: Integer);
-begin
-  if (I < 0) then
-    I := 0;
-  Scores := Scores + I;
-end;
-
 class procedure TSaga.ModifyGold(Amount: Integer);
 begin
   Inc(Gold, Amount);
@@ -465,7 +456,6 @@ begin
   Mana := 250;
   NewMana := 0;
   NewItem := 0;
-  Scores := 0;
   GoldMines := 0;
   ManaMines := 0;
   IsDay := False;
