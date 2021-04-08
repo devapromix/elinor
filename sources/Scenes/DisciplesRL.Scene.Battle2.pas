@@ -44,6 +44,8 @@ type
     function GetHitPoints(Position: Integer): Integer;
     procedure AI;
   public
+    class var
+    IsDuel: Boolean;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -197,9 +199,9 @@ begin
   Statistics.IncValue(stBattlesWon);
   Statistics.IncValue(stKilledCreatures, EnemyParty.Count + 1);
   //
-  if TSaga.IsDuel then
+  if IsDuel then
   begin
-    TSaga.IsDuel := False;
+    IsDuel := False;
     InformDialog('Вы победили на дуэли и воины вражеского отряда разбежались!');
   end;
   MediaPlayer.PlayMusic(mmMap);
@@ -228,7 +230,7 @@ begin
   Battle.Clear;
   Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  if TSaga.IsDuel then
+  if IsDuel then
   begin
     DuelEnemyParty.Clear;
     Position := Party[I].GetRandomPosition;

@@ -86,6 +86,7 @@ uses
   DisciplesRL.Map,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
+  DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement;
 
 type
@@ -366,7 +367,7 @@ begin
                 if TrySpy(svDuel) then
                 begin
                   InformDialog('Вы вызвали противника на дуэль!');
-                  TSaga.IsDuel := True;
+                  TSceneBattle2.IsDuel := True;
                   TLeaderParty.Leader.PutAt(MPX, MPY);
                 end;
               end
