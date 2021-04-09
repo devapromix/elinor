@@ -51,7 +51,7 @@ end;
 
 procedure TBattle.Miss(AtkCrName, DefCrName: string);
 begin
-  case RandomRange(0, 6) of
+  case RandomRange(0, 7) of
     0:
       Log.Add(Format('%s пытается атаковать, но внезапно промахивается.', [AtkCrName]));
     1:
@@ -62,6 +62,8 @@ begin
       Log.Add(Format('%s тщетно пытается атаковать.', [AtkCrName]));
     4:
       Log.Add(Format('%s атакует %s, но промахивается.', [AtkCrName, DefCrName]));
+    5:
+      Log.Add(Format('%s внезапно промахивается.', [AtkCrName]));
   else
     Log.Add(Format('%s промахивается.', [AtkCrName]));
   end;
@@ -69,9 +71,11 @@ end;
 
 function TBattle.StartCastSpell: string;
 begin
-  case RandomRange(0, 2) of
+  case RandomRange(0, 3) of
     0:
       Result := '%s готовит заклинание. Его источник: %s.';
+    1:
+      Result := '%s произносит заклинание. Источник: %s.';
     else
       Result := '%s начинает колдовать. Источник магии: %s.';
   end;
