@@ -52,11 +52,6 @@ type
     procedure StopMusic;
   end;
 
-procedure DrawText(const AX, AY: Integer; AText: string); overload;
-procedure DrawText(const AY: Integer; AText: string); overload;
-procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
-procedure DrawText(const AX, AY: Integer; AText: string; F: Boolean); overload;
-
 const
   K_ESCAPE = 27;
   K_ENTER = 13;
@@ -146,6 +141,10 @@ type
     function GetPartyPosition(const MX, MY: Integer): Integer;
     property ScrWidth: Integer read FScrWidth write FScrWidth;
     property Width: Integer read FWidth write FWidth;
+    procedure DrawText(const AX, AY: Integer; AText: string); overload;
+    procedure DrawText(const AY: Integer; AText: string); overload;
+    procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
+    procedure DrawText(const AX, AY: Integer; AText: string; F: Boolean); overload;
   end;
 
 type
@@ -302,7 +301,7 @@ begin
   DrawImage(X, Y, ResImage[Res]);
 end;
 
-procedure DrawText(const AX, AY: Integer; AText: string);
+procedure TScene.DrawText(const AX, AY: Integer; AText: string);
 var
   vStyle: TBrushStyle;
 begin
@@ -312,12 +311,12 @@ begin
   Surface.Canvas.Brush.Style := vStyle;
 end;
 
-procedure DrawText(const AX, AY: Integer; Value: Integer);
+procedure TScene.DrawText(const AX, AY: Integer; Value: Integer);
 begin
   DrawText(AX, AY, Value.ToString);
 end;
 
-procedure DrawText(const AY: Integer; AText: string);
+procedure TScene.DrawText(const AY: Integer; AText: string);
 var
   S: Integer;
 begin
@@ -325,7 +324,7 @@ begin
   DrawText((Surface.Width div 2) - (S div 2), AY, AText);
 end;
 
-procedure DrawText(const AX, AY: Integer; AText: string; F: Boolean);
+procedure TScene.DrawText(const AX, AY: Integer; AText: string; F: Boolean);
 var
   N: Integer;
 begin

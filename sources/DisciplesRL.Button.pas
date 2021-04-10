@@ -74,9 +74,6 @@ type
   TIconState = (isDef, isOver);
 
 type
-
-  { TIcon }
-
   TIcon = class(TObject)
   private
     FLeft: Integer;
@@ -108,6 +105,16 @@ uses
 
 const
   LogRows = 7;
+
+procedure DrawText(const AX, AY: Integer; AText: string);
+var
+  vStyle: TBrushStyle;
+begin
+  vStyle := Surface.Canvas.Brush.Style;
+  Surface.Canvas.Brush.Style := bsClear;
+  Surface.Canvas.TextOut(AX, AY, AText);
+  Surface.Canvas.Brush.Style := vStyle;
+end;
 
 { TIcon }
 
