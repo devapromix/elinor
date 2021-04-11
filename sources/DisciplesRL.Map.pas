@@ -408,7 +408,7 @@ end;
 function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
 begin
   Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
-    TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or TSaga.Wizard) and
+    TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or Game.Wizard) and
     not(FMap[lrObj][X, Y] in StopTiles);
 end;
 

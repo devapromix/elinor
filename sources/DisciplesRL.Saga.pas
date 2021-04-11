@@ -83,9 +83,6 @@ type
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
     IsDay: Boolean;
-    Wizard: Boolean;
-    NoMusic: Boolean;
-    NewBattle: Boolean;
     IsGame: Boolean;
     ShowNewDayMessage: ShortInt;
   public const

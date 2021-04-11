@@ -110,10 +110,10 @@ procedure DrawText(const AX, AY: Integer; AText: string);
 var
   vStyle: TBrushStyle;
 begin
-  vStyle := Surface.Canvas.Brush.Style;
-  Surface.Canvas.Brush.Style := bsClear;
-  Surface.Canvas.TextOut(AX, AY, AText);
-  Surface.Canvas.Brush.Style := vStyle;
+  vStyle := Game.Surface.Canvas.Brush.Style;
+  Game.Surface.Canvas.Brush.Style := bsClear;
+  Game.Surface.Canvas.TextOut(AX, AY, AText);
+  Game.Surface.Canvas.Brush.Style := vStyle;
 end;
 
 { TIcon }
@@ -153,9 +153,9 @@ end;
 procedure TIcon.Render;
 begin
   if MouseOver then
-    Surface.Canvas.Draw(FLeft, FTop, FSurface[isOver])
+    Game.Surface.Canvas.Draw(FLeft, FTop, FSurface[isOver])
   else
-    Surface.Canvas.Draw(FLeft, FTop, FSurface[isDef]);
+    Game.Surface.Canvas.Draw(FLeft, FTop, FSurface[isDef]);
   Refresh;
 end;
 
@@ -200,7 +200,7 @@ var
 begin
   FTop := ATop;
   FLeft := ALeft;
-  FCanvas := Surface.Canvas;
+  //FCanvas := Game.Surface.Canvas;
   FSellected := False;
   FText := ARes;
   for I := Low(TButtonState) to High(TButtonState) do
@@ -303,13 +303,13 @@ begin
   case State of
     bsNone:
       if Sellected then
-        FCanvas.Draw(Left, Top, FSurface[bsSell])
+        Game.Surface.Canvas.Draw(Left, Top, FSurface[bsSell])
       else
-        FCanvas.Draw(Left, Top, FSurface[bsNone]);
+        Game.Surface.Canvas.Draw(Left, Top, FSurface[bsNone]);
     bsOver:
-      FCanvas.Draw(Left, Top, FSurface[bsOver]);
+      Game.Surface.Canvas.Draw(Left, Top, FSurface[bsOver]);
     bsDown:
-      FCanvas.Draw(Left, Top, FSurface[bsDown]);
+      Game.Surface.Canvas.Draw(Left, Top, FSurface[bsDown]);
   end;
 end;
 
@@ -323,7 +323,7 @@ begin
       State := bsNone;
   end;
   Refresh;
-  FCanvas.Draw(FTextLeft, FTextTop, ResImage[FText]);
+  Game.Surface.Canvas.Draw(FTextLeft, FTextTop, ResImage[FText]);
   if (State = bsDown) and not MouseOver then
     State := bsNone;
 end;

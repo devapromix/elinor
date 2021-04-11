@@ -453,7 +453,7 @@ begin
   MaxSpeed := 7;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
-  FRadius := IfThen(TSaga.Wizard, 9, 1);
+  FRadius := IfThen(Game.Wizard, 9, 1);
   FSpells := GetMaxSpells;
   FSpy := GetMaxSpy;
   Self.UpdateRadius;
@@ -605,7 +605,7 @@ begin
         end;
       reEnemy:
         begin
-          if TSaga.NewBattle then
+          if Game.NewBattle then
             Game.Show(scBattle3)
           else
             Game.Show(scBattle2);

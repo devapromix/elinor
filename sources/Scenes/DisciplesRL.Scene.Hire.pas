@@ -265,7 +265,7 @@ var
 
   function TrySpy(V: TLeaderThiefSpyVar): Boolean;
   begin
-    Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V)) or TSaga.Wizard;
+    Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V)) or Game.Wizard;
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');

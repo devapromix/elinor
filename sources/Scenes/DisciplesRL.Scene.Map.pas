@@ -50,7 +50,7 @@ begin
   case Button of
     mbLeft:
       begin
-        if TSaga.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
+        if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
         else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
           Game.Map.InMap(MousePos.X, MousePos.Y) then
@@ -58,7 +58,7 @@ begin
       end;
     mbMiddle:
       begin
-        if TSaga.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
+        if Game.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
           and (TLeaderParty.Leader.Enum in LeaderThief)
           and not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y)) then
             begin
@@ -126,7 +126,7 @@ begin
         (Game.Map.GetTile(lrDark, X, Y) = reNone);
 
       // Special
-      if TSaga.Wizard and (((Game.Scenario.CurrentScenario = sgAncientKnowledge) and
+      if Game.Wizard and (((Game.Scenario.CurrentScenario = sgAncientKnowledge) and
         Game.Scenario.IsStoneTab(X, Y)) or
         ((Game.Scenario.CurrentScenario = sgDarkTower) and
         (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType = teTower)) or

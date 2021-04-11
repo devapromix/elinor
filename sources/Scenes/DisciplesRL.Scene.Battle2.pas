@@ -721,19 +721,19 @@ begin
     K_ESCAPE, K_ENTER:
       FinishBattle;
     K_SPACE:
-      if TSaga.Wizard then
+      if Game.Wizard then
         NextTurn;
     K_N:
-      if TSaga.Wizard then
+      if Game.Wizard then
         NextTurn;
     K_H:
-      if TSaga.Wizard then
+      if Game.Wizard then
         TLeaderParty.Leader.HealAll(100);
     K_D:
-      if TSaga.Wizard then
+      if Game.Wizard then
         Defeat;
     K_V:
-      if TSaga.Wizard then
+      if Game.Wizard then
         Victory;
   end;
 end;

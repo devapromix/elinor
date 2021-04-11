@@ -178,6 +178,9 @@ type
 
   TGame = class(TScenes)
   public
+    Wizard: Boolean;
+    NewBattle: Boolean;
+    Surface: TBitmap;
     Statistics: TStatistics;
     Scenario: TScenario;
     Map: TMap;
@@ -189,7 +192,6 @@ type
 
 var
   Game: TGame;
-  Surface: TBitmap;
 
 implementation
 
@@ -214,26 +216,37 @@ const
   MusicChannel = 0;
 
 var
-  MediaAvailable: Boolean;
   Button: TButton;
   Buttons: array [TButtonEnum] of TButton;
 
 { TGame }
 
 constructor TGame.Create;
+var
+  I: Integer;
 begin
   inherited Create;
+  Surface := TBitmap.Create;
+  Surface.Width := 1344;
+  Surface.Height := 704;
+  Surface.Canvas.Font.Size := 12;
+  Surface.Canvas.Font.Color := clGreen;
+  Surface.Canvas.Brush.Style := bsClear;
+  Wizard := False;
+  NewBattle := False;
+  for I := 1 to ParamCount do
+  begin
+    if (LowerCase(ParamStr(I)) = '-w') then
+      Wizard := True;
+    if (LowerCase(ParamStr(I)) = '-b') then
+      NewBattle := True;
+  end;
   Map := TMap.Create;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
-  try
-    MediaPlayer := TMediaPlayer.Create;
-    MediaAvailable := True;
-  except
-    MediaAvailable := False;
-  end;
+  MediaPlayer := TMediaPlayer.Create;
   MediaPlayer.PlayMusic(mmMenu);
-  SceneEnum := scMenu2;
+  SceneEnum := scMenu;
 end;
 
 destructor TGame.Destroy;
@@ -243,6 +256,7 @@ begin
   FreeAndNil(Map);
   MediaPlayer.Stop;
   FreeAndNil(MediaPlayer);
+  FreeAndNil(Surface);
   inherited;
 end;
 
@@ -322,12 +336,12 @@ end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
 begin
-  Surface.Canvas.Draw(X, Y, Image);
+  Game.Surface.Canvas.Draw(X, Y, Image);
 end;
 
 procedure TScene.DrawImage(Res: TResEnum);
 begin
-  Surface.Canvas.StretchDraw(Rect(0, 0, Surface.Width, Surface.Height),
+  Game.Surface.Canvas.StretchDraw(Rect(0, 0, Game.Surface.Width, Game.Surface.Height),
     ResImage[Res]);
 end;
 
@@ -354,10 +368,10 @@ procedure TScene.DrawText(const AX, AY: Integer; AText: string);
 var
   vStyle: TBrushStyle;
 begin
-  vStyle := Surface.Canvas.Brush.Style;
-  Surface.Canvas.Brush.Style := bsClear;
-  Surface.Canvas.TextOut(AX, AY, AText);
-  Surface.Canvas.Brush.Style := vStyle;
+  vStyle := Game.Surface.Canvas.Brush.Style;
+  Game.Surface.Canvas.Brush.Style := bsClear;
+  Game.Surface.Canvas.TextOut(AX, AY, AText);
+  Game.Surface.Canvas.Brush.Style := vStyle;
 end;
 
 procedure TScene.DrawText(const AX, AY: Integer; Value: Integer);
@@ -369,8 +383,8 @@ procedure TScene.DrawText(const AY: Integer; AText: string);
 var
   S: Integer;
 begin
-  S := Surface.Canvas.TextWidth(AText);
-  DrawText((Surface.Width div 2) - (S div 2), AY, AText);
+  S := Game.Surface.Canvas.TextWidth(AText);
+  DrawText((Game.Surface.Width div 2) - (S div 2), AY, AText);
 end;
 
 procedure TScene.DrawText(const AX, AY: Integer; AText: string; F: Boolean);
@@ -379,12 +393,12 @@ var
 begin
   if F then
   begin
-    N := Surface.Canvas.Font.Size;
-    Surface.Canvas.Font.Size := N * 2;
+    N := Game.Surface.Canvas.Font.Size;
+    Game.Surface.Canvas.Font.Size := N * 2;
   end;
   DrawText(AX, AY, AText);
   if F then
-    Surface.Canvas.Font.Size := N;
+    Game.Surface.Canvas.Font.Size := N;
 end;
 
 procedure TScene.RenderFrame(const PartySide: TPartySide;
@@ -490,8 +504,6 @@ end;
 
 procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
 begin
-  if TSaga.NoMusic or not MediaAvailable then
-    Exit;
   StopMusic;
   CurrentChannel := MusicChannel;
   Play(MusicEnum);
@@ -542,36 +554,10 @@ end;
 
 constructor TScenes.Create;
 var
-  J, L: Integer;
+  L: Integer;
   I: TButtonEnum;
 begin
-  Surface := TBitmap.Create;
-  Surface.Width := 1344;
-  Surface.Height := 704;
-  Surface.Canvas.Font.Size := 12;
-  Surface.Canvas.Font.Color := clGreen;
-  Surface.Canvas.Brush.Style := bsClear;
-  //
-  inherited Create;
-  //
-  InformMsg := '';
-  IsShowInform := False;
-  IsShowConfirm := False;
-  //
-  TSaga.Wizard := False;
-  TSaga.NoMusic := False;
-  TSaga.NewBattle := False;
-  for J := 1 to ParamCount do
-  begin
-    if (LowerCase(ParamStr(J)) = '-w') then
-      TSaga.Wizard := True;
-    if (LowerCase(ParamStr(J)) = '-m') then
-      TSaga.NoMusic := True;
-    if (LowerCase(ParamStr(J)) = '-b') then
-      TSaga.NewBattle := True;
-  end;
-  //
-  // Scenes
+  inherited;
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu.Create;
   FScene[scMenu2] := TSceneMenu2.Create;
@@ -580,12 +566,14 @@ begin
   FScene[scBattle2] := TSceneBattle2.Create;
   FScene[scBattle3] := TSceneBattle3.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
-  //
   // Inform
+  InformMsg := '';
+  IsShowInform := False;
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   Button := TButton.Create(L, 400, reTextOk);
   Button.Sellected := True;
   // Confirm
+  IsShowConfirm := False;
   L := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
@@ -603,7 +591,6 @@ begin
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[I]);
   FreeAndNil(Button);
-  FreeAndNil(Surface);
   TSaga.PartyFree;
   inherited;
 end;
@@ -696,8 +683,8 @@ begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
   begin
-    Surface.Canvas.Brush.Color := clBlack;
-    Surface.Canvas.FillRect(Rect(0, 0, Surface.Width, Surface.Height));
+    Game.Surface.Canvas.Brush.Color := clBlack;
+    Game.Surface.Canvas.FillRect(Rect(0, 0, Game.Surface.Width, Game.Surface.Height));
     FScene[SceneEnum].Render;
     if IsShowInform or IsShowConfirm then
     begin
@@ -710,7 +697,7 @@ begin
         for I := Low(Buttons) to High(Buttons) do
           Buttons[I].Render;
     end;
-    MainForm.Canvas.Draw(0, 0, Surface);
+    MainForm.Canvas.Draw(0, 0, Game.Surface);
   end;
 end;
 
