@@ -48,7 +48,6 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.MainForm,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire;
 
@@ -69,7 +68,7 @@ end;
 
 procedure TSceneMenu.Quit;
 begin
-  DisciplesRL.MainForm.MainForm.Close;
+  Halt;
 end;
 
 procedure TSceneMenu.ConfirmQuit;

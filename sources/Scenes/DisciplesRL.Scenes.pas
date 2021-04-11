@@ -493,17 +493,19 @@ end;
 
 constructor TScenes.Create;
 var
-  J, L: Integer;
+  J, L, W, H: Integer;
   I: TButtonEnum;
 begin
   Randomize;
   //
-  MainForm.ClientWidth := Map.Width * Map.TileSize;
-  MainForm.ClientHeight := Map.Height * Map.TileSize;
+  W := Map.Width * Map.TileSize;
+  H := Map.Height * Map.TileSize;
+  MainForm.ClientWidth := W;
+  MainForm.ClientHeight := H;
   //
   Surface := TBitmap.Create;
-  Surface.Width := MainForm.ClientWidth;
-  Surface.Height := MainForm.ClientHeight;
+  Surface.Width := W;
+  Surface.Height := H;
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
