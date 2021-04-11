@@ -224,24 +224,21 @@ end;
 procedure TSceneBattle2.StartBattle;
 var
   I: Integer;
-  Position: TPosition;
+  Position, DuelEnemyPosition: TPosition;
 begin
   IsDuel := True;
   Battle.Clear;
+  DuelEnemyParty.Clear;
   Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  EnemyParty := Party[I];
+  LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   if IsDuel then
   begin
-    DuelEnemyParty.Clear;
-    Position := Party[I].GetRandomPosition;
-    DuelEnemyParty.MoveCreature(Party[I], Position);
-    EnemyParty := DuelEnemyParty;
-    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
-  end
-  else
-  begin
-    EnemyParty := Party[I];
-    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+    DuelEnemyPosition := EnemyParty.GetRandomPosition;
+    for Position := Low(TPosition) to High(TPosition) do
+      if Position <> DuelEnemyPosition then
+        EnemyParty.Dismiss(Position);
   end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
