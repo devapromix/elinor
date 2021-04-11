@@ -161,10 +161,6 @@ type
     class procedure NewDay; static;
   end;
 
-var
-  Statistics: TStatistics;
-  Scenario: TScenario;
-
 implementation
 
 uses
@@ -447,8 +443,7 @@ end;
 class procedure TSaga.Clear;
 begin
   IsGame := True;
-  Statistics.Clear;
-  Scenario.Clear;
+  Game.Clear;
   Days := 1;
   Gold := 250;
   NewGold := 0;
@@ -460,18 +455,9 @@ begin
   IsDay := False;
   ShowNewDayMessage := 0;
   PartyFree;
-  Game.Map.Clear;
   Game.Map.Gen;
   TSceneSettlement.GenCityName;
   TLeaderParty.Leader.Clear;
 end;
-
-initialization
-  Statistics := TStatistics.Create;
-  Scenario := TScenario.Create;
-
-finalization
-  FreeAndNil(Statistics);
-  FreeAndNil(Scenario);
 
 end.

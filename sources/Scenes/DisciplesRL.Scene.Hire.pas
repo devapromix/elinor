@@ -141,7 +141,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
     stJournal:
-      CurrentIndex := Ord(Scenario.CurrentScenario);
+      CurrentIndex := Ord(Game.Scenario.CurrentScenario);
   else
     CurrentIndex := 0;
   end;
@@ -307,7 +307,7 @@ begin
       end;
     stScenario:
       begin
-        Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
+        Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
         TSceneHire.Show(stDifficulty);
       end;
     stJournal:
@@ -330,8 +330,8 @@ begin
       end;
     stStoneTab:
       begin
-        if (Scenario.CurrentScenario = sgAncientKnowledge) then
-          if Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
+        if (Game.Scenario.CurrentScenario = sgAncientKnowledge) then
+          if Game.Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
           begin
             TSceneHire.Show(stVictory);
             Exit;
@@ -399,7 +399,7 @@ begin
         F := True;
         Game.Show(scMap);
         begin
-          if (Scenario.CurrentScenario = sgDarkTower) then
+          if (Game.Scenario.CurrentScenario = sgDarkTower) then
           begin
             case Game.Map.LeaderTile of
               reTower:
@@ -433,9 +433,9 @@ begin
   begin
     Add(Name[0], True);
     Add;
-    Add2('Побед', Statistics.GetValue(stBattlesWon));
+    Add2('Побед', Game.Statistics.GetValue(stBattlesWon));
     Add('Уровень', Level);
-    Add2('Убито', Statistics.GetValue(stKilledCreatures));
+    Add2('Убито', Game.Statistics.GetValue(stKilledCreatures));
     Add('Точность', ChancesToHit, '%');
     Add('Инициатива', Initiative);
     Add('Здоровье', HitPoints, HitPoints);
@@ -590,11 +590,11 @@ begin
   for J := 0 to 10 do
     Add(TScenario.ScenarioDescription[S][J]);
   if TSaga.IsGame then
-    case Scenario.CurrentScenario of
+    case Game.Scenario.CurrentScenario of
       sgOverlord:
-        Add(Scenario.ScenarioOverlordState);
+        Add(Game.Scenario.ScenarioOverlordState);
       sgAncientKnowledge:
-        Add(Scenario.ScenarioAncientKnowledgeState);
+        Add(Game.Scenario.ScenarioAncientKnowledgeState);
     end;
 end;
 
@@ -604,8 +604,8 @@ begin
   L := Lf + ResImage[reActFrame].Width + 12;
   Add('Статистика', True);
   Add;
-  Add('Выиграно боев', Statistics.GetValue(stBattlesWon));
-  Add('Убито врагов', Statistics.GetValue(stKilledCreatures));
+  Add('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
+  Add('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
 end;
 
 procedure TSceneHire.RenderHighScores;
@@ -918,7 +918,7 @@ begin
         DrawTitle(reTitleLoot);
         DrawItem([reItemStoneTable]);
         DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');
-        DrawText(470, Scenario.ScenarioAncientKnowledgeState);
+        DrawText(470, Game.Scenario.ScenarioAncientKnowledgeState);
       end;
     stLoot:
       begin

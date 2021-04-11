@@ -13,6 +13,7 @@ uses
 {$ENDIF}
   Bass,
   Classes,
+  DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Party,
   DisciplesRL.Resources;
@@ -177,9 +178,12 @@ type
 
   TGame = class(TScenes)
   public
+    Statistics: TStatistics;
+    Scenario: TScenario;
     Map: TMap;
     constructor Create;
     destructor Destroy; override;
+    procedure Clear;
   end;
 
 var
@@ -200,8 +204,7 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Battle3,
-  DisciplesRL.Saga;
+  DisciplesRL.Scene.Battle3;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -221,6 +224,8 @@ constructor TGame.Create;
 begin
   inherited Create;
   Map := TMap.Create;
+  Statistics := TStatistics.Create;
+  Scenario := TScenario.Create;
   try
     MediaPlayer := TMediaPlayer.Create;
     MediaAvailable := True;
@@ -233,8 +238,17 @@ end;
 
 destructor TGame.Destroy;
 begin
+  FreeAndNil(Statistics);
+  FreeAndNil(Scenario);
   FreeAndNil(Map);
   inherited;
+end;
+
+procedure TGame.Clear;
+begin
+  Statistics.Clear;
+  Scenario.Clear;
+  Map.Clear;
 end;
 
   { TScene }

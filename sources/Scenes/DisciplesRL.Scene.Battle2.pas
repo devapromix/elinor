@@ -196,8 +196,8 @@ end;
 
 procedure TSceneBattle2.Victory;
 begin
-  Statistics.IncValue(stBattlesWon);
-  Statistics.IncValue(stKilledCreatures, EnemyParty.Count + 1);
+  Game.Statistics.IncValue(stBattlesWon);
+  Game.Statistics.IncValue(stKilledCreatures, EnemyParty.Count + 1);
   //
   if IsDuel then
   begin
@@ -207,10 +207,10 @@ begin
   MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
-  if (Scenario.CurrentScenario = sgAncientKnowledge) and
-    Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
+  if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
+    Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
-    Inc(Scenario.StoneTab);
+    Inc(Game.Scenario.StoneTab);
     TSceneHire.Show(stStoneTab, scHire, reGold);
   end
   else

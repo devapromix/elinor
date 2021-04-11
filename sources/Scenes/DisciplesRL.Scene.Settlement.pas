@@ -325,7 +325,7 @@ begin
           TLeaderParty.Leader.Y));
       end;
   end;
-  if (Scenario.CurrentScenario = sgOverlord) then
+  if (Game.Scenario.CurrentScenario = sgOverlord) then
   begin
     if (TMapPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
     begin

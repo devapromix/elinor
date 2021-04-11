@@ -126,11 +126,11 @@ begin
         (Game.Map.GetTile(lrDark, X, Y) = reNone);
 
       // Special
-      if TSaga.Wizard and (((Scenario.CurrentScenario = sgAncientKnowledge) and
-        Scenario.IsStoneTab(X, Y)) or
-        ((Scenario.CurrentScenario = sgDarkTower) and
+      if TSaga.Wizard and (((Game.Scenario.CurrentScenario = sgAncientKnowledge) and
+        Game.Scenario.IsStoneTab(X, Y)) or
+        ((Game.Scenario.CurrentScenario = sgDarkTower) and
         (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType = teTower)) or
-        ((Scenario.CurrentScenario = sgOverlord) and
+        ((Game.Scenario.CurrentScenario = sgOverlord) and
         (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType = teCity))) then
         DrawImage(X * TMap.TileSize, Y * Game.Map.TileSize,
           ResImage[reCursorSpecial]);
