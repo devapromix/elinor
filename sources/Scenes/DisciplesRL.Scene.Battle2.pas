@@ -21,6 +21,7 @@ type
   TSceneBattle2 = class(TScene)
   private
     DuelEnemyParty: TParty;
+    DuelLeaderParty: TParty;
     InitiativeList: TStringList;
     CurrentPosition: Integer;
     ttt: Integer;
@@ -28,6 +29,7 @@ type
     LeaderParty: TParty;
     FEnabled: Boolean;
     Battle: TBattle;
+    DuelLeaderPosition: TPosition;
     procedure SetInitiative;
     procedure ClickOnPosition;
     procedure ChExperience;
@@ -224,31 +226,36 @@ end;
 procedure TSceneBattle2.StartBattle;
 var
   I: Integer;
-  Position, DuelEnemyPosition: TPosition;
+  DuelEnemyPosition: TPosition;
 begin
-  IsDuel := True;
   Battle.Clear;
-  DuelEnemyParty.Clear;
   Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  EnemyParty := Party[I];
-  LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   if IsDuel then
   begin
-    DuelEnemyPosition := EnemyParty.GetRandomPosition;
-    for Position := Low(TPosition) to High(TPosition) do
-      if Position <> DuelEnemyPosition then
-        EnemyParty.Dismiss(Position);
+    DuelEnemyParty.Clear;
+    DuelEnemyPosition := Party[I].GetRandomPosition;
+    DuelEnemyParty.MoveCreature(Party[I], DuelEnemyPosition);
+    EnemyParty := DuelEnemyParty;
+    DuelLeaderParty.Clear;
+    DuelLeaderPosition := TLeaderParty.GetPosition;
+    DuelLeaderParty.MoveCreature(Party[TLeaderParty.LeaderPartyIndex],
+      DuelLeaderPosition);
+    LeaderParty := DuelLeaderParty;
+  end else begin
+    EnemyParty := Party[I];
+    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
-  // SelectPartyPosition := ActivePartyPosition;
   Game.MediaPlayer.Play(mmWar);
   StartRound;
 end;
 
 procedure TSceneBattle2.FinishBattle;
 begin
+  if IsDuel then
+    Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty, DuelLeaderPosition);
   Battle.Clear;
   Game.MediaPlayer.Stop;
   if LeaderParty.IsClear then
@@ -533,12 +540,14 @@ begin
   CloseButton.Sellected := True;
   InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;
+  DuelLeaderParty := TParty.Create;
   Battle := TBattle.Create;
 end;
 
 destructor TSceneBattle2.Destroy;
 begin
   FreeAndNil(Battle);
+  FreeAndNil(DuelLeaderParty);
   FreeAndNil(DuelEnemyParty);
   FreeAndNil(InitiativeList);
   FreeAndNil(CloseButton);
