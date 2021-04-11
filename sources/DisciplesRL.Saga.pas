@@ -205,7 +205,7 @@ var
   Level, P: Integer;
   Cr: TCreatureEnum;
 begin
-  Level := EnsureRange((Map.GetDistToCapital(AX, AY) div 3) +
+  Level := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) +
     Ord(TSaga.Difficulty), 1, MaxLevel);
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
@@ -317,7 +317,7 @@ class procedure TSaga.AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
 var
   I: Integer;
 begin
-  Map.SetTile(lrObj, AX, AY, reEnemy);
+  Game.Map.SetTile(lrObj, AX, AY, reEnemy);
   TSaga.PartyInit(AX, AY, IsFinal);
   I := GetPartyIndex(AX, AY);
   Party[I].Owner := reNeutrals;
@@ -364,7 +364,7 @@ begin
   NewGold := 0;
   NewMana := 0;
   NewItem := 0;
-  Level := Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  Level := Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   case LootRes of
     reGold:
       AddGold;
@@ -460,8 +460,8 @@ begin
   IsDay := False;
   ShowNewDayMessage := 0;
   PartyFree;
-  Map.Clear;
-  Map.Gen;
+  Game.Map.Clear;
+  Game.Map.Gen;
   TSceneSettlement.GenCityName;
   TLeaderParty.Leader.Clear;
 end;

@@ -564,7 +564,7 @@ begin
     if LeaderParty.IsClear or EnemyParty.IsClear then
       Exit;
     ClickOnPosition;
-    Scenes.Render;
+    Game.Render;
   end;
 end;
 
@@ -707,7 +707,7 @@ begin
     if ttt = 0 then
     begin
       AI;
-      Scenes.Render;
+      Game.Render;
     end;
   end;
 end;

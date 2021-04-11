@@ -13,6 +13,7 @@ uses
 {$ENDIF}
   Bass,
   Classes,
+  DisciplesRL.Map,
   DisciplesRL.Party,
   DisciplesRL.Resources;
 
@@ -170,8 +171,19 @@ type
     function GetScene(const I: TSceneEnum): TScene;
   end;
 
+type
+
+  { TGame }
+
+  TGame = class(TScenes)
+  public
+    Map: TMap;
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
 var
-  Scenes: TScenes;
+  Game: TGame;
   Surface: TBitmap;
   MediaPlayer: TMediaPlayer;
 
@@ -181,7 +193,6 @@ uses
   SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.Button,
-  DisciplesRL.Map,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Menu2,
@@ -203,6 +214,28 @@ var
   MediaAvailable: Boolean;
   Button: TButton;
   Buttons: array [TButtonEnum] of TButton;
+
+{ TGame }
+
+constructor TGame.Create;
+begin
+  inherited Create;
+  Map := TMap.Create;
+  try
+    MediaPlayer := TMediaPlayer.Create;
+    MediaAvailable := True;
+  except
+    MediaAvailable := False;
+  end;
+  MediaPlayer.PlayMusic(mmMenu);
+  SceneEnum := scMenu2;
+end;
+
+destructor TGame.Destroy;
+begin
+  FreeAndNil(Map);
+  inherited;
+end;
 
   { TScene }
 
@@ -259,16 +292,16 @@ end;
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
 begin
   MediaPlayer.Play(mmExit);
-  Scenes.InformMsg := S;
-  Scenes.IsShowConfirm := True;
+  Game.InformMsg := S;
+  Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
 end;
 
 procedure TScene.InformDialog(const S: string);
 begin
   MediaPlayer.Play(mmExit);
-  Scenes.InformMsg := S;
-  Scenes.IsShowInform := True;
+  Game.InformMsg := S;
+  Game.IsShowInform := True;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
@@ -498,8 +531,8 @@ var
 begin
   Randomize;
   //
-  W := Map.Width * Map.TileSize;
-  H := Map.Height * Map.TileSize;
+  W := 1344;
+  H := 704;
   MainForm.ClientWidth := W;
   MainForm.ClientHeight := H;
   //
@@ -529,14 +562,6 @@ begin
       TSaga.NewBattle := True;
   end;
   //
-  try
-    MediaPlayer := TMediaPlayer.Create;
-    MediaAvailable := True;
-  except
-    MediaAvailable := False;
-  end;
-  MediaPlayer.PlayMusic(mmMenu);
-  SceneEnum := scMenu2;
   //
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu.Create;
@@ -693,7 +718,7 @@ begin
   if (FScene[SceneEnum] <> nil) then
   begin
     FScene[SceneEnum].Show(S);
-    Scenes.Render;
+    Game.Render;
   end;
 end;
 

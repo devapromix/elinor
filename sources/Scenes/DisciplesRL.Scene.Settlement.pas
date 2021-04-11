@@ -148,7 +148,7 @@ begin
           Dec(ActivePartyPosition, 4);
       end;
   end;
-  Scenes.Render;
+  Game.Render;
 end;
 
 procedure TSceneSettlement.Hire;
@@ -317,7 +317,7 @@ end;
 
 procedure TSceneSettlement.Close;
 begin
-  case Map.LeaderTile of
+  case Game.Map.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
@@ -334,7 +334,7 @@ begin
     end;
   end;
   MediaPlayer.PlayMusic(mmMap);
-  Scenes.Show(scMap);
+  Game.Show(scMap);
   MediaPlayer.Play(mmClick);
   TSaga.NewDay;
 end;
@@ -371,7 +371,7 @@ procedure TSceneSettlement.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if (Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
+  if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
     and (CurrentSettlementType = stCapital) and (AButton = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
     Exit;
@@ -426,7 +426,7 @@ begin
   inherited;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     Button[I].MouseMove(X, Y);
-  Scenes.Render;
+  Game.Render;
 end;
 
 procedure TSceneSettlement.Render;
@@ -458,7 +458,7 @@ begin
   end;
   with TSceneParty do
   begin
-    if (Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
+    if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
       or (CurrentSettlementType = stCity) then
       RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
         Party[TLeaderParty.LeaderPartyIndex].Count <
@@ -487,7 +487,7 @@ begin
   end;
   ActivePartyPosition := TLeaderParty.GetPosition;
   SelectPartyPosition := -1;
-  Scenes.Show(scSettlement);
+  Game.Show(scSettlement);
 end;
 
 procedure TSceneSettlement.MoveUnit;

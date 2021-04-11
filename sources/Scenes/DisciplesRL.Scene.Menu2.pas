@@ -88,7 +88,7 @@ begin
   if TSaga.IsGame then
   begin
     MediaPlayer.PlayMusic(mmMap);
-    Scenes.Show(scMap);
+    Game.Show(scMap);
   end;
 end;
 
@@ -170,7 +170,7 @@ begin
     Button[I].MouseMove(X, Y);
   for J := Low(TIconEnum) to High(TIconEnum) do
     Icons[J].MouseMove(X, Y);
-  Scenes.Render;
+  Game.Render;
 end;
 
 procedure TSceneMenu2.Render;

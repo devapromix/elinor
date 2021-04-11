@@ -50,10 +50,10 @@ begin
   case Button of
     mbLeft:
       begin
-        if TSaga.Wizard and Map.InMap(MousePos.X, MousePos.Y) then
+        if TSaga.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-        else if Map.IsLeaderMove(MousePos.X, MousePos.Y) and
-          Map.InMap(MousePos.X, MousePos.Y) then
+        else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
+          Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
       end;
     mbMiddle:
@@ -76,7 +76,7 @@ begin
   MousePos := Point(X div TMap.TileSize, Y div TMap.TileSize);
   if (MousePos.X <> LastMousePos.X) or (MousePos.Y <> LastMousePos.Y) then
   begin
-    Scenes.Render;
+    Game.Render;
     LastMousePos.X := MousePos.X;
     LastMousePos.Y := MousePos.Y;
   end;
@@ -101,12 +101,12 @@ var
 
 begin
   inherited;
-  for Y := 0 to Map.Height - 1 do
-    for X := 0 to Map.Width - 1 do
+  for Y := 0 to Game.Map.Height - 1 do
+    for X := 0 to Game.Map.Width - 1 do
     begin
-      if (Map.GetTile(lrDark, X, Y) = reDark) then
+      if (Game.Map.GetTile(lrDark, X, Y) = reDark) then
         Continue;
-      case Map.GetTile(lrTile, X, Y) of
+      case Game.Map.GetTile(lrTile, X, Y) of
         reTheEmpireTerrain, reTheEmpireCapital, reTheEmpireCity:
           DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
             ResImage[reTheEmpireTerrain]);
@@ -122,49 +122,49 @@ begin
           ResImage[reNeutralTerrain]);
       end;
       F := not TLeaderParty.Leader.InRadius(X, Y) and
-        not(Map.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
-        (Map.GetTile(lrDark, X, Y) = reNone);
+        not(Game.Map.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
+        (Game.Map.GetTile(lrDark, X, Y) = reNone);
 
       // Special
       if TSaga.Wizard and (((Scenario.CurrentScenario = sgAncientKnowledge) and
         Scenario.IsStoneTab(X, Y)) or
         ((Scenario.CurrentScenario = sgDarkTower) and
-        (ResBase[Map.GetTile(lrTile, X, Y)].ResType = teTower)) or
+        (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType = teTower)) or
         ((Scenario.CurrentScenario = sgOverlord) and
-        (ResBase[Map.GetTile(lrTile, X, Y)].ResType = teCity))) then
-        DrawImage(X * TMap.TileSize, Y * Map.TileSize,
+        (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType = teCity))) then
+        DrawImage(X * TMap.TileSize, Y * Game.Map.TileSize,
           ResImage[reCursorSpecial]);
 
       // Capital, Cities, Ruins and Tower
-      if (ResBase[Map.GetTile(lrTile, X, Y)].ResType in [teCapital, teCity,
+      if (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType in [teCapital, teCity,
         teRuin, teTower]) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
-          ResImage[Map.GetTile(lrTile, X, Y)]);
+          ResImage[Game.Map.GetTile(lrTile, X, Y)]);
 
       //
-      if (ResBase[Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag]) then
+      if (ResBase[Game.Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag]) then
         if F then
-          DrawImage(X * Map.TileSize, Y * Map.TileSize, ResImage[reUnk])
+          DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reUnk])
         else
-          DrawImage(X * Map.TileSize, Y * Map.TileSize,
-            ResImage[Map.GetTile(lrObj, X, Y)])
-      else if (Map.GetTile(lrObj, X, Y) <> reNone) then
-        DrawImage(X * Map.TileSize, Y * Map.TileSize,
-          ResImage[Map.GetTile(lrObj, X, Y)]);
+          DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+            ResImage[Game.Map.GetTile(lrObj, X, Y)])
+      else if (Game.Map.GetTile(lrObj, X, Y) <> reNone) then
+        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+          ResImage[Game.Map.GetTile(lrObj, X, Y)]);
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
-        DrawImage(X * Map.TileSize, Y * Map.TileSize, ResImage[rePlayer]);
+        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[rePlayer]);
       // Fog
       if F then
-        DrawImage(X * Map.TileSize, Y * Map.TileSize, ResImage[reDark]);
+        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reDark]);
     end;
   // Cursor
-  if Map.IsLeaderMove(MousePos.X, MousePos.Y) then
-    DrawImage(MousePos.X * Map.TileSize, MousePos.Y * Map.TileSize,
+  if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then
+    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
       ResImage[reCursor])
   else
-    DrawImage(MousePos.X * Map.TileSize, MousePos.Y * Map.TileSize,
+    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
       ResImage[reNoWay]);
   // New Day Message
   if TSaga.ShowNewDayMessage > 0 then
@@ -193,7 +193,7 @@ begin
         MediaPlayer.PlayMusic(mmMenu);
         MediaPlayer.Play(mmClick);
         MediaPlayer.Play(mmSettlement);
-        Scenes.Show(scMenu);
+        Game.Show(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:
       TLeaderParty.Leader.Move(drWest);

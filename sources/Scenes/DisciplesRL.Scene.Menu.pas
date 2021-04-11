@@ -87,7 +87,7 @@ begin
   if TSaga.IsGame then
   begin
     MediaPlayer.PlayMusic(mmMap);
-    Scenes.Show(scMap);
+    Game.Show(scMap);
   end;
 end;
 

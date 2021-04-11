@@ -440,11 +440,11 @@ procedure TLeaderParty.ChCityOwner;
 begin
   case Party[LeaderPartyIndex].Owner of
     reTheEmpire:
-      Map.SetTile(lrTile, X, Y, reTheEmpireCity);
+      Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
     reUndeadHordes:
-      Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
+      Game.Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
     reLegionsOfTheDamned:
-      Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
+      Game.Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
 end;
 
@@ -517,7 +517,7 @@ end;
 
 function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;
 begin
-  Result := (Map.GetDist(AX, AY, X, Y) <= Radius);
+  Result := (Game.Map.GetDist(AX, AY, X, Y) <= Radius);
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;
@@ -536,35 +536,35 @@ var
   I: Integer;
   F: Boolean;
 begin
-  if not Map.InMap(AX, AY) then
+  if not Game.Map.InMap(AX, AY) then
     Exit;
-  if (Map.GetTile(lrObj, AX, AY) in StopTiles) then
+  if (Game.Map.GetTile(lrObj, AX, AY) in StopTiles) then
     Exit;
   if not IsInfo then
-    for I := 0 to High(Map.MapPlace) do
+    for I := 0 to High(Game.Map.MapPlace) do
     begin
-      if (Map.MapPlace[I].Owner in Races) then
-        if (Map.MapPlace[I].CurLevel < Map.MapPlace[I].MaxLevel) then
+      if (Game.Map.MapPlace[I].Owner in Races) then
+        if (Game.Map.MapPlace[I].CurLevel < Game.Map.MapPlace[I].MaxLevel) then
         begin
-          Inc(Map.MapPlace[I].CurLevel);
+          Inc(Game.Map.MapPlace[I].CurLevel);
           TMapPlace.UpdateRadius(I);
         end;
     end;
   if IsInfo then
   begin
-    if Map.GetTile(lrTile, AX, AY) in Capitals then
+    if Game.Map.GetTile(lrTile, AX, AY) in Capitals then
     begin
       TSceneParty.Show(Party[CapitalPartyIndex], scMap);
       Exit;
     end;
-    if Map.GetTile(lrTile, AX, AY) in Cities then
+    if Game.Map.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := TSaga.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
         TSceneParty.Show(Party[I], scMap);
       Exit;
     end;
-    case Map.GetTile(lrObj, AX, AY) of
+    case Game.Map.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
           I := TSaga.GetPartyIndex(AX, AY);
@@ -584,38 +584,38 @@ begin
       Turn(1);
     end;
     F := True;
-    case Map.GetTile(lrObj, Leader.X, Leader.Y) of
+    case Game.Map.GetTile(lrObj, Leader.X, Leader.Y) of
       reGold:
         begin
-          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reGold);
           F := False;
         end;
       reMana:
         begin
-          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reMana);
           F := False;
         end;
       reBag:
         begin
-          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reBag);
           F := False;
         end;
       reEnemy:
         begin
           if TSaga.NewBattle then
-            Scenes.Show(scBattle3)
+            Game.Show(scBattle3)
           else
-            Scenes.Show(scBattle2);
-          Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+            Game.Show(scBattle2);
+          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;
         end;
     end;
   end;
-  case Map.LeaderTile of
+  case Game.Map.LeaderTile of
     reNeutralCity:
       begin
         TLeaderParty.Leader.ChCityOwner;
@@ -623,14 +623,14 @@ begin
         F := False;
       end;
   end;
-  if Map.LeaderTile in Capitals then
+  if Game.Map.LeaderTile in Capitals then
   begin
     MediaPlayer.PlayMusic(mmGame);
     MediaPlayer.Play(mmSettlement);
     TSceneSettlement.Show(stCapital);
     F := False;
   end;
-  if Map.LeaderTile in Cities then
+  if Game.Map.LeaderTile in Cities then
   begin
     MediaPlayer.PlayMusic(mmGame);
     MediaPlayer.Play(mmSettlement);
@@ -676,7 +676,7 @@ end;
 
 procedure TLeaderParty.UpdateRadius;
 begin
-  Map.UpdateRadius(Self.X, Self.Y, Self.Radius, Map.GetLayer(lrDark), reNone);
+  Game.Map.UpdateRadius(Self.X, Self.Y, Self.Radius, Game.Map.GetLayer(lrDark), reNone);
 end;
 
 end.

@@ -93,7 +93,7 @@ begin
   end
   else
     ActivePartyPosition := Party.GetRandomPosition;
-  Scenes.Show(scParty);
+  Game.Show(scParty);
   MediaPlayer.Play(mmSettlement);
   FShowInventory := F;
 end;
@@ -124,7 +124,7 @@ begin
       end;
   end;
   MediaPlayer.Play(mmClick);
-  Scenes.Render;
+  Game.Render;
 end;
 
 class function TSceneParty.GetFrameX(const Position: TPosition;
@@ -132,7 +132,7 @@ class function TSceneParty.GetFrameX(const Position: TPosition;
 var
   W: Integer;
 begin
-  W := Scenes.Width div 4;
+  W := Game.Width div 4;
   case Position of
     0, 2, 4:
       begin
@@ -140,7 +140,7 @@ begin
           psLeft:
             Result := (W + Left) - (W - ResImage[reFrame].Width - S);
         else
-          Result := Scenes.Width - (Left + S + (ResImage[reFrame].Width * 2));
+          Result := Game.Width - (Left + S + (ResImage[reFrame].Width * 2));
         end;
       end;
   else
@@ -149,7 +149,7 @@ begin
         psLeft:
           Result := Left;
       else
-        Result := Scenes.Width - ResImage[reFrame].Width - Left;
+        Result := Game.Width - ResImage[reFrame].Width - Left;
       end;
     end;
   end;
@@ -178,7 +178,7 @@ procedure TSceneParty.Close;
 begin
   if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
-  Scenes.Show(BackScene);
+  Game.Show(BackScene);
   MediaPlayer.Play(mmClick);
   MediaPlayer.Play(mmSettlement);
 end;
@@ -236,7 +236,7 @@ begin
   with Party.Creature[Position] do
   begin
     if Active then
-      with Scenes.GetScene(scParty) do
+      with Game.GetScene(scParty) do
       begin
         if F then
           V := bsCharacter
@@ -267,11 +267,11 @@ var
 begin
   for Position := Low(TPosition) to High(TPosition) do
   begin
-    Scenes.GetScene(scParty).RenderFrame(PartySide, Position,
+    Game.GetScene(scParty).RenderFrame(PartySide, Position,
       TSceneParty.GetFrameX(Position, PartySide),
       TSceneParty.GetFrameY(Position, PartySide));
     if (Party <> nil) then
-      TSceneParty(Scenes.GetScene(scParty)).DrawUnit(Position, Party,
+      TSceneParty(Game.GetScene(scParty)).DrawUnit(Position, Party,
         GetFrameX(Position, PartySide), GetFrameY(Position, PartySide),
         CanHire, ShowExp);
   end;
@@ -371,7 +371,7 @@ begin
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
     if (C <> crNone) then
-      TSceneHire(Scenes.GetScene(scHire)).RenderCharacterInfo(C);
+      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C);
   end;
   if FShowResources then
     DrawResources;

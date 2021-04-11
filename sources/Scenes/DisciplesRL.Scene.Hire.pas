@@ -146,7 +146,7 @@ begin
     CurrentIndex := 0;
   end;
   SubScene := ASubScene;
-  Scenes.Show(scHire);
+  Game.Show(scHire);
   if ASubScene = stVictory then
     MediaPlayer.PlayMusic(mmVictory);
 end;
@@ -163,7 +163,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
-  Scenes.Show(scHire);
+  Game.Show(scHire);
 end;
 
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
@@ -213,7 +213,7 @@ begin
   MediaPlayer.Play(mmClick);
   case SubScene of
     stCharacter:
-      Scenes.Show(scSettlement);
+      Game.Show(scSettlement);
     stDifficulty:
       TSceneHire.Show(stScenario);
     stLeader:
@@ -221,9 +221,9 @@ begin
     stRace:
       TSceneHire.Show(stDifficulty);
     stScenario:
-      Scenes.Show(scMenu);
+      Game.Show(scMenu);
     stJournal, stSpy:
-      Scenes.Show(scMap);
+      Game.Show(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -236,7 +236,7 @@ begin
       end;
     stHighScores2:
       begin
-        Scenes.Show(scMenu);
+        Game.Show(scMenu);
       end;
   end;
 end;
@@ -300,7 +300,7 @@ begin
           [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
         begin
           MediaPlayer.Play(mmGold);
-          Scenes.Show(scSettlement);
+          Game.Show(scSettlement);
         end
         else
           InformDialog('Не хватает денег!');
@@ -311,7 +311,7 @@ begin
         TSceneHire.Show(stDifficulty);
       end;
     stJournal:
-      Scenes.Show(scMap);
+      Game.Show(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -326,7 +326,7 @@ begin
       end;
     stHighScores2:
       begin
-        Scenes.Show(scMenu);
+        Game.Show(scMenu);
       end;
     stStoneTab:
       begin
@@ -339,7 +339,7 @@ begin
           else
           begin
             F := True;
-            Scenes.Show(scMap);
+            Game.Show(scMap);
             Exit;
           end;
       end;
@@ -390,18 +390,18 @@ begin
                 NoSpy;
             end
         else
-          Scenes.Show(scMap);
+          Game.Show(scMap);
         end;
       end;
     stLoot:
       begin
         MediaPlayer.Play(mmLoot);
         F := True;
-        Scenes.Show(scMap);
+        Game.Show(scMap);
         begin
           if (Scenario.CurrentScenario = sgDarkTower) then
           begin
-            case Map.LeaderTile of
+            case Game.Map.LeaderTile of
               reTower:
                 begin
                   TSceneHire.Show(stVictory);
@@ -409,7 +409,7 @@ begin
                 end;
             end;
           end;
-          if Map.LeaderTile = reNeutralCity then
+          if Game.Map.LeaderTile = reNeutralCity then
           begin
             MediaPlayer.PlayMusic(mmGame);
             MediaPlayer.Play(mmSettlement);
@@ -818,7 +818,7 @@ begin
             [cgCharacters][K]) do
           begin
             DrawUnit(ResEnum, Lf, Top + Y, bsCharacter);
-            TSceneParty(Scenes.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
+            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
               Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
               [cgCharacters][K], False);
           end;
@@ -839,7 +839,7 @@ begin
             [cgLeaders][K]) do
           begin
             DrawUnit(ResEnum, Lf, Top + Y, bsCharacter);
-            TSceneParty(Scenes.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
+            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
               Characters[TSaga.LeaderRace][cgLeaders][K], False);
           end;
           Inc(Y, 120);
