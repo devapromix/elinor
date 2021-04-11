@@ -20,6 +20,7 @@ type
 type
   TSceneBattle2 = class(TScene)
   private
+    DuelEnemyParty: TParty;
     InitiativeList: TStringList;
     CurrentPosition: Integer;
     ttt: Integer;
@@ -71,7 +72,6 @@ uses
 
 var
   CloseButton: TButton;
-  DuelEnemyParty: TParty;
 
 const
   Speed = 12;
@@ -226,6 +226,7 @@ var
   I: Integer;
   Position: TPosition;
 begin
+  IsDuel := True;
   Battle.Clear;
   Enabled := True;
   I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
@@ -233,7 +234,7 @@ begin
   begin
     DuelEnemyParty.Clear;
     Position := Party[I].GetRandomPosition;
-    DuelEnemyParty.AddCreature(Party[I].Creature[Position].Enum, Position);
+    DuelEnemyParty.MoveCreature(Party[I], Position);
     EnemyParty := DuelEnemyParty;
     LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   end

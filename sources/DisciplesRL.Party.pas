@@ -38,6 +38,7 @@ type
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TRaceEnum); overload;
     destructor Destroy; override;
+    procedure MoveCreature(FromParty: TParty; const APosition: TPosition);
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
@@ -212,6 +213,11 @@ destructor TParty.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TParty.MoveCreature(FromParty: TParty; const APosition: TPosition);
+begin
+  FCreature[APosition] := FromParty.Creature[APosition];
 end;
 
 procedure TParty.Dismiss(const APosition: TPosition);

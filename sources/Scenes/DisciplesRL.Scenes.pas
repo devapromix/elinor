@@ -244,6 +244,7 @@ begin
     if (LowerCase(ParamStr(I)) = '-b') then
       NewBattle := True;
   end;
+  Randomize;
   Map := TMap.Create;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
