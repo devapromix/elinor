@@ -25,7 +25,8 @@ type
     reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
     reRuin, reTower, reTreePine, reTreeOak, reUndeadHordesTree,
     reLegionsOfTheDamnedTree, reMineGold, reMineMana, reMountain1,
-    reMountain2, reMountain3, reMountain4, reButtonDef, reButtonAct, reCorpse,
+    reMountain2, reMountain3, reMountain4, reTree1, reTree2, reTree3, reTree4,
+    reButtonDef, reButtonAct, reCorpse,
     reMyzrael, rePegasusKnight, reRanger, reArchmage, reSquire, reArcher,
     reApprentice, reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon,
     reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
@@ -166,6 +167,14 @@ const
     (FileName: 'tile.mountain3.png'; ResType: teObject;),
     // Mountain #4
     (FileName: 'tile.mountain4.png'; ResType: teObject;),
+    // Tree #1
+    (FileName: 'tile.tree1.png'; ResType: teObject;),
+    // Tree #2
+    (FileName: 'tile.tree2.png'; ResType: teObject;),
+    // Tree #3
+    (FileName: 'tile.tree3.png'; ResType: teObject;),
+    // Tree #4
+    (FileName: 'tile.tree4.png'; ResType: teObject;),
     // Button
     (FileName: 'button.def.png'; ResType: teGUI;),
     // Button

@@ -242,11 +242,19 @@ var
 
   procedure AddTree(const X, Y: Integer);
   begin
-    case Random(2) of
+    case Random(6) of
       0:
-        FMap[lrObj][X, Y] := reTreePine;
+        FMap[lrObj][X, Y] := reTree1;
       1:
+        FMap[lrObj][X, Y] := reTree2;
+      2:
+        FMap[lrObj][X, Y] := reTree3;
+      3:
+        FMap[lrObj][X, Y] := reTree4;
+      4:
         FMap[lrObj][X, Y] := reTreeOak;
+      5:
+        FMap[lrObj][X, Y] := reTreePine;
     end;
   end;
 
