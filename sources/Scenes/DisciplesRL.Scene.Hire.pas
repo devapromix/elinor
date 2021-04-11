@@ -148,7 +148,7 @@ begin
   SubScene := ASubScene;
   Game.Show(scHire);
   if ASubScene = stVictory then
-    MediaPlayer.PlayMusic(mmVictory);
+    Game.MediaPlayer.PlayMusic(mmVictory);
 end;
 
 class procedure TSceneHire.Show(const Party: TParty; const Position: Integer);
@@ -172,7 +172,7 @@ begin
   TSceneHire.Show(ASubScene, ABackScene);
   case SubScene of
     stLoot, stStoneTab:
-      MediaPlayer.Play(mmLoot);
+      Game.MediaPlayer.Play(mmLoot);
   end;
   LootRes := ALootRes;
   GC := RandomRange(0, 3);
@@ -210,7 +210,7 @@ end;
 
 procedure TSceneHire.Back;
 begin
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   case SubScene of
     stCharacter:
       Game.Show(scSettlement);
@@ -274,7 +274,7 @@ var
   end;
 
 begin
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   case SubScene of
     stRace:
       begin
@@ -285,8 +285,8 @@ begin
       begin
         TSaga.Clear;
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
-        MediaPlayer.PlayMusic(mmGame);
-        MediaPlayer.Play(mmExit);
+        Game.MediaPlayer.PlayMusic(mmGame);
+        Game.MediaPlayer.Play(mmExit);
         TSceneSettlement.Show(stCapital);
       end;
     stDifficulty:
@@ -299,7 +299,7 @@ begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
           [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
         begin
-          MediaPlayer.Play(mmGold);
+          Game.MediaPlayer.Play(mmGold);
           Game.Show(scSettlement);
         end
         else
@@ -316,13 +316,13 @@ begin
       begin
         TSaga.IsGame := False;
         TSceneHire.Show(stHighScores2);
-        MediaPlayer.PlayMusic(mmMenu);
+        Game.MediaPlayer.PlayMusic(mmMenu);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
         TSceneHire.Show(stHighScores2);
-        MediaPlayer.PlayMusic(mmMenu);
+        Game.MediaPlayer.PlayMusic(mmMenu);
       end;
     stHighScores2:
       begin
@@ -395,7 +395,7 @@ begin
       end;
     stLoot:
       begin
-        MediaPlayer.Play(mmLoot);
+        Game.MediaPlayer.Play(mmLoot);
         F := True;
         Game.Show(scMap);
         begin
@@ -411,8 +411,8 @@ begin
           end;
           if Game.Map.LeaderTile = reNeutralCity then
           begin
-            MediaPlayer.PlayMusic(mmGame);
-            MediaPlayer.Play(mmSettlement);
+            Game.MediaPlayer.PlayMusic(mmGame);
+            Game.MediaPlayer.Play(mmSettlement);
             TSceneSettlement.Show(stCity);
             Exit;
           end;
@@ -716,17 +716,17 @@ begin
         begin
           if MouseOver(Lf, Top, X, Y) then
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 0;
           end;
           if MouseOver(Lf, Top + 120, X, Y) then
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 1;
           end;
           if MouseOver(Lf, Top + 240, X, Y) then
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 2;
           end;
         end;
@@ -1042,13 +1042,13 @@ begin
           Ok;
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TRaceCharKind)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TRaceCharKind)));
           end;
@@ -1061,13 +1061,13 @@ begin
           Ok;
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TLeaderThiefSpyVar)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TLeaderThiefSpyVar)));
           end;
@@ -1080,13 +1080,13 @@ begin
           Ok;
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TRaceCharKind)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TRaceCharKind)));
           end;
@@ -1099,13 +1099,13 @@ begin
           Ok;
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TRaceCharKind)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TRaceCharKind)));
           end;
@@ -1118,13 +1118,13 @@ begin
           Ok;
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TSaga.TDifficultyEnum)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TSaga.TDifficultyEnum)));
           end;
@@ -1137,13 +1137,13 @@ begin
           Ok;
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TScenario.TScenarioEnum)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TScenario.TScenarioEnum)));
           end;
@@ -1152,13 +1152,13 @@ begin
       case Key of
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TScenario.TScenarioEnum)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TScenario.TScenarioEnum)));
           end;
@@ -1167,13 +1167,13 @@ begin
       case Key of
         K_UP:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
               Ord(High(TScenario.TScenarioEnum)));
           end;
         K_DOWN:
           begin
-            MediaPlayer.Play(mmClick);
+            Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TScenario.TScenarioEnum)));
           end;

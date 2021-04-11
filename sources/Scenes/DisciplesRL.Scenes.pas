@@ -181,6 +181,7 @@ type
     Statistics: TStatistics;
     Scenario: TScenario;
     Map: TMap;
+    MediaPlayer: TMediaPlayer;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -189,7 +190,6 @@ type
 var
   Game: TGame;
   Surface: TBitmap;
-  MediaPlayer: TMediaPlayer;
 
 implementation
 
@@ -241,6 +241,8 @@ begin
   FreeAndNil(Statistics);
   FreeAndNil(Scenario);
   FreeAndNil(Map);
+  MediaPlayer.Stop;
+  FreeAndNil(MediaPlayer);
   inherited;
 end;
 
@@ -256,8 +258,8 @@ end;
 constructor TScene.Create;
 begin
   inherited;
-  Width := Surface.Width;
-  ScrWidth := Surface.Width div 2;
+  Width := 1344;
+  ScrWidth := 1344 div 2;
   ConfirmHandler := nil;
 end;
 
@@ -305,7 +307,7 @@ end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
 begin
-  MediaPlayer.Play(mmExit);
+  Game.MediaPlayer.Play(mmExit);
   Game.InformMsg := S;
   Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
@@ -313,7 +315,7 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  MediaPlayer.Play(mmExit);
+  Game.MediaPlayer.Play(mmExit);
   Game.InformMsg := S;
   Game.IsShowInform := True;
 end;
@@ -540,19 +542,12 @@ end;
 
 constructor TScenes.Create;
 var
-  J, L, W, H: Integer;
+  J, L: Integer;
   I: TButtonEnum;
 begin
-  Randomize;
-  //
-  W := 1344;
-  H := 704;
-  MainForm.ClientWidth := W;
-  MainForm.ClientHeight := H;
-  //
   Surface := TBitmap.Create;
-  Surface.Width := W;
-  Surface.Height := H;
+  Surface.Width := 1344;
+  Surface.Height := 704;
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
@@ -576,7 +571,7 @@ begin
       TSaga.NewBattle := True;
   end;
   //
-  //
+  // Scenes
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu.Create;
   FScene[scMenu2] := TSceneMenu2.Create;
@@ -586,11 +581,11 @@ begin
   FScene[scBattle3] := TSceneBattle3.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
   //
-  //Inform
+  // Inform
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   Button := TButton.Create(L, 400, reTextOk);
   Button.Sellected := True;
-  //Confirm
+  // Confirm
   L := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
@@ -605,11 +600,9 @@ destructor TScenes.Destroy;
 var
   I: TButtonEnum;
 begin
-  MediaPlayer.Stop;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[I]);
   FreeAndNil(Button);
-  FreeAndNil(MediaPlayer);
   FreeAndNil(Surface);
   TSaga.PartyFree;
   inherited;

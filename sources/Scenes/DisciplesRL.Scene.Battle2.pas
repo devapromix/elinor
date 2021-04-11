@@ -204,7 +204,7 @@ begin
     IsDuel := False;
     InformDialog('Вы победили на дуэли и воины вражеского отряда разбежались!');
   end;
-  MediaPlayer.PlayMusic(mmMap);
+  Game.MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
@@ -246,14 +246,14 @@ begin
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
   // SelectPartyPosition := ActivePartyPosition;
-  MediaPlayer.Play(mmWar);
+  Game.MediaPlayer.Play(mmWar);
   StartRound;
 end;
 
 procedure TSceneBattle2.FinishBattle;
 begin
   Battle.Clear;
-  MediaPlayer.Stop;
+  Game.MediaPlayer.Stop;
   if LeaderParty.IsClear then
     Defeat;
   if EnemyParty.IsClear then
@@ -270,7 +270,7 @@ begin
       begin
         Battle.Miss(AtkParty.Creature[AtkPos].Name[0],
           DefParty.Creature[DefPos].Name[1]);
-        MediaPlayer.Play(mmMiss);
+        Game.MediaPlayer.Play(mmMiss);
         Sleep(200);
         NextTurn;
         Exit;
@@ -293,11 +293,11 @@ begin
   if EnemyParty.IsClear then
   begin
     ChExperience;
-    MediaPlayer.Play(mmWin);
+    Game.MediaPlayer.Play(mmWin);
   end;
   if LeaderParty.IsClear then
   begin
-    MediaPlayer.PlayMusic(mmDefeat);
+    Game.MediaPlayer.PlayMusic(mmDefeat);
     Enabled := True;
   end;
 end;
@@ -314,7 +314,7 @@ begin
   case TCreature.Character(AtkCrEnum).AttackEnum of
     atParalyze:
       begin
-        MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+        Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
         Sleep(200);
         Paralyze(AtkParty, DefParty, AtkPos, DefPos);
         Exit;
@@ -326,7 +326,7 @@ begin
     case AtkParty.Creature[AtkPos].ReachEnum of
       reAny:
         begin
-          MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+          Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
           Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
@@ -335,9 +335,9 @@ begin
             DefParty.Creature[DefPos].Name[1],
             AtkParty.Creature[AtkPos].Damage]));
           if (DefParty.Creature[DefPos].HitPoints > 0) then
-            MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
+            Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
           else
-            MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
+            Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
           B := True;
         end;
       reAdj:
@@ -361,7 +361,7 @@ begin
                     ((DefParty.Creature[2].HitPoints > 0) or
                     (DefParty.Creature[4].HitPoints > 0)) then
                     Exit;
-                  MediaPlayer.Play(TCreature.Character(AtkCrEnum)
+                  Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum)
                     .Sound[csAttack]);
                   Sleep(200);
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
@@ -371,10 +371,10 @@ begin
                     DefParty.Creature[DefPos].Name[1],
                     AtkParty.Creature[AtkPos].Damage]));
                   if (DefParty.Creature[DefPos].HitPoints > 0) then
-                    MediaPlayer.Play(TCreature.Character(DefCrEnum)
+                    Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                       .Sound[csHit])
                   else
-                    MediaPlayer.Play(TCreature.Character(DefCrEnum)
+                    Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                       .Sound[csDeath]);
                   B := True;
                 end;
@@ -385,7 +385,7 @@ begin
                     (DefParty.Creature[4].HitPoints > 0);
                   if not F then
                   begin
-                    MediaPlayer.Play(TCreature.Character(AtkCrEnum)
+                    Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum)
                       .Sound[csAttack]);
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
@@ -396,10 +396,10 @@ begin
                       DefParty.Creature[DefPos].Name[1],
                       AtkParty.Creature[AtkPos].Damage]));
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
-                      MediaPlayer.Play(TCreature.Character(DefCrEnum)
+                      Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                         .Sound[csHit])
                     else
-                      MediaPlayer.Play(TCreature.Character(DefCrEnum)
+                      Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                         .Sound[csDeath]);
                     B := True;
                   end;
@@ -416,7 +416,7 @@ begin
               TCreature.Character(AtkCrEnum).Name[0],
               SourceName[TCreature.Character(AtkCrEnum).SourceEnum]]));
           end;
-          MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+          Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           for Position := Low(TPosition) to High(TPosition) do
             if DefParty.Creature[Position].Alive then
@@ -428,9 +428,9 @@ begin
                 DefParty.Creature[Position].Name[1],
                 AtkParty.Creature[AtkPos].Damage]));
               if (DefParty.Creature[Position].HitPoints > 0) then
-                MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
+                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
               else
-                MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
+                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
             end;
           B := True;
         end;
@@ -695,7 +695,7 @@ procedure TSceneBattle2.Show(const S: TSceneEnum);
 begin
   inherited;
   StartBattle;
-  MediaPlayer.PlayMusic(mmBattle);
+  Game.MediaPlayer.PlayMusic(mmBattle);
 end;
 
 procedure TSceneBattle2.Timer;

@@ -182,7 +182,7 @@ procedure TSceneSettlement.Hire;
   end;
 
 begin
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
@@ -218,7 +218,7 @@ procedure TSceneSettlement.Dismiss;
   end;
 
 begin
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   case ActivePartyPosition of
     0 .. 5:
       DismissIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
@@ -262,7 +262,7 @@ procedure TSceneSettlement.Heal;
   end;
 
 begin
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
@@ -305,7 +305,7 @@ procedure TSceneSettlement.Revive;
   end;
 
 begin
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   CurrentPartyPosition := ActivePartyPosition;
   case ActivePartyPosition of
     0 .. 5:
@@ -333,9 +333,9 @@ begin
       Exit;
     end;
   end;
-  MediaPlayer.PlayMusic(mmMap);
+  Game.MediaPlayer.PlayMusic(mmMap);
   Game.Show(scMap);
-  MediaPlayer.Play(mmClick);
+  Game.MediaPlayer.Play(mmClick);
   TSaga.NewDay;
 end;
 
@@ -392,7 +392,7 @@ begin
           if not SettlementParty.IsClear then
             TSceneParty.Show(SettlementParty, scSettlement);
         end;
-        MediaPlayer.Play(mmClick);
+        Game.MediaPlayer.Play(mmClick);
         Exit;
       end;
     mbLeft:
@@ -413,7 +413,7 @@ begin
           if CurrentPartyPosition < 0 then
             Exit;
           ActivePartyPosition := CurrentPartyPosition;
-          MediaPlayer.Play(mmClick);
+          Game.MediaPlayer.Play(mmClick);
         end;
       end;
   end;
@@ -498,7 +498,7 @@ begin
   begin
     Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
       ActivePartyPosition, CurrentPartyPosition);
-    MediaPlayer.Play(mmClick);
+    Game.MediaPlayer.Play(mmClick);
   end;
 end;
 

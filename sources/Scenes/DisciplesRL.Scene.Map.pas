@@ -174,7 +174,7 @@ end;
 procedure TSceneMap.Show(const S: TSceneEnum);
 begin
   inherited Show(S);
-  MediaPlayer.Play(mmSettlement);
+  Game.MediaPlayer.Play(mmSettlement);
 end;
 
 procedure TSceneMap.Timer;
@@ -190,9 +190,9 @@ begin
   case Key of
     K_ESCAPE:
       begin
-        MediaPlayer.PlayMusic(mmMenu);
-        MediaPlayer.Play(mmClick);
-        MediaPlayer.Play(mmSettlement);
+        Game.MediaPlayer.PlayMusic(mmMenu);
+        Game.MediaPlayer.Play(mmClick);
+        Game.MediaPlayer.Play(mmSettlement);
         Game.Show(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:

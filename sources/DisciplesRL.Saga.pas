@@ -9,9 +9,6 @@ uses
   DisciplesRL.Creatures;
 
 type
-
-  { TStatistics }
-
   TStatistics = class(TObject)
   public type
     TStatisticsEnum = (stKilledCreatures, stBattlesWon, stScore);
@@ -393,7 +390,7 @@ begin
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
     TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
     ShowNewDayMessage := 20;
-    MediaPlayer.Play(mmDay);
+    Game.MediaPlayer.Play(mmDay);
     IsDay := False;
   end;
 end;
@@ -443,7 +440,6 @@ end;
 class procedure TSaga.Clear;
 begin
   IsGame := True;
-  Game.Clear;
   Days := 1;
   Gold := 250;
   NewGold := 0;
@@ -455,6 +451,7 @@ begin
   IsDay := False;
   ShowNewDayMessage := 0;
   PartyFree;
+  Game.Clear;
   Game.Map.Gen;
   TSceneSettlement.GenCityName;
   TLeaderParty.Leader.Clear;

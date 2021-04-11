@@ -64,6 +64,8 @@ uses
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
+  MainForm.ClientWidth := 1344;
+  MainForm.ClientHeight := 704;
   Game := TGame.Create;
 end;
 
