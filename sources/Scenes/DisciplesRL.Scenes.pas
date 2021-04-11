@@ -26,6 +26,9 @@ const
   Top = 220;
   Left = 10;
   DefaultButtonTop = 600;
+  ScreenWidth = 1344;
+  ScreenHeight = 704;
+
 
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);
@@ -227,8 +230,8 @@ var
 begin
   inherited Create;
   Surface := TBitmap.Create;
-  Surface.Width := 1344;
-  Surface.Height := 704;
+  Surface.Width := ScreenWidth;
+  Surface.Height := ScreenHeight;
   Surface.Canvas.Font.Size := 12;
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
@@ -272,8 +275,8 @@ end;
 constructor TScene.Create;
 begin
   inherited;
-  Width := 1344;
-  ScrWidth := 1344 div 2;
+  Width := ScreenWidth;
+  ScrWidth := Width div 2;
   ConfirmHandler := nil;
 end;
 

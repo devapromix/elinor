@@ -65,7 +65,6 @@ uses
   SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Resources,
-  DisciplesRL.Scene.Settlement,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire;

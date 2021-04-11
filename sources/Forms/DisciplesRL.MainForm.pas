@@ -59,13 +59,12 @@ implementation
 
 uses
   DisciplesRL.Scenes,
-  DisciplesRL.Map,
   DisciplesRL.Saga;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  MainForm.ClientWidth := 1344;
-  MainForm.ClientHeight := 704;
+  MainForm.ClientWidth := ScreenWidth;
+  MainForm.ClientHeight := ScreenHeight;
   Game := TGame.Create;
 end;
 
