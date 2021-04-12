@@ -9,6 +9,8 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
+  DisciplesRL.Button,
+  DisciplesRL.Resources,
   DisciplesRL.Party,
   DisciplesRL.Scenes;
 
@@ -18,10 +20,17 @@ type
   { TSceneMap }
 
 type
-
-  { TSceneSettlement }
-
   TSceneSettlement = class(TScene)
+  private type
+    TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
+  private const
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
+      reTextClose, reTextHire, reTextDismiss);
+  private class var
+    Button: array [TButtonEnum] of TButton;
+    CurrentSettlementType: TSettlementSubSceneEnum;
+    SettlementParty: TParty;
+    CurrentCityIndex: Integer;
   private
     IsUnitSelected: Boolean;
     ConfirmGold: Integer;
@@ -53,26 +62,11 @@ implementation
 
 uses
   SysUtils,
-  DisciplesRL.Resources,
   DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Scene.Party,
   DisciplesRL.Creatures,
-  DisciplesRL.Button,
   DisciplesRL.Scene.Hire;
-
-type
-  TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
-
-const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
-    reTextClose, reTextHire, reTextDismiss);
-
-var
-  Button: array [TButtonEnum] of TButton;
-  CurrentSettlementType: TSettlementSubSceneEnum;
-  SettlementParty: TParty = nil;
-  CurrentCityIndex: Integer = -1;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
