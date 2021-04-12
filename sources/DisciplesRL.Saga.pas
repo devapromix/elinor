@@ -450,7 +450,6 @@ begin
   PartyFree;
   Game.Clear;
   Game.Map.Gen;
-  TSceneSettlement.GenCityName;
   TLeaderParty.Leader.Clear;
 end;
 

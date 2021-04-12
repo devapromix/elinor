@@ -7,9 +7,6 @@ uses
   DisciplesRL.Button;
 
 type
-
-  { TBattle }
-
   TBattle = class(TObject)
   public
     Log: TLog;

@@ -28,7 +28,8 @@ uses
   DisciplesRL.Scene.Battle3 in 'Scenes\DisciplesRL.Scene.Battle3.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   DisciplesRL.Button in 'DisciplesRL.Button.pas',
-  DisciplesRL.Frame in 'DisciplesRL.Frame.pas';
+  DisciplesRL.Frame in 'DisciplesRL.Frame.pas',
+  DisciplesRL.Settlement in 'Scenes\DisciplesRL.Settlement.pas';
 
 {$R *.res}
 

@@ -33,7 +33,6 @@ type
     procedure Hire;
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
-    function GetCityName(const I: Integer): string;
     procedure MoveUnit;
     procedure DismissCreature;
     procedure ReviveCreature;
@@ -47,7 +46,6 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure GenCityName;
     class procedure Show(SettlementType: TSettlementSubSceneEnum); overload;
   end;
 
@@ -70,43 +68,11 @@ const
   ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
     reTextClose, reTextHire, reTextDismiss);
 
-type
-  T = 0 .. 9;
-
-const
-  CityNameTitle: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion,
-    reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
-    reTitleHimor, reTitleSodek, reTitleSard);
-  CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum', 'Temond',
-    'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
-
 var
   Button: array [TButtonEnum] of TButton;
   CurrentSettlementType: TSettlementSubSceneEnum;
   SettlementParty: TParty = nil;
   CurrentCityIndex: Integer = -1;
-  CityArr: array [T] of Integer;
-
-class procedure TSceneSettlement.GenCityName;
-var
-  N: set of T;
-  J, K: Integer;
-begin
-  N := [];
-  for K := Low(T) to High(T) do
-  begin
-    repeat
-      J := Random(10);
-    until not(J in N);
-    N := N + [J];
-    CityArr[K] := J;
-  end;
-end;
-
-function TSceneSettlement.GetCityName(const I: Integer): string;
-begin
-  Result := CityNameText[CityArr[I]];
-end;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -445,13 +411,13 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        DrawTitle(CityNameTitle[CityArr[CurrentCityIndex + 1]]);
+        DrawTitle(Game.Settlement.GetCityNameTitleRes(CurrentCityIndex + 1));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage(ScrWidth + 20, 160, reTextCityDef);
       end;
     stCapital:
       begin
-        DrawTitle(CityNameTitle[CityArr[0]]);
+        DrawTitle(Game.Settlement.GetCityNameTitleRes(0));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage(ScrWidth + 20, 160, reTextCapitalDef);
       end;
