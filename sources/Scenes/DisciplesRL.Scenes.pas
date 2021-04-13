@@ -16,7 +16,6 @@ uses
   DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Party,
-  DisciplesRL.Settlement,
   DisciplesRL.Resources;
 
 type
@@ -189,7 +188,6 @@ type
     Scenario: TScenario;
     Map: TMap;
     MediaPlayer: TMediaPlayer;
-    Settlement: TSettlement;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -250,7 +248,6 @@ begin
   Map := TMap.Create;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
-  Settlement := TSettlement.Create;
   MediaPlayer := TMediaPlayer.Create;
   MediaPlayer.PlayMusic(mmMenu);
   SceneEnum := scMenu;
@@ -259,7 +256,6 @@ end;
 destructor TGame.Destroy;
 begin
   FreeAndNil(Statistics);
-  FreeAndNil(Settlement);
   FreeAndNil(Scenario);
   FreeAndNil(Map);
   MediaPlayer.Stop;
@@ -273,7 +269,7 @@ begin
   Statistics.Clear;
   Scenario.Clear;
   Map.Clear;
-  Settlement.GenCityName;
+  Map.GenCityName;
 end;
 
   { TScene }

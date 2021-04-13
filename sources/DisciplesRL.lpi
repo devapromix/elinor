@@ -30,7 +30,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="23">
+    <Units Count="22">
       <Unit0>
         <Filename Value="DisciplesRL.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -122,10 +122,6 @@
         <Filename Value="Scenes\DisciplesRL.Scene.Menu2.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit21>
-      <Unit22>
-        <Filename Value="DisciplesRL.Settlement.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit22>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
