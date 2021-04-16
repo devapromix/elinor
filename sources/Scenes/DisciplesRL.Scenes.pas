@@ -52,7 +52,7 @@ type
     procedure PlayMusic(const MusicEnum: TMusicEnum);
     property Volume: ShortInt read GetVolume write SetVolume;
     property CurrentChannel: Integer read FC write FC;
-    function Play(const FileName: string; F: Boolean): Boolean;
+    function Play(const FileName: string; F: Boolean): Boolean; overload;
     procedure Stop;
     procedure StopMusic;
   end;
@@ -177,10 +177,28 @@ type
 
 type
 
-  { TGame }
+  { TTreasure }
 
+  TTreasure = class(TObject)
+  private
+    FValuePerDay: Integer;
+  public
+    Value: Integer;
+    Mines: Integer;
+    NewValue: Integer;
+    constructor Create(const ValuePerDay: Integer);
+    procedure Clear(const StartValue: Integer);
+    procedure Modify(Amount: Integer);
+    procedure Mine;
+    function FromMinePerDay: Integer;
+    procedure AddMine;
+  end;
+
+type
   TGame = class(TScenes)
   public
+    Gold: TTreasure;
+    Mana: TTreasure;
     Wizard: Boolean;
     NewBattle: Boolean;
     Surface: TBitmap;
@@ -222,13 +240,47 @@ var
   Button: TButton;
   Buttons: array [TButtonEnum] of TButton;
 
+{ TTreasure }
+
+constructor TTreasure.Create(const ValuePerDay: Integer);
+begin
+  FValuePerDay := ValuePerDay;
+end;
+
+procedure TTreasure.Clear(const StartValue: Integer);
+begin
+  Value := StartValue;
+  Mines := 0;
+  NewValue := 0;
+end;
+
+procedure TTreasure.Modify(Amount: Integer);
+begin
+  Value := Value + Amount;
+end;
+
+procedure TTreasure.Mine;
+begin
+  Modify(FromMinePerDay);
+end;
+
+function TTreasure.FromMinePerDay: Integer;
+begin
+  Result := Mines * FValuePerDay;
+end;
+
+procedure TTreasure.AddMine;
+begin
+  Inc(Mines);
+end;
+
 { TGame }
 
 constructor TGame.Create;
 var
   I: Integer;
 begin
-  inherited Create;
+  inherited;
   Surface := TBitmap.Create;
   Surface.Width := ScreenWidth;
   Surface.Height := ScreenHeight;
@@ -245,6 +297,8 @@ begin
       NewBattle := True;
   end;
   Randomize;
+  Gold := TTreasure.Create(100);
+  Mana := TTreasure.Create(10);
   Map := TMap.Create;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
@@ -261,15 +315,20 @@ begin
   MediaPlayer.Stop;
   FreeAndNil(MediaPlayer);
   FreeAndNil(Surface);
+  FreeAndNil(Gold);
+  FreeAndNil(Mana);
   inherited;
 end;
 
 procedure TGame.Clear;
 begin
+  Gold.Clear(250);
+  Mana.Clear(10);
   Statistics.Clear;
   Scenario.Clear;
   Map.Clear;
   Map.GenCityName;
+  Map.Gen;
 end;
 
   { TScene }
@@ -429,9 +488,9 @@ procedure TScene.DrawResources;
 begin
   DrawImage(10, 10, reSmallFrame);
   DrawImage(15, 10, reGold);
-  DrawText(45, 24, TSaga.Gold);
+  DrawText(45, 24, Game.Gold.Value);
   DrawImage(15, 40, reMana);
-  DrawText(45, 54, TSaga.Mana);
+  DrawText(45, 54, Game.Mana.Value);
 end;
 
 function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;

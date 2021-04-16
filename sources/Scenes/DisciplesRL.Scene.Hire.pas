@@ -929,31 +929,31 @@ begin
             begin
               DrawGold;
               DrawText(450, 'СОКРОВИЩЕ');
-              DrawText(470, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+              DrawText(470, 'ЗОЛОТО +' + IntToStr(Game.Gold.NewValue));
             end;
           reMana:
             begin
               DrawMana;
               DrawText(450, 'СОКРОВИЩЕ');
-              DrawText(470, 'МАНА +' + IntToStr(TSaga.NewMana));
+              DrawText(470, 'МАНА +' + IntToStr(Game.Mana.NewValue));
             end;
           reBag:
             begin
               Y := 470;
               DrawText(450, 'СОКРОВИЩЕ');
-              if TSaga.NewGold > 0 then
+              if Game.Gold.NewValue > 0 then
               begin
                 It1 := reItemGold;
-                DrawText(Y, 'ЗОЛОТО +' + IntToStr(TSaga.NewGold));
+                DrawText(Y, 'ЗОЛОТО +' + IntToStr(Game.Gold.NewValue));
                 Inc(Y, 20);
               end;
-              if TSaga.NewMana > 0 then
+              if Game.Mana.NewValue > 0 then
               begin
                 if It1 = reNone then
                   It1 := reItemMana
                 else
                   It2 := reItemMana;
-                DrawText(Y, 'МАНА +' + IntToStr(TSaga.NewMana));
+                DrawText(Y, 'МАНА +' + IntToStr(Game.Mana.NewValue));
                 Inc(Y, 20);
               end;
               if TSaga.NewItem > 0 then

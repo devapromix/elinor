@@ -73,13 +73,7 @@ type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
   class var
     Days: Integer;
-    Gold: Integer;
-    NewGold: Integer;
-    Mana: Integer;
-    NewMana: Integer;
     NewItem: Integer;
-    GoldMines: Integer;
-    ManaMines: Integer;
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
     IsDay: Boolean;
@@ -134,9 +128,7 @@ type
       ('Травятся монстры, травятся герои,','травятся колодцы в городах. Старая,','добрая, проверенная временем','гадость.','')
       //
       );
-    GoldFromMinePerDay = 100;
     GoldForRevivePerLevel = 250;
-    ManaFromMinePerDay = 10;
     LeaderWarriorHealAllInPartyPerDay = 10;
     LeaderScoutAdvRadius = 2;
     LeaderMageCanCastSpellsPerDay = 3;
@@ -150,8 +142,6 @@ type
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
     class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
-    class procedure ModifyGold(Amount: Integer); static;
-    class procedure ModifyMana(Amount: Integer); static;
     class procedure NewDay; static;
   end;
 
@@ -313,46 +303,36 @@ begin
   Party[I].Owner := reNeutrals;
 end;
 
-class procedure TSaga.ModifyGold(Amount: Integer);
-begin
-  Inc(Gold, Amount);
-end;
-
-class procedure TSaga.ModifyMana(Amount: Integer);
-begin
-  Inc(Mana, Amount);
-end;
-
 class procedure TSaga.AddLoot(LootRes: TResEnum);
 var
   Level, N: Integer;
 
   procedure AddGold;
   begin
-    NewGold := RandomRange(Level * 2, Level * 3) * 10;
-    ModifyGold(NewGold);
+    Game.Gold.NewValue := RandomRange(Level * 2, Level * 3) * 10;
+    Game.Gold.Modify(Game.Gold.NewValue);
   end;
 
   procedure AddMana;
   begin
-    NewMana := RandomRange(Level * 1, Level * 3);
-    if NewMana < 3 then
-      NewMana := 3;
-    ModifyMana(NewMana);
+    Game.Mana.NewValue := RandomRange(Level * 1, Level * 3);
+    if Game.Mana.NewValue < 3 then
+      Game.Mana.NewValue := 3;
+    Game.Mana.Modify(Game.Mana.NewValue);
   end;
 
   procedure AddItem;
   begin
     N := 0;
-    if (NewGold = 0) and (NewMana = 0) then
+    if (Game.Gold.NewValue = 0) and (Game.Mana.NewValue = 0) then
       N := 1;
     NewItem := RandomRange(N, 4);
 
   end;
 
 begin
-  NewGold := 0;
-  NewMana := 0;
+  Game.Gold.NewValue := 0;
+  Game.Mana.NewValue := 0;
   NewItem := 0;
   Level := Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   case LootRes of
@@ -380,8 +360,8 @@ class procedure TSaga.NewDay;
 begin
   if IsDay then
   begin
-    Gold := Gold + (GoldMines * GoldFromMinePerDay);
-    Mana := Mana + (ManaMines * ManaFromMinePerDay);
+    Game.Gold.Mine;
+    Game.Mana.Mine;
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
       TLeaderParty.Leader.HealAll(LeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
@@ -438,18 +418,11 @@ class procedure TSaga.Clear;
 begin
   IsGame := True;
   Days := 1;
-  Gold := 250;
-  NewGold := 0;
-  Mana := 250;
-  NewMana := 0;
   NewItem := 0;
-  GoldMines := 0;
-  ManaMines := 0;
   IsDay := False;
   ShowNewDayMessage := 0;
   PartyFree;
   Game.Clear;
-  Game.Map.Gen;
   TLeaderParty.Leader.Clear;
 end;
 

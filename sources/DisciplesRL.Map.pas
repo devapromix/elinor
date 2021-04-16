@@ -398,12 +398,12 @@ begin
           if (MapLayer = FMap[lrTile]) and
             (FMap[lrObj][AX + X, AY + Y] = reMineGold) and
             (FMap[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
-            Inc(TSaga.GoldMines);
+            Game.Gold.AddMine;
           // Add Mana Mine
           if (MapLayer = FMap[lrTile]) and
             (FMap[lrObj][AX + X, AY + Y] = reMineMana) and
             (FMap[lrTile][AX + X, AY + Y] = reNeutralTerrain) then
-            Inc(TSaga.ManaMines);
+            Game.Mana.AddMine;
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
 end;

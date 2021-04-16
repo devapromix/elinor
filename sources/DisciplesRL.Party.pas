@@ -320,13 +320,13 @@ var
 begin
   Result := False;
   ACreature := TCreature.Character(ACreatureEnum);
-  if ACreature.Gold > TSaga.Gold then
+  if ACreature.Gold > Game.Gold.Value then
     Exit;
   if not FCreature[APosition].Active then
   begin
     Result := True;
     AddCreature(ACreatureEnum, APosition);
-    TSaga.ModifyGold(-ACreature.Gold);
+    Game.Gold.Modify(-ACreature.Gold);
   end;
 end;
 

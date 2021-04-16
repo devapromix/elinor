@@ -92,11 +92,9 @@ var
     DrawImage(10, 10, reFrame);
     DrawImage(60, 10, reTextNewDay);
     DrawImage(45, 70, reGold);
-    DrawText(75, 84, '+' + IntToStr(TSaga.GoldMines *
-      TSaga.GoldFromMinePerDay));
+    DrawText(75, 84, '+' + IntToStr(Game.Gold.FromMinePerDay));
     DrawImage(170, 70, reMana);
-    DrawText(205, 84, '+' + IntToStr(TSaga.ManaMines *
-      TSaga.ManaFromMinePerDay));
+    DrawText(205, 84, '+' + IntToStr(Game.Mana.FromMinePerDay));
   end;
 
 begin
