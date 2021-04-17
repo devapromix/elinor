@@ -327,7 +327,6 @@ begin
   Statistics.Clear;
   Scenario.Clear;
   Map.Clear;
-  Map.GenCityName;
   Map.Gen;
 end;
 

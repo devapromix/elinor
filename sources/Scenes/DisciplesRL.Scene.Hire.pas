@@ -861,6 +861,7 @@ begin
       end;
     stRace:
       begin
+        DrawImage(reWallpaperDifficulty);
         DrawTitle(reTitleRace);
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
@@ -874,6 +875,7 @@ begin
       end;
     stSpy:
       begin
+        DrawImage(reWallpaperDifficulty);
         DrawTitle(reTitleThief);
         for Z := svIntroduceSpy to svPoison do
         begin
@@ -902,6 +904,7 @@ begin
       end;
     stVictory:
       begin
+        DrawImage(reWallpaperDefeat);
         DrawTitle(reTitleVictory);
       end;
     stDefeat:
@@ -911,10 +914,12 @@ begin
       end;
     stHighScores2:
       begin
+        DrawImage(reWallpaperDefeat);
         DrawTitle(reTitleHighScores);
       end;
     stStoneTab:
       begin
+        DrawImage(reWallpaperLoot);
         DrawTitle(reTitleLoot);
         DrawItem([reItemStoneTable]);
         DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');

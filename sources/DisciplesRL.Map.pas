@@ -28,9 +28,6 @@ type
   end;
 
 type
-
-  { TMapPlace }
-
   TMapPlace = class(TMapObject)
     CurLevel: integer;
     MaxLevel: integer;
@@ -286,6 +283,7 @@ var
   end;
 
 begin
+  GenCityName;
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
     begin
