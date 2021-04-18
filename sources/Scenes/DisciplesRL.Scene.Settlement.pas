@@ -296,7 +296,7 @@ begin
   Game.MediaPlayer.PlayMusic(mmMap);
   Game.Show(scMap);
   Game.MediaPlayer.Play(mmClick);
-  TSaga.NewDay;
+  Game.NewDay;
 end;
 
 { TSceneSettlement }

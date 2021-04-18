@@ -644,7 +644,7 @@ begin
     F := False;
   end;
   if F then
-    TSaga.NewDay;
+    Game.NewDay;
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -663,13 +663,13 @@ begin
     Dec(Speed);
     if (Speed = 0) then
     begin
-      Inc(TSaga.Days);
-      TSaga.IsDay := True;
+      Inc(Game.Day);
+      Game.IsNewDay := True;
       Speed := MaxSpeed;
     end;
     Inc(C);
   until (C >= ACount);
-  TSaga.ShowNewDayMessage := 0;
+  Game.ShowNewDayMessageTime := 0;
 end;
 
 procedure TLeaderParty.UpdateLevel(const APosition: TPosition);

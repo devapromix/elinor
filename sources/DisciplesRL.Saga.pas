@@ -72,13 +72,10 @@ type
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
   class var
-    Days: Integer;
     NewItem: Integer;
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
-    IsDay: Boolean;
     IsGame: Boolean;
-    ShowNewDayMessage: ShortInt;
   public const
     DifficultyName: array [TDifficultyEnum] of string = ('Легкий', 'Средний',
       'Сложный');
@@ -142,7 +139,6 @@ type
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
     class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
-    class procedure NewDay; static;
   end;
 
 implementation
@@ -356,22 +352,6 @@ begin
   TSceneHire.Show(stLoot, scMap, LootRes);
 end;
 
-class procedure TSaga.NewDay;
-begin
-  if IsDay then
-  begin
-    Game.Gold.Mine;
-    Game.Mana.Mine;
-    if (TLeaderParty.Leader.Enum in LeaderWarrior) then
-      TLeaderParty.Leader.HealAll(LeaderWarriorHealAllInPartyPerDay);
-    TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
-    TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
-    ShowNewDayMessage := 20;
-    Game.MediaPlayer.Play(mmDay);
-    IsDay := False;
-  end;
-end;
-
 { TScenario }
 
 procedure TScenario.AddStoneTab(const X, Y: Integer);
@@ -417,10 +397,7 @@ end;
 class procedure TSaga.Clear;
 begin
   IsGame := True;
-  Days := 1;
   NewItem := 0;
-  IsDay := False;
-  ShowNewDayMessage := 0;
   PartyFree;
   Game.Clear;
   TLeaderParty.Leader.Clear;

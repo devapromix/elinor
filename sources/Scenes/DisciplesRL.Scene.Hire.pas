@@ -417,7 +417,7 @@ begin
             Exit;
           end;
           if F then
-            TSaga.NewDay;
+            Game.NewDay;
         end;
       end;
   end;

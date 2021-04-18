@@ -197,6 +197,9 @@ type
 type
   TGame = class(TScenes)
   public
+    Day: Integer;
+    IsNewDay: Boolean;
+    ShowNewDayMessageTime: ShortInt;
     Gold: TTreasure;
     Mana: TTreasure;
     Wizard: Boolean;
@@ -209,6 +212,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
+    procedure NewDay;
   end;
 
 var
@@ -220,6 +224,7 @@ uses
   SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.Button,
+  DisciplesRL.Creatures,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Menu2,
@@ -322,12 +327,32 @@ end;
 
 procedure TGame.Clear;
 begin
+  Day := 1;
+  IsNewDay := False;
+  ShowNewDayMessageTime := 0;
   Gold.Clear(250);
   Mana.Clear(10);
   Statistics.Clear;
   Scenario.Clear;
   Map.Clear;
   Map.Gen;
+end;
+
+procedure TGame.NewDay;
+begin
+  if IsNewDay then
+  begin
+    Gold.Mine;
+    Mana.Mine;
+    if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+      TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);
+    TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
+    TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
+    ShowNewDayMessageTime := 20;
+    MediaPlayer.Play(mmDay);
+    IsNewDay := False;
+  end;
+
 end;
 
   { TScene }
@@ -490,6 +515,8 @@ begin
   DrawText(45, 24, Game.Gold.Value);
   DrawImage(15, 40, reMana);
   DrawText(45, 54, Game.Mana.Value);
+
+  DrawText(45, 84, Game.Mana.Value);
 end;
 
 function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;

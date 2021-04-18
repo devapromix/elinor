@@ -165,7 +165,7 @@ begin
     DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
       ResImage[reNoWay]);
   // New Day Message
-  if TSaga.ShowNewDayMessage > 0 then
+  if Game.ShowNewDayMessageTime > 0 then
     RenderNewDayMessage;
 end;
 
@@ -178,8 +178,8 @@ end;
 procedure TSceneMap.Timer;
 begin
   inherited;
-  if TSaga.ShowNewDayMessage > 0 then
-    Dec(TSaga.ShowNewDayMessage);
+  if Game.ShowNewDayMessageTime > 0 then
+    Dec(Game.ShowNewDayMessageTime);
 end;
 
 procedure TSceneMap.Update(var Key: Word);
