@@ -499,7 +499,8 @@ var
   CurrentPartyIndex: Integer;
 begin
   CurrentPartyIndex := TSaga.GetPartyIndex(AX, AY);
-  Result := TLeaderParty.Leader.Owner = Party[CurrentPartyIndex].Owner;
+  if CurrentPartyIndex < 0 then Result := False
+    else Result := TLeaderParty.Leader.Owner = Party[CurrentPartyIndex].Owner;
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
