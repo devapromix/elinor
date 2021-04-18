@@ -516,7 +516,7 @@ begin
   DrawImage(15, 40, reMana);
   DrawText(45, 54, Game.Mana.Value);
 
-  DrawText(45, 84, Game.Mana.Value);
+  DrawText(45, 84, Game.Day);
 end;
 
 function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;

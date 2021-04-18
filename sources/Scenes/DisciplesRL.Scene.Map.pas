@@ -59,12 +59,13 @@ begin
     mbMiddle:
       begin
         if Game.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
-          and (TLeaderParty.Leader.Enum in LeaderThief)
           and not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y)) then
             begin
               TSceneHire.MPX := MousePos.X;
               TSceneHire.MPY := MousePos.Y;
-              TSceneHire.Show(stSpy);
+              if (TLeaderParty.Leader.Enum in LeaderThief) then
+                if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
+                  TSceneHire.Show(stSpy);
             end;
       end;
   end;
