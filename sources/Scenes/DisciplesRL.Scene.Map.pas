@@ -58,14 +58,21 @@ begin
       end;
     mbMiddle:
       begin
-        if Game.Wizard or (TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y)
-          and not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y)) then
+        if TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y) then
+          if not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y) then
             begin
               TSceneHire.MPX := MousePos.X;
               TSceneHire.MPY := MousePos.Y;
+              // Leader Thief
               if (TLeaderParty.Leader.Enum in LeaderThief) then
                 if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
                   TSceneHire.Show(stSpy);
+            end else
+            begin
+              // Leader Warrior
+              if (MousePos.X = TLeaderParty.Leader.X) and (MousePos.Y = TLeaderParty.Leader.Y) then
+                if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+                  TSceneHire.Show(stWar);
             end;
       end;
   end;
@@ -214,6 +221,9 @@ begin
       TLeaderParty.Leader.Move(drOrigin);
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+    K_V:
+      if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+        TSceneHire.Show(stWar);
     K_P:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:

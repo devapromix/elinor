@@ -17,8 +17,8 @@ uses
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
-    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
-    stDifficulty, stSpy);
+    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
+    stDifficulty);
 
 type
 
@@ -33,14 +33,17 @@ type
   strict private
     function ThiefPoisonDamage: Integer;
     function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
+    function WarriorChanceOfSuccess(V: TLeaderWarriorActVar): Integer;
     procedure RenderButtons;
     procedure Ok;
     procedure Back;
     procedure RenderDifficultyInfo;
     procedure RenderScenarioInfo;
     procedure RenderSpyInfo;
+    procedure RenderWarInfo;
     procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
+    procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
     procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
       const AX, AY: Integer);
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
@@ -116,6 +119,8 @@ const
     (reTextClose, reTextClose),
     // Spy
     (reTextContinue, reTextCancel),
+    // War
+    (reTextContinue, reTextCancel),
     // Difficulty
     (reTextContinue, reTextCancel));
 
@@ -124,7 +129,7 @@ const
   CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
     AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
-    stDifficulty, stSpy];
+    stDifficulty, stSpy, stWar];
 
 var
   HireParty: TParty = nil;
@@ -222,7 +227,7 @@ begin
       TSceneHire.Show(stDifficulty);
     stScenario:
       Game.Show(scMenu);
-    stJournal, stSpy:
+    stJournal, stSpy, stWar:
       Game.Show(scMap);
     stDefeat:
       begin
@@ -248,6 +253,13 @@ begin
   Result := S[V] - (20 - EnsureRange(TLeaderParty.Leader.Level * 2, 0, 20));
 end;
 
+function TSceneHire.WarriorChanceOfSuccess(V: TLeaderWarriorActVar): Integer;
+const
+  S: array [TLeaderWarriorActVar] of Byte = (100, 80, 60);
+begin
+  Result := S[V];
+end;
+
 function TSceneHire.ThiefPoisonDamage: Integer;
 begin
   Result := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
@@ -266,6 +278,16 @@ var
   function TrySpy(V: TLeaderThiefSpyVar): Boolean;
   begin
     Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V)) or Game.Wizard;
+    if not Result then
+    begin
+      InformDialog('Вы потерпели неудачу и вступаете в схватку!');
+      TLeaderParty.Leader.PutAt(MPX, MPY);
+    end;
+  end;
+
+  function TryWar(V: TLeaderWarriorActVar): Boolean;
+  begin
+    Result := (RandomRange(0, 100) <= WarriorChanceOfSuccess(V)) or Game.Wizard;
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
@@ -393,6 +415,56 @@ begin
           Game.Show(scMap);
         end;
       end;
+    stWar:
+      begin
+        case TLeaderWarriorActVar(CurrentIndex) of
+          avRest:
+            begin
+              if TLeaderParty.Leader.Spy > 0 then
+              begin
+                TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
+                if TryWar(avRest) then
+                begin
+                  //TLeaderParty.Leader.PutAt(MPX, MPY, True);
+                end;
+              end
+              else
+                NoSpy;
+            end;
+          avWar2:
+            begin
+              if TLeaderParty.Leader.Spy > 0 then
+              begin
+                TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
+                if TryWar(avWar2) then
+                begin
+                  //InformDialog('Вы вызвали противника на дуэль!');
+                  //TSceneBattle2.IsDuel := True;
+                  //TLeaderParty.Leader.PutAt(MPX, MPY);
+                end;
+              end
+              else
+                NoSpy;
+            end;
+          avWar3:
+            begin
+              if TLeaderParty.Leader.Spy > 0 then
+              begin
+                TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
+                if TryWar(avWar3) then
+                begin
+                  //I := TSaga.GetPartyIndex(MPX, MPY);
+                  //Party[I].TakeDamageAll(ThiefPoisonDamage);
+                  //InformDialog('Вы отравили все колодцы в округе!');
+                end;
+              end
+              else
+                NoSpy;
+            end
+        else
+          Game.Show(scMap);
+        end;
+      end;
     stLoot:
       begin
         Game.MediaPlayer.Play(mmLoot);
@@ -485,6 +557,19 @@ begin
     svDuel:
       DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
     svPoison:
+      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
+  end;
+end;
+
+procedure TSceneHire.RenderWar(const N: TLeaderWarriorActVar; const AX,
+  AY: Integer);
+begin
+  case N of
+    avRest:
+      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
+    avWar2:
+      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
+    avWar3:
       DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
   end;
 end;
@@ -638,6 +723,27 @@ begin
   end;
 end;
 
+procedure TSceneHire.RenderWarInfo;
+  var
+    J: Integer;
+    S: TLeaderWarriorActVar;
+  begin
+    T := Top + 6;
+    L := Lf + ResImage[reActFrame].Width + 12;
+    S := TLeaderWarriorActVar(CurrentIndex);
+    Add(TSaga.WarName[S], True);
+    Add;
+    for J := 0 to 4 do
+      Add(TSaga.WarDescription[S][J]);
+    Add;
+    Add;
+    Add;
+    Add;
+    Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+      TLeaderParty.Leader.GetMaxSpy]));
+    Add(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
+end;
+
 procedure TSceneHire.RenderButtons;
 var
   I: TButtonEnum;
@@ -768,6 +874,7 @@ var
   S: TScenario.TScenarioEnum;
   D: TSaga.TDifficultyEnum;
   Z: TLeaderThiefSpyVar;
+  N: TLeaderWarriorActVar;
   ItemRes: TResEnum;
   It1, It2, It3: TResEnum;
   C: TCreatureEnum;
@@ -884,6 +991,20 @@ begin
           else
             DrawImage(Lf, Top + Y, reFrame);
           RenderSpy(Z, Lf, Top + Y);
+          Inc(Y, 120);
+        end;
+      end;
+    stWar:
+      begin
+        DrawImage(reWallpaperDifficulty);
+        DrawTitle(reTitleThief);
+        for N := avRest to avWar3 do
+        begin
+          if Ord(N) = CurrentIndex then
+            DrawImage(Lf, Top + Y, reActFrame)
+          else
+            DrawImage(Lf, Top + Y, reFrame);
+          RenderWar(N, Lf, Top + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1023,6 +1144,8 @@ begin
       RenderHighScores;
     stSpy:
       RenderSpyInfo;
+    stWar:
+      RenderWarInfo;
   end;
   RenderButtons;
 end;
@@ -1075,6 +1198,25 @@ begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
               Ord(High(TLeaderThiefSpyVar)));
+          end;
+      end;
+    stWar:
+      case Key of
+        K_ESCAPE:
+          Back;
+        K_ENTER:
+          Ok;
+        K_UP:
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
+              Ord(High(TLeaderWarriorActVar)));
+          end;
+        K_DOWN:
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
+              Ord(High(TLeaderWarriorActVar)));
           end;
       end;
     stLeader:

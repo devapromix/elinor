@@ -171,6 +171,7 @@ type
 
 type
   TLeaderThiefSpyVar = (svIntroduceSpy, svDuel, svPoison);
+  TLeaderWarriorActVar = (avRest, avRitual, avWar3);
 
 const
   ckGuardian = ckMage;

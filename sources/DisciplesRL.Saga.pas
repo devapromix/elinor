@@ -125,6 +125,18 @@ type
       ('Травятся монстры, травятся герои,','травятся колодцы в городах. Старая,','добрая, проверенная временем','гадость.','')
       //
       );
+    WarName: array [TLeaderWarriorActVar] of string = ('War1',
+      'War2', 'War3');
+    WarDescription: array [TLeaderWarriorActVar] of array [0 .. 4]
+      of string = (
+      //
+      ('','','','',''),
+      //
+      ('','','','',''),
+      //
+      ('','','','','')
+      //
+      );
     GoldForRevivePerLevel = 250;
     LeaderWarriorHealAllInPartyPerDay = 10;
     LeaderScoutAdvRadius = 2;
