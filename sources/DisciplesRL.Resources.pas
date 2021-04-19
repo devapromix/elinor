@@ -54,7 +54,7 @@ const
     reLegionsOfTheDamnedTerrain];
   MountainTiles = [reMountain1, reMountain2, reMountain3, reMountain4];
   StopTiles = MountainTiles + [reDark];
-  TreesTiles = [reTreePine, reTreeOak];
+  TreesTiles = [reTreePine, reTreeOak, reTree1, reTree2, reTree3, reTree4];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
