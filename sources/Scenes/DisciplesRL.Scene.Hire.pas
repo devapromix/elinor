@@ -431,12 +431,12 @@ begin
               else
                 NoSpy;
             end;
-          avWar2:
+          avRitual:
             begin
               if TLeaderParty.Leader.Spy > 0 then
               begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
-                if TryWar(avWar2) then
+                if TryWar(avRitual) then
                 begin
                   //InformDialog('Вы вызвали противника на дуэль!');
                   //TSceneBattle2.IsDuel := True;
@@ -553,11 +553,11 @@ procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar;
 begin
   case N of
     svIntroduceSpy:
-      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
+      DrawImage(AX + 7, AY + 7, reThiefDuel);
     svDuel:
-      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
+      DrawImage(AX + 7, AY + 7, reThiefDuel);
     svPoison:
-      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
+      DrawImage(AX + 7, AY + 7, reThiefDuel);
   end;
 end;
 
@@ -567,7 +567,7 @@ begin
   case N of
     avRest:
       DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
-    avWar2:
+    avRitual:
       DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
     avWar3:
       DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);

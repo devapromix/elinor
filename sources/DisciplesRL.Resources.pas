@@ -42,6 +42,7 @@ type
     reTitleThief, reScenarioDarkTower, reScenarioOverlord,
     reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
+    reThiefDuel,
     reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
     reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario, reIconScores,
     reIconScoresOver, reIconClosedGates, reIconOpenedGates);
@@ -323,6 +324,8 @@ const
     (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
     // Difficulty Hard
     (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
+    // Thief Duel
+    (FileName: 'logo.thief.asskill.png'; ResType: teGUI;),
     // Wallpaper Settlement
     (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
     // Wallpaper Menu
