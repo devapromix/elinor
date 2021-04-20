@@ -167,11 +167,11 @@ type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
 
 type
-  TRaceCharKind = (ckWarrior, ckScout, ckMage); // ckSupport, ckThief
+  TRaceCharKind = (ckWarrior, ckScout, ckMage, ckThief, ck1, ck2);
 
 type
-  TLeaderThiefSpyVar = (svIntroduceSpy, svDuel, svPoison);
   TLeaderWarriorActVar = (avRest, avRitual, avWar3);
+  TLeaderThiefSpyVar = (svIntroduceSpy, svDuel, svPoison);
 
 const
   ckGuardian = ckMage;
@@ -195,25 +195,25 @@ const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
     [TRaceCharGroup] of array [TRaceCharKind] of TCreatureEnum = (
     // The Empire Capital Guardian
-    ((crNone, crNone, crMyzrael),
+    ((crNone, crNone, crMyzrael, crNone, crNone, crNone),
     // The Empire Leaders
-    (crPegasusKnight, crRanger, crThief), // crArchmage),
+    (crPegasusKnight, crRanger, crArchmage, crThief, crNone, crNone), // ),
     // The Empire Characters
-    (crSquire, crArcher, crAcolyte)), // crApprentice
+    (crSquire, crArcher, crAcolyte, crApprentice, crNone, crNone)), //
     //
     // Undead Hordes Capital Guardian
-    ((crNone, crNone, crAshgan),
+    ((crNone, crNone, crAshgan, crNone, crNone, crNone),
     // Undead Hordes Leaders
-    (crDeathKnight, crNosferat, crThug), // crLichQueen
+    (crDeathKnight, crNosferat, crLichQueen, crThug, crNone, crNone), //
     // Undead Hordes Characters
-    (crFighter, crGhost, crWyvern)), // crInitiate
+    (crFighter, crGhost, crInitiate, crWyvern, crNone, crNone)), //
     //
     // Legions Of The Damned Capital Guardian
-    ((crNone, crNone, crAshkael),
+    ((crNone, crNone, crAshkael, crNone, crNone, crNone),
     // Legions Of The Damned Leaders
-    (crDuke, crCounselor, crRipper), // crArchDevil
+    (crDuke, crCounselor, crRipper, crArchDevil, crNone, crNone), //
     // Legions Of The Damned Characters
-    (crPossessed, crGargoyle, crDevil)) // crCultist
+    (crPossessed, crGargoyle, crDevil, crCultist, crNone, crNone)) //
     //
     );
 {$REGION texts}

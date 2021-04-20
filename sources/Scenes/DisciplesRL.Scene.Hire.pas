@@ -138,7 +138,7 @@ var
   BackScene: TSceneEnum = scMenu;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
   CurrentIndex: Integer = 0;
-  Lf: Integer = 0;
+  Lf, Lk: Integer;
   GC, MC: Integer;
   LootRes: TResEnum;
 
@@ -798,6 +798,7 @@ begin
     end;
   end;
   Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
+  Lk := ScrWidth - (((ResImage[reFrame].Width) * 2) + 2);
 end;
 
 destructor TSceneHire.Destroy;
@@ -868,7 +869,7 @@ end;
 
 procedure TSceneHire.Render;
 var
-  Y: Integer;
+  Left, X, Y: Integer;
   R: TRaceEnum;
   K: TRaceCharKind;
   S: TScenario.TScenarioEnum;
@@ -906,6 +907,7 @@ var
 begin
   inherited;
   Y := 0;
+  X := 0;
   It1 := reNone;
   It2 := reNone;
   It3 := reNone;
@@ -916,20 +918,27 @@ begin
         DrawTitle(reTitleHire);
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
+          Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
           if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Left + X, Top + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
+            DrawImage(Left + X, Top + Y, reFrame);
           with TCreature.Character
             (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
             [cgCharacters][K]) do
+          if HitPoints > 0 then
           begin
-            DrawUnit(ResEnum, Lf, Top + Y, bsCharacter);
-            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
+            DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X, Top + Y,
               Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
               [cgCharacters][K], False);
           end;
           Inc(Y, 120);
+          if Y > 240 then
+          begin
+            Y := 0;
+            Inc(X, 320);
+          end;
         end;
       end;
     stLeader:
@@ -938,18 +947,25 @@ begin
         DrawTitle(reTitleLeader);
         for K := Low(TRaceCharKind) to High(TRaceCharKind) do
         begin
+          Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
           if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Left + X, Top + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
+            DrawImage(Left + X, Top + Y, reFrame);
           with TCreature.Character(Characters[TSaga.LeaderRace]
             [cgLeaders][K]) do
+          if HitPoints > 0 then
           begin
-            DrawUnit(ResEnum, Lf, Top + Y, bsCharacter);
-            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Lf, Top + Y,
+            DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X, Top + Y,
               Characters[TSaga.LeaderRace][cgLeaders][K], False);
           end;
           Inc(Y, 120);
+          if Y > 240 then
+          begin
+            Y := 0;
+            Inc(X, 320);
+          end;
         end;
       end;
     stDifficulty:
@@ -1111,7 +1127,8 @@ begin
           stLeader:
             C := Characters[TSaga.LeaderRace][cgLeaders][K];
         end;
-        RenderCharacterInfo(C);
+        if C <> crNone then
+          RenderCharacterInfo(C);
         case SubScene of
           stCharacter:
             begin
