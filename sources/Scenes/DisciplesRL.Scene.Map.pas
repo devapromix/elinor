@@ -34,7 +34,6 @@ uses
   SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Resources,
-  DisciplesRL.Scene.Settlement,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
@@ -70,8 +69,8 @@ begin
             end else
             begin
               // Leader Warrior
-              if (MousePos.X = TLeaderParty.Leader.X) and (MousePos.Y = TLeaderParty.Leader.Y) then
-                if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+              if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+                if (MousePos.X = TLeaderParty.Leader.X) and (MousePos.Y = TLeaderParty.Leader.Y) then
                   TSceneHire.Show(stWar);
             end;
       end;

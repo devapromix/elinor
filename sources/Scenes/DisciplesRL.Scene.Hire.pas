@@ -1176,47 +1176,29 @@ end;
 
 procedure TSceneHire.Update(var Key: Word);
 
+  procedure Upd(const MaxValue: Integer);
+  begin
+    case Key of
+      K_ESCAPE:
+        Back;
+      K_ENTER:
+        Ok;
+      K_UP:
+        begin
+          Game.MediaPlayer.Play(mmClick);
+          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, MaxValue);
+        end;
+      K_DOWN:
+        begin
+          Game.MediaPlayer.Play(mmClick);
+          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, MaxValue);
+        end;
+    end;
+  end;
+
 begin
   inherited;
   case SubScene of
-    stSpy:
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TLeaderThiefSpyVar)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TLeaderThiefSpyVar)));
-          end;
-      end;
-    stWar:
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TLeaderWarriorActVar)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TLeaderWarriorActVar)));
-          end;
-      end;
     stLeader, stCharacter:
       case Key of
         K_ESCAPE:
@@ -1256,93 +1238,16 @@ begin
             end;
           end;
       end;
+    stSpy:
+      Upd(Ord(High(TLeaderThiefSpyVar)));
+    stWar:
+      Upd(Ord(High(TLeaderWarriorActVar)));
     stRace:
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TRaceCharKind)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TRaceCharKind)));
-          end;
-      end;
+      Upd(Ord(High(TRaceCharKind)));
     stDifficulty:
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TSaga.TDifficultyEnum)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TSaga.TDifficultyEnum)));
-          end;
-      end;
-    stScenario:
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TScenario.TScenarioEnum)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TScenario.TScenarioEnum)));
-          end;
-      end;
-    stVictory, stDefeat:
-      case Key of
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TScenario.TScenarioEnum)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TScenario.TScenarioEnum)));
-          end;
-      end;
-    stHighScores2:
-      case Key of
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TScenario.TScenarioEnum)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TScenario.TScenarioEnum)));
-          end;
-      end;
+      Upd(Ord(High(TSaga.TDifficultyEnum)));
+    stVictory, stDefeat, stScenario, stHighScores2:
+      Upd(Ord(High(TScenario.TScenarioEnum)));
   end;
   if (SubScene in CloseButtonScene) then
     case Key of
