@@ -1179,25 +1179,6 @@ procedure TSceneHire.Update(var Key: Word);
 begin
   inherited;
   case SubScene of
-    stCharacter:
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TRaceCharKind)));
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TRaceCharKind)));
-          end;
-      end;
     stSpy:
       case Key of
         K_ESCAPE:
@@ -1236,7 +1217,7 @@ begin
               Ord(High(TLeaderWarriorActVar)));
           end;
       end;
-    stLeader:
+    stLeader, stCharacter:
       case Key of
         K_ESCAPE:
           Back;
@@ -1245,14 +1226,34 @@ begin
         K_UP:
           begin
             Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex - 1, 0,
-              Ord(High(TRaceCharKind)));
+            case CurrentIndex of
+              1, 2, 4, 5:
+                Dec(CurrentIndex);
+            end;
           end;
         K_DOWN:
           begin
             Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := EnsureRange(CurrentIndex + 1, 0,
-              Ord(High(TRaceCharKind)));
+            case CurrentIndex of
+              0, 1, 3, 4:
+                Inc(CurrentIndex);
+            end;
+          end;
+        K_LEFT:
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            case CurrentIndex of
+              3..5:
+                Dec(CurrentIndex, 3);
+            end;
+          end;
+        K_RIGHT:
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            case CurrentIndex of
+              0..2:
+                Inc(CurrentIndex, 3);
+            end;
           end;
       end;
     stRace:
