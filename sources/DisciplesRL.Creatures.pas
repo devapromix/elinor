@@ -146,8 +146,7 @@ type
     );
 
 const
-  LeaderWarrior: set of TCreatureEnum = [crPegasusKnight,
-    crDeathKnight, crDuke];
+  LeaderWarrior: set of TCreatureEnum = [crPegasusKnight, crDeathKnight, crDuke];
   LeaderScout: set of TCreatureEnum = [crRanger, crNosferat, crCounselor];
   LeaderMage: set of TCreatureEnum = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
@@ -979,16 +978,8 @@ begin
 end;
 
 function TCreature.IsLeader(): Boolean;
-var
-  Race: TRaceEnum;
-  CharKind: TRaceCharKind;
 begin
-  Result := False;
-  for Race := Low(Characters) to High(Characters) do
-    for CharKind := Low(Characters[Race][cgLeaders])
-      to High(Characters[Race][cgLeaders]) do
-      if Enum = Characters[Race][cgLeaders][CharKind] then
-        Exit(True);
+  Result := Enum in LeaderWarrior + LeaderScout + LeaderMage + LeaderThief;
 end;
 
 end.
