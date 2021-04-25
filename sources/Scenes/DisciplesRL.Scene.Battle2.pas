@@ -47,8 +47,7 @@ type
     function GetHitPoints(Position: Integer): Integer;
     procedure AI;
   public
-    class var
-    IsDuel: Boolean;
+    class var IsDuel: Boolean;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -78,7 +77,7 @@ var
 const
   Speed = 12;
 
-{ TSceneBattle2 }
+  { TSceneBattle2 }
 
 procedure TSceneBattle2.AI;
 var
@@ -179,8 +178,8 @@ begin
           if Alive then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Battle.Log.Add(Format('%s получил%s опыт +%d', [Name[0], GenderEnding,
-              CharExp]));
+            Battle.Log.Add(Format('%s получил%s опыт +%d',
+              [Name[0], GenderEnding, CharExp]));
           end;
     end;
     for Position := Low(TPosition) to High(TPosition) do
@@ -242,7 +241,9 @@ begin
     DuelLeaderParty.MoveCreature(Party[TLeaderParty.LeaderPartyIndex],
       DuelLeaderPosition);
     LeaderParty := DuelLeaderParty;
-  end else begin
+  end
+  else
+  begin
     EnemyParty := Party[I];
     LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
   end;
@@ -255,7 +256,8 @@ end;
 procedure TSceneBattle2.FinishBattle;
 begin
   if IsDuel then
-    Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty, DuelLeaderPosition);
+    Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty,
+      DuelLeaderPosition);
   Battle.Clear;
   Game.MediaPlayer.Stop;
   if LeaderParty.IsClear then
@@ -333,7 +335,8 @@ begin
           Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-          Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+          Battle.Log.Add
+            (Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
             .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
             [AtkParty.Creature[AtkPos].Name[0],
             DefParty.Creature[DefPos].Name[1],
@@ -341,7 +344,8 @@ begin
           if (DefParty.Creature[DefPos].HitPoints > 0) then
             Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
           else
-            Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
+            Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
+              .Sound[csDeath]);
           B := True;
         end;
       reAdj:
@@ -369,7 +373,8 @@ begin
                     .Sound[csAttack]);
                   Sleep(200);
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-                  Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+                  Battle.Log.Add
+                    (Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                     .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                     [AtkParty.Creature[AtkPos].Name[0],
                     DefParty.Creature[DefPos].Name[1],
@@ -394,9 +399,10 @@ begin
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
-                    Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
-                      .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-                      [AtkParty.Creature[AtkPos].Name[0],
+                    Battle.Log.Add
+                      (Format(Battle.GetLogMessage(TCreature.Character
+                      (AtkCrEnum).AttackEnum, TCreature.Character(AtkCrEnum)
+                      .SourceEnum), [AtkParty.Creature[AtkPos].Name[0],
                       DefParty.Creature[DefPos].Name[1],
                       AtkParty.Creature[AtkPos].Damage]));
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
@@ -416,8 +422,8 @@ begin
             crWyvern:
               ;
           else
-            Battle.Log.Add(Format(Battle.StartCastSpell,[
-              TCreature.Character(AtkCrEnum).Name[0],
+            Battle.Log.Add(Format(Battle.StartCastSpell,
+              [TCreature.Character(AtkCrEnum).Name[0],
               SourceName[TCreature.Character(AtkCrEnum).SourceEnum]]));
           end;
           Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
@@ -426,15 +432,18 @@ begin
             if DefParty.Creature[Position].Alive then
             begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
-              Battle.Log.Add(Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
+              Battle.Log.Add
+                (Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
                 .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
                 [AtkParty.Creature[AtkPos].Name[0],
                 DefParty.Creature[Position].Name[1],
                 AtkParty.Creature[AtkPos].Damage]));
               if (DefParty.Creature[Position].HitPoints > 0) then
-                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
+                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
+                  .Sound[csHit])
               else
-                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
+                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
+                  .Sound[csDeath]);
             end;
           B := True;
         end;
@@ -470,8 +479,8 @@ begin
         if Alive and (HitPoints < MaxHitPoints) then
         begin
           Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
-          Battle.Log.Add(Format('%s исцеляет %s.', [Party.Creature[AtkPos].Name[0],
-            Party.Creature[DefPos].Name[1]]));
+          Battle.Log.Add(Format('%s исцеляет %s.',
+            [Party.Creature[AtkPos].Name[0], Party.Creature[DefPos].Name[1]]));
         end;
     end;
     NextTurn;
@@ -501,7 +510,8 @@ begin
       if Alive then
       begin
         DefParty.Paralyze(DefPos);
-        Battle.Log.Add(Format('%s парализует %s.', [AtkParty.Creature[AtkPos].Name[0],
+        Battle.Log.Add(Format('%s парализует %s.',
+          [AtkParty.Creature[AtkPos].Name[0],
           DefParty.Creature[DefPos].Name[1]]));
       end;
   end;
@@ -535,8 +545,8 @@ end;
 constructor TSceneBattle2.Create;
 begin
   inherited;
-  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
-    Left), DefaultButtonTop, reTextClose);
+  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width + Left),
+    DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
   InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;

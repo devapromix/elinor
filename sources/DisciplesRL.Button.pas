@@ -200,7 +200,7 @@ var
 begin
   FTop := ATop;
   FLeft := ALeft;
-  //FCanvas := Game.Surface.Canvas;
+  // FCanvas := Game.Surface.Canvas;
   FSellected := False;
   FText := ARes;
   for I := Low(TButtonState) to High(TButtonState) do

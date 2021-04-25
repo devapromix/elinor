@@ -426,7 +426,7 @@ begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TryWar(avRest) then
                 begin
-                  //TLeaderParty.Leader.PutAt(MPX, MPY, True);
+                  // TLeaderParty.Leader.PutAt(MPX, MPY, True);
                 end;
               end
               else
@@ -439,9 +439,9 @@ begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TryWar(avRitual) then
                 begin
-                  //InformDialog('Вы вызвали противника на дуэль!');
-                  //TSceneBattle2.IsDuel := True;
-                  //TLeaderParty.Leader.PutAt(MPX, MPY);
+                  // InformDialog('Вы вызвали противника на дуэль!');
+                  // TSceneBattle2.IsDuel := True;
+                  // TLeaderParty.Leader.PutAt(MPX, MPY);
                 end;
               end
               else
@@ -454,9 +454,9 @@ begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TryWar(avWar3) then
                 begin
-                  //I := TSaga.GetPartyIndex(MPX, MPY);
-                  //Party[I].TakeDamageAll(ThiefPoisonDamage);
-                  //InformDialog('Вы отравили все колодцы в округе!');
+                  // I := TSaga.GetPartyIndex(MPX, MPY);
+                  // Party[I].TakeDamageAll(ThiefPoisonDamage);
+                  // InformDialog('Вы отравили все колодцы в округе!');
                 end;
               end
               else
@@ -562,8 +562,8 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderWar(const N: TLeaderWarriorActVar; const AX,
-  AY: Integer);
+procedure TSceneHire.RenderWar(const N: TLeaderWarriorActVar;
+  const AX, AY: Integer);
 begin
   case N of
     avRest:
@@ -725,24 +725,24 @@ begin
 end;
 
 procedure TSceneHire.RenderWarInfo;
-  var
-    J: Integer;
-    S: TLeaderWarriorActVar;
-  begin
-    T := Top + 6;
-    L := Lf + ResImage[reActFrame].Width + 12;
-    S := TLeaderWarriorActVar(CurrentIndex);
-    Add(TSaga.WarName[S], True);
-    Add;
-    for J := 0 to 4 do
-      Add(TSaga.WarDescription[S][J]);
-    Add;
-    Add;
-    Add;
-    Add;
-    Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
-      TLeaderParty.Leader.GetMaxSpy]));
-    Add(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
+var
+  J: Integer;
+  S: TLeaderWarriorActVar;
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  S := TLeaderWarriorActVar(CurrentIndex);
+  Add(TSaga.WarName[S], True);
+  Add;
+  for J := 0 to 4 do
+    Add(TSaga.WarDescription[S][J]);
+  Add;
+  Add;
+  Add;
+  Add;
+  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+    TLeaderParty.Leader.GetMaxSpy]));
+  Add(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
 end;
 
 procedure TSceneHire.RenderButtons;
@@ -945,13 +945,13 @@ begin
           with TCreature.Character
             (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
             [cgCharacters][K]) do
-          if HitPoints > 0 then
-          begin
-            DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
-            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X, Top + Y,
-              Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-              [cgCharacters][K], False);
-          end;
+            if HitPoints > 0 then
+            begin
+              DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+              TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
+                Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+                [cgCharacters][K], False);
+            end;
           Inc(Y, 120);
           if Y > 240 then
           begin
@@ -973,12 +973,12 @@ begin
             DrawImage(Left + X, Top + Y, reFrame);
           with TCreature.Character(Characters[TSaga.LeaderRace]
             [cgLeaders][K]) do
-          if HitPoints > 0 then
-          begin
-            DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
-            TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X, Top + Y,
-              Characters[TSaga.LeaderRace][cgLeaders][K], False);
-          end;
+            if HitPoints > 0 then
+            begin
+              DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+              TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
+                Top + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
+            end;
           Inc(Y, 120);
           if Y > 240 then
           begin
@@ -1222,45 +1222,45 @@ begin
   case SubScene of
     stLeader, stCharacter:
       begin
-        FF := CurrentIndex in [0..3];
-      case Key of
-        K_ESCAPE:
-          Back;
-        K_ENTER:
-          if FF then
-            Ok;
-        K_UP:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            case CurrentIndex of
-              1, 2, 4, 5:
-                Dec(CurrentIndex);
+        FF := CurrentIndex in [0 .. 3];
+        case Key of
+          K_ESCAPE:
+            Back;
+          K_ENTER:
+            if FF then
+              Ok;
+          K_UP:
+            begin
+              Game.MediaPlayer.Play(mmClick);
+              case CurrentIndex of
+                1, 2, 4, 5:
+                  Dec(CurrentIndex);
+              end;
             end;
-          end;
-        K_DOWN:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            case CurrentIndex of
-              0, 1, 3, 4:
-                Inc(CurrentIndex);
+          K_DOWN:
+            begin
+              Game.MediaPlayer.Play(mmClick);
+              case CurrentIndex of
+                0, 1, 3, 4:
+                  Inc(CurrentIndex);
+              end;
             end;
-          end;
-        K_LEFT:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            case CurrentIndex of
-              3..5:
-                Dec(CurrentIndex, 3);
+          K_LEFT:
+            begin
+              Game.MediaPlayer.Play(mmClick);
+              case CurrentIndex of
+                3 .. 5:
+                  Dec(CurrentIndex, 3);
+              end;
             end;
-          end;
-        K_RIGHT:
-          begin
-            Game.MediaPlayer.Play(mmClick);
-            case CurrentIndex of
-              0..2:
-                Inc(CurrentIndex, 3);
+          K_RIGHT:
+            begin
+              Game.MediaPlayer.Play(mmClick);
+              case CurrentIndex of
+                0 .. 2:
+                  Inc(CurrentIndex, 3);
+              end;
             end;
-          end;
         end;
       end;
     stSpy:

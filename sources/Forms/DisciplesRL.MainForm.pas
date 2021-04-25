@@ -3,7 +3,7 @@
 interface
 
 uses
-  {$IFDEF FPC}
+{$IFDEF FPC}
   Classes,
   SysUtils,
   Forms,
@@ -11,7 +11,7 @@ uses
   Graphics,
   Dialogs,
   ExtCtrls;
-  {$ELSE}
+{$ELSE}
   Winapi.Windows,
   Winapi.Messages,
   SysUtils,
@@ -23,7 +23,7 @@ uses
   Vcl.Dialogs,
   Vcl.ExtCtrls,
   Vcl.StdCtrls;
-  {$ENDIF}
+{$ENDIF}
 
 type
 

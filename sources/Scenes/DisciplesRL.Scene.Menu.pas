@@ -23,7 +23,8 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue,
       reTextHighScores, reTextQuit);
-  private var
+  private
+  var
     CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;
   private

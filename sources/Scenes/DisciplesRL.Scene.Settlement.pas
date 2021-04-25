@@ -26,7 +26,8 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
       reTextClose, reTextHire, reTextDismiss);
-  private class var
+  private
+  class var
     Button: array [TButtonEnum] of TButton;
     CurrentSettlementType: TSettlementSubSceneEnum;
     SettlementParty: TParty;
@@ -217,7 +218,7 @@ procedure TSceneSettlement.Heal;
       ConfirmParty := AParty;
       ConfirmPartyPosition := APosition;
       ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
-        {$IFDEF FPC}@{$ENDIF}HealCreature);
+{$IFDEF FPC}@{$ENDIF}HealCreature);
     end;
   end;
 
@@ -253,13 +254,14 @@ procedure TSceneSettlement.Revive;
         ConfirmGold := Level * TSaga.GoldForRevivePerLevel;
         if (Game.Gold.NewValue < ConfirmGold) then
         begin
-          InformDialog(Format('Для воскрешения нужно %d золота!', [ConfirmGold]));
+          InformDialog(Format('Для воскрешения нужно %d золота!',
+            [ConfirmGold]));
           Exit;
         end;
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
         ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
-          {$IFDEF FPC}@{$ENDIF}ReviveCreature);
+{$IFDEF FPC}@{$ENDIF}ReviveCreature);
       end;
     end;
   end;
@@ -331,8 +333,8 @@ procedure TSceneSettlement.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) > 0)
-    and (CurrentSettlementType = stCapital) and (AButton = mbRight) and
+  if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) >
+    0) and (CurrentSettlementType = stCapital) and (AButton = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
     Exit;
   // Move party
@@ -418,8 +420,8 @@ begin
   end;
   with TSceneParty do
   begin
-    if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) = 0)
-      or (CurrentSettlementType = stCity) then
+    if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)
+      = 0) or (CurrentSettlementType = stCity) then
       RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
         Party[TLeaderParty.LeaderPartyIndex].Count <
         TLeaderParty.Leader.MaxLeadership)

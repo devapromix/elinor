@@ -19,8 +19,8 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSceneEnum = (scHire, scMenu, scMenu2, scMap, scParty, scSettlement, scBattle2,
-    scBattle3);
+  TSceneEnum = (scHire, scMenu, scMenu2, scMap, scParty, scSettlement,
+    scBattle2, scBattle3);
 
 const
   Top = 220;
@@ -28,7 +28,6 @@ const
   DefaultButtonTop = 600;
   ScreenWidth = 1344;
   ScreenHeight = 704;
-
 
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);
@@ -149,7 +148,8 @@ type
     procedure DrawText(const AX, AY: Integer; AText: string); overload;
     procedure DrawText(const AY: Integer; AText: string); overload;
     procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
-    procedure DrawText(const AX, AY: Integer; AText: string; F: Boolean); overload;
+    procedure DrawText(const AX, AY: Integer; AText: string;
+      F: Boolean); overload;
   end;
 
 type
@@ -245,7 +245,7 @@ var
   Button: TButton;
   Buttons: array [TButtonEnum] of TButton;
 
-{ TTreasure }
+  { TTreasure }
 
 constructor TTreasure.Create(const ValuePerDay: Integer);
 begin
@@ -355,7 +355,7 @@ begin
 
 end;
 
-  { TScene }
+{ TScene }
 
 constructor TScene.Create;
 begin
@@ -429,8 +429,8 @@ end;
 
 procedure TScene.DrawImage(Res: TResEnum);
 begin
-  Game.Surface.Canvas.StretchDraw(Rect(0, 0, Game.Surface.Width, Game.Surface.Height),
-    ResImage[Res]);
+  Game.Surface.Canvas.StretchDraw(Rect(0, 0, Game.Surface.Width,
+    Game.Surface.Height), ResImage[Res]);
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
@@ -705,7 +705,8 @@ begin
               IsShowInform := False;
               Self.Render;
               Exit;
-            end else
+            end
+            else
               Exit;
           end;
       end;
@@ -714,27 +715,28 @@ begin
     if IsShowConfirm then
     begin
       case AButton of
-          mbLeft:
+        mbLeft:
+          begin
+            if Buttons[btOk].MouseDown then
             begin
-              if Buttons[btOk].MouseDown then
+              IsShowConfirm := False;
+              if Assigned(ConfirmHandler) then
               begin
-                IsShowConfirm := False;
-                if Assigned(ConfirmHandler) then
-                begin
-                  ConfirmHandler();
-                  ConfirmHandler := nil;
-                end;
-                Self.Render;
-                Exit;
-              end else
-              if Buttons[btCancel].MouseDown then
-              begin
-                IsShowConfirm := False;
-                Self.Render;
-                Exit;
-              end else
-                Exit;
-            end;
+                ConfirmHandler();
+                ConfirmHandler := nil;
+              end;
+              Self.Render;
+              Exit;
+            end
+            else if Buttons[btCancel].MouseDown then
+            begin
+              IsShowConfirm := False;
+              Self.Render;
+              Exit;
+            end
+            else
+              Exit;
+          end;
       end;
       Exit;
     end;
@@ -774,7 +776,8 @@ begin
   if (FScene[SceneEnum] <> nil) then
   begin
     Game.Surface.Canvas.Brush.Color := clBlack;
-    Game.Surface.Canvas.FillRect(Rect(0, 0, Game.Surface.Width, Game.Surface.Height));
+    Game.Surface.Canvas.FillRect(Rect(0, 0, Game.Surface.Width,
+      Game.Surface.Height));
     FScene[SceneEnum].Render;
     if IsShowInform or IsShowConfirm then
     begin
@@ -827,8 +830,8 @@ begin
             Self.Render;
             Exit;
           end
-        else
-          Exit;
+      else
+        Exit;
       end;
     end;
     if IsShowConfirm then
@@ -851,8 +854,8 @@ begin
             Self.Render;
             Exit;
           end
-        else
-          Exit;
+      else
+        Exit;
       end;
     end;
     FScene[SceneEnum].Update(Key);

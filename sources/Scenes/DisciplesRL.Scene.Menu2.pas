@@ -21,12 +21,13 @@ type
 
   TSceneMenu2 = class(TScene)
   private type
-  TButtonEnum = (btPlay, btContinue);
-  TIconEnum = (itHighScores, itQuit);
+    TButtonEnum = (btPlay, btContinue);
+    TIconEnum = (itHighScores, itQuit);
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue);
     IconDef: array [TIconEnum] of TResEnum = (reIconScores, reIconClosedGates);
-    IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver, reIconOpenedGates);
+    IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver,
+      reIconOpenedGates);
   private
     CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;
@@ -156,7 +157,7 @@ begin
           HighScores;
         if Icons[itQuit].MouseDown then
           ConfirmQuit;
-    end;
+      end;
   end;
 end;
 

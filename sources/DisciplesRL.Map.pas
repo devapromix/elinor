@@ -60,9 +60,10 @@ type
     CityNameTitle: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion,
       reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
       reTitleHimor, reTitleSodek, reTitleSard);
-    CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum', 'Temond',
-      'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
-  private var
+    CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum',
+      'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
+  private
+  var
     CityArr: array [T] of integer;
   private
     FMap: array [TLayerEnum] of TMapLayer;
@@ -216,10 +217,10 @@ procedure AddCapitalParty;
 begin
   TLeaderParty.CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] :=
-    TParty.Create(Game.Map.MapPlace[0].X, Game.Map.MapPlace[0].Y, TSaga.LeaderRace);
+  Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
+    Game.Map.MapPlace[0].Y, TSaga.LeaderRace);
   Party[TSaga.GetPartyCount - 1].AddCreature
-  (Characters[TSaga.LeaderRace][cgGuardian][ckGuardian], 3);
+    (Characters[TSaga.LeaderRace][cgGuardian][ckGuardian], 3);
 end;
 
 procedure AddLeaderParty;
@@ -228,17 +229,17 @@ var
 begin
   TLeaderParty.LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] :=
-    TLeaderParty.Create(Game.Map.MapPlace[0].X, Game.Map.MapPlace[0].Y,
-    TSaga.LeaderRace);
-  C := Characters[TSaga.LeaderRace][cgLeaders]  [TRaceCharKind(TSceneHire.HireIndex)];
+  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
+    Game.Map.MapPlace[0].Y, TSaga.LeaderRace);
+  C := Characters[TSaga.LeaderRace][cgLeaders]
+    [TRaceCharKind(TSceneHire.HireIndex)];
   case TCreature.Character(C).ReachEnum of
     reAdj:
-    begin
-      Party[TLeaderParty.LeaderPartyIndex].AddCreature(C, 2);
-      ActivePartyPosition := 2;
-    end
-    else
+      begin
+        Party[TLeaderParty.LeaderPartyIndex].AddCreature(C, 2);
+        ActivePartyPosition := 2;
+      end
+  else
     begin
       Party[TLeaderParty.LeaderPartyIndex].AddCreature(C, 3);
       ActivePartyPosition := 3;
@@ -277,8 +278,8 @@ var
         FMap[lrObj][X, Y] := reMountain2;
       2:
         FMap[lrObj][X, Y] := reMountain3;
-      else
-        FMap[lrObj][X, Y] := reMountain4;
+    else
+      FMap[lrObj][X, Y] := reMountain4;
     end;
   end;
 
@@ -296,8 +297,8 @@ begin
       case RandomRange(0, 3) of
         0:
           AddTree(X, Y);
-        else
-          AddMountain(X, Y);
+      else
+        AddMountain(X, Y);
       end;
 
     end;
@@ -333,7 +334,8 @@ begin
     repeat
       X := RandomRange(2, MapWidth - 2);
       Y := RandomRange(2, MapHeight - 2);
-    until (FMap[lrTile][X, Y] = reNeutralTerrain) and (FMap[lrObj][X, Y] = reNone);
+    until (FMap[lrTile][X, Y] = reNeutralTerrain) and
+      (FMap[lrObj][X, Y] = reNone);
     if (GetDistToCapital(X, Y) <= (15 - (Ord(TSaga.Difficulty) * 2))) and
       (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
@@ -351,8 +353,8 @@ begin
     repeat
       X := RandomRange(1, MapWidth - 1);
       Y := RandomRange(1, MapHeight - 1);
-    until (FMap[lrObj][X, Y] = reNone) and (FMap[lrTile][X, Y] =
-        reNeutralTerrain) and (GetDistToCapital(X, Y) >= 3);
+    until (FMap[lrObj][X, Y] = reNone) and
+      (FMap[lrTile][X, Y] = reNeutralTerrain) and (GetDistToCapital(X, Y) >= 3);
     TSaga.AddPartyAt(X, Y);
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (I < TScenario.ScenarioStoneTabMax) then
@@ -431,7 +433,7 @@ begin
   begin
     repeat
       J := Random(10);
-    until not (J in N);
+    until not(J in N);
     N := N + [J];
     CityArr[K] := J;
   end;
@@ -449,9 +451,9 @@ end;
 
 function TMap.IsLeaderMove(const X, Y: integer): boolean;
 begin
-  Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y -
-    1, TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or Game.Wizard) and
-    not (FMap[lrObj][X, Y] in StopTiles);
+  Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
+    TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or Game.Wizard) and
+    not(FMap[lrObj][X, Y] in StopTiles);
 end;
 
 function GetRadius(const N: integer): integer;
@@ -463,8 +465,8 @@ begin
       Result := 6;
     TScenario.ScenarioTowerIndex: // Tower
       Result := 3;
-    else // Ruin
-      Result := 2;
+  else // Ruin
+    Result := 2;
   end;
 end;
 
@@ -530,45 +532,47 @@ begin
                   PX := RandomRange(Game.Map.Width - 5, Game.Map.Width - 3);
               end;
           end
-        else
-          PX := RandomRange(3, Game.Map.Width - 3);
+      else
+        PX := RandomRange(3, Game.Map.Width - 3);
       end;
       PY := RandomRange(3, Game.Map.Height - 3);
       Game.Map.MapPlace[I].SetLocation(PX, PY);
     until ChCity(I);
     case I of
       0: // Capital
-      begin
-        case TSaga.LeaderRace of
-          reTheEmpire:
-            Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y] :=
-              reTheEmpireCapital;
-          reUndeadHordes:
-            Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y] :=
-              reUndeadHordesCapital;
-          reLegionsOfTheDamned:
-            Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y] :=
-              reLegionsOfTheDamnedCapital;
+        begin
+          case TSaga.LeaderRace of
+            reTheEmpire:
+              Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
+                Game.Map.MapPlace[I].Y] := reTheEmpireCapital;
+            reUndeadHordes:
+              Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
+                Game.Map.MapPlace[I].Y] := reUndeadHordesCapital;
+            reLegionsOfTheDamned:
+              Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
+                Game.Map.MapPlace[I].Y] := reLegionsOfTheDamnedCapital;
+          end;
+          ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
+          TMapPlace.UpdateRadius(I);
         end;
-        ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
-        TMapPlace.UpdateRadius(I);
-      end;
       1 .. TScenario.ScenarioCitiesMax: // City
-      begin
-        Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y] :=
-          reNeutralCity;
-        ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
-        TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
-      end;
+        begin
+          Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
+            := reNeutralCity;
+          ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
+          TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
+        end;
       TScenario.ScenarioTowerIndex: // Tower
+        begin
+          Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
+            := reTower;
+          TSaga.AddPartyAt(Game.Map.MapPlace[I].X,
+            Game.Map.MapPlace[I].Y, True);
+        end
+    else // Ruin
       begin
-        Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y] :=
-          reTower;
-        TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y, True);
-      end
-      else // Ruin
-      begin
-        Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y] := reRuin;
+        Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
+          := reRuin;
         TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
       end;
     end;
@@ -583,14 +587,12 @@ begin
     until ((FX <> 0) and (FY <> 0) and (FX <> DX) and (FY <> DY));
     case I of
       0 .. TScenario.ScenarioCitiesMax:
-      begin
-        Game.Map.FMap[lrObj][Game.Map.MapPlace[I].X + DX,
-          Game.Map.MapPlace[I].Y + DY] :=
-          reMineGold;
-        Game.Map.FMap[lrObj][Game.Map.MapPlace[I].X + FX,
-          Game.Map.MapPlace[I].Y + FY] :=
-          reMineMana;
-      end;
+        begin
+          Game.Map.FMap[lrObj][Game.Map.MapPlace[I].X + DX,
+            Game.Map.MapPlace[I].Y + DY] := reMineGold;
+          Game.Map.FMap[lrObj][Game.Map.MapPlace[I].X + FX,
+            Game.Map.MapPlace[I].Y + FY] := reMineMana;
+        end;
     end;
   end;
 end;
@@ -620,8 +622,8 @@ class procedure TMapPlace.UpdateRadius(const AID: integer);
 begin
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrTile],
-    RaceTerrain[TSaga.LeaderRace],
-    [reNeutralCity, reRuin, reTower] + Capitals + Cities);
+    RaceTerrain[TSaga.LeaderRace], [reNeutralCity, reRuin, reTower] + Capitals
+    + Cities);
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrDark], reNone);
   Game.Map.MapPlace[AID].Owner := TSaga.LeaderRace;

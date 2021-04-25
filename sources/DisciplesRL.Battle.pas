@@ -50,7 +50,8 @@ procedure TBattle.Miss(AtkCrName, DefCrName: string);
 begin
   case RandomRange(0, 7) of
     0:
-      Log.Add(Format('%s пытается атаковать, но внезапно промахивается.', [AtkCrName]));
+      Log.Add(Format('%s пытается атаковать, но внезапно промахивается.',
+        [AtkCrName]));
     1:
       Log.Add(Format('%s атакует мимо цели.', [AtkCrName]));
     2:
@@ -58,7 +59,8 @@ begin
     3:
       Log.Add(Format('%s тщетно пытается атаковать.', [AtkCrName]));
     4:
-      Log.Add(Format('%s атакует %s, но промахивается.', [AtkCrName, DefCrName]));
+      Log.Add(Format('%s атакует %s, но промахивается.',
+        [AtkCrName, DefCrName]));
     5:
       Log.Add(Format('%s внезапно промахивается.', [AtkCrName]));
   else
@@ -73,13 +75,13 @@ begin
       Result := '%s готовит заклинание. Его источник: %s.';
     1:
       Result := '%s произносит заклинание. Источник: %s.';
-    else
-      Result := '%s начинает колдовать. Источник магии: %s.';
+  else
+    Result := '%s начинает колдовать. Источник магии: %s.';
   end;
 end;
 
-function TBattle.GetLogMessage(AttackEnum: TAttackEnum; SourceEnum: TSourceEnum
-  ): string;
+function TBattle.GetLogMessage(AttackEnum: TAttackEnum;
+  SourceEnum: TSourceEnum): string;
 begin
   case AttackEnum of
     atLongSword:
@@ -140,4 +142,3 @@ begin
 end;
 
 end.
-

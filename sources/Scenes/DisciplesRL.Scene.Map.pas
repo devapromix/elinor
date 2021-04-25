@@ -16,7 +16,8 @@ uses
 
 type
   TSceneMap = class(TScene)
-  private var
+  private
+  var
     LastMousePos, MousePos: TPoint;
   public
     procedure Show(const S: TSceneEnum); override;
@@ -40,7 +41,7 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
-  { TSceneMap }
+{ TSceneMap }
 
 procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
@@ -59,20 +60,22 @@ begin
       begin
         if TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y) then
           if not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y) then
-            begin
-              TSceneHire.MPX := MousePos.X;
-              TSceneHire.MPY := MousePos.Y;
-              // Leader Thief
-              if (TLeaderParty.Leader.Enum in LeaderThief) then
-                if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
-                  TSceneHire.Show(stSpy);
-            end else
-            begin
-              // Leader Warrior
-              if (TLeaderParty.Leader.Enum in LeaderWarrior) then
-                if (MousePos.X = TLeaderParty.Leader.X) and (MousePos.Y = TLeaderParty.Leader.Y) then
-                  TSceneHire.Show(stWar);
-            end;
+          begin
+            TSceneHire.MPX := MousePos.X;
+            TSceneHire.MPY := MousePos.Y;
+            // Leader Thief
+            if (TLeaderParty.Leader.Enum in LeaderThief) then
+              if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
+                TSceneHire.Show(stSpy);
+          end
+          else
+          begin
+            // Leader Warrior
+            if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+              if (MousePos.X = TLeaderParty.Leader.X) and
+                (MousePos.Y = TLeaderParty.Leader.Y) then
+                TSceneHire.Show(stWar);
+          end;
       end;
   end;
 end;
@@ -131,7 +134,8 @@ begin
         (Game.Map.GetTile(lrDark, X, Y) = reNone);
 
       // Special
-      if Game.Wizard and (((Game.Scenario.CurrentScenario = sgAncientKnowledge) and
+      if Game.Wizard and
+        (((Game.Scenario.CurrentScenario = sgAncientKnowledge) and
         Game.Scenario.IsStoneTab(X, Y)) or
         ((Game.Scenario.CurrentScenario = sgDarkTower) and
         (ResBase[Game.Map.GetTile(lrTile, X, Y)].ResType = teTower)) or
@@ -147,9 +151,11 @@ begin
           ResImage[Game.Map.GetTile(lrTile, X, Y)]);
 
       //
-      if (ResBase[Game.Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag]) then
+      if (ResBase[Game.Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag])
+      then
         if F then
-          DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reUnk])
+          DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+            ResImage[reUnk])
         else
           DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
             ResImage[Game.Map.GetTile(lrObj, X, Y)])
@@ -159,10 +165,12 @@ begin
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
-        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[rePlayer]);
+        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+          ResImage[rePlayer]);
       // Fog
       if F then
-        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reDark]);
+        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+          ResImage[reDark]);
     end;
   // Cursor
   if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then

@@ -36,7 +36,7 @@ uses
   SysUtils,
   DisciplesRL.Resources;
 
-  { TSceneBattle3 }
+{ TSceneBattle3 }
 
 procedure TSceneBattle3.Start;
 begin

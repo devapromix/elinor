@@ -20,17 +20,17 @@ type
     function GetValue(const I: TStatisticsEnum): Integer;
   end;
 
-{
-  Сценарии:
-  [1] Темная Башня - победить чародея в башне.
-  [2] Древние Знания - собрать на карте все каменные таблички с древними знаниями.
-  [3] Властитель - захватить все города на карте.
-  4  Захватить определенный город.
-  5  Добыть определенный артефакт.
-  6  Разорить все руины и другие опасные места.
-  7  Победить всех врагов на карте.
-  8  Что-то выполнить за N дней (лимит времени, возможно опция для каждого сценария).
-}
+  {
+    Сценарии:
+    [1] Темная Башня - победить чародея в башне.
+    [2] Древние Знания - собрать на карте все каменные таблички с древними знаниями.
+    [3] Властитель - захватить все города на карте.
+    4  Захватить определенный город.
+    5  Добыть определенный артефакт.
+    6  Разорить все руины и другие опасные места.
+    7  Победить всех врагов на карте.
+    8  Что-то выполнить за N дней (лимит времени, возможно опция для каждого сценария).
+  }
 
 type
   TScenario = class(TObject)
@@ -71,6 +71,7 @@ type
   public
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
+
   class var
     NewItem: Integer;
     LeaderRace: TRaceEnum;
@@ -115,26 +116,26 @@ type
       );
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
       'Вызвать на Дуэль', 'Отравить Колодцы');
-    SpyDescription: array [TLeaderThiefSpyVar] of array [0 .. 4]
-      of string = (
+    SpyDescription: array [TLeaderThiefSpyVar] of array [0 .. 4] of string = (
       // Заслать Шпиона
-      ('Возможность видеть состав войск','противника.','','',''),
+      ('Возможность видеть состав войск', 'противника.', '', '', ''),
       // Вызвать на Дуэль
-      ('Позволяет вору выйти против','предводителя отряда один на один.','','',''),
+      ('Позволяет вору выйти против', 'предводителя отряда один на один.',
+      '', '', ''),
       // Отравить Колодцы
-      ('Травятся монстры, травятся герои,','травятся колодцы в городах. Старая,','добрая, проверенная временем','гадость.','')
+      ('Травятся монстры, травятся герои,',
+      'травятся колодцы в городах. Старая,', 'добрая, проверенная временем',
+      'гадость.', '')
       //
       );
-    WarName: array [TLeaderWarriorActVar] of string = ('War1',
-      'War2', 'War3');
-    WarDescription: array [TLeaderWarriorActVar] of array [0 .. 4]
-      of string = (
+    WarName: array [TLeaderWarriorActVar] of string = ('War1', 'War2', 'War3');
+    WarDescription: array [TLeaderWarriorActVar] of array [0 .. 4] of string = (
       //
-      ('','','','',''),
+      ('', '', '', '', ''),
       //
-      ('','','','',''),
+      ('', '', '', '', ''),
       //
-      ('','','','','')
+      ('', '', '', '', '')
       //
       );
     GoldForRevivePerLevel = 250;
@@ -149,7 +150,8 @@ type
     class procedure PartyFree; static;
     class function GetPartyCount: Integer; static;
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
-    class procedure AddPartyAt(const AX, AY: Integer; IsFinal: Boolean = False); static;
+    class procedure AddPartyAt(const AX, AY: Integer;
+      IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
   end;
 
@@ -166,7 +168,7 @@ uses
 const
   MaxLevel = 8;
 
-{ TStatistics }
+  { TStatistics }
 
 procedure TStatistics.Clear;
 var
@@ -186,7 +188,7 @@ begin
   Result := FValue[I];
 end;
 
-  { TSaga }
+{ TSaga }
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
@@ -342,7 +344,8 @@ begin
   Game.Gold.NewValue := 0;
   Game.Mana.NewValue := 0;
   NewItem := 0;
-  Level := Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  Level := Game.Map.GetDistToCapital(TLeaderParty.Leader.X,
+    TLeaderParty.Leader.Y);
   case LootRes of
     reGold:
       AddGold;
