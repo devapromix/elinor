@@ -130,6 +130,7 @@ const
     AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
     stDifficulty, stSpy, stWar];
+  WideButtonScene = [stCharacter, stLeader];
 
 var
   HireParty: TParty = nil;
@@ -819,22 +820,40 @@ begin
   case AButton of
     mbLeft:
       begin
+        if (SubScene in WideButtonScene) then
+        begin
+          if MouseOver(Lk, Top, X, Y) then
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            CurrentIndex := 0;
+          end;
+          if MouseOver(Lk, Top + 120, X, Y) then
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            CurrentIndex := 1;
+          end;
+          if MouseOver(Lk, Top + 240, X, Y) then
+          begin
+            Game.MediaPlayer.Play(mmClick);
+            CurrentIndex := 2;
+          end;
+        end;
         if not(SubScene in CloseButtonScene) then
         begin
           if MouseOver(Lf, Top, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := 0;
+            CurrentIndex := IfThen(SubScene in WideButtonScene, 3, 0);
           end;
           if MouseOver(Lf, Top + 120, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := 1;
+            CurrentIndex := IfThen(SubScene in WideButtonScene, 4, 1);
           end;
           if MouseOver(Lf, Top + 240, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
-            CurrentIndex := 2;
+            CurrentIndex := IfThen(SubScene in WideButtonScene, 5, 2);
           end;
         end;
 
