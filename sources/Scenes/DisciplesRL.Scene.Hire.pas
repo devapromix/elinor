@@ -1175,6 +1175,8 @@ begin
 end;
 
 procedure TSceneHire.Update(var Key: Word);
+var
+  FF: Boolean;
 
   procedure Upd(const MaxValue: Integer);
   begin
@@ -1200,11 +1202,14 @@ begin
   inherited;
   case SubScene of
     stLeader, stCharacter:
+      begin
+        FF := CurrentIndex in [0..3];
       case Key of
         K_ESCAPE:
           Back;
         K_ENTER:
-          Ok;
+          if FF then
+            Ok;
         K_UP:
           begin
             Game.MediaPlayer.Play(mmClick);
@@ -1237,6 +1242,7 @@ begin
                 Inc(CurrentIndex, 3);
             end;
           end;
+        end;
       end;
     stSpy:
       Upd(Ord(High(TLeaderThiefSpyVar)));
