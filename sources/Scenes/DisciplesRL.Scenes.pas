@@ -68,6 +68,7 @@ const
   K_I = ord('I');
   K_J = ord('J');
   K_H = ord('H');
+  K_M = ord('M');
   K_N = ord('N');
   K_P = ord('P');
   K_Q = ord('Q');

@@ -19,6 +19,7 @@ type
   private
   var
     LastMousePos, MousePos: TPoint;
+  FM: Boolean;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -55,6 +56,12 @@ begin
         else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
           Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
+        if FM then
+          begin
+            Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1,
+              Game.Map.GetLayer(lrDark), reNone);
+            FM := False;
+          end;
       end;
     mbMiddle:
       begin
@@ -173,6 +180,12 @@ begin
           ResImage[reDark]);
     end;
   // Cursor
+  if FM then
+  begin
+    for X := MousePos.X - 1 to MousePos.X + 1 do
+      for Y := MousePos.Y - 1 to MousePos.Y + 1 do
+        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reCursorMagic])
+  end else
   if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then
     DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
       ResImage[reCursor])
@@ -203,6 +216,11 @@ begin
   case Key of
     K_ESCAPE:
       begin
+        if FM then
+        begin
+          FM := False;
+          Exit;
+        end;
         Game.MediaPlayer.PlayMusic(mmMenu);
         Game.MediaPlayer.Play(mmClick);
         Game.MediaPlayer.Play(mmSettlement);
@@ -226,6 +244,8 @@ begin
       TLeaderParty.Leader.Move(drSouthEast);
     K_ENTER, K_KP_5, K_S:
       TLeaderParty.Leader.Move(drOrigin);
+    K_M:
+      FM := not FM;
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
     K_V:

@@ -20,7 +20,7 @@ type
     reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
-    reNoWay, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
+    reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
     reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
     reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
     reRuin, reTower, reTreePine, reTreeOak, reUndeadHordesTree,
@@ -116,9 +116,11 @@ const
     // Special
     (FileName: 'cursor.special.png'; ResType: teGUI;),
     // Frame
-    (FileName: 'select.png'; ResType: teGUI;),
+    (FileName: 'cursor.select.png'; ResType: teGUI;),
     // NoFrame
-    (FileName: 'noselect.png'; ResType: teGUI;),
+    (FileName: 'cursor.noselect.png'; ResType: teGUI;),
+    // Cursor Magic
+    (FileName: 'cursor.magic.png'; ResType: teGUI;),
     // Player
     (FileName: 'mapobject.player.png'; ResType: tePlayer;),
     // Fog
