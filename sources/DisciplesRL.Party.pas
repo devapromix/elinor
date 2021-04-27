@@ -614,10 +614,7 @@ begin
         end;
       reEnemy:
         begin
-          if Game.NewBattle then
-            Game.Show(scBattle3)
-          else
-            Game.Show(scBattle2);
+          Game.Show(scBattle);
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
           Exit;

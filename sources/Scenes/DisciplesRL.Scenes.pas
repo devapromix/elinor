@@ -19,8 +19,7 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSceneEnum = (scHire, scMenu, scMenu2, scMap, scParty, scSettlement,
-    scBattle2, scBattle3);
+  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle);
 
 const
   Top = 220;
@@ -203,7 +202,6 @@ type
     Gold: TTreasure;
     Mana: TTreasure;
     Wizard: Boolean;
-    NewBattle: Boolean;
     Surface: TBitmap;
     Statistics: TStatistics;
     Scenario: TScenario;
@@ -293,13 +291,10 @@ begin
   Surface.Canvas.Font.Color := clGreen;
   Surface.Canvas.Brush.Style := bsClear;
   Wizard := False;
-  NewBattle := False;
   for I := 1 to ParamCount do
   begin
     if (LowerCase(ParamStr(I)) = '-w') then
       Wizard := True;
-    if (LowerCase(ParamStr(I)) = '-b') then
-      NewBattle := True;
   end;
   Randomize;
   Gold := TTreasure.Create(100);
@@ -649,12 +644,10 @@ var
 begin
   inherited;
   FScene[scMap] := TSceneMap.Create;
-  FScene[scMenu] := TSceneMenu.Create;
-  FScene[scMenu2] := TSceneMenu2.Create;
+  FScene[scMenu] := TSceneMenu2.Create;
   FScene[scHire] := TSceneHire.Create;
   FScene[scParty] := TSceneParty.Create;
-  FScene[scBattle2] := TSceneBattle2.Create;
-  FScene[scBattle3] := TSceneBattle3.Create;
+  FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
   // Inform
   InformMsg := '';
