@@ -980,7 +980,7 @@ end;
 
 function TCreature.IsLeader(): Boolean;
 begin
-  Result := Enum in LeaderWarrior + LeaderScout + LeaderMage + LeaderThief;
+  Result := Leadership > 0;
 end;
 
 end.
