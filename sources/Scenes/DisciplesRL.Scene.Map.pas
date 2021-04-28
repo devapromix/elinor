@@ -44,8 +44,7 @@ uses
 
 { TSceneMap }
 
-procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
+procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   inherited;
   case Button of
@@ -58,8 +57,7 @@ begin
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
         if FM then
           begin
-            Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1,
-              Game.Map.GetLayer(lrDark), reNone);
+            Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
             FM := False;
           end;
       end;
@@ -138,7 +136,8 @@ begin
       end;
       F := not TLeaderParty.Leader.InRadius(X, Y) and
         not(Game.Map.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
-        (Game.Map.GetTile(lrDark, X, Y) = reNone);
+        (Game.Map.GetTile(lrDark, X, Y) = reNone) and
+        not (Game.Map.GetTile(lrSee, X, Y) = reNone);
 
       // Special
       if Game.Wizard and
@@ -156,6 +155,7 @@ begin
         teRuin, teTower]) then
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
           ResImage[Game.Map.GetTile(lrTile, X, Y)]);
+      //
 
       //
       if (ResBase[Game.Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag])

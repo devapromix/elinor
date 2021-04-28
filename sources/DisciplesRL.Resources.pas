@@ -23,7 +23,7 @@ type
     reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
     reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
     reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
-    reRuin, reTower, reTreePine, reTreeOak, reUndeadHordesTree,
+    reRuin, reTower, reSTower, reTreePine, reTreeOak, reUndeadHordesTree,
     reLegionsOfTheDamnedTree, reMineGold, reMineMana, reMountain1, reMountain2,
     reMountain3, reMountain4, reTree1, reTree2, reTree3, reTree4, reButtonDef,
     reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage,
@@ -149,6 +149,8 @@ const
     (FileName: 'tile.ruin.png'; ResType: teRuin;),
     // Tower
     (FileName: 'tile.tower.png'; ResType: teTower;),
+    // STower
+    (FileName: 'tile.stower.png'; ResType: teTower;),
     // Pine
     (FileName: 'tile.tree.pine.png'; ResType: teTree;),
     // Oak

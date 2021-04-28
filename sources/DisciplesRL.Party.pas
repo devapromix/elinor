@@ -619,6 +619,11 @@ begin
           F := False;
           Exit;
         end;
+      reSTower:
+        begin
+          Game.Map.UpdateRadius(Leader.X, Leader.Y, 3);
+          F := False;
+        end;
     end;
   end;
   case Game.Map.LeaderTile of

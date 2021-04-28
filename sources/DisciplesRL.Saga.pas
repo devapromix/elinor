@@ -162,8 +162,7 @@ uses
   SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Scenes,
-  DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Settlement;
+  DisciplesRL.Scene.Hire;
 
 const
   MaxLevel = 8;

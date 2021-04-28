@@ -340,6 +340,7 @@ begin
   begin
     Gold.Mine;
     Mana.Mine;
+    Map.Clear(lrSee);
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
       TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;

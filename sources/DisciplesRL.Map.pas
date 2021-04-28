@@ -47,7 +47,7 @@ type
   public type
     TMapLayer = array of array of TResEnum;
     TIgnoreRes = set of TResEnum;
-    TLayerEnum = (lrTile, lrPath, lrDark, lrObj);
+    TLayerEnum = (lrTile, lrPath, lrDark, lrObj, lrSee);
   public const
     TileSize = 32;
     MapPlacesCount = 30;
@@ -75,7 +75,8 @@ type
     procedure Clear; overload;
     procedure Gen;
     procedure UpdateRadius(const AX, AY, AR: integer; MapLayer: TMapLayer;
-      const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
+      const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []); overload;
+    procedure UpdateRadius(const AX, AY, ARadius: integer); overload;
     function GetDist(X1, Y1, X2, Y2: integer): integer;
     function GetDistToCapital(const AX, AY: integer): integer;
     function InRect(const X, Y, X1, Y1, X2, Y2: integer): boolean;
@@ -208,7 +209,7 @@ begin
       case L of
         lrTile, lrPath, lrObj:
           FMap[L][X, Y] := reNone;
-        lrDark:
+        else
           FMap[L][X, Y] := reDark;
       end;
 end;
@@ -250,6 +251,19 @@ end;
 procedure TMap.Gen;
 var
   X, Y, RX, RY, I: integer;
+
+  procedure AddObjectAt(const X, Y, ObjID: Integer);
+  var
+    R: TResEnum;
+  begin
+    case ObjID of
+      0:
+        R := reSTower;
+      else
+        R := reSTower;
+    end;
+    FMap[lrObj][X, Y] := R;
+  end;
 
   procedure AddTree(const X, Y: integer);
   begin
@@ -360,6 +374,17 @@ begin
       (I < TScenario.ScenarioStoneTabMax) then
       Game.Scenario.AddStoneTab(X, Y);
   end;
+  // Objects
+  for I := 0 to 9 do
+  begin
+    repeat
+      X := RandomRange(3, MapWidth - 3);
+      Y := RandomRange(3, MapHeight - 3);
+    until (FMap[lrObj][X, Y] = reNone) and
+      (FMap[lrTile][X, Y] = reNeutralTerrain) and (GetDistToCapital(X, Y) >= 5);
+    AddObjectAt(X, Y, I);
+  end;
+  //
   AddCapitalParty;
   AddLeaderParty;
 end;
@@ -406,6 +431,17 @@ begin
             Game.Mana.AddMine;
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
+end;
+
+procedure TMap.UpdateRadius(const AX, AY, ARadius: integer);
+var
+  CX, CY: Integer;
+begin
+  UpdateRadius(AX, AY, ARadius, GetLayer(lrDark), reNone);
+  for CX := AX - ARadius to AX + ARadius do
+    for CY := AY - ARadius to AY + ARadius do
+      if (GetDist(CX, CY, AX, AY) <= ARadius) and InMap(CX, CY) then
+        Game.Map.SetTile(lrSee, CX, CY, reNone);
 end;
 
 function TMap.Width: integer;
