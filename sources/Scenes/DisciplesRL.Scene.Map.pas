@@ -45,21 +45,29 @@ uses
 { TSceneMap }
 
 procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  CurrentPartyIndex: Integer;
 begin
   inherited;
   case Button of
     mbLeft:
       begin
+        if FM then
+          begin
+            //Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
+            CurrentPartyIndex := TSaga.GetPartyIndex(MousePos.X, MousePos.Y);
+            if CurrentPartyIndex > 0 then
+            begin
+              Party[CurrentPartyIndex].HealAll(25);
+              FM := False;
+            end;
+            Exit;
+          end;
         if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
         else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
           Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
-        if FM then
-          begin
-            Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
-            FM := False;
-          end;
       end;
     mbMiddle:
       begin
@@ -182,9 +190,10 @@ begin
   // Cursor
   if FM then
   begin
-    for X := MousePos.X - 1 to MousePos.X + 1 do
-      for Y := MousePos.Y - 1 to MousePos.Y + 1 do
-        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reCursorMagic])
+    //for X := MousePos.X - 1 to MousePos.X + 1 do
+    //  for Y := MousePos.Y - 1 to MousePos.Y + 1 do
+    //    DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reCursorMagic])
+    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize, ResImage[reCursorMagic]);
   end else
   if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then
     DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,

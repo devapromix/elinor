@@ -378,8 +378,8 @@ begin
   for I := 0 to 9 do
   begin
     repeat
-      X := RandomRange(3, MapWidth - 3);
-      Y := RandomRange(3, MapHeight - 3);
+      X := RandomRange(5, MapWidth - 5);
+      Y := RandomRange(5, MapHeight - 5);
     until (FMap[lrObj][X, Y] = reNone) and
       (FMap[lrTile][X, Y] = reNeutralTerrain) and (GetDistToCapital(X, Y) >= 5);
     AddObjectAt(X, Y, I);
