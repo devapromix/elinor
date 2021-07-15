@@ -78,6 +78,8 @@ type
     crArchmage,
     // The Empire Thief Leader
     crThief,
+    // The Empire Lord Leader
+    crWarlord,
     // The Empire Fighters
     crSquire,
     // The Empire Ranged Attack Units
@@ -97,6 +99,8 @@ type
     crLichQueen,
     // Undead Hordes Thief Leader
     crThug,
+    // Undead Hordes Lord Leader
+    crDominator,
     // Undead Hordes Fighters
     crFighter,
     // Undead Hordes Ranged Attack Units
@@ -116,6 +120,8 @@ type
     crArchDevil,
     // Legions Of The Damned Thief Leader
     crRipper,
+    // Legions Of The Damned Lord Leader
+    crChieftain,
     // Legions Of The Damned Fighters
     crPossessed,
     // Legions Of The Damned Ranged Attack Units
@@ -151,6 +157,7 @@ const
   LeaderScout: set of TCreatureEnum = [crRanger, crNosferat, crCounselor];
   LeaderMage: set of TCreatureEnum = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
+  LeaderLord: set of TCreatureEnum = [crWarlord, crDominator, crChieftain];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -167,7 +174,7 @@ type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
 
 type
-  TRaceCharKind = (ckWarrior, ckScout, ckMage, ckThief, ck1, ck2);
+  TRaceCharKind = (ckWarrior, ckScout, ckMage, ckThief, ckLord, ck2);
 
 type
   TLeaderWarriorActVar = (avRest, avRitual, avWar3);
@@ -197,21 +204,21 @@ const
     // The Empire Capital Guardian
     ((crNone, crNone, crMyzrael, crNone, crNone, crNone),
     // The Empire Leaders
-    (crPegasusKnight, crRanger, crArchmage, crThief, crNone, crNone), // ),
+    (crPegasusKnight, crRanger, crArchmage, crThief, crWarlord, crNone), // ),
     // The Empire Characters
     (crSquire, crArcher, crAcolyte, crApprentice, crNone, crNone)), //
     //
     // Undead Hordes Capital Guardian
     ((crNone, crNone, crAshgan, crNone, crNone, crNone),
     // Undead Hordes Leaders
-    (crDeathKnight, crNosferat, crLichQueen, crThug, crNone, crNone), //
+    (crDeathKnight, crNosferat, crLichQueen, crThug, crDominator, crNone), //
     // Undead Hordes Characters
     (crFighter, crGhost, crInitiate, crWyvern, crNone, crNone)), //
     //
     // Legions Of The Damned Capital Guardian
     ((crNone, crNone, crAshkael, crNone, crNone, crNone),
     // Legions Of The Damned Leaders
-    (crDuke, crCounselor, crRipper, crArchDevil, crNone, crNone), //
+    (crDuke, crCounselor, crRipper, crArchDevil, crChieftain, crNone), //
     // Legions Of The Damned Characters
     (crPossessed, crGargoyle, crDevil, crCultist, crNone, crNone)) //
     //
@@ -553,6 +560,15 @@ const
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDagger;),
+    // Warlord
+    (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
+    Name: ('Полководец', 'Полководца');
+    Description: ('Полевой полководец короля служит',
+    'Империи верой и правдой и беспощад-', 'но расправляется с ее врагами.');
+    HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Squire
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
     Name: ('Сквайр', 'Сквайра');
@@ -639,6 +655,15 @@ const
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows;),
+    // Dominator
+    (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
+    Size: szSmall; Name: ('Доминатор', 'Доминатораа');
+    Description: ('Погибшие полководцы Империи возвра-',
+    'щены Мортис к жизни для того, чтобы', 'сеять вокруг смерть и разрушения.');
+    HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
+    Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Fighter
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire; Size: szSmall;
     Name: ('Воин', 'Воина'); Description: ('Услышав зов Мортис, безропотно',
@@ -720,6 +745,15 @@ const
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atFireDagger;),
+    // Chieftain
+    (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
+    Size: szSmall; Name: ('Атаман', 'Атамана');
+    Description: ('Яростные Атаманы всегда идут впереди',
+    'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
+    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atLongSword;),
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
     Size: szSmall; Name: ('Одержимый', 'Одержимого');

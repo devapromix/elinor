@@ -1222,7 +1222,7 @@ begin
   case SubScene of
     stLeader, stCharacter:
       begin
-        FF := CurrentIndex in [0 .. 3];
+        FF := CurrentIndex in [0 .. 4];
         case Key of
           K_ESCAPE:
             Back;
