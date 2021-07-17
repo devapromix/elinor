@@ -71,7 +71,7 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
-    procedure RenderCharacterInfo(C: TCreatureEnum);
+    procedure RenderCharacterInfo(C: TCreatureEnum; const F: Boolean = True);
     class procedure Show(const ASubScene: THireSubSceneEnum); overload;
     class procedure Show(const Party: TParty; const Position: Integer);
       overload;
@@ -496,7 +496,7 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum);
+procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const F: Boolean);
 var
   J: Integer;
 begin
@@ -506,10 +506,14 @@ begin
   begin
     Add(Name[0], True);
     Add;
-    Add2('Побед', Game.Statistics.GetValue(stBattlesWon));
+    if TSaga.IsGame and F then
+      Add2('Побед', Game.Statistics.GetValue(stBattlesWon));
     Add('Уровень', Level);
-    Add2('Убито', Game.Statistics.GetValue(stKilledCreatures));
+    if TSaga.IsGame and F then
+      Add2('Убито', Game.Statistics.GetValue(stKilledCreatures));
     Add('Точность', ChancesToHit, '%');
+    if TSaga.IsGame and F then
+      Add2('Очки', Game.Statistics.GetValue(stScore));
     Add('Инициатива', Initiative);
     Add('Здоровье', HitPoints, HitPoints);
     Add('Урон', Damage);
@@ -692,6 +696,7 @@ begin
   Add;
   Add('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
   Add('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
+  Add('Очки', Game.Statistics.GetValue(stScore));
 end;
 
 procedure TSceneHire.RenderHighScores;
@@ -1147,7 +1152,7 @@ begin
             C := Characters[TSaga.LeaderRace][cgLeaders][K];
         end;
         if C <> crNone then
-          RenderCharacterInfo(C);
+          RenderCharacterInfo(C, False);
         case SubScene of
           stCharacter:
             begin
