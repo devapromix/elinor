@@ -655,7 +655,7 @@ begin
     TSceneSettlement.Show(stCity);
     F := False;
   end;
-  if (RandomRange(0, 100) < 25) or not Leader.Skills.Has(skSpy) then
+  if (RandomRange(0, 100) < 25) and not Leader.Skills.Has(skSpy) then
     for JX := Leader.X - 1 to Leader.X + 1 do
       for JY := Leader.Y - 1 to Leader.Y + 1 do
         if Game.Map.InMap(JX, JY) then

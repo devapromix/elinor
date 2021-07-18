@@ -73,8 +73,7 @@ type
 implementation
 
 uses
-  SysUtils,
-  DisciplesRL.Creatures;
+  SysUtils;
 
 { TSkills }
 
