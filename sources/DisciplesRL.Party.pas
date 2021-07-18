@@ -549,7 +549,7 @@ end;
 class procedure TLeaderParty.PutAt(const AX, AY: ShortInt;
   const IsInfo: Boolean);
 var
-  I: Integer;
+  I, JX, JY: Integer;
   F: Boolean;
 begin
   if not Game.Map.InMap(AX, AY) then
@@ -655,6 +655,20 @@ begin
     TSceneSettlement.Show(stCity);
     F := False;
   end;
+  if (RandomRange(0, 100) < 25) or not Leader.Skills.Has(skSpy) then
+    for JX := Leader.X - 1 to Leader.X + 1 do
+      for JY := Leader.Y - 1 to Leader.Y + 1 do
+        if Game.Map.InMap(JX, JY) then
+        begin
+          case Game.Map.GetTile(lrObj, JX, JY) of
+            reEnemy:
+              begin
+                TLeaderParty.PutAt(JX, JY);
+                F := False;
+                Exit;
+              end;
+          end;
+        end;
   if F then
     Game.NewDay;
 end;

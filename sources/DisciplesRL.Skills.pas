@@ -64,6 +64,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    function Has(const SkillEnum: TSkillEnum): Boolean;
     procedure Add(const SkillEnum: TSkillEnum);
     function Get(const I: Integer): TSkillEnum;
     procedure Clear;
@@ -111,6 +112,19 @@ end;
 function TSkills.Get(const I: Integer): TSkillEnum;
 begin
   Result := FSkill[I].Enum;
+end;
+
+function TSkills.Has(const SkillEnum: TSkillEnum): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  for I := 0 to MaxSkills - 1 do
+    if FSkill[I].Enum = SkillEnum then
+    begin
+      Result := True;
+      Exit;
+    end;
 end;
 
 end.
