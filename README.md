@@ -51,8 +51,9 @@ Simple roguelike game based on Disciples.
 	
 ### 4. В окне отряда:
 * Esc/Enter - выход
-* WADX, Стрелки, Цифр. клавиатура - выбрать персонажа
+* WADX, Стрелки, Цифр. клавиатура - выбрать персонажа/прокрутить информацию о навыках
 * I - Открыть инвентарь отряда
+* S - Показать список навыков лидера
 
 ## Current State
 The game is currently in demo stage with very limited contents and lots of issues to solve and improve.

@@ -16,13 +16,26 @@ uses
 
 type
   TSceneParty = class(TScene)
+  private const
+    H = 25;
+  private
+  var
+    T, L: Integer;
+    P: Boolean;
   private
   class var
+    FShowSkills: Boolean;
     FShowInventory: Boolean;
     FShowResources: Boolean;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure Close;
-    procedure OpenOrCloseInventory;
+    procedure OpenInventory;
+    procedure OpenSkills;
+    procedure Add(S, V: string); overload;
+    procedure Add; overload;
+    procedure Add(S: string; F: Boolean); overload;
+    procedure Add(S: string); overload;
+    procedure Add2(S: string);
   public
     constructor Create;
     destructor Destroy; override;
@@ -61,14 +74,16 @@ implementation
 uses
   SysUtils,
   DisciplesRL.Saga,
+  DisciplesRL.Scene.Hire,
   DisciplesRL.Button,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Skills;
 
 type
-  TButtonEnum = (btClose, btInventory);
+  TButtonEnum = (btSkills, btClose, btInventory);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextClose, reTextInventory);
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextInventory, reTextClose,
+    reTextInventory);
 
 var
   Button: array [TButtonEnum] of TButton;
@@ -80,6 +95,34 @@ const
   S = 2;
 
   { TSceneParty }
+
+procedure TSceneParty.Add;
+begin
+  Inc(T, H);
+end;
+
+procedure TSceneParty.Add(S, V: string);
+begin
+  DrawText(L, T, Format('%s: %s', [S, V]));
+  Inc(T, H);
+end;
+
+procedure TSceneParty.Add(S: string; F: Boolean);
+begin
+  DrawText(L, T, S, F);
+  Inc(T, H);
+end;
+
+procedure TSceneParty.Add(S: string);
+begin
+  DrawText(L, T, S, False);
+  Inc(T, H);
+end;
+
+procedure TSceneParty.Add2(S: string);
+begin
+  DrawText(L + 250, T - (H div 2), S);
+end;
 
 class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
   F: Boolean = False);
@@ -168,10 +211,18 @@ begin
   end;
 end;
 
-procedure TSceneParty.OpenOrCloseInventory;
+procedure TSceneParty.OpenInventory;
 begin
   Game.MediaPlayer.Play(mmClick);
+  FShowSkills := False;
   FShowInventory := not FShowInventory;
+end;
+
+procedure TSceneParty.OpenSkills;
+begin
+  Game.MediaPlayer.Play(mmClick);
+  FShowInventory := False;
+  FShowSkills := not FShowSkills;
 end;
 
 procedure TSceneParty.Close;
@@ -292,8 +343,10 @@ begin
     if (I = btClose) then
       Button[I].Sellected := True;
   end;
+  FShowSkills := False;
   FShowInventory := False;
   Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
+  P := True;
 end;
 
 destructor TSceneParty.Destroy;
@@ -312,6 +365,11 @@ begin
   case AButton of
     mbLeft:
       begin
+        if Button[btSkills].MouseDown and FShowResources then
+        begin
+          OpenSkills;
+          Exit;
+        end;
         if Button[btClose].MouseDown then
         begin
           Close;
@@ -319,7 +377,7 @@ begin
         end;
         if Button[btInventory].MouseDown and FShowResources then
         begin
-          OpenOrCloseInventory;
+          OpenInventory;
           Exit;
         end;
         CurrentPartyPosition := GetPartyPosition(X, Y);
@@ -357,15 +415,59 @@ var
         Button[I].Render;
   end;
 
+  procedure ShowSkills;
+  var
+    I, Mn, Mx: Integer;
+    S: TSkillEnum;
+  begin
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
+    L := GetFrameX(0, psRight) + 12;
+    T := GetFrameY(0, psRight) + 6;
+    Add('Умения Лидера', True);
+    if P then
+      Add2('Страница 1/2')
+    else
+      Add2('Страница 2/2');
+    Add;
+    if P then
+    begin
+      Mn := 0;
+      Mx := 5;
+    end
+    else
+    begin
+      Mn := 6;
+      Mx := MaxSkills - 1;
+    end;
+    for I := Mn to Mx do
+    begin
+      S := TLeaderParty.Leader.Skills.Get(I);
+      if S <> skNone then
+      begin
+        Add(SkillBase[S].Name);
+        Add(Format('%s %s', [SkillBase[S].Description[0],
+          SkillBase[S].Description[1]]));
+      end;
+    end;
+  end;
+
+  procedure ShowInventory;
+  begin
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
+    L := GetFrameX(0, psRight) + 12;
+    T := GetFrameY(0, psRight) + 6;
+
+  end;
+
 begin
   inherited;
   DrawImage(reWallpaperLeader);
   DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
   if FShowInventory then
-  begin
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
-  end
+    ShowInventory
+  else if FShowSkills then
+    ShowSkills
   else
   begin
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
@@ -392,15 +494,30 @@ begin
       Close;
     K_I:
       if FShowResources then
-        OpenOrCloseInventory;
+        OpenInventory;
+    K_S:
+      if FShowResources then
+        OpenSkills;
     K_LEFT, K_KP_4, K_A:
-      MoveCursor(drWest);
+      if FShowSkills then
+        P := True
+      else
+        MoveCursor(drWest);
     K_RIGHT, K_KP_6, K_D:
-      MoveCursor(drEast);
+      if FShowSkills then
+        P := False
+      else
+        MoveCursor(drEast);
     K_UP, K_KP_8, K_W:
-      MoveCursor(drNorth);
+      if FShowSkills then
+        Exit
+      else
+        MoveCursor(drNorth);
     K_DOWN, K_KP_2, K_X:
-      MoveCursor(drSouth);
+      if FShowSkills then
+        Exit
+      else
+        MoveCursor(drSouth);
   end;
 end;
 

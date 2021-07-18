@@ -10,6 +10,7 @@ uses
 {$ENDIF}
   Classes,
   DisciplesRL.Saga,
+  DisciplesRL.Skills,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -48,6 +49,7 @@ type
       const AX, AY: Integer);
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
+  private
     procedure Add; overload;
     procedure Add(S: string; F: Boolean = False); overload;
     procedure Add(S, V: string); overload;
@@ -61,6 +63,7 @@ type
   class var
     MPX: Integer;
     MPY: Integer;
+    CurCrSkillEnum: TSkillEnum;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -85,9 +88,8 @@ implementation
 
 uses
   Math,
-  SysUtils,
+  SysUtils, dialogs,
   DisciplesRL.Map,
-  DisciplesRL.Skills,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
@@ -141,6 +143,7 @@ var
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
   CurrentIndex: Integer = 0;
   Lf, Lk: Integer;
+  CurCrEnum: TCreatureEnum;
   GC, MC: Integer;
   LootRes: TResEnum;
 
@@ -307,6 +310,7 @@ begin
       end;
     stLeader:
       begin
+        CurCrSkillEnum := TCreature.Character(CurCrEnum).SkillEnum;
         TSaga.Clear;
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
         Game.MediaPlayer.PlayMusic(mmGame);
@@ -894,7 +898,7 @@ end;
 
 procedure TSceneHire.Render;
 var
-  Left, X, Y: Integer;
+  Left, X, Y, I: Integer;
   R: TRaceEnum;
   K: TRaceCharKind;
   S: TScenario.TScenarioEnum;
@@ -903,7 +907,6 @@ var
   N: TLeaderWarriorActVar;
   ItemRes: TResEnum;
   It1, It2, It3: TResEnum;
-  C: TCreatureEnum;
 
   procedure DrawGold;
   begin
@@ -1148,12 +1151,12 @@ begin
         K := TRaceCharKind(CurrentIndex);
         case SubScene of
           stCharacter:
-            C := Characters[TSaga.LeaderRace][cgCharacters][K];
+            CurCrEnum := Characters[TSaga.LeaderRace][cgCharacters][K];
           stLeader:
-            C := Characters[TSaga.LeaderRace][cgLeaders][K];
+            CurCrEnum := Characters[TSaga.LeaderRace][cgLeaders][K];
         end;
-        if C <> crNone then
-          RenderCharacterInfo(C, False);
+        if CurCrEnum <> crNone then
+          RenderCharacterInfo(CurCrEnum, False);
         case SubScene of
           stCharacter:
             begin
@@ -1161,18 +1164,20 @@ begin
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
                 Top, reGold);
               DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
-                TCreature.Character(C).Gold);
+                TCreature.Character(CurCrEnum).Gold);
             end;
           stLeader:
             begin
               DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
                 reInfoFrame);
               T := Top + 6;
-              //L := Lf + (ResImage[reActFrame].Width * 2) + 14;
+              L := Lf + (ResImage[reActFrame].Width * 2) + 14;
               Add('Умения Лидера', True);
               Add;
-              Add(SkillBase[TCreature.Character(C).SkillEnum].Name);
-              Add(SkillBase[TCreature.Character(C).SkillEnum].Description);
+              Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum].Name);
+              for I := 0 to 1 do
+                Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum]
+                  .Description[I]);
             end;
         end;
       end;

@@ -135,7 +135,8 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Settlement;
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Scene.Hire;
 
 { TParty }
 
@@ -459,6 +460,8 @@ end;
 
 procedure TLeaderParty.Clear;
 begin
+  Skills.Clear;
+  Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
   MaxSpeed := 7;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
