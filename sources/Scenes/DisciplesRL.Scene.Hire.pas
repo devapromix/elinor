@@ -87,6 +87,7 @@ uses
   Math,
   SysUtils,
   DisciplesRL.Map,
+  DisciplesRL.Skills,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
@@ -1164,12 +1165,14 @@ begin
             end;
           stLeader:
             begin
-              { DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
+              DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
                 reInfoFrame);
-                T := Top + 6;
-                L := Lf + (ResImage[reActFrame].Width * 2) + 14;
-                Add('Умения', True);
-                Add; }
+              T := Top + 6;
+              //L := Lf + (ResImage[reActFrame].Width * 2) + 14;
+              Add('Умения Лидера', True);
+              Add;
+              Add(SkillBase[TCreature.Character(C).SkillEnum].Name);
+              Add(SkillBase[TCreature.Character(C).SkillEnum].Description);
             end;
         end;
       end;

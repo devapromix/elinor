@@ -5,10 +5,9 @@
 uses
   {$IFDEF FPC}
   Interfaces,
-  Forms,
   {$ELSE}
   Vcl.Forms,
-  {$ENDIF}
+  {$ENDIF }
   DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
   DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
@@ -28,7 +27,8 @@ uses
   DisciplesRL.Scene.Battle3 in 'Scenes\DisciplesRL.Scene.Battle3.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
   DisciplesRL.Button in 'DisciplesRL.Button.pas',
-  DisciplesRL.Frame in 'DisciplesRL.Frame.pas';
+  DisciplesRL.Frame in 'DisciplesRL.Frame.pas',
+  DisciplesRL.Skills in 'DisciplesRL.Skills.pas';
 
 {$R *.res}
 

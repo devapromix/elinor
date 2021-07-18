@@ -5,6 +5,7 @@ interface
 uses
   Types,
   DisciplesRL.Creatures,
+  DisciplesRL.Skills,
   DisciplesRL.Map;
 
 type
@@ -87,6 +88,7 @@ type
     FRadius: Integer;
     FSpells: Integer;
     FSpy: Integer;
+    FSkills: TSkills;
     function GetRadius: Integer;
   public
   class var
@@ -118,6 +120,7 @@ type
     function GetMaxSpy: Integer;
     function GetMaxSpells: Integer;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
+    property Skills: TSkills read FSkills write FSkills;
   end;
 
 var
@@ -468,13 +471,14 @@ end;
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
 begin
   inherited Create(AX, AY, AOwner);
+  FSkills := TSkills.Create;
   FMaxLeadership := 1;
   FRadius := 1;
 end;
 
 destructor TLeaderParty.Destroy;
 begin
-
+  FreeAndNil(FSkills);
   inherited;
 end;
 
