@@ -476,7 +476,15 @@ begin
       TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C);
   end;
   if FShowResources then
+  begin
     DrawResources;
+    DrawImage(140, 10, reSmallFrame);
+    DrawText(149, 24, Format('Скорость %d/%d', [TLeaderParty.Leader.Speed,
+      TLeaderParty.Leader.MaxSpeed]));
+    DrawText(149, 54, Format('Обзор %d', [TLeaderParty.Leader.Radius]));
+    DrawText(149, 84, Format('Лидерство %d',
+      [TLeaderParty.Leader.MaxLeadership]));
+  end;
   RenderButtons;
 end;
 
