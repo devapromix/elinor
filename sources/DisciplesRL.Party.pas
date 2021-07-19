@@ -119,6 +119,7 @@ type
     function Level: Integer;
     function GetMaxSpy: Integer;
     function GetMaxSpells: Integer;
+    function GetMaxSpeed: Integer;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
     property Skills: TSkills read FSkills write FSkills;
   end;
@@ -462,7 +463,7 @@ procedure TLeaderParty.Clear;
 begin
   Skills.Clear;
   Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
-  MaxSpeed := 7;
+  MaxSpeed := GetMaxSpeed;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
   FRadius := IfThen(Game.Wizard, 9, 1);
@@ -493,6 +494,12 @@ end;
 function TLeaderParty.Level: Integer;
 begin
   Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Level;
+end;
+
+function TLeaderParty.GetMaxSpeed: Integer;
+begin
+  Result := IfThen(TLeaderParty.Leader.Enum in LeaderScout,
+    TSaga.LeaderScoutMaxSpeed, TSaga.LeaderDefaultMaxSpeed);
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;
