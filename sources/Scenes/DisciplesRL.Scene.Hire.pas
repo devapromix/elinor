@@ -1178,6 +1178,16 @@ begin
               for I := 0 to 1 do
                 Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum]
                   .Description[I]);
+              Add;
+              Add;
+              Add;
+              Add;
+              Add;
+              Add;
+              Add('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
+              Add('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
+              Add('Заклинаний в день',
+                TLeaderParty.GetMaxSpells(CurCrEnum));
             end;
         end;
       end;

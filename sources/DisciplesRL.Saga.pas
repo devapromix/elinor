@@ -140,12 +140,13 @@ type
       );
     GoldForRevivePerLevel = 250;
     LeaderWarriorHealAllInPartyPerDay = 10;
-    LeaderScoutAdvRadius = 2;
+    LeaderScoutMaxRadius = 3;
     LeaderScoutMaxSpeed = 12;
     LeaderMageCanCastSpellsPerDay = 3;
     LeaderThiefSpyAttemptCountPerDay = 3;
     LeaderThiefPoisonDamageAllInPartyPerLevel = 10;
     LeaderDefaultMaxSpeed = 7;
+    LeaderDefaultMaxRadius = 1;
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;

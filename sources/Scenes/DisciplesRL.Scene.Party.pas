@@ -139,6 +139,7 @@ begin
   Game.Show(scParty);
   Game.MediaPlayer.Play(mmSettlement);
   FShowInventory := F;
+  FShowSkills := False;
 end;
 
 procedure TSceneParty.MoveCursor(Dir: TDirectionEnum);

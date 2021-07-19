@@ -89,7 +89,7 @@ type
     FSpells: Integer;
     FSpy: Integer;
     FSkills: TSkills;
-    function GetRadius: Integer;
+    function GetRadius: Integer; overload;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -118,10 +118,13 @@ type
     function Enum: TCreatureEnum;
     function Level: Integer;
     function GetMaxSpy: Integer;
-    function GetMaxSpells: Integer;
-    function GetMaxSpeed: Integer;
+    function GetMaxSpells: Integer; overload;
+    class function GetMaxSpells(const CrEnum: TCreatureEnum): Integer; overload;
+    function GetMaxSpeed: Integer; overload;
+    class function GetMaxSpeed(const CrEnum: TCreatureEnum): Integer; overload;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
     property Skills: TSkills read FSkills write FSkills;
+    class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
   end;
 
 var
@@ -498,14 +501,24 @@ end;
 
 function TLeaderParty.GetMaxSpeed: Integer;
 begin
-  Result := IfThen(TLeaderParty.Leader.Enum in LeaderScout,
-    TSaga.LeaderScoutMaxSpeed, TSaga.LeaderDefaultMaxSpeed);
+  Result := TLeaderParty.GetMaxSpeed(TLeaderParty.Leader.Enum);
+end;
+
+class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;
+begin
+  Result := IfThen(CrEnum in LeaderScout, TSaga.LeaderScoutMaxSpeed,
+    TSaga.LeaderDefaultMaxSpeed);
+end;
+
+class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
+begin
+  Result := IfThen(CrEnum in LeaderMage,
+    TSaga.LeaderMageCanCastSpellsPerDay, 1);
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;
 begin
-  Result := IfThen(TLeaderParty.Leader.Enum in LeaderMage,
-    TSaga.LeaderMageCanCastSpellsPerDay, 1);
+  Result := TLeaderParty.GetMaxSpells(TLeaderParty.Leader.Enum);
 end;
 
 function TLeaderParty.IsPartyOwner(const AX, AY: Integer): Boolean;
@@ -526,10 +539,15 @@ begin
     Inc(Result);
 end;
 
+class function TLeaderParty.GetRadius(const CrEnum: TCreatureEnum): Integer;
+begin
+  Result := IfThen(CrEnum in LeaderScout,
+    TSaga.LeaderScoutMaxRadius, TSaga.LeaderDefaultMaxRadius);
+end;
+
 function TLeaderParty.GetRadius: Integer;
 begin
-  Result := IfThen(TLeaderParty.Leader.Enum in LeaderScout,
-    FRadius + TSaga.LeaderScoutAdvRadius, FRadius);
+  Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
 end;
 
 function TLeaderParty.GetMaxSpy: Integer;
