@@ -331,15 +331,15 @@ end;
 constructor TSceneParty.Create;
 var
   I: TButtonEnum;
-  L, W: Integer;
+  Lt, W: Integer;
 begin
   inherited;
   W := ResImage[reButtonDef].Width + 4;
-  L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  Lt := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
-    Inc(L, W);
+    Button[I] := TButton.Create(Lt, DefaultButtonTop, ButtonText[I]);
+    Inc(Lt, W);
     if (I = btClose) then
       Button[I].Sellected := True;
   end;
@@ -401,8 +401,6 @@ begin
 end;
 
 procedure TSceneParty.Render;
-const
-  H = 25;
 var
   C: TCreatureEnum;
 
@@ -456,7 +454,6 @@ var
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     L := GetFrameX(0, psRight) + 12;
     T := GetFrameY(0, psRight) + 6;
-
   end;
 
 begin
