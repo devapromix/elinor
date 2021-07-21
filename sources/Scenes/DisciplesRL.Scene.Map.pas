@@ -255,6 +255,8 @@ begin
       TLeaderParty.Leader.Move(drOrigin);
     K_M:
       FM := not FM;
+    K_N:
+       TSceneHire.Show(stNewSkill);
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
     K_V:

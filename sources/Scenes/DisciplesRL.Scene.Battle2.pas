@@ -25,6 +25,7 @@ type
     InitiativeList: TStringList;
     CurrentPosition: Integer;
     ttt: Integer;
+    IsNewLevel: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
     FEnabled: Boolean;
@@ -58,6 +59,7 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure Show(const S: TSceneEnum); override;
     property Enabled: Boolean read FEnabled write FEnabled;
+    class procedure AfterVictory;
   end;
 
 implementation
@@ -78,6 +80,18 @@ const
   Speed = 12;
 
   { TSceneBattle2 }
+
+class procedure TSceneBattle2.AfterVictory;
+begin
+  if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
+    Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
+  begin
+    Inc(Game.Scenario.StoneTab);
+    TSceneHire.Show(stStoneTab, scHire, reGold);
+  end
+  else
+    TSaga.AddLoot(reBag);
+end;
 
 procedure TSceneBattle2.AI;
 var
@@ -190,6 +204,7 @@ begin
             LeaderParty.UpdateLevel(Position);
             Battle.Log.Add(Format('%s повысил%s уровень до %d!',
               [Name[0], GenderEnding, Level + 1]));
+            IsNewLevel := Leadership > 0;
           end;
   end;
 end;
@@ -207,14 +222,13 @@ begin
   Game.MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
-  if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
-    Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
+  if IsNewLevel then
   begin
-    Inc(Game.Scenario.StoneTab);
-    TSceneHire.Show(stStoneTab, scHire, reGold);
-  end
-  else
-    TSaga.AddLoot(reBag);
+    IsNewLevel := False;
+    TSceneHire.Show(stNewSkill);
+    Exit;
+  end;
+  AfterVictory;
 end;
 
 procedure TSceneBattle2.Defeat;
@@ -710,6 +724,7 @@ end;
 procedure TSceneBattle2.Show(const S: TSceneEnum);
 begin
   inherited;
+  IsNewLevel := False;
   StartBattle;
   Game.MediaPlayer.PlayMusic(mmBattle);
 end;

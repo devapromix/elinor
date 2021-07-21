@@ -19,7 +19,7 @@ uses
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
     stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
-    stDifficulty);
+    stDifficulty, stNewSkill);
 
 type
 
@@ -125,12 +125,16 @@ const
     // War
     (reTextContinue, reTextCancel),
     // Difficulty
-    (reTextContinue, reTextCancel));
+    (reTextContinue, reTextCancel),
+    // New Skill
+    (reTextClose, reTextClose)
+    //
+    );
 
 const
   AddButtonScene = [stLoot, stStoneTab];
-  CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
-    AddButtonScene;
+  CloseButtonScene = [stJournal, stNewSkill, stVictory, stDefeat, stHighScores2]
+    + AddButtonScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
     stDifficulty, stSpy, stWar];
   WideButtonScene = [stCharacter, stLeader];
@@ -232,7 +236,7 @@ begin
       TSceneHire.Show(stDifficulty);
     stScenario:
       Game.Show(scMenu);
-    stJournal, stSpy, stWar:
+    stJournal, stSpy, stWar, stNewSkill:
       Game.Show(scMap);
     stDefeat:
       begin
@@ -355,6 +359,11 @@ begin
     stHighScores2:
       begin
         Game.Show(scMenu);
+      end;
+    stNewSkill:
+      begin
+
+        TSceneBattle2.AfterVictory;
       end;
     stStoneTab:
       begin
@@ -1186,8 +1195,7 @@ begin
               Add;
               Add('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
               Add('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
-              Add('Заклинаний в день',
-                TLeaderParty.GetMaxSpells(CurCrEnum));
+              Add('Заклинаний в день', TLeaderParty.GetMaxSpells(CurCrEnum));
             end;
         end;
       end;
