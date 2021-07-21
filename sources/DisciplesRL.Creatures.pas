@@ -11,20 +11,21 @@ uses
   DisciplesRL.Resources;
 
 type
-  TRaceEnum = (reNeutrals, reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
-    reMountainClans, reElvenAlliance);
+  TRaceEnum = (reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
+    reMountainClans, reElvenAlliance, reNeutrals);
+  TPlayableRaces = reTheEmpire..reLegionsOfTheDamned;
 
 const
   Races = [reTheEmpire, reUndeadHordes, reLegionsOfTheDamned];
 
 const
-  RaceName: array [TRaceEnum] of string = ('Нейтралы', 'Защитники Империи',
-    'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз');
+  RaceName: array [TRaceEnum] of string = ('Защитники Империи', 'Орды Нежити',
+    'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз', 'Нейтралы');
 
 const
-  RaceTerrain: array [TRaceEnum] of TResEnum = (reNeutralTerrain,
-    reTheEmpireTerrain, reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
-    reNeutralTerrain, reNeutralTerrain);
+  RaceTerrain: array [TRaceEnum] of TResEnum = (reTheEmpireTerrain,
+    reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
+    reNeutralTerrain, reNeutralTerrain, reNeutralTerrain);
 
 type
   TSubRaceEnum = (reCustom, reHuman, reUndead, reHeretic, reDwarf, reElf,
@@ -33,7 +34,7 @@ type
 
 const
   RaceDescription: array [TRaceEnum] of array [0 .. 10] of string =
-    (('', '', '', '', '', '', '', '', '', '', ''),
+    (
     // The Empire
     ('Империя пришла в упадок. Больше',
     'не радуют глаз возделанные поля и цве-',
@@ -53,7 +54,7 @@ const
     'утопить весь мир в крови…'),
     // Legions Of The Damned
     ('И снова земные слуги Бетрезена бродят',
-    'миром Невендаар, сея хаос и разруху.',
+    'по Невендаару, сея хаос и разруху.',
     'Им осталось провести последний ритуал',
     'и даровать Бетрезену неограниченную',
     'свободу. Десять лет назад они потерпе-',
@@ -63,8 +64,9 @@ const
     // Mountain Clans
     ('', '', '', '', '', '', '', '', '', '', ''),
     // Elven Alliance
+    ('', '', '', '', '', '', '', '', '', '', ''),
+    // Neutras
     ('', '', '', '', '', '', '', '', '', '', '')
-    //
     );
 
 type
@@ -550,7 +552,7 @@ const
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
     Name: ('Архимаг', 'Архимага');
     Description: ('Мастер магии, архимаг - единственный',
-    'в Империи полководец, который уме-', 'ет испольовать свитки и посохи.');
+    'в Империи полководец, который уме-', 'ет использовать свитки и посохи.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;

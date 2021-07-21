@@ -1,5 +1,9 @@
 ﻿unit DisciplesRL.Scene.Hire;
 
+{$IFDEF FPC}
+{$MODE DELPHI}
+{$ENDIF}
+
 interface
 
 uses
@@ -88,7 +92,9 @@ implementation
 
 uses
   Math,
-  SysUtils, dialogs,
+  SysUtils,
+  Dialogs,
+  DisciplesRL.Common,
   DisciplesRL.Map,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
@@ -309,7 +315,7 @@ begin
   case SubScene of
     stRace:
       begin
-        TSaga.LeaderRace := TRaceEnum(CurrentIndex + 1);
+        TSaga.LeaderRace := TRaceEnum(CurrentIndex);
         TSceneHire.Show(stLeader);
       end;
     stLeader:
@@ -660,7 +666,7 @@ var
 begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
-  R := TRaceEnum(CurrentIndex + 1);
+  R := TRaceEnum(CurrentIndex);
   Add(RaceName[R], True);
   Add;
   for J := 0 to 10 do
@@ -1025,7 +1031,7 @@ begin
         DrawTitle(reTitleRace);
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
-          if Ord(R) - 1 = CurrentIndex then
+          if Ord(R) = CurrentIndex then
             DrawImage(Lf, Top + Y, reActFrame)
           else
             DrawImage(Lf, Top + Y, reFrame);
@@ -1224,17 +1230,38 @@ begin
 
 end;
 
+procedure UpdEnum<N>(AKey: Word);
+var
+  Cycler: TEnumCycler<N>;
+begin
+  if not AKey in [K_UP, K_Down] then
+    Exit;
+  Game.MediaPlayer.Play(mmClick);
+  Cycler := TEnumCycler<N>.Create(CurrentIndex);
+  if AKey = K_UP then
+    CurrentIndex := Cycler.PrevAsValue
+  else
+    CurrentIndex := Cycler.NextAsValue;
+end;
+
 procedure TSceneHire.Update(var Key: Word);
 var
   FF: Boolean;
 
-  procedure Upd(const MaxValue: Integer);
+  procedure Basic();
   begin
     case Key of
       K_ESCAPE:
         Back;
       K_ENTER:
         Ok;
+    end;
+  end;
+
+  procedure Upd(const MaxValue: Integer);
+  begin
+    Basic;
+    case Key of
       K_UP:
         begin
           Game.MediaPlayer.Play(mmClick);
@@ -1299,11 +1326,25 @@ begin
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
     stRace:
-      Upd(Ord(High(TRaceCharKind)));
+      begin
+        Basic;
+        UpdEnum<TPlayableRaces>(Key);
+        //Upd(Ord(High(TRaceCharKind)));
+      end;
     stDifficulty:
-      Upd(Ord(High(TSaga.TDifficultyEnum)));
-    stVictory, stDefeat, stScenario, stHighScores2:
-      Upd(Ord(High(TScenario.TScenarioEnum)));
+      begin
+        Basic;
+        UpdEnum<TSaga.TDifficultyEnum>(Key);
+        //Upd(Ord(High(TSaga.TDifficultyEnum)));
+      end;
+    stScenario:
+      begin
+        Basic;
+        UpdEnum<TScenario.TScenarioEnum>(Key);
+        //Upd(Ord(High(TScenario.TScenarioEnum)));
+      end;
+    stVictory, stDefeat, stHighScores2:
+      Basic;
   end;
   if (SubScene in CloseButtonScene) then
     case Key of
