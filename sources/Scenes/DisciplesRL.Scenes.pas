@@ -97,11 +97,8 @@ const
 type
   TConfirmMethod = procedure() of object;
 
-var
-  ConfirmHandler: TConfirmMethod;
-
   { TScene }
-
+{
 type
   IScene = interface
     procedure Show(const S: TSceneEnum);
@@ -112,12 +109,12 @@ type
       X, Y: Integer);
     procedure MouseMove(Shift: TShiftState; X, Y: Integer);
   end;
-
+}
 type
   TBGStat = (bsCharacter, bsEnemy, bsParalyze);
 
 type
-  TScene = class(TInterfacedObject, IScene)
+  TScene = class(TObject{TInterfacedObject, IScene})
   private
     FWidth: Integer;
     FScrWidth: Integer;
@@ -156,7 +153,7 @@ type
   TScenes = class(TScene)
   private
     FSceneEnum: TSceneEnum;
-    FScene: array [TSceneEnum] of IScene;
+    FScene: array [TSceneEnum] of TScene;
     procedure SetScene(const ASceneEnum: TSceneEnum);
   public
     InformMsg: string;
@@ -243,6 +240,7 @@ const
 var
   Button: TButton;
   Buttons: array [TButtonEnum] of TButton;
+  ConfirmHandler: TConfirmMethod;
 
   { TTreasure }
 
