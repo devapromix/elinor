@@ -341,7 +341,7 @@ end;
 procedure TParty.Revive(const APosition: TPosition);
 begin
   with FCreature[APosition] do
-    if Alive then
+    if not Alive then
       HitPoints := 1;
 end;
 
