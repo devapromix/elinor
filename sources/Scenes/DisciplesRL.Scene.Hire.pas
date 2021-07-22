@@ -1076,6 +1076,11 @@ begin
           Inc(Y, 120);
         end;
       end;
+    stNewSkill:
+      begin
+        DrawImage(reWallpaperScenario);
+        DrawTitle(reTitleAbilities);
+      end;
     stVictory:
       begin
         DrawImage(reWallpaperDefeat);
@@ -1152,7 +1157,8 @@ begin
         end;
       end;
   end;
-  if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
+  if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene -
+    [stNewSkill] then
     DrawImage(Lf + ResImage[reActFrame].Width + 2, Top, reInfoFrame);
   case SubScene of
     stCharacter, stLeader:
@@ -1304,6 +1310,10 @@ begin
       Upd(Ord(High(TSaga.TDifficultyEnum)));
     stVictory, stDefeat, stScenario, stHighScores2:
       Upd(Ord(High(TScenario.TScenarioEnum)));
+    stNewSkill:
+      begin
+
+      end;
   end;
   if (SubScene in CloseButtonScene) then
     case Key of

@@ -20,31 +20,36 @@ type
     reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
-    reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
-    reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
-    reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
-    reRuin, reTower, reSTower, reTreePine, reTreeOak, reUndeadHordesTree,
-    reLegionsOfTheDamnedTree, reMineGold, reMineMana, reMountain1, reMountain2,
-    reMountain3, reMountain4, reTree1, reTree2, reTree3, reTree4, reButtonDef,
-    reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage,
-    reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan,
-    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
-    reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reOrc,
+    reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag,
+    reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+    reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
+    reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reTreePine,
+    reTreeOak, reUndeadHordesTree, reLegionsOfTheDamnedTree, reMineGold,
+    reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
+    reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
+    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
+    reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon,
+    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
+    reGiantSpider, reWolf, reOrc,
+    // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTextInventory, reTitleHire, reTitleHighScores,
-    reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario,
-    reTitleLeader, reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle,
-    reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton,
-    reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
-    reTitleDifficulty, reTitleThief, reScenarioDarkTower, reScenarioOverlord,
-    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
-    reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
-    reThiefDuel, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
-    reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
-    reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
-    reIconOpenedGates);
+    reTextHeal, reTextRevive, reTextInventory, reTextAbilities,
+    // Title
+    reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
+    reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
+    reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
+    reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
+    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief,
+    reTitleAbilities,
+    //
+    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
+    reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
+    reDifficultyNormalLogo, reDifficultyHardLogo, reThiefDuel,
+    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
+    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario, reIconScores,
+    reIconScoresOver, reIconClosedGates, reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -261,6 +266,8 @@ const
     (FileName: 'text.revive.png'; ResType: teGUI;),
     // Text "Inventory"
     (FileName: 'text.inventory.png'; ResType: teGUI;),
+    // Text "Abilities"
+    (FileName: 'text.abilities.png'; ResType: teGUI;),
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),
     // Title "High Scores"
@@ -309,6 +316,8 @@ const
     (FileName: 'title.difficulty.png'; ResType: teGUI;),
     // Title Thief
     (FileName: 'title.thief.png'; ResType: teGUI;),
+    // Title "Abilities"
+    (FileName: 'title.abilities.png'; ResType: teGUI;),
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
     // Scenario "Overlord"
