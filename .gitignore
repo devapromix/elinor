@@ -8,3 +8,5 @@ sources/backup/
 sources/lib/
 /sources/*.stat
 /*.exe
+sources/Forms/backup/
+sources/Scenes/backup/

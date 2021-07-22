@@ -210,7 +210,7 @@ procedure TSceneSettlement.Heal;
         Exit;
       end;
       ConfirmGold := MaxHitPoints - HitPoints;
-      if (ConfirmGold > Game.Gold.NewValue) then
+      if (ConfirmGold > Game.Gold.Value) then
       begin
         InformDialog('Нужно больше золота!');
         Exit;
@@ -252,7 +252,7 @@ procedure TSceneSettlement.Revive;
       else
       begin
         ConfirmGold := Level * TSaga.GoldForRevivePerLevel;
-        if (Game.Gold.NewValue < ConfirmGold) then
+        if (Game.Gold.Value < ConfirmGold) then
         begin
           InformDialog(Format('Для воскрешения нужно %d золота!',
             [ConfirmGold]));
