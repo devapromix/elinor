@@ -71,8 +71,7 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Hire,
-  DisciplesRL.Skills;
+  DisciplesRL.Scene.Hire;
 
 var
   CloseButton: TButton;

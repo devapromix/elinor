@@ -5,7 +5,6 @@ interface
 uses
   Types,
   DisciplesRL.Creatures,
-  DisciplesRL.Skills,
   DisciplesRL.Map;
 
 type

@@ -10,7 +10,6 @@ uses
 {$ENDIF}
   Classes,
   DisciplesRL.Saga,
-  DisciplesRL.Skills,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -727,10 +726,10 @@ begin
   T := Top + 6;
   L := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderParty.Leader.Skills.RandomSkillEnum[CurrentIndex];
-  Add(SkillBase[S].Name, True);
+  Add(TSkills.Ability(S).Name, True);
   Add;
-  Add(SkillBase[S].Description[0]);
-  Add(SkillBase[S].Description[1]);
+  Add(TSkills.Ability(S).Description[0]);
+  Add(TSkills.Ability(S).Description[1]);
 end;
 
 procedure TSceneHire.RenderFinalInfo;
@@ -1230,9 +1229,10 @@ begin
               L := Lf + (ResImage[reActFrame].Width * 2) + 14;
               Add('Умения Лидера', True);
               Add;
-              Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum].Name);
+              Add(TSkills.Ability(TCreature.Character(CurCrEnum)
+                .SkillEnum).Name);
               for I := 0 to 1 do
-                Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum]
+                Add(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum)
                   .Description[I]);
               Add;
               Add;

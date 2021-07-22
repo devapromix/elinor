@@ -75,8 +75,7 @@ uses
   SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Button,
-  DisciplesRL.Skills;
+  DisciplesRL.Button;
 
 type
   TButtonEnum = (btSkills, btClose, btInventory);
@@ -443,9 +442,9 @@ var
       S := TLeaderParty.Leader.Skills.Get(I);
       if S <> skNone then
       begin
-        Add(SkillBase[S].Name);
-        Add(Format('%s %s', [SkillBase[S].Description[0],
-          SkillBase[S].Description[1]]));
+        Add(TSkills.Ability(S).Name);
+        Add(Format('%s %s', [TSkills.Ability(S).Description[0],
+          TSkills.Ability(S).Description[1]]));
       end;
     end;
   end;
