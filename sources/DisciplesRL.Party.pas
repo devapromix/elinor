@@ -541,13 +541,15 @@ end;
 
 class function TLeaderParty.GetRadius(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderScout,
-    TSaga.LeaderScoutMaxRadius, TSaga.LeaderDefaultMaxRadius);
+  Result := IfThen(CrEnum in LeaderScout, TSaga.LeaderScoutMaxRadius,
+    TSaga.LeaderDefaultMaxRadius);
 end;
 
 function TLeaderParty.GetRadius: Integer;
 begin
   Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
+  if Self.Skills.Has(skHawkEye) then
+    Result := Result + 2;
 end;
 
 function TLeaderParty.GetMaxSpy: Integer;

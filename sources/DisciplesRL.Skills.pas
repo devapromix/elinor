@@ -6,7 +6,7 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSkillEnum = (skNone, skFly, skSpy, skArtifact, skBanner, skBoots,
+  TSkillEnum = (skNone, skFly, skSpy, skHawkEye, skArtifact, skBanner, skBoots,
     skLeadership1, skLeadership2, skLeadership3, skLeadership4, skLeadership5,
     skWand, skAuras, skOri);
 
@@ -28,6 +28,9 @@ const
     (Enum: skSpy; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
     'в любой из уголков Невендаара.');),
+    // Sharp Eye
+    (Enum: skHawkEye; Name: 'Зоркость';
+    Description: ('Позволяет предводителю видеть', 'дальше на 2 тайла.');),
     // Artifact
     (Enum: skArtifact; Name: 'Знание Артефактов';
     Description: ('Позволяет предводителю носить', 'магические артефакты.');),
