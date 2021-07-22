@@ -169,6 +169,9 @@ type
 const
   SourceName: array [TSourceEnum] of string = ('Оружие', 'Жизнь', 'Разум',
     'Смерть', 'Воздух', 'Земля', 'Огонь', 'Вода');
+  StaffName: array [TSourceEnum] of string = ('Боевой Посох', 'Рубиновый Посох',
+    'Мифриловый Посох', 'Посох Могущества', 'Посох Молний', 'Эльфийский Посох',
+    'Посох Колдуна', 'Посох Льда');
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -184,19 +187,21 @@ const
   ckGuardian = ckMage;
 
 type
-  TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
-    atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,
-    atFireDagger, atClub);
+  TAttackEnum = (atSlayerSword, atLongSword, atPaladinSword, atBattleAxe,
+    atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
+    atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
+    atPoisonousBreath, atDaggerOfShadows, atFireDagger, atClub, atFireHammer,
+    atPhoenixSword);
 
 type
   TCreatureSize = (szSmall, szBig);
 
 const
-  AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
-    'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
-    'Магия', 'Когти', 'Укус', 'Копье', 'Камни', 'Ядовитое Дыхание',
-    'Кинжал Теней', 'Кинжал Пламени', 'Булава');
+  AttackName: array [TAttackEnum] of string = ('Меч Убийцы', 'Длинный Меч',
+    'Меч Паладина', 'Боевой Топор', 'Кинжал', 'Лук', 'Лук Охотника', 'Арбалет',
+    'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
+    'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
+    'Булава', 'Тлеющий Молот', 'Меч Феникса');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -536,6 +541,8 @@ type
       const I: TCreatureEnum); static;
     class function GetRandomEnum(const P, Position: Integer)
       : TCreatureEnum; static;
+    class function EquippedWeapon(const AttackEnum: TAttackEnum;
+      const SourceEnum: TSourceEnum): string; static;
   end;
 
 implementation
@@ -572,7 +579,7 @@ const
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skFly;),
+    AttackEnum: atPaladinSword; SkillEnum: skFly;),
     // Ranger
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reRanger; Size: szSmall;
     Name: ('Следопыт', 'Следопыта');
@@ -582,7 +589,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atBow; SkillEnum: skBoots;),
+    AttackEnum: atHunterBow; SkillEnum: skBoots;),
     // Archmage
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
     Name: ('Архимаг', 'Архимага');
@@ -607,8 +614,8 @@ const
     'Империи верой и правдой и беспощад-', 'но расправляется с ее врагами.');
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skTalisman;),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
+    AttackEnum: atBattleAxe; SkillEnum: skTalisman;),
     // Squire
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
     Name: ('Сквайр', 'Сквайра');
@@ -665,7 +672,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skFly;),
+    AttackEnum: atSlayerSword; SkillEnum: skFly;),
     // Nosferat
     (Race: reUndeadHordes; SubRace: reVampire; ResEnum: reRanger; Size: szSmall;
     Name: ('Носферату', 'Носферату');
@@ -757,7 +764,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skFly;),
+    AttackEnum: atPhoenixSword; SkillEnum: skFly;),
     // Counselor
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reRanger;
     Size: szSmall; Name: ('Советник', 'Советника');
@@ -792,8 +799,8 @@ const
     'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skTalisman;),
+    Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
+    AttackEnum: atFireHammer; SkillEnum: skTalisman;),
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
     Size: szSmall; Name: ('Одержимый', 'Одержимого');
@@ -1009,6 +1016,18 @@ begin
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
     SkillEnum := skNone;
+  end;
+end;
+
+class function TCreature.EquippedWeapon(const AttackEnum: TAttackEnum;
+  const SourceEnum: TSourceEnum): string;
+begin
+  Result := AttackName[AttackEnum];
+  case AttackEnum of
+    atMagic:
+      Result := StaffName[SourceEnum];
+    atDrainLife:
+      Result := 'Посох Затмения';
   end;
 end;
 

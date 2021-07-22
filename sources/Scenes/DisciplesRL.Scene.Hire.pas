@@ -1236,9 +1236,11 @@ begin
                   .Description[I]);
               Add;
               Add;
+              Add('Экипировка', True);
               Add;
-              Add;
-              Add;
+              Add(Format('Оружие: %s',
+                [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum)
+                .AttackEnum, TCreature.Character(CurCrEnum).SourceEnum)]));
               Add;
               Add('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
               Add('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));

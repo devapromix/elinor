@@ -84,7 +84,7 @@ function TBattle.GetLogMessage(AttackEnum: TAttackEnum;
   SourceEnum: TSourceEnum): string;
 begin
   case AttackEnum of
-    atLongSword:
+    atLongSword, atSlayerSword, atPaladinSword:
       Result := '%s атакует мечом %s и наносит %d урона.';
     atBattleAxe:
       Result := '%s атакует боевым топором %s и наносит %d урона.';
@@ -94,10 +94,14 @@ begin
       Result := '%s атакует Кинжалом Теней %s и наносит %d урона.';
     atFireDagger:
       Result := '%s атакует Кинжалом Пламени %s и наносит %d урона.';
-    atBow:
+    atBow, atHunterBow:
       Result := 'Метким выстрелом %s поражает стрелой %s и наносит %d урона.';
     atClub:
       Result := '%s атакует булавой %s и наносит %d урона.';
+    atFireHammer:
+      Result := '%s атакует Тлеющим Молотом %s и наносит %d урона.';
+    atPhoenixSword:
+      Result := '%s атакует Мечом Феникса %s и наносит %d урона.';
     atCrossbow:
       Result := 'Молниеносно %s взводит арбалет и поражает %s, нанося %d урона.';
     atStones:
