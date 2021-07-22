@@ -8,7 +8,7 @@ uses
 type
   TSkillEnum = (skNone, skFly, skSpy, skHawkEye, skArtifact, skBanner, skBoots,
     skLeadership1, skLeadership2, skLeadership3, skLeadership4, skLeadership5,
-    skWand, skAuras, skOri);
+    skWand, skAuras, skOri, skTrader);
 
 type
   TSkill = record
@@ -70,7 +70,11 @@ const
     // Ori
     (Enum: skOri; Name: 'Ориентирование';
     Description: ('Увеличивает дистанцию, которую может',
-    'пройти отряд предводителя.');)
+    'пройти отряд предводителя.');),
+    // Trader
+    (Enum: skOri; Name: 'Торговец';
+    Description: ('Обладатель этой способности',
+    'получает скидку 20% у торговца.');)
     //
     );
 
