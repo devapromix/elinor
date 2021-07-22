@@ -506,8 +506,12 @@ end;
 
 class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderScout, TSaga.LeaderScoutMaxSpeed,
-    TSaga.LeaderDefaultMaxSpeed);
+  if (CrEnum in LeaderScout) then
+    Result := TSaga.LeaderScoutMaxSpeed
+  else if (CrEnum in LeaderLord) then
+    Result := TSaga.LeaderLordMaxSpeed
+  else
+    Result := TSaga.LeaderDefaultMaxSpeed;
 end;
 
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;

@@ -142,6 +142,7 @@ type
     LeaderWarriorHealAllInPartyPerDay = 10;
     LeaderScoutMaxRadius = 3;
     LeaderScoutMaxSpeed = 12;
+    LeaderLordMaxSpeed = 9;
     LeaderMageCanCastSpellsPerDay = 3;
     LeaderThiefSpyAttemptCountPerDay = 3;
     LeaderThiefPoisonDamageAllInPartyPerLevel = 10;
