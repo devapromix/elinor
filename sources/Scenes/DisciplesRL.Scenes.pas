@@ -98,23 +98,12 @@ type
   TConfirmMethod = procedure() of object;
 
   { TScene }
-{
-type
-  IScene = interface
-    procedure Show(const S: TSceneEnum);
-    procedure Render;
-    procedure Update(var Key: Word);
-    procedure Timer;
-    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
-      X, Y: Integer);
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-  end;
-}
+
 type
   TBGStat = (bsCharacter, bsEnemy, bsParalyze);
 
 type
-  TScene = class(TObject{TInterfacedObject, IScene})
+  TScene = class(TObject)
   private
     FWidth: Integer;
     FScrWidth: Integer;
@@ -670,7 +659,10 @@ end;
 destructor TScenes.Destroy;
 var
   I: TButtonEnum;
+  S: TSceneEnum;
 begin
+  for S := Low(TSceneEnum) to High(TSceneEnum) do
+    FreeAndNil(FScene[S]);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[I]);
   FreeAndNil(Button);

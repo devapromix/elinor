@@ -71,7 +71,8 @@ uses
   DisciplesRL.Resources,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Skills;
 
 var
   CloseButton: TButton;
@@ -204,7 +205,7 @@ begin
             LeaderParty.UpdateLevel(Position);
             Battle.Log.Add(Format('%s повысил%s уровень до %d!',
               [Name[0], GenderEnding, Level + 1]));
-            IsNewLevel := Leadership > 0;
+            IsNewLevel := (Leadership > 0) and (Level <= MaxSkills);
           end;
   end;
 end;
