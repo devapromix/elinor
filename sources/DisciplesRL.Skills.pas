@@ -8,8 +8,8 @@ uses
 type
   TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifact,
     skBanner, skBoots, skLeadership1, skLeadership2, skLeadership3,
-    skLeadership4, skLeadership5, skWand, skAuras, skOri, skTrader, skProtect,
-    skTalisman, skInstructor);
+    skLeadership4, skLeadership5, skWand, skAccuracy, skOri, skTrader, skProtect,
+    skTalisman, skInstructor, skBook, skOrb);
 
 type
   TSkill = record
@@ -68,9 +68,9 @@ const
     (Enum: skWand; Name: 'Посохи и Свитки';
     Description: ('Позволяет предводителю использовать',
     'магические посохи и свитки.');),
-    // Auras
-    (Enum: skAuras; Name: 'Ауры'; Description: ('Магические ауры предводителя',
-    'благотворно влияют на весь отряд.');),
+    // Accuracy
+    (Enum: skAccuracy; Name: 'Точность'; Description: ('Увеличивает шанс предводителя',
+    'попасть по противнику.');),
     // Ori
     (Enum: skOri; Name: 'Ориентирование';
     Description: ('Увеличивает дистанцию, которую может',
@@ -90,7 +90,15 @@ const
     // Instructor
     (Enum: skInstructor; Name: 'Инструктор';
     Description: ('Все воины в отряде предводителя',
-    'будут получать больше опыта.');)
+    'будут получать больше опыта.');),
+    // Book
+    (Enum: skBook; Name: 'Тайное Знание';
+    Description: ('Позволяет предводителю читать',
+    'магические книги и таблички.');),
+    // Orb
+    (Enum: skOrb; Name: 'Тайное Знание';
+    Description: ('Позволяет предводителю брать в руки',
+    'сферы и использовать их в бою.');)
     //
     );
 

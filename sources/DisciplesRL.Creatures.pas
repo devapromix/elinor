@@ -571,7 +571,7 @@ const
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skAuras;),
+    AttackEnum: atLongSword; SkillEnum: skTalisman;),
     // Squire
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
     Name: ('Сквайр', 'Сквайра');
@@ -666,7 +666,7 @@ const
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skAuras;),
+    AttackEnum: atLongSword; SkillEnum: skTalisman;),
     // Fighter
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire; Size: szSmall;
     Name: ('Воин', 'Воина'); Description: ('Услышав зов Мортис, безропотно',
@@ -756,7 +756,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skAuras;),
+    AttackEnum: atLongSword; SkillEnum: skTalisman;),
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
     Size: szSmall; Name: ('Одержимый', 'Одержимого');
