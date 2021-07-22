@@ -7,7 +7,8 @@ uses
 
 type
   TSkillEnum = (skNone, skFly, skSpy, skArtifact, skBanner, skBoots,
-    skLeadership, skWand, skAuras, skOri);
+    skLeadership1, skLeadership2, skLeadership3, skLeadership4, skLeadership5,
+    skWand, skAuras, skOri);
 
 type
   TSkill = record
@@ -36,8 +37,24 @@ const
     // Boots
     (Enum: skBoots; Name: 'Опыт Странника';
     Description: ('Позволяет предводителю носить', 'магическую обувь.');),
-    // Leadership
-    (Enum: skLeadership; Name: 'Лидерство';
+    // Leadership #1
+    (Enum: skLeadership1; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в',
+    'отряд еще одного воина.');),
+    // Leadership #2
+    (Enum: skLeadership2; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в',
+    'отряд еще одного воина.');),
+    // Leadership #3
+    (Enum: skLeadership3; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в',
+    'отряд еще одного воина.');),
+    // Leadership #4
+    (Enum: skLeadership4; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в',
+    'отряд еще одного воина.');),
+    // Leadership #5
+    (Enum: skLeadership5; Name: 'Лидерство';
     Description: ('Позволяет предводителю взять в',
     'отряд еще одного воина.');),
     // Wand
@@ -62,17 +79,20 @@ type
   private
     FSkill: array [0 .. MaxSkills - 1] of TSkill;
   public
+    RandomSkillEnum: array [0 .. 2] of TSkillEnum;
     constructor Create;
     destructor Destroy; override;
     function Has(const SkillEnum: TSkillEnum): Boolean;
     procedure Add(const SkillEnum: TSkillEnum);
     function Get(const I: Integer): TSkillEnum;
+    procedure Gen;
     procedure Clear;
   end;
 
 implementation
 
 uses
+  Math,
   SysUtils;
 
 { TSkills }
@@ -106,6 +126,24 @@ destructor TSkills.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TSkills.Gen;
+var
+  J: Integer;
+  I, R: TSkillEnum;
+begin
+  for J := 0 to 2 do
+    RandomSkillEnum[J] := skNone;
+  for J := 0 to 2 do
+  begin
+    repeat
+      R := TSkillEnum(RandomRange(Ord(Succ(Low(TSkillEnum))),
+        Ord(High(TSkillEnum))));
+    until not Has(R) and (R <> RandomSkillEnum[0]) and (R <> RandomSkillEnum[1])
+      and (R <> RandomSkillEnum[2]);
+    RandomSkillEnum[J] := R;
+  end;
 end;
 
 function TSkills.Get(const I: Integer): TSkillEnum;

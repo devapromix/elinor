@@ -19,7 +19,7 @@ type
   private
   var
     LastMousePos, MousePos: TPoint;
-  FM: Boolean;
+    FM: Boolean;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -44,7 +44,8 @@ uses
 
 { TSceneMap }
 
-procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
 var
   CurrentPartyIndex: Integer;
 begin
@@ -53,16 +54,16 @@ begin
     mbLeft:
       begin
         if FM then
+        begin
+          // Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
+          CurrentPartyIndex := TSaga.GetPartyIndex(MousePos.X, MousePos.Y);
+          if CurrentPartyIndex > 0 then
           begin
-            //Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
-            CurrentPartyIndex := TSaga.GetPartyIndex(MousePos.X, MousePos.Y);
-            if CurrentPartyIndex > 0 then
-            begin
-              Party[CurrentPartyIndex].HealAll(25);
-              FM := False;
-            end;
-            Exit;
+            Party[CurrentPartyIndex].HealAll(25);
+            FM := False;
           end;
+          Exit;
+        end;
         if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
         else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
@@ -145,7 +146,7 @@ begin
       F := not TLeaderParty.Leader.InRadius(X, Y) and
         not(Game.Map.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
         (Game.Map.GetTile(lrDark, X, Y) = reNone) and
-        not (Game.Map.GetTile(lrSee, X, Y) = reNone);
+        not(Game.Map.GetTile(lrSee, X, Y) = reNone);
 
       // Special
       if Game.Wizard and
@@ -190,12 +191,13 @@ begin
   // Cursor
   if FM then
   begin
-    //for X := MousePos.X - 1 to MousePos.X + 1 do
-    //  for Y := MousePos.Y - 1 to MousePos.Y + 1 do
-    //    DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reCursorMagic])
-    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize, ResImage[reCursorMagic]);
-  end else
-  if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then
+    // for X := MousePos.X - 1 to MousePos.X + 1 do
+    // for Y := MousePos.Y - 1 to MousePos.Y + 1 do
+    // DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reCursorMagic])
+    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
+      ResImage[reCursorMagic]);
+  end
+  else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then
     DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
       ResImage[reCursor])
   else
@@ -256,7 +258,10 @@ begin
     K_M:
       FM := not FM;
     K_N:
-       TSceneHire.Show(stNewSkill);
+      begin
+        TLeaderParty.Leader.Skills.Gen;
+        TSceneHire.Show(stAbilities);
+      end;
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
     K_V:

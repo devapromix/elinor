@@ -19,7 +19,7 @@ uses
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
     stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
-    stDifficulty, stNewSkill);
+    stDifficulty, stAbilities);
 
 type
 
@@ -59,6 +59,9 @@ type
     procedure RenderRaceInfo;
     procedure RenderHighScores;
     procedure RenderFinalInfo;
+    procedure RenderAbilities(const AScenario: TScenario.TScenarioEnum;
+      const AX, AY: Integer);
+    procedure RenderAbilitiesInfo;
   public
   class var
     MPX: Integer;
@@ -126,15 +129,16 @@ const
     (reTextContinue, reTextCancel),
     // Difficulty
     (reTextContinue, reTextCancel),
-    // New Skill
+    // Abilities
     (reTextClose, reTextClose)
     //
     );
 
 const
   AddButtonScene = [stLoot, stStoneTab];
-  CloseButtonScene = [stJournal, stNewSkill, stVictory, stDefeat, stHighScores2]
-    + AddButtonScene;
+  CloseCloseScene = [stAbilities];
+  CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
+    AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
     stDifficulty, stSpy, stWar];
   WideButtonScene = [stCharacter, stLeader];
@@ -236,7 +240,7 @@ begin
       TSceneHire.Show(stDifficulty);
     stScenario:
       Game.Show(scMenu);
-    stJournal, stSpy, stWar, stNewSkill:
+    stJournal, stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
       begin
@@ -360,9 +364,10 @@ begin
       begin
         Game.Show(scMenu);
       end;
-    stNewSkill:
+    stAbilities:
       begin
-
+        with TLeaderParty.Leader.Skills do
+          Add(RandomSkillEnum[CurrentIndex]);
         TSceneBattle2.AfterVictory;
       end;
     stStoneTab:
@@ -619,6 +624,19 @@ begin
   end;
 end;
 
+procedure TSceneHire.RenderAbilities(const AScenario: TScenario.TScenarioEnum;
+  const AX, AY: Integer);
+begin
+  case AScenario of
+    sgDarkTower:
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
+    sgOverlord:
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
+    sgAncientKnowledge:
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
+  end;
+end;
+
 procedure TSceneHire.Add;
 begin
   Inc(T, H);
@@ -700,6 +718,19 @@ begin
       sgAncientKnowledge:
         Add(Game.Scenario.ScenarioAncientKnowledgeState);
     end;
+end;
+
+procedure TSceneHire.RenderAbilitiesInfo;
+var
+  S: TSkillEnum;
+begin
+  T := Top + 6;
+  L := Lf + ResImage[reActFrame].Width + 12;
+  S := TLeaderParty.Leader.Skills.RandomSkillEnum[CurrentIndex];
+  Add(SkillBase[S].Name, True);
+  Add;
+  Add(SkillBase[S].Description[0]);
+  Add(SkillBase[S].Description[1]);
 end;
 
 procedure TSceneHire.RenderFinalInfo;
@@ -857,7 +888,8 @@ begin
             CurrentIndex := 2;
           end;
         end;
-        if not(SubScene in CloseButtonScene) then
+        if not(SubScene in CloseButtonScene) or (SubScene in CloseCloseScene)
+        then
         begin
           if MouseOver(Lf, Top, X, Y) then
           begin
@@ -1076,10 +1108,20 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stNewSkill:
+    stAbilities:
       begin
         DrawImage(reWallpaperScenario);
         DrawTitle(reTitleAbilities);
+        for S := Low(TScenario.TScenarioEnum)
+          to High(TScenario.TScenarioEnum) do
+        begin
+          if Ord(S) = CurrentIndex then
+            DrawImage(Lf, Top + Y, reActFrame)
+          else
+            DrawImage(Lf, Top + Y, reFrame);
+          RenderAbilities(S, Lf, Top + Y);
+          Inc(Y, 120);
+        end;
       end;
     stVictory:
       begin
@@ -1157,8 +1199,7 @@ begin
         end;
       end;
   end;
-  if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene -
-    [stNewSkill] then
+  if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reActFrame].Width + 2, Top, reInfoFrame);
   case SubScene of
     stCharacter, stLeader:
@@ -1211,6 +1252,8 @@ begin
       RenderDifficultyInfo;
     stScenario, stJournal:
       RenderScenarioInfo;
+    stAbilities:
+      RenderAbilitiesInfo;
     stVictory, stDefeat:
       RenderFinalInfo;
     stHighScores2:
@@ -1308,12 +1351,8 @@ begin
       Upd(Ord(High(TRaceCharKind)));
     stDifficulty:
       Upd(Ord(High(TSaga.TDifficultyEnum)));
-    stVictory, stDefeat, stScenario, stHighScores2:
+    stVictory, stDefeat, stScenario, stHighScores2, stAbilities:
       Upd(Ord(High(TScenario.TScenarioEnum)));
-    stNewSkill:
-      begin
-
-      end;
   end;
   if (SubScene in CloseButtonScene) then
     case Key of

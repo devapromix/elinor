@@ -225,7 +225,8 @@ begin
   if IsNewLevel then
   begin
     IsNewLevel := False;
-    TSceneHire.Show(stNewSkill);
+    TLeaderParty.Leader.Skills.Gen;
+    TSceneHire.Show(stAbilities);
     Exit;
   end;
   AfterVictory;
