@@ -6,9 +6,10 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSkillEnum = (skNone, skFly, skSpy, skHawkEye, skArtifact, skBanner, skBoots,
-    skLeadership1, skLeadership2, skLeadership3, skLeadership4, skLeadership5,
-    skWand, skAuras, skOri, skTrader);
+  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifact,
+    skBanner, skBoots, skLeadership1, skLeadership2, skLeadership3,
+    skLeadership4, skLeadership5, skWand, skAuras, skOri, skTrader, skProtect,
+    skTalisman, skInstructor);
 
 type
   TSkill = record
@@ -24,6 +25,9 @@ const
     // Fly
     (Enum: skFly; Name: 'Полет'; Description: ('Умение позволяет предводителю',
     'и его отряду летать над землей.');),
+    // Strength
+    (Enum: skStrenght; Name: 'Сила';
+    Description: ('Добавляет к атаке предводителя', '25% урона.');),
     // Spy
     (Enum: skSpy; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
@@ -72,9 +76,21 @@ const
     Description: ('Увеличивает дистанцию, которую может',
     'пройти отряд предводителя.');),
     // Trader
-    (Enum: skOri; Name: 'Торговец';
+    (Enum: skTrader; Name: 'Торговец';
     Description: ('Обладатель этой способности',
-    'получает скидку 20% у торговца.');)
+    'получает скидку 20% у торговца.');),
+    // Protect
+    (Enum: skProtect; Name: 'Естественная Броня';
+    Description: ('Предводитель будет поглощать 20%',
+    'наносимого ему урона.');),
+    // Talisman
+    (Enum: skTalisman; Name: 'Сила Талисманов';
+    Description: ('Позволяет предводителю надевать',
+    'талисманы и использовать их в бою.');),
+    // Instructor
+    (Enum: skInstructor; Name: 'Инструктор';
+    Description: ('Все воины в отряде предводителя',
+    'будут получать больше опыта.');)
     //
     );
 
