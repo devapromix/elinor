@@ -542,7 +542,7 @@ type
     class function GetRandomEnum(const P, Position: Integer)
       : TCreatureEnum; static;
     class function EquippedWeapon(const AttackEnum: TAttackEnum;
-      const SourceEnum: TSourceEnum): string; static;
+      const ASourceEnum: TSourceEnum): string; static;
   end;
 
 implementation
@@ -1020,12 +1020,12 @@ begin
 end;
 
 class function TCreature.EquippedWeapon(const AttackEnum: TAttackEnum;
-  const SourceEnum: TSourceEnum): string;
+  const ASourceEnum: TSourceEnum): string;
 begin
   Result := AttackName[AttackEnum];
   case AttackEnum of
     atMagic:
-      Result := StaffName[SourceEnum];
+      Result := StaffName[ASourceEnum];
     atDrainLife:
       Result := 'Посох Затмения';
   end;
