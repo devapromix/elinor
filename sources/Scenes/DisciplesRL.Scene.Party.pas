@@ -73,7 +73,8 @@ uses
   SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Button;
+  DisciplesRL.Button,
+  DisciplesRL.Items;
 
 type
   TButtonEnum = (btSkills, btClose, btInventory);
@@ -448,6 +449,8 @@ var
   end;
 
   procedure ShowInventory;
+  var
+    I: Integer;
   begin
     CurCrEnum := TLeaderParty.Leader.Enum;
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
@@ -473,11 +476,8 @@ var
     T := GetFrameY(0, psRight) + 6;
     Add('Инвентарь', True);
     Add;
-    Add('Шляпа Внимания');
-    Add('Походная Кираса');
-    Add('Сапоги Кавалериста');
-    Add('Верховный Судья');
-    Add('Древняя Реликвия');
+    for I := 0 to MaxInventoryItems - 1 do
+      Add(TLeaderParty.Leader.Inventory.Item(I).Name);
   end;
 
 begin

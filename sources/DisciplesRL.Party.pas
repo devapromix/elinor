@@ -5,6 +5,7 @@ interface
 uses
   Types,
   DisciplesRL.Creatures,
+  DisciplesRL.Items,
   DisciplesRL.Map;
 
 type
@@ -88,6 +89,7 @@ type
     FSpells: Integer;
     FSpy: Integer;
     FSkills: TSkills;
+    FInventory: TInventory;
     function GetRadius: Integer; overload;
   public
   class var
@@ -123,6 +125,7 @@ type
     class function GetMaxSpeed(const CrEnum: TCreatureEnum): Integer; overload;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
     property Skills: TSkills read FSkills write FSkills;
+    property Inventory: TInventory read FInventory write FInventory;
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
   end;
 
@@ -465,6 +468,7 @@ procedure TLeaderParty.Clear;
 begin
   Skills.Clear;
   Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
+  Inventory.Clear;
   MaxSpeed := GetMaxSpeed;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
@@ -478,12 +482,14 @@ constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
 begin
   inherited Create(AX, AY, AOwner);
   FSkills := TSkills.Create;
+  FInventory:= TInventory.Create;
   FMaxLeadership := 1;
   FRadius := 1;
 end;
 
 destructor TLeaderParty.Destroy;
 begin
+  FreeAndNil(FInventory);
   FreeAndNil(FSkills);
   inherited;
 end;
