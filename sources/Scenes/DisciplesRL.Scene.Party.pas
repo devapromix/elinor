@@ -34,6 +34,7 @@ type
     procedure Add(S: string; F: Boolean); overload;
     procedure Add(S: string); overload;
     procedure Add2(S: string);
+    procedure Add(S: string; V: Integer); overload;
   public
     constructor Create;
     destructor Destroy; override;
@@ -96,6 +97,12 @@ const
 
 procedure TSceneParty.Add;
 begin
+  Inc(T, LineHeight);
+end;
+
+procedure TSceneParty.Add(S: string; V: Integer);
+begin
+  DrawText(L, T, Format('%s: %d', [S, V]));
   Inc(T, LineHeight);
 end;
 
@@ -478,12 +485,28 @@ var
     Add(Format('Артефакт: %s', ['-']));
     Add(Format('Артефакт: %s', ['-']));
     Add(Format('Сапоги: %s', ['-']));
-    L := GetFrameX(0, psRight) + 350 + 12;
+    L := GetFrameX(0, psRight) + 320 + 12;
     T := GetFrameY(0, psRight) + 6;
     Add('Инвентарь', True);
     Add;
     for I := 0 to MaxInventoryItems - 1 do
       Add(TLeaderParty.Leader.Inventory.Item(I).Name);
+  end;
+
+  procedure ShowInfo;
+  begin
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
+    C := CurrentParty.Creature[ActivePartyPosition].Enum;
+    if (C <> crNone) then
+      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, True, 20);
+    DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2 + 20, Top, reInfoFrame);
+    T := Top + 6;
+    L := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
+    Add('Статистика', True);
+    Add;
+    Add('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
+    Add('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
+    Add('Очки', Game.Statistics.GetValue(stScore));
   end;
 
 begin
@@ -496,22 +519,9 @@ begin
   else if FShowSkills then
     ShowSkills
   else
-  begin
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
-    C := CurrentParty.Creature[ActivePartyPosition].Enum;
-    if (C <> crNone) then
-      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C);
-  end;
+    ShowInfo;
   if FShowResources then
-  begin
     DrawResources;
-    DrawImage(140, 10, reSmallFrame);
-    DrawText(149, 24, Format('Скорость %d/%d', [TLeaderParty.Leader.Speed,
-      TLeaderParty.Leader.MaxSpeed]));
-    DrawText(149, 54, Format('Обзор %d', [TLeaderParty.Leader.Radius]));
-    DrawText(149, 84, Format('Лидерство %d',
-      [TLeaderParty.Leader.MaxLeadership]));
-  end;
   RenderButtons;
 end;
 

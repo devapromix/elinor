@@ -52,7 +52,7 @@ type
     procedure Add(S, V: string); overload;
     procedure Add(S: string; V, M: Integer); overload;
     procedure Add(S: string; V: Integer; R: string = ''); overload;
-    procedure Add2(S: string; V: Integer); overload;
+    procedure Add2(S: string); overload;
     procedure RenderRaceInfo;
     procedure RenderHighScores;
     procedure RenderFinalInfo;
@@ -74,7 +74,8 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
-    procedure RenderCharacterInfo(C: TCreatureEnum; const F: Boolean = True);
+    procedure RenderCharacterInfo(C: TCreatureEnum; const F: Boolean;
+      const N: Integer = 0);
     class procedure Show(const ASubScene: THireSubSceneEnum); overload;
     class procedure Show(const Party: TParty; const Position: Integer);
       overload;
@@ -512,25 +513,27 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const F: Boolean);
+procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const F: Boolean;
+  const N: Integer);
 var
   J: Integer;
 begin
   T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  L := Lf + ResImage[reActFrame].Width + 12 + N;
   with TCreature.Character(C) do
   begin
     Add(Name[0], True);
     Add;
-    if TSaga.IsGame and F then
-      Add2('Побед', Game.Statistics.GetValue(stBattlesWon));
     Add('Уровень', Level);
     if TSaga.IsGame and F then
-      Add2('Убито', Game.Statistics.GetValue(stKilledCreatures));
+      Add2(Format('Скорость %d/%d', [TLeaderParty.Leader.Speed,
+        TLeaderParty.Leader.MaxSpeed]));
     Add('Точность', ChancesToHit, '%');
     if TSaga.IsGame and F then
-      Add2('Очки', Game.Statistics.GetValue(stScore));
+      Add2(Format('Лидерство %d', [TLeaderParty.Leader.MaxLeadership]));
     Add('Инициатива', Initiative);
+    if TSaga.IsGame and F then
+      Add2(Format('Обзор %d', [TLeaderParty.Leader.Radius]));
     Add('Здоровье', HitPoints, HitPoints);
     Add('Урон', Damage);
     Add('Броня', Armor);
@@ -657,9 +660,9 @@ begin
   Inc(T, LineHeight);
 end;
 
-procedure TSceneHire.Add2(S: string; V: Integer);
+procedure TSceneHire.Add2(S: string);
 begin
-  DrawText(L + 200, T, Format('%s: %d', [S, V]));
+  DrawText(L + 200, T, S);
 end;
 
 procedure TSceneHire.Add(S: string; V, M: Integer);
@@ -1220,6 +1223,7 @@ begin
                 TCreature.Character(CurCrEnum).Gold);
             end;
           stLeader:
+            if CurCrEnum <> crNone then
             begin
               DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
                 reInfoFrame);
