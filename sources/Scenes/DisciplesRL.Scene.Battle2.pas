@@ -315,6 +315,7 @@ begin
   begin
     ChExperience;
     Game.MediaPlayer.Play(mmWin);
+    Game.MediaPlayer.PlayMusic(mmWinBattle);
   end;
   if LeaderParty.IsClear then
   begin

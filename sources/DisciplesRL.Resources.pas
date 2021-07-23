@@ -364,14 +364,14 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
-    mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
-    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmSpearAttack,
-    mmDaggerAttack, mmClubAttack, mmBlock, mmMiss, mmNosferatAttack,
-    mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit, mmGoblinDeath,
-    mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
-    mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack,
-    mmHit, mmDeath, mmAttack, mmGold);
+  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin,
+    mmWinBattle, mmGame, mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel,
+    mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
+    mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
+    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
+    mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack,
+    mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
+    mmGhostAttack, mmHit, mmDeath, mmAttack, mmGold);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -391,6 +391,8 @@ const
     (FileName: 'defeat.mp3'; ResType: teMusic;),
     // Win in battle
     (FileName: 'himwar.wav'; ResType: teSound;),
+    // Win in battle
+    (FileName: 'ubermensch.mp3'; ResType: teMusic;),
     // Game
     (FileName: 'soliloquy.mp3'; ResType: teMusic;),
     // Map
@@ -471,6 +473,8 @@ const
     (FileName: 'coin.wav'; ResType: teSound;)
     //
     );
+
+function GetPath(SubDir: string): string;
 
 implementation
 
