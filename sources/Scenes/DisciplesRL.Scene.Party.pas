@@ -16,8 +16,6 @@ uses
 
 type
   TSceneParty = class(TScene)
-  private const
-    H = 25;
   private
   var
     T, L: Integer;
@@ -75,7 +73,8 @@ uses
   SysUtils,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Button;
+  DisciplesRL.Button,
+  DisciplesRL.Items;
 
 type
   TButtonEnum = (btSkills, btClose, btInventory);
@@ -97,30 +96,30 @@ const
 
 procedure TSceneParty.Add;
 begin
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add(S, V: string);
 begin
   DrawText(L, T, Format('%s: %s', [S, V]));
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add(S: string; F: Boolean);
 begin
   DrawText(L, T, S, F);
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add(S: string);
 begin
   DrawText(L, T, S, False);
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add2(S: string);
 begin
-  DrawText(L + 250, T - (H div 2), S);
+  DrawText(L + 250, T - (LineHeight div 2), S);
 end;
 
 class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
@@ -402,7 +401,7 @@ end;
 
 procedure TSceneParty.Render;
 var
-  C: TCreatureEnum;
+  C, CurCrEnum: TCreatureEnum;
 
   procedure RenderButtons;
   var
@@ -450,10 +449,35 @@ var
   end;
 
   procedure ShowInventory;
+  var
+    I: Integer;
   begin
+    CurCrEnum := TLeaderParty.Leader.Enum;
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     L := GetFrameX(0, psRight) + 12;
     T := GetFrameY(0, psRight) + 6;
+    Add('Экипировка', True);
+    Add;
+    Add(Format('Шлем: %s', ['-']));
+    Add(Format('Амулет: %s', ['-']));
+    Add(Format('Знамя: %s', ['-']));
+    Add(Format('Книга: %s', ['-']));
+    Add(Format('Доспех: %s', ['-']));
+    Add(Format('Правая рука: %s',
+      [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum).AttackEnum,
+      TCreature.Character(CurCrEnum).SourceEnum)]));
+    Add(Format('Левая рука: %s', ['-']));
+    Add(Format('Кольцо: %s', ['-']));
+    Add(Format('Кольцо: %s', ['-']));
+    Add(Format('Артефакт: %s', ['-']));
+    Add(Format('Артефакт: %s', ['-']));
+    Add(Format('Сапоги: %s', ['-']));
+    L := GetFrameX(0, psRight) + 350 + 12;
+    T := GetFrameY(0, psRight) + 6;
+    Add('Инвентарь', True);
+    Add;
+    for I := 0 to MaxInventoryItems - 1 do
+      Add(TLeaderParty.Leader.Inventory.Item(I).Name);
   end;
 
 begin
