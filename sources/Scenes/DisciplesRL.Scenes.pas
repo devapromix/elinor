@@ -24,6 +24,7 @@ type
 const
   Top = 220;
   Left = 10;
+  LineHeight = 24;
   DefaultButtonTop = 600;
   ScreenWidth = 1344;
   ScreenHeight = 704;

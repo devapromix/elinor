@@ -25,8 +25,6 @@ type
   { TSceneHire }
 
   TSceneHire = class(TScene)
-  private const
-    H = 25;
   private
   var
     T, L: Integer;
@@ -638,25 +636,25 @@ end;
 
 procedure TSceneHire.Add;
 begin
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneHire.Add(S: string; F: Boolean = False);
 begin
   DrawText(L, T, S, F);
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneHire.Add(S, V: string);
 begin
   DrawText(L, T, Format('%s: %s', [S, V]));
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneHire.Add(S: string; V: Integer; R: string = '');
 begin
   DrawText(L, T, Format('%s: %d%s', [S, V, R]));
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneHire.Add2(S: string; V: Integer);
@@ -667,7 +665,7 @@ end;
 procedure TSceneHire.Add(S: string; V, M: Integer);
 begin
   DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneHire.RenderRaceInfo;

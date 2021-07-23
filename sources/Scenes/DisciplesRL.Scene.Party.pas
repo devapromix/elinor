@@ -17,58 +17,55 @@ uses
 type
   TSceneParty = class(TScene)
   private
-  const
-    H = 24;
-  private
   var
-    T, L: integer;
-    P: boolean;
+    T, L: Integer;
+    P: Boolean;
   private
-    class var
-    FShowSkills: boolean;
-    FShowInventory: boolean;
-    FShowResources: boolean;
+  class var
+    FShowSkills: Boolean;
+    FShowInventory: Boolean;
+    FShowResources: Boolean;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure Close;
     procedure OpenInventory;
     procedure OpenSkills;
     procedure Add(S, V: string); overload;
     procedure Add; overload;
-    procedure Add(S: string; F: boolean); overload;
+    procedure Add(S: string; F: Boolean); overload;
     procedure Add(S: string); overload;
     procedure Add2(S: string);
   public
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
-    procedure Update(var Key: word); override;
+    procedure Update(var Key: Word); override;
     procedure Timer; override;
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
-      X, Y: integer); override;
-    procedure MouseMove(Shift: TShiftState; X, Y: integer); override;
-    procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: integer;
-      CanHire: boolean = False; ShowExp: boolean = True); overload;
+      X, Y: Integer); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
+      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class procedure RenderParty(const PartySide: TPartySide;
-      const Party: TParty; CanHire: boolean = False; ShowExp: boolean = True);
+      const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
     class function GetFrameY(const Position: TPosition;
-      const PartySide: TPartySide): integer;
+      const PartySide: TPartySide): Integer;
     class function GetFrameX(const Position: TPosition;
-      const PartySide: TPartySide): integer;
+      const PartySide: TPartySide): Integer;
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
-      F: boolean = False); overload;
-    procedure DrawUnitInfo(Name: string;
-      AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage,
-      Heal, Armor, Initiative, ChToHit: integer; IsExp: boolean); overload;
-    procedure DrawUnitInfo(Position: TPosition; Party: TParty;
-      AX, AY: integer; ShowExp: boolean = True); overload;
-    procedure DrawUnitInfo(AX, AY: integer; ACreature: TCreatureEnum;
-      IsAdv: boolean = True); overload;
+      F: Boolean = False); overload;
+    procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
+      MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
+      IsExp: Boolean); overload;
+    procedure DrawUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
+      ShowExp: Boolean = True); overload;
+    procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
+      IsAdv: Boolean = True); overload;
   end;
 
 var
-  SelectPartyPosition: integer = -1;
-  ActivePartyPosition: integer = 2;
-  CurrentPartyPosition: integer = 2;
+  SelectPartyPosition: Integer = -1;
+  ActivePartyPosition: Integer = 2;
+  CurrentPartyPosition: Integer = 2;
 
 implementation
 
@@ -89,43 +86,43 @@ var
   Button: array [TButtonEnum] of TButton;
   CurrentParty: TParty;
   BackScene: TSceneEnum;
-  Lf: integer = 0;
+  Lf: Integer = 0;
 
 const
   S = 2;
 
-{ TSceneParty }
+  { TSceneParty }
 
 procedure TSceneParty.Add;
 begin
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add(S, V: string);
 begin
   DrawText(L, T, Format('%s: %s', [S, V]));
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
-procedure TSceneParty.Add(S: string; F: boolean);
+procedure TSceneParty.Add(S: string; F: Boolean);
 begin
   DrawText(L, T, S, F);
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add(S: string);
 begin
   DrawText(L, T, S, False);
-  Inc(T, H);
+  Inc(T, LineHeight);
 end;
 
 procedure TSceneParty.Add2(S: string);
 begin
-  DrawText(L + 250, T - (H div 2), S);
+  DrawText(L + 250, T - (LineHeight div 2), S);
 end;
 
 class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
-  F: boolean = False);
+  F: Boolean = False);
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
@@ -172,43 +169,43 @@ begin
 end;
 
 class function TSceneParty.GetFrameX(const Position: TPosition;
-  const PartySide: TPartySide): integer;
+  const PartySide: TPartySide): Integer;
 var
-  W: integer;
+  W: Integer;
 begin
   W := Game.Width div 4;
   case Position of
     0, 2, 4:
-    begin
-      case PartySide of
-        psLeft:
-          Result := (W + Left) - (W - ResImage[reFrame].Width - S);
+      begin
+        case PartySide of
+          psLeft:
+            Result := (W + Left) - (W - ResImage[reFrame].Width - S);
         else
           Result := Game.Width - (Left + S + (ResImage[reFrame].Width * 2));
+        end;
       end;
-    end;
-    else
+  else
     begin
       case PartySide of
         psLeft:
           Result := Left;
-        else
-          Result := Game.Width - ResImage[reFrame].Width - Left;
+      else
+        Result := Game.Width - ResImage[reFrame].Width - Left;
       end;
     end;
   end;
 end;
 
 class function TSceneParty.GetFrameY(const Position: TPosition;
-  const PartySide: TPartySide): integer;
+  const PartySide: TPartySide): Integer;
 begin
   case Position of
     0, 1:
       Result := Top;
     2, 3:
       Result := Top + ResImage[reFrame].Height + S;
-    else
-      Result := Top + ((ResImage[reFrame].Height + S) * 2);
+  else
+    Result := Top + ((ResImage[reFrame].Height + S) * 2);
   end;
 end;
 
@@ -236,8 +233,8 @@ begin
 end;
 
 procedure TSceneParty.DrawUnitInfo(Name: string;
-  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal,
-  Armor, Initiative, ChToHit: integer; IsExp: boolean);
+  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
+  Initiative, ChToHit: Integer; IsExp: Boolean);
 var
   S: string;
 begin
@@ -255,12 +252,12 @@ begin
   else
     DrawText(AX + Left + 64, AY + 69, Format('Исцеление %d Броня %d',
       [Heal, Armor]));
-  DrawText(AX + Left + 64, AY + 90,
-    Format('Инициатива %d Точность %d', [Initiative, ChToHit]) + '%');
+  DrawText(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d',
+    [Initiative, ChToHit]) + '%');
 end;
 
 procedure TSceneParty.DrawUnitInfo(Position: TPosition; Party: TParty;
-  AX, AY: integer; ShowExp: boolean = True);
+  AX, AY: Integer; ShowExp: Boolean = True);
 begin
   with Party.Creature[Position] do
   begin
@@ -270,8 +267,8 @@ begin
   end;
 end;
 
-procedure TSceneParty.DrawUnitInfo(AX, AY: integer; ACreature: TCreatureEnum;
-  IsAdv: boolean = True);
+procedure TSceneParty.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
+  IsAdv: Boolean = True);
 begin
   with TCreature.Character(ACreature) do
     DrawUnitInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
@@ -279,9 +276,9 @@ begin
 end;
 
 procedure TSceneParty.DrawUnit(Position: TPosition; Party: TParty;
-  AX, AY: integer; CanHire: boolean = False; ShowExp: boolean = True);
+  AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
-  F: boolean;
+  F: Boolean;
   V: TBGStat;
 begin
   F := Party.Owner = TSaga.LeaderRace;
@@ -313,7 +310,7 @@ begin
 end;
 
 class procedure TSceneParty.RenderParty(const PartySide: TPartySide;
-  const Party: TParty; CanHire: boolean = False; ShowExp: boolean = True);
+  const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
 var
   Position: TPosition;
 begin
@@ -332,7 +329,7 @@ end;
 constructor TSceneParty.Create;
 var
   I: TButtonEnum;
-  Lt, W: integer;
+  Lt, W: Integer;
 begin
   inherited;
   W := ResImage[reButtonDef].Width + 4;
@@ -360,38 +357,38 @@ begin
 end;
 
 procedure TSceneParty.MouseDown(AButton: TMouseButton; Shift: TShiftState;
-  X, Y: integer);
+  X, Y: Integer);
 begin
   inherited;
   case AButton of
     mbLeft:
-    begin
-      if Button[btSkills].MouseDown and FShowResources then
       begin
-        OpenSkills;
-        Exit;
+        if Button[btSkills].MouseDown and FShowResources then
+        begin
+          OpenSkills;
+          Exit;
+        end;
+        if Button[btClose].MouseDown then
+        begin
+          Close;
+          Exit;
+        end;
+        if Button[btInventory].MouseDown and FShowResources then
+        begin
+          OpenInventory;
+          Exit;
+        end;
+        CurrentPartyPosition := GetPartyPosition(X, Y);
+        if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
+          Exit;
+        ActivePartyPosition := CurrentPartyPosition;
+        Game.MediaPlayer.Play(mmClick);
+        Render;
       end;
-      if Button[btClose].MouseDown then
-      begin
-        Close;
-        Exit;
-      end;
-      if Button[btInventory].MouseDown and FShowResources then
-      begin
-        OpenInventory;
-        Exit;
-      end;
-      CurrentPartyPosition := GetPartyPosition(X, Y);
-      if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
-        Exit;
-      ActivePartyPosition := CurrentPartyPosition;
-      Game.MediaPlayer.Play(mmClick);
-      Render;
-    end;
   end;
 end;
 
-procedure TSceneParty.MouseMove(Shift: TShiftState; X, Y: integer);
+procedure TSceneParty.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
   I: TButtonEnum;
 begin
@@ -416,7 +413,7 @@ var
 
   procedure ShowSkills;
   var
-    I, Mn, Mx: integer;
+    I, Mn, Mx: Integer;
     S: TSkillEnum;
   begin
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
@@ -464,8 +461,8 @@ var
     Add(Format('Книга: %s', ['-']));
     Add(Format('Доспех: %s', ['-']));
     Add(Format('Правая рука: %s',
-      [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum)
-      .AttackEnum, TCreature.Character(CurCrEnum).SourceEnum)]));
+      [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum).AttackEnum,
+      TCreature.Character(CurCrEnum).SourceEnum)]));
     Add(Format('Левая рука: %s', ['-']));
     Add(Format('Кольцо: %s', ['-']));
     Add(Format('Кольцо: %s', ['-']));
@@ -503,8 +500,8 @@ begin
   begin
     DrawResources;
     DrawImage(140, 10, reSmallFrame);
-    DrawText(149, 24, Format('Скорость %d/%d',
-      [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
+    DrawText(149, 24, Format('Скорость %d/%d', [TLeaderParty.Leader.Speed,
+      TLeaderParty.Leader.MaxSpeed]));
     DrawText(149, 54, Format('Обзор %d', [TLeaderParty.Leader.Radius]));
     DrawText(149, 84, Format('Лидерство %d',
       [TLeaderParty.Leader.MaxLeadership]));
@@ -518,7 +515,7 @@ begin
 
 end;
 
-procedure TSceneParty.Update(var Key: word);
+procedure TSceneParty.Update(var Key: Word);
 begin
   inherited;
   case Key of
