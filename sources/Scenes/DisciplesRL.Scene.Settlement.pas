@@ -513,6 +513,9 @@ begin
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement, True);
+    K_T:
+      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement,
+        False, True);
     K_V:
       Hire;
     K_H:

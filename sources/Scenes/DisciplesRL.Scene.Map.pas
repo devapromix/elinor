@@ -264,6 +264,9 @@ begin
       end;
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+    K_T:
+      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap,
+        False, True);
     K_V:
       if (TLeaderParty.Leader.Enum in LeaderWarrior) then
         TSceneHire.Show(stWar);

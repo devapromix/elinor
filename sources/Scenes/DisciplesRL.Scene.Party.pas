@@ -52,7 +52,7 @@ type
     class function GetFrameX(const Position: TPosition;
       const PartySide: TPartySide): Integer;
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
-      F: Boolean = False); overload;
+      F: Boolean = False; H: Boolean = False); overload;
     procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
       MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
       IsExp: Boolean); overload;
@@ -123,7 +123,7 @@ begin
 end;
 
 class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
-  F: Boolean = False);
+  F: Boolean = False; H: Boolean = False);
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
@@ -138,6 +138,12 @@ begin
   Game.MediaPlayer.Play(mmSettlement);
   FShowInventory := F;
   FShowSkills := False;
+  if H then
+  begin
+    FShowInventory := False;
+    FShowSkills := True;
+
+  end;
 end;
 
 procedure TSceneParty.MoveCursor(Dir: TDirectionEnum);
@@ -524,7 +530,7 @@ begin
     K_I:
       if FShowResources then
         OpenInventory;
-    K_S:
+    K_T:
       if FShowResources then
         OpenSkills;
     K_LEFT, K_KP_4, K_A:
