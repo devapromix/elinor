@@ -49,10 +49,11 @@ type
     //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
-    reDifficultyNormalLogo, reDifficultyHardLogo, reThiefDuel,
-    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
-    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario, reIconScores,
-    reIconScoresOver, reIconClosedGates, reIconOpenedGates);
+    reDifficultyNormalLogo, reDifficultyHardLogo, reThiefSpy, reThiefDuel,
+    reThiefPoison, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
+    reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
+    reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
+    reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -339,8 +340,12 @@ const
     (FileName: 'logo.difficulty.normal.png'; ResType: teGUI;),
     // Difficulty Hard
     (FileName: 'logo.difficulty.hard.png'; ResType: teGUI;),
+    // Thief Spy
+    (FileName: 'logo.thief.spy.png'; ResType: teGUI;),
     // Thief Duel
-    (FileName: 'logo.thief.asskill.png'; ResType: teGUI;),
+    (FileName: 'logo.thief.duel.png'; ResType: teGUI;),
+    // Thief Poison
+    (FileName: 'logo.thief.poison.png'; ResType: teGUI;),
     // Wallpaper Settlement
     (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
     // Wallpaper Menu

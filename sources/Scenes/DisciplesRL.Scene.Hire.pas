@@ -577,11 +577,11 @@ procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar;
 begin
   case N of
     svIntroduceSpy:
-      DrawImage(AX + 7, AY + 7, reThiefDuel);
+      DrawImage(AX + 7, AY + 7, reThiefSpy);
     svDuel:
       DrawImage(AX + 7, AY + 7, reThiefDuel);
     svPoison:
-      DrawImage(AX + 7, AY + 7, reThiefDuel);
+      DrawImage(AX + 7, AY + 7, reThiefPoison);
   end;
 end;
 
