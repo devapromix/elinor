@@ -22,12 +22,11 @@ type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle);
 
 const
-  Top = 220;
-  Left = 10;
-  LineHeight = 24;
-  DefaultButtonTop = 600;
   ScreenWidth = 1344;
   ScreenHeight = 704;
+
+var
+  TextTop, TextLeft: Integer;
 
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);
@@ -112,6 +111,10 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    function TextLineHeight: Byte;
+    class function DefaultButtonTop: Word;
+    class function SceneTop: Byte;
+    class function SceneLeft: Byte;
     procedure Show(const S: TSceneEnum); virtual;
     procedure Render; virtual;
     procedure Update(var Key: Word); virtual;
@@ -138,6 +141,11 @@ type
     procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
     procedure DrawText(const AX, AY: Integer; AText: string;
       F: Boolean); overload;
+    procedure AddTextLine; overload;
+    procedure AddTextLine(const S: string); overload;
+    procedure AddTextLine(const S: string; const F: Boolean); overload;
+    procedure AddTextLine(const S, V: string); overload;
+    procedure AddTextLine(const S: string; const V: Integer); overload;
   end;
 
 type
@@ -351,6 +359,11 @@ begin
   ConfirmHandler := nil;
 end;
 
+class function TScene.DefaultButtonTop: Word;
+begin
+  Result := 600;
+end;
+
 destructor TScene.Destroy;
 begin
 
@@ -373,9 +386,24 @@ begin
 
 end;
 
+class function TScene.SceneLeft: Byte;
+begin
+  Result := 10;
+end;
+
+class function TScene.SceneTop: Byte;
+begin
+  Result := 220;
+end;
+
 procedure TScene.Show(const S: TSceneEnum);
 begin
 
+end;
+
+function TScene.TextLineHeight: Byte;
+begin
+  Result := 24;
 end;
 
 procedure TScene.Timer;
@@ -391,6 +419,32 @@ end;
 procedure TScene.DrawTitle(Res: TResEnum);
 begin
   DrawImage(ScrWidth - (ResImage[Res].Width div 2), 10, Res);
+end;
+
+procedure TScene.AddTextLine;
+begin
+  Inc(TextTop, TextLineHeight);
+end;
+
+procedure TScene.AddTextLine(const S: string; const F: Boolean);
+begin
+  DrawText(TextLeft, TextTop, S, F);
+  Inc(TextTop, TextLineHeight);
+end;
+
+procedure TScene.AddTextLine(const S: string);
+begin
+  AddTextLine(S, False);
+end;
+
+procedure TScene.AddTextLine(const S: string; const V: Integer);
+begin
+  AddTextLine(Format('%s: %d', [S, V]));
+end;
+
+procedure TScene.AddTextLine(const S, V: string);
+begin
+  AddTextLine(Format('%s: %s', [S, V]));
 end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);

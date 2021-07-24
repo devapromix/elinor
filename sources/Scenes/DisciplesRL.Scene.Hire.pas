@@ -25,9 +25,6 @@ type
   { TSceneHire }
 
   TSceneHire = class(TScene)
-  private
-  var
-    T, L: Integer;
   strict private
     function ThiefPoisonDamage: Integer;
     function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
@@ -518,8 +515,8 @@ procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const F: Boolean;
 var
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12 + N;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12 + N;
   with TCreature.Character(C) do
   begin
     Add(Name[0], True);
@@ -639,36 +636,36 @@ end;
 
 procedure TSceneHire.Add;
 begin
-  Inc(T, LineHeight);
+  Inc(TextTop, TextLineHeight);
 end;
 
 procedure TSceneHire.Add(S: string; F: Boolean = False);
 begin
-  DrawText(L, T, S, F);
-  Inc(T, LineHeight);
+  DrawText(TextLeft, TextTop, S, F);
+  Inc(TextTop, TextLineHeight);
 end;
 
 procedure TSceneHire.Add(S, V: string);
 begin
-  DrawText(L, T, Format('%s: %s', [S, V]));
-  Inc(T, LineHeight);
+  DrawText(TextLeft, TextTop, Format('%s: %s', [S, V]));
+  Inc(TextTop, TextLineHeight);
 end;
 
 procedure TSceneHire.Add(S: string; V: Integer; R: string = '');
 begin
-  DrawText(L, T, Format('%s: %d%s', [S, V, R]));
-  Inc(T, LineHeight);
+  DrawText(TextLeft, TextTop, Format('%s: %d%s', [S, V, R]));
+  Inc(TextTop, TextLineHeight);
 end;
 
 procedure TSceneHire.Add2(S: string);
 begin
-  DrawText(L + 200, T, S);
+  DrawText(TextLeft + 200, TextTop, S);
 end;
 
 procedure TSceneHire.Add(S: string; V, M: Integer);
 begin
-  DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
-  Inc(T, LineHeight);
+  DrawText(TextLeft, TextTop, Format('%s: %d/%d', [S, V, M]));
+  Inc(TextTop, TextLineHeight);
 end;
 
 procedure TSceneHire.RenderRaceInfo;
@@ -676,8 +673,8 @@ var
   R: TRaceEnum;
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   R := TRaceEnum(CurrentIndex + 1);
   Add(RaceName[R], True);
   Add;
@@ -690,8 +687,8 @@ var
   D: TSaga.TDifficultyEnum;
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   D := TSaga.TDifficultyEnum(CurrentIndex);
   Add(TSaga.DifficultyName[D], True);
   Add;
@@ -704,8 +701,8 @@ var
   S: TScenario.TScenarioEnum;
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TScenario.TScenarioEnum(CurrentIndex);
   Add(TScenario.ScenarioName[S], True);
   Add;
@@ -724,8 +721,8 @@ procedure TSceneHire.RenderAbilitiesInfo;
 var
   S: TSkillEnum;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderParty.Leader.Skills.RandomSkillEnum[CurrentIndex];
   Add(TSkills.Ability(S).Name, True);
   Add;
@@ -735,8 +732,8 @@ end;
 
 procedure TSceneHire.RenderFinalInfo;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   Add('Статистика', True);
   Add;
   Add('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
@@ -754,8 +751,8 @@ var
   J: Integer;
   S: TLeaderThiefSpyVar;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderThiefSpyVar(CurrentIndex);
   Add(TSaga.SpyName[S], True);
   Add;
@@ -779,8 +776,8 @@ var
   J: Integer;
   S: TLeaderWarriorActVar;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderWarriorActVar(CurrentIndex);
   Add(TSaga.WarName[S], True);
   Add;
@@ -872,17 +869,17 @@ begin
       begin
         if (SubScene in WideButtonScene) then
         begin
-          if MouseOver(Lk, Top, X, Y) then
+          if MouseOver(Lk, SceneTop, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 0;
           end;
-          if MouseOver(Lk, Top + 120, X, Y) then
+          if MouseOver(Lk, SceneTop + 120, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 1;
           end;
-          if MouseOver(Lk, Top + 240, X, Y) then
+          if MouseOver(Lk, SceneTop + 240, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 2;
@@ -891,17 +888,17 @@ begin
         if not(SubScene in CloseButtonScene) or (SubScene in CloseCloseScene)
         then
         begin
-          if MouseOver(Lf, Top, X, Y) then
+          if MouseOver(Lf, SceneTop, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 3, 0);
           end;
-          if MouseOver(Lf, Top + 120, X, Y) then
+          if MouseOver(Lf, SceneTop + 120, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 4, 1);
           end;
-          if MouseOver(Lf, Top + 240, X, Y) then
+          if MouseOver(Lf, SceneTop + 240, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 5, 2);
@@ -989,17 +986,17 @@ begin
         begin
           Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
           if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Left + X, Top + Y, reActFrame)
+            DrawImage(Left + X, SceneTop + Y, reActFrame)
           else
-            DrawImage(Left + X, Top + Y, reFrame);
+            DrawImage(Left + X, SceneTop + Y, reFrame);
           with TCreature.Character
             (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
             [cgCharacters][K]) do
             if HitPoints > 0 then
             begin
-              DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+              DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
               TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+                SceneTop + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
                 [cgCharacters][K], False);
             end;
           Inc(Y, 120);
@@ -1018,16 +1015,16 @@ begin
         begin
           Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
           if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Left + X, Top + Y, reActFrame)
+            DrawImage(Left + X, SceneTop + Y, reActFrame)
           else
-            DrawImage(Left + X, Top + Y, reFrame);
+            DrawImage(Left + X, SceneTop + Y, reFrame);
           with TCreature.Character(Characters[TSaga.LeaderRace]
             [cgLeaders][K]) do
             if HitPoints > 0 then
             begin
-              DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+              DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
               TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                Top + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
+                SceneTop + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
             end;
           Inc(Y, 120);
           if Y > 240 then
@@ -1044,10 +1041,10 @@ begin
         for D := dfEasy to dfHard do
         begin
           if Ord(D) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderDifficulty(D, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderDifficulty(D, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1058,10 +1055,10 @@ begin
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
           if Ord(R) - 1 = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderRace(R, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderRace(R, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1072,10 +1069,10 @@ begin
         for Z := svIntroduceSpy to svPoison do
         begin
           if Ord(Z) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderSpy(Z, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderSpy(Z, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1086,10 +1083,10 @@ begin
         for N := avRest to avWar3 do
         begin
           if Ord(N) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderWar(N, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderWar(N, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1101,10 +1098,10 @@ begin
           to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderScenario(S, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderScenario(S, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1116,10 +1113,10 @@ begin
           to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderAbilities(S, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderAbilities(S, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1200,7 +1197,7 @@ begin
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
-    DrawImage(Lf + ResImage[reActFrame].Width + 2, Top, reInfoFrame);
+    DrawImage(Lf + ResImage[reActFrame].Width + 2, SceneTop, reInfoFrame);
   case SubScene of
     stCharacter, stLeader:
       begin
@@ -1218,17 +1215,17 @@ begin
             begin
               DrawResources;
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
-                Top, reGold);
-              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
+                SceneTop, reGold);
+              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, SceneTop + 12,
                 TCreature.Character(CurCrEnum).Gold);
             end;
           stLeader:
             if CurCrEnum <> crNone then
             begin
-              DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
+              DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, SceneTop,
                 reInfoFrame);
-              T := Top + 6;
-              L := Lf + (ResImage[reActFrame].Width * 2) + 14;
+              TextTop := SceneTop + 6;
+              TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14;
               Add('Умения Лидера', True);
               Add;
               Add(TSkills.Ability(TCreature.Character(CurCrEnum)

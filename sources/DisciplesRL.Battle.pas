@@ -32,7 +32,7 @@ uses
 constructor TBattle.Create;
 begin
   inherited;
-  Log := TLog.Create(Left, DefaultButtonTop - 20);
+  Log := TLog.Create(TScene.SceneLeft, TScene.DefaultButtonTop - 20);
 end;
 
 destructor TBattle.Destroy;

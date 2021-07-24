@@ -561,7 +561,7 @@ end;
 constructor TSceneBattle2.Create;
 begin
   inherited;
-  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width + Left),
+  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width + SceneLeft),
     DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
   InitiativeList := TStringList.Create;
