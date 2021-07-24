@@ -150,7 +150,9 @@ type
     // Spiders
     crGiantSpider,
     // Wolves
-    crWolf
+    crWolf,
+    // Bears
+    crPolarBear, crBrownBear, crBlackBear
     //
     );
 {$ENDREGION CreatureEnum}
@@ -962,6 +964,28 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    AttackEnum: atBites;),
+
+    // Polar Bear
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear; Size: szBig;
+    Name: ('Белый Медведь', 'Белого Медведя'); Description: ('', '', '');
+    HitPoints: 320; Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 85; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 700; Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites;),
+    // Brown Bear
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear; Size: szBig;
+    Name: ('Бурый Медведь', 'Бурого Медведя'); Description: ('', '', '');
+    HitPoints: 300; Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 80; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 600; Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites;),
+    // Black Bear
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear; Size: szBig;
+    Name: ('Черный Медведь', 'Черного Медведя'); Description: ('', '', '');
+    HitPoints: 280; Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 75; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 500; Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites;)
 {$ENDREGION Animals}
     //

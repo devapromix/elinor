@@ -33,7 +33,7 @@ type
     rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
     reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reGiantSpider, reWolf, reOrc,
+    reGiantSpider, reWolf, reBear, reOrc,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -44,7 +44,7 @@ type
     reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
-    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief,reTitleWarrior,
+    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
     reTitleAbilities,
     //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
@@ -56,8 +56,7 @@ type
 
     reWarriorRitual,
 
-    reWarriorWar3,
-    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
+    reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
     reIconOpenedGates);
@@ -241,6 +240,8 @@ const
     (FileName: 'character.giant_spider.png'; ResType: teGUI;),
     // Wolf
     (FileName: 'character.wolf.png'; ResType: teGUI;),
+    // Bear
+    (FileName: 'character.bear.png'; ResType: teGUI;),
     // Orc
     (FileName: 'character.orc.png'; ResType: teGUI;),
     // Text "High Scores"
@@ -397,8 +398,9 @@ type
     mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
     mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
     mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack,
-    mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
-    mmGhostAttack, mmHit, mmDeath, mmAttack, mmGold);
+    mmBearHit, mmBearDeath, mmBearAttack, mmSpiderHit, mmSpiderDeath,
+    mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack, mmHit, mmDeath,
+    mmAttack, mmGold);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -478,6 +480,12 @@ const
     (FileName: 'wolf_death.wav'; ResType: teSound;),
     // Wolf Attack
     (FileName: 'wolf_attack.wav'; ResType: teSound;),
+    // Bear Hit
+    (FileName: 'bear_hit.wav'; ResType: teSound;),
+    // Bear Death
+    (FileName: 'bear_death.wav'; ResType: teSound;),
+    // Bear Attack
+    (FileName: 'bear_attack.wav'; ResType: teSound;),
     // Spider Hit
     (FileName: 'spider_hit.wav'; ResType: teSound;),
     // Spider Death
