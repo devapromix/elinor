@@ -44,12 +44,9 @@ type
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
   private
-    procedure Add; overload;
     procedure Add(S: string; F: Boolean = False); overload;
-    procedure Add(S, V: string); overload;
     procedure Add(S: string; V, M: Integer); overload;
     procedure Add(S: string; V: Integer; R: string = ''); overload;
-    procedure Add2(S: string); overload;
     procedure RenderRaceInfo;
     procedure RenderHighScores;
     procedure RenderFinalInfo;
@@ -71,8 +68,7 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
-    procedure RenderCharacterInfo(C: TCreatureEnum; const F: Boolean;
-      const N: Integer = 0);
+    procedure RenderCharacterInfo(C: TCreatureEnum; const N: Integer = 0);
     class procedure Show(const ASubScene: THireSubSceneEnum); overload;
     class procedure Show(const Party: TParty; const Position: Integer);
       overload;
@@ -510,8 +506,7 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const F: Boolean;
-  const N: Integer);
+procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const N: Integer);
 var
   J: Integer;
 begin
@@ -520,35 +515,28 @@ begin
   with TCreature.Character(C) do
   begin
     Add(Name[0], True);
-    Add;
+    AddTextLine;
     Add('Уровень', Level);
-    if TSaga.IsGame and F then
-      Add2(Format('Скорость %d/%d', [TLeaderParty.Leader.Speed,
-        TLeaderParty.Leader.MaxSpeed]));
     Add('Точность', ChancesToHit, '%');
-    if TSaga.IsGame and F then
-      Add2(Format('Лидерство %d', [TLeaderParty.Leader.MaxLeadership]));
     Add('Инициатива', Initiative);
-    if TSaga.IsGame and F then
-      Add2(Format('Обзор %d', [TLeaderParty.Leader.Radius]));
     Add('Здоровье', HitPoints, HitPoints);
     Add('Урон', Damage);
     Add('Броня', Armor);
-    Add('Источник', SourceName[SourceEnum]);
+    AddTextLine('Источник', SourceName[SourceEnum]);
     case ReachEnum of
       reAny:
         begin
-          Add('Дистанция', 'Все поле боя');
+          AddTextLine('Дистанция', 'Все поле боя');
           Add('Цели', 1);
         end;
       reAdj:
         begin
-          Add('Дистанция', 'Ближайшие цели');
+          AddTextLine('Дистанция', 'Ближайшие цели');
           Add('Цели', 1);
         end;
       reAll:
         begin
-          Add('Дистанция', 'Все поле боя');
+          AddTextLine('Дистанция', 'Все поле боя');
           Add('Цели', 6);
         end;
     end;
@@ -634,20 +622,9 @@ begin
   end;
 end;
 
-procedure TSceneHire.Add;
-begin
-  Inc(TextTop, TextLineHeight);
-end;
-
 procedure TSceneHire.Add(S: string; F: Boolean = False);
 begin
   DrawText(TextLeft, TextTop, S, F);
-  Inc(TextTop, TextLineHeight);
-end;
-
-procedure TSceneHire.Add(S, V: string);
-begin
-  DrawText(TextLeft, TextTop, Format('%s: %s', [S, V]));
   Inc(TextTop, TextLineHeight);
 end;
 
@@ -655,11 +632,6 @@ procedure TSceneHire.Add(S: string; V: Integer; R: string = '');
 begin
   DrawText(TextLeft, TextTop, Format('%s: %d%s', [S, V, R]));
   Inc(TextTop, TextLineHeight);
-end;
-
-procedure TSceneHire.Add2(S: string);
-begin
-  DrawText(TextLeft + 200, TextTop, S);
 end;
 
 procedure TSceneHire.Add(S: string; V, M: Integer);
@@ -677,7 +649,7 @@ begin
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   R := TRaceEnum(CurrentIndex + 1);
   Add(RaceName[R], True);
-  Add;
+  AddTextLine;
   for J := 0 to 10 do
     Add(RaceDescription[R][J]);
 end;
@@ -691,7 +663,7 @@ begin
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   D := TSaga.TDifficultyEnum(CurrentIndex);
   Add(TSaga.DifficultyName[D], True);
-  Add;
+  AddTextLine;
   for J := 0 to 11 do
     Add(TSaga.DifficultyDescription[D][J]);
 end;
@@ -705,7 +677,7 @@ begin
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TScenario.TScenarioEnum(CurrentIndex);
   Add(TScenario.ScenarioName[S], True);
-  Add;
+  AddTextLine;
   for J := 0 to 10 do
     Add(TScenario.ScenarioDescription[S][J]);
   if TSaga.IsGame then
@@ -725,7 +697,7 @@ begin
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderParty.Leader.Skills.RandomSkillEnum[CurrentIndex];
   Add(TSkills.Ability(S).Name, True);
-  Add;
+  AddTextLine;
   Add(TSkills.Ability(S).Description[0]);
   Add(TSkills.Ability(S).Description[1]);
 end;
@@ -735,7 +707,7 @@ begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   Add('Статистика', True);
-  Add;
+  AddTextLine;
   Add('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
   Add('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
   Add('Очки', Game.Statistics.GetValue(stScore));
@@ -755,13 +727,13 @@ begin
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderThiefSpyVar(CurrentIndex);
   Add(TSaga.SpyName[S], True);
-  Add;
+  AddTextLine;
   for J := 0 to 4 do
     Add(TSaga.SpyDescription[S][J]);
-  Add;
-  Add;
-  Add;
-  Add;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
   Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
     TLeaderParty.Leader.GetMaxSpy]));
   Add(Format('Вероятность успеха: %d %', [ThiefChanceOfSuccess(S)]));
@@ -780,13 +752,13 @@ begin
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderWarriorActVar(CurrentIndex);
   Add(TSaga.WarName[S], True);
-  Add;
+  AddTextLine;
   for J := 0 to 4 do
     Add(TSaga.WarDescription[S][J]);
-  Add;
-  Add;
-  Add;
-  Add;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
   Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
     TLeaderParty.Leader.GetMaxSpy]));
   Add(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
@@ -996,8 +968,8 @@ begin
             begin
               DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
               TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                SceneTop + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-                [cgCharacters][K], False);
+                SceneTop + Y, Characters[Party[TLeaderParty.LeaderPartyIndex]
+                .Owner][cgCharacters][K], False);
             end;
           Inc(Y, 120);
           if Y > 240 then
@@ -1024,7 +996,8 @@ begin
             begin
               DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
               TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                SceneTop + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
+                SceneTop + Y, Characters[TSaga.LeaderRace][cgLeaders]
+                [K], False);
             end;
           Inc(Y, 120);
           if Y > 240 then
@@ -1209,15 +1182,15 @@ begin
             CurCrEnum := Characters[TSaga.LeaderRace][cgLeaders][K];
         end;
         if CurCrEnum <> crNone then
-          RenderCharacterInfo(CurCrEnum, False);
+          RenderCharacterInfo(CurCrEnum);
         case SubScene of
           stCharacter:
             begin
               DrawResources;
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
                 SceneTop, reGold);
-              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, SceneTop + 12,
-                TCreature.Character(CurCrEnum).Gold);
+              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40,
+                SceneTop + 12, TCreature.Character(CurCrEnum).Gold);
             end;
           stLeader:
             if CurCrEnum <> crNone then
@@ -1227,20 +1200,20 @@ begin
               TextTop := SceneTop + 6;
               TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14;
               Add('Умения Лидера', True);
-              Add;
+              AddTextLine;
               Add(TSkills.Ability(TCreature.Character(CurCrEnum)
                 .SkillEnum).Name);
               for I := 0 to 1 do
                 Add(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum)
                   .Description[I]);
-              Add;
-              Add;
+              AddTextLine;
+              AddTextLine;
               Add('Экипировка', True);
-              Add;
+              AddTextLine;
               Add(Format('Оружие: %s',
                 [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum)
                 .AttackEnum, TCreature.Character(CurCrEnum).SourceEnum)]));
-              Add;
+              AddTextLine;
               Add('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
               Add('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
               Add('Заклинаний в день', TLeaderParty.GetMaxSpells(CurCrEnum));

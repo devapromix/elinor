@@ -399,7 +399,7 @@ var
       AddTextLine('Страница 2/2');
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
-    Add('Умения Лидера', True);
+    AddTextLine('Умения Лидера', True);
     AddTextLine;
     if P then
     begin
@@ -431,7 +431,7 @@ var
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
-    Add('Экипировка', True);
+    AddTextLine('Экипировка', True);
     AddTextLine;
     AddTextLine(Format('Шлем: %s', ['-']));
     AddTextLine(Format('Амулет: %s', ['-']));
@@ -449,7 +449,7 @@ var
     AddTextLine(Format('Сапоги: %s', ['-']));
     TextLeft := GetFrameX(0, psRight) + 320 + 12;
     TextTop := GetFrameY(0, psRight) + 6;
-    Add('Инвентарь', True);
+    AddTextLine('Инвентарь', True);
     AddTextLine;
     for I := 0 to MaxInventoryItems - 1 do
       AddTextLine(TLeaderParty.Leader.Inventory.Item(I).Name);
@@ -460,16 +460,24 @@ var
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
     if (C <> crNone) then
-      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, True, 20);
+      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
     DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2 + 20, SceneTop,
       reInfoFrame);
     TextTop := SceneTop + 6;
     TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
-    Add('Статистика', True);
+    AddTextLine('Статистика', True);
     AddTextLine;
-    Add('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
-    Add('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
-    Add('Очки', Game.Statistics.GetValue(stScore));
+    AddTextLine('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Очки', Game.Statistics.GetValue(stScore));
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine(Format('Скорость передвижения %d/%d', [TLeaderParty.Leader.Speed,
+      TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.MaxLeadership]));
+    AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
   end;
 
 begin
