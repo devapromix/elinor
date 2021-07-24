@@ -121,10 +121,10 @@ const
     (reTextClose, reTextClose),
     // StoneTab
     (reTextClose, reTextClose),
-    // Spy
-    (reTextContinue, reTextCancel),
-    // War
-    (reTextContinue, reTextCancel),
+    // Thief Spy
+    (reTextContinue, reTextClose),
+    // Warrior War
+    (reTextContinue, reTextClose),
     // Difficulty
     (reTextContinue, reTextCancel),
     // Abilities
@@ -590,11 +590,11 @@ procedure TSceneHire.RenderWar(const N: TLeaderWarriorActVar;
 begin
   case N of
     avRest:
-      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
+      DrawImage(AX + 7, AY + 7, reWarriorRest);
     avRitual:
-      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
+      DrawImage(AX + 7, AY + 7, reWarriorRitual);
     avWar3:
-      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
+      DrawImage(AX + 7, AY + 7, reWarriorWar3);
   end;
 end;
 
@@ -1082,7 +1082,7 @@ begin
     stWar:
       begin
         DrawImage(reWallpaperDifficulty);
-        DrawTitle(reTitleThief);
+        DrawTitle(reTitleWarrior);
         for N := avRest to avWar3 do
         begin
           if Ord(N) = CurrentIndex then

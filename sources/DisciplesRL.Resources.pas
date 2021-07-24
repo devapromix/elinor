@@ -44,13 +44,20 @@ type
     reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
-    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief,
+    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief,reTitleWarrior,
     reTitleAbilities,
     //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
     reDifficultyNormalLogo, reDifficultyHardLogo, reThiefSpy, reThiefDuel,
-    reThiefPoison, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
+    reThiefPoison,
+
+    reWarriorRest,
+
+    reWarriorRitual,
+
+    reWarriorWar3,
+    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
     reIconOpenedGates);
@@ -272,6 +279,7 @@ const
     (FileName: 'text.inventory.png'; ResType: teGUI;),
     // Text "Abilities"
     (FileName: 'text.abilities.png'; ResType: teGUI;),
+
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),
     // Title "High Scores"
@@ -320,8 +328,11 @@ const
     (FileName: 'title.difficulty.png'; ResType: teGUI;),
     // Title Thief
     (FileName: 'title.thief.png'; ResType: teGUI;),
+    // Title Warrior
+    (FileName: 'title.warrior.png'; ResType: teGUI;),
     // Title "Abilities"
     (FileName: 'title.abilities.png'; ResType: teGUI;),
+
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
     // Scenario "Overlord"
@@ -340,12 +351,20 @@ const
     (FileName: 'logo.difficulty.normal.png'; ResType: teGUI;),
     // Difficulty Hard
     (FileName: 'logo.difficulty.hard.png'; ResType: teGUI;),
+
     // Thief Spy
     (FileName: 'logo.thief.spy.png'; ResType: teGUI;),
     // Thief Duel
     (FileName: 'logo.thief.duel.png'; ResType: teGUI;),
     // Thief Poison
     (FileName: 'logo.thief.poison.png'; ResType: teGUI;),
+    // Warrior Rest
+    (FileName: 'logo.warrior.rest.png'; ResType: teGUI;),
+    // Warrior Ritual
+    (FileName: 'logo.warrior.ritual.png'; ResType: teGUI;),
+    // Warrior #3
+    (FileName: 'logo.warrior.war3.png'; ResType: teGUI;),
+
     // Wallpaper Settlement
     (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
     // Wallpaper Menu
