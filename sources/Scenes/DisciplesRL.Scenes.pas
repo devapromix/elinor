@@ -146,6 +146,7 @@ type
     procedure AddTextLine(const S: string; const F: Boolean); overload;
     procedure AddTextLine(const S, V: string); overload;
     procedure AddTextLine(const S: string; const V: Integer); overload;
+    procedure AddTextLine(const S: string; const V, M: Integer); overload;
   end;
 
 type
@@ -445,6 +446,11 @@ end;
 procedure TScene.AddTextLine(const S, V: string);
 begin
   AddTextLine(Format('%s: %s', [S, V]));
+end;
+
+procedure TScene.AddTextLine(const S: string; const V, M: Integer);
+begin
+  AddTextLine(Format('%s: %d/%d', [S, V, M]));
 end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
