@@ -334,11 +334,11 @@ const
     // Item Stone Table
     (FileName: 'item.stone_table.png'; ResType: teItem;),
     // Difficulty Easy
-    (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
+    (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),
     // Difficulty Normal
-    (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
+    (FileName: 'logo.difficulty.normal.png'; ResType: teGUI;),
     // Difficulty Hard
-    (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
+    (FileName: 'logo.difficulty.hard.png'; ResType: teGUI;),
     // Thief Duel
     (FileName: 'logo.thief.asskill.png'; ResType: teGUI;),
     // Wallpaper Settlement
