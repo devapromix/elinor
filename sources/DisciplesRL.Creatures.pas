@@ -463,7 +463,7 @@ type
   TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifact,
     skBanner, skBoots, skLeadership1, skLeadership2, skLeadership3,
     skLeadership4, skLeadership5, skWand, skAccuracy, skOri, skTrader,
-    skProtect, skTalisman, skInstructor, skBook, skOrb);
+    skProtect, skTalisman, skInstructor, skBook, skOrb, skVamp);
 
 type
   TSkill = record
@@ -695,7 +695,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
-    AttackEnum: atDrainLife; SkillEnum: skBoots;),
+    AttackEnum: atDrainLife; SkillEnum: skVamp;),
     // Lich Queen
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
     Size: szSmall; Name: ('Королева Личей', 'Королеву Личей');
@@ -1206,7 +1206,11 @@ const
     // Orb
     (Enum: skOrb; Name: 'Знание Сфер';
     Description: ('Позволяет предводителю брать в руки',
-    'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;)
+    'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
+    // Vampirism
+    (Enum: skVamp; Name: 'Вампиризм';
+    Description: ('Предводитель высасывает жизненную',
+    'силу своих врагов.'); Level: 1; Leaders: [crNosferat];)
     //
     );
 
