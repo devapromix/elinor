@@ -512,17 +512,17 @@ const
 type
   TResources = class(TObject)
   public
-    procedure ReadSections(const FileName: string; Sections: TStrings;
+    class procedure ReadSections(const FileName: string; Sections: TStrings;
       Section: string = '');
-    function LoadFromFile(const FileName, SectionName, KeyName,
+    class function LoadFromFile(const FileName, SectionName, KeyName,
       DefaultValue: string): string; overload;
-    function LoadFromFile(const FileName, SectionName, KeyName: string;
+    class function LoadFromFile(const FileName, SectionName, KeyName: string;
       DefaultValue: Integer): Integer; overload;
-    procedure LoadFromFile(const FileName: string;
+    class procedure LoadFromFile(const FileName: string;
       var StringList: TStringList); overload;
-    function KeysCount(const FileName, SectionName: string): Integer;
-    function RandomValue(const FileName, SectionName: string): string;
-    function RandomSectionIdent(const FileName: string): string;
+    class function KeysCount(const FileName, SectionName: string): Integer;
+    class function RandomValue(const FileName, SectionName: string): string;
+    class function RandomSectionIdent(const FileName: string): string;
   end;
 
 implementation
@@ -537,7 +537,7 @@ begin
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
 end;
 
-function TResources.KeysCount(const FileName, SectionName: string): Integer;
+class function TResources.KeysCount(const FileName, SectionName: string): Integer;
 var
   IniFile: TMemIniFile;
   Keys: TStringList;
@@ -557,7 +557,7 @@ begin
   end;
 end;
 
-function TResources.LoadFromFile(const FileName, SectionName, KeyName: string;
+class function TResources.LoadFromFile(const FileName, SectionName, KeyName: string;
   DefaultValue: Integer): Integer;
 var
   IniFile: TMemIniFile;
@@ -571,14 +571,14 @@ begin
   end;
 end;
 
-procedure TResources.LoadFromFile(const FileName: string;
+class procedure TResources.LoadFromFile(const FileName: string;
   var StringList: TStringList);
 begin
   StringList.LoadFromFile(GetPath('resources') + FileName + '.txt',
     TEncoding.UTF8);
 end;
 
-function TResources.LoadFromFile(const FileName, SectionName, KeyName,
+class function TResources.LoadFromFile(const FileName, SectionName, KeyName,
   DefaultValue: string): string;
 var
   IniFile: TMemIniFile;
@@ -594,7 +594,7 @@ begin
   end;
 end;
 
-function TResources.RandomSectionIdent(const FileName: string): string;
+class function TResources.RandomSectionIdent(const FileName: string): string;
 var
   FSections: TStringList;
 begin
@@ -607,7 +607,7 @@ begin
   end;
 end;
 
-function TResources.RandomValue(const FileName, SectionName: string): string;
+class function TResources.RandomValue(const FileName, SectionName: string): string;
 var
   IniFile: TMemIniFile;
   Keys: TStringList;
@@ -631,7 +631,7 @@ begin
   end;
 end;
 
-procedure TResources.ReadSections(const FileName: string; Sections: TStrings;
+class procedure TResources.ReadSections(const FileName: string; Sections: TStrings;
   Section: string = '');
 var
   IniFile: TMemIniFile;

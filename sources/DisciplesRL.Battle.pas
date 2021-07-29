@@ -14,7 +14,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     procedure Miss(AtkCrName, DefCrName: string);
-    function StartCastSpell: string;
+    procedure StartCastSpell(const CrName, SourceName: string);
     function GetLogMessage(AttackEnum: TAttackEnum;
       SourceEnum: TSourceEnum): string;
   end;
@@ -25,6 +25,7 @@ uses
   Classes,
   SysUtils,
   Math,
+  DisciplesRL.Resources,
   DisciplesRL.Scenes;
 
 { TBattle }
@@ -48,36 +49,20 @@ end;
 
 procedure TBattle.Miss(AtkCrName, DefCrName: string);
 begin
-  case RandomRange(0, 7) of
+  case RandomRange(0, 2) of
     0:
-      Log.Add(Format('%s пытается атаковать, но внезапно промахивается.',
+      Log.Add(Format(TResources.RandomValue('battle.strings', 'miss1'),
         [AtkCrName]));
-    1:
-      Log.Add(Format('%s атакует мимо цели.', [AtkCrName]));
-    2:
-      Log.Add(Format('%s атакует... пустоту.', [AtkCrName]));
-    3:
-      Log.Add(Format('%s тщетно пытается атаковать.', [AtkCrName]));
-    4:
-      Log.Add(Format('%s атакует %s, но промахивается.',
-        [AtkCrName, DefCrName]));
-    5:
-      Log.Add(Format('%s внезапно промахивается.', [AtkCrName]));
   else
-    Log.Add(Format('%s промахивается.', [AtkCrName]));
+    Log.Add(Format(TResources.RandomValue('battle.strings', 'miss2'),
+      [AtkCrName, DefCrName]));
   end;
 end;
 
-function TBattle.StartCastSpell: string;
+procedure TBattle.StartCastSpell(const CrName, SourceName: string);
 begin
-  case RandomRange(0, 3) of
-    0:
-      Result := '%s готовит заклинание. Его источник: %s.';
-    1:
-      Result := '%s произносит заклинание. Источник: %s.';
-  else
-    Result := '%s начинает колдовать. Источник магии: %s.';
-  end;
+  Log.Add(Format(TResources.RandomValue('battle.strings', 'start_cast'),
+    [CrName, SourceName]));
 end;
 
 function TBattle.GetLogMessage(AttackEnum: TAttackEnum;

@@ -438,9 +438,8 @@ begin
             crWyvern:
               ;
           else
-            Battle.Log.Add(Format(Battle.StartCastSpell,
-              [TCreature.Character(AtkCrEnum).Name[0],
-              SourceName[TCreature.Character(AtkCrEnum).SourceEnum]]));
+            Battle.StartCastSpell(TCreature.Character(AtkCrEnum)
+              .Name[0], SourceName[TCreature.Character(AtkCrEnum).SourceEnum]);
           end;
           Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
@@ -561,8 +560,8 @@ end;
 constructor TSceneBattle2.Create;
 begin
   inherited;
-  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width + SceneLeft),
-    DefaultButtonTop, reTextClose);
+  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
+    SceneLeft), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
   InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;
