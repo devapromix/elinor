@@ -84,7 +84,8 @@ uses
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Settlement;
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Items;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -1140,7 +1141,7 @@ begin
                   It2 := ItemRes
                 else
                   It3 := ItemRes;
-                DrawText(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
+                DrawText(Y, TItemBase.Item(TSaga.NewItem).Name);
                 Inc(Y, 20);
               end;
               DrawItem([It1, It2, It3]);
