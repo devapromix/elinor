@@ -22,8 +22,8 @@ type
 
 const
   ItemTypeName: array [TItemType] of string = ('', 'ценность', 'эликсир',
-    'свиток', 'кольцо', '', 'артефакт', 'амулет', 'шлем', '', 'сфера',
-    'талисман', 'обувь', 'знамя', 'книга');
+    'свиток', 'кольцо', 'доспех', 'артефакт', 'амулет', 'шлем', 'посох',
+    'сфера', 'талисман', 'обувь', 'знамя', 'книга');
 
 type
   TItemProp = (ipEquipable, ipConsumable, ipReadable, ipUsable, ipPermanent,
@@ -39,9 +39,9 @@ type
     iAncientRelic,
 
     // Potions
-    //iLifePotion,
+    // iLifePotion,
     iPotionOfHealing,
-    //iPotionOfRestoration, iHealingOintment,
+    // iPotionOfRestoration, iHealingOintment,
 
     // Artifacts
     iDwarvenBracer, iRunestone, iHornOfAwareness, iSoulCrystal, iSkullBracers,
@@ -79,7 +79,6 @@ type
     FItem: array [0 .. MaxInventoryItems - 1] of TItem;
   public
     constructor Create;
-    destructor Destroy; override;
     procedure Clear;
     function Count: Integer;
     function Item(const I: Integer): TItem;
@@ -87,6 +86,27 @@ type
     procedure Add(const AItem: TItem); overload;
     procedure Add(const AItemEnum: TItemEnum); overload;
     function ItemName(const I: Integer): string;
+  end;
+
+const
+  MaxEquipmentItems = 12;
+  SlotName: array [0 .. MaxEquipmentItems - 1] of string = ('Шлем', 'Амулет',
+    'Знамя', 'Книга', 'Доспех', 'Правая рука', 'Левая рука', 'Кольцо', 'Кольцо',
+    'Артефакт', 'Артефакт', 'Обувь');
+
+type
+  TEquipment = class(TObject)
+  private
+    FItem: array [0 .. MaxEquipmentItems - 1] of TItem;
+  public
+    constructor Create;
+    procedure Clear; overload;
+    procedure Clear(const I: Integer); overload;
+    function Item(const I: Integer): TItem;
+    function ItemName(const I: Integer): string; overload;
+    function ItemName(const I: Integer; const S: string): string; overload;
+    procedure Add(const SlotIndex: Integer;
+      const AItemEnum: TItemEnum); overload;
   end;
 
 type
@@ -216,12 +236,6 @@ begin
   Self.Clear;
 end;
 
-destructor TInventory.Destroy;
-begin
-
-  inherited;
-end;
-
 function TInventory.Item(const I: Integer): TItem;
 begin
   Result := FItem[I];
@@ -235,9 +249,10 @@ end;
 function TInventory.ItemName(const I: Integer): string;
 begin
   if (FItem[I].Name <> '') then
-    Result := Format('%s (%s)', [FItem[I].Name, ItemTypeName[FItem[I].ItType]])
+    Result := Format('[%s] %s (%s)', [Chr(I + Ord('M')), FItem[I].Name,
+      ItemTypeName[FItem[I].ItType]])
   else
-    Result := '';
+    Result := Format('[%s]', [Chr(I + Ord('M'))]);
 end;
 
 { TItemBase }
@@ -255,6 +270,47 @@ end;
 class function TItemBase.Item(const ItemIndex: Integer): TItem;
 begin
   Result := ItemBase[TItemEnum(ItemIndex)];
+end;
+
+{ TEquipment }
+
+procedure TEquipment.Add(const SlotIndex: Integer; const AItemEnum: TItemEnum);
+begin
+  FItem[SlotIndex] := ItemBase[AItemEnum];
+end;
+
+procedure TEquipment.Clear;
+var
+  I: Integer;
+begin
+  for I := 0 to MaxEquipmentItems - 1 do
+    Clear(I);
+end;
+
+procedure TEquipment.Clear(const I: Integer);
+begin
+  FItem[I] := ItemBase[iNone];
+end;
+
+constructor TEquipment.Create;
+begin
+  Self.Clear;
+end;
+
+function TEquipment.Item(const I: Integer): TItem;
+begin
+  Result := FItem[I];
+end;
+
+function TEquipment.ItemName(const I: Integer; const S: string): string;
+begin
+  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), SlotName[I], S]);
+end;
+
+function TEquipment.ItemName(const I: Integer): string;
+begin
+  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), SlotName[I],
+    FItem[I].Name]);
 end;
 
 end.

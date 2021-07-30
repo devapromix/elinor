@@ -90,6 +90,7 @@ type
     FSpy: Integer;
     FSkills: TSkills;
     FInventory: TInventory;
+    FEquipment: TEquipment;
     function GetRadius: Integer; overload;
   public
   class var
@@ -126,6 +127,7 @@ type
     function IsPartyOwner(const AX, AY: Integer): Boolean;
     property Skills: TSkills read FSkills write FSkills;
     property Inventory: TInventory read FInventory write FInventory;
+    property Equipment: TEquipment read FEquipment write FEquipment;
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
   end;
 
@@ -469,6 +471,7 @@ begin
   Skills.Clear;
   Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
   Inventory.Clear;
+  Equipment.Clear;
   MaxSpeed := GetMaxSpeed;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
@@ -482,13 +485,15 @@ constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
 begin
   inherited Create(AX, AY, AOwner);
   FSkills := TSkills.Create;
-  FInventory:= TInventory.Create;
+  FInventory := TInventory.Create;
+  FEquipment := TEquipment.Create;
   FMaxLeadership := 1;
   FRadius := 1;
 end;
 
 destructor TLeaderParty.Destroy;
 begin
+  FreeAndNil(FEquipment);
   FreeAndNil(FInventory);
   FreeAndNil(FSkills);
   inherited;
