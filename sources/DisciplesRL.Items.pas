@@ -79,7 +79,8 @@ type
     FItem: array [0 .. MaxInventoryItems - 1] of TItem;
   public
     constructor Create;
-    procedure Clear;
+    procedure Clear; overload;
+    procedure Clear(const I: Integer); overload;
     function Count: Integer;
     function Item(const I: Integer): TItem;
     function ItemEnum(const I: Integer): TItemEnum;
@@ -218,7 +219,12 @@ var
   I: Integer;
 begin
   for I := 0 to MaxInventoryItems - 1 do
-    FItem[I] := ItemBase[iNone];
+    Clear(I);
+end;
+
+procedure TInventory.Clear(const I: Integer);
+begin
+  FItem[I] := ItemBase[iNone];
 end;
 
 function TInventory.Count: Integer;

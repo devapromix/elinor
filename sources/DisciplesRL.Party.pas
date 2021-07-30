@@ -129,6 +129,8 @@ type
     property Inventory: TInventory read FInventory write FInventory;
     property Equipment: TEquipment read FEquipment write FEquipment;
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
+    procedure Equip(const InventoryItemIndex: Integer);
+    procedure UnEquip(const EquipmentItemIndex: Integer);
   end;
 
 var
@@ -502,6 +504,38 @@ end;
 function TLeaderParty.Enum: TCreatureEnum;
 begin
   Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum;
+end;
+
+procedure TLeaderParty.Equip(const InventoryItemIndex: Integer);
+var
+  InvItemEnum: TItemEnum;
+  EqItemEnum: TItemEnum;
+  SlotIndex: Integer;
+begin
+  InvItemEnum := Inventory.ItemEnum(InventoryItemIndex);
+  if InvItemEnum = iNone then
+    Exit;
+  SlotIndex := 0;
+  EqItemEnum := Equipment.Item(SlotIndex).Enum;
+  if EqItemEnum <> iNone then
+    Exit;
+  Equipment.Add(SlotIndex, InvItemEnum);
+  Inventory.Clear(InventoryItemIndex);
+end;
+
+procedure TLeaderParty.UnEquip(const EquipmentItemIndex: Integer);
+var
+  InvItemEnum: TItemEnum;
+  EqItemEnum: TItemEnum;
+  SlotIndex: Integer;
+begin
+  EqItemEnum := Equipment.Item(EquipmentItemIndex).Enum;
+  if EqItemEnum = iNone then
+    Exit;
+  if Inventory.Count = MaxInventoryItems then
+    Exit;
+  Equipment.Clear(EquipmentItemIndex);
+  Inventory.Add(EqItemEnum);
 end;
 
 function TLeaderParty.Level: Integer;

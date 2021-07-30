@@ -390,6 +390,7 @@ var
     I, Mn, Mx: Integer;
     S: TSkillEnum;
   begin
+    DrawTitle(reTitleAbilities);
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := 250 + GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6 + (TextLineHeight div 2);
@@ -427,26 +428,23 @@ var
   var
     I: Integer;
   begin
+    DrawTitle(reTitleParty);
     CurCrEnum := TLeaderParty.Leader.Enum;
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
     AddTextLine('Экипировка', True);
     AddTextLine;
-    AddTextLine(Format('Шлем: %s', ['-']));
-    AddTextLine(Format('Амулет: %s', ['-']));
-    AddTextLine(Format('Знамя: %s', ['-']));
-    AddTextLine(Format('Книга: %s', ['-']));
-    AddTextLine(Format('Доспех: %s', ['-']));
-    AddTextLine(Format('Правая рука: %s',
-      [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum).AttackEnum,
-      TCreature.Character(CurCrEnum).SourceEnum)]));
-    AddTextLine(Format('Левая рука: %s', ['-']));
-    AddTextLine(Format('Кольцо: %s', ['-']));
-    AddTextLine(Format('Кольцо: %s', ['-']));
-    AddTextLine(Format('Артефакт: %s', ['-']));
-    AddTextLine(Format('Артефакт: %s', ['-']));
-    AddTextLine(Format('Сапоги: %s', ['-']));
+    for I := 0 to MaxEquipmentItems - 1 do
+      case I of
+        5:
+          AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I,
+            TCreature.EquippedWeapon(TCreature.Character
+            (TLeaderParty.Leader.Enum).AttackEnum,
+            TCreature.Character(TLeaderParty.Leader.Enum).SourceEnum)));
+      else
+        AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I));
+      end;
     TextLeft := GetFrameX(0, psRight) + 320 + 12;
     TextTop := GetFrameY(0, psRight) + 6;
     AddTextLine('Инвентарь', True);
@@ -457,6 +455,7 @@ var
 
   procedure ShowInfo;
   begin
+    DrawTitle(reTitleParty);
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
     if (C <> crNone) then
@@ -474,8 +473,8 @@ var
     AddTextLine;
     AddTextLine;
     AddTextLine;
-    AddTextLine(Format('Скорость передвижения %d/%d', [TLeaderParty.Leader.Speed,
-      TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Скорость передвижения %d/%d',
+      [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
     AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.MaxLeadership]));
     AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
   end;
@@ -483,7 +482,6 @@ var
 begin
   inherited;
   DrawImage(reWallpaperLeader);
-  DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
   if FShowInventory then
     ShowInventory
@@ -508,6 +506,14 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       Close;
+    K_V:
+      begin
+        TLeaderParty.Leader.UnEquip(0);
+      end;
+    K_B:
+      begin
+        TLeaderParty.Leader.Equip(0);
+      end;
     K_I:
       if FShowResources then
         OpenInventory;
