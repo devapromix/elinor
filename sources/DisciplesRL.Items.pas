@@ -33,24 +33,26 @@ type
   TItemEnum = (iNone,
     // Valuables
     iRunicKey, iWotansScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
-    iImperialCrown,
+    iAncientRelic,
 
     // Artifacts
-    iDwarvenBracer, iRunestone, iHornOfAwareness, iSoulCrystal, iTiaraOfPurity,
-    iLuteOfCharming, iSkullOfThanatos, iBethrezensClaw
+    iDwarvenBracer, iRunestone, iHornOfAwareness, iSoulCrystal, iSkullBracers,
+    iLuteOfCharming, iSkullOfThanatos, iBethrezensClaw,
 
     // iRunicBlade,
     // iWightBlade,
-    // iSkullBracers,
+    // iUnholyDagger,
+    // iThanatosBlade,
     // iHornOfIncubus,
-    // iUnholyDagger, iThanatosBlade,
-    // iMjolnirsCrown
+    // iRoyalScepter
 
     // Rings
-    // iStoneRing, iBronzeRing, iSilverRing, iGoldRing,
+    iStoneRing,
+    // iBronzeRing, iSilverRing, iGoldRing,
     // iRingOfStrength, iRingOfTheAges, iHagsRing, iThanatosRing
-    //
-    );
+
+    // Helms
+    iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
 
 type
   TItem = record
@@ -110,8 +112,8 @@ const
     (Enum: iSapphire; Name: 'Сапфир'; Level: 6; ItType: itValuable;),
     // Diamond
     (Enum: iDiamond; Name: 'Бриллиант'; Level: 7; ItType: itValuable;),
-    // Imperial Crown
-    (Enum: iImperialCrown; Name: 'Корона Империи'; Level: 8;
+    // Ancient Relic
+    (Enum: iAncientRelic; Name: 'Древняя Реликвия'; Level: 8;
     ItType: itValuable;),
 
     // Artifacts
@@ -125,8 +127,8 @@ const
     ItType: itArtifact;),
     // Soul Crystal
     (Enum: iSoulCrystal; Name: 'Кристалл Души'; Level: 4; ItType: itArtifact;),
-    // Tiara Of Purity
-    (Enum: iTiaraOfPurity; Name: 'Тиара Чистоты'; Level: 5;
+    // Skull Bracers
+    (Enum: iSkullBracers; Name: 'Браслет из Черепов'; Level: 5;
     ItType: itArtifact;),
     // Lute Of Charming
     (Enum: iLuteOfCharming; Name: 'Лютня Обаяния'; Level: 6;
@@ -136,11 +138,20 @@ const
     ItType: itArtifact;),
     // Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Коготь Бетрезена'; Level: 8;
-    ItType: itArtifact;)
+    ItType: itArtifact;),
 
     // Rings
-    //
-    );
+    // Stone Ring
+    (Enum: iStoneRing; Name: 'Каменное Кольцо'; Level: 1; ItType: itRing;),
+
+    // Helms
+    // Tiara Of Purity
+    (Enum: iTiaraOfPurity; Name: 'Тиара Чистоты'; Level: 5; ItType: itHelm;),
+    // Mjolnir's Crown
+    (Enum: iMjolnirsCrown; Name: 'Корона Мьельнира'; Level: 6; ItType: itHelm;),
+
+    // Imperial Crown
+    (Enum: iImperialCrown; Name: 'Корона Империи'; Level: 8; ItType: itHelm;));
 
   { TInventory }
 
