@@ -452,7 +452,7 @@ var
     AddTextLine('Инвентарь', True);
     AddTextLine;
     for I := 0 to MaxInventoryItems - 1 do
-      AddTextLine(TLeaderParty.Leader.Inventory.Item(I).Name);
+      AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
   end;
 
   procedure ShowInfo;

@@ -14,13 +14,16 @@ uses
 
 type
   TItemType = (itSpecial, itValuable,
-    // Potions
-    itTemporaryPotion, itPermanentPotion, itHealingPotion, itBoostPotion,
-    // Scrolls
-    itScroll,
+    // Potions and Scrolls
+    itPotion, itScroll,
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome);
+
+const
+  ItemTypeName: array [TItemType] of string = ('', 'ценность', 'эликсир',
+    'свиток', 'кольцо', '', 'артефакт', 'амулет', 'шлем', '', 'сфера',
+    'талисман', 'обувь', 'знамя', 'книга');
 
 type
   TItemProp = (ipEquipable, ipConsumable, ipReadable, ipUsable, ipPermanent,
@@ -34,6 +37,11 @@ type
     // Valuables
     iRunicKey, iWotansScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
     iAncientRelic,
+
+    // Potions
+    //iLifePotion,
+    iPotionOfHealing,
+    //iPotionOfRestoration, iHealingOintment,
 
     // Artifacts
     iDwarvenBracer, iRunestone, iHornOfAwareness, iSoulCrystal, iSkullBracers,
@@ -74,10 +82,11 @@ type
     destructor Destroy; override;
     procedure Clear;
     function Count: Integer;
-    function Item(const i: Integer): TItem;
-    function ItemEnum(const i: Integer): TItemEnum;
+    function Item(const I: Integer): TItem;
+    function ItemEnum(const I: Integer): TItemEnum;
     procedure Add(const AItem: TItem); overload;
     procedure Add(const AItemEnum: TItemEnum); overload;
+    function ItemName(const I: Integer): string;
   end;
 
 type
@@ -115,6 +124,11 @@ const
     // Ancient Relic
     (Enum: iAncientRelic; Name: 'Древняя Реликвия'; Level: 8;
     ItType: itValuable;),
+
+    // Potions
+    // Potion of Healing
+    (Enum: iPotionOfHealing; Name: 'Эликсир Исцеления'; Level: 1;
+    ItType: itPotion;),
 
     // Artifacts
     // Dwarven Bracer
@@ -157,43 +171,43 @@ const
 
 procedure TInventory.Add(const AItem: TItem);
 var
-  i: Integer;
+  I: Integer;
 begin
-  for i := 0 to MaxInventoryItems - 1 do
-    if FItem[i].Enum = iNone then
+  for I := 0 to MaxInventoryItems - 1 do
+    if FItem[I].Enum = iNone then
     begin
-      FItem[i] := AItem;
+      FItem[I] := AItem;
       Exit;
     end;
 end;
 
 procedure TInventory.Add(const AItemEnum: TItemEnum);
 var
-  i: Integer;
+  I: Integer;
 begin
-  for i := 0 to MaxInventoryItems - 1 do
-    if FItem[i].Enum = iNone then
+  for I := 0 to MaxInventoryItems - 1 do
+    if FItem[I].Enum = iNone then
     begin
-      FItem[i] := ItemBase[AItemEnum];
+      FItem[I] := ItemBase[AItemEnum];
       Exit;
     end;
 end;
 
 procedure TInventory.Clear;
 var
-  i: Integer;
+  I: Integer;
 begin
-  for i := 0 to MaxInventoryItems - 1 do
-    FItem[i] := ItemBase[iNone];
+  for I := 0 to MaxInventoryItems - 1 do
+    FItem[I] := ItemBase[iNone];
 end;
 
 function TInventory.Count: Integer;
 var
-  i: Integer;
+  I: Integer;
 begin
   Result := 0;
-  for i := 0 to MaxInventoryItems - 1 do
-    if FItem[i].Enum <> iNone then
+  for I := 0 to MaxInventoryItems - 1 do
+    if FItem[I].Enum <> iNone then
       Inc(Result);
 end;
 
@@ -208,14 +222,22 @@ begin
   inherited;
 end;
 
-function TInventory.Item(const i: Integer): TItem;
+function TInventory.Item(const I: Integer): TItem;
 begin
-  Result := FItem[i];
+  Result := FItem[I];
 end;
 
-function TInventory.ItemEnum(const i: Integer): TItemEnum;
+function TInventory.ItemEnum(const I: Integer): TItemEnum;
 begin
-  Result := FItem[i].Enum;
+  Result := FItem[I].Enum;
+end;
+
+function TInventory.ItemName(const I: Integer): string;
+begin
+  if (FItem[I].Name <> '') then
+    Result := Format('%s (%s)', [FItem[I].Name, ItemTypeName[FItem[I].ItType]])
+  else
+    Result := '';
 end;
 
 { TItemBase }
