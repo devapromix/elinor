@@ -510,17 +510,19 @@ procedure TLeaderParty.Equip(const InventoryItemIndex: Integer);
 var
   InvItemEnum: TItemEnum;
   EqItemEnum: TItemEnum;
-  SlotIndex: Integer;
+  I: Integer;
 begin
   InvItemEnum := Inventory.ItemEnum(InventoryItemIndex);
   if InvItemEnum = iNone then
     Exit;
-  SlotIndex := 0;
-  EqItemEnum := Equipment.Item(SlotIndex).Enum;
-  if EqItemEnum <> iNone then
-    Exit;
-  Equipment.Add(SlotIndex, InvItemEnum);
-  Inventory.Clear(InventoryItemIndex);
+  for I := 0 to MaxEquipmentItems - 1 do
+    if (DollSlot[I] = TItemBase.Item(InvItemEnum).ItSlot) then
+      if Equipment.Item(I).Enum = iNone then
+      begin
+        Equipment.Add(I, InvItemEnum);
+        Inventory.Clear(InventoryItemIndex);
+        Break;
+      end;
 end;
 
 procedure TLeaderParty.UnEquip(const EquipmentItemIndex: Integer);
