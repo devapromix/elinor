@@ -342,11 +342,11 @@ begin
   case AButton of
     mbLeft:
       begin
-        if EquipmentSelItemIndex > -1 then
+        if FShowInventory and (EquipmentSelItemIndex > -1) then
         begin
           TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
         end;
-        if InventorySelItemIndex > -1 then
+        if FShowInventory and (InventorySelItemIndex > -1) then
         begin
           TLeaderParty.Leader.Equip(InventorySelItemIndex);
         end;
@@ -380,14 +380,14 @@ var
   I: TButtonEnum;
 begin
   inherited;
-  if MouseOver(X, Y, GetFrameX(0, psRight) + 8, GetFrameY(0, psRight) + 48, 320,
-    TextLineHeight * 12) then
+  if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 8,
+    GetFrameY(0, psRight) + 48, 320, TextLineHeight * 12) then
     EquipmentSelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
       div TextLineHeight
   else
     EquipmentSelItemIndex := -1;
-  if MouseOver(X, Y, GetFrameX(0, psRight) + 328, GetFrameY(0, psRight) + 48,
-    320, TextLineHeight * 12) then
+  if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 328,
+    GetFrameY(0, psRight) + 48, 320, TextLineHeight * 12) then
     InventorySelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
       div TextLineHeight
   else
@@ -479,7 +479,9 @@ var
     TextLeft := GetFrameX(0, psRight) + 320 + 12;
     TextTop := GetFrameY(0, psRight) + 6;
     //
-    if InventorySelItemIndex >= 0 then
+    if (InventorySelItemIndex >= 0) and
+      (TLeaderParty.Leader.Inventory.Item(InventorySelItemIndex).Enum <> iNone)
+    then
       DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
         + 42, reItemFrame);
     //
