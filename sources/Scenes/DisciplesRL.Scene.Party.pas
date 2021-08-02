@@ -271,9 +271,9 @@ begin
         if Paralyze then
           V := bsParalyze;
         if HitPoints <= 0 then
-          DrawUnit(reDead, AX, AY, V)
+          DrawUnit(reDead, AX, AY, V, 0, MaxHitPoints)
         else
-          DrawUnit(ResEnum, AX, AY, V);
+          DrawUnit(ResEnum, AX, AY, V, HitPoints, MaxHitPoints);
         DrawUnitInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then

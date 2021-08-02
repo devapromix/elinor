@@ -128,7 +128,10 @@ type
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
     procedure RenderFrame(const PartySide: TPartySide;
       const I, AX, AY: Integer);
-    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+      F: TBGStat); overload;
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
+      HP, MaxHP: Integer); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure DrawResources;
@@ -218,6 +221,7 @@ var
 implementation
 
 uses
+  Math,
   SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.Button,
@@ -492,6 +496,57 @@ begin
       DrawImage(AX + 7, AY + 7, reBGParalyze);
   end;
   DrawImage(AX + 7, AY + 7, AResEnum);
+end;
+
+procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
+  HP, MaxHP: Integer);
+var
+  TmpImage: TPNGImage;
+  CHP: Integer;
+
+  function BarHeight(CY, MY, GS: Integer): Integer;
+  var
+    I: Integer;
+  begin
+    if (CY < 0) then
+      CY := 0;
+    if (CY = MY) and (CY = 0) then
+    begin
+      Result := 0;
+      Exit;
+    end;
+    if (MY <= 0) then
+      MY := 1;
+    I := (CY * GS) div MY;
+    if I <= 0 then
+      I := 0;
+    if (CY >= MY) then
+      I := GS;
+    Result := I;
+  end;
+
+begin
+  DrawImage(AX + 7, AY + 7, reBGParalyze);
+  CHP := BarHeight(HP, MaxHP, 104);
+  TmpImage := TPNGImage.Create;
+  try
+    case F of
+      bsCharacter:
+        TmpImage.Assign(ResImage[reBGChar]);
+      bsEnemy:
+        TmpImage.Assign(ResImage[reBGEnemy]);
+      bsParalyze:
+        TmpImage.Assign(ResImage[reBGParalyze]);
+    end;
+    if (CHP > 0) then
+    begin
+      TmpImage.SetSize(64, EnsureRange(CHP, 0, 104));
+      DrawImage(AX + 7, AY + 7 + (104 - CHP), TmpImage);
+    end;
+    DrawImage(AX + 7, AY + 7, AResEnum);
+  finally
+    FreeAndNil(TmpImage);
+  end;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
