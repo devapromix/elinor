@@ -460,8 +460,8 @@ type
 {$REGION Abilities}
 
 type
-  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifact,
-    skBanner, skBoots, skLeadership1, skLeadership2, skLeadership3,
+  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifactLore,
+    skBannerBearer, skTravelLore, skLeadership1, skLeadership2, skLeadership3,
     skLeadership4, skLeadership5, skWand, skAccuracy, skOri, skTrader,
     skProtect, skTalisman, skInstructor, skBook, skOrb, skVamp);
 
@@ -600,7 +600,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atHunterBow; SkillEnum: skBoots;),
+    AttackEnum: atHunterBow; SkillEnum: skTravelLore;),
     // Archmage
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
     Name: ('Архимаг', 'Архимага');
@@ -788,7 +788,7 @@ const
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atCrossbow; SkillEnum: skBoots;),
+    AttackEnum: atCrossbow; SkillEnum: skTravelLore;),
     // Arch-Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
     Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
@@ -1140,15 +1140,15 @@ const
     Description: ('Позволяет предводителю видеть', 'дальше на 2 тайла.');
     Level: 1; Leaders: LeaderScout;),
     // Artifact
-    (Enum: skArtifact; Name: 'Знание Артефактов';
+    (Enum: skArtifactLore; Name: 'Знание Артефактов';
     Description: ('Позволяет предводителю носить', 'магические артефакты.');
     Level: 1; Leaders: AllLeaders;),
     // Banner
-    (Enum: skBanner; Name: 'Знаменосец';
+    (Enum: skBannerBearer; Name: 'Знаменосец';
     Description: ('Позволяет предводителю носить', 'боевые знамена.'); Level: 2;
     Leaders: AllLeaders;),
     // Boots
-    (Enum: skBoots; Name: 'Опыт Странника';
+    (Enum: skTravelLore; Name: 'Опыт Странника';
     Description: ('Позволяет предводителю носить', 'магическую обувь.');
     Level: 1; Leaders: AllLeaders;),
     // Leadership #1
@@ -1209,8 +1209,8 @@ const
     'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
     // Vampirism
     (Enum: skVamp; Name: 'Вампиризм';
-    Description: ('Предводитель высасывает жизненную',
-    'силу своих врагов.'); Level: 1; Leaders: [crNosferat];)
+    Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');
+    Level: 1; Leaders: [crNosferat];)
     //
     );
 
