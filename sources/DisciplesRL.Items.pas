@@ -26,6 +26,15 @@ const
     'сфера', 'талисман', 'обувь', 'знамя', 'книга');
 
 type
+  TItemSlot = (isNone, isCap, isAmulet, isBanner, isTome, isArmor, isRHand,
+    isLHand, isRing, isArtifact, isBoots);
+
+const
+  SlotName: array [TItemSlot] of string = ('', 'Шлем', 'Амулет', 'Знамя',
+    'Книга', 'Доспех', 'Правая рука', 'Левая рука', 'Кольцо',
+    'Артефакт', 'Обувь');
+
+type
   TItemProp = (ipEquipable, ipConsumable, ipReadable, ipUsable, ipPermanent,
     ipTemporary);
 
@@ -68,6 +77,7 @@ type
     Name: string;
     Level: Integer;
     ItType: TItemType;
+    ItSlot: TItemSlot;
   end;
 
 const
@@ -91,9 +101,11 @@ type
 
 const
   MaxEquipmentItems = 12;
-  SlotName: array [0 .. MaxEquipmentItems - 1] of string = ('Шлем', 'Амулет',
-    'Знамя', 'Книга', 'Доспех', 'Правая рука', 'Левая рука', 'Кольцо', 'Кольцо',
-    'Артефакт', 'Артефакт', 'Обувь');
+
+const
+  DollSlot: array [0 .. MaxEquipmentItems - 1] of TItemSlot = (isCap, isAmulet,
+    isBanner, isTome, isArmor, isRHand, isLHand, isRing, isRing, isArtifact,
+    isArtifact, isBoots);
 
 type
   TEquipment = class(TObject)
@@ -108,6 +120,7 @@ type
     function ItemName(const I: Integer; const S: string): string; overload;
     procedure Add(const SlotIndex: Integer;
       const AItemEnum: TItemEnum); overload;
+    function ItemSlotName(const I: Integer): string;
   end;
 
 type
@@ -310,13 +323,18 @@ end;
 
 function TEquipment.ItemName(const I: Integer; const S: string): string;
 begin
-  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), SlotName[I], S]);
+  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), ItemSlotName(I), S]);
 end;
 
 function TEquipment.ItemName(const I: Integer): string;
 begin
-  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), SlotName[I],
+  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), ItemSlotName(I),
     FItem[I].Name]);
+end;
+
+function TEquipment.ItemSlotName(const I: Integer): string;
+begin
+  Result := SlotName[DollSlot[I]];
 end;
 
 end.
