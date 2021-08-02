@@ -433,6 +433,7 @@ var
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
+    DrawImage(TextLeft - 4, TextTop + 42, reItemFrame);
     AddTextLine('Экипировка', True);
     AddTextLine;
     for I := 0 to MaxEquipmentItems - 1 do
@@ -445,8 +446,10 @@ var
       else
         AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I));
       end;
+
     TextLeft := GetFrameX(0, psRight) + 320 + 12;
     TextTop := GetFrameY(0, psRight) + 6;
+    DrawImage(TextLeft - 4, TextTop + 42, reItemFrame);
     AddTextLine('Инвентарь', True);
     AddTextLine;
     for I := 0 to MaxInventoryItems - 1 do

@@ -20,7 +20,10 @@ type
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
     reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead,
+    //
     reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
+    reItemFrame,
+    //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
     reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag,
@@ -114,6 +117,8 @@ const
     (FileName: 'big_frame.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'frame.info.png'; ResType: teGUI;),
+    // Item Frame
+    (FileName: 'frame.item.png'; ResType: teGUI;),
     // Time
     (FileName: 'time.png'; ResType: teGUI;),
     // Neutral Terrain
@@ -537,7 +542,8 @@ begin
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
 end;
 
-class function TResources.KeysCount(const FileName, SectionName: string): Integer;
+class function TResources.KeysCount(const FileName,
+  SectionName: string): Integer;
 var
   IniFile: TMemIniFile;
   Keys: TStringList;
@@ -557,8 +563,8 @@ begin
   end;
 end;
 
-class function TResources.LoadFromFile(const FileName, SectionName, KeyName: string;
-  DefaultValue: Integer): Integer;
+class function TResources.LoadFromFile(const FileName, SectionName,
+  KeyName: string; DefaultValue: Integer): Integer;
 var
   IniFile: TMemIniFile;
 begin
@@ -607,7 +613,8 @@ begin
   end;
 end;
 
-class function TResources.RandomValue(const FileName, SectionName: string): string;
+class function TResources.RandomValue(const FileName,
+  SectionName: string): string;
 var
   IniFile: TMemIniFile;
   Keys: TStringList;
@@ -631,8 +638,8 @@ begin
   end;
 end;
 
-class procedure TResources.ReadSections(const FileName: string; Sections: TStrings;
-  Section: string = '');
+class procedure TResources.ReadSections(const FileName: string;
+  Sections: TStrings; Section: string = '');
 var
   IniFile: TMemIniFile;
   I: Integer;
