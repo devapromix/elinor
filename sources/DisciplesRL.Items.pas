@@ -64,8 +64,8 @@ type
     // iRoyalScepter
 
     // Rings
-    iStoneRing, iBronzeRing, iSilverRing, iGoldRing,
-    // iRingOfStrength, iRingOfTheAges, iHagsRing, iThanatosRing
+    iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
+    iRingOfTheAges, iHagsRing, iThanatosRing,
 
     // Helms
     iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
@@ -207,6 +207,18 @@ const
     ItSlot: isRing;),
     // Gold Ring
     (Enum: iGoldRing; Name: 'Золотое Кольцо'; Level: 4; ItType: itRing;
+    ItSlot: isRing;),
+    // Ring Of Strength,
+    (Enum: iRingOfStrength; Name: 'Кольцо Силы'; Level: 5; ItType: itRing;
+    ItSlot: isRing;),
+    // Ring Of The Ages,
+    (Enum: iRingOfTheAges; Name: 'Кольцо Веков'; Level: 6; ItType: itRing;
+    ItSlot: isRing;),
+    // Hag's Ring,
+    (Enum: iHagsRing; Name: 'Кольцо Ведьмы'; Level: 7; ItType: itRing;
+    ItSlot: isRing;),
+    // Thanatos Ring
+    (Enum: iThanatosRing; Name: 'Кольцо Танатоса'; Level: 8; ItType: itRing;
     ItSlot: isRing;),
 
     // Helms
