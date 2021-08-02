@@ -127,10 +127,13 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="../Nevendaar.exe"/>
+    </Target>
     <SearchPaths>
       <IncludeFiles Value="Forms;Third-Party\PathFind;Third-Party\RLLog;Third-Party\MapObject;Third-Party\Bass;Third-Party\SimplePlayer;Scenes;$(ProjOutDir)"/>
       <OtherUnitFiles Value="..;Forms;Third-Party\PathFind;Third-Party\Bass;Scenes"/>
-      <UnitOutputDirectory Value=".."/>
+      <UnitOutputDirectory Value="dcus"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
