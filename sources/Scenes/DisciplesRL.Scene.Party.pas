@@ -28,6 +28,9 @@ type
     procedure Close;
     procedure OpenInventory;
     procedure OpenSkills;
+  private
+    EquipmentSelItemIndex: Integer;
+    InventorySelItemIndex: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -64,7 +67,7 @@ var
 implementation
 
 uses
-  SysUtils,
+  SysUtils, dialogs,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Button,
@@ -317,6 +320,8 @@ begin
   end;
   FShowSkills := False;
   FShowInventory := False;
+  EquipmentSelItemIndex := -1;
+  InventorySelItemIndex := -1;
   Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
   P := True;
 end;
@@ -337,6 +342,14 @@ begin
   case AButton of
     mbLeft:
       begin
+        if EquipmentSelItemIndex > -1 then
+        begin
+          TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
+        end;
+        if InventorySelItemIndex > -1 then
+        begin
+          TLeaderParty.Leader.Equip(InventorySelItemIndex);
+        end;
         if Button[btSkills].MouseDown and FShowResources then
         begin
           OpenSkills;
@@ -367,6 +380,18 @@ var
   I: TButtonEnum;
 begin
   inherited;
+  if MouseOver(X, Y, GetFrameX(0, psRight) + 8, GetFrameY(0, psRight) + 48, 320,
+    TextLineHeight * 12) then
+    EquipmentSelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
+      div TextLineHeight
+  else
+    EquipmentSelItemIndex := -1;
+  if MouseOver(X, Y, GetFrameX(0, psRight) + 328, GetFrameY(0, psRight) + 48,
+    320, TextLineHeight * 12) then
+    InventorySelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
+      div TextLineHeight
+  else
+    InventorySelItemIndex := -1;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     Button[I].MouseMove(X, Y);
   Render;
@@ -433,7 +458,11 @@ var
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
-    DrawImage(TextLeft - 4, TextTop + 42, reItemFrame);
+    //
+    if EquipmentSelItemIndex >= 0 then
+      DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight)
+        + 42, reItemFrame);
+    //
     AddTextLine('Экипировка', True);
     AddTextLine;
     for I := 0 to MaxEquipmentItems - 1 do
@@ -449,7 +478,11 @@ var
 
     TextLeft := GetFrameX(0, psRight) + 320 + 12;
     TextTop := GetFrameY(0, psRight) + 6;
-    DrawImage(TextLeft - 4, TextTop + 42, reItemFrame);
+    //
+    if InventorySelItemIndex >= 0 then
+      DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
+        + 42, reItemFrame);
+    //
     AddTextLine('Инвентарь', True);
     AddTextLine;
     for I := 0 to MaxInventoryItems - 1 do
@@ -509,14 +542,6 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       Close;
-    K_V:
-      begin
-        TLeaderParty.Leader.UnEquip(0);
-      end;
-    K_B:
-      begin
-        TLeaderParty.Leader.Equip(0);
-      end;
     K_I:
       if FShowResources then
         OpenInventory;

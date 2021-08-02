@@ -288,10 +288,8 @@ end;
 function TInventory.ItemName(const I: Integer): string;
 begin
   if (FItem[I].Name <> '') then
-    Result := Format('[%s] %s (%s)', [Chr(I + Ord('M')), FItem[I].Name,
-      ItemTypeName[FItem[I].ItType]])
-  else
-    Result := Format('[%s]', [Chr(I + Ord('M'))]);
+    Result := Format('%s (%s)', [FItem[I].Name,
+      ItemTypeName[FItem[I].ItType]]);
 end;
 
 { TItemBase }
@@ -343,12 +341,12 @@ end;
 
 function TEquipment.ItemName(const I: Integer; const S: string): string;
 begin
-  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), ItemSlotName(I), S]);
+  Result := Format('%s: %s', [ItemSlotName(I), S]);
 end;
 
 function TEquipment.ItemName(const I: Integer): string;
 begin
-  Result := Format('[%s] %s: %s', [Chr(I + Ord('A')), ItemSlotName(I),
+  Result := Format('%s: %s', [ItemSlotName(I),
     FItem[I].Name]);
 end;
 

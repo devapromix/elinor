@@ -132,7 +132,8 @@ type
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure DrawResources;
-    function MouseOver(AX, AY, MX, MY: Integer): Boolean;
+    function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
+    function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
     function GetPartyPosition(const MX, MY: Integer): Integer;
     property ScrWidth: Integer read FScrWidth write FScrWidth;
     property Width: Integer read FWidth write FWidth;
@@ -563,6 +564,11 @@ begin
   DrawText(45, 54, Game.Mana.Value);
 
   DrawText(45, 84, Game.Day);
+end;
+
+function TScene.MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean;
+begin
+  Result := (MX > X1) and (MX < X1 + X2) and (MY > Y1) and (MY < Y1 + Y2);
 end;
 
 function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;
