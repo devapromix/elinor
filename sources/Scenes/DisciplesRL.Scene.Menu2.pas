@@ -1,5 +1,9 @@
 ﻿unit DisciplesRL.Scene.Menu2;
 
+{$IFDEF FPC}
+{$MODE DELPHI}
+{$ENDIF}
+
 interface
 
 uses
@@ -10,12 +14,11 @@ uses
 {$ENDIF}
   Classes,
   DisciplesRL.Button,
+  DisciplesRL.Common,
   DisciplesRL.Resources,
   DisciplesRL.Scenes;
 
 type
-
-  { TSceneMenu }
 
   { TSceneMenu2 }
 
@@ -29,6 +32,7 @@ type
     IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver,
       reIconOpenedGates);
   private
+    //ButtonCycler: specialize TEnumCycler<TButtonEnum>;
     CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;
     Icons: array [TIconEnum] of TIcon;
@@ -75,7 +79,7 @@ end;
 
 procedure TSceneMenu2.ConfirmQuit;
 begin
-  ConfirmDialog('Завершить игру?', {$IFDEF FPC}@{$ENDIF}Quit);
+  ConfirmDialog('Завершить игру?', {$IFDEF MODEOBJFPC}@{$ENDIF}Quit);
 end;
 
 procedure TSceneMenu2.PlayGame;
@@ -117,6 +121,7 @@ begin
       Button[I].Sellected := True;
     Inc(T, H);
   end;
+
   L := 20;
   T := 500;
   for J := Low(TIconEnum) to High(TIconEnum) do
@@ -211,8 +216,11 @@ begin
 end;
 
 procedure TSceneMenu2.Update(var Key: Word);
+var
+  LButtonCycler: TEnumCycler<TButtonEnum>;
 begin
   inherited;
+  LButtonCycler := TEnumCycler<TButtonEnum>.Create(Ord(CursorPos));
   case Key of
     K_ENTER:
       Next;
@@ -221,11 +229,14 @@ begin
     K_S:
       HighScores;
     K_UP:
-      CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) - 1, 0,
-        Ord(High(TButtonEnum))));
+      CursorPos := LButtonCycler.Prev;
+    //IIF(CursorPos = ButtonMin, ButtonMax, Pred(CursorPos));
+      //CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) - 1, 0,
+        //Ord(High(TButtonEnum))));
     K_DOWN:
-      CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) + 1, 0,
-        Ord(High(TButtonEnum))));
+      CursorPos := LButtonCycler.Next;
+      //CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) + 1, 0,
+        //Ord(High(TButtonEnum))));
   end;
 end;
 

@@ -1,5 +1,9 @@
 ﻿unit DisciplesRL.Scene.Hire;
 
+{$IFDEF FPC}
+{$MODE DELPHI}
+{$ENDIF}
+
 interface
 
 uses
@@ -25,6 +29,8 @@ type
   { TSceneHire }
 
   TSceneHire = class(TScene)
+  private class var
+    CurrentIndex: Integer;
   strict private
     function ThiefPoisonDamage: Integer;
     function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
@@ -50,6 +56,8 @@ type
     procedure RenderAbilities(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
     procedure RenderAbilitiesInfo;
+    procedure UpdEnum<N>(AKey: Word);
+    procedure Basic(AKey: Word);
   public
   class var
     MPX: Integer;
@@ -79,7 +87,8 @@ implementation
 
 uses
   Math,
-  SysUtils, dialogs,
+  SysUtils,
+  DisciplesRL.Common,
   DisciplesRL.Map,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
@@ -138,7 +147,6 @@ var
   SubScene: THireSubSceneEnum = stCharacter;
   BackScene: TSceneEnum = scMenu;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
-  CurrentIndex: Integer = 0;
   Lf, Lk: Integer;
   CurCrEnum: TCreatureEnum;
   GC, MC: Integer;
@@ -302,7 +310,7 @@ begin
   case SubScene of
     stRace:
       begin
-        TSaga.LeaderRace := TRaceEnum(CurrentIndex + 1);
+        TSaga.LeaderRace := TRaceEnum(CurrentIndex);
         TSceneHire.Show(stLeader);
       end;
     stLeader:
@@ -627,7 +635,7 @@ var
 begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  R := TRaceEnum(CurrentIndex + 1);
+  R := TRaceEnum(CurrentIndex);
   AddTextLine(RaceName[R], True);
   AddTextLine;
   for J := 0 to 10 do
@@ -1007,7 +1015,7 @@ begin
         DrawTitle(reTitleRace);
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
-          if Ord(R) - 1 = CurrentIndex then
+          if Ord(R) = CurrentIndex then
             DrawImage(Lf, SceneTop + Y, reActFrame)
           else
             DrawImage(Lf, SceneTop + Y, reFrame);
@@ -1227,30 +1235,40 @@ begin
 
 end;
 
+procedure TSceneHire.Basic(AKey: Word);
+begin
+  case AKey of
+    K_ESCAPE:
+      Back;
+    K_ENTER:
+      Ok;
+  end;
+end;
+
+procedure TSceneHire.UpdEnum<N>(AKey: Word);
+var
+  Cycler: TEnumCycler<N>;
+begin
+  Basic(AKey);
+  if not AKey in [K_UP, K_Down] then
+    Exit;
+  Game.MediaPlayer.Play(mmClick);
+  Cycler := TEnumCycler<N>.Create(CurrentIndex);
+  CurrentIndex := IfThen(AKey = K_UP, Cycler.PrevAsValue, Cycler.NextAsValue);
+end;
+
 procedure TSceneHire.Update(var Key: Word);
 var
   FF: Boolean;
 
   procedure Upd(const MaxValue: Integer);
   begin
-    case Key of
-      K_ESCAPE:
-        Back;
-      K_ENTER:
-        Ok;
-      K_UP:
-        begin
-          Game.MediaPlayer.Play(mmClick);
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, MaxValue);
-        end;
-      K_DOWN:
-        begin
-          Game.MediaPlayer.Play(mmClick);
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, MaxValue);
-        end;
-    end;
+    Basic(Key);
+    if not Key in [K_UP, K_Down] then
+      Exit;
+    Game.MediaPlayer.Play(mmClick);
+    CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_Up, -1, 1), 0, MaxValue);
   end;
-
 begin
   inherited;
   case SubScene of
@@ -1302,11 +1320,16 @@ begin
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
     stRace:
-      Upd(Ord(High(TRaceCharKind)));
+        UpdEnum<TPlayableRaces>(Key);
+        //Upd(Ord(High(TRaceCharKind)));
     stDifficulty:
-      Upd(Ord(High(TSaga.TDifficultyEnum)));
-    stVictory, stDefeat, stScenario, stHighScores2, stAbilities:
-      Upd(Ord(High(TScenario.TScenarioEnum)));
+        UpdEnum<TSaga.TDifficultyEnum>(Key);
+        //Upd(Ord(High(TSaga.TDifficultyEnum)));
+    stScenario:
+        UpdEnum<TScenario.TScenarioEnum>(Key);
+        //Upd(Ord(High(TScenario.TScenarioEnum)));
+    stVictory, stDefeat, stHighScores2, stAbilities:
+      Basic(Key);
   end;
   if (SubScene in CloseButtonScene) then
     case Key of

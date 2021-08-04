@@ -98,8 +98,6 @@ const
 type
   TConfirmMethod = procedure() of object;
 
-  { TScene }
-
 type
   TBGStat = (bsCharacter, bsEnemy, bsParalyze);
 

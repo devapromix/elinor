@@ -10,3 +10,4 @@ sources/lib/
 /*.exe
 sources/Forms/backup/
 sources/Scenes/backup/
+sources/Scenes/__history/
