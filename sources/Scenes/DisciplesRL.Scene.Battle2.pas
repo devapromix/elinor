@@ -201,8 +201,7 @@ begin
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
             LeaderParty.UpdateLevel(Position);
-            Battle.Log.Add(Format('%s повысил%s уровень до %d!',
-              [Name[0], GenderEnding, Level + 1]));
+            Battle.UpdateLevel(Name[0], GenderEnding, Level + 1);
             IsNewLevel := (Leadership > 0) and (Level <= MaxSkills);
           end;
   end;

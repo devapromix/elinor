@@ -15,6 +15,8 @@ type
     procedure Clear;
     procedure Miss(const AtkCrName, DefCrName: string);
     procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
+    procedure UpdateLevel(const CrName, GenderEnding: string;
+      const Level: Integer);
     procedure StartCastSpell(const CrName, SourceName: string);
     function GetLogMessage(AttackEnum: TAttackEnum;
       SourceEnum: TSourceEnum): string;
@@ -48,6 +50,13 @@ procedure TBattle.UpdateExp(const CrName, GenderEnding: string;
 begin
   Log.Add(Format(TResources.RandomValue('battle.strings', 'update_exp'),
     [CrName, GenderEnding, Exp]));
+end;
+
+procedure TBattle.UpdateLevel(const CrName, GenderEnding: string;
+  const Level: Integer);
+begin
+  Log.Add(Format(TResources.RandomValue('battle.strings', 'update_level'),
+    [CrName, GenderEnding, Level]));
 end;
 
 procedure TBattle.Clear;
