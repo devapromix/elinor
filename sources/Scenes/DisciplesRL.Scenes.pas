@@ -22,11 +22,11 @@ type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle);
 
 const
-  Top = 220;
-  Left = 10;
-  DefaultButtonTop = 600;
   ScreenWidth = 1344;
   ScreenHeight = 704;
+
+var
+  TextTop, TextLeft: Integer;
 
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);
@@ -74,6 +74,7 @@ const
   K_Q = ord('Q');
   K_R = ord('R');
   K_S = ord('S');
+  K_T = ord('T');
   K_V = ord('V');
   K_W = ord('W');
   K_X = ord('X');
@@ -97,30 +98,21 @@ const
 type
   TConfirmMethod = procedure() of object;
 
-  { TScene }
-{
-type
-  IScene = interface
-    procedure Show(const S: TSceneEnum);
-    procedure Render;
-    procedure Update(var Key: Word);
-    procedure Timer;
-    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
-      X, Y: Integer);
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer);
-  end;
-}
 type
   TBGStat = (bsCharacter, bsEnemy, bsParalyze);
 
 type
-  TScene = class(TObject{TInterfacedObject, IScene})
+  TScene = class(TObject)
   private
     FWidth: Integer;
     FScrWidth: Integer;
   public
     constructor Create;
     destructor Destroy; override;
+    function TextLineHeight: Byte;
+    class function DefaultButtonTop: Word;
+    class function SceneTop: Byte;
+    class function SceneLeft: Byte;
     procedure Show(const S: TSceneEnum); virtual;
     procedure Render; virtual;
     procedure Update(var Key: Word); virtual;
@@ -134,11 +126,15 @@ type
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
     procedure RenderFrame(const PartySide: TPartySide;
       const I, AX, AY: Integer);
-    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat);
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+      F: TBGStat); overload;
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
+      HP, MaxHP: Integer); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure DrawResources;
-    function MouseOver(AX, AY, MX, MY: Integer): Boolean;
+    function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
+    function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
     function GetPartyPosition(const MX, MY: Integer): Integer;
     property ScrWidth: Integer read FScrWidth write FScrWidth;
     property Width: Integer read FWidth write FWidth;
@@ -147,6 +143,12 @@ type
     procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
     procedure DrawText(const AX, AY: Integer; AText: string;
       F: Boolean); overload;
+    procedure AddTextLine; overload;
+    procedure AddTextLine(const S: string); overload;
+    procedure AddTextLine(const S: string; const F: Boolean); overload;
+    procedure AddTextLine(const S, V: string); overload;
+    procedure AddTextLine(const S: string; const V: Integer); overload;
+    procedure AddTextLine(const S: string; const V, M: Integer); overload;
   end;
 
 type
@@ -217,6 +219,7 @@ var
 implementation
 
 uses
+  Math,
   SysUtils,
   DisciplesRL.MainForm,
   DisciplesRL.Button,
@@ -360,6 +363,11 @@ begin
   ConfirmHandler := nil;
 end;
 
+class function TScene.DefaultButtonTop: Word;
+begin
+  Result := 600;
+end;
+
 destructor TScene.Destroy;
 begin
 
@@ -382,9 +390,24 @@ begin
 
 end;
 
+class function TScene.SceneLeft: Byte;
+begin
+  Result := 10;
+end;
+
+class function TScene.SceneTop: Byte;
+begin
+  Result := 220;
+end;
+
 procedure TScene.Show(const S: TSceneEnum);
 begin
 
+end;
+
+function TScene.TextLineHeight: Byte;
+begin
+  Result := 24;
 end;
 
 procedure TScene.Timer;
@@ -400,6 +423,37 @@ end;
 procedure TScene.DrawTitle(Res: TResEnum);
 begin
   DrawImage(ScrWidth - (ResImage[Res].Width div 2), 10, Res);
+end;
+
+procedure TScene.AddTextLine;
+begin
+  Inc(TextTop, TextLineHeight);
+end;
+
+procedure TScene.AddTextLine(const S: string; const F: Boolean);
+begin
+  DrawText(TextLeft, TextTop, S, F);
+  Inc(TextTop, TextLineHeight);
+end;
+
+procedure TScene.AddTextLine(const S: string);
+begin
+  AddTextLine(S, False);
+end;
+
+procedure TScene.AddTextLine(const S: string; const V: Integer);
+begin
+  AddTextLine(Format('%s: %d', [S, V]));
+end;
+
+procedure TScene.AddTextLine(const S, V: string);
+begin
+  AddTextLine(Format('%s: %s', [S, V]));
+end;
+
+procedure TScene.AddTextLine(const S: string; const V, M: Integer);
+begin
+  AddTextLine(Format('%s: %d/%d', [S, V, M]));
 end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
@@ -440,6 +494,57 @@ begin
       DrawImage(AX + 7, AY + 7, reBGParalyze);
   end;
   DrawImage(AX + 7, AY + 7, AResEnum);
+end;
+
+procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
+  HP, MaxHP: Integer);
+var
+  TmpImage: TPNGImage;
+  CHP: Integer;
+
+  function BarHeight(CY, MY, GS: Integer): Integer;
+  var
+    I: Integer;
+  begin
+    if (CY < 0) then
+      CY := 0;
+    if (CY = MY) and (CY = 0) then
+    begin
+      Result := 0;
+      Exit;
+    end;
+    if (MY <= 0) then
+      MY := 1;
+    I := (CY * GS) div MY;
+    if I <= 0 then
+      I := 0;
+    if (CY >= MY) then
+      I := GS;
+    Result := I;
+  end;
+
+begin
+  DrawImage(AX + 7, AY + 7, reBGParalyze);
+  CHP := BarHeight(HP, MaxHP, 104);
+  TmpImage := TPNGImage.Create;
+  try
+    case F of
+      bsCharacter:
+        TmpImage.Assign(ResImage[reBGChar]);
+      bsEnemy:
+        TmpImage.Assign(ResImage[reBGEnemy]);
+      bsParalyze:
+        TmpImage.Assign(ResImage[reBGParalyze]);
+    end;
+    if (CHP > 0) then
+    begin
+      TmpImage.SetSize(64, EnsureRange(CHP, 0, 104));
+      DrawImage(AX + 7, AY + 7 + (104 - CHP), TmpImage);
+    end;
+    DrawImage(AX + 7, AY + 7, AResEnum);
+  finally
+    FreeAndNil(TmpImage);
+  end;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
@@ -512,6 +617,11 @@ begin
   DrawText(45, 54, Game.Mana.Value);
 
   DrawText(45, 84, Game.Day);
+end;
+
+function TScene.MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean;
+begin
+  Result := (MX > X1) and (MX < X1 + X2) and (MY > Y1) and (MY < Y1 + Y2);
 end;
 
 function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;
@@ -670,7 +780,10 @@ end;
 destructor TScenes.Destroy;
 var
   I: TButtonEnum;
+  S: TSceneEnum;
 begin
+  for S := Low(TSceneEnum) to High(TSceneEnum) do
+    FreeAndNil(FScene[S]);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[I]);
   FreeAndNil(Button);

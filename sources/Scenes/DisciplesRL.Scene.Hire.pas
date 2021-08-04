@@ -14,7 +14,6 @@ uses
 {$ENDIF}
   Classes,
   DisciplesRL.Saga,
-  DisciplesRL.Skills,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   DisciplesRL.Resources,
@@ -23,18 +22,15 @@ uses
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
     stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
-    stDifficulty, stNewSkill);
+    stDifficulty, stAbilities);
 
 type
 
   { TSceneHire }
 
   TSceneHire = class(TScene)
-  private const
-    H = 25;
-  private
-  var
-    T, L: Integer;
+  private class var
+    CurrentIndex: Integer;
   strict private
     function ThiefPoisonDamage: Integer;
     function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
@@ -54,15 +50,14 @@ type
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
   private
-    procedure Add; overload;
-    procedure Add(S: string; F: Boolean = False); overload;
-    procedure Add(S, V: string); overload;
-    procedure Add(S: string; V, M: Integer); overload;
-    procedure Add(S: string; V: Integer; R: string = ''); overload;
-    procedure Add2(S: string; V: Integer); overload;
     procedure RenderRaceInfo;
     procedure RenderHighScores;
     procedure RenderFinalInfo;
+    procedure RenderAbilities(const AScenario: TScenario.TScenarioEnum;
+      const AX, AY: Integer);
+    procedure RenderAbilitiesInfo;
+    procedure UpdEnum<N>(AKey: Word);
+    procedure Basic(AKey: Word);
   public
   class var
     MPX: Integer;
@@ -78,7 +73,7 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
-    procedure RenderCharacterInfo(C: TCreatureEnum; const F: Boolean = True);
+    procedure RenderCharacterInfo(C: TCreatureEnum; const N: Integer = 0);
     class procedure Show(const ASubScene: THireSubSceneEnum); overload;
     class procedure Show(const Party: TParty; const Position: Integer);
       overload;
@@ -93,13 +88,13 @@ implementation
 uses
   Math,
   SysUtils,
-  Dialogs,
   DisciplesRL.Common,
   DisciplesRL.Map,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Settlement;
+  DisciplesRL.Scene.Settlement,
+  DisciplesRL.Items;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -126,21 +121,22 @@ const
     (reTextClose, reTextClose),
     // StoneTab
     (reTextClose, reTextClose),
-    // Spy
-    (reTextContinue, reTextCancel),
-    // War
-    (reTextContinue, reTextCancel),
+    // Thief Spy
+    (reTextContinue, reTextClose),
+    // Warrior War
+    (reTextContinue, reTextClose),
     // Difficulty
     (reTextContinue, reTextCancel),
-    // New Skill
+    // Abilities
     (reTextClose, reTextClose)
     //
     );
 
 const
   AddButtonScene = [stLoot, stStoneTab];
-  CloseButtonScene = [stJournal, stNewSkill, stVictory, stDefeat, stHighScores2]
-    + AddButtonScene;
+  CloseCloseScene = [stAbilities];
+  CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
+    AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
     stDifficulty, stSpy, stWar];
   WideButtonScene = [stCharacter, stLeader];
@@ -151,7 +147,6 @@ var
   SubScene: THireSubSceneEnum = stCharacter;
   BackScene: TSceneEnum = scMenu;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
-  CurrentIndex: Integer = 0;
   Lf, Lk: Integer;
   CurCrEnum: TCreatureEnum;
   GC, MC: Integer;
@@ -242,7 +237,7 @@ begin
       TSceneHire.Show(stDifficulty);
     stScenario:
       Game.Show(scMenu);
-    stJournal, stSpy, stWar, stNewSkill:
+    stJournal, stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
       begin
@@ -366,9 +361,10 @@ begin
       begin
         Game.Show(scMenu);
       end;
-    stNewSkill:
+    stAbilities:
       begin
-
+        with TLeaderParty.Leader.Skills do
+          Add(RandomSkillEnum[CurrentIndex]);
         TSceneBattle2.AfterVictory;
       end;
     stStoneTab:
@@ -516,48 +512,42 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const F: Boolean);
+procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const N: Integer);
 var
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12 + N;
   with TCreature.Character(C) do
   begin
-    Add(Name[0], True);
-    Add;
-    if TSaga.IsGame and F then
-      Add2('Побед', Game.Statistics.GetValue(stBattlesWon));
-    Add('Уровень', Level);
-    if TSaga.IsGame and F then
-      Add2('Убито', Game.Statistics.GetValue(stKilledCreatures));
-    Add('Точность', ChancesToHit, '%');
-    if TSaga.IsGame and F then
-      Add2('Очки', Game.Statistics.GetValue(stScore));
-    Add('Инициатива', Initiative);
-    Add('Здоровье', HitPoints, HitPoints);
-    Add('Урон', Damage);
-    Add('Броня', Armor);
-    Add('Источник', SourceName[SourceEnum]);
+    AddTextLine(Name[0], True);
+    AddTextLine;
+    AddTextLine('Уровень', Level);
+    AddTextLine('Точность', ChancesToHit);
+    AddTextLine('Инициатива', Initiative);
+    AddTextLine('Здоровье', HitPoints, HitPoints);
+    AddTextLine('Урон', Damage);
+    AddTextLine('Броня', Armor);
+    AddTextLine('Источник', SourceName[SourceEnum]);
     case ReachEnum of
       reAny:
         begin
-          Add('Дистанция', 'Все поле боя');
-          Add('Цели', 1);
+          AddTextLine('Дистанция', 'Все поле боя');
+          AddTextLine('Цели', 1);
         end;
       reAdj:
         begin
-          Add('Дистанция', 'Ближайшие цели');
-          Add('Цели', 1);
+          AddTextLine('Дистанция', 'Ближайшие цели');
+          AddTextLine('Цели', 1);
         end;
       reAll:
         begin
-          Add('Дистанция', 'Все поле боя');
-          Add('Цели', 6);
+          AddTextLine('Дистанция', 'Все поле боя');
+          AddTextLine('Цели', 6);
         end;
     end;
     for J := 0 to 2 do
-      Add(Description[J]);
+      AddTextLine(Description[J]);
   end;
 end;
 
@@ -578,11 +568,11 @@ procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar;
 begin
   case N of
     svIntroduceSpy:
-      DrawImage(AX + 7, AY + 7, reThiefDuel);
+      DrawImage(AX + 7, AY + 7, reThiefSpy);
     svDuel:
       DrawImage(AX + 7, AY + 7, reThiefDuel);
     svPoison:
-      DrawImage(AX + 7, AY + 7, reThiefDuel);
+      DrawImage(AX + 7, AY + 7, reThiefPoison);
   end;
 end;
 
@@ -591,11 +581,11 @@ procedure TSceneHire.RenderWar(const N: TLeaderWarriorActVar;
 begin
   case N of
     avRest:
-      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
+      DrawImage(AX + 7, AY + 7, reWarriorRest);
     avRitual:
-      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
+      DrawImage(AX + 7, AY + 7, reWarriorRitual);
     avWar3:
-      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
+      DrawImage(AX + 7, AY + 7, reWarriorWar3);
   end;
 end;
 
@@ -625,38 +615,17 @@ begin
   end;
 end;
 
-procedure TSceneHire.Add;
+procedure TSceneHire.RenderAbilities(const AScenario: TScenario.TScenarioEnum;
+  const AX, AY: Integer);
 begin
-  Inc(T, H);
-end;
-
-procedure TSceneHire.Add(S: string; F: Boolean = False);
-begin
-  DrawText(L, T, S, F);
-  Inc(T, H);
-end;
-
-procedure TSceneHire.Add(S, V: string);
-begin
-  DrawText(L, T, Format('%s: %s', [S, V]));
-  Inc(T, H);
-end;
-
-procedure TSceneHire.Add(S: string; V: Integer; R: string = '');
-begin
-  DrawText(L, T, Format('%s: %d%s', [S, V, R]));
-  Inc(T, H);
-end;
-
-procedure TSceneHire.Add2(S: string; V: Integer);
-begin
-  DrawText(L + 200, T, Format('%s: %d', [S, V]));
-end;
-
-procedure TSceneHire.Add(S: string; V, M: Integer);
-begin
-  DrawText(L, T, Format('%s: %d/%d', [S, V, M]));
-  Inc(T, H);
+  case AScenario of
+    sgDarkTower:
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
+    sgOverlord:
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
+    sgAncientKnowledge:
+      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
+  end;
 end;
 
 procedure TSceneHire.RenderRaceInfo;
@@ -664,13 +633,13 @@ var
   R: TRaceEnum;
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   R := TRaceEnum(CurrentIndex);
-  Add(RaceName[R], True);
-  Add;
+  AddTextLine(RaceName[R], True);
+  AddTextLine;
   for J := 0 to 10 do
-    Add(RaceDescription[R][J]);
+    AddTextLine(RaceDescription[R][J]);
 end;
 
 procedure TSceneHire.RenderDifficultyInfo;
@@ -678,13 +647,13 @@ var
   D: TSaga.TDifficultyEnum;
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   D := TSaga.TDifficultyEnum(CurrentIndex);
-  Add(TSaga.DifficultyName[D], True);
-  Add;
+  AddTextLine(TSaga.DifficultyName[D], True);
+  AddTextLine;
   for J := 0 to 11 do
-    Add(TSaga.DifficultyDescription[D][J]);
+    AddTextLine(TSaga.DifficultyDescription[D][J]);
 end;
 
 procedure TSceneHire.RenderScenarioInfo;
@@ -692,31 +661,44 @@ var
   S: TScenario.TScenarioEnum;
   J: Integer;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TScenario.TScenarioEnum(CurrentIndex);
-  Add(TScenario.ScenarioName[S], True);
-  Add;
+  AddTextLine(TScenario.ScenarioName[S], True);
+  AddTextLine;
   for J := 0 to 10 do
-    Add(TScenario.ScenarioDescription[S][J]);
+    AddTextLine(TScenario.ScenarioDescription[S][J]);
   if TSaga.IsGame then
     case Game.Scenario.CurrentScenario of
       sgOverlord:
-        Add(Game.Scenario.ScenarioOverlordState);
+        AddTextLine(Game.Scenario.ScenarioOverlordState);
       sgAncientKnowledge:
-        Add(Game.Scenario.ScenarioAncientKnowledgeState);
+        AddTextLine(Game.Scenario.ScenarioAncientKnowledgeState);
     end;
+end;
+
+procedure TSceneHire.RenderAbilitiesInfo;
+var
+  S: TSkillEnum;
+begin
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
+  S := TLeaderParty.Leader.Skills.RandomSkillEnum[CurrentIndex];
+  AddTextLine(TSkills.Ability(S).Name, True);
+  AddTextLine;
+  AddTextLine(TSkills.Ability(S).Description[0]);
+  AddTextLine(TSkills.Ability(S).Description[1]);
 end;
 
 procedure TSceneHire.RenderFinalInfo;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
-  Add('Статистика', True);
-  Add;
-  Add('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
-  Add('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
-  Add('Очки', Game.Statistics.GetValue(stScore));
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
+  AddTextLine('Статистика', True);
+  AddTextLine;
+  AddTextLine('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
+  AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
+  AddTextLine('Очки', Game.Statistics.GetValue(stScore));
 end;
 
 procedure TSceneHire.RenderHighScores;
@@ -729,23 +711,23 @@ var
   J: Integer;
   S: TLeaderThiefSpyVar;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderThiefSpyVar(CurrentIndex);
-  Add(TSaga.SpyName[S], True);
-  Add;
+  AddTextLine(TSaga.SpyName[S], True);
+  AddTextLine;
   for J := 0 to 4 do
-    Add(TSaga.SpyDescription[S][J]);
-  Add;
-  Add;
-  Add;
-  Add;
-  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+    AddTextLine(TSaga.SpyDescription[S][J]);
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
     TLeaderParty.Leader.GetMaxSpy]));
-  Add(Format('Вероятность успеха: %d %', [ThiefChanceOfSuccess(S)]));
+  AddTextLine(Format('Вероятность успеха: %d %', [ThiefChanceOfSuccess(S)]));
   case S of
     svPoison:
-      Add(Format('Сила ядов: %d', [ThiefPoisonDamage]));
+      AddTextLine(Format('Сила ядов: %d', [ThiefPoisonDamage]));
   end;
 end;
 
@@ -754,20 +736,20 @@ var
   J: Integer;
   S: TLeaderWarriorActVar;
 begin
-  T := Top + 6;
-  L := Lf + ResImage[reActFrame].Width + 12;
+  TextTop := SceneTop + 6;
+  TextLeft := Lf + ResImage[reActFrame].Width + 12;
   S := TLeaderWarriorActVar(CurrentIndex);
-  Add(TSaga.WarName[S], True);
-  Add;
+  AddTextLine(TSaga.WarName[S], True);
+  AddTextLine;
   for J := 0 to 4 do
-    Add(TSaga.WarDescription[S][J]);
-  Add;
-  Add;
-  Add;
-  Add;
-  Add(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+    AddTextLine(TSaga.WarDescription[S][J]);
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine;
+  AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
     TLeaderParty.Leader.GetMaxSpy]));
-  Add(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
+  AddTextLine(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
 end;
 
 procedure TSceneHire.RenderButtons;
@@ -847,35 +829,36 @@ begin
       begin
         if (SubScene in WideButtonScene) then
         begin
-          if MouseOver(Lk, Top, X, Y) then
+          if MouseOver(Lk, SceneTop, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 0;
           end;
-          if MouseOver(Lk, Top + 120, X, Y) then
+          if MouseOver(Lk, SceneTop + 120, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 1;
           end;
-          if MouseOver(Lk, Top + 240, X, Y) then
+          if MouseOver(Lk, SceneTop + 240, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := 2;
           end;
         end;
-        if not(SubScene in CloseButtonScene) then
+        if not(SubScene in CloseButtonScene) or (SubScene in CloseCloseScene)
+        then
         begin
-          if MouseOver(Lf, Top, X, Y) then
+          if MouseOver(Lf, SceneTop, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 3, 0);
           end;
-          if MouseOver(Lf, Top + 120, X, Y) then
+          if MouseOver(Lf, SceneTop + 120, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 4, 1);
           end;
-          if MouseOver(Lf, Top + 240, X, Y) then
+          if MouseOver(Lf, SceneTop + 240, X, Y) then
           begin
             Game.MediaPlayer.Play(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 5, 2);
@@ -963,18 +946,18 @@ begin
         begin
           Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
           if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Left + X, Top + Y, reActFrame)
+            DrawImage(Left + X, SceneTop + Y, reActFrame)
           else
-            DrawImage(Left + X, Top + Y, reFrame);
+            DrawImage(Left + X, SceneTop + Y, reFrame);
           with TCreature.Character
             (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
             [cgCharacters][K]) do
             if HitPoints > 0 then
             begin
-              DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+              DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
               TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                Top + Y, Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-                [cgCharacters][K], False);
+                SceneTop + Y, Characters[Party[TLeaderParty.LeaderPartyIndex]
+                .Owner][cgCharacters][K], False);
             end;
           Inc(Y, 120);
           if Y > 240 then
@@ -992,16 +975,17 @@ begin
         begin
           Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
           if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Left + X, Top + Y, reActFrame)
+            DrawImage(Left + X, SceneTop + Y, reActFrame)
           else
-            DrawImage(Left + X, Top + Y, reFrame);
+            DrawImage(Left + X, SceneTop + Y, reFrame);
           with TCreature.Character(Characters[TSaga.LeaderRace]
             [cgLeaders][K]) do
             if HitPoints > 0 then
             begin
-              DrawUnit(ResEnum, Left + X, Top + Y, bsCharacter);
+              DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
               TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                Top + Y, Characters[TSaga.LeaderRace][cgLeaders][K], False);
+                SceneTop + Y, Characters[TSaga.LeaderRace][cgLeaders]
+                [K], False);
             end;
           Inc(Y, 120);
           if Y > 240 then
@@ -1018,10 +1002,10 @@ begin
         for D := dfEasy to dfHard do
         begin
           if Ord(D) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderDifficulty(D, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderDifficulty(D, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1032,10 +1016,10 @@ begin
         for R := reTheEmpire to reLegionsOfTheDamned do
         begin
           if Ord(R) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderRace(R, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderRace(R, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1046,24 +1030,24 @@ begin
         for Z := svIntroduceSpy to svPoison do
         begin
           if Ord(Z) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderSpy(Z, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderSpy(Z, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
     stWar:
       begin
         DrawImage(reWallpaperDifficulty);
-        DrawTitle(reTitleThief);
+        DrawTitle(reTitleWarrior);
         for N := avRest to avWar3 do
         begin
           if Ord(N) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderWar(N, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderWar(N, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1075,10 +1059,25 @@ begin
           to High(TScenario.TScenarioEnum) do
         begin
           if Ord(S) = CurrentIndex then
-            DrawImage(Lf, Top + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reActFrame)
           else
-            DrawImage(Lf, Top + Y, reFrame);
-          RenderScenario(S, Lf, Top + Y);
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderScenario(S, Lf, SceneTop + Y);
+          Inc(Y, 120);
+        end;
+      end;
+    stAbilities:
+      begin
+        DrawImage(reWallpaperScenario);
+        DrawTitle(reTitleAbilities);
+        for S := Low(TScenario.TScenarioEnum)
+          to High(TScenario.TScenarioEnum) do
+        begin
+          if Ord(S) = CurrentIndex then
+            DrawImage(Lf, SceneTop + Y, reActFrame)
+          else
+            DrawImage(Lf, SceneTop + Y, reFrame);
+          RenderAbilities(S, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
       end;
@@ -1150,7 +1149,7 @@ begin
                   It2 := ItemRes
                 else
                   It3 := ItemRes;
-                DrawText(Y, 'АРТЕФАКТ ' + IntToStr(TSaga.NewItem));
+                DrawText(Y, TItemBase.Item(TSaga.NewItem).Name);
                 Inc(Y, 20);
               end;
               DrawItem([It1, It2, It3]);
@@ -1159,7 +1158,7 @@ begin
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
-    DrawImage(Lf + ResImage[reActFrame].Width + 2, Top, reInfoFrame);
+    DrawImage(Lf + ResImage[reActFrame].Width + 2, SceneTop, reInfoFrame);
   case SubScene of
     stCharacter, stLeader:
       begin
@@ -1171,37 +1170,41 @@ begin
             CurCrEnum := Characters[TSaga.LeaderRace][cgLeaders][K];
         end;
         if CurCrEnum <> crNone then
-          RenderCharacterInfo(CurCrEnum, False);
+          RenderCharacterInfo(CurCrEnum);
         case SubScene of
           stCharacter:
             begin
               DrawResources;
               DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
-                Top, reGold);
-              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40, Top + 12,
-                TCreature.Character(CurCrEnum).Gold);
+                SceneTop, reGold);
+              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40,
+                SceneTop + 12, TCreature.Character(CurCrEnum).Gold);
             end;
           stLeader:
+            if CurCrEnum <> crNone then
             begin
-              DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, Top,
+              DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, SceneTop,
                 reInfoFrame);
-              T := Top + 6;
-              L := Lf + (ResImage[reActFrame].Width * 2) + 14;
-              Add('Умения Лидера', True);
-              Add;
-              Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum].Name);
+              TextTop := SceneTop + 6;
+              TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14;
+              AddTextLine('Умения Лидера', True);
+              AddTextLine;
+              AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum)
+                .SkillEnum).Name);
               for I := 0 to 1 do
-                Add(SkillBase[TCreature.Character(CurCrEnum).SkillEnum]
+                AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum)
                   .Description[I]);
-              Add;
-              Add;
-              Add;
-              Add;
-              Add;
-              Add;
-              Add('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
-              Add('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
-              Add('Заклинаний в день', TLeaderParty.GetMaxSpells(CurCrEnum));
+              AddTextLine;
+              AddTextLine;
+              AddTextLine('Экипировка', True);
+              AddTextLine;
+              AddTextLine(Format('Оружие: %s',
+                [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum)
+                .AttackEnum, TCreature.Character(CurCrEnum).SourceEnum)]));
+              AddTextLine;
+              AddTextLine('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
+              AddTextLine('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
+              AddTextLine('Заклинаний в день', TLeaderParty.GetMaxSpells(CurCrEnum));
             end;
         end;
       end;
@@ -1211,6 +1214,8 @@ begin
       RenderDifficultyInfo;
     stScenario, stJournal:
       RenderScenarioInfo;
+    stAbilities:
+      RenderAbilitiesInfo;
     stVictory, stDefeat:
       RenderFinalInfo;
     stHighScores2:
@@ -1230,51 +1235,40 @@ begin
 
 end;
 
-procedure UpdEnum<N>(AKey: Word);
+procedure TSceneHire.Basic(AKey: Word);
+begin
+  case AKey of
+    K_ESCAPE:
+      Back;
+    K_ENTER:
+      Ok;
+  end;
+end;
+
+procedure TSceneHire.UpdEnum<N>(AKey: Word);
 var
   Cycler: TEnumCycler<N>;
 begin
+  Basic(AKey);
   if not AKey in [K_UP, K_Down] then
     Exit;
   Game.MediaPlayer.Play(mmClick);
   Cycler := TEnumCycler<N>.Create(CurrentIndex);
-  if AKey = K_UP then
-    CurrentIndex := Cycler.PrevAsValue
-  else
-    CurrentIndex := Cycler.NextAsValue;
+  CurrentIndex := IfThen(AKey = K_UP, Cycler.PrevAsValue, Cycler.NextAsValue);
 end;
 
 procedure TSceneHire.Update(var Key: Word);
 var
   FF: Boolean;
 
-  procedure Basic();
-  begin
-    case Key of
-      K_ESCAPE:
-        Back;
-      K_ENTER:
-        Ok;
-    end;
-  end;
-
   procedure Upd(const MaxValue: Integer);
   begin
-    Basic;
-    case Key of
-      K_UP:
-        begin
-          Game.MediaPlayer.Play(mmClick);
-          CurrentIndex := EnsureRange(CurrentIndex - 1, 0, MaxValue);
-        end;
-      K_DOWN:
-        begin
-          Game.MediaPlayer.Play(mmClick);
-          CurrentIndex := EnsureRange(CurrentIndex + 1, 0, MaxValue);
-        end;
-    end;
+    Basic(Key);
+    if not Key in [K_UP, K_Down] then
+      Exit;
+    Game.MediaPlayer.Play(mmClick);
+    CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_Up, -1, 1), 0, MaxValue);
   end;
-
 begin
   inherited;
   case SubScene of
@@ -1326,25 +1320,16 @@ begin
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
     stRace:
-      begin
-        Basic;
         UpdEnum<TPlayableRaces>(Key);
         //Upd(Ord(High(TRaceCharKind)));
-      end;
     stDifficulty:
-      begin
-        Basic;
         UpdEnum<TSaga.TDifficultyEnum>(Key);
         //Upd(Ord(High(TSaga.TDifficultyEnum)));
-      end;
     stScenario:
-      begin
-        Basic;
         UpdEnum<TScenario.TScenarioEnum>(Key);
         //Upd(Ord(High(TScenario.TScenarioEnum)));
-      end;
-    stVictory, stDefeat, stHighScores2:
-      Basic;
+    stVictory, stDefeat, stHighScores2, stAbilities:
+      Basic(Key);
   end;
   if (SubScene in CloseButtonScene) then
     case Key of

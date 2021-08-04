@@ -27,9 +27,7 @@ uses
   DisciplesRL.Scene.Battle2 in 'Scenes\DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Battle3 in 'Scenes\DisciplesRL.Scene.Battle3.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
-  DisciplesRL.Button in 'DisciplesRL.Button.pas',
-  DisciplesRL.Frame in 'DisciplesRL.Frame.pas',
-  DisciplesRL.Skills in 'DisciplesRL.Skills.pas';
+  DisciplesRL.Button in 'DisciplesRL.Button.pas';
 
 {$R *.res}
 

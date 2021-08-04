@@ -7,7 +7,6 @@ interface
 {$ENDIF}
 
 uses
-  DisciplesRL.Skills,
   DisciplesRL.Resources;
 
 type
@@ -68,6 +67,9 @@ const
     // Neutras
     ('', '', '', '', '', '', '', '', '', '', '')
     );
+
+  // CreatureEnum
+{$REGION CreatureEnum}
 
 type
   TCreatureEnum = (crNone,
@@ -150,17 +152,22 @@ type
     // Spiders
     crGiantSpider,
     // Wolves
-    crWolf
+    crWolf,
+    // Bears
+    crPolarBear, crBrownBear, crBlackBear
     //
     );
+{$ENDREGION CreatureEnum}
 
 const
-  LeaderWarrior: set of TCreatureEnum = [crPegasusKnight,
-    crDeathKnight, crDuke];
-  LeaderScout: set of TCreatureEnum = [crRanger, crNosferat, crCounselor];
-  LeaderMage: set of TCreatureEnum = [crArchmage, crLichQueen, crArchDevil];
-  LeaderThief: set of TCreatureEnum = [crThief, crThug, crRipper];
-  LeaderLord: set of TCreatureEnum = [crWarlord, crDominator, crChieftain];
+  LeaderWarrior = [crPegasusKnight, crDeathKnight, crDuke];
+  LeaderScout = [crRanger, crNosferat, crCounselor];
+  LeaderMage = [crArchmage, crLichQueen, crArchDevil];
+  LeaderThief = [crThief, crThug, crRipper];
+  LeaderLord = [crWarlord, crDominator, crChieftain];
+
+  AllLeaders = LeaderWarrior + LeaderScout + LeaderMage + LeaderThief +
+    LeaderLord;
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -172,6 +179,9 @@ type
 const
   SourceName: array [TSourceEnum] of string = ('Оружие', 'Жизнь', 'Разум',
     'Смерть', 'Воздух', 'Земля', 'Огонь', 'Вода');
+  StaffName: array [TSourceEnum] of string = ('Боевой Посох', 'Рубиновый Посох',
+    'Мифриловый Посох', 'Посох Могущества', 'Посох Молний', 'Эльфийский Посох',
+    'Посох Колдуна', 'Посох Льда');
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -187,19 +197,21 @@ const
   ckGuardian = ckMage;
 
 type
-  TAttackEnum = (atLongSword, atBattleAxe, atDagger, atBow, atCrossbow,
-    atDrainLife, atHealing, atParalyze, atPoison, atMagic, atClaws, atBites,
-    atSpear, atStones, atPoisonousBreath, atDaggerOfShadows,
-    atFireDagger, atClub);
+  TAttackEnum = (atSlayerSword, atLongSword, atPaladinSword, atBattleAxe,
+    atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
+    atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
+    atPoisonousBreath, atDaggerOfShadows, atFireDagger, atClub, atFireHammer,
+    atPhoenixSword);
 
 type
   TCreatureSize = (szSmall, szBig);
 
 const
-  AttackName: array [TAttackEnum] of string = ('Длинный Меч', 'Боевой Топор',
-    'Кинжал', 'Лук', 'Арбалет', 'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд',
-    'Магия', 'Когти', 'Укус', 'Копье', 'Камни', 'Ядовитое Дыхание',
-    'Кинжал Теней', 'Кинжал Пламени', 'Булава');
+  AttackName: array [TAttackEnum] of string = ('Меч Убийцы', 'Длинный Меч',
+    'Меч Паладина', 'Боевой Топор', 'Кинжал', 'Лук', 'Лук Охотника', 'Арбалет',
+    'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
+    'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
+    'Булава', 'Тлеющий Молот', 'Меч Феникса');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -446,6 +458,44 @@ type
   TCrSoundEnum = (csHit, csDeath, csAttack);
   TCreatureGender = (cgMale, cgFemale, cgNeuter, cgPlural);
 
+  // Abilities
+{$REGION Abilities}
+
+type
+  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifactLore,
+    skBannerBearer, skTravelLore, skLeadership1, skLeadership2, skLeadership3,
+    skLeadership4, skLeadership5, skWand, skAccuracy, skOri, skTrader,
+    skProtect, skTalisman, skInstructor, skBook, skOrb, skVamp);
+
+type
+  TSkill = record
+    Enum: TSkillEnum;
+    Name: string;
+    Description: array [0 .. 1] of string;
+    Level: Byte;
+    Leaders: set of TCreatureEnum;
+  end;
+
+const
+  MaxSkills = 12;
+
+type
+  TSkills = class(TObject)
+  private
+    FSkill: array [0 .. MaxSkills - 1] of TSkill;
+  public
+    RandomSkillEnum: array [0 .. 2] of TSkillEnum;
+    constructor Create;
+    destructor Destroy; override;
+    function Has(const SkillEnum: TSkillEnum): Boolean;
+    procedure Add(const SkillEnum: TSkillEnum);
+    function Get(const I: Integer): TSkillEnum;
+    procedure Gen;
+    procedure Clear;
+    class function Ability(const A: TSkillEnum): TSkill; static;
+  end;
+{$ENDREGION Abilities}
+
 type
   TCreatureBase = record
     Race: TRaceEnum;
@@ -503,12 +553,16 @@ type
       const I: TCreatureEnum); static;
     class function GetRandomEnum(const P, Position: Integer)
       : TCreatureEnum; static;
+    class function EquippedWeapon(const AttackEnum: TAttackEnum;
+      const ASourceEnum: TSourceEnum): string; static;
   end;
 
 implementation
 
 uses
   Math,
+  SysUtils,
+  DisciplesRL.Party,
   DisciplesRL.Saga;
 
 const
@@ -519,7 +573,8 @@ const
     ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;),
-
+    // The Empire
+{$REGION The Empire}
     // Myzrael
     (Race: reTheEmpire; SubRace: reCustom; ResEnum: reMyzrael; Size: szSmall;
     Name: ('Мизраэль', 'Мизраэля');
@@ -537,7 +592,7 @@ const
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skFly;),
+    AttackEnum: atPaladinSword; SkillEnum: skFly;),
     // Ranger
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reRanger; Size: szSmall;
     Name: ('Следопыт', 'Следопыта');
@@ -547,7 +602,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atBow; SkillEnum: skBoots;),
+    AttackEnum: atHunterBow; SkillEnum: skTravelLore;),
     // Archmage
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage; Size: szSmall;
     Name: ('Архимаг', 'Архимага');
@@ -572,8 +627,8 @@ const
     'Империи верой и правдой и беспощад-', 'но расправляется с ее врагами.');
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skAuras;),
+    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
+    AttackEnum: atBattleAxe; SkillEnum: skTalisman;),
     // Squire
     (Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire; Size: szSmall;
     Name: ('Сквайр', 'Сквайра');
@@ -612,7 +667,9 @@ const
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
     Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
     AttackEnum: atHealing;),
-
+{$ENDREGION The Empire}
+    // Undead Hordes
+{$REGION Undead Hordes}
     // Ashgan
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reAshgan; Size: szSmall;
     Name: ('Ашган', 'Ашгана'); Description: ('Ашган, несущий чуму, был некогда',
@@ -630,7 +687,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skFly;),
+    AttackEnum: atSlayerSword; SkillEnum: skFly;),
     // Nosferat
     (Race: reUndeadHordes; SubRace: reVampire; ResEnum: reRanger; Size: szSmall;
     Name: ('Носферату', 'Носферату');
@@ -640,7 +697,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
-    AttackEnum: atDrainLife; SkillEnum: skBoots;),
+    AttackEnum: atDrainLife; SkillEnum: skVamp;),
     // Lich Queen
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
     Size: szSmall; Name: ('Королева Личей', 'Королеву Личей');
@@ -668,7 +725,7 @@ const
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skAuras;),
+    AttackEnum: atLongSword; SkillEnum: skTalisman;),
     // Fighter
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire; Size: szSmall;
     Name: ('Воин', 'Воина'); Description: ('Услышав зов Мортис, безропотно',
@@ -704,7 +761,9 @@ const
     SourceEnum: seDeath; ReachEnum: reAll; Gold: 100;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
     AttackEnum: atPoisonousBreath;),
-
+{$ENDREGION UndeadHordes}
+    // Legions Of The Damned
+{$REGION Legions Of The Damned}
     // Ashkael
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reAshkael;
     Size: szSmall; Name: ('Ашкаэль', 'Ашкаэля');
@@ -722,7 +781,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skFly;),
+    AttackEnum: atPhoenixSword; SkillEnum: skFly;),
     // Counselor
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reRanger;
     Size: szSmall; Name: ('Советник', 'Советника');
@@ -731,7 +790,7 @@ const
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atCrossbow; SkillEnum: skBoots;),
+    AttackEnum: atCrossbow; SkillEnum: skTravelLore;),
     // Arch-Devil
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reArchmage;
     Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
@@ -757,8 +816,8 @@ const
     'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skAuras;),
+    Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
+    AttackEnum: atFireHammer; SkillEnum: skTalisman;),
     // Possessed
     (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reSquire;
     Size: szSmall; Name: ('Одержимый', 'Одержимого');
@@ -796,7 +855,7 @@ const
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
     AttackEnum: atLongSword;),
-
+{$ENDREGION Legions Of The Damned}
     // Neutral Green Skins
 {$REGION Green Skins}
     // Goblin
@@ -907,11 +966,34 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    AttackEnum: atBites;),
+
+    // Polar Bear
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear; Size: szBig;
+    Name: ('Белый Медведь', 'Белого Медведя'); Description: ('', '', '');
+    HitPoints: 320; Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 85; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 700; Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites;),
+    // Brown Bear
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear; Size: szBig;
+    Name: ('Бурый Медведь', 'Бурого Медведя'); Description: ('', '', '');
+    HitPoints: 300; Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 80; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 600; Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites;),
+    // Black Bear
+    (Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear; Size: szBig;
+    Name: ('Черный Медведь', 'Черного Медведя'); Description: ('', '', '');
+    HitPoints: 280; Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 75; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 500; Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites;)
 {$ENDREGION Animals}
     //
     );
-
+  // TCreature
+{$REGION TCreature}
   { TCreature }
 
 class procedure TCreature.Assign(var ACreature: TCreature;
@@ -976,6 +1058,18 @@ begin
   end;
 end;
 
+class function TCreature.EquippedWeapon(const AttackEnum: TAttackEnum;
+  const ASourceEnum: TSourceEnum): string;
+begin
+  Result := AttackName[AttackEnum];
+  case AttackEnum of
+    atMagic:
+      Result := StaffName[ASourceEnum];
+    atDrainLife:
+      Result := 'Посох Затмения';
+  end;
+end;
+
 function TCreature.GenderEnding(VerbForm: Byte = 0): string;
 const
   GenderEndings: array [0 .. 1, TCreatureGender] of string =
@@ -1023,5 +1117,181 @@ function TCreature.IsLeader(): Boolean;
 begin
   Result := Leadership > 0;
 end;
+
+{$ENDREGION TCreature}
+// Abilities
+{$REGION Abilities}
+
+const
+  SkillBase: array [TSkillEnum] of TSkill = (
+    // None
+    (Enum: skNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];),
+    // Fly
+    (Enum: skFly; Name: 'Полет'; Description: ('Умение позволяет предводителю',
+    'и его отряду летать над землей.'); Level: 1; Leaders: LeaderWarrior;),
+    // Strength
+    (Enum: skStrenght; Name: 'Сила';
+    Description: ('Добавляет к атаке предводителя', '25% урона.'); Level: 5;
+    Leaders: LeaderWarrior;),
+    // Spy
+    (Enum: skSpy; Name: 'Тайные Тропы';
+    Description: ('Предводитель скрытно проведет отряд',
+    'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
+    // Hawk Eye
+    (Enum: skHawkEye; Name: 'Зоркость';
+    Description: ('Позволяет предводителю видеть', 'дальше на 2 тайла.');
+    Level: 1; Leaders: LeaderScout;),
+    // Artifact
+    (Enum: skArtifactLore; Name: 'Знание Артефактов';
+    Description: ('Позволяет предводителю носить', 'магические артефакты.');
+    Level: 1; Leaders: AllLeaders;),
+    // Banner
+    (Enum: skBannerBearer; Name: 'Знаменосец';
+    Description: ('Позволяет предводителю носить', 'боевые знамена.'); Level: 2;
+    Leaders: AllLeaders;),
+    // Boots
+    (Enum: skTravelLore; Name: 'Опыт Странника';
+    Description: ('Позволяет предводителю носить', 'магическую обувь.');
+    Level: 1; Leaders: AllLeaders;),
+    // Leadership #1
+    (Enum: skLeadership1; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
+    Level: 2; Leaders: AllLeaders;),
+    // Leadership #2
+    (Enum: skLeadership2; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
+    Level: 3; Leaders: AllLeaders;),
+    // Leadership #3
+    (Enum: skLeadership3; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
+    Level: 4; Leaders: AllLeaders;),
+    // Leadership #4
+    (Enum: skLeadership4; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
+    Level: 5; Leaders: AllLeaders;),
+    // Leadership #5
+    (Enum: skLeadership5; Name: 'Лидерство';
+    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
+    Level: 6; Leaders: AllLeaders;),
+    // Wand
+    (Enum: skWand; Name: 'Посохи и Свитки';
+    Description: ('Позволяет предводителю использовать',
+    'магические посохи и свитки.'); Level: 1; Leaders: LeaderMage;),
+    // Accuracy
+    (Enum: skAccuracy; Name: 'Точность';
+    Description: ('Увеличивает шанс предводителя', 'попасть по противнику.');
+    Level: 7; Leaders: LeaderScout;),
+    // Ori
+    (Enum: skOri; Name: 'Ориентирование';
+    Description: ('Увеличивает дистанцию, которую может',
+    'пройти отряд предводителя.'); Level: 1; Leaders: AllLeaders;),
+    // Trader
+    (Enum: skTrader; Name: 'Торговец';
+    Description: ('Обладатель этой способности',
+    'получает скидку 20% у торговца.'); Level: 4; Leaders: LeaderLord;),
+    // Protect
+    (Enum: skProtect; Name: 'Естественная Броня';
+    Description: ('Предводитель будет поглощать 20%', 'наносимого ему урона.');
+    Level: 6; Leaders: AllLeaders;),
+    // Talisman
+    (Enum: skTalisman; Name: 'Сила Талисманов';
+    Description: ('Позволяет предводителю надевать',
+    'талисманы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
+    // Instructor
+    (Enum: skInstructor; Name: 'Инструктор';
+    Description: ('Все воины в отряде предводителя',
+    'будут получать больше опыта.'); Level: 5; Leaders: AllLeaders;),
+    // Book
+    (Enum: skBook; Name: 'Тайное Знание';
+    Description: ('Позволяет предводителю читать',
+    'магические книги и таблички.'); Level: 2; Leaders: AllLeaders;),
+    // Orb
+    (Enum: skOrb; Name: 'Знание Сфер';
+    Description: ('Позволяет предводителю брать в руки',
+    'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
+    // Vampirism
+    (Enum: skVamp; Name: 'Вампиризм';
+    Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');
+    Level: 1; Leaders: [crNosferat];)
+    //
+    );
+
+  { TAbilities }
+
+class function TSkills.Ability(const A: TSkillEnum): TSkill;
+begin
+  Result := SkillBase[A];
+end;
+
+procedure TSkills.Add(const SkillEnum: TSkillEnum);
+var
+  I: Integer;
+begin
+  for I := 0 to MaxSkills - 1 do
+    if (FSkill[I].Enum = skNone) then
+    begin
+      FSkill[I] := SkillBase[SkillEnum];
+      Exit;
+    end;
+end;
+
+procedure TSkills.Clear;
+var
+  I: Integer;
+begin
+  for I := 0 to MaxSkills - 1 do
+    FSkill[I] := SkillBase[skNone];
+end;
+
+constructor TSkills.Create;
+begin
+  Self.Clear;
+end;
+
+destructor TSkills.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TSkills.Gen;
+var
+  J: Integer;
+  I, R: TSkillEnum;
+begin
+  for J := 0 to 2 do
+    RandomSkillEnum[J] := skNone;
+  for J := 0 to 2 do
+  begin
+    repeat
+      R := TSkillEnum(RandomRange(Ord(Succ(Low(TSkillEnum))),
+        Ord(High(TSkillEnum))));
+    until not Has(R) and (R <> RandomSkillEnum[0]) and (R <> RandomSkillEnum[1])
+      and (R <> RandomSkillEnum[2]) and
+      (SkillBase[R].Level <= TLeaderParty.Leader.Level) and
+      (TLeaderParty.Leader.Enum in SkillBase[R].Leaders);
+    RandomSkillEnum[J] := R;
+  end;
+end;
+
+function TSkills.Get(const I: Integer): TSkillEnum;
+begin
+  Result := FSkill[I].Enum;
+end;
+
+function TSkills.Has(const SkillEnum: TSkillEnum): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  for I := 0 to MaxSkills - 1 do
+    if FSkill[I].Enum = SkillEnum then
+    begin
+      Result := True;
+      Exit;
+    end;
+end;
+
+{$ENDREGION Abilities}
 
 end.

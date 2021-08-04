@@ -4,10 +4,13 @@ interface
 
 uses
 {$IFDEF FPC}
-  Graphics;
+  Classes,
+  Graphics,
 {$ELSE}
-  Vcl.Imaging.PNGImage;
+  Vcl.Imaging.PNGImage,
+  System.Classes,
 {$ENDIF}
+  IniFiles;
 {$IFDEF FPC}
 
 type
@@ -17,31 +20,46 @@ type
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
     reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead,
+    //
     reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
+    reItemFrame,
+    //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
-    reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag, reNeutralCity,
-    reTheEmpireCity, reUndeadHordesCity, reLegionsOfTheDamnedCity,
-    reTheEmpireCapital, reUndeadHordesCapital, reLegionsOfTheDamnedCapital,
-    reRuin, reTower, reSTower, reTreePine, reTreeOak, reUndeadHordesTree,
-    reLegionsOfTheDamnedTree, reMineGold, reMineMana, reMountain1, reMountain2,
-    reMountain3, reMountain4, reTree1, reTree2, reTree3, reTree4, reButtonDef,
-    reButtonAct, reCorpse, reMyzrael, rePegasusKnight, reRanger, reArchmage,
-    reSquire, reArcher, reApprentice, reAcolyte, reAshkael, reAshgan,
-    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
-    reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reOrc,
+    reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag,
+    reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+    reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
+    reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reTreePine,
+    reTreeOak, reUndeadHordesTree, reLegionsOfTheDamnedTree, reMineGold,
+    reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
+    reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
+    rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
+    reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon,
+    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
+    reGiantSpider, reWolf, reBear, reOrc,
+    // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTextInventory, reTitleHire, reTitleHighScores,
-    reTitleVictory, reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario,
-    reTitleLeader, reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle,
-    reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton,
-    reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
-    reTitleDifficulty, reTitleThief, reScenarioDarkTower, reScenarioOverlord,
-    reScenarioAncientKnowledge, reItemGold, reItemMana, reItemStoneTable,
-    reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
-    reThiefDuel, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
+    reTextHeal, reTextRevive, reTextInventory, reTextAbilities,
+    // Title
+    reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
+    reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
+    reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
+    reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
+    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
+    reTitleAbilities,
+    //
+    reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
+    reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
+    reDifficultyNormalLogo, reDifficultyHardLogo, reThiefSpy, reThiefDuel,
+    reThiefPoison,
+
+    reWarriorRest,
+
+    reWarriorRitual,
+
+    reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
     reIconOpenedGates);
@@ -99,6 +117,8 @@ const
     (FileName: 'big_frame.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'frame.info.png'; ResType: teGUI;),
+    // Item Frame
+    (FileName: 'frame.item.png'; ResType: teGUI;),
     // Time
     (FileName: 'time.png'; ResType: teGUI;),
     // Neutral Terrain
@@ -225,6 +245,8 @@ const
     (FileName: 'character.giant_spider.png'; ResType: teGUI;),
     // Wolf
     (FileName: 'character.wolf.png'; ResType: teGUI;),
+    // Bear
+    (FileName: 'character.bear.png'; ResType: teGUI;),
     // Orc
     (FileName: 'character.orc.png'; ResType: teGUI;),
     // Text "High Scores"
@@ -261,6 +283,9 @@ const
     (FileName: 'text.revive.png'; ResType: teGUI;),
     // Text "Inventory"
     (FileName: 'text.inventory.png'; ResType: teGUI;),
+    // Text "Abilities"
+    (FileName: 'text.abilities.png'; ResType: teGUI;),
+
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),
     // Title "High Scores"
@@ -309,6 +334,11 @@ const
     (FileName: 'title.difficulty.png'; ResType: teGUI;),
     // Title Thief
     (FileName: 'title.thief.png'; ResType: teGUI;),
+    // Title Warrior
+    (FileName: 'title.warrior.png'; ResType: teGUI;),
+    // Title "Abilities"
+    (FileName: 'title.abilities.png'; ResType: teGUI;),
+
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
     // Scenario "Overlord"
@@ -322,13 +352,25 @@ const
     // Item Stone Table
     (FileName: 'item.stone_table.png'; ResType: teItem;),
     // Difficulty Easy
-    (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
+    (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),
     // Difficulty Normal
-    (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
+    (FileName: 'logo.difficulty.normal.png'; ResType: teGUI;),
     // Difficulty Hard
-    (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
+    (FileName: 'logo.difficulty.hard.png'; ResType: teGUI;),
+
+    // Thief Spy
+    (FileName: 'logo.thief.spy.png'; ResType: teGUI;),
     // Thief Duel
-    (FileName: 'logo.thief.asskill.png'; ResType: teGUI;),
+    (FileName: 'logo.thief.duel.png'; ResType: teGUI;),
+    // Thief Poison
+    (FileName: 'logo.thief.poison.png'; ResType: teGUI;),
+    // Warrior Rest
+    (FileName: 'logo.warrior.rest.png'; ResType: teGUI;),
+    // Warrior Ritual
+    (FileName: 'logo.warrior.ritual.png'; ResType: teGUI;),
+    // Warrior #3
+    (FileName: 'logo.warrior.war3.png'; ResType: teGUI;),
+
     // Wallpaper Settlement
     (FileName: 'wallpaper.settlement.png'; ResType: teBG;),
     // Wallpaper Menu
@@ -355,14 +397,15 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin, mmGame,
-    mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel, mmWar, mmExit,
-    mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack, mmSpearAttack,
-    mmDaggerAttack, mmClubAttack, mmBlock, mmMiss, mmNosferatAttack,
-    mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit, mmGoblinDeath,
-    mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack, mmSpiderHit,
-    mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack,
-    mmHit, mmDeath, mmAttack, mmGold);
+  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin,
+    mmWinBattle, mmGame, mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel,
+    mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
+    mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
+    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
+    mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack,
+    mmBearHit, mmBearDeath, mmBearAttack, mmSpiderHit, mmSpiderDeath,
+    mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack, mmHit, mmDeath,
+    mmAttack, mmGold);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -382,6 +425,8 @@ const
     (FileName: 'defeat.mp3'; ResType: teMusic;),
     // Win in battle
     (FileName: 'himwar.wav'; ResType: teSound;),
+    // Win in battle
+    (FileName: 'ubermensch.mp3'; ResType: teMusic;),
     // Game
     (FileName: 'soliloquy.mp3'; ResType: teMusic;),
     // Map
@@ -440,6 +485,12 @@ const
     (FileName: 'wolf_death.wav'; ResType: teSound;),
     // Wolf Attack
     (FileName: 'wolf_attack.wav'; ResType: teSound;),
+    // Bear Hit
+    (FileName: 'bear_hit.wav'; ResType: teSound;),
+    // Bear Death
+    (FileName: 'bear_death.wav'; ResType: teSound;),
+    // Bear Attack
+    (FileName: 'bear_attack.wav'; ResType: teSound;),
     // Spider Hit
     (FileName: 'spider_hit.wav'; ResType: teSound;),
     // Spider Death
@@ -463,15 +514,147 @@ const
     //
     );
 
+type
+  TResources = class(TObject)
+  public
+    class procedure ReadSections(const FileName: string; Sections: TStrings;
+      Section: string = '');
+    class function LoadFromFile(const FileName, SectionName, KeyName,
+      DefaultValue: string): string; overload;
+    class function LoadFromFile(const FileName, SectionName, KeyName: string;
+      DefaultValue: Integer): Integer; overload;
+    class procedure LoadFromFile(const FileName: string;
+      var StringList: TStringList); overload;
+    class function KeysCount(const FileName, SectionName: string): Integer;
+    class function RandomValue(const FileName, SectionName: string): string;
+    class function RandomSectionIdent(const FileName: string): string;
+  end;
+
 implementation
 
 uses
+  Math,
   SysUtils;
 
 function GetPath(SubDir: string): string;
 begin
   Result := ExtractFilePath(ParamStr(0));
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
+end;
+
+class function TResources.KeysCount(const FileName,
+  SectionName: string): Integer;
+var
+  IniFile: TMemIniFile;
+  Keys: TStringList;
+begin
+  IniFile := TMemIniFile.Create(GetPath('resources') + FileName + '.ini',
+    TEncoding.UTF8);
+  try
+    Keys := TStringList.Create;
+    try
+      IniFile.ReadSection(SectionName, Keys);
+      Result := Keys.Count;
+    finally
+      FreeAndNil(Keys);
+    end;
+  finally
+    FreeAndNil(IniFile);
+  end;
+end;
+
+class function TResources.LoadFromFile(const FileName, SectionName,
+  KeyName: string; DefaultValue: Integer): Integer;
+var
+  IniFile: TMemIniFile;
+begin
+  IniFile := TMemIniFile.Create(GetPath('resources') + FileName + '.ini',
+    TEncoding.UTF8);
+  try
+    Result := IniFile.ReadInteger(SectionName, KeyName, DefaultValue);
+  finally
+    FreeAndNil(IniFile);
+  end;
+end;
+
+class procedure TResources.LoadFromFile(const FileName: string;
+  var StringList: TStringList);
+begin
+  StringList.LoadFromFile(GetPath('resources') + FileName + '.txt',
+    TEncoding.UTF8);
+end;
+
+class function TResources.LoadFromFile(const FileName, SectionName, KeyName,
+  DefaultValue: string): string;
+var
+  IniFile: TMemIniFile;
+begin
+  Result := DefaultValue;
+  IniFile := TMemIniFile.Create(GetPath('resources') + FileName + '.ini',
+    TEncoding.UTF8);
+  try
+    Result := IniFile.ReadString(SectionName.ToLower, KeyName, DefaultValue)
+      .Trim.Replace('|', #13#10);
+  finally
+    FreeAndNil(IniFile);
+  end;
+end;
+
+class function TResources.RandomSectionIdent(const FileName: string): string;
+var
+  FSections: TStringList;
+begin
+  FSections := TStringList.Create;
+  try
+    ReadSections(FileName, FSections);
+    Result := FSections[Math.RandomRange(0, FSections.Count)].Trim;
+  finally
+    FreeAndNil(FSections);
+  end;
+end;
+
+class function TResources.RandomValue(const FileName,
+  SectionName: string): string;
+var
+  IniFile: TMemIniFile;
+  Keys: TStringList;
+begin
+  Result := '';
+  IniFile := TMemIniFile.Create(GetPath('resources') + FileName.ToLower +
+    '.ini', TEncoding.UTF8);
+  try
+    Keys := TStringList.Create;
+    try
+      IniFile.ReadSection(SectionName.ToLower, Keys);
+      if Keys.Count = 0 then
+        Exit;
+      Result := LoadFromFile(FileName.ToLower, SectionName.ToLower,
+        Keys[RandomRange(0, Keys.Count)], '');
+    finally
+      FreeAndNil(Keys);
+    end;
+  finally
+    FreeAndNil(IniFile);
+  end;
+end;
+
+class procedure TResources.ReadSections(const FileName: string;
+  Sections: TStrings; Section: string = '');
+var
+  IniFile: TMemIniFile;
+  I: Integer;
+begin
+  IniFile := TMemIniFile.Create(GetPath('resources') + FileName + '.ini',
+    TEncoding.UTF8);
+  try
+    IniFile.ReadSections(Sections);
+    if Section <> '' then
+      for I := Sections.Count - 1 downto 0 do
+        if Sections[I].ToLower = Section.ToLower then
+          Sections.Delete(I);
+  finally
+    FreeAndNil(IniFile);
+  end;
 end;
 
 procedure Init;

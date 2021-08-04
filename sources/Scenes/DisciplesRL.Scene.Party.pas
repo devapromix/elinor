@@ -16,11 +16,8 @@ uses
 
 type
   TSceneParty = class(TScene)
-  private const
-    H = 25;
   private
   var
-    T, L: Integer;
     P: Boolean;
   private
   class var
@@ -31,11 +28,9 @@ type
     procedure Close;
     procedure OpenInventory;
     procedure OpenSkills;
-    procedure Add(S, V: string); overload;
-    procedure Add; overload;
-    procedure Add(S: string; F: Boolean); overload;
-    procedure Add(S: string); overload;
-    procedure Add2(S: string);
+  private
+    EquipmentSelItemIndex: Integer;
+    InventorySelItemIndex: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -54,7 +49,7 @@ type
     class function GetFrameX(const Position: TPosition;
       const PartySide: TPartySide): Integer;
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
-      F: Boolean = False); overload;
+      F: Boolean = False; H: Boolean = False); overload;
     procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
       MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
       IsExp: Boolean); overload;
@@ -72,17 +67,17 @@ var
 implementation
 
 uses
-  SysUtils,
+  SysUtils, dialogs,
   DisciplesRL.Saga,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Button,
-  DisciplesRL.Skills;
+  DisciplesRL.Items;
 
 type
   TButtonEnum = (btSkills, btClose, btInventory);
 
 const
-  ButtonText: array [TButtonEnum] of TResEnum = (reTextInventory, reTextClose,
+  ButtonText: array [TButtonEnum] of TResEnum = (reTextAbilities, reTextClose,
     reTextInventory);
 
 var
@@ -96,36 +91,8 @@ const
 
   { TSceneParty }
 
-procedure TSceneParty.Add;
-begin
-  Inc(T, H);
-end;
-
-procedure TSceneParty.Add(S, V: string);
-begin
-  DrawText(L, T, Format('%s: %s', [S, V]));
-  Inc(T, H);
-end;
-
-procedure TSceneParty.Add(S: string; F: Boolean);
-begin
-  DrawText(L, T, S, F);
-  Inc(T, H);
-end;
-
-procedure TSceneParty.Add(S: string);
-begin
-  DrawText(L, T, S, False);
-  Inc(T, H);
-end;
-
-procedure TSceneParty.Add2(S: string);
-begin
-  DrawText(L + 250, T - (H div 2), S);
-end;
-
 class procedure TSceneParty.Show(Party: TParty; CloseScene: TSceneEnum;
-  F: Boolean = False);
+  F: Boolean = False; H: Boolean = False);
 begin
   CurrentParty := Party;
   BackScene := CloseScene;
@@ -140,6 +107,12 @@ begin
   Game.MediaPlayer.Play(mmSettlement);
   FShowInventory := F;
   FShowSkills := False;
+  if H then
+  begin
+    FShowInventory := False;
+    FShowSkills := True;
+
+  end;
 end;
 
 procedure TSceneParty.MoveCursor(Dir: TDirectionEnum);
@@ -182,18 +155,19 @@ begin
       begin
         case PartySide of
           psLeft:
-            Result := (W + Left) - (W - ResImage[reFrame].Width - S);
+            Result := (W + SceneLeft) - (W - ResImage[reFrame].Width - S);
         else
-          Result := Game.Width - (Left + S + (ResImage[reFrame].Width * 2));
+          Result := Game.Width -
+            (SceneLeft + S + (ResImage[reFrame].Width * 2));
         end;
       end;
   else
     begin
       case PartySide of
         psLeft:
-          Result := Left;
+          Result := SceneLeft;
       else
-        Result := Game.Width - ResImage[reFrame].Width - Left;
+        Result := Game.Width - ResImage[reFrame].Width - SceneLeft;
       end;
     end;
   end;
@@ -204,11 +178,11 @@ class function TSceneParty.GetFrameY(const Position: TPosition;
 begin
   case Position of
     0, 1:
-      Result := Top;
+      Result := SceneTop;
     2, 3:
-      Result := Top + ResImage[reFrame].Height + S;
+      Result := SceneTop + ResImage[reFrame].Height + S;
   else
-    Result := Top + ((ResImage[reFrame].Height + S) * 2);
+    Result := SceneTop + ((ResImage[reFrame].Height + S) * 2);
   end;
 end;
 
@@ -241,21 +215,21 @@ procedure TSceneParty.DrawUnitInfo(Name: string;
 var
   S: string;
 begin
-  DrawText(AX + Left + 64, AY + 6, Name);
+  DrawText(AX + SceneLeft + 64, AY + 6, Name);
   S := '';
   if IsExp then
     S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
-  DrawText(AX + Left + 64, AY + 27, Format('Уровень %d', [Level]) + S);
-  DrawText(AX + Left + 64, AY + 48, Format('Здоровье %d/%d',
+  DrawText(AX + SceneLeft + 64, AY + 27, Format('Уровень %d', [Level]) + S);
+  DrawText(AX + SceneLeft + 64, AY + 48, Format('Здоровье %d/%d',
     [HitPoints, MaxHitPoints]));
   if Damage > 0 then
-    DrawText(AX + Left + 64, AY + 69, Format('Урон %d Броня %d',
+    DrawText(AX + SceneLeft + 64, AY + 69, Format('Урон %d Броня %d',
       [Damage, Armor]))
   else
-    DrawText(AX + Left + 64, AY + 69, Format('Исцеление %d Броня %d',
+    DrawText(AX + SceneLeft + 64, AY + 69, Format('Исцеление %d Броня %d',
       [Heal, Armor]));
-  DrawText(AX + Left + 64, AY + 90, Format('Инициатива %d Точность %d',
+  DrawText(AX + SceneLeft + 64, AY + 90, Format('Инициатива %d Точность %d',
     [Initiative, ChToHit]) + '%');
 end;
 
@@ -297,9 +271,9 @@ begin
         if Paralyze then
           V := bsParalyze;
         if HitPoints <= 0 then
-          DrawUnit(reDead, AX, AY, V)
+          DrawUnit(reDead, AX, AY, V, 0, MaxHitPoints)
         else
-          DrawUnit(ResEnum, AX, AY, V);
+          DrawUnit(ResEnum, AX, AY, V, HitPoints, MaxHitPoints);
         DrawUnitInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then
@@ -346,6 +320,8 @@ begin
   end;
   FShowSkills := False;
   FShowInventory := False;
+  EquipmentSelItemIndex := -1;
+  InventorySelItemIndex := -1;
   Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
   P := True;
 end;
@@ -366,6 +342,14 @@ begin
   case AButton of
     mbLeft:
       begin
+        if FShowInventory and (EquipmentSelItemIndex > -1) then
+        begin
+          TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
+        end;
+        if FShowInventory and (InventorySelItemIndex > -1) then
+        begin
+          TLeaderParty.Leader.Equip(InventorySelItemIndex);
+        end;
         if Button[btSkills].MouseDown and FShowResources then
         begin
           OpenSkills;
@@ -396,6 +380,18 @@ var
   I: TButtonEnum;
 begin
   inherited;
+  if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 8,
+    GetFrameY(0, psRight) + 48, 320, TextLineHeight * 12) then
+    EquipmentSelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
+      div TextLineHeight
+  else
+    EquipmentSelItemIndex := -1;
+  if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 328,
+    GetFrameY(0, psRight) + 48, 320, TextLineHeight * 12) then
+    InventorySelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
+      div TextLineHeight
+  else
+    InventorySelItemIndex := -1;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
     Button[I].MouseMove(X, Y);
   Render;
@@ -403,7 +399,7 @@ end;
 
 procedure TSceneParty.Render;
 var
-  C: TCreatureEnum;
+  C, CurCrEnum: TCreatureEnum;
 
   procedure RenderButtons;
   var
@@ -419,15 +415,18 @@ var
     I, Mn, Mx: Integer;
     S: TSkillEnum;
   begin
+    DrawTitle(reTitleAbilities);
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
-    L := GetFrameX(0, psRight) + 12;
-    T := GetFrameY(0, psRight) + 6;
-    Add('Умения Лидера', True);
+    TextLeft := 250 + GetFrameX(0, psRight) + 12;
+    TextTop := GetFrameY(0, psRight) + 6 + (TextLineHeight div 2);
     if P then
-      Add2('Страница 1/2')
+      AddTextLine('Страница 1/2')
     else
-      Add2('Страница 2/2');
-    Add;
+      AddTextLine('Страница 2/2');
+    TextLeft := GetFrameX(0, psRight) + 12;
+    TextTop := GetFrameY(0, psRight) + 6;
+    AddTextLine('Умения Лидера', True);
+    AddTextLine;
     if P then
     begin
       Mn := 0;
@@ -443,46 +442,93 @@ var
       S := TLeaderParty.Leader.Skills.Get(I);
       if S <> skNone then
       begin
-        Add(SkillBase[S].Name);
-        Add(Format('%s %s', [SkillBase[S].Description[0],
-          SkillBase[S].Description[1]]));
+        AddTextLine(TSkills.Ability(S).Name);
+        AddTextLine(Format('%s %s', [TSkills.Ability(S).Description[0],
+          TSkills.Ability(S).Description[1]]));
       end;
     end;
   end;
 
   procedure ShowInventory;
+  var
+    I: Integer;
   begin
+    DrawTitle(reTitleParty);
+    CurCrEnum := TLeaderParty.Leader.Enum;
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
-    L := GetFrameX(0, psRight) + 12;
-    T := GetFrameY(0, psRight) + 6;
+    TextLeft := GetFrameX(0, psRight) + 12;
+    TextTop := GetFrameY(0, psRight) + 6;
+    //
+    if EquipmentSelItemIndex >= 0 then
+      DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight)
+        + 42, reItemFrame);
+    //
+    AddTextLine('Экипировка', True);
+    AddTextLine;
+    for I := 0 to MaxEquipmentItems - 1 do
+      case I of
+        5:
+          AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I,
+            TCreature.EquippedWeapon(TCreature.Character
+            (TLeaderParty.Leader.Enum).AttackEnum,
+            TCreature.Character(TLeaderParty.Leader.Enum).SourceEnum)));
+      else
+        AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I));
+      end;
+
+    TextLeft := GetFrameX(0, psRight) + 320 + 12;
+    TextTop := GetFrameY(0, psRight) + 6;
+    //
+    if (InventorySelItemIndex >= 0) and
+      (TLeaderParty.Leader.Inventory.Item(InventorySelItemIndex).Enum <> iNone)
+    then
+      DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
+        + 42, reItemFrame);
+    //
+    AddTextLine('Инвентарь', True);
+    AddTextLine;
+    for I := 0 to MaxInventoryItems - 1 do
+      AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
+  end;
+
+  procedure ShowInfo;
+  begin
+    DrawTitle(reTitleParty);
+    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
+    C := CurrentParty.Creature[ActivePartyPosition].Enum;
+    if (C <> crNone) then
+      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
+    DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2 + 20, SceneTop,
+      reInfoFrame);
+    TextTop := SceneTop + 6;
+    TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
+    AddTextLine('Статистика', True);
+    AddTextLine;
+    AddTextLine('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Очки', Game.Statistics.GetValue(stScore));
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine(Format('Скорость передвижения %d/%d',
+      [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.MaxLeadership]));
+    AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
   end;
 
 begin
   inherited;
   DrawImage(reWallpaperLeader);
-  DrawTitle(reTitleParty);
   RenderParty(psLeft, CurrentParty);
   if FShowInventory then
     ShowInventory
   else if FShowSkills then
     ShowSkills
   else
-  begin
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
-    C := CurrentParty.Creature[ActivePartyPosition].Enum;
-    if (C <> crNone) then
-      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C);
-  end;
+    ShowInfo;
   if FShowResources then
-  begin
     DrawResources;
-    DrawImage(140, 10, reSmallFrame);
-    DrawText(149, 24, Format('Скорость %d/%d', [TLeaderParty.Leader.Speed,
-      TLeaderParty.Leader.MaxSpeed]));
-    DrawText(149, 54, Format('Обзор %d', [TLeaderParty.Leader.Radius]));
-    DrawText(149, 84, Format('Лидерство %d',
-      [TLeaderParty.Leader.MaxLeadership]));
-  end;
   RenderButtons;
 end;
 
@@ -501,7 +547,7 @@ begin
     K_I:
       if FShowResources then
         OpenInventory;
-    K_S:
+    K_T:
       if FShowResources then
         OpenSkills;
     K_LEFT, K_KP_4, K_A:

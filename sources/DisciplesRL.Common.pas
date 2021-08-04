@@ -20,8 +20,8 @@ type
     FMinValue: Integer;
     FMaxValue: Integer;
     FValue: Integer;
-    //FEnumeratorTypeInfo: PTypeInfo;
-    function Cycle(Cond, Limit, Change: Integer): Integer;
+    FEnumeratorTypeInfo: PTypeInfo;
+    function Cycle(Cond, Limit, Change: Integer; DoSave: Boolean = False): Integer;
   public
     constructor Create(AInitialValue: Integer; AMinValue: Integer = -1;
       AMaxValue: Integer = -1);
@@ -36,7 +36,8 @@ type
 implementation
 
 uses
-  Math;
+  Math,
+  Rtti;
 
 function IIF(Condition: Boolean; IfTrue: Variant; IfFalse: Variant): Variant;
 begin
@@ -61,23 +62,33 @@ begin
   FMaxValue := IfThen(AMaxValue < 0, LEnumerationTypeData^.MaxValue, AMaxValue);
   Assert((AInitialValue >= FMinValue) and (AInitialValue <= FMaxValue));
   FValue := AInitialValue;
-  //FEnumeratorTypeInfo := LEnumeratorTypeInfo;
+  FEnumeratorTypeInfo := LEnumeratorTypeInfo;
 end;
 
-function TEnumCycler<T>.Cycle(Cond, Limit, Change: Integer): Integer;
+function TEnumCycler<T>.Cycle(Cond, Limit, Change: Integer; DoSave: Boolean = False): Integer;
 begin
-  FValue := IfThen(FValue = Cond, Limit, Change);
-  Result := FValue;
+  Result := IfThen(FValue = Cond, Limit, Change);
+  FValue := IfThen(DoSave, Result, FValue);
 end;
 
 function TEnumCycler<T>.Next(): T;
 begin
-  Result := T(NextAsValue);
+  Result :=
+  {$IFDEF FPC}
+    T(NextAsValue);
+  {$ELSE}
+    TValue.FromOrdinal(FEnumeratorTypeInfo, NextAsValue).AsType<T>();
+  {$ENDIF}
 end;
 
 function TEnumCycler<T>.Prev(): T;
 begin
-  Result := T(PrevAsValue);
+  Result :=
+  {$IFDEF FPC}
+    T(PrevAsValue);
+  {$ELSE}
+    TValue.FromOrdinal(FEnumeratorTypeInfo, PrevAsValue).AsType<T>();
+  {$ENDIF}
 end;
 
 function TEnumCycler<T>.NextAsValue(): Integer;

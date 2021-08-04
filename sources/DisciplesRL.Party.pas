@@ -5,7 +5,7 @@ interface
 uses
   Types,
   DisciplesRL.Creatures,
-  DisciplesRL.Skills,
+  DisciplesRL.Items,
   DisciplesRL.Map;
 
 type
@@ -89,6 +89,8 @@ type
     FSpells: Integer;
     FSpy: Integer;
     FSkills: TSkills;
+    FInventory: TInventory;
+    FEquipment: TEquipment;
     function GetRadius: Integer; overload;
   public
   class var
@@ -124,7 +126,11 @@ type
     class function GetMaxSpeed(const CrEnum: TCreatureEnum): Integer; overload;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
     property Skills: TSkills read FSkills write FSkills;
+    property Inventory: TInventory read FInventory write FInventory;
+    property Equipment: TEquipment read FEquipment write FEquipment;
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
+    procedure Equip(const InventoryItemIndex: Integer);
+    procedure UnEquip(const EquipmentItemIndex: Integer);
   end;
 
 var
@@ -466,6 +472,8 @@ procedure TLeaderParty.Clear;
 begin
   Skills.Clear;
   Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
+  Inventory.Clear;
+  Equipment.Clear;
   MaxSpeed := GetMaxSpeed;
   Speed := MaxSpeed;
   FMaxLeadership := 1;
@@ -479,12 +487,16 @@ constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
 begin
   inherited Create(AX, AY, AOwner);
   FSkills := TSkills.Create;
+  FInventory := TInventory.Create;
+  FEquipment := TEquipment.Create;
   FMaxLeadership := 1;
   FRadius := 1;
 end;
 
 destructor TLeaderParty.Destroy;
 begin
+  FreeAndNil(FEquipment);
+  FreeAndNil(FInventory);
   FreeAndNil(FSkills);
   inherited;
 end;
@@ -492,6 +504,40 @@ end;
 function TLeaderParty.Enum: TCreatureEnum;
 begin
   Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Enum;
+end;
+
+procedure TLeaderParty.Equip(const InventoryItemIndex: Integer);
+var
+  InvItemEnum: TItemEnum;
+  EqItemEnum: TItemEnum;
+  I: Integer;
+begin
+  InvItemEnum := Inventory.ItemEnum(InventoryItemIndex);
+  if InvItemEnum = iNone then
+    Exit;
+  for I := 0 to MaxEquipmentItems - 1 do
+    if (DollSlot[I] = TItemBase.Item(InvItemEnum).ItSlot) then
+      if Equipment.Item(I).Enum = iNone then
+      begin
+        Equipment.Add(I, InvItemEnum);
+        Inventory.Clear(InventoryItemIndex);
+        Break;
+      end;
+end;
+
+procedure TLeaderParty.UnEquip(const EquipmentItemIndex: Integer);
+var
+  InvItemEnum: TItemEnum;
+  EqItemEnum: TItemEnum;
+  SlotIndex: Integer;
+begin
+  EqItemEnum := Equipment.Item(EquipmentItemIndex).Enum;
+  if EqItemEnum = iNone then
+    Exit;
+  if Inventory.Count = MaxInventoryItems then
+    Exit;
+  Equipment.Clear(EquipmentItemIndex);
+  Inventory.Add(EqItemEnum);
 end;
 
 function TLeaderParty.Level: Integer;
@@ -506,8 +552,12 @@ end;
 
 class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderScout, TSaga.LeaderScoutMaxSpeed,
-    TSaga.LeaderDefaultMaxSpeed);
+  if (CrEnum in LeaderScout) then
+    Result := TSaga.LeaderScoutMaxSpeed
+  else if (CrEnum in LeaderLord) then
+    Result := TSaga.LeaderLordMaxSpeed
+  else
+    Result := TSaga.LeaderDefaultMaxSpeed;
 end;
 
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
@@ -541,13 +591,15 @@ end;
 
 class function TLeaderParty.GetRadius(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderScout,
-    TSaga.LeaderScoutMaxRadius, TSaga.LeaderDefaultMaxRadius);
+  Result := IfThen(CrEnum in LeaderScout, TSaga.LeaderScoutMaxRadius,
+    TSaga.LeaderDefaultMaxRadius);
 end;
 
 function TLeaderParty.GetRadius: Integer;
 begin
   Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
+  if Self.Skills.Has(skHawkEye) then
+    Result := Result + 2;
 end;
 
 function TLeaderParty.GetMaxSpy: Integer;

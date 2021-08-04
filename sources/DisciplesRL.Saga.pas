@@ -142,6 +142,7 @@ type
     LeaderWarriorHealAllInPartyPerDay = 10;
     LeaderScoutMaxRadius = 3;
     LeaderScoutMaxSpeed = 12;
+    LeaderLordMaxSpeed = 9;
     LeaderMageCanCastSpellsPerDay = 3;
     LeaderThiefSpyAttemptCountPerDay = 3;
     LeaderThiefPoisonDamageAllInPartyPerLevel = 10;
@@ -165,7 +166,8 @@ uses
   SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Scenes,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Items;
 
 const
   MaxLevel = 8;
@@ -213,7 +215,7 @@ begin
     end;
   }
   P := EnsureRange(Level * 50, 1, 100);
-  P := 50;
+  // P := 50;
   {
     1: 25..75
     2: 75..125
@@ -335,19 +337,23 @@ var
 
   procedure AddItem;
   begin
-    N := 0;
-    if (Game.Gold.NewValue = 0) and (Game.Mana.NewValue = 0) then
-      N := 1;
-    NewItem := RandomRange(N, 4);
-
+    if (TLeaderParty.Leader.Inventory.Count < MaxInventoryItems) then
+    begin
+      repeat
+        NewItem := RandomRange(1, TItemBase.Count);
+      until (TItemBase.Item(NewItem).Level <= Level);
+      TLeaderParty.Leader.Inventory.Add(TItemBase.Item(NewItem).Enum);
+    end
+    else
+      NewItem := 0;
   end;
 
 begin
   Game.Gold.NewValue := 0;
   Game.Mana.NewValue := 0;
   NewItem := 0;
-  Level := Game.Map.GetDistToCapital(TLeaderParty.Leader.X,
-    TLeaderParty.Leader.Y);
+  Level := EnsureRange((Game.Map.GetDistToCapital(TLeaderParty.Leader.X,
+    TLeaderParty.Leader.Y) div 3) + Ord(TSaga.Difficulty), 1, MaxLevel);
   case LootRes of
     reGold:
       AddGold;
@@ -364,6 +370,11 @@ begin
             AddMana;
         end;
         AddItem;
+        if (NewItem = 0) then
+          if (RandomRange(0, 2) = 0) then
+            AddGold
+          else
+            AddMana;
       end;
   end;
   TSceneHire.Show(stLoot, scMap, LootRes);

@@ -204,7 +204,7 @@ begin
             LeaderParty.UpdateLevel(Position);
             Battle.Log.Add(Format('%s повысил%s уровень до %d!',
               [Name[0], GenderEnding, Level + 1]));
-            IsNewLevel := Leadership > 0;
+            IsNewLevel := (Leadership > 0) and (Level <= MaxSkills);
           end;
   end;
 end;
@@ -225,7 +225,8 @@ begin
   if IsNewLevel then
   begin
     IsNewLevel := False;
-    TSceneHire.Show(stNewSkill);
+    TLeaderParty.Leader.Skills.Gen;
+    TSceneHire.Show(stAbilities);
     Exit;
   end;
   AfterVictory;
@@ -314,6 +315,7 @@ begin
   begin
     ChExperience;
     Game.MediaPlayer.Play(mmWin);
+    Game.MediaPlayer.PlayMusic(mmWinBattle);
   end;
   if LeaderParty.IsClear then
   begin
@@ -436,9 +438,8 @@ begin
             crWyvern:
               ;
           else
-            Battle.Log.Add(Format(Battle.StartCastSpell,
-              [TCreature.Character(AtkCrEnum).Name[0],
-              SourceName[TCreature.Character(AtkCrEnum).SourceEnum]]));
+            Battle.StartCastSpell(TCreature.Character(AtkCrEnum)
+              .Name[0], SourceName[TCreature.Character(AtkCrEnum).SourceEnum]);
           end;
           Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
@@ -559,8 +560,8 @@ end;
 constructor TSceneBattle2.Create;
 begin
   inherited;
-  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width + Left),
-    DefaultButtonTop, reTextClose);
+  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
+    SceneLeft), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
   InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;

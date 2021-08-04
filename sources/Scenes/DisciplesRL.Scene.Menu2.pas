@@ -32,6 +32,7 @@ type
     IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver,
       reIconOpenedGates);
   private
+    //ButtonCycler: specialize TEnumCycler<TButtonEnum>;
     CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;
     Icons: array [TIconEnum] of TIcon;
@@ -120,6 +121,7 @@ begin
       Button[I].Sellected := True;
     Inc(T, H);
   end;
+
   L := 20;
   T := 500;
   for J := Low(TIconEnum) to High(TIconEnum) do
