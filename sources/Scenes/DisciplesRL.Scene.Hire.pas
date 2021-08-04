@@ -155,8 +155,12 @@ var
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
-    stJournal:
+    stJournal, stScenario:
       CurrentIndex := Ord(Game.Scenario.CurrentScenario);
+    stDifficulty:
+      CurrentIndex := Ord(TSaga.Difficulty);
+    stRace:
+      CurrentIndex := Ord(TSaga.LeaderRace);
   else
     CurrentIndex := 0;
   end;
@@ -1250,11 +1254,11 @@ var
   Cycler: TEnumCycler<N>;
 begin
   Basic(AKey);
-  if not AKey in [K_UP, K_Down] then
+  if not (AKey in [K_UP, K_Down]) then
     Exit;
   Game.MediaPlayer.Play(mmClick);
   Cycler := TEnumCycler<N>.Create(CurrentIndex);
-  CurrentIndex := IfThen(AKey = K_UP, Cycler.PrevAsValue, Cycler.NextAsValue);
+  CurrentIndex := Cycler.Modify(AKey = K_Down);
 end;
 
 procedure TSceneHire.Update(var Key: Word);
@@ -1264,7 +1268,7 @@ var
   procedure Upd(const MaxValue: Integer);
   begin
     Basic(Key);
-    if not Key in [K_UP, K_Down] then
+    if not (Key in [K_UP, K_Down]) then
       Exit;
     Game.MediaPlayer.Play(mmClick);
     CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_Up, -1, 1), 0, MaxValue);
