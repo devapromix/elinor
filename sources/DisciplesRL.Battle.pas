@@ -13,7 +13,8 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
-    procedure Miss(AtkCrName, DefCrName: string);
+    procedure Miss(const AtkCrName, DefCrName: string);
+    procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
     procedure StartCastSpell(const CrName, SourceName: string);
     function GetLogMessage(AttackEnum: TAttackEnum;
       SourceEnum: TSourceEnum): string;
@@ -42,12 +43,19 @@ begin
   FreeAndNil(Log);
 end;
 
+procedure TBattle.UpdateExp(const CrName, GenderEnding: string;
+  const Exp: Integer);
+begin
+  Log.Add(Format(TResources.RandomValue('battle.strings', 'update_exp'),
+    [CrName, GenderEnding, Exp]));
+end;
+
 procedure TBattle.Clear;
 begin
   Log.Clear;
 end;
 
-procedure TBattle.Miss(AtkCrName, DefCrName: string);
+procedure TBattle.Miss(const AtkCrName, DefCrName: string);
 begin
   case RandomRange(0, 2) of
     0:

@@ -192,8 +192,7 @@ begin
           if Alive then
           begin
             LeaderParty.UpdateXP(CharExp, Position);
-            Battle.Log.Add(Format('%s получил%s опыт +%d',
-              [Name[0], GenderEnding, CharExp]));
+            Battle.UpdateExp(Name[0], GenderEnding, CharExp);
           end;
     end;
     for Position := Low(TPosition) to High(TPosition) do
@@ -438,8 +437,8 @@ begin
             crWyvern:
               ;
           else
-            Battle.StartCastSpell(TCreature.Character(AtkCrEnum)
-              .Name[0], SourceName[TCreature.Character(AtkCrEnum).SourceEnum]);
+            Battle.StartCastSpell(TCreature.Character(AtkCrEnum).Name[0],
+              SourceName[TCreature.Character(AtkCrEnum).SourceEnum]);
           end;
           Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
