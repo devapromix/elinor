@@ -528,7 +528,6 @@ type
     class function KeysCount(const FileName, SectionName: string): Integer;
     class function RandomValue(const FileName, SectionName: string): string;
     class function RandomSectionIdent(const FileName: string): string;
-    class function RandomValue2(const FileName, SectionName: string): string;
   end;
 
 implementation
@@ -544,7 +543,7 @@ begin
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
 end;
 
-class function TResources.RandomValue2(const FileName,
+class function TResources.RandomValue(const FileName,
   SectionName: string): string;
 var
   J: TJSONObject;
@@ -639,31 +638,6 @@ begin
     Result := FSections[Math.RandomRange(0, FSections.Count)].Trim;
   finally
     FreeAndNil(FSections);
-  end;
-end;
-
-class function TResources.RandomValue(const FileName,
-  SectionName: string): string;
-var
-  IniFile: TMemIniFile;
-  Keys: TStringList;
-begin
-  Result := '';
-  IniFile := TMemIniFile.Create(GetPath('resources') + FileName.ToLower +
-    '.ini', TEncoding.UTF8);
-  try
-    Keys := TStringList.Create;
-    try
-      IniFile.ReadSection(SectionName.ToLower, Keys);
-      if Keys.Count = 0 then
-        Exit;
-      Result := LoadFromFile(FileName.ToLower, SectionName.ToLower,
-        Keys[RandomRange(0, Keys.Count)], '');
-    finally
-      FreeAndNil(Keys);
-    end;
-  finally
-    FreeAndNil(IniFile);
   end;
 end;
 

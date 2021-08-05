@@ -88,10 +88,10 @@ procedure TBattle.Heal(const AtkCrName, DefCrName: string;
 begin
   case RandomRange(0, 2) of
     0:
-      Log.Add(Format(TResources.RandomValue2('battle.strings', 'heal1'),
+      Log.Add(Format(TResources.RandomValue('battle.strings', 'heal1'),
         [AtkCrName, DefCrName]));
   else
-    Log.Add(Format(TResources.RandomValue2('battle.strings', 'heal2'),
+    Log.Add(Format(TResources.RandomValue('battle.strings', 'heal2'),
       [AtkCrName, DefCrName, Value]));
   end;
 end;
