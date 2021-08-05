@@ -11,6 +11,7 @@ uses
   System.Classes,
 {$ENDIF}
   IniFiles;
+
 {$IFDEF FPC}
 
 type
@@ -20,10 +21,10 @@ type
 type
   TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
     reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead,
-    //
+
     reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
     reItemFrame,
-    //
+
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
     reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag,
@@ -49,7 +50,7 @@ type
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
     reTitleAbilities,
-    //
+
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
     reDifficultyNormalLogo, reDifficultyHardLogo, reThiefSpy, reThiefDuel,
@@ -393,7 +394,7 @@ const
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
     (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
-    //
+
     );
 
 type
@@ -511,7 +512,7 @@ const
     (FileName: 'step.wav'; ResType: teSound;),
     // Gold Coins
     (FileName: 'coin.wav'; ResType: teSound;)
-    //
+
     );
 
 type
@@ -522,10 +523,10 @@ type
     class function LoadFromFile(const FileName, SectionName, KeyName,
       DefaultValue: string): string; overload;
     class function LoadFromFile(const FileName, SectionName, KeyName: string;
-      DefaultValue: Integer): Integer; overload;
+      DefaultValue: integer): integer; overload;
     class procedure LoadFromFile(const FileName: string;
       var StringList: TStringList); overload;
-    class function KeysCount(const FileName, SectionName: string): Integer;
+    class function KeysCount(const FileName, SectionName: string): integer;
     class function RandomValue(const FileName, SectionName: string): string;
     class function RandomSectionIdent(const FileName: string): string;
   end;
@@ -533,8 +534,14 @@ type
 implementation
 
 uses
-  Math,
+{$IFDEF FPC}
+  FPJson,
+  JsonParser,
+  JsonScanner,
+{$ELSE}
   JSON,
+{$ENDIF}
+  Math,
   SysUtils;
 
 function GetPath(SubDir: string): string;
@@ -546,32 +553,40 @@ end;
 class function TResources.RandomValue(const FileName,
   SectionName: string): string;
 var
-  J: TJSONObject;
-  JA: TJSONArray;
+{$IFDEF FPC}
+  JSONData: TJSONData;
+  S: string;
+  I: integer;
+{$ELSE}
+  JSONObject: TJSONObject;
+  JSONArray: TJSONArray;
+{$ENDIF}
   SL: TStringList;
 begin
   Result := '';
   SL := TStringList.Create;
   try
     SL.LoadFromFile(GetPath('resources') + LowerCase(FileName) + '.json');
-    J := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
-    if Assigned(J) then
-    begin
-      // Result := J.Get(SectionName).JsonValue.GetValue<string>;
-      JA := J.Get(SectionName).JsonValue as TJSONArray;
-      if JA.Size = 0 then
-        Exit;
-      Result := (JA.Get(RandomRange(0, JA.Size)) as TJSONObject).Get('message')
-        .JsonValue.GetValue<string>;
+{$IFDEF FPC}
+    JSONData := GetJSON(SL.Text);
+    I := JSONData.FindPath(SectionName).Count;
+    Result := JSONData.FindPath(SectionName).Items[RandomRange(0, I)].AsString;
+{$ELSE}
+    JSONObject := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
+    try
+      JSONArray := JSONObject.Get(SectionName).JsonValue as TJSONArray;
+      Result := JSONArray.Items[RandomRange(0, JSONArray.Count)].Value;
+    finally
+      FreeAndNil(JSONObject);
     end;
+{$ENDIF}
   finally
-    FreeAndNil(J);
     FreeAndNil(SL);
   end;
 end;
 
 class function TResources.KeysCount(const FileName,
-  SectionName: string): Integer;
+  SectionName: string): integer;
 var
   IniFile: TMemIniFile;
   Keys: TStringList;
@@ -592,7 +607,7 @@ begin
 end;
 
 class function TResources.LoadFromFile(const FileName, SectionName,
-  KeyName: string; DefaultValue: Integer): Integer;
+  KeyName: string; DefaultValue: integer): integer;
 var
   IniFile: TMemIniFile;
 begin
@@ -645,7 +660,7 @@ class procedure TResources.ReadSections(const FileName: string;
   Sections: TStrings; Section: string = '');
 var
   IniFile: TMemIniFile;
-  I: Integer;
+  I: integer;
 begin
   IniFile := TMemIniFile.Create(GetPath('resources') + FileName + '.ini',
     TEncoding.UTF8);
