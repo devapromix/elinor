@@ -47,6 +47,7 @@ type
     procedure StartRound;
     function GetHitPoints(Position: Integer): Integer;
     procedure AI;
+    procedure Kill(DefCrEnum: TCreatureEnum);
   public
     class var IsDuel: Boolean;
     constructor Create;
@@ -92,6 +93,12 @@ begin
   end
   else
     TSaga.AddLoot(reBag);
+end;
+
+procedure TSceneBattle2.Kill(DefCrEnum: TCreatureEnum);
+begin
+  Battle.Kill(TCreature.Character(DefCrEnum).Name[0]);
+  Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csDeath]);
 end;
 
 procedure TSceneBattle2.AI;
@@ -361,8 +368,7 @@ begin
           if (DefParty.Creature[DefPos].HitPoints > 0) then
             Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
           else
-            Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
-              .Sound[csDeath]);
+            Kill(DefCrEnum);
           B := True;
         end;
       reAdj:
@@ -400,8 +406,7 @@ begin
                     Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                       .Sound[csHit])
                   else
-                    Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
-                      .Sound[csDeath]);
+                    Kill(DefCrEnum);
                   B := True;
                 end;
               1, 3, 5:
@@ -426,8 +431,7 @@ begin
                       Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                         .Sound[csHit])
                     else
-                      Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
-                        .Sound[csDeath]);
+                      Kill(DefCrEnum);
                     B := True;
                   end;
                 end;
@@ -458,8 +462,7 @@ begin
                 Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                   .Sound[csHit])
               else
-                Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
-                  .Sound[csDeath]);
+                Kill(DefCrEnum);
             end;
           B := True;
         end;

@@ -15,6 +15,7 @@ type
     procedure Clear;
     procedure WinInBattle;
     procedure LoseInBattle;
+    procedure Kill(const CrName: string);
     procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
     procedure Paralyze(const AtkCrName, DefCrName: string);
     procedure Miss(const AtkCrName, DefCrName: string);
@@ -113,6 +114,12 @@ begin
     Log.Add(Format(TResources.RandomValue('battle.strings', 'heal2'),
       [AtkCrName, DefCrName, Value]));
   end;
+end;
+
+procedure TBattle.Kill(const CrName: string);
+begin
+  Log.Add(Format(TResources.RandomValue('battle.strings', 'kill_creature'),
+    [CrName]));
 end;
 
 function TBattle.GetLogMessage(AttackEnum: TAttackEnum;
