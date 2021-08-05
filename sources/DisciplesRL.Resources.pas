@@ -528,7 +528,7 @@ type
     class function KeysCount(const FileName, SectionName: string): Integer;
     class function RandomValue(const FileName, SectionName: string): string;
     class function RandomSectionIdent(const FileName: string): string;
-    class function GetStrValue(const FileName, SectionName: string): string;
+    class function RandomValue2(const FileName, SectionName: string): string;
   end;
 
 implementation
@@ -544,17 +544,27 @@ begin
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
 end;
 
-class function TResources.GetStrValue(const FileName,
+class function TResources.RandomValue2(const FileName,
   SectionName: string): string;
 var
   J: TJSONObject;
+  JA: TJSONArray;
   SL: TStringList;
 begin
+  Result := '';
   SL := TStringList.Create;
   try
     SL.LoadFromFile(GetPath('resources') + LowerCase(FileName) + '.json');
     J := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
-    Result := J.Get(SectionName).JsonValue.GetValue<string>;
+    if Assigned(J) then
+    begin
+      // Result := J.Get(SectionName).JsonValue.GetValue<string>;
+      JA := J.Get(SectionName).JsonValue as TJSONArray;
+      if JA.Size = 0 then
+        Exit;
+      Result := (JA.Get(RandomRange(0, JA.Size)) as TJSONObject).Get('message')
+        .JsonValue.GetValue<string>;
+    end;
   finally
     FreeAndNil(J);
     FreeAndNil(SL);

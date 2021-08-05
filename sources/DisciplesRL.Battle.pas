@@ -86,8 +86,14 @@ end;
 procedure TBattle.Heal(const AtkCrName, DefCrName: string;
   const Value: Integer);
 begin
-  Log.Add(Format(TResources.GetStrValue('battle.strings', 'heal'),
-    [AtkCrName, DefCrName]));
+  case RandomRange(0, 2) of
+    0:
+      Log.Add(Format(TResources.RandomValue2('battle.strings', 'heal1'),
+        [AtkCrName, DefCrName]));
+  else
+    Log.Add(Format(TResources.RandomValue2('battle.strings', 'heal2'),
+      [AtkCrName, DefCrName, Value]));
+  end;
 end;
 
 function TBattle.GetLogMessage(AttackEnum: TAttackEnum;
