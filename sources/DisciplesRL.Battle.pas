@@ -14,6 +14,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
+    procedure Paralyze(const AtkCrName, DefCrName: string);
     procedure Miss(const AtkCrName, DefCrName: string);
     procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
     procedure UpdateLevel(const CrName, GenderEnding: string;
@@ -75,6 +76,12 @@ begin
     Log.Add(Format(TResources.RandomValue('battle.strings', 'miss2'),
       [AtkCrName, DefCrName]));
   end;
+end;
+
+procedure TBattle.Paralyze(const AtkCrName, DefCrName: string);
+begin
+  Log.Add(Format(TResources.RandomValue('battle.strings', 'paralyze'),
+    [AtkCrName, DefCrName]));
 end;
 
 procedure TBattle.StartCastSpell(const CrName, SourceName: string);

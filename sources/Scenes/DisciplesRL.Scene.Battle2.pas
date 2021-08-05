@@ -513,9 +513,8 @@ begin
             if Alive then
             begin
               DefParty.Paralyze(Position);
-              Battle.Log.Add(Format('%s парализует %s.',
-                [AtkParty.Creature[AtkPos].Name[0],
-                DefParty.Creature[Position].Name[1]]));
+              Battle.Paralyze(AtkParty.Creature[AtkPos].Name[0],
+                DefParty.Creature[Position].Name[1]);
             end;
       end
   else
@@ -523,9 +522,8 @@ begin
       if Alive then
       begin
         DefParty.Paralyze(DefPos);
-        Battle.Log.Add(Format('%s парализует %s.',
-          [AtkParty.Creature[AtkPos].Name[0],
-          DefParty.Creature[DefPos].Name[1]]));
+        Battle.Paralyze(AtkParty.Creature[AtkPos].Name[0],
+          DefParty.Creature[DefPos].Name[1]);
       end;
   end;
   NextTurn;
