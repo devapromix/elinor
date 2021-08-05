@@ -83,6 +83,7 @@ const
 
 class procedure TSceneBattle2.AfterVictory;
 begin
+  TLeaderParty.Leader.ClearParalyzeAll;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
     Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
@@ -748,9 +749,6 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       FinishBattle;
-    K_SPACE:
-      if Game.Wizard then
-        NextTurn;
     K_N:
       if Game.Wizard then
         NextTurn;

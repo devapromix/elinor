@@ -44,6 +44,7 @@ type
       const APosition: TPosition);
     property Owner: TRaceEnum read FOwner write FOwner;
     procedure ClearParalyze(const APosition: TPosition);
+    procedure ClearParalyzeAll;
     property Creature[APosition: TPosition]: TCreature read GetCreature
       write SetCreature;
     procedure SetHitPoints(const APosition: TPosition;
@@ -199,6 +200,14 @@ end;
 procedure TParty.ClearParalyze(const APosition: TPosition);
 begin
   FCreature[APosition].Paralyze := False;
+end;
+
+procedure TParty.ClearParalyzeAll;
+var
+  Position: TPosition;
+begin
+  for Position := Low(TPosition) to High(TPosition) do
+    FCreature[Position].Paralyze := False;
 end;
 
 procedure TParty.Clear;
