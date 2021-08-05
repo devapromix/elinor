@@ -13,6 +13,8 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
+    procedure WinInBattle;
+    procedure LoseInBattle;
     procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
     procedure Paralyze(const AtkCrName, DefCrName: string);
     procedure Miss(const AtkCrName, DefCrName: string);
@@ -59,6 +61,16 @@ procedure TBattle.UpdateLevel(const CrName, GenderEnding: string;
 begin
   Log.Add(Format(TResources.RandomValue('battle.strings', 'update_level'),
     [CrName, GenderEnding, Level]));
+end;
+
+procedure TBattle.WinInBattle;
+begin
+  Log.Add(TResources.RandomValue('battle.strings', 'win_in_battle'));
+end;
+
+procedure TBattle.LoseInBattle;
+begin
+  Log.Add(TResources.RandomValue('battle.strings', 'lose_in_battle'));
 end;
 
 procedure TBattle.Clear;

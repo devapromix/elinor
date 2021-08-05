@@ -312,12 +312,14 @@ begin
   end;
   if EnemyParty.IsClear then
   begin
+    Battle.WinInBattle;
     ChExperience;
     Game.MediaPlayer.Play(mmWin);
     Game.MediaPlayer.PlayMusic(mmWinBattle);
   end;
   if LeaderParty.IsClear then
   begin
+    Battle.LoseInBattle;
     Game.MediaPlayer.PlayMusic(mmDefeat);
     Enabled := True;
   end;
