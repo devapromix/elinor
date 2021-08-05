@@ -13,6 +13,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
+    procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
     procedure Miss(const AtkCrName, DefCrName: string);
     procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
     procedure UpdateLevel(const CrName, GenderEnding: string;
@@ -80,6 +81,13 @@ procedure TBattle.StartCastSpell(const CrName, SourceName: string);
 begin
   Log.Add(Format(TResources.RandomValue('battle.strings', 'start_cast'),
     [CrName, SourceName]));
+end;
+
+procedure TBattle.Heal(const AtkCrName, DefCrName: string;
+  const Value: Integer);
+begin
+  Log.Add(Format(TResources.GetStrValue('battle.strings', 'heal'),
+    [AtkCrName, DefCrName]));
 end;
 
 function TBattle.GetLogMessage(AttackEnum: TAttackEnum;

@@ -482,9 +482,9 @@ begin
               if Alive and (HitPoints < MaxHitPoints) then
               begin
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
-                Battle.Log.Add(Format('%s исцеляет %s.',
-                  [Party.Creature[AtkPos].Name[0],
-                  Party.Creature[Position].Name[1]]));
+                Battle.Heal(Party.Creature[AtkPos].Name[0],
+                  Party.Creature[Position].Name[1],
+                  Party.Creature[AtkPos].Heal);
               end;
         end
     else
@@ -492,8 +492,8 @@ begin
         if Alive and (HitPoints < MaxHitPoints) then
         begin
           Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
-          Battle.Log.Add(Format('%s исцеляет %s.',
-            [Party.Creature[AtkPos].Name[0], Party.Creature[DefPos].Name[1]]));
+          Battle.Heal(Party.Creature[AtkPos].Name[0],
+            Party.Creature[DefPos].Name[1], Party.Creature[AtkPos].Heal);
         end;
     end;
     NextTurn;

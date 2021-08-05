@@ -528,18 +528,37 @@ type
     class function KeysCount(const FileName, SectionName: string): Integer;
     class function RandomValue(const FileName, SectionName: string): string;
     class function RandomSectionIdent(const FileName: string): string;
+    class function GetStrValue(const FileName, SectionName: string): string;
   end;
 
 implementation
 
 uses
   Math,
+  JSON,
   SysUtils;
 
 function GetPath(SubDir: string): string;
 begin
   Result := ExtractFilePath(ParamStr(0));
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
+end;
+
+class function TResources.GetStrValue(const FileName,
+  SectionName: string): string;
+var
+  J: TJSONObject;
+  SL: TStringList;
+begin
+  SL := TStringList.Create;
+  try
+    SL.LoadFromFile(GetPath('resources') + LowerCase(FileName) + '.json');
+    J := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
+    Result := J.Get(SectionName).JsonValue.GetValue<string>;
+  finally
+    FreeAndNil(J);
+    FreeAndNil(SL);
+  end;
 end;
 
 class function TResources.KeysCount(const FileName,
