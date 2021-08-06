@@ -12,7 +12,7 @@ uses
 type
   TRaceEnum = (reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
     reMountainClans, reElvenAlliance, reNeutrals);
-  TPlayableRaces = reTheEmpire..reLegionsOfTheDamned;
+  TPlayableRaces = reTheEmpire .. reLegionsOfTheDamned;
 
 const
   Races = [reTheEmpire, reUndeadHordes, reLegionsOfTheDamned];
@@ -23,8 +23,8 @@ const
 
 const
   RaceTerrain: array [TRaceEnum] of TResEnum = (reTheEmpireTerrain,
-    reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain,
-    reNeutralTerrain, reNeutralTerrain, reNeutralTerrain);
+    reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reNeutralTerrain,
+    reNeutralTerrain, reNeutralTerrain);
 
 type
   TSubRaceEnum = (reCustom, reHuman, reUndead, reHeretic, reDwarf, reElf,
@@ -32,8 +32,7 @@ type
     reDragon, reUndeadDragon, reMarsh, reWater);
 
 const
-  RaceDescription: array [TRaceEnum] of array [0 .. 10] of string =
-    (
+  RaceDescription: array [TRaceEnum] of array [0 .. 10] of string = (
     // The Empire
     ('Империя пришла в упадок. Больше',
     'не радуют глаз возделанные поля и цве-',
@@ -65,8 +64,7 @@ const
     // Elven Alliance
     ('', '', '', '', '', '', '', '', '', '', ''),
     // Neutras
-    ('', '', '', '', '', '', '', '', '', '', '')
-    );
+    ('', '', '', '', '', '', '', '', '', '', ''));
 
   // CreatureEnum
 {$REGION CreatureEnum}
@@ -182,6 +180,8 @@ const
   StaffName: array [TSourceEnum] of string = ('Боевой Посох', 'Рубиновый Посох',
     'Мифриловый Посох', 'Посох Могущества', 'Посох Молний', 'Эльфийский Посох',
     'Посох Колдуна', 'Посох Льда');
+  SourceSecName: array [TSourceEnum] of string = ('weapon', 'life', 'mind',
+    'death', 'air', 'earth', 'fire', 'water');
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -212,6 +212,13 @@ const
     'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
     'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
     'Булава', 'Тлеющий Молот', 'Меч Феникса');
+
+const
+  AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
+    'paladin_sword', 'battle_axe', 'dagger', 'bow', 'hunter_bow', 'crossbow',
+    'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
+    'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'fire_dagger',
+    'club', 'fire_hammer', 'phoenix_sword');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -719,7 +726,7 @@ const
     AttackEnum: atDaggerOfShadows; SkillEnum: skSpy;),
     // Dominator
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArchmage;
-    Size: szSmall; Name: ('Доминатор', 'Доминатораа');
+    Size: szSmall; Name: ('Доминатор', 'Доминатора');
     Description: ('Погибшие полководцы Империи возвра-',
     'щены Мортис к жизни для того, чтобы', 'сеять вокруг смерть и разрушения.');
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -736,8 +743,8 @@ const
     AttackEnum: atLongSword;),
     // Ghost
     (Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher; Size: szSmall;
-    Name: ('Привидение', 'Привидение');
-    Description: ('Привидения - это темные души,',
+    Name: ('Призрак', 'Призрака');
+    Description: ('Призраки - это темные души,',
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
     Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;

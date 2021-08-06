@@ -359,12 +359,10 @@ begin
           Game.MediaPlayer.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-          Battle.Log.Add
-            (Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
-            .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-            [AtkParty.Creature[AtkPos].Name[0],
-            DefParty.Creature[DefPos].Name[1],
-            AtkParty.Creature[AtkPos].Damage]));
+          Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
+            TCreature.Character(AtkCrEnum).SourceEnum,
+            AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name
+            [1], AtkParty.Creature[AtkPos].Damage);
           if (DefParty.Creature[DefPos].HitPoints > 0) then
             Game.MediaPlayer.Play(TCreature.Character(DefCrEnum).Sound[csHit])
           else
@@ -396,12 +394,11 @@ begin
                     .Sound[csAttack]);
                   Sleep(200);
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
-                  Battle.Log.Add
-                    (Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
-                    .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-                    [AtkParty.Creature[AtkPos].Name[0],
+                  Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
+                    TCreature.Character(AtkCrEnum).SourceEnum,
+                    AtkParty.Creature[AtkPos].Name[0],
                     DefParty.Creature[DefPos].Name[1],
-                    AtkParty.Creature[AtkPos].Damage]));
+                    AtkParty.Creature[AtkPos].Damage);
                   if (DefParty.Creature[DefPos].HitPoints > 0) then
                     Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                       .Sound[csHit])
@@ -421,12 +418,11 @@ begin
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
                       .Damage, DefPos);
-                    Battle.Log.Add
-                      (Format(Battle.GetLogMessage(TCreature.Character
-                      (AtkCrEnum).AttackEnum, TCreature.Character(AtkCrEnum)
-                      .SourceEnum), [AtkParty.Creature[AtkPos].Name[0],
+                    Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
+                      TCreature.Character(AtkCrEnum).SourceEnum,
+                      AtkParty.Creature[AtkPos].Name[0],
                       DefParty.Creature[DefPos].Name[1],
-                      AtkParty.Creature[AtkPos].Damage]));
+                      AtkParty.Creature[AtkPos].Damage);
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
                       Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                         .Sound[csHit])
@@ -452,12 +448,11 @@ begin
             if DefParty.Creature[Position].Alive then
             begin
               DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, Position);
-              Battle.Log.Add
-                (Format(Battle.GetLogMessage(TCreature.Character(AtkCrEnum)
-                .AttackEnum, TCreature.Character(AtkCrEnum).SourceEnum),
-                [AtkParty.Creature[AtkPos].Name[0],
+              Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
+                TCreature.Character(AtkCrEnum).SourceEnum,
+                AtkParty.Creature[AtkPos].Name[0],
                 DefParty.Creature[Position].Name[1],
-                AtkParty.Creature[AtkPos].Damage]));
+                AtkParty.Creature[AtkPos].Damage);
               if (DefParty.Creature[Position].HitPoints > 0) then
                 Game.MediaPlayer.Play(TCreature.Character(DefCrEnum)
                   .Sound[csHit])
@@ -684,7 +679,8 @@ procedure TSceneBattle2.NextTurn;
 var
   Position: Integer;
   S: string;
-  A: {$IFDEF FPC}specialize{$ENDIF}TArray<string>;
+  A:
+{$IFDEF FPC}specialize{$ENDIF}TArray<string>;
 begin
   Position := -1;
   repeat
