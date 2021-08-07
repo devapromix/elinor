@@ -77,6 +77,7 @@ type
       var CurPosition: Integer);
     function GetExperience: Integer;
     function GetMaxExperiencePerLevel(const Level: Integer): Integer;
+    class procedure Gen(const AX, AY: Integer; IsFinal: Boolean); static;
   end;
 
 type
@@ -301,6 +302,11 @@ begin
     with FCreature[Position] do
       if Active then
         Inc(Result);
+end;
+
+class procedure TParty.Gen(const AX, AY: Integer; IsFinal: Boolean);
+begin
+
 end;
 
 function TParty.GetAliveCreatures: Integer;

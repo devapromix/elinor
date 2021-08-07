@@ -196,7 +196,7 @@ end;
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
-  Level, P: Integer;
+  Level: Integer;
   Cr: TCreatureEnum;
 begin
   Level := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) +
@@ -214,24 +214,12 @@ begin
     AddCreature(PartyBase[N].Character[I], I);
     end;
   }
-  P := EnsureRange(Level * 50, 1, 100);
-  // P := 50;
-  {
-    1: 25..75
-    2: 75..125
-    3: 125..175
-    4: 175..225
-    5: 225..275
-    6: 275..325
-    7: 325..375
-    8: 375..425
-  }
   with Party[TSaga.GetPartyCount - 1] do
   begin
     //
-    Cr := TCreature.GetRandomEnum(P, 2);
+    Cr := TCreature.GetRandomEnum(Level, 2);
     // TCreature.Character(Cr).Race
-    case RandomRange(0, 1) of
+    case RandomRange(0, 4) of
       0:
         AddCreature(Cr, 2);
       1:
@@ -249,13 +237,13 @@ begin
         begin
           AddCreature(Cr, 0);
           AddCreature(Cr, 4);
-          Cr := TCreature.GetRandomEnum(P, 2);
+          Cr := TCreature.GetRandomEnum(Level, 2);
           AddCreature(Cr, 2);
         end;
     end;
     //
-    Cr := TCreature.GetRandomEnum(P, 3);
-    case RandomRange(0, 1) of
+    Cr := TCreature.GetRandomEnum(Level, 3);
+    case RandomRange(0, 4) of
       0:
         AddCreature(Cr, 3);
       1:
@@ -273,7 +261,7 @@ begin
         begin
           AddCreature(Cr, 1);
           AddCreature(Cr, 5);
-          Cr := TCreature.GetRandomEnum(P, 3);
+          Cr := TCreature.GetRandomEnum(Level, 3);
           AddCreature(Cr, 3);
         end;
     end;
