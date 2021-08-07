@@ -523,10 +523,10 @@ type
     class function LoadFromFile(const FileName, SectionName, KeyName,
       DefaultValue: string): string; overload;
     class function LoadFromFile(const FileName, SectionName, KeyName: string;
-      DefaultValue: integer): integer; overload;
+      DefaultValue: Integer): Integer; overload;
     class procedure LoadFromFile(const FileName: string;
       var StringList: TStringList); overload;
-    class function KeysCount(const FileName, SectionName: string): integer;
+    class function KeysCount(const FileName, SectionName: string): Integer;
     class function RandomValue(const FileName, SectionName: string): string;
     class function RandomSectionIdent(const FileName: string): string;
   end;
@@ -556,7 +556,7 @@ var
 {$IFDEF FPC}
   JSONData: TJSONData;
   S: string;
-  I: integer;
+  I: Integer;
 {$ELSE}
   JSONObject: TJSONObject;
   JSONArray: TJSONArray;
@@ -586,7 +586,7 @@ begin
 end;
 
 class function TResources.KeysCount(const FileName,
-  SectionName: string): integer;
+  SectionName: string): Integer;
 var
   IniFile: TMemIniFile;
   Keys: TStringList;
@@ -607,7 +607,7 @@ begin
 end;
 
 class function TResources.LoadFromFile(const FileName, SectionName,
-  KeyName: string; DefaultValue: integer): integer;
+  KeyName: string; DefaultValue: Integer): Integer;
 var
   IniFile: TMemIniFile;
 begin
@@ -660,7 +660,7 @@ class procedure TResources.ReadSections(const FileName: string;
   Sections: TStrings; Section: string = '');
 var
   IniFile: TMemIniFile;
-  I: integer;
+  I: Integer;
 begin
   IniFile := TMemIniFile.Create(GetPath('resources') + FileName + '.ini',
     TEncoding.UTF8);

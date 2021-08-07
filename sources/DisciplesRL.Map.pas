@@ -8,8 +8,8 @@ uses
 
 type
   TLocation = record
-    X: integer;
-    Y: integer;
+    X: Integer;
+    Y: Integer;
   end;
 
 type
@@ -17,25 +17,25 @@ type
   private
     FLocation: TLocation;
   public
-    constructor Create(const AX, AY: integer); overload;
+    constructor Create(const AX, AY: Integer); overload;
     constructor Create; overload;
     destructor Destroy; override;
     property Location: TLocation read FLocation write FLocation;
-    procedure SetLocation(const AX, AY: integer);
+    procedure SetLocation(const AX, AY: Integer);
     function GetLocation: TLocation;
-    property X: integer read FLocation.X;
-    property Y: integer read FLocation.Y;
+    property X: Integer read FLocation.X;
+    property Y: Integer read FLocation.Y;
   end;
 
 type
   TMapPlace = class(TMapObject)
-    CurLevel: integer;
-    MaxLevel: integer;
+    CurLevel: Integer;
+    MaxLevel: Integer;
     Owner: TRaceEnum;
     constructor Create;
-    class function GetIndex(const AX, AY: integer): integer; static;
-    class procedure UpdateRadius(const AID: integer); static;
-    class function GetCityCount: integer; static;
+    class function GetIndex(const AX, AY: Integer): Integer; static;
+    class procedure UpdateRadius(const AID: Integer); static;
+    class function GetCityCount: Integer; static;
     class procedure Gen; static;
   end;
 
@@ -64,7 +64,7 @@ type
       'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
   private
   var
-    CityArr: array [T] of integer;
+    CityArr: array [T] of Integer;
   private
     FMap: array [TLayerEnum] of TMapLayer;
   public
@@ -74,22 +74,22 @@ type
     procedure Clear(const L: TLayerEnum); overload;
     procedure Clear; overload;
     procedure Gen;
-    procedure UpdateRadius(const AX, AY, AR: integer; MapLayer: TMapLayer;
+    procedure UpdateRadius(const AX, AY, AR: Integer; MapLayer: TMapLayer;
       const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []); overload;
-    procedure UpdateRadius(const AX, AY, ARadius: integer); overload;
-    function GetDist(X1, Y1, X2, Y2: integer): integer;
-    function GetDistToCapital(const AX, AY: integer): integer;
-    function InRect(const X, Y, X1, Y1, X2, Y2: integer): boolean;
-    function InMap(const X, Y: integer): boolean;
+    procedure UpdateRadius(const AX, AY, ARadius: Integer); overload;
+    function GetDist(X1, Y1, X2, Y2: Integer): Integer;
+    function GetDistToCapital(const AX, AY: Integer): Integer;
+    function InRect(const X, Y, X1, Y1, X2, Y2: Integer): boolean;
+    function InMap(const X, Y: Integer): boolean;
     function LeaderTile: TResEnum;
-    function IsLeaderMove(const X, Y: integer): boolean;
-    function Width: integer;
-    function Height: integer;
+    function IsLeaderMove(const X, Y: Integer): boolean;
+    function Width: Integer;
+    function Height: Integer;
     function GetLayer(const L: TLayerEnum): TMapLayer;
-    function GetTile(const L: TLayerEnum; X, Y: integer): TResEnum;
-    procedure SetTile(const L: TLayerEnum; X, Y: integer; Tile: TResEnum);
+    function GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
+    procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: TResEnum);
     procedure GenCityName;
-    function GetCityName(const I: integer): string;
+    function GetCityName(const I: Integer): string;
     function GetCityNameTitleRes(const I: T): TResEnum;
   end;
 
@@ -105,18 +105,18 @@ uses
   DisciplesRL.Scene.Party;
 
 type
-  TGetXYVal = function(X, Y: integer): boolean; stdcall;
+  TGetXYVal = function(X, Y: Integer): boolean; stdcall;
 
-function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: integer;
-  Callback: TGetXYVal; var TargetX, TargetY: integer): boolean;
+function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
+  Callback: TGetXYVal; var TargetX, TargetY: Integer): boolean;
   external 'BeaRLibPF.dll';
 
-function ChTile(X, Y: integer): boolean; stdcall;
+function ChTile(X, Y: Integer): boolean; stdcall;
 begin
   Result := True;
 end;
 
-constructor TMapObject.Create(const AX, AY: integer);
+constructor TMapObject.Create(const AX, AY: Integer);
 begin
   FLocation.X := AX;
   FLocation.Y := AY;
@@ -138,18 +138,18 @@ begin
   Result := FLocation;
 end;
 
-procedure TMapObject.SetLocation(const AX, AY: integer);
+procedure TMapObject.SetLocation(const AX, AY: Integer);
 begin
   FLocation.X := AX;
   FLocation.Y := AY;
 end;
 
-function TMap.GetDist(X1, Y1, X2, Y2: integer): integer;
+function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
 begin
   Result := Round(Sqrt(Sqr(X2 - X1) + Sqr(Y2 - Y1)));
 end;
 
-function TMap.GetDistToCapital(const AX, AY: integer): integer;
+function TMap.GetDistToCapital(const AX, AY: Integer): Integer;
 begin
   Result := GetDist(MapPlace[0].X, MapPlace[0].Y, AX, AY);
 end;
@@ -159,7 +159,7 @@ begin
   Result := FMap[L];
 end;
 
-function TMap.GetTile(const L: TLayerEnum; X, Y: integer): TResEnum;
+function TMap.GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
 begin
   if InMap(X, Y) then
     Result := FMap[L][X, Y]
@@ -167,7 +167,7 @@ begin
     Result := reNone;
 end;
 
-function TMap.Height: integer;
+function TMap.Height: Integer;
 begin
   Result := MapHeight;
 end;
@@ -185,7 +185,7 @@ end;
 
 constructor TMap.Create;
 var
-  I: integer;
+  I: Integer;
 begin
   for I := 0 to High(MapPlace) do
     MapPlace[I] := TMapPlace.Create;
@@ -193,7 +193,7 @@ end;
 
 destructor TMap.Destroy;
 var
-  I: integer;
+  I: Integer;
 begin
   inherited;
   for I := 0 to High(MapPlace) do
@@ -202,15 +202,15 @@ end;
 
 procedure TMap.Clear(const L: TLayerEnum);
 var
-  X, Y: integer;
+  X, Y: Integer;
 begin
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
       case L of
         lrTile, lrPath, lrObj:
           FMap[L][X, Y] := reNone;
-        else
-          FMap[L][X, Y] := reDark;
+      else
+        FMap[L][X, Y] := reDark;
       end;
 end;
 
@@ -250,7 +250,7 @@ end;
 
 procedure TMap.Gen;
 var
-  X, Y, RX, RY, I: integer;
+  X, Y, RX, RY, I: Integer;
 
   procedure AddObjectAt(const X, Y, ObjID: Integer);
   var
@@ -259,13 +259,13 @@ var
     case ObjID of
       0:
         R := reSTower;
-      else
-        R := reSTower;
+    else
+      R := reSTower;
     end;
     FMap[lrObj][X, Y] := R;
   end;
 
-  procedure AddTree(const X, Y: integer);
+  procedure AddTree(const X, Y: Integer);
   begin
     case Random(6) of
       0:
@@ -283,7 +283,7 @@ var
     end;
   end;
 
-  procedure AddMountain(const X, Y: integer);
+  procedure AddMountain(const X, Y: Integer);
   begin
     case RandomRange(0, 4) of
       0:
@@ -389,20 +389,20 @@ begin
   AddLeaderParty;
 end;
 
-function TMap.InRect(const X, Y, X1, Y1, X2, Y2: integer): boolean;
+function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): boolean;
 begin
   Result := (X >= X1) and (Y >= Y1) and (X <= X2) and (Y <= Y2);
 end;
 
-function TMap.InMap(const X, Y: integer): boolean;
+function TMap.InMap(const X, Y: Integer): boolean;
 begin
   Result := InRect(X, Y, 0, 0, MapWidth - 1, MapHeight - 1);
 end;
 
-procedure TMap.UpdateRadius(const AX, AY, AR: integer; MapLayer: TMapLayer;
+procedure TMap.UpdateRadius(const AX, AY, AR: Integer; MapLayer: TMapLayer;
   const AResEnum: TResEnum; IgnoreRes: TIgnoreRes = []);
 var
-  X, Y: integer;
+  X, Y: Integer;
 begin
   for Y := -AR to AR do
     for X := -AR to AR do
@@ -433,7 +433,7 @@ begin
         end;
 end;
 
-procedure TMap.UpdateRadius(const AX, AY, ARadius: integer);
+procedure TMap.UpdateRadius(const AX, AY, ARadius: Integer);
 var
   CX, CY: Integer;
 begin
@@ -444,7 +444,7 @@ begin
         Game.Map.SetTile(lrSee, CX, CY, reNone);
 end;
 
-function TMap.Width: integer;
+function TMap.Width: Integer;
 begin
   Result := MapWidth;
 end;
@@ -454,7 +454,7 @@ begin
   Result := FMap[lrTile][TLeaderParty.Leader.X, TLeaderParty.Leader.Y];
 end;
 
-procedure TMap.SetTile(const L: TLayerEnum; X, Y: integer; Tile: TResEnum);
+procedure TMap.SetTile(const L: TLayerEnum; X, Y: Integer; Tile: TResEnum);
 begin
   FMap[L][X, Y] := Tile;
 end;
@@ -462,7 +462,7 @@ end;
 procedure TMap.GenCityName;
 var
   N: set of T;
-  J, K: integer;
+  J, K: Integer;
 begin
   N := [];
   for K := Low(T) to High(T) do
@@ -475,7 +475,7 @@ begin
   end;
 end;
 
-function TMap.GetCityName(const I: integer): string;
+function TMap.GetCityName(const I: Integer): string;
 begin
   Result := CityNameText[CityArr[I]];
 end;
@@ -485,14 +485,14 @@ begin
   Result := CityNameTitle[CityArr[I]];
 end;
 
-function TMap.IsLeaderMove(const X, Y: integer): boolean;
+function TMap.IsLeaderMove(const X, Y: Integer): boolean;
 begin
   Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
     TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or Game.Wizard) and
     not(FMap[lrObj][X, Y] in StopTiles);
 end;
 
-function GetRadius(const N: integer): integer;
+function GetRadius(const N: Integer): Integer;
 begin
   case N of
     0: // Capital
@@ -506,9 +506,9 @@ begin
   end;
 end;
 
-function ChCity(N: integer): boolean;
+function ChCity(N: Integer): boolean;
 var
-  I: integer;
+  I: Integer;
 begin
   Result := True;
   if (N = 0) then
@@ -524,9 +524,9 @@ begin
   end;
 end;
 
-procedure ClearObj(const AX, AY: integer);
+procedure ClearObj(const AX, AY: Integer);
 var
-  X, Y: integer;
+  X, Y: Integer;
 begin
   for X := AX - 2 to AX + 2 do
     for Y := AY - 2 to AY + 2 do
@@ -543,7 +543,7 @@ end;
 
 class procedure TMapPlace.Gen;
 var
-  DX, DY, FX, FY, PX, PY, I: integer;
+  DX, DY, FX, FY, PX, PY, I: Integer;
 begin
   for I := 0 to High(Game.Map.MapPlace) do
   begin
@@ -641,9 +641,9 @@ begin
   Owner := reNeutrals;
 end;
 
-class function TMapPlace.GetIndex(const AX, AY: integer): integer;
+class function TMapPlace.GetIndex(const AX, AY: Integer): Integer;
 var
-  I: integer;
+  I: Integer;
 begin
   Result := -1;
   for I := 0 to High(Game.Map.MapPlace) do
@@ -654,7 +654,7 @@ begin
     end;
 end;
 
-class procedure TMapPlace.UpdateRadius(const AID: integer);
+class procedure TMapPlace.UpdateRadius(const AID: Integer);
 begin
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrTile],
@@ -665,9 +665,9 @@ begin
   Game.Map.MapPlace[AID].Owner := TSaga.LeaderRace;
 end;
 
-class function TMapPlace.GetCityCount: integer;
+class function TMapPlace.GetCityCount: Integer;
 var
-  I: integer;
+  I: Integer;
 begin
   Result := 0;
   for I := 1 to TScenario.ScenarioCitiesMax do
