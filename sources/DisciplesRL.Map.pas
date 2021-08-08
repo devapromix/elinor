@@ -4,6 +4,7 @@ interface
 
 uses
   DisciplesRL.Creatures,
+  DisciplesRL.Settlement,
   DisciplesRL.Resources;
 
 type
@@ -37,26 +38,6 @@ type
     class procedure UpdateRadius(const AID: Integer); static;
     class function GetCityCount: Integer; static;
     class procedure Gen; static;
-  end;
-
-type
-  TSettlements = class(TObject)
-  private type
-    T = 0 .. 9;
-  private const
-    NameResEnum: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion,
-      reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
-      reTitleHimor, reTitleSodek, reTitleSard);
-    NameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum',
-      'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
-  private
-    FName: array [T] of Integer;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    procedure GenNames;
-    function GetNameText(const I: Integer): string; overload;
-    function GetNameResEnum(const I: T): TResEnum;overload;
   end;
 
 type
@@ -490,7 +471,7 @@ begin
   end;
 end;
 
-function ChCity(N: Integer): boolean;
+function ChSettlement(N: Integer): boolean;
 var
   I: Integer;
 begin
@@ -557,7 +538,7 @@ begin
       end;
       PY := RandomRange(3, Game.Map.Height - 3);
       Game.Map.MapPlace[I].SetLocation(PX, PY);
-    until ChCity(I);
+    until ChSettlement(I);
     case I of
       0: // Capital
         begin
@@ -659,43 +640,6 @@ begin
     if (Game.Map.MapPlace[I].Owner in Races) then
       Inc(Result);
   end;
-end;
-
-constructor TSettlements.Create;
-begin
-
-end;
-
-destructor TSettlements.Destroy;
-begin
-
-  inherited;
-end;
-
-procedure TSettlements.GenNames;
-var
-  N: set of T;
-  J, K: Integer;
-begin
-  N := [];
-  for K := Low(T) to High(T) do
-  begin
-    repeat
-      J := Random(10);
-    until not(J in N);
-    N := N + [J];
-    FName[K] := J;
-  end;
-end;
-
-function TSettlements.GetNameText(const I: Integer): string;
-begin
-  Result := NameText[FName[I]];
-end;
-
-function TSettlements.GetNameResEnum(const I: T): TResEnum;
-begin
-  Result := NameResEnum[FName[I]];
 end;
 
 end.
