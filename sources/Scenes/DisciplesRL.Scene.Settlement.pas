@@ -403,13 +403,13 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        DrawTitle(Game.Map.Settlements.GetNameResEnum(CurrentCityIndex + 1));
+        DrawTitle(Game.Map.Settlements.GetNameResEnum(stCity, CurrentCityIndex + 1));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage(ScrWidth + 20, 160, reTextCityDef);
       end;
     stCapital:
       begin
-        DrawTitle(Game.Map.Settlements.GetNameResEnum(0));
+        DrawTitle(Game.Map.Settlements.GetNameResEnum(stCapital));
         DrawImage(20, 160, reTextLeadParty);
         DrawImage(ScrWidth + 20, 160, reTextCapitalDef);
       end;

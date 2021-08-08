@@ -46,10 +46,14 @@ type
     // Title
     reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
     reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
-    reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
-    reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
-    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
-    reTitleAbilities,
+    reTitleParty, reTitleBattle,
+    //
+    reTitleVorgel, reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton,
+    reTitleDoran, reTitleKront, reTitleHimor, reTitleSodek, reTitleSard,
+    reTitleTarn, reTitleShindar, reTitleFergal, reTitleHaman, reTitleKenoshan,
+    reTitleInmiris,
+    //
+    reTitleDifficulty, reTitleThief, reTitleWarrior, reTitleAbilities,
 
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
@@ -311,6 +315,7 @@ const
     (FileName: 'title.party.png'; ResType: teGUI;),
     // Title "Battle"
     (FileName: 'title.battle.png'; ResType: teGUI;),
+
     // Title "Vorgel"
     (FileName: 'title.city.vorgel.png'; ResType: teGUI;),
     // Title "Entarion"
@@ -331,6 +336,20 @@ const
     (FileName: 'title.city.sodek.png'; ResType: teGUI;),
     // Title "Sard"
     (FileName: 'title.city.sard.png'; ResType: teGUI;),
+
+    // Title "Tarn"
+    (FileName: 'title.capital.tarn.png'; ResType: teGUI;),
+    // Title "Shindar"
+    (FileName: 'title.capital.shindar.png'; ResType: teGUI;),
+    // Title "Fergal"
+    (FileName: 'title.capital.fergal.png'; ResType: teGUI;),
+    // Title "Haman"
+    (FileName: 'title.capital.haman.png'; ResType: teGUI;),
+    // Title "Kenoshan"
+    (FileName: 'title.capital.kenoshan.png'; ResType: teGUI;),
+    // Title "Inmiris"
+    (FileName: 'title.capital.inmiris.png'; ResType: teGUI;),
+
     // Title Difficulty
     (FileName: 'title.difficulty.png'; ResType: teGUI;),
     // Title Thief
