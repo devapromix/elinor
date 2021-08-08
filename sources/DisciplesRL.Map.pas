@@ -40,6 +40,26 @@ type
   end;
 
 type
+  TSettlements = class(TObject)
+  private type
+    T = 0 .. 9;
+  private const
+    NameResEnum: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion,
+      reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
+      reTitleHimor, reTitleSodek, reTitleSard);
+    NameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum',
+      'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
+  private
+    FName: array [T] of Integer;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure GenNames;
+    function GetNameText(const I: Integer): string; overload;
+    function GetNameResEnum(const I: T): TResEnum;overload;
+  end;
+
+type
 
   { TMap }
 
@@ -54,18 +74,8 @@ type
   private const
     MapWidth = 40 + 2;
     MapHeight = 20 + 2;
-  private type
-    T = 0 .. 9;
-  private const
-    CityNameTitle: array [T] of TResEnum = (reTitleVorgel, reTitleEntarion,
-      reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront,
-      reTitleHimor, reTitleSodek, reTitleSard);
-    CityNameText: array [T] of string = ('Vorgel', 'Entarion', 'Tardum',
-      'Temond', 'Zerton', 'Doran', 'Kront', 'Himor', 'Sodek', 'Sard');
   private
-  var
-    CityArr: array [T] of Integer;
-  private
+    FSettlements: TSettlements;
     FMap: array [TLayerEnum] of TMapLayer;
   public
     MapPlace: array [0 .. MapPlacesCount - 1] of TMapPlace;
@@ -88,9 +98,7 @@ type
     function GetLayer(const L: TLayerEnum): TMapLayer;
     function GetTile(const L: TLayerEnum; X, Y: Integer): TResEnum;
     procedure SetTile(const L: TLayerEnum; X, Y: Integer; Tile: TResEnum);
-    procedure GenCityName;
-    function GetCityName(const I: Integer): string;
-    function GetCityNameTitleRes(const I: T): TResEnum;
+    property Settlements: TSettlements read FSettlements write FSettlements;
   end;
 
 implementation
@@ -187,6 +195,7 @@ constructor TMap.Create;
 var
   I: Integer;
 begin
+  Settlements := TSettlements.Create;
   for I := 0 to High(MapPlace) do
     MapPlace[I] := TMapPlace.Create;
 end;
@@ -198,6 +207,7 @@ begin
   inherited;
   for I := 0 to High(MapPlace) do
     FreeAndNil(MapPlace[I]);
+  FreeAndNil(FSettlements);
 end;
 
 procedure TMap.Clear(const L: TLayerEnum);
@@ -298,7 +308,7 @@ var
   end;
 
 begin
-  GenCityName;
+  Settlements.GenNames;
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
     begin
@@ -457,32 +467,6 @@ end;
 procedure TMap.SetTile(const L: TLayerEnum; X, Y: Integer; Tile: TResEnum);
 begin
   FMap[L][X, Y] := Tile;
-end;
-
-procedure TMap.GenCityName;
-var
-  N: set of T;
-  J, K: Integer;
-begin
-  N := [];
-  for K := Low(T) to High(T) do
-  begin
-    repeat
-      J := Random(10);
-    until not(J in N);
-    N := N + [J];
-    CityArr[K] := J;
-  end;
-end;
-
-function TMap.GetCityName(const I: Integer): string;
-begin
-  Result := CityNameText[CityArr[I]];
-end;
-
-function TMap.GetCityNameTitleRes(const I: T): TResEnum;
-begin
-  Result := CityNameTitle[CityArr[I]];
 end;
 
 function TMap.IsLeaderMove(const X, Y: Integer): boolean;
@@ -675,6 +659,43 @@ begin
     if (Game.Map.MapPlace[I].Owner in Races) then
       Inc(Result);
   end;
+end;
+
+constructor TSettlements.Create;
+begin
+
+end;
+
+destructor TSettlements.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TSettlements.GenNames;
+var
+  N: set of T;
+  J, K: Integer;
+begin
+  N := [];
+  for K := Low(T) to High(T) do
+  begin
+    repeat
+      J := Random(10);
+    until not(J in N);
+    N := N + [J];
+    FName[K] := J;
+  end;
+end;
+
+function TSettlements.GetNameText(const I: Integer): string;
+begin
+  Result := NameText[FName[I]];
+end;
+
+function TSettlements.GetNameResEnum(const I: T): TResEnum;
+begin
+  Result := NameResEnum[FName[I]];
 end;
 
 end.
