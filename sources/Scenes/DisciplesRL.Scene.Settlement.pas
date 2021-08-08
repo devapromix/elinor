@@ -10,12 +10,10 @@ uses
 {$ENDIF}
   Classes,
   DisciplesRL.Button,
+  DisciplesRL.Settlement,
   DisciplesRL.Resources,
   DisciplesRL.Party,
   DisciplesRL.Scenes;
-
-type
-  TSettlementSubSceneEnum = (stCity, stCapital);
 
   { TSceneMap }
 
@@ -29,7 +27,7 @@ type
   private
   class var
     Button: array [TButtonEnum] of TButton;
-    CurrentSettlementType: TSettlementSubSceneEnum;
+    CurrentSettlementType: TSettlementTypeEnum;
     SettlementParty: TParty;
     CurrentCityIndex: Integer;
   private
@@ -56,7 +54,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure Show(SettlementType: TSettlementSubSceneEnum); overload;
+    class procedure Show(SettlementType: TSettlementTypeEnum); overload;
   end;
 
 implementation
@@ -301,8 +299,6 @@ begin
   Game.NewDay;
 end;
 
-{ TSceneSettlement }
-
 constructor TSceneSettlement.Create;
 var
   I: TButtonEnum;
@@ -433,7 +429,7 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneSettlement.Show(SettlementType: TSettlementSubSceneEnum);
+class procedure TSceneSettlement.Show(SettlementType: TSettlementTypeEnum);
 begin
   CurrentSettlementType := SettlementType;
   case CurrentSettlementType of

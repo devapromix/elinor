@@ -148,7 +148,8 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  DisciplesRL.Settlement;
 
 { TParty }
 

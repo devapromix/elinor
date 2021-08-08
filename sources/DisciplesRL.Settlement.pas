@@ -6,6 +6,9 @@ uses
   DisciplesRL.Resources;
 
 type
+  TSettlementTypeEnum = (stCity, stCapital);
+
+type
   TSettlements = class(TObject)
   private type
     T = 0 .. 9;
@@ -21,8 +24,8 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure GenNames;
-    function GetNameText(const I: Integer): string; overload;
-    function GetNameResEnum(const I: T): TResEnum; overload;
+    function GetNameText(const I: Integer): string;
+    function GetNameResEnum(const I: T): TResEnum;
   end;
 
 implementation

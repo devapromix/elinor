@@ -94,7 +94,8 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Items;
+  DisciplesRL.Items,
+  DisciplesRL.Settlement;
 
 type
   TButtonEnum = (btOk, btClose);
