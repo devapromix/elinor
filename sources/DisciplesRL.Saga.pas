@@ -66,8 +66,6 @@ type
 
 type
   TSaga = class(TObject)
-  private
-
   public
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
@@ -157,12 +155,14 @@ type
     class procedure AddPartyAt(const AX, AY: Integer;
       IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
+    class function GetMapLevel(const AX: Integer; const AY: Integer): Integer;
   end;
 
 implementation
 
 uses
   Math,
+  Classes,
   SysUtils,
   DisciplesRL.Map,
   DisciplesRL.Scenes,
@@ -199,11 +199,12 @@ var
   Level: Integer;
   Cr: TCreatureEnum;
 begin
-  Level := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) +
-    Ord(TSaga.Difficulty), 1, MaxLevel);
+  Level := GetMapLevel(AX, AY);
+  Level := 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
-  { repeat
+  {
+    repeat
     N := RandomRange(0, High(PartyBase) - 1) + 1;
     until PartyBase[N].Level = Level;
     if IsFinal then
@@ -298,11 +299,30 @@ end;
 class procedure TSaga.AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
 var
   I: Integer;
+  SL: TStringList;
+  P: TPosition;
+  S: string;
 begin
   Game.Map.SetTile(lrObj, AX, AY, reEnemy);
   TSaga.PartyInit(AX, AY, IsFinal);
   I := GetPartyIndex(AX, AY);
   Party[I].Owner := reNeutrals;
+
+  if Game.Wizard then
+  begin
+    SL := TStringList.Create;
+    try
+      if FileExists('parties.txt') then
+        SL.LoadFromFile('parties.txt');
+      S := Format('Level-%d ', [TSaga.GetMapLevel(Party[I].X, Party[I].Y)]);
+      for P := Low(TPosition) to High(TPosition) do
+        S := S + Format('%d-%s ', [P, Party[I].Creature[P].Name[0]]);
+      SL.Append(Trim(S));
+      SL.SaveToFile('parties.txt');
+    finally
+      FreeAndNil(SL);
+    end;
+  end;
 end;
 
 class procedure TSaga.AddLoot(LootRes: TResEnum);
@@ -366,6 +386,11 @@ begin
       end;
   end;
   TSceneHire.Show(stLoot, scMap, LootRes);
+end;
+
+class function TSaga.GetMapLevel(const AX: Integer; const AY: Integer): Integer;
+begin
+  Result := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) + Ord(TSaga.Difficulty), 1, MaxLevel);
 end;
 
 { TScenario }

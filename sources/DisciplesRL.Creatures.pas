@@ -1113,7 +1113,7 @@ begin
     Rating := CreatureBase[TCreatureEnum(N)].Rating;
   until (Rating > 0) and (Rating >= (Level * 10) - 5) and
     (Rating <= (Level * 10) + 5) and
-    {(CreatureBase[TCreatureEnum(N)].ReachEnum = R) and}
+    (CreatureBase[TCreatureEnum(N)].ReachEnum = R) and
     (TSaga.LeaderRace <> CreatureBase[TCreatureEnum(N)].Race);
   Result := TCreatureEnum(N);
 end;
