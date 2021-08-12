@@ -19,8 +19,12 @@ type
 {$ENDIF}
 
 type
-  TResEnum = (reNone, rePlus, reTheEmpireLogo, reUndeadHordesLogo,
-    reLegionsOfTheDamnedLogo, reBGChar, reBGEnemy, reBGParalyze, reDead,
+  TResEnum = (reNone,
+
+    reAMark, rePMark, reASell, rePSell,
+
+    rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
+    reBGChar, reBGEnemy, reBGParalyze, reDead,
 
     reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
     reItemFrame,
@@ -90,6 +94,16 @@ const
   ResBase: array [TResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teNone;),
+
+    // AMark
+    (FileName: 'path.amark.png'; ResType: tePath;),
+    // PMark
+    (FileName: 'path.pmark.png'; ResType: tePath;),
+    // ASell
+    (FileName: 'path.asell.png'; ResType: tePath;),
+    // PSell
+    (FileName: 'path.psell.png'; ResType: tePath;),
+
     // Plus
     (FileName: 'plus.png'; ResType: teGUI;),
     // The Empire Logo
