@@ -19,7 +19,8 @@ uses
   DisciplesRL.Resources;
 
 type
-  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle);
+  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
+    scSpellbook);
 
 const
   ScreenWidth = 1344;
@@ -231,7 +232,8 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Battle3;
+  DisciplesRL.Scene.Battle3,
+  DisciplesRL.Scene.Spellbook;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -759,6 +761,7 @@ begin
   FScene[scParty] := TSceneParty.Create;
   FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
+  FScene[scSpellbook] := TSceneSpellbook.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

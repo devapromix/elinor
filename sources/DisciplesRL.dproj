@@ -128,6 +128,8 @@
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle3.pas"/>
         <DCCReference Include="DisciplesRL.Saga.pas"/>
         <DCCReference Include="DisciplesRL.Button.pas"/>
+        <DCCReference Include="DisciplesRL.Spells.pas"/>
+        <DCCReference Include="Scenes\DisciplesRL.Scene.Spellbook.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

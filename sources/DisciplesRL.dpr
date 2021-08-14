@@ -5,7 +5,6 @@
 uses
   {$IFDEF FPC}
   Forms,
-  Interfaces,
   {$ELSE}
   Vcl.Forms,
   {$ENDIF }
@@ -27,7 +26,9 @@ uses
   DisciplesRL.Scene.Battle2 in 'Scenes\DisciplesRL.Scene.Battle2.pas',
   DisciplesRL.Scene.Battle3 in 'Scenes\DisciplesRL.Scene.Battle3.pas',
   DisciplesRL.Saga in 'DisciplesRL.Saga.pas',
-  DisciplesRL.Button in 'DisciplesRL.Button.pas';
+  DisciplesRL.Button in 'DisciplesRL.Button.pas',
+  DisciplesRL.Spells in 'DisciplesRL.Spells.pas',
+  DisciplesRL.Scene.Spellbook in 'Scenes\DisciplesRL.Scene.Spellbook.pas';
 
 {$R *.res}
 

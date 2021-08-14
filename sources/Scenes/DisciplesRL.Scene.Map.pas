@@ -41,7 +41,8 @@ uses
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Party,
-  DisciplesRL.Creatures;
+  DisciplesRL.Creatures,
+  DisciplesRL.Scene.Spellbook;
 
 { TSceneMap }
 
@@ -333,6 +334,8 @@ begin
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:
       TSceneHire.Show(stJournal);
+    K_H:
+      TSceneSpellbook.Show;
   end;
 end;
 
