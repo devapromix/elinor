@@ -20,6 +20,7 @@ type
   var
     LastMousePos, MousePos: TPoint;
     FM: Boolean;
+    BB: Boolean;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -47,12 +48,17 @@ uses
 procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 var
-  CurrentPartyIndex: Integer;
+  CurrentPartyIndex, MovePoints: Integer;
+  NX, NY, FX, FY, SX, SY: Integer;
 begin
   inherited;
+  MovePoints := 3;
   case Button of
     mbLeft:
       begin
+        if BB then
+          Exit;
+
         if FM then
         begin
           // Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
@@ -64,14 +70,61 @@ begin
           end;
           Exit;
         end;
+
         if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
         else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
           Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
       end;
+    mbRight:
+      begin
+        if BB then
+          Exit;
+
+        FX := MousePos.X;
+        FY := MousePos.Y;
+        SX := TLeaderParty.Leader.X;
+        SY := TLeaderParty.Leader.Y;
+
+        if ((FX = SX) and (FY = SY)) then
+          Exit;
+        if (Game.Map.GetLayer(lrPath)[FX, FY] in [reASell, rePSell]) then
+        begin
+          BB := True;
+          Exit;
+        end;
+        if not BB then
+          Game.Map.Clear(lrPath);
+
+        repeat
+          if not DoAStar(Game.Map.Width, Game.Map.Height, SX, SY, FX, FY,
+            @ChTile, NX, NY) then
+            Exit;
+          if (MovePoints > 0) then
+          begin
+            if ((NX = FX) and (NY = FY)) then
+              Game.Map.GetLayer(lrPath)[NX, NY] := reASell
+            else
+              Game.Map.GetLayer(lrPath)[NX, NY] := reAMark;
+            Dec(MovePoints);
+          end
+          else
+          begin
+            if ((NX = FX) and (NY = FY)) then
+              Game.Map.GetLayer(lrPath)[NX, NY] := rePSell
+            else
+              Game.Map.GetLayer(lrPath)[NX, NY] := rePMark;
+          end;
+          SX := NX;
+          SY := NY;
+        until ((SX = FX) and (SY = FY));
+      end;
     mbMiddle:
       begin
+        if BB then
+          Exit;
+
         if TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y) then
           if not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y) then
           begin
@@ -183,6 +236,12 @@ begin
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
         DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
           ResImage[rePlayer]);
+
+      // Path
+      if (Game.Map.GetTile(lrPath, X, Y) <> reNone) then
+        DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
+          ResImage[Game.Map.GetTile(lrPath, X, Y)]);
+
       // Fog
       if F then
         DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,

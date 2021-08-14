@@ -93,6 +93,15 @@ type
     function GetCityNameTitleRes(const I: T): TResEnum;
   end;
 
+type
+  TGetXYVal = function(X, Y: Integer): boolean; stdcall;
+
+function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
+  Callback: TGetXYVal; var TargetX, TargetY: Integer): boolean;
+  external 'BeaRLibPF.dll';
+
+function ChTile(X, Y: Integer): boolean; stdcall;
+
 implementation
 
 uses
@@ -103,13 +112,6 @@ uses
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Party;
-
-type
-  TGetXYVal = function(X, Y: Integer): boolean; stdcall;
-
-function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
-  Callback: TGetXYVal; var TargetX, TargetY: Integer): boolean;
-  external 'BeaRLibPF.dll';
 
 function ChTile(X, Y: Integer): boolean; stdcall;
 begin
