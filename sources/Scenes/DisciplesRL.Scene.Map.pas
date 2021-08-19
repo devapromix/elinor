@@ -99,7 +99,7 @@ begin
 
         repeat
           if not DoAStar(Game.Map.Width, Game.Map.Height, SX, SY, FX, FY,
-            @ChTile, NX, NY) then
+            @IsMoveLeader, NX, NY) then
             Exit;
 
           if ((NX = FX) and (NY = FY)) then
