@@ -78,7 +78,7 @@ var
   CloseButton: TButton;
 
 const
-  Speed = 12;
+  Speed = 2;
 
   { TSceneBattle2 }
 
