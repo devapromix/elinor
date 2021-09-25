@@ -53,6 +53,7 @@ type
     function Play(const FileName: string; F: Boolean): Boolean; overload;
     procedure Stop;
     procedure StopMusic;
+    function IsPlayMusic: Boolean;
   end;
 
 const
@@ -671,6 +672,11 @@ begin
   if (FVolume < 0) then
     FVolume := 0;
   Result := FVolume;
+end;
+
+function TMediaPlayer.IsPlayMusic: Boolean;
+begin
+  Result := BASS_ChannelIsActive(FChannel[MusicChannel]) = BASS_ACTIVE_PLAYING;
 end;
 
 constructor TMediaPlayer.Create;
