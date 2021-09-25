@@ -40,12 +40,12 @@ uses
 
 procedure TSceneBattle3.Start;
 begin
-  Game.MediaPlayer.Play(mmWar);
+  Game.Player.Play(mmWar);
 end;
 
 procedure TSceneBattle3.Finish;
 begin
-  Game.MediaPlayer.Stop;
+  Game.Player.Stop;
 end;
 
 constructor TSceneBattle3.Create;
@@ -91,7 +91,7 @@ procedure TSceneBattle3.Show(const S: TSceneEnum);
 begin
   inherited;
   Start;
-  Game.MediaPlayer.PlayMusic(mmBattle);
+  Game.Player.PlayMusic(mmBattle);
 end;
 
 procedure TSceneBattle3.Timer;

@@ -11,11 +11,11 @@ uses
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
 {$ENDIF}
-  Bass,
   Classes,
   DisciplesRL.Saga,
   DisciplesRL.Map,
   DisciplesRL.Party,
+  DisciplesRL.Player,
   DisciplesRL.Resources;
 
 type
@@ -27,34 +27,6 @@ const
 
 var
   TextTop, TextLeft: Integer;
-
-type
-  TChannelType = (ctUnknown, ctStream, ctMusic);
-
-type
-
-  { TMediaPlayer }
-
-  TMediaPlayer = class(TObject)
-  private
-    FC: Integer;
-    FChannelType: TChannelType;
-    FChannel: array [Byte] of DWORD;
-    FVolume: ShortInt;
-    procedure SetVolume(const Value: ShortInt);
-    function GetVolume: ShortInt;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    procedure Play(const MusicEnum: TMusicEnum); overload;
-    procedure PlayMusic(const MusicEnum: TMusicEnum);
-    property Volume: ShortInt read GetVolume write SetVolume;
-    property CurrentChannel: Integer read FC write FC;
-    function Play(const FileName: string; F: Boolean): Boolean; overload;
-    procedure Stop;
-    procedure StopMusic;
-    function IsPlayMusic: Boolean;
-  end;
 
 const
   K_ESCAPE = 27;
@@ -209,7 +181,7 @@ type
     Statistics: TStatistics;
     Scenario: TScenario;
     Map: TMap;
-    MediaPlayer: TMediaPlayer;
+    Player: TPlayer;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -307,8 +279,8 @@ begin
   Map := TMap.Create;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
-  MediaPlayer := TMediaPlayer.Create;
-  MediaPlayer.PlayMusic(mmMenu);
+  Player := TPlayer.Create;
+  Player.PlayMusic(mmMenu);
   SceneEnum := scMenu;
 end;
 
@@ -317,8 +289,7 @@ begin
   FreeAndNil(Statistics);
   FreeAndNil(Scenario);
   FreeAndNil(Map);
-  MediaPlayer.Stop;
-  FreeAndNil(MediaPlayer);
+  FreeAndNil(Player);
   FreeAndNil(Surface);
   FreeAndNil(Gold);
   FreeAndNil(Mana);
@@ -350,7 +321,7 @@ begin
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
     TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
     ShowNewDayMessageTime := 20;
-    MediaPlayer.Play(mmDay);
+    Player.Play(mmDay);
     IsNewDay := False;
   end;
 
@@ -461,7 +432,7 @@ end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
 begin
-  Game.MediaPlayer.Play(mmExit);
+  Game.Player.Play(mmExit);
   Game.InformMsg := S;
   Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
@@ -469,7 +440,7 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  Game.MediaPlayer.Play(mmExit);
+  Game.Player.Play(mmExit);
   Game.InformMsg := S;
   Game.IsShowInform := True;
 end;
@@ -652,105 +623,6 @@ begin
         Exit;
       end;
     end;
-end;
-
-{ TMediaPlayer }
-
-procedure TMediaPlayer.SetVolume(const Value: ShortInt);
-begin
-  FVolume := Value;
-  if (FVolume > 100) then
-    FVolume := 100;
-  if (FVolume < 0) then
-    FVolume := 0;
-end;
-
-function TMediaPlayer.GetVolume: ShortInt;
-begin
-  if (FVolume > 100) then
-    FVolume := 100;
-  if (FVolume < 0) then
-    FVolume := 0;
-  Result := FVolume;
-end;
-
-function TMediaPlayer.IsPlayMusic: Boolean;
-begin
-  Result := BASS_ChannelIsActive(FChannel[MusicChannel]) = BASS_ACTIVE_PLAYING;
-end;
-
-constructor TMediaPlayer.Create;
-begin
-  BASS_Init(1, 44100, BASS_DEVICE_3D, 0, nil);
-  BASS_Start;
-  Volume := 100;
-  FC := 1;
-end;
-
-destructor TMediaPlayer.Destroy;
-var
-  I: Byte;
-begin
-  for I := 0 to High(FChannel) do
-  begin
-    BASS_ChannelStop(FChannel[I]);
-    BASS_StreamFree(FChannel[I]);
-  end;
-  BASS_Free();
-  inherited;
-end;
-
-procedure TMediaPlayer.Play(const MusicEnum: TMusicEnum);
-begin
-  Play(ResMusicPath[MusicEnum], MusicBase[MusicEnum].ResType = teMusic);
-end;
-
-procedure TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum);
-begin
-  StopMusic;
-  CurrentChannel := MusicChannel;
-  Play(MusicEnum);
-  CurrentChannel := 1;
-end;
-
-function TMediaPlayer.Play(const FileName: string; F: Boolean): Boolean;
-begin
-  Result := False;
-  if (Volume <= 0) then
-    Exit;
-  case F of
-    True:
-      FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0,
-        BASS_MUSIC_LOOP {$IFDEF UNICODE} or BASS_UNICODE
-{$ENDIF});
-    False:
-      FChannel[FC] := BASS_StreamCreateFile(False, PChar(FileName), 0, 0, 0
-{$IFDEF UNICODE } or BASS_UNICODE {$ENDIF});
-  end;
-  if (FChannel[FC] <> 0) then
-  begin
-    FChannelType := ctStream;
-    BASS_ChannelSetAttribute(FChannel[FC], BASS_ATTRIB_VOL, Volume / 100);
-    BASS_ChannelPlay(FChannel[FC], False);
-  end;
-  Result := FChannel[FC] <> 0;
-  Inc(FC);
-  if (FC > High(FChannel)) then
-    FC := 1;
-end;
-
-procedure TMediaPlayer.Stop;
-var
-  I: Byte;
-begin
-  for I := 1 to High(FChannel) do
-    BASS_ChannelStop(FChannel[I]);
-  FC := 1;
-end;
-
-procedure TMediaPlayer.StopMusic;
-begin
-  BASS_ChannelStop(FChannel[MusicChannel]);
 end;
 
 { TScenes }
