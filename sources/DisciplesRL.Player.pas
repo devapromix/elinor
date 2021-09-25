@@ -2,7 +2,9 @@
 
 interface
 
-uses Bass;
+uses
+  Bass,
+  DisciplesRL.Resources;
 
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);
@@ -32,7 +34,11 @@ type
     property CurrentChannel: Integer read FCurrentChannel write FCurrentChannel;
     function PlaySound(const FileName: string; F: Boolean = False)
       : Boolean; overload;
+    function PlaySound(const MusicEnum: TMusicEnum; F: Boolean = False)
+      : Boolean; overload;
     function PlayMusic(const FileName: string; F: Boolean = True)
+      : Boolean; overload;
+    function PlayMusic(const MusicEnum: TMusicEnum; F: Boolean = True)
       : Boolean; overload;
     procedure StopSound;
     procedure StopMusic;
@@ -89,6 +95,16 @@ begin
   CurrentChannel := MusicChannel;
   Play(FileName, F, mtMusic);
   CurrentChannel := SoundChannel;
+end;
+
+function TPlayer.PlayMusic(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
+begin
+  PlayMusic(ResMusicPath[MusicEnum], F);
+end;
+
+function TPlayer.PlaySound(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
+begin
+  PlaySound(ResMusicPath[MusicEnum], F);
 end;
 
 function TPlayer.PlaySound(const FileName: string; F: Boolean): Boolean;

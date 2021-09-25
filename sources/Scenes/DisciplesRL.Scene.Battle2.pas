@@ -270,7 +270,7 @@ begin
   end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
-  Game.Player.Play(mmWar);
+  Game.Player.PlaySound(mmWar);
   StartRound;
 end;
 
@@ -280,7 +280,6 @@ begin
     Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty,
       DuelLeaderPosition);
   Battle.Clear;
-  Game.Player.Stop;
   if LeaderParty.IsClear then
     Defeat;
   if EnemyParty.IsClear then
@@ -297,7 +296,7 @@ begin
       begin
         Battle.Miss(AtkParty.Creature[AtkPos].Name[0],
           DefParty.Creature[DefPos].Name[1]);
-        Game.Player.Play(mmMiss);
+        Game.Player.PlaySound(mmMiss);
         Sleep(200);
         NextTurn;
         Exit;
@@ -321,7 +320,7 @@ begin
   begin
     Battle.WinInBattle;
     ChExperience;
-    Game.Player.Play(mmWin);
+    Game.Player.PlaySound(mmWin);
     Game.Player.PlayMusic(mmWinBattle);
   end;
   if LeaderParty.IsClear then
@@ -344,7 +343,7 @@ begin
   case TCreature.Character(AtkCrEnum).AttackEnum of
     atParalyze:
       begin
-        Game.Player.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+        Game.Player.PlaySound(TCreature.Character(AtkCrEnum).Sound[csAttack]);
         Sleep(200);
         Paralyze(AtkParty, DefParty, AtkPos, DefPos);
         Exit;
@@ -356,7 +355,7 @@ begin
     case AtkParty.Creature[AtkPos].ReachEnum of
       reAny:
         begin
-          Game.Player.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+          Game.Player.PlaySound(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
           Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
@@ -364,7 +363,7 @@ begin
             AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name
             [1], AtkParty.Creature[AtkPos].Damage);
           if (DefParty.Creature[DefPos].HitPoints > 0) then
-            Game.Player.Play(TCreature.Character(DefCrEnum).Sound[csHit])
+            Game.Player.PlaySound(TCreature.Character(DefCrEnum).Sound[csHit])
           else
             Kill(DefCrEnum);
           B := True;
@@ -390,7 +389,7 @@ begin
                     ((DefParty.Creature[2].HitPoints > 0) or
                     (DefParty.Creature[4].HitPoints > 0)) then
                     Exit;
-                  Game.Player.Play(TCreature.Character(AtkCrEnum)
+                  Game.Player.PlaySound(TCreature.Character(AtkCrEnum)
                     .Sound[csAttack]);
                   Sleep(200);
                   DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
@@ -400,7 +399,7 @@ begin
                     DefParty.Creature[DefPos].Name[1],
                     AtkParty.Creature[AtkPos].Damage);
                   if (DefParty.Creature[DefPos].HitPoints > 0) then
-                    Game.Player.Play(TCreature.Character(DefCrEnum)
+                    Game.Player.PlaySound(TCreature.Character(DefCrEnum)
                       .Sound[csHit])
                   else
                     Kill(DefCrEnum);
@@ -413,7 +412,7 @@ begin
                     (DefParty.Creature[4].HitPoints > 0);
                   if not F then
                   begin
-                    Game.Player.Play(TCreature.Character(AtkCrEnum)
+                    Game.Player.PlaySound(TCreature.Character(AtkCrEnum)
                       .Sound[csAttack]);
                     Sleep(200);
                     DefParty.TakeDamage(AtkParty.Creature[AtkPos]
@@ -424,7 +423,7 @@ begin
                       DefParty.Creature[DefPos].Name[1],
                       AtkParty.Creature[AtkPos].Damage);
                     if (DefParty.Creature[DefPos].HitPoints > 0) then
-                      Game.Player.Play(TCreature.Character(DefCrEnum)
+                      Game.Player.PlaySound(TCreature.Character(DefCrEnum)
                         .Sound[csHit])
                     else
                       Kill(DefCrEnum);
@@ -442,7 +441,7 @@ begin
             Battle.StartCastSpell(TCreature.Character(AtkCrEnum).Name[0],
               SourceName[TCreature.Character(AtkCrEnum).SourceEnum]);
           end;
-          Game.Player.Play(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+          Game.Player.PlaySound(TCreature.Character(AtkCrEnum).Sound[csAttack]);
           Sleep(200);
           for Position := Low(TPosition) to High(TPosition) do
             if DefParty.Creature[Position].Alive then
@@ -454,7 +453,7 @@ begin
                 DefParty.Creature[Position].Name[1],
                 AtkParty.Creature[AtkPos].Damage);
               if (DefParty.Creature[Position].HitPoints > 0) then
-                Game.Player.Play(TCreature.Character(DefCrEnum)
+                Game.Player.PlaySound(TCreature.Character(DefCrEnum)
                   .Sound[csHit])
               else
                 Kill(DefCrEnum);

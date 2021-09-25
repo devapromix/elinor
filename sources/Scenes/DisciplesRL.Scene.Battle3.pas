@@ -40,12 +40,12 @@ uses
 
 procedure TSceneBattle3.Start;
 begin
-  Game.Player.Play(mmWar);
+  Game.Player.PlaySound(mmWar);
 end;
 
 procedure TSceneBattle3.Finish;
 begin
-  Game.Player.Stop;
+
 end;
 
 constructor TSceneBattle3.Create;

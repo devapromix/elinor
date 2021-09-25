@@ -63,7 +63,7 @@ uses
 
 procedure TSceneMenu2.Next;
 begin
-  Game.Player.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   case CursorPos of
     btPlay:
       PlayGame;

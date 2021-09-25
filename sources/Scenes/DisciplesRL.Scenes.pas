@@ -321,7 +321,7 @@ begin
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
     TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
     ShowNewDayMessageTime := 20;
-    Player.Play(mmDay);
+    Player.PlaySound(mmDay);
     IsNewDay := False;
   end;
 
@@ -432,7 +432,7 @@ end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
 begin
-  Game.Player.Play(mmExit);
+  Game.Player.PlaySound(mmExit);
   Game.InformMsg := S;
   Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
@@ -440,7 +440,7 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  Game.Player.Play(mmExit);
+  Game.Player.PlaySound(mmExit);
   Game.InformMsg := S;
   Game.IsShowInform := True;
 end;

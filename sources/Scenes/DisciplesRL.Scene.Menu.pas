@@ -54,7 +54,7 @@ uses
 
 procedure TSceneMenu.Next;
 begin
-  Game.Player.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   case CursorPos of
     btPlay:
       PlayGame;
