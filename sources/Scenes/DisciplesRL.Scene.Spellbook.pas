@@ -1,4 +1,4 @@
-unit DisciplesRL.Scene.Spellbook;
+﻿unit DisciplesRL.Scene.Spellbook;
 
 interface
 
@@ -52,9 +52,9 @@ uses
 
 procedure TSceneSpellbook.Close;
 begin
-  Game.MediaPlayer.PlayMusic(mmMap);
   Game.Show(scMap);
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
+  Game.Player.PlaySound(mmSpellbook);
 end;
 
 constructor TSceneSpellbook.Create;
@@ -115,6 +115,7 @@ end;
 
 class procedure TSceneSpellbook.Show;
 begin
+  Game.Player.PlaySound(mmSpellbook);
   Game.Show(scSpellbook);
 end;
 
