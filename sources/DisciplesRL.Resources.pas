@@ -21,7 +21,7 @@ type
 type
   TResEnum = (reNone,
 
-    reAMark, rePMark, reASell, rePSell,
+    reAMark, reASell,
 
     rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
     reBGChar, reBGEnemy, reBGParalyze, reDead,
@@ -97,12 +97,8 @@ const
 
     // AMark
     (FileName: 'path.amark.png'; ResType: tePath;),
-    // PMark
-    (FileName: 'path.pmark.png'; ResType: tePath;),
     // ASell
     (FileName: 'path.asell.png'; ResType: tePath;),
-    // PSell
-    (FileName: 'path.psell.png'; ResType: tePath;),
 
     // Plus
     (FileName: 'plus.png'; ResType: teGUI;),

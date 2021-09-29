@@ -167,7 +167,7 @@ begin
   SubScene := ASubScene;
   Game.Show(scHire);
   if ASubScene = stVictory then
-    Game.MediaPlayer.PlayMusic(mmVictory);
+    Game.Player.PlayMusic(mmVictory);
 end;
 
 class procedure TSceneHire.Show(const Party: TParty; const Position: Integer);
@@ -191,7 +191,7 @@ begin
   TSceneHire.Show(ASubScene, ABackScene);
   case SubScene of
     stLoot, stStoneTab:
-      Game.MediaPlayer.Play(mmLoot);
+      Game.Player.PlaySound(mmLoot);
   end;
   LootRes := ALootRes;
   GC := RandomRange(0, 3);
@@ -229,7 +229,7 @@ end;
 
 procedure TSceneHire.Back;
 begin
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   case SubScene of
     stCharacter:
       Game.Show(scSettlement);
@@ -310,7 +310,7 @@ var
   end;
 
 begin
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   case SubScene of
     stRace:
       begin
@@ -322,8 +322,8 @@ begin
         CurCrSkillEnum := TCreature.Character(CurCrEnum).SkillEnum;
         TSaga.Clear;
         Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
-        Game.MediaPlayer.PlayMusic(mmGame);
-        Game.MediaPlayer.Play(mmExit);
+        Game.Player.PlayMusic(mmGame);
+        Game.Player.PlaySound(mmExit);
         TSceneSettlement.Show(stCapital);
       end;
     stDifficulty:
@@ -336,7 +336,7 @@ begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
           [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
         begin
-          Game.MediaPlayer.Play(mmGold);
+          Game.Player.PlaySound(mmGold);
           Game.Show(scSettlement);
         end
         else
@@ -353,13 +353,13 @@ begin
       begin
         TSaga.IsGame := False;
         TSceneHire.Show(stHighScores2);
-        Game.MediaPlayer.PlayMusic(mmMenu);
+        Game.Player.PlayMusic(mmMenu);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
         TSceneHire.Show(stHighScores2);
-        Game.MediaPlayer.PlayMusic(mmMenu);
+        Game.Player.PlayMusic(mmMenu);
       end;
     stHighScores2:
       begin
@@ -488,7 +488,7 @@ begin
       end;
     stLoot:
       begin
-        Game.MediaPlayer.Play(mmLoot);
+        Game.Player.PlaySound(mmLoot);
         F := True;
         Game.Show(scMap);
         begin
@@ -504,8 +504,8 @@ begin
           end;
           if Game.Map.LeaderTile = reNeutralCity then
           begin
-            Game.MediaPlayer.PlayMusic(mmGame);
-            Game.MediaPlayer.Play(mmSettlement);
+            Game.Player.PlayMusic(mmGame);
+            Game.Player.PlaySound(mmSettlement);
             TSceneSettlement.Show(stCity);
             Exit;
           end;
@@ -835,17 +835,17 @@ begin
         begin
           if MouseOver(Lk, SceneTop, X, Y) then
           begin
-            Game.MediaPlayer.Play(mmClick);
+            Game.Player.PlaySound(mmClick);
             CurrentIndex := 0;
           end;
           if MouseOver(Lk, SceneTop + 120, X, Y) then
           begin
-            Game.MediaPlayer.Play(mmClick);
+            Game.Player.PlaySound(mmClick);
             CurrentIndex := 1;
           end;
           if MouseOver(Lk, SceneTop + 240, X, Y) then
           begin
-            Game.MediaPlayer.Play(mmClick);
+            Game.Player.PlaySound(mmClick);
             CurrentIndex := 2;
           end;
         end;
@@ -854,17 +854,17 @@ begin
         begin
           if MouseOver(Lf, SceneTop, X, Y) then
           begin
-            Game.MediaPlayer.Play(mmClick);
+            Game.Player.PlaySound(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 3, 0);
           end;
           if MouseOver(Lf, SceneTop + 120, X, Y) then
           begin
-            Game.MediaPlayer.Play(mmClick);
+            Game.Player.PlaySound(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 4, 1);
           end;
           if MouseOver(Lf, SceneTop + 240, X, Y) then
           begin
-            Game.MediaPlayer.Play(mmClick);
+            Game.Player.PlaySound(mmClick);
             CurrentIndex := IfThen(SubScene in WideButtonScene, 5, 2);
           end;
         end;
@@ -1256,7 +1256,7 @@ begin
   Basic(AKey);
   if not (AKey in [K_UP, K_Down]) then
     Exit;
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   Cycler := TEnumCycler<N>.Create(CurrentIndex);
   CurrentIndex := Cycler.Modify(AKey = K_Down);
 end;
@@ -1270,7 +1270,7 @@ var
     Basic(Key);
     if not (Key in [K_UP, K_Down]) then
       Exit;
-    Game.MediaPlayer.Play(mmClick);
+    Game.Player.PlaySound(mmClick);
     CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_Up, -1, 1), 0, MaxValue);
   end;
 begin
@@ -1287,7 +1287,7 @@ begin
               Ok;
           K_UP:
             begin
-              Game.MediaPlayer.Play(mmClick);
+              Game.Player.PlaySound(mmClick);
               case CurrentIndex of
                 1, 2, 4, 5:
                   Dec(CurrentIndex);
@@ -1295,7 +1295,7 @@ begin
             end;
           K_DOWN:
             begin
-              Game.MediaPlayer.Play(mmClick);
+              Game.Player.PlaySound(mmClick);
               case CurrentIndex of
                 0, 1, 3, 4:
                   Inc(CurrentIndex);
@@ -1303,7 +1303,7 @@ begin
             end;
           K_LEFT:
             begin
-              Game.MediaPlayer.Play(mmClick);
+              Game.Player.PlaySound(mmClick);
               case CurrentIndex of
                 3 .. 5:
                   Dec(CurrentIndex, 3);
@@ -1311,7 +1311,7 @@ begin
             end;
           K_RIGHT:
             begin
-              Game.MediaPlayer.Play(mmClick);
+              Game.Player.PlaySound(mmClick);
               case CurrentIndex of
                 0 .. 2:
                   Inc(CurrentIndex, 3);

@@ -101,6 +101,7 @@ function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
   external 'BeaRLibPF.dll';
 
 function ChTile(X, Y: Integer): boolean; stdcall;
+function IsMoveLeader(X, Y: Integer): boolean; stdcall;
 
 implementation
 
@@ -116,6 +117,11 @@ uses
 function ChTile(X, Y: Integer): boolean; stdcall;
 begin
   Result := True;
+end;
+
+function IsMoveLeader(X, Y: Integer): boolean; stdcall;
+begin
+    Result := not(Game.Map.GetTile(lrObj, X, Y) in StopTiles);
 end;
 
 constructor TMapObject.Create(const AX, AY: Integer);

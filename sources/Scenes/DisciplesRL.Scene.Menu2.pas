@@ -63,7 +63,7 @@ uses
 
 procedure TSceneMenu2.Next;
 begin
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   case CursorPos of
     btPlay:
       PlayGame;
@@ -92,7 +92,7 @@ procedure TSceneMenu2.ContinueGame;
 begin
   if TSaga.IsGame then
   begin
-    Game.MediaPlayer.PlayMusic(mmMap);
+    Game.Player.PlayMusic(mmMap);
     Game.Show(scMap);
   end;
 end;

@@ -21,6 +21,7 @@ type
     LastMousePos, MousePos: TPoint;
     FM: Boolean;
     BB: Boolean;
+    BT: Boolean;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -49,11 +50,10 @@ uses
 procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 var
-  CurrentPartyIndex, MovePoints: Integer;
+  CurrentPartyIndex: Integer;
   NX, NY, FX, FY, SX, SY: Integer;
 begin
   inherited;
-  MovePoints := 3;
   case Button of
     mbLeft:
       begin
@@ -90,7 +90,7 @@ begin
 
         if ((FX = SX) and (FY = SY)) then
           Exit;
-        if (Game.Map.GetLayer(lrPath)[FX, FY] in [reASell, rePSell]) then
+        if (Game.Map.GetLayer(lrPath)[FX, FY] = reASell) then
         begin
           BB := True;
           Exit;
@@ -100,23 +100,14 @@ begin
 
         repeat
           if not DoAStar(Game.Map.Width, Game.Map.Height, SX, SY, FX, FY,
-            @ChTile, NX, NY) then
+            @IsMoveLeader, NX, NY) then
             Exit;
-          if (MovePoints > 0) then
-          begin
-            if ((NX = FX) and (NY = FY)) then
-              Game.Map.GetLayer(lrPath)[NX, NY] := reASell
-            else
-              Game.Map.GetLayer(lrPath)[NX, NY] := reAMark;
-            Dec(MovePoints);
-          end
+
+          if ((NX = FX) and (NY = FY)) then
+            Game.Map.GetLayer(lrPath)[NX, NY] := reASell
           else
-          begin
-            if ((NX = FX) and (NY = FY)) then
-              Game.Map.GetLayer(lrPath)[NX, NY] := rePSell
-            else
-              Game.Map.GetLayer(lrPath)[NX, NY] := rePMark;
-          end;
+            Game.Map.GetLayer(lrPath)[NX, NY] := reAMark;
+
           SX := NX;
           SY := NY;
         until ((SX = FX) and (SY = FY));
@@ -271,12 +262,29 @@ end;
 procedure TSceneMap.Show(const S: TSceneEnum);
 begin
   inherited Show(S);
-  Game.MediaPlayer.Play(mmSettlement);
+  Game.Player.PlaySound(mmSettlement);
 end;
 
 procedure TSceneMap.Timer;
+var
+  X, Y: Integer;
 begin
   inherited;
+  if BB then
+  begin
+    for X := TLeaderParty.Leader.X - 1 to TLeaderParty.Leader.X + 1 do
+      for Y := TLeaderParty.Leader.Y - 1 to TLeaderParty.Leader.Y + 1 do
+        if Game.Map.GetLayer(lrPath)[X, Y] in [reASell, reAMark] then
+        begin
+          TLeaderParty.Leader.PutAt(X, Y);
+          Game.Map.GetLayer(lrPath)[X, Y] := reNone;
+          Game.Render;
+          Exit;
+        end;
+    BB := False;
+    Game.Map.Clear(lrPath);
+  end;
+
   if Game.ShowNewDayMessageTime > 0 then
     Dec(Game.ShowNewDayMessageTime);
 end;
@@ -292,9 +300,9 @@ begin
           FM := False;
           Exit;
         end;
-        Game.MediaPlayer.PlayMusic(mmMenu);
-        Game.MediaPlayer.Play(mmClick);
-        Game.MediaPlayer.Play(mmSettlement);
+        Game.Player.PlayMusic(mmMenu);
+        Game.Player.PlaySound(mmClick);
+        Game.Player.PlaySound(mmSettlement);
         Game.Show(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:
@@ -317,6 +325,8 @@ begin
       TLeaderParty.Leader.Move(drOrigin);
     K_M:
       FM := not FM;
+    K_K:
+      Game.Map.Clear(lrPath);
     K_N:
       begin
         TLeaderParty.Leader.Skills.Gen;

@@ -104,7 +104,7 @@ begin
   else
     ActivePartyPosition := Party.GetRandomPosition;
   Game.Show(scParty);
-  Game.MediaPlayer.Play(mmSettlement);
+  Game.Player.PlaySound(mmSettlement);
   FShowInventory := F;
   FShowSkills := False;
   if H then
@@ -140,7 +140,7 @@ begin
           Dec(ActivePartyPosition, 4);
       end;
   end;
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   Game.Render;
 end;
 
@@ -188,14 +188,14 @@ end;
 
 procedure TSceneParty.OpenInventory;
 begin
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   FShowSkills := False;
   FShowInventory := not FShowInventory;
 end;
 
 procedure TSceneParty.OpenSkills;
 begin
-  Game.MediaPlayer.Play(mmClick);
+  Game.Player.PlaySound(mmClick);
   FShowInventory := False;
   FShowSkills := not FShowSkills;
 end;
@@ -205,8 +205,8 @@ begin
   if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
   Game.Show(BackScene);
-  Game.MediaPlayer.Play(mmClick);
-  Game.MediaPlayer.Play(mmSettlement);
+  Game.Player.PlaySound(mmClick);
+  Game.Player.PlaySound(mmSettlement);
 end;
 
 procedure TSceneParty.DrawUnitInfo(Name: string;
@@ -369,7 +369,7 @@ begin
         if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
           Exit;
         ActivePartyPosition := CurrentPartyPosition;
-        Game.MediaPlayer.Play(mmClick);
+        Game.Player.PlaySound(mmClick);
         Render;
       end;
   end;
