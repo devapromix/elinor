@@ -109,6 +109,7 @@ procedure TSceneSpellbook.Render;
 begin
   inherited;
   DrawImage(reWallpaperSettlement);
+  DrawTitle(reTitleSpellbook);
 
   RenderButtons;
 end;

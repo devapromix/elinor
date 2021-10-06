@@ -53,7 +53,7 @@ type
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
-    reTitleAbilities,
+    reTitleAbilities,reTitleSpellbook,
 
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
@@ -349,6 +349,8 @@ const
     (FileName: 'title.warrior.png'; ResType: teGUI;),
     // Title "Abilities"
     (FileName: 'title.abilities.png'; ResType: teGUI;),
+    // Title "Spellbook"
+    (FileName: 'title.spellbook.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
