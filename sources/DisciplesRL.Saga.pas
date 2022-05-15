@@ -16,8 +16,9 @@ type
     FValue: array [TStatisticsEnum] of Integer;
   public
     procedure Clear;
-    procedure IncValue(const I: TStatisticsEnum; const Value: Integer = 1);
-    function GetValue(const I: TStatisticsEnum): Integer;
+    procedure IncValue(const AStatisticsEnum: TStatisticsEnum;
+      const Value: Integer = 1);
+    function GetValue(const AStatisticsEnum: TStatisticsEnum): Integer;
   end;
 
   {
@@ -176,31 +177,32 @@ const
 
 procedure TStatistics.Clear;
 var
-  I: TStatisticsEnum;
+  LStatisticsEnum: TStatisticsEnum;
 begin
-  for I := Low(TStatisticsEnum) to High(TStatisticsEnum) do
-    FValue[I] := 0;
+  for LStatisticsEnum := Low(TStatisticsEnum) to High(TStatisticsEnum) do
+    FValue[LStatisticsEnum] := 0;
 end;
 
-procedure TStatistics.IncValue(const I: TStatisticsEnum; const Value: Integer);
+procedure TStatistics.IncValue(const AStatisticsEnum: TStatisticsEnum;
+  const Value: Integer);
 begin
-  FValue[I] := FValue[I] + Value;
+  FValue[AStatisticsEnum] := FValue[AStatisticsEnum] + Value;
 end;
 
-function TStatistics.GetValue(const I: TStatisticsEnum): Integer;
+function TStatistics.GetValue(const AStatisticsEnum: TStatisticsEnum): Integer;
 begin
-  Result := FValue[I];
+  Result := FValue[AStatisticsEnum];
 end;
 
 { TSaga }
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
-  Level: Integer;
-  Cr: TCreatureEnum;
+  LLevel: Integer;
+  LCreatureEnum: TCreatureEnum;
 begin
-  Level := GetMapLevel(AX, AY);
-  Level := 1;
+  LLevel := GetMapLevel(AX, AY);
+  LLevel := 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   {
@@ -218,52 +220,52 @@ begin
   with Party[TSaga.GetPartyCount - 1] do
   begin
     //
-    Cr := TCreature.GetRandomEnum(Level, 2);
+    LCreatureEnum := TCreature.GetRandomEnum(LLevel, 2);
     // TCreature.Character(Cr).Race
     case RandomRange(0, 4) of
       0:
-        AddCreature(Cr, 2);
+        AddCreature(LCreatureEnum, 2);
       1:
         begin
-          AddCreature(Cr, 0);
-          AddCreature(Cr, 4);
+          AddCreature(LCreatureEnum, 0);
+          AddCreature(LCreatureEnum, 4);
         end;
       2:
         begin
-          AddCreature(Cr, 0);
-          AddCreature(Cr, 2);
-          AddCreature(Cr, 4);
+          AddCreature(LCreatureEnum, 0);
+          AddCreature(LCreatureEnum, 2);
+          AddCreature(LCreatureEnum, 4);
         end;
       3:
         begin
-          AddCreature(Cr, 0);
-          AddCreature(Cr, 4);
-          Cr := TCreature.GetRandomEnum(Level, 2);
-          AddCreature(Cr, 2);
+          AddCreature(LCreatureEnum, 0);
+          AddCreature(LCreatureEnum, 4);
+          LCreatureEnum := TCreature.GetRandomEnum(LLevel, 2);
+          AddCreature(LCreatureEnum, 2);
         end;
     end;
     //
-    Cr := TCreature.GetRandomEnum(Level, 3);
+    LCreatureEnum := TCreature.GetRandomEnum(LLevel, 3);
     case RandomRange(0, 4) of
       0:
-        AddCreature(Cr, 3);
+        AddCreature(LCreatureEnum, 3);
       1:
         begin
-          AddCreature(Cr, 1);
-          AddCreature(Cr, 5);
+          AddCreature(LCreatureEnum, 1);
+          AddCreature(LCreatureEnum, 5);
         end;
       2:
         begin
-          AddCreature(Cr, 1);
-          AddCreature(Cr, 3);
-          AddCreature(Cr, 5);
+          AddCreature(LCreatureEnum, 1);
+          AddCreature(LCreatureEnum, 3);
+          AddCreature(LCreatureEnum, 5);
         end;
       3:
         begin
-          AddCreature(Cr, 1);
-          AddCreature(Cr, 5);
-          Cr := TCreature.GetRandomEnum(Level, 3);
-          AddCreature(Cr, 3);
+          AddCreature(LCreatureEnum, 1);
+          AddCreature(LCreatureEnum, 5);
+          LCreatureEnum := TCreature.GetRandomEnum(LLevel, 3);
+          AddCreature(LCreatureEnum, 3);
         end;
     end;
   end;
@@ -298,46 +300,48 @@ end;
 
 class procedure TSaga.AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
 var
-  I: Integer;
-  SL: TStringList;
-  P: TPosition;
-  S: string;
+  LPartyIndex: Integer;
+  LStringList: TStringList;
+  LPosition: TPosition;
+  LText: string;
 begin
   Game.Map.SetTile(lrObj, AX, AY, reEnemy);
   TSaga.PartyInit(AX, AY, IsFinal);
-  I := GetPartyIndex(AX, AY);
-  Party[I].Owner := reNeutrals;
+  LPartyIndex := GetPartyIndex(AX, AY);
+  Party[LPartyIndex].Owner := reNeutrals;
 
   if Game.Wizard then
   begin
-    SL := TStringList.Create;
+    LStringList := TStringList.Create;
     try
       if FileExists('parties.txt') then
-        SL.LoadFromFile('parties.txt');
-      S := Format('Level-%d ', [TSaga.GetMapLevel(Party[I].X, Party[I].Y)]);
-      for P := Low(TPosition) to High(TPosition) do
-        S := S + Format('%d-%s ', [P, Party[I].Creature[P].Name[0]]);
-      SL.Append(Trim(S));
-      SL.SaveToFile('parties.txt');
+        LStringList.LoadFromFile('parties.txt');
+      LText := Format('Level-%d ', [TSaga.GetMapLevel(Party[LPartyIndex].X,
+        Party[LPartyIndex].Y)]);
+      for LPosition := Low(TPosition) to High(TPosition) do
+        LText := LText + Format('%d-%s ',
+          [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
+      LStringList.Append(Trim(LText));
+      LStringList.SaveToFile('parties.txt');
     finally
-      FreeAndNil(SL);
+      FreeAndNil(LStringList);
     end;
   end;
 end;
 
 class procedure TSaga.AddLoot(LootRes: TResEnum);
 var
-  Level, N: Integer;
+  LLevel: Integer;
 
   procedure AddGold;
   begin
-    Game.Gold.NewValue := RandomRange(Level * 2, Level * 3) * 10;
+    Game.Gold.NewValue := RandomRange(LLevel * 2, LLevel * 3) * 10;
     Game.Gold.Modify(Game.Gold.NewValue);
   end;
 
   procedure AddMana;
   begin
-    Game.Mana.NewValue := RandomRange(Level * 1, Level * 3);
+    Game.Mana.NewValue := RandomRange(LLevel * 1, LLevel * 3);
     if Game.Mana.NewValue < 3 then
       Game.Mana.NewValue := 3;
     Game.Mana.Modify(Game.Mana.NewValue);
@@ -349,7 +353,7 @@ var
     begin
       repeat
         NewItem := RandomRange(1, TItemBase.Count);
-      until (TItemBase.Item(NewItem).Level <= Level);
+      until (TItemBase.Item(NewItem).Level <= LLevel);
       TLeaderParty.Leader.Inventory.Add(TItemBase.Item(NewItem).Enum);
     end
     else
@@ -360,7 +364,7 @@ begin
   Game.Gold.NewValue := 0;
   Game.Mana.NewValue := 0;
   NewItem := 0;
-  Level := EnsureRange((Game.Map.GetDistToCapital(TLeaderParty.Leader.X,
+  LLevel := EnsureRange((Game.Map.GetDistToCapital(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y) div 3) + Ord(TSaga.Difficulty), 1, MaxLevel);
   case LootRes of
     reGold:
@@ -390,7 +394,8 @@ end;
 
 class function TSaga.GetMapLevel(const AX: Integer; const AY: Integer): Integer;
 begin
-  Result := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) + Ord(TSaga.Difficulty), 1, MaxLevel);
+  Result := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) +
+    Ord(TSaga.Difficulty), 1, MaxLevel);
 end;
 
 { TScenario }
