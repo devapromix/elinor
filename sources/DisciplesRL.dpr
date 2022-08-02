@@ -4,7 +4,7 @@
 
 uses
   {$IFDEF FPC}
-  Forms,
+  Forms, Interfaces,
   {$ELSE}
   Vcl.Forms,
   {$ENDIF }

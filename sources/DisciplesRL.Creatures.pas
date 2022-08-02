@@ -559,7 +559,7 @@ type
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
     class procedure Assign(var ACreature: TCreature;
       const I: TCreatureEnum); static;
-    class function GetRandomEnum(const Level, Position: Integer)
+    class function GetRandomEnum(const ALevel, Position: Integer)
       : TCreatureEnum; static;
     class function EquippedWeapon(const AttackEnum: TAttackEnum;
       const ASourceEnum: TSourceEnum): string; static;
@@ -1091,7 +1091,7 @@ begin
   Result := GenderEndings[VerbForm, Character(Enum).Gender];
 end;
 
-class function TCreature.GetRandomEnum(const Level, Position: Integer)
+class function TCreature.GetRandomEnum(const ALevel, Position: Integer)
   : TCreatureEnum;
 var
   N, Rating: Integer;
@@ -1111,8 +1111,8 @@ begin
   repeat
     N := RandomRange(0, Ord(High(TCreatureEnum))) + 1;
     Rating := CreatureBase[TCreatureEnum(N)].Rating;
-  until (Rating > 0) and (Rating >= (Level * 10) - 5) and
-    (Rating <= (Level * 10) + 5) and
+  until (Rating > 0) and (Rating >= (ALevel * 10) - 5) and
+    (Rating <= (ALevel * 10) + 5) and
     (CreatureBase[TCreatureEnum(N)].ReachEnum = R) and
     (TSaga.LeaderRace <> CreatureBase[TCreatureEnum(N)].Race);
   Result := TCreatureEnum(N);
