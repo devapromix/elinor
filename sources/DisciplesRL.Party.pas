@@ -213,10 +213,10 @@ end;
 
 procedure TParty.Clear;
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
-    TCreature.Clear(FCreature[Position]);
+  for LPosition := Low(TPosition) to High(TPosition) do
+    TCreature.Clear(FCreature[LPosition]);
 end;
 
 constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
@@ -258,11 +258,11 @@ end;
 
 function TParty.GetExperience: Integer;
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
   Result := 0;
-  for Position := Low(TPosition) to High(TPosition) do
-    with Creature[Position] do
+  for LPosition := Low(TPosition) to High(TPosition) do
+    with Creature[LPosition] do
       if Active then
         Inc(Result, MaxHitPoints);
 end;
@@ -295,11 +295,11 @@ end;
 
 function TParty.GetCount: Integer;
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
   Result := -1;
-  for Position := Low(TPosition) to High(TPosition) do
-    with FCreature[Position] do
+  for LPosition := Low(TPosition) to High(TPosition) do
+    with FCreature[LPosition] do
       if Active then
         Inc(Result);
 end;
@@ -311,11 +311,11 @@ end;
 
 function TParty.GetAliveCreatures: Integer;
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
   Result := 0;
-  for Position := Low(TPosition) to High(TPosition) do
-    with FCreature[Position] do
+  for LPosition := Low(TPosition) to High(TPosition) do
+    with FCreature[LPosition] do
       if Alive then
         Inc(Result);
 end;
@@ -336,26 +336,26 @@ end;
 
 procedure TParty.HealAll(const AHitPoints: Integer);
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
-    Heal(Position, AHitPoints);
+  for LPosition := Low(TPosition) to High(TPosition) do
+    Heal(LPosition, AHitPoints);
 end;
 
 function TParty.Hire(const ACreatureEnum: TCreatureEnum;
   const APosition: TPosition): Boolean;
 var
-  ACreature: TCreatureBase;
+  LCreature: TCreatureBase;
 begin
   Result := False;
-  ACreature := TCreature.Character(ACreatureEnum);
-  if ACreature.Gold > Game.Gold.Value then
+  LCreature := TCreature.Character(ACreatureEnum);
+  if LCreature.Gold > Game.Gold.Value then
     Exit;
   if not FCreature[APosition].Active then
   begin
     Result := True;
     AddCreature(ACreatureEnum, APosition);
-    Game.Gold.Modify(-ACreature.Gold);
+    Game.Gold.Modify(-LCreature.Gold);
   end;
 end;
 
@@ -384,23 +384,23 @@ end;
 
 procedure TParty.Swap(Party: TParty; A, B: Integer);
 var
-  Cr: TCreature;
+  LCreature: TCreature;
 begin
   if (Party.Creature[B].Leadership > 0) or (Creature[A].Leadership > 0) or
     (Party = nil) then
     Exit;
-  Cr := Party.Creature[B];
+  LCreature := Party.Creature[B];
   Party.Creature[B] := FCreature[A];
-  FCreature[A] := Cr;
+  FCreature[A] := LCreature;
 end;
 
 procedure TParty.Swap(A, B: Integer);
 var
-  Cr: TCreature;
+  LCreature: TCreature;
 begin
-  Cr := FCreature[B];
+  LCreature := FCreature[B];
   FCreature[B] := FCreature[A];
-  FCreature[A] := Cr;
+  FCreature[A] := LCreature;
 end;
 
 procedure TParty.TakeDamage(const ADamage: Integer; const APosition: TPosition);
@@ -424,10 +424,10 @@ end;
 
 procedure TParty.TakeDamageAll(const ADamage: Integer);
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
-    TakeDamage(ADamage, Position);
+  for LPosition := Low(TPosition) to High(TPosition) do
+    TakeDamage(ADamage, LPosition);
 end;
 
 procedure TParty.UpdateHP(const AHitPoints: Integer;
@@ -772,11 +772,11 @@ end;
 
 procedure TLeaderParty.Turn(const ACount: Integer);
 var
-  C: Integer;
+  LCount: Integer;
 begin
   if (ACount < 1) then
     Exit;
-  C := 0;
+  LCount := 0;
   repeat
     Dec(Speed);
     if (Speed = 0) then
@@ -785,8 +785,8 @@ begin
       Game.IsNewDay := True;
       Speed := MaxSpeed;
     end;
-    Inc(C);
-  until (C >= ACount);
+    Inc(LCount);
+  until (LCount >= ACount);
   Game.ShowNewDayMessageTime := 0;
 end;
 

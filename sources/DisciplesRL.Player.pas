@@ -63,12 +63,12 @@ end;
 
 destructor TPlayer.Destroy;
 var
-  I: Byte;
+  LChannel: Byte;
 begin
-  for I := 0 to High(FChannel) do
+  for LChannel := 0 to High(FChannel) do
   begin
-    BASS_ChannelStop(FChannel[I]);
-    BASS_StreamFree(FChannel[I]);
+    BASS_ChannelStop(FChannel[LChannel]);
+    BASS_StreamFree(FChannel[LChannel]);
   end;
   BASS_Free();
   inherited;
@@ -166,23 +166,24 @@ end;
 
 procedure TPlayer.SetSoundVolume(const Value: ShortInt);
 var
-  I: Byte;
+  LChannel: Byte;
 begin
   FSoundVolume := Value;
   if (FSoundVolume > 100) then
     FSoundVolume := 100;
   if (FSoundVolume < 0) then
     FSoundVolume := 0;
-  for I := SoundChannel to High(FChannel) do
-    BASS_ChannelSetAttribute(FChannel[I], BASS_ATTRIB_VOL, SoundVolume / 100);
+  for LChannel := SoundChannel to High(FChannel) do
+    BASS_ChannelSetAttribute(FChannel[LChannel], BASS_ATTRIB_VOL,
+      SoundVolume / 100);
 end;
 
 procedure TPlayer.StopSound;
 var
-  I: Byte;
+  LChannel: Byte;
 begin
-  for I := SoundChannel to High(FChannel) do
-    BASS_ChannelStop(FChannel[I]);
+  for LChannel := SoundChannel to High(FChannel) do
+    BASS_ChannelStop(FChannel[LChannel]);
   FCurrentChannel := SoundChannel;
 end;
 

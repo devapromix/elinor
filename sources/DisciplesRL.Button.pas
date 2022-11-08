@@ -108,12 +108,12 @@ const
 
 procedure DrawText(const AX, AY: Integer; AText: string);
 var
-  vStyle: TBrushStyle;
+  LBrushStyle: TBrushStyle;
 begin
-  vStyle := Game.Surface.Canvas.Brush.Style;
+  LBrushStyle := Game.Surface.Canvas.Brush.Style;
   Game.Surface.Canvas.Brush.Style := bsClear;
   Game.Surface.Canvas.TextOut(AX, AY, AText);
-  Game.Surface.Canvas.Brush.Style := vStyle;
+  Game.Surface.Canvas.Brush.Style := LBrushStyle;
 end;
 
 { TIcon }
@@ -125,28 +125,28 @@ end;
 
 constructor TIcon.Create(ALeft, ATop: Integer; ADefRes, AOverRes: TResEnum);
 var
-  J: TIconState;
+  LIconState: TIconState;
 begin
   FTop := ATop;
   FLeft := ALeft;
-  for J := Low(TIconState) to High(TIconState) do
+  for LIconState := Low(TIconState) to High(TIconState) do
   begin
-    FSurface[J] := TPNGImage.Create;
-    case J of
+    FSurface[LIconState] := TPNGImage.Create;
+    case LIconState of
       isDef:
-        FSurface[J].Assign(ResImage[ADefRes]);
+        FSurface[LIconState].Assign(ResImage[ADefRes]);
       isOver:
-        FSurface[J].Assign(ResImage[AOverRes]);
+        FSurface[LIconState].Assign(ResImage[AOverRes]);
     end;
   end;
 end;
 
 destructor TIcon.Destroy;
 var
-  J: TIconState;
+  LIconState: TIconState;
 begin
-  for J := Low(TIconState) to High(TIconState) do
-    FSurface[J].Free;
+  for LIconState := Low(TIconState) to High(TIconState) do
+    FSurface[LIconState].Free;
   inherited;
 end;
 
@@ -196,25 +196,25 @@ end;
 
 constructor TButton.Create(ALeft, ATop: Integer; ARes: TResEnum);
 var
-  I: TButtonState;
+  LButtonState: TButtonState;
 begin
   FTop := ATop;
   FLeft := ALeft;
   // FCanvas := Game.Surface.Canvas;
   FSellected := False;
   FText := ARes;
-  for I := Low(TButtonState) to High(TButtonState) do
+  for LButtonState := Low(TButtonState) to High(TButtonState) do
   begin
-    FSurface[I] := TPNGImage.Create;
-    case I of
+    FSurface[LButtonState] := TPNGImage.Create;
+    case LButtonState of
       bsNone:
-        FSurface[I].Assign(ResImage[reButtonDef]);
+        FSurface[LButtonState].Assign(ResImage[reButtonDef]);
       bsOver:
-        FSurface[I].Assign(ResImage[reButtonAct]);
+        FSurface[LButtonState].Assign(ResImage[reButtonAct]);
       bsSell:
-        FSurface[I].Assign(ResImage[reButtonAct]);
+        FSurface[LButtonState].Assign(ResImage[reButtonAct]);
       bsDown:
-        FSurface[I].Assign(ResImage[reButtonAct]);
+        FSurface[LButtonState].Assign(ResImage[reButtonAct]);
     end;
   end;
   FTextLeft := FLeft + ((Width div 2) - (ResImage[ARes].Width div 2));
@@ -224,25 +224,25 @@ end;
 constructor TButton.Create(ALeft, ATop: Integer; ACanvas: TCanvas;
   ARes: TResEnum);
 var
-  I: TButtonState;
+  LButtonState: TButtonState;
 begin
   FTop := ATop;
   FLeft := ALeft;
   FCanvas := ACanvas;
   FSellected := False;
   FText := ARes;
-  for I := Low(TButtonState) to High(TButtonState) do
+  for LButtonState := Low(TButtonState) to High(TButtonState) do
   begin
-    FSurface[I] := TPNGImage.Create;
-    case I of
+    FSurface[LButtonState] := TPNGImage.Create;
+    case LButtonState of
       bsNone:
-        FSurface[I].Assign(ResImage[reButtonDef]);
+        FSurface[LButtonState].Assign(ResImage[reButtonDef]);
       bsOver:
-        FSurface[I].Assign(ResImage[reButtonAct]);
+        FSurface[LButtonState].Assign(ResImage[reButtonAct]);
       bsSell:
-        FSurface[I].Assign(ResImage[reButtonAct]);
+        FSurface[LButtonState].Assign(ResImage[reButtonAct]);
       bsDown:
-        FSurface[I].Assign(ResImage[reButtonAct]);
+        FSurface[LButtonState].Assign(ResImage[reButtonAct]);
     end;
   end;
   FTextLeft := FLeft + ((Width div 2) - (ResImage[ARes].Width div 2));
@@ -251,10 +251,10 @@ end;
 
 destructor TButton.Destroy;
 var
-  I: TButtonState;
+  LButtonState: TButtonState;
 begin
-  for I := Low(TButtonState) to High(TButtonState) do
-    FSurface[I].Free;
+  for LButtonState := Low(TButtonState) to High(TButtonState) do
+    FSurface[LButtonState].Free;
   inherited;
 end;
 

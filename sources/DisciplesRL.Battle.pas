@@ -79,27 +79,28 @@ procedure TBattle.Attack(const AttackEnum: TAttackEnum;
   const SourceEnum: TSourceEnum; const AtkCrName, DefCrName: string;
   const Value: Integer);
 var
-  S: string;
+  LStr: string;
 begin
   case AttackEnum of
     atMagic:
       begin
-        S := TResources.RandomValue('battle.strings', SourceSecName[SourceEnum]
-          + '_magic_attack');
-        if (Trim(S) = '') then
-          S := TResources.RandomValue('battle.strings', 'default_magic_attack');
+        LStr := TResources.RandomValue('battle.strings',
+          SourceSecName[SourceEnum] + '_magic_attack');
+        if (Trim(LStr) = '') then
+          LStr := TResources.RandomValue('battle.strings',
+            'default_magic_attack');
       end;
     atHealing:
-      S := TResources.RandomValue('battle.strings', 'heal2');
+      LStr := TResources.RandomValue('battle.strings', 'heal2');
   else
     begin
-      S := TResources.RandomValue('battle.strings', AtkSecName[AttackEnum] +
+      LStr := TResources.RandomValue('battle.strings', AtkSecName[AttackEnum] +
         '_attack');
-      if (Trim(S) = '') then
-        S := TResources.RandomValue('battle.strings', 'default_attack');
+      if (Trim(LStr) = '') then
+        LStr := TResources.RandomValue('battle.strings', 'default_attack');
     end;
   end;
-  Log.Add(Format(S, [AtkCrName, DefCrName, Value]));
+  Log.Add(Format(LStr, [AtkCrName, DefCrName, Value]));
 end;
 
 procedure TBattle.Clear;

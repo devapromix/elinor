@@ -53,7 +53,7 @@ type
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
-    reTitleAbilities,reTitleSpellbook,
+    reTitleAbilities, reTitleSpellbook,
 
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
