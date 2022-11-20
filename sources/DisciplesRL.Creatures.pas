@@ -783,7 +783,7 @@ const
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
     SkillEnum: skNone; Rating: 0;),
     // Duke
-    (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: rePegasusKnight;
+    (Race: reLegionsOfTheDamned; SubRace: reHeretic; ResEnum: reDuke;
     Size: szSmall; Name: ('Герцог', 'Герцога');
     Description: ('Воинственный герцог ведет демонов',
     'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;

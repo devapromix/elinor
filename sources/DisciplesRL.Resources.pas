@@ -39,7 +39,7 @@ type
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
     reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
     rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
-    reAcolyte, reAshkael, reAshgan, reBlackDragon, reWhiteDragon, reRedDragon,
+    reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
     reGiantSpider, reWolf, reBear, reOrc,
     // Text
@@ -236,6 +236,8 @@ const
     (FileName: 'character.ashkael.png'; ResType: teGUI;),
     // Ashgan
     (FileName: 'character.ashgan.png'; ResType: teGUI;),
+    // Duke
+    (FileName: 'character.legions_of_the_damned.duke.png'; ResType: teGUI;),
     // Black Dragon
     (FileName: 'character.black_dragon.png'; ResType: teGUI;),
     // White Dragon
