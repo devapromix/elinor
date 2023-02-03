@@ -679,7 +679,7 @@ var
   Position: Integer;
   S: string;
   A:
-{$IFDEF FPC}specialize{$ENDIF}TArray<string>;
+  TArray<string>;
 begin
   Position := -1;
   repeat

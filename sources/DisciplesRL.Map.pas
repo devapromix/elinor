@@ -79,10 +79,10 @@ type
     procedure UpdateRadius(const AX, AY, ARadius: Integer); overload;
     function GetDist(X1, Y1, X2, Y2: Integer): Integer;
     function GetDistToCapital(const AX, AY: Integer): Integer;
-    function InRect(const X, Y, X1, Y1, X2, Y2: Integer): boolean;
-    function InMap(const X, Y: Integer): boolean;
+    function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
+    function InMap(const X, Y: Integer): Boolean;
     function LeaderTile: TResEnum;
-    function IsLeaderMove(const X, Y: Integer): boolean;
+    function IsLeaderMove(const X, Y: Integer): Boolean;
     function Width: Integer;
     function Height: Integer;
     function GetLayer(const L: TLayerEnum): TMapLayer;
@@ -93,15 +93,8 @@ type
     function GetCityNameTitleRes(const I: T): TResEnum;
   end;
 
-type
-  TGetXYVal = function(X, Y: Integer): boolean; stdcall;
-
-function DoAStar(MapX, MapY, FromX, FromY, ToX, ToY: Integer;
-  Callback: TGetXYVal; var TargetX, TargetY: Integer): boolean;
-  external 'BeaRLibPF.dll';
-
-function ChTile(X, Y: Integer): boolean; stdcall;
-function IsMoveLeader(X, Y: Integer): boolean; stdcall;
+function ChTile(X, Y: Integer): Boolean; stdcall;
+function IsMoveLeader(X, Y: Integer): Boolean; stdcall;
 
 implementation
 
@@ -112,16 +105,17 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Party;
+  DisciplesRL.Scene.Party,
+  Elinor.PathFind;
 
-function ChTile(X, Y: Integer): boolean; stdcall;
+function ChTile(X, Y: Integer): Boolean; stdcall;
 begin
   Result := True;
 end;
 
-function IsMoveLeader(X, Y: Integer): boolean; stdcall;
+function IsMoveLeader(X, Y: Integer): Boolean; stdcall;
 begin
-    Result := not(Game.Map.GetTile(lrObj, X, Y) in StopTiles);
+  Result := not(Game.Map.GetTile(lrObj, X, Y) in StopTiles);
 end;
 
 constructor TMapObject.Create(const AX, AY: Integer);
@@ -397,12 +391,12 @@ begin
   AddLeaderParty;
 end;
 
-function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): boolean;
+function TMap.InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
 begin
   Result := (X >= X1) and (Y >= Y1) and (X <= X2) and (Y <= Y2);
 end;
 
-function TMap.InMap(const X, Y: Integer): boolean;
+function TMap.InMap(const X, Y: Integer): Boolean;
 begin
   Result := InRect(X, Y, 0, 0, MapWidth - 1, MapHeight - 1);
 end;
@@ -493,7 +487,7 @@ begin
   Result := CityNameTitle[CityArr[I]];
 end;
 
-function TMap.IsLeaderMove(const X, Y: Integer): boolean;
+function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
 begin
   Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
     TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or Game.Wizard) and
@@ -514,7 +508,7 @@ begin
   end;
 end;
 
-function ChCity(N: Integer): boolean;
+function ChCity(N: Integer): Boolean;
 var
   I: Integer;
 begin

@@ -4,7 +4,7 @@
 
 uses
   {$IFDEF FPC}
-  Forms, Interfaces,
+  Forms,
   {$ELSE}
   Vcl.Forms,
   {$ENDIF }
@@ -29,7 +29,8 @@ uses
   DisciplesRL.Button in 'DisciplesRL.Button.pas',
   DisciplesRL.Spells in 'DisciplesRL.Spells.pas',
   DisciplesRL.Scene.Spellbook in 'Scenes\DisciplesRL.Scene.Spellbook.pas',
-  DisciplesRL.Player in 'DisciplesRL.Player.pas';
+  DisciplesRL.Player in 'DisciplesRL.Player.pas',
+  Elinor.PathFind in 'Elinor.PathFind.pas';
 
 {$R *.res}
 

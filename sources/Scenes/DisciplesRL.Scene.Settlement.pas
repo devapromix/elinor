@@ -173,7 +173,7 @@ procedure TSceneSettlement.Dismiss;
       begin
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
-        ConfirmDialog('Отпустить воина?', {$IFDEF FPC}@{$ENDIF}DismissCreature);
+        ConfirmDialog('Отпустить воина?', DismissCreature);
       end;
     end;
   end;
@@ -218,7 +218,7 @@ procedure TSceneSettlement.Heal;
       ConfirmParty := AParty;
       ConfirmPartyPosition := APosition;
       ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
-{$IFDEF FPC}@{$ENDIF}HealCreature);
+        HealCreature);
     end;
   end;
 
@@ -261,7 +261,7 @@ procedure TSceneSettlement.Revive;
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
         ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
-{$IFDEF FPC}@{$ENDIF}ReviveCreature);
+          ReviveCreature);
       end;
     end;
   end;

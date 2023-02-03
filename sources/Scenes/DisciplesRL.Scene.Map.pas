@@ -43,7 +43,8 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Party,
   DisciplesRL.Creatures,
-  DisciplesRL.Scene.Spellbook;
+  DisciplesRL.Scene.Spellbook,
+  Elinor.PathFind;
 
 { TSceneMap }
 

@@ -74,7 +74,7 @@ end;
 
 procedure TSceneMenu.ConfirmQuit;
 begin
-  ConfirmDialog('Завершить игру?', {$IFDEF FPC}@{$ENDIF}Quit);
+  ConfirmDialog('Завершить игру?', Quit);
 end;
 
 procedure TSceneMenu.PlayGame;
