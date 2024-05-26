@@ -1,0 +1,12 @@
+{
+"parties":[
+		{
+			"level": 1,
+			"characters":"none,goblin-archer,goblin,none,none,goblin-archer"
+		},
+		{
+			"level": 1,
+			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
+		}
+	]
+}

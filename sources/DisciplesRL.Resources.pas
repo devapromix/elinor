@@ -10,7 +10,7 @@ uses
   Vcl.Imaging.PNGImage,
   System.Classes,
 {$ENDIF}
-  IniFiles;
+  IniFiles, Dialogs;
 
 {$IFDEF FPC}
 
@@ -39,9 +39,9 @@ type
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
     reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
     rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
-    reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon, reWhiteDragon, reRedDragon,
-    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reGiantSpider, reWolf, reBear, reOrc,
+    reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon, reWhiteDragon,
+    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
+    reGoblinElder, reGiantSpider, reWolf, reBear, reOrc,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -545,6 +545,7 @@ type
     class function KeysCount(const FileName, SectionName: string): Integer;
     class function RandomValue(const FileName, SectionName: string): string;
     class function RandomSectionIdent(const FileName: string): string;
+    class procedure LoadParties(const FileName: string);
   end;
 
 implementation
@@ -558,7 +559,7 @@ uses
   JSON,
 {$ENDIF}
   Math,
-  SysUtils;
+  SysUtils, DisciplesRL.Saga, DisciplesRL.Creatures;
 
 function GetPath(SubDir: string): string;
 begin
@@ -596,6 +597,50 @@ begin
       FreeAndNil(JSONObject);
     end;
 {$ENDIF}
+  finally
+    FreeAndNil(SL);
+  end;
+end;
+
+class procedure TResources.LoadParties(const FileName: string);
+var
+  JSONObject, LParty: TJSONObject;
+  JSONArray: TJSONArray;
+  SL, CL: TStringList;
+  I, J, LLevel: Integer;
+  LParties, LCharacters: string;
+  FF: TArray<string>;
+begin
+  SL := TStringList.Create;
+  try
+    SL.LoadFromFile(GetPath('resources') + LowerCase(FileName) + '.json');
+    JSONObject := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
+    try
+      LParties := JSONObject.GetValue('parties').ToJSON;
+      JSONArray := TJSONObject.ParseJSONValue(LParties) as TJSONArray;
+      for I := 0 to JSONArray.Count - 1 do
+      begin
+        LParty := TJSONObject.ParseJSONValue(JSONArray.Get(I).ToJSON)
+          as TJSONObject;
+        try
+          LLevel := LParty.GetValue('level').ToString.ToInteger;
+          LCharacters := LParty.GetValue('characters').Value;
+          SetLength(TSaga.PartyBase, Length(TSaga.PartyBase) + 1);
+          with TSaga.PartyBase[Length(TSaga.PartyBase) - 1] do
+          begin
+            Level := LLevel;
+            FF := LCharacters.Split([',']);
+            for J := Low(FF) to High(FF) do
+              Character[J] := TCreature.StrToCharEnum(FF[J]);
+          end;
+        finally
+          FreeAndNil(LParty);
+        end;
+      end;
+    finally
+      FreeAndNil(JSONArray);
+      FreeAndNil(JSONObject);
+    end;
   finally
     FreeAndNil(SL);
   end;
@@ -711,6 +756,7 @@ begin
         ResMusicPath[J] := GetPath('resources\music') + MusicBase[J].FileName;
     end;
   end;
+  TResources.LoadParties('parties');
 end;
 
 procedure Free;

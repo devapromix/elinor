@@ -563,6 +563,7 @@ type
       : TCreatureEnum; static;
     class function EquippedWeapon(const AttackEnum: TAttackEnum;
       const ASourceEnum: TSourceEnum): string; static;
+    class function StrToCharEnum(const ChName: string): TCreatureEnum; static;
   end;
 
 implementation
@@ -1126,6 +1127,34 @@ end;
 function TCreature.IsLeader(): Boolean;
 begin
   Result := Leadership > 0;
+end;
+
+class function TCreature.StrToCharEnum(const ChName: string): TCreatureEnum;
+type
+  TD = record
+    S: string;
+    T: TCreatureEnum;
+  end;
+const
+  D: array [0 .. 2] of TD = (
+  //
+  (S: 'none'; T: crNone),
+  //
+  (S: 'goblin'; T: crGoblin),
+  //
+  (S: 'goblin-archer'; T: crGoblin_Archer)
+  //
+  );
+var
+  I: Integer;
+begin
+  Result := crNone;
+  for I := Low(D) to High(D) do
+    if D[I].S = ChName then
+    begin
+      Result := D[I].T;
+      Exit;
+    end;
 end;
 
 {$ENDREGION TCreature}

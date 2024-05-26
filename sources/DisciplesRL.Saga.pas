@@ -34,6 +34,12 @@ type
   }
 
 type
+  TPartyBase = record
+    Level: Integer;
+    Character: array [TPosition] of TCreatureEnum;
+  end;
+
+type
   TScenario = class(TObject)
   public type
     TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
@@ -75,6 +81,7 @@ type
     NewItem: Integer;
     LeaderRace: TRaceEnum;
     Difficulty: TDifficultyEnum;
+    PartyBase: array of TPartyBase;
     IsGame: Boolean;
   public const
     DifficultyName: array [TDifficultyEnum] of string = ('Легкий', 'Средний',
@@ -198,76 +205,23 @@ end;
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
-  LLevel: Integer;
+  LLevel, LPartyIndex: Integer;
+  LPosition: TPosition;
   LCreatureEnum: TCreatureEnum;
 begin
   LLevel := GetMapLevel(AX, AY);
   LLevel := 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
-  {
-    repeat
-    N := RandomRange(0, High(PartyBase) - 1) + 1;
-    until PartyBase[N].Level = Level;
-    if IsFinal then
-    N := High(PartyBase);
-    with Party[TSaga.GetPartyCount - 1] do
-    begin
-    for I := Low(TPosition) to High(TPosition) do
-    AddCreature(PartyBase[N].Character[I], I);
-    end;
-  }
+  repeat
+    LPartyIndex := RandomRange(0, High(PartyBase) - 1) + 1;
+  until PartyBase[LPartyIndex].Level = LLevel;
+  if IsFinal then
+    LPartyIndex := High(PartyBase);
   with Party[TSaga.GetPartyCount - 1] do
   begin
-    //
-    LCreatureEnum := TCreature.GetRandomEnum(LLevel, 2);
-    // TCreature.Character(Cr).Race
-    case RandomRange(0, 4) of
-      0:
-        AddCreature(LCreatureEnum, 2);
-      1:
-        begin
-          AddCreature(LCreatureEnum, 0);
-          AddCreature(LCreatureEnum, 4);
-        end;
-      2:
-        begin
-          AddCreature(LCreatureEnum, 0);
-          AddCreature(LCreatureEnum, 2);
-          AddCreature(LCreatureEnum, 4);
-        end;
-      3:
-        begin
-          AddCreature(LCreatureEnum, 0);
-          AddCreature(LCreatureEnum, 4);
-          LCreatureEnum := TCreature.GetRandomEnum(LLevel, 2);
-          AddCreature(LCreatureEnum, 2);
-        end;
-    end;
-    //
-    LCreatureEnum := TCreature.GetRandomEnum(LLevel, 3);
-    case RandomRange(0, 4) of
-      0:
-        AddCreature(LCreatureEnum, 3);
-      1:
-        begin
-          AddCreature(LCreatureEnum, 1);
-          AddCreature(LCreatureEnum, 5);
-        end;
-      2:
-        begin
-          AddCreature(LCreatureEnum, 1);
-          AddCreature(LCreatureEnum, 3);
-          AddCreature(LCreatureEnum, 5);
-        end;
-      3:
-        begin
-          AddCreature(LCreatureEnum, 1);
-          AddCreature(LCreatureEnum, 5);
-          LCreatureEnum := TCreature.GetRandomEnum(LLevel, 3);
-          AddCreature(LCreatureEnum, 3);
-        end;
-    end;
+    for LPosition := Low(TPosition) to High(TPosition) do
+      AddCreature(PartyBase[LPartyIndex].Character[LPosition], LPosition);
   end;
 end;
 
