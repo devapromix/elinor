@@ -214,7 +214,7 @@ begin
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat
-    LPartyIndex := RandomRange(0, High(PartyBase) - 1) + 1;
+    LPartyIndex := RandomRange(0, Length(PartyBase));
   until PartyBase[LPartyIndex].Level = LLevel;
   if IsFinal then
     LPartyIndex := High(PartyBase);
