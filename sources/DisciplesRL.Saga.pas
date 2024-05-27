@@ -4,6 +4,7 @@ interface
 
 uses
   Types,
+  Dialogs,
   DisciplesRL.Resources,
   DisciplesRL.Party,
   DisciplesRL.Creatures;
@@ -36,6 +37,7 @@ type
 type
   TPartyBase = record
     Level: Integer;
+    Faction: TRaceEnum;
     Character: array [TPosition] of TCreatureEnum;
   end;
 
@@ -215,7 +217,8 @@ begin
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat
     LPartyIndex := RandomRange(0, Length(PartyBase));
-  until PartyBase[LPartyIndex].Level = LLevel;
+  until (PartyBase[LPartyIndex].Level = LLevel) and
+    (PartyBase[LPartyIndex].Faction <> TSaga.LeaderRace);
   if IsFinal then
     LPartyIndex := High(PartyBase);
   with Party[TSaga.GetPartyCount - 1] do

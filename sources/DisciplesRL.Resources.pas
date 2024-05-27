@@ -608,7 +608,7 @@ var
   JSONArray: TJSONArray;
   SL, CL: TStringList;
   I, J, LLevel: Integer;
-  LParties, LCharacters: string;
+  LParties, LFaction, LCharacters: string;
   FF: TArray<string>;
 begin
   SL := TStringList.Create;
@@ -624,11 +624,13 @@ begin
           as TJSONObject;
         try
           LLevel := LParty.GetValue('level').ToString.ToInteger;
+          LFaction := LParty.GetValue('faction').Value;
           LCharacters := LParty.GetValue('characters').Value;
           SetLength(TSaga.PartyBase, Length(TSaga.PartyBase) + 1);
           with TSaga.PartyBase[Length(TSaga.PartyBase) - 1] do
           begin
             Level := LLevel;
+            Faction := TCreature.StrToFactionEnum(LFaction);
             FF := LCharacters.Split([',']);
             for J := Low(FF) to High(FF) do
               Character[J] := TCreature.StrToCharEnum(FF[J]);

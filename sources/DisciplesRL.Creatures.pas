@@ -15,6 +15,10 @@ type
   TPlayableRaces = reTheEmpire .. reLegionsOfTheDamned;
 
 const
+  FactionIdent: array [TRaceEnum] of string = ('the-empire', 'undead-hordes',
+    'legion-of-the-damned', 'mountain-clans', 'elven-alliance', 'neutrals');
+
+const
   Races = [reTheEmpire, reUndeadHordes, reLegionsOfTheDamned];
 
 const
@@ -63,7 +67,7 @@ const
     ('', '', '', '', '', '', '', '', '', '', ''),
     // Elven Alliance
     ('', '', '', '', '', '', '', '', '', '', ''),
-    // Neutras
+    // Neutrals
     ('', '', '', '', '', '', '', '', '', '', ''));
 
   // CreatureEnum
@@ -565,6 +569,10 @@ type
     class function EquippedWeapon(const AttackEnum: TAttackEnum;
       const ASourceEnum: TSourceEnum): string; static;
     class function StrToCharEnum(const ChName: string): TCreatureEnum; static;
+    class function StrToFactionEnum(const AFactionIdent: string)
+      : TRaceEnum; static;
+    class function FactionEnumToStr(const AFactionEnum: TRaceEnum)
+      : string; static;
   end;
 
 implementation
@@ -643,7 +651,7 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
     AttackEnum: atBattleAxe; SkillEnum: skTalisman; Rating: 0;),
     // Squire
-    (Ident: 'none'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire;
+    (Ident: 'squire'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reSquire;
     Size: szSmall; Name: ('Сквайр', 'Сквайра');
     Description: ('Сквайр доблестно защищает в бою',
     'своих более слабых соотечественников,',
@@ -653,7 +661,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; SkillEnum: skNone; Rating: 25;),
     // Archer
-    (Ident: 'none'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher;
+    (Ident: 'archer'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reArcher;
     Size: szSmall; Name: ('Лучник', 'Лучника');
     Description: ('Стрелы лучника успешно поражают',
     'врагов, которые укрываются за спи-',
@@ -663,8 +671,8 @@ const
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atBow; SkillEnum: skNone; Rating: 10;),
     // Apprentice
-    (Ident: 'none'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reApprentice;
-    Size: szSmall; Name: ('Ученик', 'Ученика');
+    (Ident: 'apprentice'; Race: reTheEmpire; SubRace: reHuman;
+    ResEnum: reApprentice; Size: szSmall; Name: ('Ученик', 'Ученика');
     Description: ('Ученик мага атакует противников',
     'с большого расстояния, обрушивая', 'на них молнии.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
@@ -1155,6 +1163,34 @@ begin
     if CreatureBase[LCreatureEnum].Ident = ChName then
     begin
       Result := LCreatureEnum;
+      Exit;
+    end;
+end;
+
+class function TCreature.StrToFactionEnum(const AFactionIdent: string)
+  : TRaceEnum;
+var
+  LRaceEnum: TRaceEnum;
+begin
+  Result := reNeutrals;
+  for LRaceEnum := Low(TRaceEnum) to High(TRaceEnum) do
+    if FactionIdent[LRaceEnum] = AFactionIdent then
+    begin
+      Result := LRaceEnum;
+      Exit;
+    end;
+end;
+
+class function TCreature.FactionEnumToStr(const AFactionEnum
+  : TRaceEnum): string;
+var
+  LRaceEnum: TRaceEnum;
+begin
+  Result := 'neutrals';
+  for LRaceEnum := Low(TRaceEnum) to High(TRaceEnum) do
+    if LRaceEnum = AFactionEnum then
+    begin
+      Result := FactionIdent[LRaceEnum];
       Exit;
     end;
 end;

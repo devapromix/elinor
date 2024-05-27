@@ -1,12 +1,34 @@
 {
 "parties":[
 		{
-			"level": 1,
+			"level": 2,
+			"faction": "neutrals",
 			"characters":"none,goblin-archer,goblin,none,none,goblin-archer"
 		},
 		{
+			"level": 2,
+			"faction": "neutrals",
+			"characters":"none,none,goblin,goblin-elder,none,none"
+		},
+		{
 			"level": 1,
+			"faction": "neutrals",
+			"characters":"goblin,none,none,goblin-elder,goblin,none"
+		},
+		{
+			"level": 1,
+			"faction": "the-empire",
+			"characters":"none,none,squire,archer,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
 			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
+			"characters":"goblin,goblin-elder,none,none,goblin,goblin-elder"
 		}
 	]
 }
