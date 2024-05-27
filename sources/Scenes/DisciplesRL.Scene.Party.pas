@@ -457,7 +457,7 @@ var
   var
     I: Integer;
   begin
-    DrawTitle(reTitleParty);
+    DrawTitle(reTitleInventory);
     CurCrEnum := TLeaderParty.Leader.Enum;
     DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := GetFrameX(0, psRight) + 12;

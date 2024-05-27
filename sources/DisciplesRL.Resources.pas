@@ -26,8 +26,8 @@ type
     rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
     reBGChar, reBGEnemy, reBGParalyze, reDead,
 
-    reFrame, reSelectFrame, reSmallFrame, reActFrame, rePasFrame, reBigFrame, reInfoFrame,
-    reItemFrame,
+    reFrame, reSelectFrame, reSmallFrame, reActFrame, rePasFrame, reBigFrame,
+    reInfoFrame, reItemFrame,
 
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -53,7 +53,7 @@ type
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
-    reTitleAbilities, reTitleSpellbook,
+    reTitleAbilities, reTitleInventory, reTitleSpellbook,
 
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
@@ -353,6 +353,8 @@ const
     (FileName: 'title.warrior.png'; ResType: teGUI;),
     // Title "Abilities"
     (FileName: 'title.abilities.png'; ResType: teGUI;),
+    // Title "Inventory"
+    (FileName: 'title.inventory.png'; ResType: teGUI;),
     // Title "Spellbook"
     (FileName: 'title.spellbook.png'; ResType: teGUI;),
 
