@@ -100,8 +100,8 @@ type
     procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
-    procedure RenderFrame(const PartySide: TPartySide;
-      const I, AX, AY: Integer);
+    procedure RenderFrame(const PartySide: TPartySide; const I, AX, AY: Integer;
+      const F: Boolean = False);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       F: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
@@ -566,7 +566,7 @@ begin
 end;
 
 procedure TScene.RenderFrame(const PartySide: TPartySide;
-  const I, AX, AY: Integer);
+  const I, AX, AY: Integer; const F: Boolean);
 var
   J: Integer;
 begin
@@ -577,7 +577,12 @@ begin
     J := I + 6;
   end;
   if (ActivePartyPosition = J) then
-    DrawImage(AX, AY, reActFrame)
+  begin
+    if F then
+      DrawImage(AX, AY, rePasFrame)
+    else
+      DrawImage(AX, AY, reActFrame);
+  end
   else if (SelectPartyPosition = J) then
     DrawImage(AX, AY, reSelectFrame)
   else

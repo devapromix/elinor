@@ -111,7 +111,6 @@ begin
   begin
     FShowInventory := False;
     FShowSkills := True;
-
   end;
 end;
 
@@ -191,6 +190,7 @@ begin
   Game.Player.PlaySound(mmClick);
   FShowSkills := False;
   FShowInventory := not FShowInventory;
+  ActivePartyPosition := TLeaderParty.GetPosition;
 end;
 
 procedure TSceneParty.OpenSkills;
@@ -198,6 +198,7 @@ begin
   Game.Player.PlaySound(mmClick);
   FShowInventory := False;
   FShowSkills := not FShowSkills;
+  ActivePartyPosition := TLeaderParty.GetPosition;
 end;
 
 procedure TSceneParty.Close;
@@ -295,7 +296,8 @@ begin
   begin
     Game.GetScene(scParty).RenderFrame(PartySide, Position,
       TSceneParty.GetFrameX(Position, PartySide),
-      TSceneParty.GetFrameY(Position, PartySide));
+      TSceneParty.GetFrameY(Position, PartySide), FShowInventory or
+      FShowSkills);
     if (Party <> nil) then
       TSceneParty(Game.GetScene(scParty)).DrawUnit(Position, Party,
         GetFrameX(Position, PartySide), GetFrameY(Position, PartySide),
@@ -367,6 +369,8 @@ begin
         end;
         CurrentPartyPosition := GetPartyPosition(X, Y);
         if (CurrentPartyPosition < 0) or (CurrentPartyPosition > 5) then
+          Exit;
+        if FShowInventory or FShowSkills then
           Exit;
         ActivePartyPosition := CurrentPartyPosition;
         Game.Player.PlaySound(mmClick);

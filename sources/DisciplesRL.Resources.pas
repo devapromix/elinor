@@ -26,7 +26,7 @@ type
     rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
     reBGChar, reBGEnemy, reBGParalyze, reDead,
 
-    reFrame, reSelectFrame, reSmallFrame, reActFrame, reBigFrame, reInfoFrame,
+    reFrame, reSelectFrame, reSmallFrame, reActFrame, rePasFrame, reBigFrame, reInfoFrame,
     reItemFrame,
 
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
@@ -124,6 +124,8 @@ const
     (FileName: 'frame.small.png'; ResType: teGUI;),
     // Active Frame
     (FileName: 'actframe.png'; ResType: teGUI;),
+    // Passive Frame
+    (FileName: 'pasframe.png'; ResType: teGUI;),
     // Big Frame
     (FileName: 'big_frame.png'; ResType: teGUI;),
     // Info Frame
