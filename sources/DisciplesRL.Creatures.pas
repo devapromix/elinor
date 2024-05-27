@@ -680,7 +680,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 5;),
     // Acolyte
-    (Ident: 'none'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reAcolyte;
+    (Ident: 'acolyte'; Race: reTheEmpire; SubRace: reHuman; ResEnum: reAcolyte;
     Size: szSmall; Name: ('Служка', 'Служку');
     Description: ('Обученная искусству исцеления служка',
     'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
@@ -751,7 +751,7 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; SkillEnum: skTalisman; Rating: 0;),
     // Fighter
-    (Ident: 'none'; Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire;
+    (Ident: 'fighter'; Race: reUndeadHordes; SubRace: reUndead; ResEnum: reSquire;
     Size: szSmall; Name: ('Воин', 'Воина');
     Description: ('Услышав зов Мортис, безропотно',
     'встают в строй мертвые воины.', 'Они не знают ни страха, ни жалости.');
@@ -760,7 +760,7 @@ const
     Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
     // Ghost
-    (Ident: 'none'; Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher;
+    (Ident: 'ghost'; Race: reUndeadHordes; SubRace: reUndead; ResEnum: reArcher;
     Size: szSmall; Name: ('Призрак', 'Призрака');
     Description: ('Призраки - это темные души,',
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
@@ -769,7 +769,7 @@ const
     Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgNeuter;
     AttackEnum: atParalyze; SkillEnum: skNone; Rating: 10;),
     // Initiate
-    (Ident: 'none'; Race: reUndeadHordes; SubRace: reUndead;
+    (Ident: 'initiate'; Race: reUndeadHordes; SubRace: reUndead;
     ResEnum: reApprentice; Size: szSmall; Name: ('Адепт', 'Адепта');
     Description: ('Адепты обучены нести чуму и', 'смерть армиям живых во славу',
     'своей богини Мортис.'); HitPoints: 45; Initiative: 40; ChancesToHit: 80;
@@ -777,7 +777,7 @@ const
     ReachEnum: reAll; Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);
     Gender: cgMale; AttackEnum: atMagic; SkillEnum: skNone; Rating: 10;),
     // Wyvern
-    (Ident: 'none'; Race: reUndeadHordes; SubRace: reUndeadDragon;
+    (Ident: 'wyvern'; Race: reUndeadHordes; SubRace: reUndeadDragon;
     ResEnum: reAcolyte; Size: szBig; Name: ('Виверна', 'Виверну');
     Description: ('Чародеи воскрешают мертвых драко-',
     'нов, тем самым создавая виверн, кото-',
@@ -845,7 +845,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
     AttackEnum: atFireHammer; SkillEnum: skTalisman; Rating: 0;),
     // Possessed
-    (Ident: 'none'; Race: reLegionsOfTheDamned; SubRace: reHeretic;
+    (Ident: 'possessed'; Race: reLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reSquire; Size: szSmall; Name: ('Одержимый', 'Одержимого');
     Description: ('Повелитель демонов поработил этих',
     'сильных телом крестьян для того, что-',
@@ -855,7 +855,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
     // Gargoyle
-    (Ident: 'none'; Race: reLegionsOfTheDamned; SubRace: reGargoyle;
+    (Ident: 'gargoyle'; Race: reLegionsOfTheDamned; SubRace: reGargoyle;
     ResEnum: reArcher; Size: szBig; Name: ('Горгулья', 'Горгулью');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
@@ -864,7 +864,7 @@ const
     Gold: 80; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
     AttackEnum: atStones; SkillEnum: skNone; Rating: 40;),
     // Cultist
-    (Ident: 'none'; Race: reLegionsOfTheDamned; SubRace: reHeretic;
+    (Ident: 'cultist'; Race: reLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reApprentice; Size: szSmall; Name: ('Культист', 'Культиста');
     Description: ('Еретики Империи, они взывают к',
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
@@ -873,7 +873,7 @@ const
     Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 20;),
     // Devil
-    (Ident: 'none'; Race: reLegionsOfTheDamned; SubRace: reHeretic;
+    (Ident: 'devil'; Race: reLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reAcolyte; Size: szBig; Name: ('Чёрт', 'Чёрта');
     Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
     'Тёмного Повелителя Бетрезена.'); HitPoints: 170; Initiative: 35;
@@ -915,7 +915,7 @@ const
     Gender: cgMale; AttackEnum: atMagic; SkillEnum: skNone; Rating: 10;),
 
     // Orc
-    (Ident: 'none'; Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
+    (Ident: 'orc'; Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
     Size: szSmall; Name: ('Орк', 'Орка');
     Description: ('Орки в битвах всегда на передних',
     'рядах, так как они обладают крепким', 'телосложением.'); HitPoints: 200;
@@ -925,7 +925,7 @@ const
     AttackEnum: atBattleAxe; SkillEnum: skNone; Rating: 40;),
 
     // Ogre
-    (Ident: 'none'; Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
+    (Ident: 'ogre'; Race: reNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
     Size: szBig; Name: ('Огр', 'Огра');
     Description: ('Огры нападают на всех проходящих',
     'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
@@ -937,7 +937,7 @@ const
     // Neutral Humans
 {$REGION Humans}
     // Peasant
-    (Ident: 'none'; Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin;
+    (Ident: 'peasant'; Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin;
     Size: szSmall; Name: ('Крестьянин', 'Крестьянина');
     Description: ('Крестьяне защищают тот', 'маленький кусочек земли, который',
     'они называют своим домом.'); HitPoints: 40; Initiative: 30;
@@ -946,7 +946,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
     AttackEnum: atSpear; SkillEnum: skNone; Rating: 10;),
     // Man at Arms
-    (Ident: 'none'; Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin;
+    (Ident: 'man-at-arms'; Race: reNeutrals; SubRace: reHuman; ResEnum: reGoblin;
     Size: szSmall; Name: ('Пехотинец', 'Пехотинца');
     Description: ('Наёмники, предоставляющие свои',
     'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
@@ -959,7 +959,7 @@ const
     // Neutral Undeads
 {$REGION Undeads}
     // Ghoul
-    (Ident: 'none'; Race: reNeutrals; SubRace: reUndead; ResEnum: reSquire;
+    (Ident: 'ghoul'; Race: reNeutrals; SubRace: reUndead; ResEnum: reSquire;
     Size: szSmall; Name: ('Упырь', 'Упыря');
     Description: ('Упыри - опасные создания-нежить,',
     'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
@@ -968,7 +968,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atClaws; SkillEnum: skNone; Rating: 40;),
     // Dark Elf Gast
-    (Ident: 'none'; Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire;
+    (Ident: 'dark-elf-gast'; Race: reNeutrals; SubRace: reDarkElf; ResEnum: reSquire;
     Size: szSmall; Name: ('Тёмный эльф-гаст', 'Тёмного эльфа-гаста');
     Description: ('Когда-то гасты были благородными',
     'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
@@ -980,7 +980,7 @@ const
     // Neutral Animals
 {$REGION Animals}
     // Spider
-    (Ident: 'none'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;
+    (Ident: 'spider'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reGiantSpider;
     Size: szBig; Name: ('Гигантский Паук', 'Гигантского Паука');
     Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
@@ -990,7 +990,7 @@ const
     AttackEnum: atBites; SkillEnum: skNone; Rating: 80;),
 
     // Wolf
-    (Ident: 'none'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reWolf;
+    (Ident: 'wolf'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reWolf;
     Size: szSmall; Name: ('Волк', 'Волка');
     Description: ('Волки испокон веков бродят по этим',
     'землям в поисках добычи. Смерть ждет',
@@ -1001,7 +1001,7 @@ const
     AttackEnum: atBites; SkillEnum: skNone; Rating: 70;),
 
     // Polar Bear
-    (Ident: 'none'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear;
+    (Ident: 'polar-bear'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear;
     Size: szBig; Name: ('Белый Медведь', 'Белого Медведя');
     Description: ('', '', ''); HitPoints: 320; Initiative: 70; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 85; Armor: 0; Heal: 0;
@@ -1009,7 +1009,7 @@ const
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; SkillEnum: skNone; Rating: 60;),
     // Brown Bear
-    (Ident: 'none'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear;
+    (Ident: 'brown-bear'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear;
     Size: szBig; Name: ('Бурый Медведь', 'Бурого Медведя');
     Description: ('', '', ''); HitPoints: 300; Initiative: 70; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 80; Armor: 0; Heal: 0;
@@ -1017,7 +1017,7 @@ const
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; SkillEnum: skNone; Rating: 55;),
     // Black Bear
-    (Ident: 'none'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear;
+    (Ident: 'black-bear'; Race: reNeutrals; SubRace: reAnimal; ResEnum: reBear;
     Size: szBig; Name: ('Черный Медведь', 'Черного Медведя');
     Description: ('', '', ''); HitPoints: 280; Initiative: 70; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 75; Armor: 0; Heal: 0;

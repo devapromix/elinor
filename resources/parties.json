@@ -16,9 +16,19 @@
 			"characters":"goblin,none,none,goblin-elder,goblin,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "the-empire",
 			"characters":"none,none,squire,archer,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,initiate,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,ghost,none,none"
 		},
 		{
 			"level": 2,
