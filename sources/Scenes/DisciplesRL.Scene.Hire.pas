@@ -42,7 +42,7 @@ type
     procedure RenderScenarioInfo;
     procedure RenderSpyInfo;
     procedure RenderWarInfo;
-    procedure RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
+    procedure RenderRace(const Race: TFactionEnum; const AX, AY: Integer);
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
     procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
@@ -314,7 +314,7 @@ begin
   case SubScene of
     stRace:
       begin
-        TSaga.LeaderRace := TRaceEnum(CurrentIndex);
+        TSaga.LeaderRace := TFactionEnum(CurrentIndex);
         TSceneHire.Show(stLeader);
       end;
     stLeader:
@@ -555,7 +555,7 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderRace(const Race: TRaceEnum; const AX, AY: Integer);
+procedure TSceneHire.RenderRace(const Race: TFactionEnum; const AX, AY: Integer);
 begin
   case Race of
     reTheEmpire:
@@ -634,16 +634,16 @@ end;
 
 procedure TSceneHire.RenderRaceInfo;
 var
-  R: TRaceEnum;
+  R: TFactionEnum;
   J: Integer;
 begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  R := TRaceEnum(CurrentIndex);
-  AddTextLine(RaceName[R], True);
+  R := TFactionEnum(CurrentIndex);
+  AddTextLine(FactionName[R], True);
   AddTextLine;
   for J := 0 to 10 do
-    AddTextLine(RaceDescription[R][J]);
+    AddTextLine(FactionDescription[R][J]);
 end;
 
 procedure TSceneHire.RenderDifficultyInfo;
@@ -901,7 +901,7 @@ end;
 procedure TSceneHire.Render;
 var
   Left, X, Y, I: Integer;
-  R: TRaceEnum;
+  R: TFactionEnum;
   K: TRaceCharKind;
   S: TScenario.TScenarioEnum;
   D: TSaga.TDifficultyEnum;

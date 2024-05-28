@@ -67,7 +67,9 @@ type
     reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
-    reIconOpenedGates);
+    reIconOpenedGates,
+    // The Empire ABC
+    reEmpireA);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -82,7 +84,7 @@ const
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
     teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine, teMusic,
-    teSound, teItem, teBG, teIcon);
+    teSound, teItem, teBG, teIcon, teTheEmpireABC);
 
 type
   TResBase = record
@@ -411,7 +413,9 @@ const
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
-    (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;) ,
+    // Empire A
+    (FileName: 'sprites\abc\the_empire\a.png'; ResType: teTheEmpireABC;)
 
     );
 

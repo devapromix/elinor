@@ -31,7 +31,7 @@ type
   TMapPlace = class(TMapObject)
     CurLevel: Integer;
     MaxLevel: Integer;
-    Owner: TRaceEnum;
+    Owner: TFactionEnum;
     constructor Create;
     class function GetIndex(const AX, AY: Integer): Integer; static;
     class procedure UpdateRadius(const AID: Integer); static;
@@ -660,7 +660,7 @@ class procedure TMapPlace.UpdateRadius(const AID: Integer);
 begin
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrTile],
-    RaceTerrain[TSaga.LeaderRace], [reNeutralCity, reRuin, reTower] + Capitals
+    FactionTerrain[TSaga.LeaderRace], [reNeutralCity, reRuin, reTower] + Capitals
     + Cities);
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrDark], reNone);
@@ -674,7 +674,7 @@ begin
   Result := 0;
   for I := 1 to TScenario.ScenarioCitiesMax do
   begin
-    if (Game.Map.MapPlace[I].Owner in Races) then
+    if (Game.Map.MapPlace[I].Owner in Factions) then
       Inc(Result);
   end;
 end;

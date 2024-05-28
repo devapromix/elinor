@@ -29,7 +29,7 @@ type
 
   TParty = class(TMapObject)
   strict private
-    FOwner: TRaceEnum;
+    FOwner: TFactionEnum;
     FCreature: array [TPosition] of TCreature;
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
@@ -37,12 +37,12 @@ type
   private
   public
     constructor Create(const AX, AY: Integer); overload;
-    constructor Create(const AX, AY: Integer; AOwner: TRaceEnum); overload;
+    constructor Create(const AX, AY: Integer; AOwner: TFactionEnum); overload;
     destructor Destroy; override;
     procedure MoveCreature(FromParty: TParty; const APosition: TPosition);
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
-    property Owner: TRaceEnum read FOwner write FOwner;
+    property Owner: TFactionEnum read FOwner write FOwner;
     procedure ClearParalyze(const APosition: TPosition);
     procedure ClearParalyzeAll;
     property Creature[APosition: TPosition]: TCreature read GetCreature
@@ -101,7 +101,7 @@ type
     Speed: Integer;
     MaxSpeed: Integer;
   public
-    constructor Create(const AX, AY: Integer; AOwner: TRaceEnum);
+    constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
     procedure Clear;
     property MaxLeadership: Integer read FMaxLeadership;
@@ -219,7 +219,7 @@ begin
     TCreature.Clear(FCreature[LPosition]);
 end;
 
-constructor TParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
+constructor TParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
 begin
   inherited Create(AX, AY);
   Self.Clear;
@@ -498,7 +498,7 @@ begin
   Self.UpdateRadius;
 end;
 
-constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TRaceEnum);
+constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
 begin
   inherited Create(AX, AY, AOwner);
   FSkills := TSkills.Create;
@@ -651,7 +651,7 @@ begin
   if not IsInfo then
     for I := 0 to High(Game.Map.MapPlace) do
     begin
-      if (Game.Map.MapPlace[I].Owner in Races) then
+      if (Game.Map.MapPlace[I].Owner in Factions) then
         if (Game.Map.MapPlace[I].CurLevel < Game.Map.MapPlace[I].MaxLevel) then
         begin
           Inc(Game.Map.MapPlace[I].CurLevel);

@@ -37,7 +37,7 @@ type
 type
   TPartyBase = record
     Level: Integer;
-    Faction: TRaceEnum;
+    Faction: TFactionEnum;
     Character: array [TPosition] of TCreatureEnum;
   end;
 
@@ -81,7 +81,7 @@ type
 
   class var
     NewItem: Integer;
-    LeaderRace: TRaceEnum;
+    LeaderRace: TFactionEnum;
     Difficulty: TDifficultyEnum;
     PartyBase: array of TPartyBase;
     IsGame: Boolean;
