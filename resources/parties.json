@@ -11,7 +11,7 @@
 			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
 		},
 		{
-			"level": 2,
+			"level": 1,
 			"faction": "neutrals",
 			"characters":"none,none,goblin,goblin-elder,none,none"
 		},
