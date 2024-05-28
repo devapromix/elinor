@@ -766,7 +766,7 @@ const
     AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
     // Ghost
     (Ident: 'ghost'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reArcher; Size: szSmall; Name: ('Призрак', 'Призрака');
+    ResEnum: reGhost; Size: szSmall; Name: ('Призрак', 'Призрака');
     Description: ('Призраки - это темные души,',
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
     Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;

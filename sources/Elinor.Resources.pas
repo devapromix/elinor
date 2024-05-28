@@ -41,7 +41,7 @@ type
     rePegasusKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
     reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon, reWhiteDragon,
     reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
-    reGoblinElder, reGiantSpider, reWolf, reBear, reOrc,
+    reGoblinElder, reGiantSpider, reWolf, reBear, reOrc, reGhost,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -266,6 +266,8 @@ const
     (FileName: 'character.bear.png'; ResType: teGUI;),
     // Orc
     (FileName: 'character.orc.png'; ResType: teGUI;),
+    // Ghost
+    (FileName: 'character.ghost.png'; ResType: teGUI;),
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"
