@@ -11,7 +11,7 @@
 			"characters":"none,none,goblin,goblin-elder,none,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "neutrals",
 			"characters":"goblin,none,none,goblin-elder,goblin,none"
 		},
@@ -21,14 +21,24 @@
 			"characters":"none,none,squire,archer,none,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "undead-hordes",
 			"characters":"none,none,fighter,initiate,none,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "undead-hordes",
 			"characters":"none,none,fighter,ghost,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,possessed,cultist,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,devil,gargoyle,none,none"
 		},
 		{
 			"level": 2,

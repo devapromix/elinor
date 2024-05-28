@@ -860,10 +860,10 @@ const
     ResEnum: reArcher; Size: szBig; Name: ('Горгулья', 'Горгулью');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
-    HitPoints: 90; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 40; Armor: 40; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
+    HitPoints: 55; Initiative: 60; ChancesToHit: 50; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 15; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
     Gold: 80; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
-    AttackEnum: atStones; SkillEnum: skNone; Rating: 40;),
+    AttackEnum: atStones; SkillEnum: skNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reApprentice; Size: szSmall; Name: ('Культист', 'Культиста');
@@ -877,8 +877,8 @@ const
     (Ident: 'devil'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reAcolyte; Size: szBig; Name: ('Чёрт', 'Чёрта');
     Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
-    'Тёмного Повелителя Бетрезена.'); HitPoints: 170; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    'Тёмного Повелителя Бетрезена.'); HitPoints: 120; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atLongSword;
     SkillEnum: skNone; Rating: 35;),
