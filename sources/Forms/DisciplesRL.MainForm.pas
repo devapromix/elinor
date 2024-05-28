@@ -59,7 +59,7 @@ implementation
 
 uses
   DisciplesRL.Scenes,
-  DisciplesRL.Saga;
+  Elinor.Saga;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin

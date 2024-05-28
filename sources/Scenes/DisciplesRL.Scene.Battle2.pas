@@ -68,8 +68,8 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Saga,
-  DisciplesRL.Resources,
+  Elinor.Saga,
+  Elinor.Resources,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire;

@@ -12,11 +12,11 @@ uses
   Vcl.Imaging.PNGImage,
 {$ENDIF}
   Classes,
-  DisciplesRL.Saga,
+  Elinor.Saga,
   DisciplesRL.Map,
   DisciplesRL.Party,
   DisciplesRL.Player,
-  DisciplesRL.Resources;
+  Elinor.Resources;
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,

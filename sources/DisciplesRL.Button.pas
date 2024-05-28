@@ -10,7 +10,7 @@ uses
   Vcl.Imaging.PNGImage,
 {$ENDIF}
   Classes,
-  DisciplesRL.Resources;
+  Elinor.Resources;
 
 type
   TButtonState = (bsNone, bsOver, bsSell, bsDown);

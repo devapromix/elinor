@@ -4,7 +4,7 @@ interface
 
 uses
   Bass,
-  DisciplesRL.Resources;
+  Elinor.Resources;
 
 type
   TChannelType = (ctUnknown, ctStream, ctMusic);

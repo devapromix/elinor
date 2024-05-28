@@ -10,7 +10,7 @@ uses
 {$ENDIF}
   Classes,
   DisciplesRL.Button,
-  DisciplesRL.Resources,
+  Elinor.Resources,
   DisciplesRL.Party,
   DisciplesRL.Scenes;
 
@@ -63,7 +63,7 @@ implementation
 
 uses
   SysUtils,
-  DisciplesRL.Saga,
+  Elinor.Saga,
   DisciplesRL.Map,
   DisciplesRL.Scene.Party,
   DisciplesRL.Creatures,

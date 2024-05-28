@@ -10,7 +10,7 @@ uses
   {$ENDIF }
   DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
   DisciplesRL.Map in 'DisciplesRL.Map.pas',
-  DisciplesRL.Resources in 'DisciplesRL.Resources.pas',
+  Elinor.Resources in 'Elinor.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
   DisciplesRL.Party in 'DisciplesRL.Party.pas',

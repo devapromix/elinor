@@ -34,7 +34,7 @@ implementation
 
 uses
   SysUtils,
-  DisciplesRL.Resources;
+  Elinor.Resources;
 
 { TSceneBattle3 }
 

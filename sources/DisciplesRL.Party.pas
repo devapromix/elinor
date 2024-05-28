@@ -143,8 +143,8 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Saga,
-  DisciplesRL.Resources,
+  Elinor.Saga,
+  Elinor.Resources,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Settlement,

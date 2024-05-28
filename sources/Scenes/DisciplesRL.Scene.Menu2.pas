@@ -15,7 +15,7 @@ uses
   Classes,
   DisciplesRL.Button,
   DisciplesRL.Common,
-  DisciplesRL.Resources,
+  Elinor.Resources,
   DisciplesRL.Scenes;
 
 type
@@ -58,7 +58,7 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Saga,
+  Elinor.Saga,
   DisciplesRL.Scene.Hire;
 
 procedure TSceneMenu2.Next;

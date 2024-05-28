@@ -7,7 +7,7 @@ interface
 {$ENDIF}
 
 uses
-  DisciplesRL.Resources;
+  Elinor.Resources;
 
 type
   TFactionEnum = (reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
@@ -582,10 +582,11 @@ type
 implementation
 
 uses
-  Math, dialogs,
+  Math,
+  Dialogs,
   SysUtils,
   DisciplesRL.Party,
-  DisciplesRL.Saga;
+  Elinor.Saga;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (

@@ -37,8 +37,8 @@ implementation
 uses
   SysUtils,
   DisciplesRL.Map,
-  DisciplesRL.Resources,
-  DisciplesRL.Saga,
+  Elinor.Resources,
+  Elinor.Saga,
   DisciplesRL.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Party,

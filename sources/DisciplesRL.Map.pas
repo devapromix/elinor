@@ -4,7 +4,7 @@ interface
 
 uses
   DisciplesRL.Creatures,
-  DisciplesRL.Resources;
+  Elinor.Resources;
 
 type
   TLocation = record
@@ -101,7 +101,7 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Saga,
+  Elinor.Saga,
   DisciplesRL.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,

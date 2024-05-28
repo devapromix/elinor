@@ -34,7 +34,7 @@ uses
   Classes,
   SysUtils,
   Math,
-  DisciplesRL.Resources,
+  Elinor.Resources,
   DisciplesRL.Scenes;
 
 { TBattle }

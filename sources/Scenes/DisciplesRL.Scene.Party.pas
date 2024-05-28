@@ -11,7 +11,7 @@ uses
   Classes,
   DisciplesRL.Party,
   DisciplesRL.Scenes,
-  DisciplesRL.Resources,
+  Elinor.Resources,
   DisciplesRL.Creatures;
 
 type
@@ -68,7 +68,7 @@ implementation
 
 uses
   SysUtils, dialogs,
-  DisciplesRL.Saga,
+  Elinor.Saga,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Button,
   DisciplesRL.Items;

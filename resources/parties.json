@@ -36,9 +36,14 @@
 			"characters":"none,none,possessed,cultist,none,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,devil,gargoyle,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "legion-of-the-damned",
+			"characters":"imp,none,none,cultist,imp,none"
 		},
 		{
 			"level": 2,
