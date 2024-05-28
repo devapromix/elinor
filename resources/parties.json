@@ -6,6 +6,11 @@
 			"characters":"none,goblin-archer,goblin,none,none,goblin-archer"
 		},
 		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
+		},
+		{
 			"level": 2,
 			"faction": "neutrals",
 			"characters":"none,none,goblin,goblin-elder,none,none"
@@ -51,7 +56,7 @@
 			"characters":"none,none,imp,cultist,none,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,wolf,none,none,none"
 		},
