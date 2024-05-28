@@ -125,7 +125,7 @@
         <DCCReference Include="Scenes\DisciplesRL.Scene.Hire.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle2.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle3.pas"/>
-        <DCCReference Include="DisciplesRL.Saga.pas"/>
+        <DCCReference Include="Elinor.Saga.pas"/>
         <DCCReference Include="DisciplesRL.Button.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Spellbook.pas"/>
         <DCCReference Include="DisciplesRL.Player.pas"/>
