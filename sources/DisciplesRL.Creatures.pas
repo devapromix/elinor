@@ -152,6 +152,9 @@ type
     // Undeads
     crGhoul, crDarkElfGast,
 
+    // Heretics
+    crImp,
+
     // Spiders
     crGiantSpider,
     // Wolves
@@ -979,6 +982,17 @@ const
     Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; SkillEnum: skNone; Rating: 45;),
 {$ENDREGION Undeads}
+    // Neutral Heretics
+{$REGION Heretics}
+    // Imp
+    (Ident: 'imp'; Faction: reNeutrals; SubRace: reHeretic; ResEnum: reSquire;
+    Size: szSmall; Name: ('Имп', 'Импа');
+    Description: ('','',''); HitPoints: 55;
+    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 75;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atClaws; SkillEnum: skNone; Rating: 35;),
+{$ENDREGION Heretics}
     // Neutral Animals
 {$REGION Animals}
     // Spider
