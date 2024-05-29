@@ -964,7 +964,7 @@ const
     // Neutral Undeads
 {$REGION Undeads}
     // Ghoul
-    (Ident: 'ghoul'; Faction: reNeutrals; SubRace: reUndead; ResEnum: reSquire;
+    (Ident: 'ghoul'; Faction: reNeutrals; SubRace: reUndead; ResEnum: reGhoul;
     Size: szSmall; Name: ('Упырь', 'Упыря');
     Description: ('Упыри - опасные создания-нежить,',
     'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;

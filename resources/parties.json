@@ -51,9 +51,14 @@
 			"characters":"imp,none,none,cultist,imp,none"
 		},
 		{
-			"level": 1,
+			"level": 2,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,imp,cultist,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"none,none,orc,none,none,none"
 		},
 		{
 			"level": 2,

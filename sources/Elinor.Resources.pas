@@ -37,12 +37,14 @@ type
     reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reTreePine,
     reTreeOak, reUndeadHordesTree, reLegionsOfTheDamnedTree, reMineGold,
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
-    reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
+    reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse,
+    // Creatures
+    reMyzrael,
     rePaladin, reDeathKnight, reRanger, reArchmage, reSquire, reArcher,
     reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon,
     reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin,
     reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear, reOrc,
-    reGhost, reImp,
+    reGhost, reImp,  reGhoul,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -273,6 +275,8 @@ const
     (FileName: 'character.ghost.png'; ResType: teGUI;),
     // Imp
     (FileName: 'character.imp.png'; ResType: teGUI;),
+    // Ghoul
+    (FileName: 'character.ghoul.png'; ResType: teGUI;),
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"
