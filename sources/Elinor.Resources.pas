@@ -40,7 +40,8 @@ type
     reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
-    reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke,
+    reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reCounselor,
+    reArchdevil, reRipper, reChieftain, rePossessed, reCultist, reDevil,
     reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
     reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear,
     reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
@@ -69,9 +70,7 @@ type
     reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
-    reIconOpenedGates,
-    // The Empire ABC
-    reEmpireA);
+    reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -241,11 +240,29 @@ const
     // Acolyte
     (FileName: 'character.acolyte.png'; ResType: teGUI;),
     // Ashkael
-    (FileName: 'character.ashkael.png'; ResType: teGUI;),
+    (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Ashgan
     (FileName: 'character.ashgan.png'; ResType: teGUI;),
     // Duke
     (FileName: 'character.legions_of_the_damned.duke.png'; ResType: teGUI;),
+    // Counselor
+    (FileName: 'character.legions_of_the_damned.counselor.png';
+    ResType: teGUI;),
+    // Archdevil
+    (FileName: 'character.legions_of_the_damned.archdevil.png';
+    ResType: teGUI;),
+    // Ripper
+    (FileName: 'character.legions_of_the_damned.ripper.png'; ResType: teGUI;),
+    // Chieftain
+    (FileName: 'character.legions_of_the_damned.chieftain.png';
+    ResType: teGUI;),
+    // Possessed
+    (FileName: 'character.legions_of_the_damned.possessed.png';
+    ResType: teGUI;),
+    // Cultist
+    (FileName: 'character.legions_of_the_damned.cultist.png'; ResType: teGUI;),
+    // Devil
+    (FileName: 'character.legions_of_the_damned.devil.png'; ResType: teGUI;),
     // Black Dragon
     (FileName: 'character.black_dragon.png'; ResType: teGUI;),
     // White Dragon
@@ -273,7 +290,7 @@ const
     // Ghost
     (FileName: 'character.ghost.png'; ResType: teGUI;),
     // Imp
-    (FileName: 'character.imp.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
     // Ghoul
     (FileName: 'character.ghoul.png'; ResType: teGUI;),
     // Stone Gargoyle
@@ -425,11 +442,7 @@ const
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
-    (FileName: 'icon.gates.opened.png'; ResType: teIcon;),
-    // Empire A
-    (FileName: 'sprites\abc\the_empire\a.png'; ResType: teTheEmpireABC;)
-
-    );
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;));
 
 type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin,
@@ -440,7 +453,8 @@ type
     mmGoblinDeath, mmSkeletonHit, mmSkeletonDeath, mmOrcHit, mmOrcDeath,
     mmWolfHit, mmWolfDeath, mmWolfAttack, mmBearHit, mmBearDeath, mmBearAttack,
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
-    mmGhostAttack, mmGhoulAttack, mmHit, mmDeath, mmAttack, mmGold, mmSpellbook);
+    mmGhostAttack, mmGhoulAttack, mmHit, mmDeath, mmAttack, mmGold,
+    mmSpellbook);
 
 var
   ResImage: array [TResEnum] of TPNGImage;

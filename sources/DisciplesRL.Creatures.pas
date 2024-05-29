@@ -815,7 +815,7 @@ const
     AttackEnum: atPhoenixSword; SkillEnum: skFly; Rating: 0;),
     // Counselor
     (Ident: 'none'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reRanger; Size: szSmall; Name: ('Советник', 'Советника');
+    ResEnum: reCounselor; Size: szSmall; Name: ('Советник', 'Советника');
     Description: ('Советник ведёт авангард сил Легионов.',
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -824,7 +824,7 @@ const
     AttackEnum: atCrossbow; SkillEnum: skTravelLore; Rating: 0;),
     // Arch-Devil
     (Ident: 'none'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reArchmage; Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
+    ResEnum: reArchdevil; Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
     Description: ('Архидьявол является владыкой магии;',
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
@@ -833,7 +833,7 @@ const
     AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
     // Ripper
     (Ident: 'none'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reArchmage; Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
+    ResEnum: reRipper; Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
     Description: ('Талант потрошителя заключается в',
     'медленном и мастерском извлечении', 'правды из его жертв.'); HitPoints: 90;
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
@@ -842,7 +842,7 @@ const
     AttackEnum: atFireDagger; SkillEnum: skSpy; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reArchmage; Size: szSmall; Name: ('Атаман', 'Атамана');
+    ResEnum: reChieftain; Size: szSmall; Name: ('Атаман', 'Атамана');
     Description: ('Яростные Атаманы всегда идут впереди',
     'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
@@ -851,7 +851,7 @@ const
     AttackEnum: atFireHammer; SkillEnum: skTalisman; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reSquire; Size: szSmall; Name: ('Одержимый', 'Одержимого');
+    ResEnum: rePossessed; Size: szSmall; Name: ('Одержимый', 'Одержимого');
     Description: ('Повелитель демонов поработил этих',
     'сильных телом крестьян для того, что-',
     'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
@@ -864,13 +864,13 @@ const
     ResEnum: reStoneGargoyle; Size: szBig; Name: ('Горгулья', 'Горгулью');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
-    HitPoints: 55; Initiative: 60; ChancesToHit: 50; Leadership: 0; Level: 1;
+    HitPoints: 75; Initiative: 60; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 25; Armor: 15; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
-    Gold: 80; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    Gold: 90; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
     AttackEnum: atStones; SkillEnum: skNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reApprentice; Size: szSmall; Name: ('Культист', 'Культиста');
+    ResEnum: reCultist; Size: szSmall; Name: ('Культист', 'Культиста');
     Description: ('Еретики Империи, они взывают к',
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -879,12 +879,12 @@ const
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 20;),
     // Devil
     (Ident: 'devil'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reAcolyte; Size: szBig; Name: ('Чёрт', 'Чёрта');
+    ResEnum: reDevil; Size: szBig; Name: ('Чёрт', 'Чёрта');
     Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
     'Тёмного Повелителя Бетрезена.'); HitPoints: 120; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atLongSword;
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atClaws;
     SkillEnum: skNone; Rating: 35;),
 {$ENDREGION Legions Of The Damned}
     // Neutral Green Skins
