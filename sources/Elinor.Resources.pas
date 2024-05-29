@@ -38,7 +38,7 @@ type
     reTreeOak, reUndeadHordesTree, reLegionsOfTheDamnedTree, reMineGold,
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
     reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
-    rePaladin, reRanger, reArchmage, reSquire, reArcher, reApprentice,
+    rePaladin, reDeathKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
     reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon, reWhiteDragon,
     reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
     reGoblinElder, reGiantSpider, reWolf, reBear, reOrc, reGhost,
@@ -224,6 +224,8 @@ const
     (FileName: 'character.myzrael.png'; ResType: teGUI;),
     // Paladin
     (FileName: 'character.paladin.png'; ResType: teGUI;),
+    // Death Knight
+    (FileName: 'character.death_knight.png'; ResType: teGUI;),
     // Ranger
     (FileName: 'character.ranger.png'; ResType: teGUI;),
     // Archmage

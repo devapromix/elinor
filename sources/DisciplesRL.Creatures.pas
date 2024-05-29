@@ -707,7 +707,7 @@ const
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 0;),
     // Death Knight
     (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: rePaladin; Size: szSmall;
+    ResEnum: reDeathKnight; Size: szSmall;
     Name: ('Рыцарь Смерти', 'Рыцаря Смерти');
     Description: ('Сильнейшие и благороднейшие воины',
     'королевства Алкмаар были возвращены',
