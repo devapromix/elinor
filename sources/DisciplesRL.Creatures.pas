@@ -970,7 +970,7 @@ const
     'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: (mmSkeletonHit, mmSkeletonDeath, mmGhoulAttack); Gender: cgMale;
     AttackEnum: atClaws; SkillEnum: skNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: reNeutrals; SubRace: reDarkElf;

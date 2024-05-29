@@ -39,12 +39,11 @@ type
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
     reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse,
     // Creatures
-    reMyzrael,
-    rePaladin, reDeathKnight, reRanger, reArchmage, reSquire, reArcher,
-    reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon,
-    reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin,
-    reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear, reOrc,
-    reGhost, reImp,  reGhoul,
+    reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
+    reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke,
+    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
+    reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear,
+    reOrc, reGhost, reImp, reGhoul,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -436,10 +435,10 @@ type
     mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
     mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
     mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
-    mmGoblinDeath, mmOrcHit, mmOrcDeath, mmWolfHit, mmWolfDeath, mmWolfAttack,
-    mmBearHit, mmBearDeath, mmBearAttack, mmSpiderHit, mmSpiderDeath,
-    mmSpiderAttack, mmGhostHit, mmGhostDeath, mmGhostAttack, mmHit, mmDeath,
-    mmAttack, mmGold, mmSpellbook);
+    mmGoblinDeath, mmSkeletonHit, mmSkeletonDeath, mmOrcHit, mmOrcDeath,
+    mmWolfHit, mmWolfDeath, mmWolfAttack, mmBearHit, mmBearDeath, mmBearAttack,
+    mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
+    mmGhostAttack, mmGhoulAttack, mmHit, mmDeath, mmAttack, mmGold, mmSpellbook);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -509,6 +508,10 @@ const
     (FileName: 'goblin_hit.wav'; ResType: teSound;),
     // Goblin Death
     (FileName: 'goblin_death.wav'; ResType: teSound;),
+    // Skeleton Hit
+    (FileName: 'skeleton_hit.wav'; ResType: teSound;),
+    // Skeleton Death
+    (FileName: 'skeleton_death.wav'; ResType: teSound;),
     // Orc Hit
     (FileName: 'orc_hit.ogg'; ResType: teSound;),
     // Orc Death
@@ -536,6 +539,8 @@ const
     // Ghost Death
     (FileName: 'spider_death.wav'; ResType: teSound;),
     // Ghost Attack
+    (FileName: 'spider_attack.wav'; ResType: teSound;),
+    // Ghoul Attack
     (FileName: 'spider_attack.wav'; ResType: teSound;),
     // Hit
     (FileName: 'step.wav'; ResType: teSound;),
