@@ -79,7 +79,7 @@ type
     // The Empire Capital Guardian
     crMyzrael,
     // The Empire Warrior Leader
-    crPegasusKnight,
+    crPaladin,
     // The Empire Scout Leader
     crRanger,
     // The Empire Mage Leader
@@ -166,7 +166,7 @@ type
 {$ENDREGION CreatureEnum}
 
 const
-  LeaderWarrior = [crPegasusKnight, crDeathKnight, crDuke];
+  LeaderWarrior = [crPaladin, crDeathKnight, crDuke];
   LeaderScout = [crRanger, crNosferat, crCounselor];
   LeaderMage = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief = [crThief, crThug, crRipper];
@@ -234,7 +234,7 @@ const
     // The Empire Capital Guardian
     ((crNone, crNone, crMyzrael, crNone, crNone, crNone),
     // The Empire Leaders
-    (crPegasusKnight, crRanger, crArchmage, crThief, crWarlord, crNone), // ),
+    (crPaladin, crRanger, crArchmage, crThief, crWarlord, crNone), // ),
     // The Empire Characters
     (crSquire, crArcher, crAcolyte, crApprentice, crNone, crNone)), //
     //
@@ -608,10 +608,10 @@ const
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
     Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 0;),
-    // Pegasus Knight
+    // Paladin
     (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman;
-    ResEnum: rePegasusKnight; Size: szSmall;
-    Name: ('Рыцарь на Пегасе', 'Рыцаря на Пегасе');
+    ResEnum: rePaladin; Size: szSmall;
+    Name: ('Паладин', 'Паладина');
     Description: ('Оседлавший пегаса рыцарь - это бла-',
     'городный воин, чей крылатый скакун', 'возносит его над полями и лесами.');
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -707,7 +707,7 @@ const
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 0;),
     // Death Knight
     (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: rePegasusKnight; Size: szSmall;
+    ResEnum: rePaladin; Size: szSmall;
     Name: ('Рыцарь Смерти', 'Рыцаря Смерти');
     Description: ('Сильнейшие и благороднейшие воины',
     'королевства Алкмаар были возвращены',

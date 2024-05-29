@@ -1,17 +1,14 @@
-﻿![screenshot](https://github.com/devapromix-roguelikes/disciplesrl/blob/master/resources/title.logo.png)
-=================
-![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl/sources?category=code)
-![](https://tokei.rs/b1/github.com/devapromix-roguelikes/disciplesrl/sources?category=files)
+﻿![screenshot](https://github.com/devapromix/elinor/blob/master/resources/title.logo.png)
 
-Simple roguelike game based on Disciples.
+Simple party roguelike game based on Disciples.
 
-## I. Управление:
+## I. Keybindings:
 
 ### 1. В столице/городе:
 * Esc/Enter - выход из города (карта мира)
 * WADX, Стрелки, Цифр. клавиатура - выбрать персонажа
 * ПКМ по пустому слоту - переместить персонажа в другой слот
-* P, СКМ по персонажу - информация об отряде (см. пункт 4)
+* P - Open leader's party screen
 * Space - выбрать слот или персонажа/переместить персонажа
 * V - нанять нового персонажа
 * H - исцелить персонажа
@@ -27,7 +24,7 @@ Simple roguelike game based on Disciples.
 * СКМ по вражескому отряду- меню выбора действий вора (только лидер вор)
 * СКМ по столице/дружественному городу - информация о гарнизоне
 * СКМ по собственному отряду, V - меню выбора действий воина (только лидер воин)
-* P - инвентарь и информация об отряде (см. пункт 4)
+* P - Open leader's party/statistics screen
 * J - открыть журнал (информация по текущему сценарию)
 * I - Открыть экипировку/инвентарь лидера (см. пункт 4)
 * T - Открыть список изученных навыков лидера (см. пункт 4)
@@ -41,6 +38,7 @@ Simple roguelike game based on Disciples.
 ### 4. В окне отряда:
 * Esc/Enter - выход
 * WADX, Стрелки, Цифр. клавиатура - выбрать персонажа/прокрутить информацию о навыках
+* P - Open leader's party screen
 * I - Открыть экипировку/инвентарь лидера
 * T - Показать список изученных навыков лидера
 
@@ -66,7 +64,10 @@ The game is currently in demo stage with very limited contents and lots of issue
 Contributions are welcome! Please fork this repository and then once you have made and tested your changes, submit a pull request.
 
 ## V. Credits
-2018-2021 by Sergiy Tkach (Apromix)
+2018-2024 by Sergiy Tkach (Apromix)
+###Art:
+* Gilgaphoenixignis - https://opengameart.org/users/gilgaphoenixignis
+* Master484 - https://opengameart.org/users/master484
 
-DisciplesRL is open source, written in pascal, the full source is available at:
-https://github.com/devapromix-roguelikes/disciplesrl
+Elinor is open source, written in pascal, the full source is available at:
+https://github.com/devapromix/elinor
