@@ -69,9 +69,7 @@ type
     reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
-    reIconOpenedGates,
-    // The Empire ABC
-    reEmpireA);
+    reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -241,7 +239,7 @@ const
     // Acolyte
     (FileName: 'character.acolyte.png'; ResType: teGUI;),
     // Ashkael
-    (FileName: 'character.ashkael.png'; ResType: teGUI;),
+    (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Ashgan
     (FileName: 'character.ashgan.png'; ResType: teGUI;),
     // Duke
@@ -425,10 +423,7 @@ const
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
-    (FileName: 'icon.gates.opened.png'; ResType: teIcon;),
-    // Empire A
-    (FileName: 'sprites\abc\the_empire\a.png'; ResType: teTheEmpireABC;)
-
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
     );
 
 type

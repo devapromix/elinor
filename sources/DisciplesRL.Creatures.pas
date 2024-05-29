@@ -864,9 +864,9 @@ const
     ResEnum: reStoneGargoyle; Size: szBig; Name: ('Горгулья', 'Горгулью');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
-    HitPoints: 55; Initiative: 60; ChancesToHit: 50; Leadership: 0; Level: 1;
+    HitPoints: 75; Initiative: 60; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 25; Armor: 15; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
-    Gold: 80; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    Gold: 90; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
     AttackEnum: atStones; SkillEnum: skNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
@@ -884,7 +884,7 @@ const
     'Тёмного Повелителя Бетрезена.'); HitPoints: 120; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atLongSword;
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atClaws;
     SkillEnum: skNone; Rating: 35;),
 {$ENDREGION Legions Of The Damned}
     // Neutral Green Skins
