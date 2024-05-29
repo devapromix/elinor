@@ -38,10 +38,11 @@ type
     reTreeOak, reUndeadHordesTree, reLegionsOfTheDamnedTree, reMineGold,
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
     reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse, reMyzrael,
-    rePaladin, reDeathKnight, reRanger, reArchmage, reSquire, reArcher, reApprentice,
-    reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon, reWhiteDragon,
-    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
-    reGoblinElder, reGiantSpider, reWolf, reBear, reOrc, reGhost,
+    rePaladin, reDeathKnight, reRanger, reArchmage, reSquire, reArcher,
+    reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reBlackDragon,
+    reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin,
+    reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear, reOrc,
+    reGhost, reImp,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -270,6 +271,8 @@ const
     (FileName: 'character.orc.png'; ResType: teGUI;),
     // Ghost
     (FileName: 'character.ghost.png'; ResType: teGUI;),
+    // Imp
+    (FileName: 'character.imp.png'; ResType: teGUI;),
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"
@@ -417,7 +420,7 @@ const
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
-    (FileName: 'icon.gates.opened.png'; ResType: teIcon;) ,
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;),
     // Empire A
     (FileName: 'sprites\abc\the_empire\a.png'; ResType: teTheEmpireABC;)
 

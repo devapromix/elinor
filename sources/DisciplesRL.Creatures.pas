@@ -986,7 +986,7 @@ const
     // Neutral Heretics
 {$REGION Heretics}
     // Imp
-    (Ident: 'imp'; Faction: reNeutrals; SubRace: reHeretic; ResEnum: reSquire;
+    (Ident: 'imp'; Faction: reNeutrals; SubRace: reHeretic; ResEnum: reImp;
     Size: szSmall; Name: ('Имп', 'Импа');
     Description: ('','',''); HitPoints: 55;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20;
