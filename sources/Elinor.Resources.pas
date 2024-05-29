@@ -43,7 +43,7 @@ type
     reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke,
     reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
     reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear,
-    reOrc, reGhost, reImp, reGhoul,
+    reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -276,6 +276,8 @@ const
     (FileName: 'character.imp.png'; ResType: teGUI;),
     // Ghoul
     (FileName: 'character.ghoul.png'; ResType: teGUI;),
+    // Stone Gargoyle
+    (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"

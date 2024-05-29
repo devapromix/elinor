@@ -861,7 +861,7 @@ const
     AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
     // Gargoyle
     (Ident: 'gargoyle'; Faction: reLegionsOfTheDamned; SubRace: reGargoyle;
-    ResEnum: reArcher; Size: szBig; Name: ('Горгулья', 'Горгулью');
+    ResEnum: reStoneGargoyle; Size: szBig; Name: ('Горгулья', 'Горгулью');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 55; Initiative: 60; ChancesToHit: 50; Leadership: 0; Level: 1;
