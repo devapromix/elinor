@@ -609,9 +609,8 @@ const
     Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
     AttackEnum: atMagic; SkillEnum: skNone; Rating: 0;),
     // Paladin
-    (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman;
-    ResEnum: rePaladin; Size: szSmall;
-    Name: ('Паладин', 'Паладина');
+    (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: rePaladin;
+    Size: szSmall; Name: ('Паладин', 'Паладина');
     Description: ('Оседлавший пегаса рыцарь - это бла-',
     'городный воин, чей крылатый скакун', 'возносит его над полями и лесами.');
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -970,7 +969,7 @@ const
     'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
-    Sound: (mmSkeletonHit, mmSkeletonDeath, mmGhoulAttack); Gender: cgMale;
+    Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
     AttackEnum: atClaws; SkillEnum: skNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: reNeutrals; SubRace: reDarkElf;
@@ -987,11 +986,10 @@ const
 {$REGION Heretics}
     // Imp
     (Ident: 'imp'; Faction: reNeutrals; SubRace: reHeretic; ResEnum: reImp;
-    Size: szSmall; Name: ('Имп', 'Импа');
-    Description: ('','',''); HitPoints: 55;
-    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 75;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Имп', 'Импа'); Description: ('', '', '');
+    HitPoints: 55; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 75; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atClaws; SkillEnum: skNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals

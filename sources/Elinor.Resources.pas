@@ -453,8 +453,8 @@ type
     mmGoblinDeath, mmSkeletonHit, mmSkeletonDeath, mmOrcHit, mmOrcDeath,
     mmWolfHit, mmWolfDeath, mmWolfAttack, mmBearHit, mmBearDeath, mmBearAttack,
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
-    mmGhostAttack, mmGhoulAttack, mmHit, mmDeath, mmAttack, mmGold,
-    mmSpellbook);
+    mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
+    mmAttack, mmGold, mmSpellbook);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -557,7 +557,11 @@ const
     // Ghost Attack
     (FileName: 'spider_attack.wav'; ResType: teSound;),
     // Ghoul Attack
-    (FileName: 'spider_attack.wav'; ResType: teSound;),
+    (FileName: 'ghoul_attack.ogg'; ResType: teSound;),
+    // Ghoul Hit
+    (FileName: 'ghoul_hit.ogg'; ResType: teSound;),
+    // Ghoul Death
+    (FileName: 'ghoul_death.ogg'; ResType: teSound;),
     // Hit
     (FileName: 'step.wav'; ResType: teSound;),
     // Death
