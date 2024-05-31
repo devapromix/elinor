@@ -442,7 +442,8 @@ const
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
-    (FileName: 'icon.gates.opened.png'; ResType: teIcon;));
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
+    );
 
 type
   TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin,
