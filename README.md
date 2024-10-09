@@ -1,6 +1,6 @@
 ﻿![screenshot](https://github.com/devapromix/elinor/blob/master/resources/title.logo.png)
 
-Simple party roguelike game based on Disciples.
+Simple party roguelike game based on Disciples game.
 
 ## I. Keybindings:
 
@@ -65,7 +65,8 @@ Contributions are welcome! Please fork this repository and then once you have ma
 
 ## V. Credits
 2018-2024 by Sergiy Tkach (Apromix)
-###Art:
+
+### Art:
 * Gilgaphoenixignis - https://opengameart.org/users/gilgaphoenixignis
 * Master484 - https://opengameart.org/users/master484
 
