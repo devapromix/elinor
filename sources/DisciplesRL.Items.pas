@@ -42,6 +42,11 @@ type
   TItemEffect = (ieNone);
 
 type
+  TJewlery = (jwNone, jwSteel, jwBronze, jwCopper, jwBrass, jwSilver, jwGold,
+    jwAgate, jwOpal, jwAmethyst, jwRuby, jwEmerald, jwJade, jwPearl, jwQuartz,
+    jwSapphire, jwDiamond);
+
+type
   TItemEnum = (iNone,
     // Valuables
     iRunicKey, iWotansScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
