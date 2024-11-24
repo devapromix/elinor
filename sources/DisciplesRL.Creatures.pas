@@ -140,7 +140,7 @@ type
     crDevil,
 
     // Goblins
-    crGoblin, crGoblin_Archer, crGoblin_Elder,
+    crGoblin, crGoblin_Rider, crGoblin_Archer, crGoblin_Elder,
     // Orcs
     crOrc,
     // Ogres
@@ -897,6 +897,16 @@ const
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
     Gender: cgMale; AttackEnum: atSpear; SkillEnum: skNone; Rating: 25;),
+    // Goblin Rider
+    (Ident: 'goblin-rider'; Faction: reNeutrals; SubRace: reGreenSkin;
+    ResEnum: reGoblin; Size: szSmall;
+    Name: ('Гоблин-наездник', 'Гоблина-наездника');
+    Description: ('Некоторые гоблины приручают', 'диких варгов и используют',
+    'их в бою как средство передвижения.'); HitPoints: 55; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    SourceEnum: seLife; ReachEnum: reAdj; Gold: 120;
+    Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
+    AttackEnum: atSpear; SkillEnum: skNone; Rating: 30;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: reNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;

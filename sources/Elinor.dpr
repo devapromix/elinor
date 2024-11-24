@@ -40,7 +40,7 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   Application.MainFormOnTaskbar := True;
   {$ENDIF}
-  Application.Title := 'DisciplesRL';
+  Application.Title := 'ELINOR';
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 
