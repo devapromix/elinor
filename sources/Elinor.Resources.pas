@@ -59,7 +59,11 @@ type
     reTitleAbilities, reTitleInventory, reTitleSpellbook,
 
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
-    reItemGold, reItemMana, reItemStoneTable, reDifficultyEasyLogo,
+    // Items
+    reItemGold, reItemMana, reItemStoneTable, reItemPotionOfHealing,
+
+
+    reDifficultyEasyLogo,
     reDifficultyNormalLogo, reDifficultyHardLogo, reThiefSpy, reThiefDuel,
     reThiefPoison,
 
@@ -395,12 +399,16 @@ const
     (FileName: 'logo.scenario.overlord.png'; ResType: teGUI;),
     // Scenario "Ancient Knowledge"
     (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
+
     // Item Gold
     (FileName: 'item.gold.png'; ResType: teItem;),
     // Item Mana
     (FileName: 'item.mana.png'; ResType: teItem;),
     // Item Stone Table
     (FileName: 'item.stone_table.png'; ResType: teItem;),
+    // Item Potion Of Healing
+    (FileName: 'item.potion.healing.png'; ResType: teIcon;),
+
     // Difficulty Easy
     (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),
     // Difficulty Normal
@@ -443,6 +451,7 @@ const
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
     (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
+    //
     );
 
 type

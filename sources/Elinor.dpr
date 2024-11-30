@@ -30,7 +30,8 @@ uses
   DisciplesRL.Scene.Spellbook in 'Scenes\DisciplesRL.Scene.Spellbook.pas',
   DisciplesRL.Player in 'DisciplesRL.Player.pas',
   Elinor.PathFind in 'Elinor.PathFind.pas',
-  Elinor.Spells in 'Elinor.Spells.pas';
+  Elinor.Spells in 'Elinor.Spells.pas',
+  Elinor.Frame in 'Elinor.Frame.pas';
 
 {$R *.res}
 

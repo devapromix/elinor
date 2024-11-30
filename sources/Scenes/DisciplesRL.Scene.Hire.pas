@@ -1146,7 +1146,7 @@ begin
               end;
               if TSaga.NewItem > 0 then
               begin
-                ItemRes := reAcolyte;
+                ItemRes := TItemBase.Item(TSaga.NewItem).ItRes;
                 if It1 = reNone then
                   It1 := ItemRes
                 else if It2 = reNone then
