@@ -69,6 +69,7 @@ Contributions are welcome! Please fork this repository and then once you have ma
 ### Art:
 * Gilgaphoenixignis - https://opengameart.org/users/gilgaphoenixignis
 * Master484 - https://opengameart.org/users/master484
+* The RLTiles - https://rltiles.sourceforge.net/
 
 Elinor is open source, written in pascal, the full source is available at:
 https://github.com/devapromix/elinor
