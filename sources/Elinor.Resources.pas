@@ -34,10 +34,13 @@ type
     reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag,
     reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
-    reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reTreePine,
-    reTreeOak, reUndeadHordesTree, reLegionsOfTheDamnedTree, reMineGold,
-    reMineMana, reMountain1, reMountain2, reMountain3, reMountain4, reTree1,
-    reTree2, reTree3, reTree4, reButtonDef, reButtonAct, reCorpse,
+    reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reMineGold,
+    reMineMana, reMountain1, reMountain2, reMountain3, reMountain4,
+    // Trees
+    reTree1, reTree2, reTree3, reTree4, reTree5, reUndeadHordesTree,
+    reLegionsOfTheDamnedTree,
+
+    reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
     reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reCounselor,
@@ -62,10 +65,8 @@ type
     // Items
     reItemGold, reItemMana, reItemStoneTable, reItemPotionOfHealing,
 
-
-    reDifficultyEasyLogo,
-    reDifficultyNormalLogo, reDifficultyHardLogo, reThiefSpy, reThiefDuel,
-    reThiefPoison,
+    reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
+    reThiefSpy, reThiefDuel, reThiefPoison,
 
     reWarriorRest,
 
@@ -84,7 +85,7 @@ const
     reLegionsOfTheDamnedTerrain];
   MountainTiles = [reMountain1, reMountain2, reMountain3, reMountain4];
   StopTiles = MountainTiles + [reDark];
-  TreesTiles = [reTreePine, reTreeOak, reTree1, reTree2, reTree3, reTree4];
+  TreesTiles = [reTree1, reTree2, reTree3, reTree4, reTree5];
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
@@ -191,14 +192,6 @@ const
     (FileName: 'tile.tower.png'; ResType: teTower;),
     // STower
     (FileName: 'tile.stower.png'; ResType: teTower;),
-    // Pine
-    (FileName: 'tile.tree.pine.png'; ResType: teTree;),
-    // Oak
-    (FileName: 'tile.tree.oak.png'; ResType: teTree;),
-    // Undead Hordes Tree
-    (FileName: 'tile.tree.undead_hordes.png'; ResType: teTree;),
-    // Legions Of The Damned Tree
-    (FileName: 'tile.tree.legions_of_the_damned.png'; ResType: teTree;),
     // Gold Mine
     (FileName: 'tile.mine.gold.png'; ResType: teMine;),
     // Mana Mine
@@ -219,6 +212,12 @@ const
     (FileName: 'tile.tree3.png'; ResType: teObject;),
     // Tree #4
     (FileName: 'tile.tree4.png'; ResType: teObject;),
+    // Tree #5
+    (FileName: 'tile.tree5.png'; ResType: teObject;),
+    // Undead Hordes Tree
+    (FileName: 'tile.tree.undead_hordes.png'; ResType: teTree;),
+    // Legions Of The Damned Tree
+    (FileName: 'tile.tree.legions_of_the_damned.png'; ResType: teTree;),
     // Button
     (FileName: 'button.def.png'; ResType: teGUI;),
     // Button
