@@ -1,4 +1,4 @@
-unit Elinor.Statistics;
+﻿unit Elinor.Statistics;
 
 interface
 

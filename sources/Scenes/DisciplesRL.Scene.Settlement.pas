@@ -3,6 +3,7 @@
 interface
 
 uses
+  Elinor.Scene.Frames,
 {$IFDEF FPC}
   Controls,
 {$ELSE}
@@ -20,7 +21,7 @@ type
   { TSceneMap }
 
 type
-  TSceneSettlement = class(TScene)
+  TSceneSettlement = class(TSceneFrames)
   private type
     TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
   private const
@@ -403,7 +404,6 @@ procedure TSceneSettlement.Render;
 
 begin
   inherited;
-  DrawImage(reWallpaperSettlement);
   case CurrentSettlementType of
     stCity:
       begin

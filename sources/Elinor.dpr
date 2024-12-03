@@ -33,7 +33,8 @@ uses
   Elinor.Spells in 'Elinor.Spells.pas',
   Elinor.Frame in 'Elinor.Frame.pas',
   Elinor.Treasure in 'Elinor.Treasure.pas',
-  Elinor.Statistics in 'Game\Elinor.Statistics.pas';
+  Elinor.Statistics in 'Game\Elinor.Statistics.pas',
+  Elinor.Scene.Frames in 'Scenes\Elinor.Scene.Frames.pas';
 
 {$R *.res}
 

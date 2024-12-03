@@ -9,17 +9,17 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Creatures;
 
-  {
-    Сценарии:
-    [1] Темная Башня - победить чародея в башне.
-    [2] Древние Знания - собрать на карте все каменные таблички с древними знаниями.
-    [3] Властитель - захватить все города на карте.
-    4  Захватить определенный город.
-    5  Добыть определенный артефакт.
-    6  Разорить все руины и другие опасные места.
-    7  Победить всех врагов на карте.
-    8  Что-то выполнить за N дней (лимит времени, возможно опция для каждого сценария).
-  }
+{
+  Сценарии:
+  [1] Темная Башня - победить чародея в башне.
+  [2] Древние Знания - собрать на карте все каменные таблички с древними знаниями.
+  [3] Властитель - захватить все города на карте.
+  4  Захватить определенный город.
+  5  Добыть определенный артефакт.
+  6  Разорить все руины и другие опасные места.
+  7  Победить всех врагов на карте.
+  8  Что-то выполнить за N дней (лимит времени, возможно опция для каждого сценария).
+}
 
 type
   TPartyBase = record
@@ -152,7 +152,7 @@ type
     class procedure AddPartyAt(const AX, AY: Integer;
       IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
-    class function GetMapLevel(const AX: Integer; const AY: Integer): Integer;
+    class function GetTileLevel(const AX: Integer; const AY: Integer): Integer;
   end;
 
 implementation
@@ -169,7 +169,7 @@ uses
 const
   MaxLevel = 8;
 
-{ TSaga }
+  { TSaga }
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
@@ -177,7 +177,7 @@ var
   LPosition: TPosition;
   LCreatureEnum: TCreatureEnum;
 begin
-  LLevel := GetMapLevel(AX, AY);
+  LLevel := GetTileLevel(AX, AY);
   LLevel := 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
@@ -239,7 +239,7 @@ begin
     try
       if FileExists('parties.txt') then
         LStringList.LoadFromFile('parties.txt');
-      LText := Format('Level-%d ', [TSaga.GetMapLevel(Party[LPartyIndex].X,
+      LText := Format('Level-%d ', [TSaga.GetTileLevel(Party[LPartyIndex].X,
         Party[LPartyIndex].Y)]);
       for LPosition := Low(TPosition) to High(TPosition) do
         LText := LText + Format('%d-%s ',
@@ -315,7 +315,8 @@ begin
   TSceneHire.Show(stLoot, scMap, LootRes);
 end;
 
-class function TSaga.GetMapLevel(const AX: Integer; const AY: Integer): Integer;
+class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
+  : Integer;
 begin
   Result := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) +
     Ord(TSaga.Difficulty), 1, MaxLevel);

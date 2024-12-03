@@ -3,8 +3,9 @@
 interface
 
 uses
+  Elinor.Scene.Frames,
 {$IFDEF FPC}
-  Controls,
+    Controls,
 {$ELSE}
   Vcl.Controls,
 {$ENDIF}
@@ -92,8 +93,6 @@ begin
   end;
 end;
 
-{ TSceneMenu }
-
 constructor TSceneMenu.Create;
 var
   L, T, H: Integer;
@@ -168,7 +167,7 @@ begin
   DrawImage(reWallpaperMenu);
   DrawTitle(reTitleLogo);
   RenderButtons;
-  DrawText(650, '2018-2021 by Apromix');
+  DrawText(650, '2018-2024 by Apromix');
 end;
 
 procedure TSceneMenu.Timer;
