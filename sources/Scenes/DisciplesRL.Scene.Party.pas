@@ -69,6 +69,7 @@ implementation
 uses
   SysUtils, dialogs,
   Elinor.Saga,
+  Elinor.Statistics,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Button,
   DisciplesRL.Items;

@@ -69,6 +69,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
+  Elinor.Statistics,
   Elinor.Resources,
   DisciplesRL.Button,
   DisciplesRL.Scene.Party,
@@ -678,8 +679,7 @@ procedure TSceneBattle2.NextTurn;
 var
   Position: Integer;
   S: string;
-  A:
-  TArray<string>;
+  A: TArray<string>;
 begin
   Position := -1;
   repeat

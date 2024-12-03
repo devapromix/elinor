@@ -17,6 +17,7 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Player,
   Elinor.Treasure,
+  Elinor.Statistics,
   Elinor.Resources;
 
 type

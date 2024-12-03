@@ -32,7 +32,8 @@ uses
   Elinor.PathFind in 'Elinor.PathFind.pas',
   Elinor.Spells in 'Elinor.Spells.pas',
   Elinor.Frame in 'Elinor.Frame.pas',
-  Elinor.Treasure in 'Elinor.Treasure.pas';
+  Elinor.Treasure in 'Elinor.Treasure.pas',
+  Elinor.Statistics in 'Game\Elinor.Statistics.pas';
 
 {$R *.res}
 

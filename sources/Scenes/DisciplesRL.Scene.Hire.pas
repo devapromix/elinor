@@ -29,8 +29,8 @@ type
   { TSceneHire }
 
   TSceneHire = class(TScene)
-  private class var
-    CurrentIndex: Integer;
+  private
+    class var CurrentIndex: Integer;
   strict private
     function ThiefPoisonDamage: Integer;
     function ThiefChanceOfSuccess(V: TLeaderThiefSpyVar): Integer;
@@ -88,6 +88,7 @@ implementation
 uses
   Math,
   SysUtils,
+  Elinor.Statistics,
   DisciplesRL.Common,
   DisciplesRL.Map,
   DisciplesRL.Button,
@@ -555,7 +556,8 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderRace(const Race: TFactionEnum; const AX, AY: Integer);
+procedure TSceneHire.RenderRace(const Race: TFactionEnum;
+  const AX, AY: Integer);
 begin
   case Race of
     reTheEmpire:
@@ -1196,8 +1198,8 @@ begin
               AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum)
                 .SkillEnum).Name);
               for I := 0 to 1 do
-                AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum)
-                  .Description[I]);
+                AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum)
+                  .SkillEnum).Description[I]);
               AddTextLine;
               AddTextLine;
               AddTextLine('Экипировка', True);
@@ -1206,9 +1208,11 @@ begin
                 [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum)
                 .AttackEnum, TCreature.Character(CurCrEnum).SourceEnum)]));
               AddTextLine;
-              AddTextLine('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
+              AddTextLine('Скорость Передвижения',
+                TLeaderParty.GetMaxSpeed(CurCrEnum));
               AddTextLine('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
-              AddTextLine('Заклинаний в день', TLeaderParty.GetMaxSpells(CurCrEnum));
+              AddTextLine('Заклинаний в день',
+                TLeaderParty.GetMaxSpells(CurCrEnum));
             end;
         end;
       end;
@@ -1254,7 +1258,7 @@ var
   Cycler: TEnumCycler<N>;
 begin
   Basic(AKey);
-  if not (AKey in [K_UP, K_Down]) then
+  if not(AKey in [K_UP, K_Down]) then
     Exit;
   Game.Player.PlaySound(mmClick);
   Cycler := TEnumCycler<N>.Create(CurrentIndex);
@@ -1268,11 +1272,13 @@ var
   procedure Upd(const MaxValue: Integer);
   begin
     Basic(Key);
-    if not (Key in [K_UP, K_Down]) then
+    if not(Key in [K_UP, K_Down]) then
       Exit;
     Game.Player.PlaySound(mmClick);
-    CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_Up, -1, 1), 0, MaxValue);
+    CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_UP, -1, 1), 0,
+      MaxValue);
   end;
+
 begin
   inherited;
   case SubScene of
@@ -1293,7 +1299,7 @@ begin
                   Dec(CurrentIndex);
               end;
             end;
-          K_DOWN:
+          K_Down:
             begin
               Game.Player.PlaySound(mmClick);
               case CurrentIndex of
@@ -1324,14 +1330,14 @@ begin
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
     stRace:
-        UpdEnum<TPlayableRaces>(Key);
-        //Upd(Ord(High(TRaceCharKind)));
+      UpdEnum<TPlayableRaces>(Key);
+    // Upd(Ord(High(TRaceCharKind)));
     stDifficulty:
-        UpdEnum<TSaga.TDifficultyEnum>(Key);
-        //Upd(Ord(High(TSaga.TDifficultyEnum)));
+      UpdEnum<TSaga.TDifficultyEnum>(Key);
+    // Upd(Ord(High(TSaga.TDifficultyEnum)));
     stScenario:
-        UpdEnum<TScenario.TScenarioEnum>(Key);
-        //Upd(Ord(High(TScenario.TScenarioEnum)));
+      UpdEnum<TScenario.TScenarioEnum>(Key);
+    // Upd(Ord(High(TScenario.TScenarioEnum)));
     stVictory, stDefeat, stHighScores2, stAbilities:
       Basic(Key);
   end;
