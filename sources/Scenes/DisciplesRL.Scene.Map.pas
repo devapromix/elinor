@@ -39,7 +39,7 @@ uses
   DisciplesRL.Map,
   Elinor.Resources,
   Elinor.Saga,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Party,
   DisciplesRL.Creatures,

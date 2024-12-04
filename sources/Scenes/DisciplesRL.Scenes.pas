@@ -187,7 +187,7 @@ uses
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Menu2,
   DisciplesRL.Scene.Settlement,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Battle3,

@@ -146,7 +146,7 @@ uses
   Elinor.Saga,
   Elinor.Resources,
   DisciplesRL.Scenes,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Scene.Hire;
 

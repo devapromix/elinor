@@ -105,7 +105,7 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   Elinor.PathFind;
 
 function ChTile(X, Y: Integer): Boolean; stdcall;
@@ -658,8 +658,8 @@ class procedure TMapPlace.UpdateRadius(const AID: Integer);
 begin
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrTile],
-    FactionTerrain[TSaga.LeaderRace], [reNeutralCity, reRuin, reTower] + Capitals
-    + Cities);
+    FactionTerrain[TSaga.LeaderRace], [reNeutralCity, reRuin, reTower] +
+    Capitals + Cities);
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrDark], reNone);
   Game.Map.MapPlace[AID].Owner := TSaga.LeaderRace;

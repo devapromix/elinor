@@ -72,7 +72,7 @@ uses
   Elinor.Statistics,
   Elinor.Resources,
   DisciplesRL.Button,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   DisciplesRL.Scene.Hire;
 
 var

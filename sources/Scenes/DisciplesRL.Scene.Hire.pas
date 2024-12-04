@@ -92,7 +92,7 @@ uses
   DisciplesRL.Common,
   DisciplesRL.Map,
   DisciplesRL.Button,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Settlement,
   DisciplesRL.Items;

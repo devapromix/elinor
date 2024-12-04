@@ -66,7 +66,7 @@ uses
   SysUtils,
   Elinor.Saga,
   DisciplesRL.Map,
-  DisciplesRL.Scene.Party,
+  Elinor.Scene.Party,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Hire;
 
