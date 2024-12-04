@@ -585,7 +585,7 @@ uses
   Math,
   Dialogs,
   SysUtils,
-  DisciplesRL.Party,
+  Elinor.Party,
   Elinor.Saga;
 
 const

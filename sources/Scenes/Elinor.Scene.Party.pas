@@ -9,7 +9,7 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Scenes,
   Elinor.Resources,
   Elinor.Scene.Frames,

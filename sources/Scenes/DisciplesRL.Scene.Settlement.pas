@@ -12,7 +12,7 @@ uses
   Classes,
   DisciplesRL.Button,
   Elinor.Resources,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Scenes;
 
 type

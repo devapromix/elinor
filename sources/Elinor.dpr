@@ -13,7 +13,7 @@ uses
   Elinor.Resources in 'Elinor.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Items in 'DisciplesRL.Items.pas',
-  DisciplesRL.Party in 'DisciplesRL.Party.pas',
+  Elinor.Party in 'Game\Elinor.Party.pas',
   Bass in 'Third-Party\Bass\Bass.pas',
   DisciplesRL.Battle in 'DisciplesRL.Battle.pas',
   DisciplesRL.Scenes in 'Scenes\DisciplesRL.Scenes.pas',

@@ -17,7 +17,7 @@ uses
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
   Elinor.Resources,
-  DisciplesRL.Party;
+  Elinor.Party;
 
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,

@@ -102,7 +102,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Party,

@@ -6,7 +6,7 @@ uses
   Types,
   Dialogs,
   Elinor.Resources,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Creatures;
 
 {

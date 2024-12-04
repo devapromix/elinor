@@ -11,7 +11,7 @@ uses
   Classes,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Battle;
 
 type

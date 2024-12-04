@@ -14,7 +14,7 @@ uses
   Classes,
   Elinor.Saga,
   DisciplesRL.Map,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Player,
   Elinor.Treasure,
   Elinor.Statistics,

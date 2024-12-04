@@ -41,7 +41,7 @@ uses
   Elinor.Saga,
   Elinor.Scene.Party,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Party,
+  Elinor.Party,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Spellbook,
   Elinor.PathFind;
