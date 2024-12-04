@@ -533,9 +533,9 @@ begin
       DrawImage(AX, AY, reActFrame);
   end
   else if (SelectPartyPosition = J) then
-    DrawImage(AX, AY, reSelectFrame)
-  else
-    DrawImage(AX, AY, reFrame);
+    DrawImage(AX, AY, reSelectFrame);
+  // else
+  // DrawImage(AX, AY, reFrame);
 end;
 
 procedure TScene.DrawResources;

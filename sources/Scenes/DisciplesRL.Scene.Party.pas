@@ -12,10 +12,11 @@ uses
   DisciplesRL.Party,
   DisciplesRL.Scenes,
   Elinor.Resources,
+  Elinor.Scene.Frames,
   DisciplesRL.Creatures;
 
 type
-  TSceneParty = class(TScene)
+  TSceneParty = class(TSceneFrames)
   private
   var
     P: Boolean;
@@ -311,7 +312,7 @@ var
   I: TButtonEnum;
   Lt, W: Integer;
 begin
-  inherited;
+  inherited Create(reWallpaperLeader);
   W := ResImage[reButtonDef].Width + 4;
   Lt := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
@@ -524,7 +525,6 @@ var
 
 begin
   inherited;
-  DrawImage(reWallpaperLeader);
   RenderParty(psLeft, CurrentParty);
   if FShowInventory then
     ShowInventory
@@ -547,7 +547,7 @@ procedure TSceneParty.Update(var Key: Word);
 begin
   inherited;
   case Key of
-    K_ESCAPE, K_ENTER:
+    K_ESCAPE, K_ENTER, K_P:
       Close;
     K_I:
       if FShowResources then
