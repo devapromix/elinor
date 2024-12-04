@@ -727,7 +727,7 @@ const
     AttackEnum: atDrainLife; SkillEnum: skVamp; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reArchmage; Size: szSmall;
+    ResEnum: reLichQueen; Size: szSmall;
     Name: ('Королева Личей', 'Королеву Личей');
     Description: ('Жрицы культа смерти, процветавшего в',
     'Алкмааре, вернулись по воле Мортис', 'безжалостными Королевами личей.');
