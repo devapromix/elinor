@@ -44,8 +44,8 @@ type
     // Creatures
     reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
     reArcher, reThief, reWarlord, reApprentice, reAcolyte, reAshkael, reAshgan,
-    reDuke, reCounselor, reArchdevil, reRipper, reChieftain, rePossessed,
-    reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
+    reNosferat, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
+    rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
     reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp, reGhoul,
     reStoneGargoyle,
@@ -232,7 +232,7 @@ const
     // Paladin
     (FileName: 'character.the_empire.paladin.png'; ResType: teGUI;),
     // Death Knight
-    (FileName: 'character.death_knight.png'; ResType: teGUI;),
+    (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
     // Ranger
     (FileName: 'character.the_empire.ranger.png'; ResType: teGUI;),
     // Archmage
@@ -252,7 +252,9 @@ const
     // Ashkael
     (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Ashgan
-    (FileName: 'character.ashgan.png'; ResType: teGUI;),
+    (FileName: 'character.undead_hordes.ashgan.png'; ResType: teGUI;),
+    // Nosferat
+    (FileName: 'character.undead_hordes.nosferat.png'; ResType: teGUI;),
     // Duke
     (FileName: 'character.legions_of_the_damned.duke.png'; ResType: teGUI;),
     // Counselor
@@ -298,7 +300,7 @@ const
     // Orc
     (FileName: 'character.orc.png'; ResType: teGUI;),
     // Ghost
-    (FileName: 'character.ghost.png'; ResType: teGUI;),
+    (FileName: 'character.undead_hordes.ghost.png'; ResType: teGUI;),
     // Imp
     (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
     // Ghoul

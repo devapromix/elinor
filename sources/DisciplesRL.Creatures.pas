@@ -717,7 +717,7 @@ const
     AttackEnum: atSlayerSword; SkillEnum: skFly; Rating: 0;),
     // Nosferat
     (Ident: 'none'; Faction: reUndeadHordes; SubRace: reVampire;
-    ResEnum: reRanger; Size: szSmall; Name: ('Носферату', 'Носферату');
+    ResEnum: reNosferat; Size: szSmall; Name: ('Носферату', 'Носферату');
     Description: ('Первые вампиры Алкмаара, отринувшие',
     'Всеотца и поклявшиеся в верности Мор-',
     'тис в обмен на власть над смертью.'); HitPoints: 90; Initiative: 50;
