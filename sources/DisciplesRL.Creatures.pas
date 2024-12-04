@@ -637,7 +637,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
     // Thief
-    (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
+    (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: reThief;
     Size: szSmall; Name: ('Вор', 'Вора');
     Description: ('Опытные обманщики и воры, легко',
     'пробираются в тыл врага, и служат', 'Империи, добывая важные сведения.');

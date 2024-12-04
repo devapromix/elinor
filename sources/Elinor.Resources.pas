@@ -43,7 +43,7 @@ type
     reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
-    reArcher, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reCounselor,
+    reArcher, reThief, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reCounselor,
     reArchdevil, reRipper, reChieftain, rePossessed, reCultist, reDevil,
     reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
     reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear,
@@ -64,17 +64,20 @@ type
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     // Items
     reItemGold, reItemMana, reItemStoneTable, reItemPotionOfHealing,
-
+    //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
+    //
     reThiefSpy, reThiefDuel, reThiefPoison,
-
+    //
     reWarriorRest,
 
     reWarriorRitual,
-
+    //
     reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
-    reWallpaperScenario, reIconScores, reIconScoresOver, reIconClosedGates,
+    reWallpaperScenario,
+    //
+    reIconScores, reIconScoresOver, reIconClosedGates,
     reIconOpenedGates);
 
 const
@@ -238,6 +241,8 @@ const
     (FileName: 'character.squire.png'; ResType: teGUI;),
     // Archer
     (FileName: 'character.archer.png'; ResType: teGUI;),
+    // Thief
+    (FileName: 'character.the_empire.thief.png'; ResType: teGUI;),
     // Apprentice
     (FileName: 'character.apprentice.png'; ResType: teGUI;),
     // Acolyte
