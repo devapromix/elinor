@@ -230,25 +230,25 @@ const
     // Myzrael
     (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
     // Paladin
-    (FileName: 'character.paladin.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.paladin.png'; ResType: teGUI;),
     // Death Knight
     (FileName: 'character.death_knight.png'; ResType: teGUI;),
     // Ranger
-    (FileName: 'character.ranger.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.ranger.png'; ResType: teGUI;),
     // Archmage
     (FileName: 'character.the_empire.archmage.png'; ResType: teGUI;),
     // Squire
-    (FileName: 'character.squire.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.squire.png'; ResType: teGUI;),
     // Archer
-    (FileName: 'character.archer.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.archer.png'; ResType: teGUI;),
     // Thief
     (FileName: 'character.the_empire.thief.png'; ResType: teGUI;),
     // Warlord
     (FileName: 'character.the_empire.warlord.png'; ResType: teGUI;),
     // Apprentice
-    (FileName: 'character.apprentice.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.apprentice.png'; ResType: teGUI;),
     // Acolyte
-    (FileName: 'character.acolyte.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.acolyte.png'; ResType: teGUI;),
     // Ashkael
     (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Ashgan
