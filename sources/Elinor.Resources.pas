@@ -228,7 +228,7 @@ const
     // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Myzrael
-    (FileName: 'character.myzrael.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
     // Paladin
     (FileName: 'character.paladin.png'; ResType: teGUI;),
     // Death Knight
