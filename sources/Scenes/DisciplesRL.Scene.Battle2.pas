@@ -11,6 +11,7 @@ uses
   Classes,
   DisciplesRL.Creatures,
   DisciplesRL.Scenes,
+  Elinor.Scene.Frames,
   Elinor.Party,
   DisciplesRL.Battle;
 
@@ -18,7 +19,7 @@ type
   TTurnType = (ttHeal, ttDamage, ttFear);
 
 type
-  TSceneBattle2 = class(TScene)
+  TSceneBattle2 = class(TSceneFrames)
   private
     DuelEnemyParty: TParty;
     DuelLeaderParty: TParty;
@@ -344,7 +345,8 @@ begin
   case TCreature.Character(AtkCrEnum).AttackEnum of
     atParalyze:
       begin
-        Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+        Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum)
+          .Sound[csAttack]);
         Sleep(200);
         Paralyze(AtkParty, DefParty, AtkPos, DefPos);
         Exit;
@@ -356,7 +358,8 @@ begin
     case AtkParty.Creature[AtkPos].ReachEnum of
       reAny:
         begin
-          Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+          Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum)
+            .Sound[csAttack]);
           Sleep(200);
           DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
           Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
@@ -364,7 +367,8 @@ begin
             AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name
             [1], AtkParty.Creature[AtkPos].Damage);
           if (DefParty.Creature[DefPos].HitPoints > 0) then
-            Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum).Sound[csHit])
+            Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum)
+              .Sound[csHit])
           else
             Kill(DefCrEnum);
           B := True;
@@ -442,7 +446,8 @@ begin
             Battle.StartCastSpell(TCreature.Character(AtkCrEnum).Name[0],
               SourceName[TCreature.Character(AtkCrEnum).SourceEnum]);
           end;
-          Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum).Sound[csAttack]);
+          Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum)
+            .Sound[csAttack]);
           Sleep(200);
           for Position := Low(TPosition) to High(TPosition) do
             if DefParty.Creature[Position].Alive then
@@ -556,7 +561,7 @@ end;
 
 constructor TSceneBattle2.Create;
 begin
-  inherited;
+  inherited Create(reWallpaperScenario);
   CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
     SceneLeft), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
