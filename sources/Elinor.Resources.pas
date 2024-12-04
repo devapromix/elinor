@@ -233,7 +233,7 @@ const
     // Ranger
     (FileName: 'character.ranger.png'; ResType: teGUI;),
     // Archmage
-    (FileName: 'character.archmage.png'; ResType: teGUI;),
+    (FileName: 'character.the_empire.archmage.png'; ResType: teGUI;),
     // Squire
     (FileName: 'character.squire.png'; ResType: teGUI;),
     // Archer
