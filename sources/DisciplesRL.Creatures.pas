@@ -248,7 +248,7 @@ const
     // Legions Of The Damned Capital Guardian
     ((crNone, crNone, crAshkael, crNone, crNone, crNone),
     // Legions Of The Damned Leaders
-    (crDuke, crCounselor, crRipper, crArchDevil, crChieftain, crNone), //
+    (crDuke, crCounselor, crArchDevil, crRipper, crChieftain, crNone), //
     // Legions Of The Damned Characters
     (crPossessed, crGargoyle, crDevil, crCultist, crNone, crNone)) //
     //
