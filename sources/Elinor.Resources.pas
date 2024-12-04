@@ -42,13 +42,13 @@ type
 
     reButtonDef, reButtonAct, reCorpse,
     // Creatures
-    reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
-    reArcher, reThief, reWarlord, reApprentice, reAcolyte, reAshkael, reAshgan,
-    reNosferat, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
-    rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
-    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp, reGhoul,
-    reStoneGargoyle,
+    reMyzrael, rePaladin, reRanger, reArchmage, reSquire, reArcher, reThief,
+    reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen,
+    reDeathKnight, reAshkael, reDuke, reCounselor, reArchdevil, reRipper,
+    reChieftain, rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon,
+    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
+    reGoblinElder, reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp,
+    reGhoul, reStoneGargoyle,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -231,8 +231,6 @@ const
     (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
     // Paladin
     (FileName: 'character.the_empire.paladin.png'; ResType: teGUI;),
-    // Death Knight
-    (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
     // Ranger
     (FileName: 'character.the_empire.ranger.png'; ResType: teGUI;),
     // Archmage
@@ -249,12 +247,16 @@ const
     (FileName: 'character.the_empire.apprentice.png'; ResType: teGUI;),
     // Acolyte
     (FileName: 'character.the_empire.acolyte.png'; ResType: teGUI;),
-    // Ashkael
-    (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Ashgan
     (FileName: 'character.undead_hordes.ashgan.png'; ResType: teGUI;),
     // Nosferat
     (FileName: 'character.undead_hordes.nosferat.png'; ResType: teGUI;),
+    // Lich Queen
+    (FileName: 'character.undead_hordes.lich_queen.png'; ResType: teGUI;),
+    // Death Knight
+    (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
+    // Ashkael
+    (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Duke
     (FileName: 'character.legions_of_the_damned.duke.png'; ResType: teGUI;),
     // Counselor
