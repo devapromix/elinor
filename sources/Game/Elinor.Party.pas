@@ -416,7 +416,7 @@ begin
           HitPoints := HitPoints - (ADamage - Armor);
         end
         else
-          Game.Player.PlaySound(mmBlock);
+          Game.MediaPlayer.PlaySound(mmBlock);
       if (HitPoints < 0) then
         HitPoints := 0;
     end;
@@ -447,7 +447,7 @@ begin
   with FCreature[APosition] do
   begin
     Experience := 0;
-    Game.Player.PlaySound(mmLevel);
+    Game.MediaPlayer.PlaySound(mmLevel);
     MaxHitPoints := MaxHitPoints + (MaxHitPoints div 10);
     HitPoints := MaxHitPoints;
     Initiative := EnsureRange(Initiative + 1, 10, 100);
@@ -684,7 +684,7 @@ begin
   else
   begin
     Leader.SetLocation(AX, AY);
-    Game.Player.PlaySound(mmStep);
+    Game.MediaPlayer.PlaySound(mmStep);
     with TLeaderParty.Leader do
     begin
       SetLocation(AX, AY);
@@ -735,15 +735,15 @@ begin
   end;
   if Game.Map.LeaderTile in Capitals then
   begin
-    Game.Player.PlayMusic(mmGame);
-    Game.Player.PlaySound(mmSettlement);
+    Game.MediaPlayer.PlayMusic(mmGame);
+    Game.MediaPlayer.PlaySound(mmSettlement);
     TSceneSettlement.Show(stCapital);
     F := False;
   end;
   if Game.Map.LeaderTile in Cities then
   begin
-    Game.Player.PlayMusic(mmGame);
-    Game.Player.PlaySound(mmSettlement);
+    Game.MediaPlayer.PlayMusic(mmGame);
+    Game.MediaPlayer.PlaySound(mmSettlement);
     TSceneSettlement.Show(stCity);
     F := False;
   end;

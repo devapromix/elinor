@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'DisciplesRL'
+  Caption = 'ELINOR'
   ClientHeight = 596
   ClientWidth = 795
   Color = clBlack

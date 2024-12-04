@@ -40,7 +40,7 @@ uses
 
 procedure TSceneBattle3.Start;
 begin
-  Game.Player.PlaySound(mmWar);
+  Game.MediaPlayer.PlaySound(mmWar);
 end;
 
 procedure TSceneBattle3.Finish;
@@ -91,7 +91,7 @@ procedure TSceneBattle3.Show(const S: TSceneEnum);
 begin
   inherited;
   Start;
-  Game.Player.PlayMusic(mmBattle);
+  Game.MediaPlayer.PlayMusic(mmBattle);
 end;
 
 procedure TSceneBattle3.Timer;

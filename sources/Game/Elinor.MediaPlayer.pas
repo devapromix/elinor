@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Player;
+﻿unit Elinor.MediaPlayer;
 
 interface
 
@@ -13,7 +13,7 @@ type
   TMediaType = (mtSound, mtMusic);
 
 type
-  TPlayer = class(TObject)
+  TMediaPlayer = class(TObject)
   private
     FCurrentChannel: Integer;
     FChannelType: TChannelType;
@@ -52,7 +52,7 @@ const
 
   { TMediaPlayer }
 
-constructor TPlayer.Create;
+constructor TMediaPlayer.Create;
 begin
   BASS_Init(1, 44100, BASS_DEVICE_3D, 0, nil);
   BASS_Start;
@@ -61,7 +61,7 @@ begin
   FCurrentChannel := SoundChannel;
 end;
 
-destructor TPlayer.Destroy;
+destructor TMediaPlayer.Destroy;
 var
   LChannel: Byte;
 begin
@@ -74,22 +74,22 @@ begin
   inherited;
 end;
 
-function TPlayer.GetMusicVolume: ShortInt;
+function TMediaPlayer.GetMusicVolume: ShortInt;
 begin
   Result := FMusicVolume;
 end;
 
-function TPlayer.GetSoundVolume: ShortInt;
+function TMediaPlayer.GetSoundVolume: ShortInt;
 begin
   Result := FSoundVolume;
 end;
 
-function TPlayer.IsPlayMusic: Boolean;
+function TMediaPlayer.IsPlayMusic: Boolean;
 begin
   Result := BASS_ChannelIsActive(FChannel[MusicChannel]) = BASS_ACTIVE_PLAYING;
 end;
 
-function TPlayer.PlayMusic(const FileName: string; F: Boolean): Boolean;
+function TMediaPlayer.PlayMusic(const FileName: string; F: Boolean): Boolean;
 begin
   StopMusic;
   CurrentChannel := MusicChannel;
@@ -97,22 +97,22 @@ begin
   CurrentChannel := SoundChannel;
 end;
 
-function TPlayer.PlayMusic(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
+function TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
 begin
   PlayMusic(ResMusicPath[MusicEnum], F);
 end;
 
-function TPlayer.PlaySound(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
+function TMediaPlayer.PlaySound(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
 begin
   PlaySound(ResMusicPath[MusicEnum], F);
 end;
 
-function TPlayer.PlaySound(const FileName: string; F: Boolean): Boolean;
+function TMediaPlayer.PlaySound(const FileName: string; F: Boolean): Boolean;
 begin
   Play(FileName, F, mtSound);
 end;
 
-function TPlayer.Play(const FileName: string; F: Boolean;
+function TMediaPlayer.Play(const FileName: string; F: Boolean;
   T: TMediaType): Boolean;
 begin
   Result := False;
@@ -153,7 +153,7 @@ begin
     FCurrentChannel := SoundChannel;
 end;
 
-procedure TPlayer.SetMusicVolume(const Value: ShortInt);
+procedure TMediaPlayer.SetMusicVolume(const Value: ShortInt);
 begin
   FMusicVolume := Value;
   if (FMusicVolume > 100) then
@@ -164,7 +164,7 @@ begin
     MusicVolume / 100);
 end;
 
-procedure TPlayer.SetSoundVolume(const Value: ShortInt);
+procedure TMediaPlayer.SetSoundVolume(const Value: ShortInt);
 var
   LChannel: Byte;
 begin
@@ -178,7 +178,7 @@ begin
       SoundVolume / 100);
 end;
 
-procedure TPlayer.StopSound;
+procedure TMediaPlayer.StopSound;
 var
   LChannel: Byte;
 begin
@@ -187,7 +187,7 @@ begin
   FCurrentChannel := SoundChannel;
 end;
 
-procedure TPlayer.StopMusic;
+procedure TMediaPlayer.StopMusic;
 begin
   BASS_ChannelStop(FChannel[MusicChannel]);
 end;

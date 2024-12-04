@@ -263,7 +263,7 @@ end;
 procedure TSceneMap.Show(const S: TSceneEnum);
 begin
   inherited Show(S);
-  Game.Player.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound(mmSettlement);
 end;
 
 procedure TSceneMap.Timer;
@@ -301,9 +301,9 @@ begin
           FM := False;
           Exit;
         end;
-        Game.Player.PlayMusic(mmMenu);
-        Game.Player.PlaySound(mmClick);
-        Game.Player.PlaySound(mmSettlement);
+        Game.MediaPlayer.PlayMusic(mmMenu);
+        Game.MediaPlayer.PlaySound(mmClick);
+        Game.MediaPlayer.PlaySound(mmSettlement);
         Game.Show(scMenu);
       end;
     K_LEFT, K_KP_4, K_A:

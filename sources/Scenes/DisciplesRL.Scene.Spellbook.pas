@@ -53,8 +53,8 @@ uses
 procedure TSceneSpellbook.Close;
 begin
   Game.Show(scMap);
-  Game.Player.PlaySound(mmClick);
-  Game.Player.PlaySound(mmSpellbook);
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound(mmSpellbook);
 end;
 
 constructor TSceneSpellbook.Create;
@@ -116,7 +116,7 @@ end;
 
 class procedure TSceneSpellbook.Show;
 begin
-  Game.Player.PlaySound(mmSpellbook);
+  Game.MediaPlayer.PlaySound(mmSpellbook);
   Game.Show(scSpellbook);
 end;
 

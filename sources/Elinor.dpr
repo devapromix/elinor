@@ -28,7 +28,7 @@ uses
   Elinor.Saga in 'Elinor.Saga.pas',
   DisciplesRL.Button in 'DisciplesRL.Button.pas',
   DisciplesRL.Scene.Spellbook in 'Scenes\DisciplesRL.Scene.Spellbook.pas',
-  DisciplesRL.Player in 'DisciplesRL.Player.pas',
+  Elinor.MediaPlayer in 'Game\Elinor.MediaPlayer.pas',
   Elinor.PathFind in 'Elinor.PathFind.pas',
   Elinor.Spells in 'Elinor.Spells.pas',
   Elinor.Frame in 'Elinor.Frame.pas',

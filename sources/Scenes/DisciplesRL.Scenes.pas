@@ -15,7 +15,7 @@ uses
   Elinor.Saga,
   DisciplesRL.Map,
   Elinor.Party,
-  DisciplesRL.Player,
+  Elinor.MediaPlayer,
   Elinor.Treasure,
   Elinor.Statistics,
   Elinor.Resources;
@@ -165,7 +165,7 @@ type
     Statistics: TStatistics;
     Scenario: TScenario;
     Map: TMap;
-    Player: TPlayer;
+    MediaPlayer: TMediaPlayer;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -230,8 +230,8 @@ begin
   Map := TMap.Create;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
-  Player := TPlayer.Create;
-  Player.PlayMusic(mmMenu);
+  MediaPlayer := TMediaPlayer.Create;
+  MediaPlayer.PlayMusic(mmMenu);
   SceneEnum := scMenu;
 end;
 
@@ -240,7 +240,7 @@ begin
   FreeAndNil(Statistics);
   FreeAndNil(Scenario);
   FreeAndNil(Map);
-  FreeAndNil(Player);
+  FreeAndNil(MediaPlayer);
   FreeAndNil(Surface);
   FreeAndNil(Gold);
   FreeAndNil(Mana);
@@ -272,7 +272,7 @@ begin
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
     TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
     ShowNewDayMessageTime := 20;
-    Player.PlaySound(mmDay);
+    MediaPlayer.PlaySound(mmDay);
     IsNewDay := False;
   end;
 
@@ -383,7 +383,7 @@ end;
 
 procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
 begin
-  Game.Player.PlaySound(mmExit);
+  Game.MediaPlayer.PlaySound(mmExit);
   Game.InformMsg := S;
   Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
@@ -391,7 +391,7 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  Game.Player.PlaySound(mmExit);
+  Game.MediaPlayer.PlaySound(mmExit);
   Game.InformMsg := S;
   Game.IsShowInform := True;
 end;
