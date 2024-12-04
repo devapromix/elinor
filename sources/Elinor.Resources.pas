@@ -43,11 +43,12 @@ type
     reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reDeathKnight, reRanger, reArchmage, reSquire,
-    reArcher, reThief, reApprentice, reAcolyte, reAshkael, reAshgan, reDuke, reCounselor,
-    reArchdevil, reRipper, reChieftain, rePossessed, reCultist, reDevil,
-    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
-    reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear,
-    reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
+    reArcher, reThief, reWarlord, reApprentice, reAcolyte, reAshkael, reAshgan,
+    reDuke, reCounselor, reArchdevil, reRipper, reChieftain, rePossessed,
+    reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
+    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
+    reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp, reGhoul,
+    reStoneGargoyle,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -77,8 +78,7 @@ type
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario,
     //
-    reIconScores, reIconScoresOver, reIconClosedGates,
-    reIconOpenedGates);
+    reIconScores, reIconScoresOver, reIconClosedGates, reIconOpenedGates);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -243,6 +243,8 @@ const
     (FileName: 'character.archer.png'; ResType: teGUI;),
     // Thief
     (FileName: 'character.the_empire.thief.png'; ResType: teGUI;),
+    // Warlord
+    (FileName: 'character.the_empire.warlord.png'; ResType: teGUI;),
     // Apprentice
     (FileName: 'character.apprentice.png'; ResType: teGUI;),
     // Acolyte

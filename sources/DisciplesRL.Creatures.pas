@@ -646,7 +646,7 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDagger; SkillEnum: skSpy; Rating: 0;),
     // Warlord
-    (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
+    (Ident: 'none'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: reWarlord;
     Size: szSmall; Name: ('Полководец', 'Полководца');
     Description: ('Полевой полководец короля служит',
     'Империи верой и правдой и беспощад-', 'но расправляется с ее врагами.');
