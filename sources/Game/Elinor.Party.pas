@@ -147,7 +147,7 @@ uses
   Elinor.Resources,
   DisciplesRL.Scenes,
   Elinor.Scene.Party,
-  DisciplesRL.Scene.Settlement,
+  Elinor.Scene.Settlement,
   DisciplesRL.Scene.Hire;
 
 { TParty }

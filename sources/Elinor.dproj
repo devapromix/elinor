@@ -121,7 +121,7 @@
         <DCCReference Include="Scenes\DisciplesRL.Scene.Menu.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Menu2.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Party.pas"/>
-        <DCCReference Include="Scenes\DisciplesRL.Scene.Settlement.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Settlement.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Hire.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle2.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle3.pas"/>

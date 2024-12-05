@@ -94,7 +94,7 @@ uses
   DisciplesRL.Button,
   Elinor.Scene.Party,
   DisciplesRL.Scene.Battle2,
-  DisciplesRL.Scene.Settlement,
+  Elinor.Scene.Settlement,
   DisciplesRL.Items;
 
 type
