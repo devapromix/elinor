@@ -1337,8 +1337,10 @@ begin
     // Upd(Ord(High(TSaga.TDifficultyEnum)));
     stScenario:
       UpdEnum<TScenario.TScenarioEnum>(Key);
+     stAbilities:
+      UpdEnum<TSaga.TDifficultyEnum>(Key);
     // Upd(Ord(High(TScenario.TScenarioEnum)));
-    stVictory, stDefeat, stHighScores2, stAbilities:
+    stVictory, stDefeat, stHighScores2:
       Basic(Key);
   end;
   if (SubScene in CloseButtonScene) then
