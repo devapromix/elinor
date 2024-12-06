@@ -191,6 +191,8 @@ var
   Position: TPosition;
   CharExp: Integer;
 begin
+    if TLeaderParty.Leader.Level >= TSaga.MaxLevel then
+      Exit;
   if (EnemyParty.GetExperience > 0) then
   begin
     if LeaderParty.GetAliveCreatures > 0 then

@@ -328,13 +328,6 @@ begin
       FM := not FM;
     K_K:
       Game.Map.Clear(lrPath);
-    K_N:
-      begin
-
-        TLeaderParty.Leader.UpdateLevel(TLeaderParty.LeaderPartyIndex);
-        TLeaderParty.Leader.Skills.Gen;
-        TSceneHire.Show(stAbilities);
-      end;
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
     K_T:
