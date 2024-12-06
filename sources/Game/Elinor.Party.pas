@@ -577,7 +577,7 @@ end;
 
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := 1;
+  Result := IfThen(CrEnum in LeaderMage, 2, 1);
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;
