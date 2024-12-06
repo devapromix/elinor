@@ -757,6 +757,9 @@ begin
     K_N:
       if Game.Wizard then
         NextTurn;
+    K_E:
+      if Game.Wizard then
+        TLeaderParty.Leader.UpdateXP(100, TLeaderParty.Leader.GetPosition);
     K_H:
       if Game.Wizard then
         TLeaderParty.Leader.HealAll(100);

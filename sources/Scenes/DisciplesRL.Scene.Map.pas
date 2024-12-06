@@ -330,6 +330,8 @@ begin
       Game.Map.Clear(lrPath);
     K_N:
       begin
+
+        TLeaderParty.Leader.UpdateLevel(TLeaderParty.LeaderPartyIndex);
         TLeaderParty.Leader.Skills.Gen;
         TSceneHire.Show(stAbilities);
       end;

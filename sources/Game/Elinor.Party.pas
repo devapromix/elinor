@@ -446,17 +446,19 @@ procedure TParty.UpdateLevel(const APosition: TPosition);
 begin
   with FCreature[APosition] do
   begin
+    if Level >= TSaga.MaxLevel then
+      Exit;
     Experience := 0;
     Game.MediaPlayer.PlaySound(mmLevel);
-    MaxHitPoints := MaxHitPoints + (MaxHitPoints div 10);
+    MaxHitPoints := EnsureRange(MaxHitPoints + (MaxHitPoints div 10), 25, 1000);
     HitPoints := MaxHitPoints;
-    Initiative := EnsureRange(Initiative + 1, 10, 100);
-    ChancesToHit := EnsureRange(ChancesToHit + 1, 10, 100);
+    Initiative := EnsureRange(Initiative + 1, 10, 80);
+    ChancesToHit := EnsureRange(ChancesToHit + 1, 10, 95);
     if Damage > 0 then
-      Damage := Damage + (Damage div 10);
+      Damage := EnsureRange(Damage + (Damage div 10), 0, 300);
     if Heal > 0 then
-      Heal := Heal + (Heal div 15);
-    Level := Level + 1;
+      Heal := EnsureRange(Heal + (Heal div 15), 0, 150);
+    Level := EnsureRange(Level + 1, 0, TSaga.MaxLevel);
   end;
 end;
 
@@ -797,7 +799,7 @@ end;
 
 procedure TLeaderParty.UpdateLevel(const APosition: TPosition);
 begin
-  inherited;
+  inherited UpdateLevel(APosition);
   with Creature[APosition] do
     if IsLeader and (Level mod 3 = 0) then
       Inc(FMaxLeadership);

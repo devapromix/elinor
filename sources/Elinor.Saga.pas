@@ -73,6 +73,7 @@ type
     PartyBase: array of TPartyBase;
     IsGame: Boolean;
   public const
+    MaxLevel = 8;
     DifficultyName: array [TDifficultyEnum] of string = ('Легкий', 'Средний',
       'Сложный');
     DifficultyDescription: array [TDifficultyEnum] of array [0 .. 11]
@@ -165,10 +166,7 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Items;
 
-const
-  MaxLevel = 8;
-
-  { TSaga }
+{ TSaga }
 
 class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
