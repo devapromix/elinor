@@ -171,7 +171,6 @@ const
   LeaderMage = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief = [crThief, crThug, crRipper];
   LeaderLord = [crWarlord, crDominator, crChieftain];
-
   AllLeaders = LeaderWarrior + LeaderScout + LeaderMage + LeaderThief +
     LeaderLord;
 
@@ -1322,8 +1321,9 @@ const
     Description: ('Позволяет предводителю брать в руки',
     'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
     // Sorcery
-    (Enum: skSorcery; Name: 'Sorcery'; Description: ('+++', '+++'); Level: 1;
-    Leaders: LeaderMage;),
+    (Enum: skSorcery; Name: 'Волшебство';
+    Description: ('Позволяет предводителю использовать', 'заклинания два раза');
+    Level: 1; Leaders: LeaderMage;),
     // Vampirism
     (Enum: skVamp; Name: 'Вампиризм';
     Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');

@@ -577,13 +577,14 @@ end;
 
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderMage,
-    TSaga.LeaderMageCanCastSpellsPerDay, 1);
+  Result := 1;
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;
 begin
-  Result := TLeaderParty.GetMaxSpells(TLeaderParty.Leader.Enum);
+  Result := 1;
+  if Self.Skills.Has(skSorcery) then
+    Result := Result + 1;
 end;
 
 function TLeaderParty.IsPartyOwner(const AX, AY: Integer): Boolean;
