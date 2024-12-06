@@ -10,6 +10,9 @@ uses
   DisciplesRL.Scenes;
 
 type
+  TFrameGrid = (fgS6vS6, fgS6vM2);
+
+type
   TSceneFrames = class(TScene)
   private
     FResEnum: TResEnum;

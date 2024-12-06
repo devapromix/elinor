@@ -477,10 +477,11 @@ type
 {$REGION Abilities}
 
 type
-  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye, skArtifactLore,
-    skBannerBearer, skTravelLore, skLeadership1, skLeadership2, skLeadership3,
-    skLeadership4, skLeadership5, skWand, skAccuracy, skOri, skTrader,
-    skProtect, skTalisman, skInstructor, skBook, skOrb, skVamp);
+  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye1, skHawkEye2,
+    skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
+    skLeadership2, skLeadership3, skLeadership4, skLeadership5, skWand,
+    skAccuracy, skOri, skTrader, skProtect, skTalisman, skInstructor, skBook,
+    skOrb, skVamp);
 
 type
   TSkill = record
@@ -1240,10 +1241,18 @@ const
     (Enum: skSpy; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
     'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
-    // Hawk Eye
-    (Enum: skHawkEye; Name: 'Зоркость';
-    Description: ('Позволяет предводителю видеть', 'дальше на 2 тайла.');
-    Level: 1; Leaders: LeaderScout;),
+    // Hawk Eye #1
+    (Enum: skHawkEye1; Name: 'Зоркость';
+    Description: ('Позволяет предводителю видеть', 'немного дальше.'); Level: 1;
+    Leaders: LeaderScout;),
+    // Hawk Eye #2
+    (Enum: skHawkEye2; Name: 'Зоркость';
+    Description: ('Позволяет предводителю видеть', 'немного дальше.'); Level: 3;
+    Leaders: LeaderScout;),
+    // Hawk Eye #3
+    (Enum: skHawkEye3; Name: 'Зоркость';
+    Description: ('Позволяет предводителю видеть', 'немного дальше.'); Level: 5;
+    Leaders: AllLeaders;),
     // Artifact
     (Enum: skArtifactLore; Name: 'Знание Артефактов';
     Description: ('Позволяет предводителю носить', 'магические артефакты.');
@@ -1360,20 +1369,20 @@ end;
 procedure TSkills.Gen;
 var
   J: Integer;
-  I, R: TSkillEnum;
+  I, LSkillEnum: TSkillEnum;
 begin
   for J := 0 to 2 do
     RandomSkillEnum[J] := skNone;
   for J := 0 to 2 do
   begin
     repeat
-      R := TSkillEnum(RandomRange(Ord(Succ(Low(TSkillEnum))),
+      LSkillEnum := TSkillEnum(RandomRange(Ord(Succ(Low(TSkillEnum))),
         Ord(High(TSkillEnum))));
-    until not Has(R) and (R <> RandomSkillEnum[0]) and (R <> RandomSkillEnum[1])
-      and (R <> RandomSkillEnum[2]) and
-      (SkillBase[R].Level <= TLeaderParty.Leader.Level) and
-      (TLeaderParty.Leader.Enum in SkillBase[R].Leaders);
-    RandomSkillEnum[J] := R;
+    until not Has(LSkillEnum) and (LSkillEnum <> RandomSkillEnum[0]) and
+      (LSkillEnum <> RandomSkillEnum[1]) and (LSkillEnum <> RandomSkillEnum[2])
+      and (SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
+      (TLeaderParty.Leader.Enum in SkillBase[LSkillEnum].Leaders);
+    RandomSkillEnum[J] := LSkillEnum;
   end;
 end;
 

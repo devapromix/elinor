@@ -613,8 +613,12 @@ end;
 function TLeaderParty.GetRadius: Integer;
 begin
   Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
-  if Self.Skills.Has(skHawkEye) then
-    Result := Result + 2;
+  if Self.Skills.Has(skHawkEye1) then
+    Result := Result + 1;
+  if Self.Skills.Has(skHawkEye2) then
+    Result := Result + 1;
+  if Self.Skills.Has(skHawkEye3) then
+    Result := Result + 1;
 end;
 
 function TLeaderParty.GetMaxSpy: Integer;
