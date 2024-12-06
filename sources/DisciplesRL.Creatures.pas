@@ -481,7 +481,7 @@ type
     skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skLeadership5, skWand,
     skAccuracy, skOri, skTrader, skProtect, skTalisman, skInstructor, skBook,
-    skOrb, skVamp);
+    skOrb, skSorcery, skVamp);
 
 type
   TSkill = record
@@ -1321,6 +1321,9 @@ const
     (Enum: skOrb; Name: 'Знание Сфер';
     Description: ('Позволяет предводителю брать в руки',
     'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
+    // Sorcery
+    (Enum: skSorcery; Name: 'Sorcery'; Description: ('+++', '+++'); Level: 1;
+    Leaders: LeaderMage;),
     // Vampirism
     (Enum: skVamp; Name: 'Вампиризм';
     Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');
