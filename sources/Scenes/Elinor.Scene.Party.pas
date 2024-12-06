@@ -547,8 +547,16 @@ procedure TSceneParty.Update(var Key: Word);
 begin
   inherited;
   case Key of
-    K_ESCAPE, K_ENTER, K_P:
+    K_ESCAPE, K_ENTER:
       Close;
+    K_P:
+      if FShowSkills or FShowInventory then
+      begin
+        FShowSkills := False;
+        FShowInventory := False;
+      end
+      else
+        Close;
     K_I:
       if FShowResources then
         OpenInventory;
