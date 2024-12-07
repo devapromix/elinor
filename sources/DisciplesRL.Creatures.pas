@@ -747,13 +747,13 @@ const
     AttackEnum: atDaggerOfShadows; SkillEnum: skSpy; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reArchmage; Size: szSmall; Name: ('Доминатор', 'Доминатора');
+    ResEnum: reDominator; Size: szSmall; Name: ('Доминатор', 'Доминатора');
     Description: ('Погибшие полководцы Империи возвра-',
     'щены Мортис к жизни для того, чтобы', 'сеять вокруг смерть и разрушения.');
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skTalisman; Rating: 0;),
+    AttackEnum: atBattleAxe; SkillEnum: skTalisman; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: reUndeadHordes; SubRace: reUndead;
     ResEnum: reSquire; Size: szSmall; Name: ('Воин', 'Воина');

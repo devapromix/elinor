@@ -43,12 +43,12 @@ type
     reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reRanger, reArchmage, reSquire, reArcher, reThief,
-    reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen, reThug,
-    reDeathKnight, reAshkael, reDuke, reCounselor, reArchdevil, reRipper,
-    reChieftain, rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon,
-    reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
-    reGoblinElder, reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp,
-    reGhoul, reStoneGargoyle,
+    reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen,
+    reThug, reDominator, reDeathKnight, reAshkael, reDuke, reCounselor,
+    reArchdevil, reRipper, reChieftain, rePossessed, reCultist, reDevil,
+    reBlackDragon, reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon,
+    reGoblin, reGoblinArcher, reGoblinElder, reGiantSpider, reWolf, reBear,
+    reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -255,6 +255,8 @@ const
     (FileName: 'character.undead_hordes.lich_queen.png'; ResType: teGUI;),
     // Thug
     (FileName: 'character.undead_hordes.thug.png'; ResType: teGUI;),
+    // Dominator
+    (FileName: 'character.undead_hordes.dominator.png'; ResType: teGUI;),
     // Death Knight
     (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
     // Ashkael
