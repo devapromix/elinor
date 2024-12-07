@@ -737,7 +737,7 @@ const
     AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
     // Thug
     (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reArchmage; Size: szSmall; Name: ('Головорез', 'Головореза');
+    ResEnum: reThug; Size: szSmall; Name: ('Головорез', 'Головореза');
     Description: ('Мортис вернула лучших из лучших в',
     'мир живых, чтобы те действовали хит-',
     'ростью там, где недостаточно силы.'); HitPoints: 100; Initiative: 60;

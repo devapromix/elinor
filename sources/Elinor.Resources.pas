@@ -43,7 +43,7 @@ type
     reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reRanger, reArchmage, reSquire, reArcher, reThief,
-    reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen,
+    reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen, reThug,
     reDeathKnight, reAshkael, reDuke, reCounselor, reArchdevil, reRipper,
     reChieftain, rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon,
     reRedDragon, reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher,
@@ -253,6 +253,8 @@ const
     (FileName: 'character.undead_hordes.nosferat.png'; ResType: teGUI;),
     // Lich Queen
     (FileName: 'character.undead_hordes.lich_queen.png'; ResType: teGUI;),
+    // Thug
+    (FileName: 'character.undead_hordes.thug.png'; ResType: teGUI;),
     // Death Knight
     (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
     // Ashkael
