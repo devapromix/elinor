@@ -519,7 +519,7 @@ var
     AddTextLine;
     AddTextLine(Format('Скорость передвижения %d/%d',
       [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
-    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.GetLeadership]));
+    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.GetMaxLeadership]));
     AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
   end;
 

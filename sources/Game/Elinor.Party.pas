@@ -130,7 +130,7 @@ type
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
-    function GetLeadership: Integer;
+    function GetMaxLeadership: Integer;
   end;
 
 var
@@ -578,7 +578,7 @@ begin
   Result := IfThen(CrEnum in LeaderMage, 2, 1);
 end;
 
-function TLeaderParty.GetLeadership: Integer;
+function TLeaderParty.GetMaxLeadership: Integer;
 begin
   Result := 1;
   if Self.Skills.Has(skLeadership1) then

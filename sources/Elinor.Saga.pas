@@ -136,7 +136,7 @@ type
       );
     GoldForRevivePerLevel = 250;
     LeaderWarriorHealAllInPartyPerDay = 10;
-    LeaderScoutMaxRadius = 3;
+    LeaderScoutMaxRadius = 2;
     LeaderScoutMaxSpeed = 12;
     LeaderLordMaxSpeed = 9;
     LeaderThiefSpyAttemptCountPerDay = 3;

@@ -126,7 +126,7 @@ procedure TSceneSettlement.Hire;
       end;
       if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and
         (Party[TLeaderParty.LeaderPartyIndex].Count <
-        TLeaderParty.Leader.GetLeadership)) or
+        TLeaderParty.Leader.GetMaxLeadership)) or
         (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
       begin
         TSceneHire.Show(AParty, APosition);
@@ -134,7 +134,7 @@ procedure TSceneSettlement.Hire;
       else
       begin
         if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
-          GetLeadership) then
+          GetMaxLeadership) then
           InformDialog('Нужно развить лидерство!')
         else
           InformDialog('Не возможно нанять!');
@@ -424,7 +424,7 @@ begin
       = 0) or (CurrentSettlementType = stCity) then
       RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
         Party[TLeaderParty.LeaderPartyIndex].Count <
-        TLeaderParty.Leader.GetLeadership)
+        TLeaderParty.Leader.GetMaxLeadership)
     else
       RenderParty(psLeft, nil);
     RenderParty(psRight, SettlementParty, True);
@@ -456,7 +456,7 @@ procedure TSceneSettlement.MoveUnit;
 begin
   if not((ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and
     (CurrentPartyPosition >= 6) and (Party[TLeaderParty.LeaderPartyIndex].Count
-    >= TLeaderParty.Leader.GetLeadership))) then
+    >= TLeaderParty.Leader.GetMaxLeadership))) then
   begin
     Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
       ActivePartyPosition, CurrentPartyPosition);
