@@ -86,7 +86,6 @@ type
 
   TLeaderParty = class(TParty)
   private
-    FMaxLeadership: Integer;
     FRadius: Integer;
     FSpells: Integer;
     FSpy: Integer;
@@ -104,14 +103,12 @@ type
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
     procedure Clear;
-    property MaxLeadership: Integer read FMaxLeadership;
     property Radius: Integer read GetRadius;
     property Spells: Integer read FSpells write FSpells;
     property Spy: Integer read FSpy write FSpy;
     procedure UpdateRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
-    procedure UpdateLevel(const APosition: TPosition); override;
     class function Leader: TLeaderParty;
     class procedure Move(const AX, AY: ShortInt); overload;
     class procedure Move(Dir: TDirectionEnum); overload;
@@ -133,6 +130,7 @@ type
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
+    function GetLeadership: Integer;
   end;
 
 var
@@ -493,7 +491,6 @@ begin
   Equipment.Clear;
   MaxSpeed := GetMaxSpeed;
   Speed := MaxSpeed;
-  FMaxLeadership := 1;
   FRadius := IfThen(Game.Wizard, 9, 1);
   FSpells := GetMaxSpells;
   FSpy := GetMaxSpy;
@@ -506,7 +503,6 @@ begin
   FSkills := TSkills.Create;
   FInventory := TInventory.Create;
   FEquipment := TEquipment.Create;
-  FMaxLeadership := 1;
   FRadius := 1;
 end;
 
@@ -580,6 +576,19 @@ end;
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
 begin
   Result := IfThen(CrEnum in LeaderMage, 2, 1);
+end;
+
+function TLeaderParty.GetLeadership: Integer;
+begin
+  Result := 1;
+  if Self.Skills.Has(skLeadership1) then
+    Result := Result + 1;
+  if Self.Skills.Has(skLeadership2) then
+    Result := Result + 1;
+  if Self.Skills.Has(skLeadership3) then
+    Result := Result + 1;
+  if Self.Skills.Has(skLeadership4) then
+    Result := Result + 1;
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;
@@ -795,14 +804,6 @@ begin
     Inc(LCount);
   until (LCount >= ACount);
   Game.ShowNewDayMessageTime := 0;
-end;
-
-procedure TLeaderParty.UpdateLevel(const APosition: TPosition);
-begin
-  inherited UpdateLevel(APosition);
-  with Creature[APosition] do
-    if IsLeader and (Level mod 3 = 0) then
-      Inc(FMaxLeadership);
 end;
 
 procedure TLeaderParty.UpdateRadius;

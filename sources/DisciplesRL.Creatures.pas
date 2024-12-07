@@ -478,9 +478,9 @@ type
 type
   TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye1, skHawkEye2,
     skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
-    skLeadership2, skLeadership3, skLeadership4, skLeadership5, skWand,
-    skAccuracy, skOri, skTrader, skProtect, skTalisman, skInstructor, skBook,
-    skOrb, skSorcery, skVamp);
+    skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
+    skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb,
+    skSorcery, skVamp);
 
 type
   TSkill = record
@@ -736,8 +736,8 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
     AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
     // Thug
-    (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reThug; Size: szSmall; Name: ('Головорез', 'Головореза');
+    (Ident: 'none'; Faction: reUndeadHordes; SubRace: reUndead; ResEnum: reThug;
+    Size: szSmall; Name: ('Головорез', 'Головореза');
     Description: ('Мортис вернула лучших из лучших в',
     'мир живых, чтобы те действовали хит-',
     'ростью там, где недостаточно силы.'); HitPoints: 100; Initiative: 60;
@@ -1280,10 +1280,6 @@ const
     (Enum: skLeadership4; Name: 'Лидерство';
     Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
     Level: 5; Leaders: AllLeaders;),
-    // Leadership #5
-    (Enum: skLeadership5; Name: 'Лидерство';
-    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
-    Level: 6; Leaders: AllLeaders;),
     // Wand
     (Enum: skWand; Name: 'Посохи и Свитки';
     Description: ('Позволяет предводителю использовать',
