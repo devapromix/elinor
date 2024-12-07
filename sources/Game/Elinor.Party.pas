@@ -93,6 +93,7 @@ type
     FInventory: TInventory;
     FEquipment: TEquipment;
     function GetRadius: Integer; overload;
+    function GetLeadership: Integer;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -104,6 +105,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     property Radius: Integer read GetRadius;
+    property Leadership: Integer read GetLeadership;
     property Spells: Integer read FSpells write FSpells;
     property Spy: Integer read FSpy write FSpy;
     procedure UpdateRadius;
@@ -130,7 +132,6 @@ type
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
-    function GetMaxLeadership: Integer;
   end;
 
 var
@@ -578,7 +579,7 @@ begin
   Result := IfThen(CrEnum in LeaderMage, 2, 1);
 end;
 
-function TLeaderParty.GetMaxLeadership: Integer;
+function TLeaderParty.GetLeadership: Integer;
 begin
   Result := 1;
   if Self.Skills.Has(skLeadership1) then
