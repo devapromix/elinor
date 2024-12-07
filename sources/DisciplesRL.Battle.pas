@@ -94,13 +94,25 @@ begin
       LStr := TResources.RandomValue('battle.strings', 'heal2');
   else
     begin
-      LStr := TResources.RandomValue('battle.strings', AtkSecName[AttackEnum] +
-        '_attack');
+      case AttackEnum of
+        atDrainLife:
+          LStr := TResources.RandomValue('battle.strings', 'bites_attack');
+      else
+        LStr := TResources.RandomValue('battle.strings',
+          AtkSecName[AttackEnum] + '_attack');
+      end;
       if (Trim(LStr) = '') then
         LStr := TResources.RandomValue('battle.strings', 'default_attack');
     end;
   end;
   Log.Add(Format(LStr, [AtkCrName, DefCrName, Value]));
+  case AttackEnum of
+    atDrainLife:
+      begin
+        LStr := TResources.RandomValue('battle.strings', 'drain_life');
+        Log.Add(Format(LStr, [AtkCrName, DefCrName, Value div 2]));
+      end
+  end;
 end;
 
 procedure TBattle.Clear;

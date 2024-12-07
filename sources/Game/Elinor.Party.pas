@@ -562,6 +562,8 @@ end;
 function TLeaderParty.GetMaxSpeed: Integer;
 begin
   Result := TLeaderParty.GetMaxSpeed(TLeaderParty.Leader.Enum);
+  if Skills.Has(skOri) then
+    Result := Result + 5;
 end;
 
 class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;

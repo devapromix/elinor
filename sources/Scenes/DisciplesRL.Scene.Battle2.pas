@@ -68,6 +68,7 @@ implementation
 
 uses
   Math,
+  Dialogs,
   SysUtils,
   Elinor.Saga,
   Elinor.Statistics,
@@ -191,8 +192,8 @@ var
   Position: TPosition;
   CharExp: Integer;
 begin
-    if TLeaderParty.Leader.Level >= TSaga.MaxLevel then
-      Exit;
+  if TLeaderParty.Leader.Level >= TSaga.MaxLevel then
+    Exit;
   if (EnemyParty.GetExperience > 0) then
   begin
     if LeaderParty.GetAliveCreatures > 0 then
@@ -341,6 +342,7 @@ var
   Position: TPosition;
   F, B: Boolean;
   AtkCrEnum, DefCrEnum: TCreatureEnum;
+  LDamage: Integer;
 begin
   AtkCrEnum := AtkParty.Creature[AtkPos].Enum;
   DefCrEnum := DefParty.Creature[DefPos].Enum;
@@ -363,11 +365,16 @@ begin
           Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum)
             .Sound[csAttack]);
           Sleep(200);
-          DefParty.TakeDamage(AtkParty.Creature[AtkPos].Damage, DefPos);
+          LDamage := AtkParty.Creature[AtkPos].Damage;
+          DefParty.TakeDamage(LDamage, DefPos);
+          case TCreature.Character(AtkCrEnum).AttackEnum of
+            atDrainLife:
+              AtkParty.Heal(AtkPos, EnsureRange(LDamage div 2, 5, 100));
+          end;
           Battle.Attack(TCreature.Character(AtkCrEnum).AttackEnum,
             TCreature.Character(AtkCrEnum).SourceEnum,
             AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name
-            [1], AtkParty.Creature[AtkPos].Damage);
+            [1], LDamage);
           if (DefParty.Creature[DefPos].HitPoints > 0) then
             Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum)
               .Sound[csHit])

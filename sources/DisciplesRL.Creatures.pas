@@ -1234,7 +1234,7 @@ const
     'и его отряду летать над землей.'); Level: 1; Leaders: LeaderWarrior;),
     // Strength
     (Enum: skStrenght; Name: 'Сила';
-    Description: ('Добавляет к атаке предводителя', '25% урона.'); Level: 5;
+    Description: ('Добавляет к атаке предводителя', '10% урона.'); Level: 5;
     Leaders: LeaderWarrior;),
     // Spy
     (Enum: skSpy; Name: 'Тайные Тропы';
@@ -1242,15 +1242,15 @@ const
     'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
     // Hawk Eye #1
     (Enum: skHawkEye1; Name: 'Зоркость';
-    Description: ('Позволяет предводителю видеть', 'немного дальше.'); Level: 1;
+    Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 1;
     Leaders: LeaderScout;),
     // Hawk Eye #2
     (Enum: skHawkEye2; Name: 'Зоркость';
-    Description: ('Позволяет предводителю видеть', 'немного дальше.'); Level: 3;
+    Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 3;
     Leaders: LeaderScout;),
     // Hawk Eye #3
     (Enum: skHawkEye3; Name: 'Зоркость';
-    Description: ('Позволяет предводителю видеть', 'немного дальше.'); Level: 5;
+    Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 5;
     Leaders: AllLeaders;),
     // Artifact
     (Enum: skArtifactLore; Name: 'Знание Артефактов';
@@ -1298,7 +1298,7 @@ const
     'получает скидку 20% у торговца.'); Level: 4; Leaders: LeaderLord;),
     // Protect
     (Enum: skProtect; Name: 'Естественная Броня';
-    Description: ('Предводитель будет поглощать 20%', 'наносимого ему урона.');
+    Description: ('Предводитель будет поглощать 10%', 'наносимого ему урона.');
     Level: 6; Leaders: AllLeaders;),
     // Talisman
     (Enum: skTalisman; Name: 'Сила Талисманов';
