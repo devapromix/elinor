@@ -49,7 +49,7 @@ type
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
     reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp, reGhoul,
-    reStoneGargoyle,
+    reStoneGargoyle, reReaper,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -320,6 +320,8 @@ const
     (FileName: 'character.ghoul.png'; ResType: teGUI;),
     // Stone Gargoyle
     (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
+    // Reaper
+    (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"

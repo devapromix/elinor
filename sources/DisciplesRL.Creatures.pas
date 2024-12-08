@@ -150,7 +150,7 @@ type
     crPeasant, crManAtArms,
 
     // Undeads
-    crGhoul, crDarkElfGast,
+    crGhoul, crDarkElfGast, crReaper,
 
     // Heretics
     crImp,
@@ -208,7 +208,7 @@ type
     atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
     atPoisonousBreath, atDaggerOfShadows, atFireDagger, atClub, atFireHammer,
-    atPhoenixSword);
+    atPhoenixSword, atScythe);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -218,14 +218,14 @@ const
     'Меч Паладина', 'Боевой Топор', 'Кинжал', 'Лук', 'Лук Охотника', 'Арбалет',
     'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
     'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
-    'Булава', 'Тлеющий Молот', 'Меч Феникса');
+    'Булава', 'Тлеющий Молот', 'Меч Феникса', 'Коса');
 
 const
   AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
     'paladin_sword', 'battle_axe', 'dagger', 'bow', 'hunter_bow', 'crossbow',
     'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
     'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'fire_dagger',
-    'club', 'fire_hammer', 'phoenix_sword');
+    'club', 'fire_hammer', 'phoenix_sword', 'scythe');
 
 const
   Characters: array [reTheEmpire .. reLegionsOfTheDamned] of array
@@ -991,6 +991,15 @@ const
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; SkillEnum: skNone; Rating: 45;),
+    // Reaper
+    (Ident: 'reaper'; Faction: reNeutrals; SubRace: reUndead; ResEnum: reReaper;
+    Size: szSmall; Name: ('Жнец', 'Жнеца');
+    Description: ('Жнецы являются воплощением', 'абсолютной Пустоты и способны',
+    'воздействовать на разум.'); HitPoints: 250; Initiative: 55;
+    ChancesToHit: 80; Leadership: 0; Level: 4; Damage: 75; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 325;
+    Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
+    AttackEnum: atScythe; SkillEnum: skNone; Rating: 70;),
 {$ENDREGION Undeads}
     // Neutral Heretics
 {$REGION Heretics}
