@@ -32,8 +32,8 @@ const
     reNeutralTerrain, reNeutralTerrain);
 
 type
-  TSubRaceEnum = (reCustom, reHuman, reUndead, reHeretic, reDwarf, reElf,
-    reGreenSkin, reDarkElf, reVampire, reGargoyle, reAnimal, reBarbarian,
+  TSubRaceEnum = (reCustom, reAngel, reHuman, reUndead, reHeretic, reDwarf,
+    reElf, reGreenSkin, reDarkElf, reVampire, reGargoyle, reAnimal, reBarbarian,
     reDragon, reUndeadDragon, reMarsh, reWater);
 
 const
@@ -600,7 +600,7 @@ const
     // The Empire
 {$REGION The Empire}
     // Myzrael
-    (Ident: 'none'; Faction: reTheEmpire; SubRace: reCustom; ResEnum: reMyzrael;
+    (Ident: 'none'; Faction: reTheEmpire; SubRace: reAngel; ResEnum: reMyzrael;
     Size: szSmall; Name: ('Мизраэль', 'Мизраэля');
     Description: ('Мизраэль был послан, чтобы помочь',
     'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
