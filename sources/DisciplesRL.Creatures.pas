@@ -235,7 +235,7 @@ const
     // The Empire Leaders
     (crPaladin, crRanger, crArchmage, crThief, crWarlord, crNone), // ),
     // The Empire Characters
-    (crSquire, crArcher, crAcolyte, crApprentice, crNone, crNone)), //
+    (crSquire, crArcher, crApprentice, crAcolyte, crNone, crNone)), //
     //
     // Undead Hordes Capital Guardian
     ((crNone, crNone, crAshgan, crNone, crNone, crNone),
@@ -249,7 +249,7 @@ const
     // Legions Of The Damned Leaders
     (crDuke, crCounselor, crArchDevil, crRipper, crChieftain, crNone), //
     // Legions Of The Damned Characters
-    (crPossessed, crGargoyle, crDevil, crCultist, crNone, crNone)) //
+    (crPossessed, crGargoyle, crCultist, crDevil, crNone, crNone)) //
     //
     );
 {$REGION texts}
@@ -756,7 +756,7 @@ const
     AttackEnum: atBattleAxe; SkillEnum: skTalisman; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reSquire; Size: szSmall; Name: ('Воин', 'Воина');
+    ResEnum: reFighter; Size: szSmall; Name: ('Воин', 'Воина');
     Description: ('Услышав зов Мортис, безропотно',
     'встают в строй мертвые воины.', 'Они не знают ни страха, ни жалости.');
     HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -774,7 +774,7 @@ const
     AttackEnum: atParalyze; SkillEnum: skNone; Rating: 10;),
     // Initiate
     (Ident: 'initiate'; Faction: reUndeadHordes; SubRace: reUndead;
-    ResEnum: reApprentice; Size: szSmall; Name: ('Адепт', 'Адепта');
+    ResEnum: reInitiate; Size: szSmall; Name: ('Адепт', 'Адепта');
     Description: ('Адепты обучены нести чуму и', 'смерть армиям живых во славу',
     'своей богини Мортис.'); HitPoints: 45; Initiative: 40; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath;
