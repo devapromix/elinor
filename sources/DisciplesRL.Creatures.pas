@@ -782,7 +782,7 @@ const
     Gender: cgMale; AttackEnum: atMagic; SkillEnum: skNone; Rating: 10;),
     // Wyvern
     (Ident: 'wyvern'; Faction: reUndeadHordes; SubRace: reUndeadDragon;
-    ResEnum: reAcolyte; Size: szBig; Name: ('Виверна', 'Виверну');
+    ResEnum: reWyvern; Size: szBig; Name: ('Виверна', 'Виверну');
     Description: ('Чародеи воскрешают мертвых драко-',
     'нов, тем самым создавая виверн, кото-',
     'рые сражаются в рядах армии мертвых.'); HitPoints: 225; Initiative: 35;
@@ -1307,7 +1307,7 @@ const
     // Instructor
     (Enum: skInstructor; Name: 'Инструктор';
     Description: ('Все воины в отряде предводителя',
-    'будут получать больше опыта.'); Level: 5; Leaders: AllLeaders;),
+    'будут получать больше опыта.'); Level: 4; Leaders: AllLeaders;),
     // Book
     (Enum: skBook; Name: 'Тайное Знание';
     Description: ('Позволяет предводителю читать',
@@ -1318,8 +1318,8 @@ const
     'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
     // Sorcery
     (Enum: skSorcery; Name: 'Волшебство';
-    Description: ('Позволяет предводителю использовать', 'заклинания два раза');
-    Level: 1; Leaders: LeaderMage;),
+    Description: ('Позволяет предводителю использовать',
+    'заклинания два раза в день'); Level: 1; Leaders: LeaderMage;),
     // Vampirism
     (Enum: skVamp; Name: 'Вампиризм';
     Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');
