@@ -3,6 +3,11 @@
 		{
 			"level": 1,
 			"faction": "neutrals",
+			"characters":"none,none,rogue,none,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
 			"characters":"none,none,goblin-rider,none,none,none"
 		},
 		{

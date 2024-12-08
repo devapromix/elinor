@@ -147,7 +147,7 @@ type
     crOgre,
 
     // Humans
-    crPeasant, crManAtArms,
+    crPeasant, crManAtArms, crRogue,
 
     // Undeads
     crGhoul, crDarkElfGast, crReaper,
@@ -968,7 +968,15 @@ const
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
-
+    // Rogue
+    (Ident: 'rogue'; Faction: reNeutrals; SubRace: reHuman; ResEnum: reRogue;
+    Size: szSmall; Name: ('Разбойник', 'Разбойника');
+    Description: ('Разбойники собираются в банды', 'и нападают на беззащитных',
+    'путников.'); HitPoints: 75; Initiative: 65;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 80;
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atDagger; SkillEnum: skNone; Rating: 20;),
 {$ENDREGION Humans}
     // Neutral Undeads
 {$REGION Undeads}
