@@ -79,7 +79,9 @@ type
     reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
     reWallpaperScenario,
     //
-    reIconScores, reIconScoresOver, reIconClosedGates, reIconOpenedGates);
+    reIconScores, reIconScoresOver, reIconClosedGates, reIconOpenedGates,
+    // Races
+    reHumanMale);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -475,7 +477,11 @@ const
     // Closed Gates
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
-    (FileName: 'icon.gates.opened.png'; ResType: teIcon;)
+    (FileName: 'icon.gates.opened.png'; ResType: teIcon;),
+
+    // RACES //
+    // Human male
+    (FileName: 'race.human.male.png'; ResType: teGUI;)
     //
     );
 

@@ -655,8 +655,8 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
     AttackEnum: atBattleAxe; SkillEnum: skTalisman; Rating: 0;),
     // Squire
-    (Ident: 'squire'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: reSquire;
-    Size: szSmall; Name: ('Сквайр', 'Сквайра');
+    (Ident: 'squire'; Faction: reTheEmpire; SubRace: reHuman;
+    ResEnum: reSquire; Size: szSmall; Name: ('Сквайр', 'Сквайра');
     Description: ('Сквайр доблестно защищает в бою',
     'своих более слабых соотечественников,',
     'держа противников на расстоянии меча.'); HitPoints: 100; Initiative: 50;
@@ -972,8 +972,8 @@ const
     (Ident: 'rogue'; Faction: reNeutrals; SubRace: reHuman; ResEnum: reRogue;
     Size: szSmall; Name: ('Разбойник', 'Разбойника');
     Description: ('Разбойники собираются в банды', 'и нападают на беззащитных',
-    'путников.'); HitPoints: 75; Initiative: 65;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    'путников.'); HitPoints: 75; Initiative: 65; ChancesToHit: 80;
+    Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 80;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDagger; SkillEnum: skNone; Rating: 20;),
