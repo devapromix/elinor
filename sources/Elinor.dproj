@@ -109,7 +109,7 @@
         <DCCReference Include="Forms\DisciplesRL.MainForm.pas">
             <Form>MainForm</Form>
         </DCCReference>
-        <DCCReference Include="DisciplesRL.Map.pas"/>
+        <DCCReference Include="Game\Elinor.Map.pas"/>
         <DCCReference Include="Elinor.Resources.pas"/>
         <DCCReference Include="DisciplesRL.Creatures.pas"/>
         <DCCReference Include="DisciplesRL.Items.pas"/>

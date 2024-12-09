@@ -161,7 +161,7 @@ uses
   Math,
   Classes,
   SysUtils,
-  DisciplesRL.Map,
+  Elinor.Map,
   DisciplesRL.Scenes,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Items;

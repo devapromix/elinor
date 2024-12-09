@@ -13,7 +13,7 @@ uses
 {$ENDIF}
   Classes,
   Elinor.Saga,
-  DisciplesRL.Map,
+  Elinor.Map,
   Elinor.Party,
   Elinor.MediaPlayer,
   Elinor.Treasure,

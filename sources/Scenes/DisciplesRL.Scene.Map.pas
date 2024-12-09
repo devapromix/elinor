@@ -36,7 +36,7 @@ implementation
 
 uses
   SysUtils,
-  DisciplesRL.Map,
+  Elinor.Map,
   Elinor.Resources,
   Elinor.Saga,
   Elinor.Scene.Party,

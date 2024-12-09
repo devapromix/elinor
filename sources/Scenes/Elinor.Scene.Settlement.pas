@@ -65,7 +65,7 @@ implementation
 uses
   SysUtils,
   Elinor.Saga,
-  DisciplesRL.Map,
+  Elinor.Map,
   Elinor.Scene.Party,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Hire;

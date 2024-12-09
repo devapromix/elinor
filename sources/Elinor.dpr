@@ -9,7 +9,7 @@ uses
   Vcl.Forms,
   {$ENDIF }
   DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
-  DisciplesRL.Map in 'DisciplesRL.Map.pas',
+  Elinor.Map in 'Game\Elinor.Map.pas',
   Elinor.Resources in 'Elinor.Resources.pas',
   DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
   DisciplesRL.Items in 'DisciplesRL.Items.pas',

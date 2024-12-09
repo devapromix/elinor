@@ -90,7 +90,7 @@ uses
   SysUtils,
   Elinor.Statistics,
   DisciplesRL.Common,
-  DisciplesRL.Map,
+  Elinor.Map,
   DisciplesRL.Button,
   Elinor.Scene.Party,
   DisciplesRL.Scene.Battle2,

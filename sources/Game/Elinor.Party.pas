@@ -4,11 +4,10 @@ interface
 
 uses
   Types,
-
   DisciplesRL.Creatures,
   Elinor.MapObject,
   DisciplesRL.Items,
-  DisciplesRL.Map;
+  Elinor.Map;
 
 type
   TPartySide = (psLeft, psRight);
