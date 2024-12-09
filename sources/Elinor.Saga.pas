@@ -243,6 +243,7 @@ begin
         LText := LText + Format('%d-%s ',
           [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
       LStringList.Append(Trim(LText));
+      LStringList.Sort;
       LStringList.SaveToFile('parties.txt');
     finally
       FreeAndNil(LStringList);
@@ -285,8 +286,7 @@ begin
   Game.Gold.NewValue := 0;
   Game.Mana.NewValue := 0;
   NewItem := 0;
-  LLevel := EnsureRange((Game.Map.GetDistToCapital(TLeaderParty.Leader.X,
-    TLeaderParty.Leader.Y) div 3) + Ord(TSaga.Difficulty), 1, MaxLevel);
+  LLevel := TSaga.GetTileLevel(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   case LootRes of
     reGold:
       AddGold;
@@ -315,9 +315,20 @@ end;
 
 class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
   : Integer;
+var
+  L: Integer;
 begin
-  Result := EnsureRange((Game.Map.GetDistToCapital(AX, AY) div 3) +
-    Ord(TSaga.Difficulty), 1, MaxLevel);
+  Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
+  case TSaga.Difficulty of
+    dfEasy:
+      L := 60;
+    dfNormal:
+      L := 30;
+    dfHard:
+      L := 10;
+  end;
+  if RandomRange(1, L) = 1 then
+    Result := EnsureRange(Result + 1, 1, MaxLevel);
 end;
 
 { TScenario }
