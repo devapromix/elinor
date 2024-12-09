@@ -214,8 +214,8 @@ var
     case AObjID of
       0:
         LResEnum := reSTower;
-    else
-      LResEnum := reSTower;
+    //else
+    //  LResEnum := reSTower;
     end;
     FMap[lrObj][AX, AY] := LResEnum;
   end;

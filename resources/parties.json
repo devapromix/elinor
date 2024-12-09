@@ -3,87 +3,113 @@
 		{
 			"level": 1,
 			"faction": "neutrals",
+			"characters":"none,none,goblin,none,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
 			"characters":"none,none,rogue,none,none,none"
 		},
 		{
-			"level": 2,
+			"level": 3,
 			"faction": "neutrals",
-			"characters":"none,none,goblin-rider,none,none,none"
+			"characters":"none,none,wolf,none,none,none"
 		},
 		{
-			"level": 2,
+			"level": 4,
 			"faction": "neutrals",
-			"characters":"none,goblin-archer,goblin,none,none,goblin-archer"
+			"characters":"none,none,orc,none,none,none"
 		},
 		{
-			"level": 2,
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,none,ghoul,none,none,none"
+		},
+		{
+			"level": 6,
+			"faction": "neutrals",
+			"characters":"none,none,spider,none,none,none"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
+			"characters":"none,none,reaper,none,none,none"
+		},
+		{
+			"level": 8,
+			"faction": "neutrals",
+			"characters":"none,none,ogre,none,none,none"
+		},
+		
+		{
+			"level": 9,
 			"faction": "neutrals",
 			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "neutrals",
 			"characters":"none,none,goblin,goblin-elder,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "neutrals",
 			"characters":"goblin,none,none,goblin-elder,goblin,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "the-empire",
 			"characters":"none,none,squire,archer,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "undead-hordes",
 			"characters":"none,none,fighter,initiate,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "undead-hordes",
 			"characters":"none,none,fighter,ghost,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,possessed,cultist,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,devil,gargoyle,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"imp,none,none,cultist,imp,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,imp,cultist,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "neutrals",
 			"characters":"none,none,devil,none,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,wolf,none,none,none"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "neutrals",
 			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
 		},
 		{
-			"level": 2,
+			"level": 9,
 			"faction": "neutrals",
-			"characters":"goblin,goblin-elder,none,none,goblin,goblin-elder"
+			"characters":"goblin,goblin-elder,wolf,none,goblin,goblin-elder"
 		}
 	]
 }

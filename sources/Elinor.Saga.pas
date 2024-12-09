@@ -19,6 +19,7 @@ uses
   6  Разорить все руины и другие опасные места.
   7  Победить всех врагов на карте.
   8  Что-то выполнить за N дней (лимит времени, возможно опция для каждого сценария).
+  9  Драгонхантер - исстребить всех драконов на карте.
 }
 
 type
@@ -31,7 +32,8 @@ type
 type
   TScenario = class(TObject)
   public type
-    TScenarioEnum = (sgDarkTower, sgOverlord, sgAncientKnowledge);
+    TScenarioEnum = (sgDarkTower, sgOverlord,
+      sgAncientKnowledge { , sgDragonhunter } );
   public const
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
@@ -174,8 +176,7 @@ var
   LPosition: TPosition;
   LCreatureEnum: TCreatureEnum;
 begin
-  LLevel := GetTileLevel(AX, AY);
-  LLevel := 1;
+  LLevel := EnsureRange(GetTileLevel(AX, AY), 1, MaxLevel);
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
   repeat
