@@ -4,28 +4,8 @@ interface
 
 uses
   DisciplesRL.Creatures,
+  Elinor.MapObject,
   Elinor.Resources;
-
-type
-  TLocation = record
-    X: Integer;
-    Y: Integer;
-  end;
-
-type
-  TMapObject = class(TObject)
-  private
-    FLocation: TLocation;
-  public
-    constructor Create(const AX, AY: Integer); overload;
-    constructor Create; overload;
-    destructor Destroy; override;
-    property Location: TLocation read FLocation write FLocation;
-    procedure SetLocation(const AX, AY: Integer);
-    function GetLocation: TLocation;
-    property X: Integer read FLocation.X;
-    property Y: Integer read FLocation.Y;
-  end;
 
 type
   TMapPlace = class(TMapObject)
@@ -116,34 +96,6 @@ end;
 function IsMoveLeader(X, Y: Integer): Boolean; stdcall;
 begin
   Result := not(Game.Map.GetTile(lrObj, X, Y) in StopTiles);
-end;
-
-constructor TMapObject.Create(const AX, AY: Integer);
-begin
-  FLocation.X := AX;
-  FLocation.Y := AY;
-end;
-
-constructor TMapObject.Create;
-begin
-  Create(0, 0);
-end;
-
-destructor TMapObject.Destroy;
-begin
-
-  inherited;
-end;
-
-function TMapObject.GetLocation: TLocation;
-begin
-  Result := FLocation;
-end;
-
-procedure TMapObject.SetLocation(const AX, AY: Integer);
-begin
-  FLocation.X := AX;
-  FLocation.Y := AY;
 end;
 
 function TMap.GetDist(X1, Y1, X2, Y2: Integer): Integer;
