@@ -253,7 +253,8 @@ procedure TSceneSettlement.Revive;
       else
       begin
         ConfirmGold := TLeaderParty.Leader.GetGold
-          (Level * TSaga.GoldForRevivePerLevel);
+          (MaxHitPoints + (Level * ((Ord(TSaga.Difficulty) + 1) *
+          TSaga.GoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin
           InformDialog(Format('Для воскрешения нужно %d золота!',
