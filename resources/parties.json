@@ -3,7 +3,7 @@
 		{
 			"level": 1,
 			"faction": "neutrals",
-			"characters":"none,none,goblin,none,none,none"
+			"characters":"none,none,goblin,goblin-archer,none,none"
 		},
 		{
 			"level": 2,
