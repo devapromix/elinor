@@ -133,6 +133,7 @@ type
     class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
+    function GetGold(const AGold: Integer): Integer;
   end;
 
 var
@@ -580,6 +581,14 @@ end;
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
 begin
   Result := IfThen(CrEnum in LeaderMage, 2, 1);
+end;
+
+function TLeaderParty.GetGold(const AGold: Integer): Integer;
+begin
+  Result := AGold;
+  if Skills.Has(skHalfGold) then
+    Result := AGold div 2;
+
 end;
 
 function TLeaderParty.GetLeadership: Integer;
