@@ -13,7 +13,7 @@ uses
   DisciplesRL.Scenes,
   Elinor.Scene.Frames,
   Elinor.Party,
-  DisciplesRL.Battle;
+  Elinor.Battle;
 
 type
   TTurnType = (ttHeal, ttDamage, ttFear);
