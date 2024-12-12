@@ -191,7 +191,7 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Battle3,
-  DisciplesRL.Scene.Spellbook;
+  Elinor.Scene.Spellbook;
 
 type
   TButtonEnum = (btOk, btCancel);

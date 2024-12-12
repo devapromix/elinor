@@ -109,12 +109,12 @@
         <DCCReference Include="Forms\DisciplesRL.MainForm.pas">
             <Form>MainForm</Form>
         </DCCReference>
+        <DCCReference Include="Third-Party\Bass\Bass.pas"/>
         <DCCReference Include="Game\Elinor.Map.pas"/>
         <DCCReference Include="Elinor.Resources.pas"/>
         <DCCReference Include="DisciplesRL.Creatures.pas"/>
         <DCCReference Include="DisciplesRL.Items.pas"/>
         <DCCReference Include="Game\Elinor.Party.pas"/>
-        <DCCReference Include="Third-Party\Bass\Bass.pas"/>
         <DCCReference Include="Game\Elinor.Battle.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scenes.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Map.pas"/>
@@ -127,7 +127,7 @@
         <DCCReference Include="Scenes\DisciplesRL.Scene.Battle3.pas"/>
         <DCCReference Include="Elinor.Saga.pas"/>
         <DCCReference Include="DisciplesRL.Button.pas"/>
-        <DCCReference Include="Scenes\DisciplesRL.Scene.Spellbook.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Spellbook.pas"/>
         <DCCReference Include="Game\Elinor.MediaPlayer.pas"/>
         <DCCReference Include="Elinor.PathFind.pas"/>
         <DCCReference Include="Elinor.Spells.pas"/>

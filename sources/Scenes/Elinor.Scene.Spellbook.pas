@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Scene.Spellbook;
+﻿unit Elinor.Scene.Spellbook;
 
 interface
 
