@@ -480,7 +480,7 @@ type
     skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
-    skHalfGold, skVamp);
+    skTemplar, skVamp);
 
 type
   TSkill = record
@@ -653,7 +653,7 @@ const
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; SkillEnum: skHalfGold; Rating: 0;),
+    AttackEnum: atBattleAxe; SkillEnum: skTemplar; Rating: 0;),
     // Squire
     (Ident: 'squire'; Faction: reTheEmpire; SubRace: reHuman; ResEnum: reSquire;
     Size: szSmall; Name: ('Сквайр', 'Сквайра');
@@ -753,7 +753,7 @@ const
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; SkillEnum: skHalfGold; Rating: 0;),
+    AttackEnum: atBattleAxe; SkillEnum: skTemplar; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: reUndeadHordes; SubRace: reUndead;
     ResEnum: reFighter; Size: szSmall; Name: ('Воин', 'Воина');
@@ -847,7 +847,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
-    AttackEnum: atFireHammer; SkillEnum: skHalfGold; Rating: 0;),
+    AttackEnum: atFireHammer; SkillEnum: skTemplar; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: reLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: rePossessed; Size: szSmall; Name: ('Одержимый', 'Одержимого');
@@ -1337,10 +1337,10 @@ const
     (Enum: skSorcery; Name: 'Волшебство';
     Description: ('Позволяет предводителю использовать',
     'заклинания два раза в день'); Level: 1; Leaders: LeaderMage;),
-    // Half Gold
-    (Enum: skSorcery; Name: '+++';
-    Description: ('Позволяет предводителю использовать',
-    'заклинания два раза в день'); Level: 1; Leaders: LeaderLord;),
+    // Templar
+    (Enum: skTemplar; Name: 'Tempalar';
+    Description: ('Allows the leader to heal and resurrect',
+    'troops at half the cost'); Level: 1; Leaders: LeaderLord;),
     // Vampirism
     (Enum: skVamp; Name: 'Вампиризм';
     Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');

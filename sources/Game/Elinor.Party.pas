@@ -586,7 +586,7 @@ end;
 function TLeaderParty.GetGold(const AGold: Integer): Integer;
 begin
   Result := AGold;
-  if Skills.Has(skHalfGold) then
+  if Skills.Has(skTemplar) then
     Result := AGold div 2;
 
 end;
