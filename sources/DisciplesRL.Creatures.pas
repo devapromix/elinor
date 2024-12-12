@@ -1388,7 +1388,7 @@ end;
 
 procedure TSkills.Gen;
 var
-  J: Integer;
+  I, J: Integer;
   LSkillEnum: TSkillEnum;
 
   function GetRandomSkillEnum: TSkillEnum;
@@ -1401,28 +1401,26 @@ var
   begin
     Result := skLeadership1;
     if Has(skLeadership1) then
-      Result := skLeadership2
-    else if Has(skLeadership2) then
-      Result := skLeadership3
-    else if Has(skLeadership3) then
-      Result := skLeadership4
-    else if Has(skLeadership4) then
+      Result := skLeadership2;
+    if Has(skLeadership2) then
+      Result := skLeadership3;
+    if Has(skLeadership3) then
+      Result := skLeadership4;
+    if Has(skLeadership4) then
       Result := GetRandomSkillEnum;
-
   end;
 
 begin
+  I := RandomRange(0, 3);
   for J := 0 to 2 do
     RandomSkillEnum[J] := skNone;
   for J := 0 to 2 do
   begin
     repeat
-      case J of
-        0:
-          LSkillEnum := GetLeadershipSkillEnum;
+      if I = J then
+        LSkillEnum := GetLeadershipSkillEnum
       else
         LSkillEnum := GetRandomSkillEnum;
-      end;
     until not Has(LSkillEnum) and (LSkillEnum <> RandomSkillEnum[0]) and
       (LSkillEnum <> RandomSkillEnum[1]) and (LSkillEnum <> RandomSkillEnum[2])
       and (SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
