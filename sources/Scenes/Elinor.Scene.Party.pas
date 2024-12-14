@@ -18,8 +18,6 @@ uses
 type
   TSceneParty = class(TSceneFrames)
   private
-  var
-    P: Boolean;
   private
   class var
     FShowSkills: Boolean;
@@ -312,7 +310,7 @@ var
   I: TButtonEnum;
   Lt, W: Integer;
 begin
-  inherited Create(reWallpaperLeader, True);
+  inherited Create(reWallpaperLeader, fgS6vM2);
   W := ResImage[reButtonDef].Width + 4;
   Lt := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do
@@ -327,7 +325,6 @@ begin
   EquipmentSelItemIndex := -1;
   InventorySelItemIndex := -1;
   Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
-  P := True;
 end;
 
 destructor TSceneParty.Destroy;
@@ -418,39 +415,30 @@ var
 
   procedure ShowSkills;
   var
-    I, Mn, Mx: Integer;
+    I: Integer;
     S: TSkillEnum;
   begin
     DrawTitle(reTitleAbilities);
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := 250 + GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6 + (TextLineHeight div 2);
-    if P then
-      AddTextLine('Страница 1/2')
-    else
-      AddTextLine('Страница 2/2');
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
     AddTextLine('Умения Лидера', True);
     AddTextLine;
-    if P then
-    begin
-      Mn := 0;
-      Mx := 5;
-    end
-    else
-    begin
-      Mn := 6;
-      Mx := MaxSkills - 1;
-    end;
-    for I := Mn to Mx do
+    for I := 0 to MaxSkills - 1 do
     begin
       S := TLeaderParty.Leader.Skills.Get(I);
       if S <> skNone then
       begin
         AddTextLine(TSkills.Ability(S).Name);
-        AddTextLine(Format('%s %s', [TSkills.Ability(S).Description[0],
-          TSkills.Ability(S).Description[1]]));
+        AddTextLine(TSkills.Ability(S).Description[0]);
+        AddTextLine(TSkills.Ability(S).Description[1]);
+        if I = 3 then
+        begin
+          TextLeft := GetFrameX(0, psRight) + 320 + 12;
+          TextTop := GetFrameY(0, psRight) + 6;
+
+        end;
       end;
     end;
   end;
@@ -461,7 +449,6 @@ var
   begin
     DrawTitle(reTitleInventory);
     CurCrEnum := TLeaderParty.Leader.Enum;
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reBigFrame);
     TextLeft := GetFrameX(0, psRight) + 12;
     TextTop := GetFrameY(0, psRight) + 6;
     //
@@ -500,12 +487,9 @@ var
   procedure ShowInfo;
   begin
     DrawTitle(reTitleParty);
-    DrawImage(GetFrameX(0, psRight), GetFrameY(0, psRight), reInfoFrame);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
     if (C <> crNone) then
       TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
-    DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2 + 20, SceneTop,
-      reInfoFrame);
     TextTop := SceneTop + 6;
     TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
     AddTextLine('Статистика', True);
@@ -565,12 +549,12 @@ begin
         OpenSkills;
     K_LEFT, K_KP_4, K_A:
       if FShowSkills or FShowInventory then
-        P := True
+
       else
         MoveCursor(drWest);
     K_RIGHT, K_KP_6, K_D:
       if FShowSkills or FShowInventory then
-        P := False
+
       else
         MoveCursor(drEast);
     K_UP, K_KP_8, K_W:

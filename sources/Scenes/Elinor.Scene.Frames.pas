@@ -17,13 +17,14 @@ type
   private
     FResEnum: TResEnum;
     FSurface: TBitmap;
-    FOnlyLeft: Boolean;
+    FFrameGrid: TFrameGrid;
   public
-    constructor Create(const AResEnum: TResEnum; AOnlyLeft: Boolean = False);
+    constructor Create(const AResEnum: TResEnum;
+      const AFrameGrid: TFrameGrid = fgS6vS6);
     destructor Destroy; override;
     procedure Render; override;
     property ResEnum: TResEnum read FResEnum;
-    property OnlyLeft: Boolean read FOnlyLeft;
+    property FrameGrid: TFrameGrid read FFrameGrid;
   end;
 
 implementation
@@ -35,13 +36,13 @@ uses
 { TSceneFrames }
 
 constructor TSceneFrames.Create(const AResEnum: TResEnum;
-  AOnlyLeft: Boolean = False);
+  const AFrameGrid: TFrameGrid = fgS6vS6);
 var
   I, LLeft, LTop, LMid, FrameCount: Integer;
 begin
   inherited Create;
   FResEnum := AResEnum;
-  FOnlyLeft := AOnlyLeft;
+  FFrameGrid := AFrameGrid;
   FSurface := TBitmap.Create;
   FSurface.Width := ScreenWidth;
   FSurface.Height := ScreenHeight;
@@ -51,7 +52,7 @@ begin
   LTop := TScene.SceneTop;
   LMid := ScreenWidth - ((320 * 4) + 26);
   FrameCount := 12;
-  if FOnlyLeft then
+  if FFrameGrid <> fgS6vS6 then
     FrameCount := 6;
   for I := 1 to FrameCount do
   begin
@@ -64,6 +65,12 @@ begin
       if (I = 6) then
         Inc(LLeft, LMid);
     end;
+  end;
+  if FFrameGrid = fgS6vM2 then
+  begin
+    FSurface.Canvas.Draw(LLeft, LTop, ResImage[reInfoFrame]);
+    Inc(LLeft, 322);
+    FSurface.Canvas.Draw(LLeft, LTop, ResImage[reInfoFrame]);
   end;
 end;
 
