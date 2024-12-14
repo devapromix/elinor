@@ -180,7 +180,7 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.MainForm,
+  Elinor.MainForm,
   DisciplesRL.Button,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Map,

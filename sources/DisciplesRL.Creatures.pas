@@ -1399,6 +1399,9 @@ var
 
   function GetLeadershipSkillEnum: TSkillEnum;
   begin
+    if Has(skLeadership1) and Has(skLeadership2) and Has(skLeadership3) and
+      Has(skLeadership4) then
+      Exit(GetRandomSkillEnum);
     Result := skLeadership1;
     if Has(skLeadership1) then
       Result := skLeadership2;
@@ -1406,8 +1409,6 @@ var
       Result := skLeadership3;
     if Has(skLeadership3) then
       Result := skLeadership4;
-    if Has(skLeadership4) then
-      Result := GetRandomSkillEnum;
   end;
 
 begin

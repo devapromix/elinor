@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.MainForm;
+﻿unit Elinor.MainForm;
 
 interface
 

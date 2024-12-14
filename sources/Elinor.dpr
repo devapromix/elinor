@@ -8,7 +8,7 @@ uses
   {$ELSE}
   Vcl.Forms,
   {$ENDIF }
-  DisciplesRL.MainForm in 'Forms\DisciplesRL.MainForm.pas' {MainForm},
+  Elinor.MainForm in 'Forms\Elinor.MainForm.pas' {MainForm},
   Bass in 'Third-Party\Bass\Bass.pas',
   Elinor.Map in 'Game\Elinor.Map.pas',
   Elinor.Resources in 'Elinor.Resources.pas',

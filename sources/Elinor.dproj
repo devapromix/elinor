@@ -106,7 +106,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Forms\DisciplesRL.MainForm.pas">
+        <DCCReference Include="Forms\Elinor.MainForm.pas">
             <Form>MainForm</Form>
         </DCCReference>
         <DCCReference Include="Third-Party\Bass\Bass.pas"/>
