@@ -43,8 +43,6 @@ type
       CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class procedure RenderParty(const PartySide: TPartySide;
       const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
-    class function GetFrameX(const Position: TPosition;
-      const PartySide: TPartySide): Integer;
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
       F: Boolean = False; H: Boolean = False); overload;
     procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
@@ -140,35 +138,6 @@ begin
   end;
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Render;
-end;
-
-class function TSceneParty.GetFrameX(const Position: TPosition;
-  const PartySide: TPartySide): Integer;
-var
-  W: Integer;
-begin
-  W := Game.Width div 4;
-  case Position of
-    0, 2, 4:
-      begin
-        case PartySide of
-          psLeft:
-            Result := (W + SceneLeft) - (W - ResImage[reFrame].Width - S);
-        else
-          Result := Game.Width -
-            (SceneLeft + S + (ResImage[reFrame].Width * 2));
-        end;
-      end;
-  else
-    begin
-      case PartySide of
-        psLeft:
-          Result := SceneLeft;
-      else
-        Result := Game.Width - ResImage[reFrame].Width - SceneLeft;
-      end;
-    end;
-  end;
 end;
 
 procedure TSceneParty.OpenInventory;
@@ -281,11 +250,12 @@ begin
   for Position := Low(TPosition) to High(TPosition) do
   begin
     Game.GetScene(scParty).RenderFrame(PartySide, Position,
-      TSceneParty.GetFrameX(Position, PartySide), TFrame.Row(Position),
-      FShowInventory or FShowSkills);
+      TFrame.Col(Position, PartySide), TFrame.Row(Position), FShowInventory or
+      FShowSkills);
     if (Party <> nil) then
       TSceneParty(Game.GetScene(scParty)).DrawUnit(Position, Party,
-        GetFrameX(Position, PartySide), TFrame.Row(Position), CanHire, ShowExp);
+        TFrame.Col(Position, PartySide), TFrame.Row(Position), CanHire,
+        ShowExp);
   end;
 end;
 
@@ -367,12 +337,12 @@ var
   I: TButtonEnum;
 begin
   inherited;
-  if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 8,
+  if FShowInventory and MouseOver(X, Y, TFrame.Col(0, psRight) + 8,
     TFrame.Row(0) + 48, 320, TextLineHeight * 12) then
     EquipmentSelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight
   else
     EquipmentSelItemIndex := -1;
-  if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 328,
+  if FShowInventory and MouseOver(X, Y, TFrame.Col(0, psRight) + 328,
     TFrame.Row(0) + 48, 320, TextLineHeight * 12) then
     InventorySelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight
   else
@@ -401,9 +371,9 @@ var
     LSkillEnum: TSkillEnum;
   begin
     DrawTitle(reTitleAbilities);
-    TextLeft := 250 + GetFrameX(0, psRight) + 12;
+    TextLeft := 250 + TFrame.Col(0, psRight) + 12;
     TextTop := TFrame.Row(0) + 6 + (TextLineHeight div 2);
-    TextLeft := GetFrameX(0, psRight) + 12;
+    TextLeft := TFrame.Col(0, psRight) + 12;
     TextTop := TFrame.Row(0) + 6;
     AddTextLine('Умения Лидера', True);
     AddTextLine;
@@ -417,7 +387,7 @@ var
         AddTextLine(TSkills.Ability(LSkillEnum).Description[1]);
         if I = 3 then
         begin
-          TextLeft := GetFrameX(0, psRight) + 320 + 12;
+          TextLeft := TFrame.Col(0, psRight) + 320 + 12;
           TextTop := TFrame.Row(0) + 6;
 
         end;
@@ -431,7 +401,7 @@ var
   begin
     DrawTitle(reTitleInventory);
     CurCrEnum := TLeaderParty.Leader.Enum;
-    TextLeft := GetFrameX(0, psRight) + 12;
+    TextLeft := TFrame.Col(0, psRight) + 12;
     TextTop := TFrame.Row(0) + 6;
     //
     if EquipmentSelItemIndex >= 0 then
@@ -451,7 +421,7 @@ var
         AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I));
       end;
 
-    TextLeft := GetFrameX(0, psRight) + 320 + 12;
+    TextLeft := TFrame.Col(0, psRight) + 320 + 12;
     TextTop := TFrame.Row(0) + 6;
     //
     if (InventorySelItemIndex >= 0) and

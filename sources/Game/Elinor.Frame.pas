@@ -10,7 +10,9 @@ type
   public
     class function Row(const ARow: Byte): Integer; overload;
     class function Row(const APosition: TPosition): Integer; overload;
-    class function Col(const ACol: Byte): Integer;
+    class function Col(const ACol: Byte): Integer; overload;
+    class function Col(const APosition: TPosition; const APartySide: TPartySide)
+      : Integer; overload;
     class function Mid: Integer;
   end;
 
@@ -32,6 +34,31 @@ begin
       Result := Mid + 654;
   else
     Result := Mid + 976;
+  end;
+end;
+
+class function TFrame.Col(const APosition: TPosition;
+  const APartySide: TPartySide): Integer;
+begin
+  case APosition of
+    0, 2, 4:
+      begin
+        case APartySide of
+          psLeft:
+            Result := Col(1);
+        else
+          Result := Col(2);
+        end;
+      end;
+  else
+    begin
+      case APartySide of
+        psLeft:
+          Result := Col(0);
+      else
+        Result := Col(3);
+      end;
+    end;
   end;
 end;
 

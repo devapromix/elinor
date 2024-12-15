@@ -571,8 +571,8 @@ begin
     for Position := Low(TPosition) to High(TPosition) do
     begin
       Inc(R);
-      if MouseOver(TSceneParty.GetFrameX(Position, PartySide),
-        TFrame.Row(Position), MX, MY) then
+      if MouseOver(TFrame.Col(Position, PartySide), TFrame.Row(Position), MX, MY)
+      then
       begin
         Result := R;
         Exit;
