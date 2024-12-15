@@ -564,6 +564,7 @@ type
     function Alive: Boolean;
     function AliveAndNeedExp: Boolean;
     function IsLeader(): Boolean;
+    function IsMaxLevel: Boolean;
     function GenderEnding(VerbForm: Byte = 0): string;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
@@ -1195,12 +1196,17 @@ end;
 
 function TCreature.AliveAndNeedExp: Boolean;
 begin
-  Result := Alive and (Level < TSaga.MaxLevel)
+  Result := Alive and not IsMaxLevel;
 end;
 
 function TCreature.IsLeader(): Boolean;
 begin
   Result := Leadership > 0;
+end;
+
+function TCreature.IsMaxLevel: Boolean;
+begin
+  Result := Level >= TSaga.MaxLevel;
 end;
 
 class function TCreature.StrToCharEnum(const ChName: string): TCreatureEnum;

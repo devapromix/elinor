@@ -329,7 +329,7 @@ begin
   Result := 0;
   for LPosition := Low(TPosition) to High(TPosition) do
     with FCreature[LPosition] do
-      if Alive and (Level < TSaga.MaxLevel) then
+      if Alive and not IsMaxLevel then
         Inc(Result);
 end;
 
@@ -459,7 +459,7 @@ procedure TParty.UpdateLevel(const APosition: TPosition);
 begin
   with FCreature[APosition] do
   begin
-    if Level >= TSaga.MaxLevel then
+    if IsMaxLevel then
       Exit;
     Experience := 0;
     Game.MediaPlayer.PlaySound(mmLevel);
