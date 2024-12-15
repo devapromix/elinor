@@ -43,8 +43,6 @@ type
       CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class procedure RenderParty(const PartySide: TPartySide;
       const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
-    class function GetFrameY(const Position: TPosition;
-      const PartySide: TPartySide): Integer;
     class function GetFrameX(const Position: TPosition;
       const PartySide: TPartySide): Integer;
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
@@ -71,7 +69,8 @@ uses
   Elinor.Statistics,
   DisciplesRL.Scene.Hire,
   DisciplesRL.Button,
-  DisciplesRL.Items;
+  DisciplesRL.Items,
+  Elinor.Frame;
 
 type
   TButtonEnum = (btSkills, btClose, btInventory);
@@ -169,19 +168,6 @@ begin
         Result := Game.Width - ResImage[reFrame].Width - SceneLeft;
       end;
     end;
-  end;
-end;
-
-class function TSceneParty.GetFrameY(const Position: TPosition;
-  const PartySide: TPartySide): Integer;
-begin
-  case Position of
-    0, 1:
-      Result := SceneTop;
-    2, 3:
-      Result := SceneTop + ResImage[reFrame].Height + S;
-  else
-    Result := SceneTop + ((ResImage[reFrame].Height + S) * 2);
   end;
 end;
 
@@ -295,13 +281,11 @@ begin
   for Position := Low(TPosition) to High(TPosition) do
   begin
     Game.GetScene(scParty).RenderFrame(PartySide, Position,
-      TSceneParty.GetFrameX(Position, PartySide),
-      TSceneParty.GetFrameY(Position, PartySide), FShowInventory or
-      FShowSkills);
+      TSceneParty.GetFrameX(Position, PartySide), TFrame.Row(Position),
+      FShowInventory or FShowSkills);
     if (Party <> nil) then
       TSceneParty(Game.GetScene(scParty)).DrawUnit(Position, Party,
-        GetFrameX(Position, PartySide), GetFrameY(Position, PartySide),
-        CanHire, ShowExp);
+        GetFrameX(Position, PartySide), TFrame.Row(Position), CanHire, ShowExp);
   end;
 end;
 
@@ -384,15 +368,13 @@ var
 begin
   inherited;
   if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 8,
-    GetFrameY(0, psRight) + 48, 320, TextLineHeight * 12) then
-    EquipmentSelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
-      div TextLineHeight
+    TFrame.Row(0) + 48, 320, TextLineHeight * 12) then
+    EquipmentSelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight
   else
     EquipmentSelItemIndex := -1;
   if FShowInventory and MouseOver(X, Y, GetFrameX(0, psRight) + 328,
-    GetFrameY(0, psRight) + 48, 320, TextLineHeight * 12) then
-    InventorySelItemIndex := (Y - (GetFrameY(0, psRight) + 48))
-      div TextLineHeight
+    TFrame.Row(0) + 48, 320, TextLineHeight * 12) then
+    InventorySelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight
   else
     InventorySelItemIndex := -1;
   for I := Low(TButtonEnum) to High(TButtonEnum) do
@@ -420,9 +402,9 @@ var
   begin
     DrawTitle(reTitleAbilities);
     TextLeft := 250 + GetFrameX(0, psRight) + 12;
-    TextTop := GetFrameY(0, psRight) + 6 + (TextLineHeight div 2);
+    TextTop := TFrame.Row(0) + 6 + (TextLineHeight div 2);
     TextLeft := GetFrameX(0, psRight) + 12;
-    TextTop := GetFrameY(0, psRight) + 6;
+    TextTop := TFrame.Row(0) + 6;
     AddTextLine('Умения Лидера', True);
     AddTextLine;
     for I := 0 to MaxSkills - 1 do
@@ -436,7 +418,7 @@ var
         if I = 3 then
         begin
           TextLeft := GetFrameX(0, psRight) + 320 + 12;
-          TextTop := GetFrameY(0, psRight) + 6;
+          TextTop := TFrame.Row(0) + 6;
 
         end;
       end;
@@ -450,7 +432,7 @@ var
     DrawTitle(reTitleInventory);
     CurCrEnum := TLeaderParty.Leader.Enum;
     TextLeft := GetFrameX(0, psRight) + 12;
-    TextTop := GetFrameY(0, psRight) + 6;
+    TextTop := TFrame.Row(0) + 6;
     //
     if EquipmentSelItemIndex >= 0 then
       DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight)
@@ -470,7 +452,7 @@ var
       end;
 
     TextLeft := GetFrameX(0, psRight) + 320 + 12;
-    TextTop := GetFrameY(0, psRight) + 6;
+    TextTop := TFrame.Row(0) + 6;
     //
     if (InventorySelItemIndex >= 0) and
       (TLeaderParty.Leader.Inventory.Item(InventorySelItemIndex).Enum <> iNone)

@@ -191,7 +191,8 @@ uses
   DisciplesRL.Scene.Hire,
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Battle3,
-  Elinor.Scene.Spellbook;
+  Elinor.Scene.Spellbook,
+  Elinor.Frame;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -571,7 +572,7 @@ begin
     begin
       Inc(R);
       if MouseOver(TSceneParty.GetFrameX(Position, PartySide),
-        TSceneParty.GetFrameY(Position, PartySide), MX, MY) then
+        TFrame.Row(Position), MX, MY) then
       begin
         Result := R;
         Exit;

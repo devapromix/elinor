@@ -27,15 +27,12 @@ type
     property FrameGrid: TFrameGrid read FFrameGrid;
   end;
 
-var
-  FrameRow: array [0 .. 2] of Integer;
-  FrameCol: array [0 .. 3] of Integer;
-
 implementation
 
 uses
   Math,
-  SysUtils;
+  SysUtils,
+  Elinor.Frame;
 
 { TSceneFrames }
 
@@ -58,13 +55,6 @@ begin
   FrameCount := 12;
   if FFrameGrid <> fgS6vS6 then
     FrameCount := 6;
-  FrameRow[0] := 220;
-  FrameRow[1] := 340;
-  FrameRow[2] := 460;
-  FrameCol[0] := 10;
-  FrameCol[1] := 332;
-  FrameCol[2] := LMid + 654;
-  FrameCol[3] := LMid + 976;
   for I := 1 to FrameCount do
   begin
     FSurface.Canvas.Draw(LLeft, LTop, ResImage[reFrame]);
@@ -79,8 +69,8 @@ begin
   end;
   if FFrameGrid = fgS6vM2 then
   begin
-    FSurface.Canvas.Draw(FrameCol[2], LTop, ResImage[reInfoFrame]);
-    FSurface.Canvas.Draw(FrameCol[3], LTop, ResImage[reInfoFrame]);
+    FSurface.Canvas.Draw(TFrame.Col(2), LTop, ResImage[reInfoFrame]);
+    FSurface.Canvas.Draw(TFrame.Col(3), LTop, ResImage[reInfoFrame]);
   end;
 end;
 

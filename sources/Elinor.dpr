@@ -34,7 +34,8 @@ uses
   Elinor.Treasure in 'Elinor.Treasure.pas',
   Elinor.Statistics in 'Game\Elinor.Statistics.pas',
   Elinor.Scene.Frames in 'Scenes\Elinor.Scene.Frames.pas',
-  Elinor.MapObject in 'Game\Elinor.MapObject.pas';
+  Elinor.MapObject in 'Game\Elinor.MapObject.pas',
+  Elinor.Frame in 'Game\Elinor.Frame.pas';
 
 {$R *.res}
 
