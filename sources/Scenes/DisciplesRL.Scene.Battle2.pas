@@ -26,7 +26,7 @@ type
     InitiativeList: TStringList;
     CurrentPosition: Integer;
     ttt: Integer;
-    IsNewLevel: Boolean;
+    IsNewSkill: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
     FEnabled: Boolean;
@@ -189,33 +189,32 @@ end;
 
 procedure TSceneBattle2.ChExperience;
 var
-  Position: TPosition;
-  CharExp: Integer;
+  LPosition: TPosition;
+  LCharacterExperience: Integer;
 begin
-  if TLeaderParty.Leader.Level >= TSaga.MaxLevel then
-    Exit;
   if (EnemyParty.GetExperience > 0) then
   begin
-    if LeaderParty.GetAliveCreatures > 0 then
+    if LeaderParty.GetAliveAndNeedExpCreatures > 0 then
     begin
-      CharExp := EnsureRange(EnemyParty.GetExperience div LeaderParty.
-        GetAliveCreatures, 1, 9999);
-      for Position := Low(TPosition) to High(TPosition) do
-        with LeaderParty.Creature[Position] do
-          if Alive then
+      LCharacterExperience :=
+        EnsureRange(EnemyParty.GetExperience div LeaderParty.
+        GetAliveAndNeedExpCreatures, 1, 9999);
+      for LPosition := Low(TPosition) to High(TPosition) do
+        with LeaderParty.Creature[LPosition] do
+          if AliveAndNeedExp then
           begin
-            LeaderParty.UpdateXP(CharExp, Position);
-            Battle.UpdateExp(Name[0], GenderEnding, CharExp);
+            LeaderParty.UpdateXP(LCharacterExperience, LPosition);
+            Battle.UpdateExp(Name[0], GenderEnding, LCharacterExperience);
           end;
     end;
-    for Position := Low(TPosition) to High(TPosition) do
-      with LeaderParty.Creature[Position] do
+    for LPosition := Low(TPosition) to High(TPosition) do
+      with LeaderParty.Creature[LPosition] do
         if Alive then
           if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
           begin
-            LeaderParty.UpdateLevel(Position);
+            LeaderParty.UpdateLevel(LPosition);
             Battle.UpdateLevel(Name[0], GenderEnding, Level + 1);
-            IsNewLevel := (Leadership > 0) and (Level <= MaxSkills);
+            IsNewSkill := (Leadership > 0) and (Level <= MaxSkills);
           end;
   end;
 end;
@@ -233,9 +232,9 @@ begin
   Game.MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
-  if IsNewLevel then
+  if IsNewSkill then
   begin
-    IsNewLevel := False;
+    IsNewSkill := False;
     TLeaderParty.Leader.Skills.Gen;
     TSceneHire.Show(stAbilities);
     Exit;
@@ -736,7 +735,7 @@ end;
 procedure TSceneBattle2.Show(const S: TSceneEnum);
 begin
   inherited;
-  IsNewLevel := False;
+  IsNewSkill := False;
   StartBattle;
   Game.MediaPlayer.PlayMusic(mmBattle);
 end;

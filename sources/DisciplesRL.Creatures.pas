@@ -562,6 +562,7 @@ type
     ReachEnum: TReachEnum;
     SkillEnum: TSkillEnum;
     function Alive: Boolean;
+    function AliveAndNeedExp: Boolean;
     function IsLeader(): Boolean;
     function GenderEnding(VerbForm: Byte = 0): string;
     class procedure Clear(var ACreature: TCreature); static;
@@ -1190,6 +1191,11 @@ end;
 function TCreature.Alive: Boolean;
 begin
   Result := Active and (HitPoints > 0);
+end;
+
+function TCreature.AliveAndNeedExp: Boolean;
+begin
+  Result := Alive and (Level < TSaga.MaxLevel)
 end;
 
 function TCreature.IsLeader(): Boolean;

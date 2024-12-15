@@ -74,6 +74,7 @@ type
     procedure Swap(A, B: Integer); overload;
     property Count: Integer read GetCount;
     function GetAliveCreatures: Integer;
+    function GetAliveAndNeedExpCreatures: Integer;
     procedure ChPosition(Party: TParty; const ActPosition: Integer;
       var CurPosition: Integer);
     function GetExperience: Integer;
@@ -206,10 +207,10 @@ end;
 
 procedure TParty.ClearParalyzeAll;
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
-    FCreature[Position].Paralyze := False;
+  for LPosition := Low(TPosition) to High(TPosition) do
+    FCreature[LPosition].Paralyze := False;
 end;
 
 procedure TParty.Clear;
@@ -318,6 +319,17 @@ begin
   for LPosition := Low(TPosition) to High(TPosition) do
     with FCreature[LPosition] do
       if Alive then
+        Inc(Result);
+end;
+
+function TParty.GetAliveAndNeedExpCreatures: Integer;
+var
+  LPosition: TPosition;
+begin
+  Result := 0;
+  for LPosition := Low(TPosition) to High(TPosition) do
+    with FCreature[LPosition] do
+      if Alive and (Level < TSaga.MaxLevel) then
         Inc(Result);
 end;
 
