@@ -308,27 +308,27 @@ end;
 
 constructor TSceneSettlement.Create;
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
   L, W: Integer;
 begin
   inherited Create(reWallpaperSettlement);
   W := ResImage[reButtonDef].Width + 4;
   L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
+    Button[LButtonEnum] := TButton.Create(L, DefaultButtonTop, ButtonText[LButtonEnum]);
     Inc(L, W);
-    if (I = btClose) then
-      Button[I].Sellected := True;
+    if (LButtonEnum = btClose) then
+      Button[LButtonEnum].Sellected := True;
   end;
 end;
 
 destructor TSceneSettlement.Destroy;
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[I]);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[LButtonEnum]);
   inherited;
 end;
 
@@ -386,11 +386,11 @@ end;
 
 procedure TSceneSettlement.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].MouseMove(X, Y);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[LButtonEnum].MouseMove(X, Y);
   Game.Render;
 end;
 
@@ -398,10 +398,10 @@ procedure TSceneSettlement.Render;
 
   procedure RenderButtons;
   var
-    I: TButtonEnum;
+    LButtonEnum: TButtonEnum;
   begin
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[I].Render;
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[LButtonEnum].Render;
   end;
 
 begin

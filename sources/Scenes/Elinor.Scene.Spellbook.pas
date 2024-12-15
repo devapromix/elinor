@@ -3,6 +3,7 @@
 interface
 
 uses
+  Elinor.Scene.Frames,
 {$IFDEF FPC}
   Controls,
 {$ELSE}
@@ -15,7 +16,7 @@ uses
   DisciplesRL.Scenes;
 
 type
-  TSceneSpellbook = class(TScene)
+  TSceneSpellbook = class(TSceneFrames)
   private type
     TButtonEnum = (btClose);
   private const
@@ -59,27 +60,28 @@ end;
 
 constructor TSceneSpellbook.Create;
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
   L, W: Integer;
 begin
-  inherited;
+  inherited Create(reWallpaperSettlement, fgS6vM2);
   W := ResImage[reButtonDef].Width + 4;
   L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, DefaultButtonTop, ButtonText[I]);
+    Button[LButtonEnum] := TButton.Create(L, DefaultButtonTop,
+      ButtonText[LButtonEnum]);
     Inc(L, W);
-    if (I = btClose) then
-      Button[I].Sellected := True;
+    if (LButtonEnum = btClose) then
+      Button[LButtonEnum].Sellected := True;
   end;
 end;
 
 destructor TSceneSpellbook.Destroy;
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[I]);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[LButtonEnum]);
   inherited;
 end;
 
@@ -100,15 +102,15 @@ procedure TSceneSpellbook.Render;
 
   procedure RenderButtons;
   var
-    I: TButtonEnum;
+    LButtonEnum: TButtonEnum;
   begin
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[I].Render;
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[LButtonEnum].Render;
   end;
 
 begin
   inherited;
-  DrawImage(reWallpaperSettlement);
+
   DrawTitle(reTitleSpellbook);
 
   RenderButtons;

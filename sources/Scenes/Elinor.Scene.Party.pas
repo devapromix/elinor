@@ -406,17 +406,17 @@ var
 
   procedure RenderButtons;
   var
-    I: TButtonEnum;
+    LButtonEnum: TButtonEnum;
   begin
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      if FShowResources or (not FShowResources and (I = btClose)) then
-        Button[I].Render;
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      if FShowResources or (not FShowResources and (LButtonEnum = btClose)) then
+        Button[LButtonEnum].Render;
   end;
 
   procedure ShowSkills;
   var
     I: Integer;
-    S: TSkillEnum;
+    LSkillEnum: TSkillEnum;
   begin
     DrawTitle(reTitleAbilities);
     TextLeft := 250 + GetFrameX(0, psRight) + 12;
@@ -427,12 +427,12 @@ var
     AddTextLine;
     for I := 0 to MaxSkills - 1 do
     begin
-      S := TLeaderParty.Leader.Skills.Get(I);
-      if S <> skNone then
+      LSkillEnum := TLeaderParty.Leader.Skills.Get(I);
+      if LSkillEnum <> skNone then
       begin
-        AddTextLine(TSkills.Ability(S).Name);
-        AddTextLine(TSkills.Ability(S).Description[0]);
-        AddTextLine(TSkills.Ability(S).Description[1]);
+        AddTextLine(TSkills.Ability(LSkillEnum).Name);
+        AddTextLine(TSkills.Ability(LSkillEnum).Description[0]);
+        AddTextLine(TSkills.Ability(LSkillEnum).Description[1]);
         if I = 3 then
         begin
           TextLeft := GetFrameX(0, psRight) + 320 + 12;

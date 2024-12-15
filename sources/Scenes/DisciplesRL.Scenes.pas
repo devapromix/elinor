@@ -102,8 +102,8 @@ type
     procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
-    procedure RenderFrame(const PartySide: TPartySide; const I, AX, AY: Integer;
-      const F: Boolean = False);
+    procedure RenderFrame(const PartySide: TPartySide;
+      const APartyPosition, AX, AY: Integer; const F: Boolean = False);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       F: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
@@ -120,7 +120,7 @@ type
     procedure DrawText(const AY: Integer; AText: string); overload;
     procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
     procedure DrawText(const AX, AY: Integer; AText: string;
-      F: Boolean); overload;
+      AFlag: Boolean); overload;
     procedure AddTextLine; overload;
     procedure AddTextLine(const S: string); overload;
     procedure AddTextLine(const S: string; const F: Boolean); overload;
@@ -141,7 +141,7 @@ type
     IsShowConfirm: Boolean;
     constructor Create;
     destructor Destroy; override;
-    procedure Show(const S: TSceneEnum); override;
+    procedure Show(const ASceneEnum: TSceneEnum); override;
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
@@ -149,7 +149,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     property SceneEnum: TSceneEnum read FSceneEnum write FSceneEnum;
-    function GetScene(const I: TSceneEnum): TScene;
+    function GetScene(const ASceneEnum: TSceneEnum): TScene;
   end;
 
 type
@@ -479,12 +479,12 @@ end;
 
 procedure TScene.DrawText(const AX, AY: Integer; AText: string);
 var
-  vStyle: TBrushStyle;
+  LBrushStyle: TBrushStyle;
 begin
-  vStyle := Game.Surface.Canvas.Brush.Style;
+  LBrushStyle := Game.Surface.Canvas.Brush.Style;
   Game.Surface.Canvas.Brush.Style := bsClear;
   Game.Surface.Canvas.TextOut(AX, AY, AText);
-  Game.Surface.Canvas.Brush.Style := vStyle;
+  Game.Surface.Canvas.Brush.Style := LBrushStyle;
 end;
 
 procedure TScene.DrawText(const AX, AY: Integer; Value: Integer);
@@ -494,48 +494,46 @@ end;
 
 procedure TScene.DrawText(const AY: Integer; AText: string);
 var
-  S: Integer;
+  LWidth: Integer;
 begin
-  S := Game.Surface.Canvas.TextWidth(AText);
-  DrawText((Game.Surface.Width div 2) - (S div 2), AY, AText);
+  LWidth := Game.Surface.Canvas.TextWidth(AText);
+  DrawText((Game.Surface.Width div 2) - (LWidth div 2), AY, AText);
 end;
 
-procedure TScene.DrawText(const AX, AY: Integer; AText: string; F: Boolean);
+procedure TScene.DrawText(const AX, AY: Integer; AText: string; AFlag: Boolean);
 var
-  N: Integer;
+  LFontSize: Integer;
 begin
-  if F then
+  if AFlag then
   begin
-    N := Game.Surface.Canvas.Font.Size;
-    Game.Surface.Canvas.Font.Size := N * 2;
+    LFontSize := Game.Surface.Canvas.Font.Size;
+    Game.Surface.Canvas.Font.Size := LFontSize * 2;
   end;
   DrawText(AX, AY, AText);
-  if F then
-    Game.Surface.Canvas.Font.Size := N;
+  if AFlag then
+    Game.Surface.Canvas.Font.Size := LFontSize;
 end;
 
 procedure TScene.RenderFrame(const PartySide: TPartySide;
-  const I, AX, AY: Integer; const F: Boolean);
+  const APartyPosition, AX, AY: Integer; const F: Boolean);
 var
-  J: Integer;
+  LPartyPosition: Integer;
 begin
   case PartySide of
     psLeft:
-      J := I;
+      LPartyPosition := APartyPosition;
   else
-    J := I + 6;
+    LPartyPosition := APartyPosition + 6;
   end;
-  if (ActivePartyPosition = J) then
+  if (ActivePartyPosition = LPartyPosition) then
   begin
     if F then
       DrawImage(AX, AY, rePasFrame)
     else
       DrawImage(AX, AY, reActFrame);
   end
-  else if (SelectPartyPosition = J) then
+  else if (SelectPartyPosition = LPartyPosition) then
     DrawImage(AX, AY, reSelectFrame);
-  // else
-  // DrawImage(AX, AY, reFrame);
 end;
 
 procedure TScene.DrawResources;
@@ -586,7 +584,7 @@ end;
 constructor TScenes.Create;
 var
   L: Integer;
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
   FScene[scMap] := TSceneMap.Create;
@@ -605,32 +603,32 @@ begin
   // Confirm
   IsShowConfirm := False;
   L := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Buttons[I] := TButton.Create(L, 400, ButtonsText[I]);
+    Buttons[LButtonEnum] := TButton.Create(L, 400, ButtonsText[LButtonEnum]);
     Inc(L, ResImage[reButtonDef].Width);
-    if (I = btOk) then
-      Buttons[I].Sellected := True;
+    if (LButtonEnum = btOk) then
+      Buttons[LButtonEnum].Sellected := True;
   end;
 end;
 
 destructor TScenes.Destroy;
 var
-  I: TButtonEnum;
-  S: TSceneEnum;
+  LButtonEnum: TButtonEnum;
+  LSceneEnum: TSceneEnum;
 begin
-  for S := Low(TSceneEnum) to High(TSceneEnum) do
-    FreeAndNil(FScene[S]);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Buttons[I]);
+  for LSceneEnum := Low(TSceneEnum) to High(TSceneEnum) do
+    FreeAndNil(FScene[LSceneEnum]);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Buttons[LButtonEnum]);
   FreeAndNil(Button);
   TSaga.PartyFree;
   inherited;
 end;
 
-function TScenes.GetScene(const I: TSceneEnum): TScene;
+function TScenes.GetScene(const ASceneEnum: TSceneEnum): TScene;
 begin
-  Result := TScene(FScene[I]);
+  Result := TScene(FScene[ASceneEnum]);
 end;
 
 procedure TScenes.MouseDown(AButton: TMouseButton; Shift: TShiftState;
@@ -690,7 +688,7 @@ end;
 
 procedure TScenes.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
@@ -702,8 +700,8 @@ begin
     end;
     if IsShowConfirm then
     begin
-      for I := Low(TButtonEnum) to High(TButtonEnum) do
-        Buttons[I].MouseMove(X, Y);
+      for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+        Buttons[LButtonEnum].MouseMove(X, Y);
       Exit;
     end;
     FScene[SceneEnum].MouseMove(Shift, X, Y);
@@ -713,7 +711,7 @@ end;
 
 procedure TScenes.Render;
 var
-  I: TButtonEnum;
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
@@ -730,8 +728,8 @@ begin
       if IsShowInform then
         Button.Render;
       if IsShowConfirm then
-        for I := Low(Buttons) to High(Buttons) do
-          Buttons[I].Render;
+        for LButtonEnum := Low(Buttons) to High(Buttons) do
+          Buttons[LButtonEnum].Render;
     end;
     MainForm.Canvas.Draw(0, 0, Game.Surface);
   end;
@@ -742,12 +740,12 @@ begin
   Self.SceneEnum := ASceneEnum;
 end;
 
-procedure TScenes.Show(const S: TSceneEnum);
+procedure TScenes.Show(const ASceneEnum: TSceneEnum);
 begin
-  SetScene(S);
+  SetScene(ASceneEnum);
   if (FScene[SceneEnum] <> nil) then
   begin
-    FScene[SceneEnum].Show(S);
+    FScene[SceneEnum].Show(ASceneEnum);
     Game.Render;
   end;
 end;
