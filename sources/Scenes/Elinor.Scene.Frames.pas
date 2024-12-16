@@ -10,21 +10,19 @@ uses
   DisciplesRL.Scenes;
 
 type
-  TFrameGrid = (fgS6vS6, fgS6vM2);
+  TFrameGrid = (fgLS3, fgLS6, fgRS6, fgRM1, fgRM2);
 
 type
   TSceneFrames = class(TScene)
   private
     FResEnum: TResEnum;
     FSurface: TBitmap;
-    FFrameGrid: TFrameGrid;
   public
     constructor Create(const AResEnum: TResEnum;
-      const AFrameGrid: TFrameGrid = fgS6vS6);
+      const ALeftFrameGrid, ARightFrameGrid: TFrameGrid);
     destructor Destroy; override;
     procedure Render; override;
     property ResEnum: TResEnum read FResEnum;
-    property FrameGrid: TFrameGrid read FFrameGrid;
   end;
 
 implementation
@@ -37,13 +35,12 @@ uses
 { TSceneFrames }
 
 constructor TSceneFrames.Create(const AResEnum: TResEnum;
-  const AFrameGrid: TFrameGrid = fgS6vS6);
+  const ALeftFrameGrid, ARightFrameGrid: TFrameGrid);
 var
-  I, LLeft, LTop, LMid, FrameCount: Integer;
+  I, LLeft, LTop, LMid, MinFrameCount, MaxFrameCount: Integer;
 begin
   inherited Create;
   FResEnum := AResEnum;
-  FFrameGrid := AFrameGrid;
   FSurface := TBitmap.Create;
   FSurface.Width := ScreenWidth;
   FSurface.Height := ScreenHeight;
@@ -52,10 +49,16 @@ begin
   LLeft := TScene.SceneLeft;
   LTop := TScene.SceneTop;
   LMid := ScreenWidth - ((320 * 4) + 26);
-  FrameCount := 12;
-  if FFrameGrid <> fgS6vS6 then
-    FrameCount := 6;
-  for I := 1 to FrameCount do
+  MinFrameCount := 1;
+  MaxFrameCount := 12;
+  if ARightFrameGrid <> fgRS6 then
+    MaxFrameCount := 6;
+  if ALeftFrameGrid = fgLS3 then
+  begin
+    MinFrameCount := 4;
+    LLeft := TFrame.Col(1);
+  end;
+  for I := MinFrameCount to MaxFrameCount do
   begin
     FSurface.Canvas.Draw(LLeft, LTop, ResImage[reFrame]);
     Inc(LTop, 120);
@@ -67,7 +70,9 @@ begin
         Inc(LLeft, LMid);
     end;
   end;
-  if FFrameGrid = fgS6vM2 then
+  if ARightFrameGrid = fgRM1 then
+    FSurface.Canvas.Draw(TFrame.Col(2), LTop, ResImage[reInfoFrame]);
+  if ARightFrameGrid = fgRM2 then
   begin
     FSurface.Canvas.Draw(TFrame.Col(2), LTop, ResImage[reInfoFrame]);
     FSurface.Canvas.Draw(TFrame.Col(3), LTop, ResImage[reInfoFrame]);

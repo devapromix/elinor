@@ -311,12 +311,13 @@ var
   LButtonEnum: TButtonEnum;
   L, W: Integer;
 begin
-  inherited Create(reWallpaperSettlement);
+  inherited Create(reWallpaperSettlement, fgLS6, fgRS6);
   W := ResImage[reButtonDef].Width + 4;
   L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[LButtonEnum] := TButton.Create(L, DefaultButtonTop, ButtonText[LButtonEnum]);
+    Button[LButtonEnum] := TButton.Create(L, DefaultButtonTop,
+      ButtonText[LButtonEnum]);
     Inc(L, W);
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;

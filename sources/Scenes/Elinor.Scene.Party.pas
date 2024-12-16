@@ -264,7 +264,7 @@ var
   I: TButtonEnum;
   Lt, W: Integer;
 begin
-  inherited Create(reWallpaperLeader, fgS6vM2);
+  inherited Create(reWallpaperLeader, fgLS6, fgRM2);
   W := ResImage[reButtonDef].Width + 4;
   Lt := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
   for I := Low(TButtonEnum) to High(TButtonEnum) do

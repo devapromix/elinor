@@ -61,16 +61,16 @@ end;
 constructor TSceneSpellbook.Create;
 var
   LButtonEnum: TButtonEnum;
-  L, W: Integer;
+  LLeft, LWidth: Integer;
 begin
-  inherited Create(reWallpaperSettlement, fgS6vM2);
-  W := ResImage[reButtonDef].Width + 4;
-  L := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
+  inherited Create(reWallpaperSettlement, fgLS6, fgRM1);
+  LWidth := ResImage[reButtonDef].Width + 4;
+  LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[LButtonEnum] := TButton.Create(L, DefaultButtonTop,
+    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       ButtonText[LButtonEnum]);
-    Inc(L, W);
+    Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
@@ -93,9 +93,12 @@ begin
 end;
 
 procedure TSceneSpellbook.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
-
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneSpellbook.Render;

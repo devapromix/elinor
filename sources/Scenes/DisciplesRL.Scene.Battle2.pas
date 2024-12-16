@@ -569,7 +569,7 @@ end;
 
 constructor TSceneBattle2.Create;
 begin
-  inherited Create(reWallpaperScenario);
+  inherited Create(reWallpaperScenario, fgLS6, fgRS6);
   CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
     SceneLeft), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;

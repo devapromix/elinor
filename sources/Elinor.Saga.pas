@@ -67,7 +67,6 @@ type
   public
   public type
     TDifficultyEnum = (dfEasy, dfNormal, dfHard);
-
   class var
     NewItem: Integer;
     LeaderRace: TFactionEnum;
