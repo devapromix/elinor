@@ -234,7 +234,7 @@ begin
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
   MediaPlayer.PlayMusic(mmMenu);
-  SceneEnum := scDifficulty;
+  SceneEnum := scMenu;
 end;
 
 destructor TGame.Destroy;

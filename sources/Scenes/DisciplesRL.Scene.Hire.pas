@@ -92,7 +92,7 @@ uses
   Elinor.Scene.Party,
   DisciplesRL.Scene.Battle2,
   Elinor.Scene.Settlement,
-  DisciplesRL.Items;
+  DisciplesRL.Items, Elinor.Scene.Difficulty;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -230,7 +230,7 @@ begin
     stLeader:
       TSceneHire.Show(stRace);
     stRace:
-      ;//TSceneHire.Show(stDifficulty);
+      TSceneDifficulty.Show();
     stScenario:
       Game.Show(scMenu);
     stJournal, stSpy, stWar, stAbilities:
@@ -318,11 +318,6 @@ begin
         Game.MediaPlayer.PlaySound(mmExit);
         TSceneSettlement.Show(stCapital);
       end;
-    //stDifficulty:
-    //  begin
-    //    TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
-    //    TSceneHire.Show(stRace);
-    //  end;
     stCharacter:
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
@@ -337,7 +332,7 @@ begin
     stScenario:
       begin
         Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
-        //TSceneHire.Show(stDifficulty);
+        TSceneDifficulty.Show;
       end;
     stJournal:
       Game.Show(scMap);

@@ -44,6 +44,7 @@ procedure TSceneDifficulty.Continue;
 begin
   inherited;
   TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
+  TSceneHire.Show(stRace)
 end;
 
 constructor TSceneDifficulty.Create;
