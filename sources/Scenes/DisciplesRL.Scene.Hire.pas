@@ -22,7 +22,7 @@ uses
 type
   THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
     stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
-    stDifficulty, stAbilities);
+    stAbilities);
 
 type
 
@@ -38,15 +38,12 @@ type
     procedure RenderButtons;
     procedure Ok;
     procedure Back;
-    procedure RenderDifficultyInfo;
     procedure RenderScenarioInfo;
     procedure RenderSpyInfo;
     procedure RenderWarInfo;
     procedure RenderRace(const Race: TFactionEnum; const AX, AY: Integer);
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
-    procedure RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
-      const AX, AY: Integer);
     procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
       const AX, AY: Integer);
   private
@@ -126,8 +123,6 @@ const
     (reTextContinue, reTextClose),
     // Warrior War
     (reTextContinue, reTextClose),
-    // Difficulty
-    (reTextContinue, reTextCancel),
     // Abilities
     (reTextClose, reTextClose)
     //
@@ -139,7 +134,7 @@ const
   CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
     AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
-    stDifficulty, stSpy, stWar];
+    stSpy, stWar];
   WideButtonScene = [stCharacter, stLeader];
 
 var
@@ -158,8 +153,6 @@ begin
   case ASubScene of
     stJournal, stScenario:
       CurrentIndex := Ord(Game.Scenario.CurrentScenario);
-    stDifficulty:
-      CurrentIndex := Ord(TSaga.Difficulty);
     stRace:
       CurrentIndex := Ord(TSaga.LeaderRace);
   else
@@ -234,12 +227,10 @@ begin
   case SubScene of
     stCharacter:
       Game.Show(scSettlement);
-    stDifficulty:
-      TSceneHire.Show(stScenario);
     stLeader:
       TSceneHire.Show(stRace);
     stRace:
-      TSceneHire.Show(stDifficulty);
+      ;//TSceneHire.Show(stDifficulty);
     stScenario:
       Game.Show(scMenu);
     stJournal, stSpy, stWar, stAbilities:
@@ -327,11 +318,11 @@ begin
         Game.MediaPlayer.PlaySound(mmExit);
         TSceneSettlement.Show(stCapital);
       end;
-    stDifficulty:
-      begin
-        TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
-        TSceneHire.Show(stRace);
-      end;
+    //stDifficulty:
+    //  begin
+    //    TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
+    //    TSceneHire.Show(stRace);
+    //  end;
     stCharacter:
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
@@ -346,7 +337,7 @@ begin
     stScenario:
       begin
         Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
-        TSceneHire.Show(stDifficulty);
+        //TSceneHire.Show(stDifficulty);
       end;
     stJournal:
       Game.Show(scMap);
@@ -595,19 +586,6 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderDifficulty(const Difficulty: TSaga.TDifficultyEnum;
-  const AX, AY: Integer);
-begin
-  case Difficulty of
-    dfEasy:
-      DrawImage(AX + 7, AY + 7, reDifficultyEasyLogo);
-    dfNormal:
-      DrawImage(AX + 7, AY + 7, reDifficultyNormalLogo);
-    dfHard:
-      DrawImage(AX + 7, AY + 7, reDifficultyHardLogo);
-  end;
-end;
-
 procedure TSceneHire.RenderScenario(const AScenario: TScenario.TScenarioEnum;
   const AX, AY: Integer);
 begin
@@ -646,20 +624,6 @@ begin
   AddTextLine;
   for J := 0 to 10 do
     AddTextLine(FactionDescription[R][J]);
-end;
-
-procedure TSceneHire.RenderDifficultyInfo;
-var
-  D: TSaga.TDifficultyEnum;
-  J: Integer;
-begin
-  TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  D := TSaga.TDifficultyEnum(CurrentIndex);
-  AddTextLine(TSaga.DifficultyName[D], True);
-  AddTextLine;
-  for J := 0 to 11 do
-    AddTextLine(TSaga.DifficultyDescription[D][J]);
 end;
 
 procedure TSceneHire.RenderScenarioInfo;
@@ -1001,20 +965,6 @@ begin
           end;
         end;
       end;
-    stDifficulty:
-      begin
-        DrawImage(reWallpaperDifficulty);
-        DrawTitle(reTitleDifficulty);
-        for D := dfEasy to dfHard do
-        begin
-          if Ord(D) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reActFrame)
-          else
-            DrawImage(Lf, SceneTop + Y, reFrame);
-          RenderDifficulty(D, Lf, SceneTop + Y);
-          Inc(Y, 120);
-        end;
-      end;
     stRace:
       begin
         DrawImage(reWallpaperDifficulty);
@@ -1218,8 +1168,6 @@ begin
       end;
     stRace:
       RenderRaceInfo;
-    stDifficulty:
-      RenderDifficultyInfo;
     stScenario, stJournal:
       RenderScenarioInfo;
     stAbilities:
@@ -1332,9 +1280,6 @@ begin
     stRace:
       UpdEnum<TPlayableRaces>(Key);
     // Upd(Ord(High(TRaceCharKind)));
-    stDifficulty:
-      UpdEnum<TSaga.TDifficultyEnum>(Key);
-    // Upd(Ord(High(TSaga.TDifficultyEnum)));
     stScenario:
       UpdEnum<TScenario.TScenarioEnum>(Key);
      stAbilities:

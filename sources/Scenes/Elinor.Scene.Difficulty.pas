@@ -16,15 +16,11 @@ type
   private
   public
     constructor Create;
-    destructor Destroy; override;
     procedure Render; override;
     procedure Update(var Key: Word); override;
-    procedure Timer; override;
-    procedure Cancel;  override;
-    procedure Continue;  override;
-    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
-      X, Y: Integer); override;
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure Cancel; override;
+    procedure Continue; override;
+    class procedure Show;
   end;
 
 implementation
@@ -32,11 +28,11 @@ implementation
 { TSceneDifficulty }
 
 uses
-  Math,  dialogs,
+  Math, dialogs,
   SysUtils,
   Elinor.Saga,
   Elinor.Frame,
-  Elinor.Scene.Frames;
+  Elinor.Scene.Frames, DisciplesRL.Scene.Hire;
 
 procedure TSceneDifficulty.Cancel;
 begin
@@ -47,7 +43,7 @@ end;
 procedure TSceneDifficulty.Continue;
 begin
   inherited;
-  showmessage('continue!');
+  TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
 end;
 
 constructor TSceneDifficulty.Create;
@@ -55,39 +51,38 @@ begin
   inherited Create(reWallpaperDifficulty);
 end;
 
-destructor TSceneDifficulty.Destroy;
-begin
-  inherited;
-end;
-
-procedure TSceneDifficulty.MouseDown(AButton: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
-begin
-  inherited;
-
-end;
-
-procedure TSceneDifficulty.MouseMove(Shift: TShiftState; X, Y: Integer);
-begin
-  inherited;
-end;
-
 procedure TSceneDifficulty.Render;
 var
+  I: Integer;
   LDifficultyEnum: TSaga.TDifficultyEnum;
+const
+  LDifficultyImage: array [TSaga.TDifficultyEnum] of TResEnum =
+    (reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo);
 begin
   inherited;
   DrawTitle(reTitleDifficulty);
   for LDifficultyEnum := dfEasy to dfHard do
+  begin
+    DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LDifficultyEnum)) + 7,
+      LDifficultyImage[LDifficultyEnum]);
     if Ord(LDifficultyEnum) = CurrentIndex then
+    begin
       DrawImage(TFrame.Col(1), SceneTop + (Ord(LDifficultyEnum) * 120),
         reActFrame);
+      TextTop := TFrame.Row(0) + 6;
+      TextLeft := TFrame.Col(2) + 12;
+      AddTextLine(TSaga.DifficultyName[LDifficultyEnum], True);
+      AddTextLine;
+      for I := 0 to 11 do
+        AddTextLine(TSaga.DifficultyDescription[LDifficultyEnum][I]);
+    end;
+  end;
 end;
 
-procedure TSceneDifficulty.Timer;
+class procedure TSceneDifficulty.Show;
 begin
-  inherited;
-
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Show(scDifficulty);
 end;
 
 procedure TSceneDifficulty.Update(var Key: Word);
