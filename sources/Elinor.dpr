@@ -35,7 +35,9 @@ uses
   Elinor.Statistics in 'Game\Elinor.Statistics.pas',
   Elinor.Scene.Frames in 'Scenes\Elinor.Scene.Frames.pas',
   Elinor.MapObject in 'Game\Elinor.MapObject.pas',
-  Elinor.Frame in 'Game\Elinor.Frame.pas';
+  Elinor.Frame in 'Game\Elinor.Frame.pas',
+  Elinor.Scene.Difficulty in 'Scenes\Elinor.Scene.Difficulty.pas',
+  Elinor.Scene.Menu.Simple in 'Scenes\Elinor.Scene.Menu.Simple.pas';
 
 {$R *.res}
 

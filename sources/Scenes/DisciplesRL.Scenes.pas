@@ -22,7 +22,7 @@ uses
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
-    scSpellbook);
+    scSpellbook, scDifficulty);
 
 const
   ScreenWidth = 1344;
@@ -192,7 +192,8 @@ uses
   DisciplesRL.Scene.Battle2,
   DisciplesRL.Scene.Battle3,
   Elinor.Scene.Spellbook,
-  Elinor.Frame;
+  Elinor.Frame,
+  Elinor.Scene.Difficulty;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -233,7 +234,7 @@ begin
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
   MediaPlayer.PlayMusic(mmMenu);
-  SceneEnum := scMenu;
+  SceneEnum := scDifficulty;
 end;
 
 destructor TGame.Destroy;
@@ -595,6 +596,7 @@ begin
   FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
   FScene[scSpellbook] := TSceneSpellbook.Create;
+  FScene[scDifficulty] := TSceneDifficulty.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;
