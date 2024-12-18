@@ -138,6 +138,7 @@
         <DCCReference Include="Game\Elinor.Frame.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Difficulty.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Menu.Simple.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Scenario.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

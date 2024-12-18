@@ -37,14 +37,14 @@ uses
 procedure TSceneDifficulty.Cancel;
 begin
   inherited;
-  showmessage('cancel!');
+  TSceneHire.Show(stScenario);
 end;
 
 procedure TSceneDifficulty.Continue;
 begin
   inherited;
   TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
-  TSceneHire.Show(stRace)
+  TSceneHire.Show(stRace);
 end;
 
 constructor TSceneDifficulty.Create;
