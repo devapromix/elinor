@@ -38,14 +38,11 @@ type
     procedure RenderButtons;
     procedure Ok;
     procedure Back;
-    procedure RenderScenarioInfo;
     procedure RenderSpyInfo;
     procedure RenderWarInfo;
     procedure RenderRace(const Race: TFactionEnum; const AX, AY: Integer);
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
-    procedure RenderScenario(const AScenario: TScenario.TScenarioEnum;
-      const AX, AY: Integer);
   private
     procedure RenderRaceInfo;
     procedure RenderHighScores;
@@ -573,19 +570,6 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderScenario(const AScenario: TScenario.TScenarioEnum;
-  const AX, AY: Integer);
-begin
-  case AScenario of
-    sgDarkTower:
-      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
-    sgOverlord:
-      DrawImage(AX + 7, AY + 7, reScenarioOverlord);
-    sgAncientKnowledge:
-      DrawImage(AX + 7, AY + 7, reScenarioAncientKnowledge);
-  end;
-end;
-
 procedure TSceneHire.RenderAbilities(const AScenario: TScenario.TScenarioEnum;
   const AX, AY: Integer);
 begin
@@ -611,27 +595,6 @@ begin
   AddTextLine;
   for J := 0 to 10 do
     AddTextLine(FactionDescription[R][J]);
-end;
-
-procedure TSceneHire.RenderScenarioInfo;
-var
-  S: TScenario.TScenarioEnum;
-  J: Integer;
-begin
-  TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  S := TScenario.TScenarioEnum(CurrentIndex);
-  AddTextLine(TScenario.ScenarioName[S], True);
-  AddTextLine;
-  for J := 0 to 10 do
-    AddTextLine(TScenario.ScenarioDescription[S][J]);
-  if TSaga.IsGame then
-    case Game.Scenario.CurrentScenario of
-      sgOverlord:
-        AddTextLine(Game.Scenario.ScenarioOverlordState);
-      sgAncientKnowledge:
-        AddTextLine(Game.Scenario.ScenarioAncientKnowledgeState);
-    end;
 end;
 
 procedure TSceneHire.RenderAbilitiesInfo;

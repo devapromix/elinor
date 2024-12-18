@@ -33,12 +33,12 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Frames,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  Elinor.Scene.Difficulty;
 
 procedure TSceneScenario.Cancel;
 begin
   inherited;
-  Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scMenu);
 end;
 
@@ -46,8 +46,7 @@ procedure TSceneScenario.Continue;
 begin
   inherited;
   Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.Show(scDifficulty);
+  TSceneDifficulty.Show;
 end;
 
 constructor TSceneScenario.Create;
@@ -58,28 +57,35 @@ end;
 procedure TSceneScenario.Render;
 var
   I: Integer;
-  LDifficultyEnum: TScenario.TScenarioEnum;
+  LScenarioEnum: TScenario.TScenarioEnum;
 const
   LDifficultyImage: array [TScenario.TScenarioEnum] of TResEnum =
-    (reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo);
+    (reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
   DrawTitle(reTitleScenario);
-  for LDifficultyEnum := Low(TScenario.TScenarioEnum)
+  for LScenarioEnum := Low(TScenario.TScenarioEnum)
     to High(TScenario.TScenarioEnum) do
   begin
-    DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LDifficultyEnum)) + 7,
-      LDifficultyImage[LDifficultyEnum]);
-    if Ord(LDifficultyEnum) = CurrentIndex then
+    DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LScenarioEnum)) + 7,
+      LDifficultyImage[LScenarioEnum]);
+    if Ord(LScenarioEnum) = CurrentIndex then
     begin
-      DrawImage(TFrame.Col(1), SceneTop + (Ord(LDifficultyEnum) * 120),
+      DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
         reActFrame);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
-      AddTextLine(TSaga.DifficultyName[LDifficultyEnum], True);
+      AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);
       AddTextLine;
       for I := 0 to 11 do
-        AddTextLine(TSaga.DifficultyDescription[LDifficultyEnum][I]);
+        AddTextLine(TScenario.ScenarioDescription[LScenarioEnum][I]);
+      if TSaga.IsGame then
+        case Game.Scenario.CurrentScenario of
+          sgOverlord:
+            AddTextLine(Game.Scenario.ScenarioOverlordState);
+          sgAncientKnowledge:
+            AddTextLine(Game.Scenario.ScenarioAncientKnowledgeState);
+        end;
     end;
   end;
 end;

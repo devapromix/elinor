@@ -51,7 +51,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
-  DisciplesRL.Scene.Hire;
+  Elinor.Scene.Scenario;
 
 procedure TSceneMenu.Next;
 begin
@@ -61,8 +61,8 @@ begin
       PlayGame;
     btContinue:
       ContinueGame;
-    btHighScores:
-      TSceneHire.Show(stHighScores2);
+    //btHighScores:
+    //  TSceneHire.Show(stHighScores2);
     btQuit:
       ConfirmQuit;
   end;
@@ -81,7 +81,7 @@ end;
 procedure TSceneMenu.PlayGame;
 begin
   TSaga.IsGame := False;
-  Game.Show(scScenario);
+  TSceneScenario.Show;
 end;
 
 procedure TSceneMenu.ContinueGame;

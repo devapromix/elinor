@@ -33,12 +33,13 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Frames,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  Elinor.Scene.Scenario;
 
 procedure TSceneDifficulty.Cancel;
 begin
   inherited;
-  Game.Show(scScenario);
+  TSceneScenario.Show;
 end;
 
 procedure TSceneDifficulty.Continue;
