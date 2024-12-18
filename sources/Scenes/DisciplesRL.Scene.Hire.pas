@@ -14,6 +14,7 @@ uses
 {$ENDIF}
   Classes,
   Elinor.Saga,
+  Elinor.Scenario,
   DisciplesRL.Creatures,
   Elinor.Scenes,
   Elinor.Resources,

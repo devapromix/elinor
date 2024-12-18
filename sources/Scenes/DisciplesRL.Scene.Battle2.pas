@@ -71,6 +71,7 @@ uses
   Dialogs,
   SysUtils,
   Elinor.Saga,
+  Elinor.Scenario,
   Elinor.Statistics,
   Elinor.Resources,
   Elinor.Button,

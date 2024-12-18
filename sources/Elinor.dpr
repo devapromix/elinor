@@ -38,7 +38,8 @@ uses
   Elinor.Frame in 'Game\Elinor.Frame.pas',
   Elinor.Scene.Difficulty in 'Scenes\Elinor.Scene.Difficulty.pas',
   Elinor.Scene.Menu.Simple in 'Scenes\Elinor.Scene.Menu.Simple.pas',
-  Elinor.Scene.Scenario in 'Scenes\Elinor.Scene.Scenario.pas';
+  Elinor.Scene.Scenario in 'Scenes\Elinor.Scene.Scenario.pas',
+  Elinor.Scenario in 'Game\Elinor.Scenario.pas';
 
 {$R *.res}
 

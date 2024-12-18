@@ -31,6 +31,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
+  Elinor.Scenario,
   Elinor.Frame,
   Elinor.Scene.Frames,
   DisciplesRL.Scene.Hire,

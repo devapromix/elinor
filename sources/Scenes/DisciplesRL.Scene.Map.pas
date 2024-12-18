@@ -39,6 +39,7 @@ uses
   Elinor.Map,
   Elinor.Resources,
   Elinor.Saga,
+  Elinor.Scenario,
   Elinor.Scene.Party,
   DisciplesRL.Scene.Hire,
   Elinor.Party,

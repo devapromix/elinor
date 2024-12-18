@@ -83,6 +83,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
+  Elinor.Scenario,
   Elinor.Party,
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,

@@ -15,6 +15,7 @@ uses
   Elinor.Saga,
   Elinor.Map,
   Elinor.Party,
+  Elinor.Scenario,
   Elinor.MediaPlayer,
   Elinor.Treasure,
   Elinor.Statistics,
