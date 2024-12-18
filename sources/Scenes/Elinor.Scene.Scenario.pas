@@ -45,7 +45,7 @@ end;
 procedure TSceneScenario.Continue;
 begin
   inherited;
-  //TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
+  Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scDifficulty);
 end;
@@ -58,14 +58,15 @@ end;
 procedure TSceneScenario.Render;
 var
   I: Integer;
-  LDifficultyEnum: TSaga.TDifficultyEnum;
+  LDifficultyEnum: TScenario.TScenarioEnum;
 const
-  LDifficultyImage: array [TSaga.TDifficultyEnum] of TResEnum =
+  LDifficultyImage: array [TScenario.TScenarioEnum] of TResEnum =
     (reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo);
 begin
   inherited;
-  DrawTitle(reTitleDifficulty);
-  for LDifficultyEnum := dfEasy to dfHard do
+  DrawTitle(reTitleScenario);
+  for LDifficultyEnum := Low(TScenario.TScenarioEnum)
+    to High(TScenario.TScenarioEnum) do
   begin
     DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LDifficultyEnum)) + 7,
       LDifficultyImage[LDifficultyEnum]);
@@ -92,7 +93,7 @@ end;
 procedure TSceneScenario.Update(var Key: Word);
 begin
   inherited;
-  UpdateEnum<TSaga.TDifficultyEnum>(Key);
+  UpdateEnum<TScenario.TScenarioEnum>(Key);
 end;
 
 end.

@@ -20,7 +20,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace, stScenario, stJournal,
+  THireSubSceneEnum = (stCharacter, stLeader, stRace, stJournal,
     stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
     stAbilities);
 
@@ -106,8 +106,6 @@ const
     (reTextContinue, reTextCancel),
     // Race
     (reTextContinue, reTextCancel),
-    // Scenario
-    (reTextContinue, reTextCancel),
     // Journal
     (reTextClose, reTextClose),
     // Victory
@@ -134,7 +132,7 @@ const
   CloseCloseScene = [stAbilities];
   CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
     AddButtonScene + CloseCloseScene;
-  MainButtonsScene = [stCharacter, stLeader, stRace, stScenario, stHighScores2,
+  MainButtonsScene = [stCharacter, stLeader, stRace, stHighScores2,
     stSpy, stWar];
   WideButtonScene = [stCharacter, stLeader];
 
@@ -152,7 +150,7 @@ var
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
-    stJournal, stScenario:
+    stJournal:
       CurrentIndex := Ord(Game.Scenario.CurrentScenario);
     stRace:
       CurrentIndex := Ord(TSaga.LeaderRace);
@@ -232,8 +230,6 @@ begin
       TSceneHire.Show(stRace);
     stRace:
       TSceneDifficulty.Show();
-    stScenario:
-      Game.Show(scMenu);
     stJournal, stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
@@ -329,11 +325,6 @@ begin
         end
         else
           InformDialog('Не хватает денег!');
-      end;
-    stScenario:
-      begin
-        Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
-        TSceneDifficulty.Show;
       end;
     stJournal:
       Game.Show(scMap);
@@ -1003,21 +994,7 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stScenario, stJournal:
-      begin
-        DrawImage(reWallpaperScenario);
-        DrawTitle(reTitleScenario);
-        for S := Low(TScenario.TScenarioEnum)
-          to High(TScenario.TScenarioEnum) do
-        begin
-          if Ord(S) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reActFrame)
-          else
-            DrawImage(Lf, SceneTop + Y, reFrame);
-          RenderScenario(S, Lf, SceneTop + Y);
-          Inc(Y, 120);
-        end;
-      end;
+    stJournal:;
     stAbilities:
       begin
         DrawImage(reWallpaperScenario);
@@ -1164,8 +1141,7 @@ begin
       end;
     stRace:
       RenderRaceInfo;
-    stScenario, stJournal:
-      RenderScenarioInfo;
+    stJournal:;
     stAbilities:
       RenderAbilitiesInfo;
     stVictory, stDefeat:
@@ -1276,8 +1252,6 @@ begin
     stRace:
       UpdEnum<TPlayableRaces>(Key);
     // Upd(Ord(High(TRaceCharKind)));
-    stScenario:
-      UpdEnum<TScenario.TScenarioEnum>(Key);
      stAbilities:
       UpdEnum<TSaga.TDifficultyEnum>(Key);
     // Upd(Ord(High(TScenario.TScenarioEnum)));

@@ -5,7 +5,7 @@ interface
 uses
   Elinor.Scene.Frames,
 {$IFDEF FPC}
-    Controls,
+  Controls,
 {$ELSE}
   Vcl.Controls,
 {$ENDIF}
@@ -81,7 +81,7 @@ end;
 procedure TSceneMenu.PlayGame;
 begin
   TSaga.IsGame := False;
-  TSceneHire.Show(stScenario);
+  Game.Show(scScenario);
 end;
 
 procedure TSceneMenu.ContinueGame;
