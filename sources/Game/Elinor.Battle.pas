@@ -4,7 +4,7 @@ interface
 
 uses
   DisciplesRL.Creatures,
-  DisciplesRL.Button;
+  Elinor.Button;
 
 type
   TBattle = class(TObject)
@@ -35,7 +35,7 @@ uses
   SysUtils,
   Math,
   Elinor.Resources,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 { TBattle }
 

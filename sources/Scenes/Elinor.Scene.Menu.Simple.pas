@@ -6,7 +6,7 @@ uses
   System.Classes,
   Vcl.Controls,
   Elinor.Resources,
-  DisciplesRL.Button,
+  Elinor.Button,
   Elinor.Scene.Frames;
 
 type
@@ -42,7 +42,7 @@ uses
   SysUtils,
   Elinor.Frame,
   DisciplesRL.Common,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 { TSceneSimpleMenu }
 

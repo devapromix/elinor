@@ -10,9 +10,9 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
-  DisciplesRL.Button,
+  Elinor.Button,
   Elinor.Resources,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 type
 

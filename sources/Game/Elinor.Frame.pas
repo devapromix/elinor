@@ -19,7 +19,7 @@ type
 implementation
 
 uses
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 { TFrame }
 

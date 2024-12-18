@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Scenes;
+﻿unit Elinor.Scenes;
 
 interface
 
@@ -181,7 +181,7 @@ uses
   Math,
   SysUtils,
   Elinor.MainForm,
-  DisciplesRL.Button,
+  Elinor.Button,
   DisciplesRL.Creatures,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,

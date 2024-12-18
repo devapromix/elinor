@@ -6,7 +6,7 @@ uses
   Types,
   DisciplesRL.Creatures,
   Elinor.MapObject,
-  DisciplesRL.Items,
+  Elinor.Items,
   Elinor.Map;
 
 type
@@ -147,7 +147,7 @@ uses
   SysUtils,
   Elinor.Saga,
   Elinor.Resources,
-  DisciplesRL.Scenes,
+  Elinor.Scenes,
   Elinor.Scene.Party,
   Elinor.Scene.Settlement,
   DisciplesRL.Scene.Hire;

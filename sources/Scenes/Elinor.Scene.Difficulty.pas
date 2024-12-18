@@ -6,10 +6,10 @@ uses
   Elinor.Scene.Menu.Simple,
   Vcl.Controls,
   System.Classes,
-  DisciplesRL.Button,
+  Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 type
   TSceneDifficulty = class(TSceneSimpleMenu)

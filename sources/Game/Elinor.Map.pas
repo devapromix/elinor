@@ -84,7 +84,7 @@ uses
   SysUtils,
   Elinor.Saga,
   Elinor.Party,
-  DisciplesRL.Scenes,
+  Elinor.Scenes,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Party,
   Elinor.PathFind;

@@ -10,10 +10,10 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
-  DisciplesRL.Button,
+  Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 type
   TSettlementSubSceneEnum = (stCity, stCapital);

@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Button;
+﻿unit Elinor.Button;
 
 interface
 
@@ -101,7 +101,7 @@ implementation
 uses
   Math,
   SysUtils,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 const
   LogRows = 7;

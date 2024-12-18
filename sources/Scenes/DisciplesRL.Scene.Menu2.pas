@@ -13,10 +13,10 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
-  DisciplesRL.Button,
+  Elinor.Button,
   DisciplesRL.Common,
   Elinor.Resources,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 type
 

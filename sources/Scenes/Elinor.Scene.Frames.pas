@@ -5,9 +5,9 @@ interface
 uses
   Vcl.Graphics,
   Classes,
-  DisciplesRL.Button,
+  Elinor.Button,
   Elinor.Resources,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 type
   TFrameGrid = (fgLS3, fgLS6, fgRS6, fgRM1, fgRM2);

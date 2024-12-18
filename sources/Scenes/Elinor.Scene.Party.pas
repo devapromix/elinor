@@ -10,7 +10,7 @@ uses
 {$ENDIF}
   Classes,
   Elinor.Party,
-  DisciplesRL.Scenes,
+  Elinor.Scenes,
   Elinor.Resources,
   Elinor.Scene.Frames,
   DisciplesRL.Creatures;
@@ -66,8 +66,8 @@ uses
   Elinor.Saga,
   Elinor.Statistics,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Button,
-  DisciplesRL.Items,
+  Elinor.Button,
+  Elinor.Items,
   Elinor.Frame;
 
 type
