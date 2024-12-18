@@ -10,7 +10,7 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
-  DisciplesRL.Scenes;
+  Elinor.Scenes;
 
 { TSceneMap }
 

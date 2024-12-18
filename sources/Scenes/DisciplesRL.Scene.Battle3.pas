@@ -9,8 +9,8 @@ uses
   Vcl.Controls,
 {$ENDIF}
   Classes,
-  DisciplesRL.Button,
-  DisciplesRL.Scenes;
+  Elinor.Button,
+  Elinor.Scenes;
 
 type
   TSceneBattle3 = class(TScene)

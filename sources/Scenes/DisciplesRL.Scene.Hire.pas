@@ -15,7 +15,7 @@ uses
   Classes,
   Elinor.Saga,
   DisciplesRL.Creatures,
-  DisciplesRL.Scenes,
+  Elinor.Scenes,
   Elinor.Resources,
   Elinor.Party;
 
@@ -88,11 +88,12 @@ uses
   Elinor.Statistics,
   DisciplesRL.Common,
   Elinor.Map,
-  DisciplesRL.Button,
+  Elinor.Button,
   Elinor.Scene.Party,
   DisciplesRL.Scene.Battle2,
   Elinor.Scene.Settlement,
-  DisciplesRL.Items, Elinor.Scene.Difficulty;
+  Elinor.Items,
+  Elinor.Scene.Difficulty;
 
 type
   TButtonEnum = (btOk, btClose);
