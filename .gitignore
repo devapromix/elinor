@@ -11,3 +11,6 @@ sources/lib/
 sources/Forms/backup/
 sources/Scenes/backup/
 sources/Scenes/__history/
+/sources/Forms/__history
+/sources/Game/__history
+/*.txt

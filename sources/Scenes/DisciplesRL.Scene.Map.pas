@@ -45,6 +45,7 @@ uses
   Elinor.Party,
   Elinor.Creatures,
   Elinor.Scene.Spellbook,
+  Elinor.Scene.Scenario,
   Elinor.PathFind;
 
 { TSceneMap }
@@ -340,7 +341,7 @@ begin
     K_P:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:
-      TSceneHire.Show(stJournal);
+      TSceneScenario.Show;
     K_H:
       TSceneSpellbook.Show;
   end;

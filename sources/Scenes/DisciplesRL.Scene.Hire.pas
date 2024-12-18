@@ -21,7 +21,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace, stJournal,
+  THireSubSceneEnum = (stCharacter, stLeader, stRace,
     stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
     stAbilities);
 
@@ -104,8 +104,6 @@ const
     (reTextContinue, reTextCancel),
     // Race
     (reTextContinue, reTextCancel),
-    // Journal
-    (reTextClose, reTextClose),
     // Victory
     (reTextClose, reTextClose),
     // Defeat
@@ -128,7 +126,7 @@ const
 const
   AddButtonScene = [stLoot, stStoneTab];
   CloseCloseScene = [stAbilities];
-  CloseButtonScene = [stJournal, stVictory, stDefeat, stHighScores2] +
+  CloseButtonScene = [stVictory, stDefeat, stHighScores2] +
     AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stCharacter, stLeader, stRace, stHighScores2,
     stSpy, stWar];
@@ -148,8 +146,6 @@ var
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   case ASubScene of
-    stJournal:
-      CurrentIndex := Ord(Game.Scenario.CurrentScenario);
     stRace:
       CurrentIndex := Ord(TSaga.LeaderRace);
   else
@@ -228,7 +224,7 @@ begin
       TSceneHire.Show(stRace);
     stRace:
       TSceneDifficulty.Show();
-    stJournal, stSpy, stWar, stAbilities:
+    stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
       begin
@@ -324,8 +320,6 @@ begin
         else
           InformDialog('Не хватает денег!');
       end;
-    stJournal:
-      Game.Show(scMap);
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -958,7 +952,6 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stJournal:;
     stAbilities:
       begin
         DrawImage(reWallpaperScenario);
@@ -1105,7 +1098,6 @@ begin
       end;
     stRace:
       RenderRaceInfo;
-    stJournal:;
     stAbilities:
       RenderAbilitiesInfo;
     stVictory, stDefeat:

@@ -20,7 +20,6 @@ type
     Button: array [TButtonEnum] of TButton;
     FCurrentIndex: Integer;
     procedure RenderButtons;
-    procedure Basic(AKey: Word);
   public
     constructor Create(const AResEnum: TResEnum);
     destructor Destroy; override;
@@ -33,6 +32,7 @@ type
     procedure Continue; virtual;
     property CurrentIndex: Integer read FCurrentIndex write FCurrentIndex;
     procedure Update(var Key: Word); override;
+    procedure Basic(AKey: Word);
   end;
 
 implementation
@@ -147,14 +147,14 @@ end;
 
 procedure TSceneSimpleMenu.UpdateEnum<N>(AKey: Word);
 var
-  Cycler: TEnumCycler<N>;
+  LCycler: TEnumCycler<N>;
 begin
   Basic(AKey);
   if not(AKey in [K_UP, K_Down]) then
     Exit;
   Game.MediaPlayer.PlaySound(mmClick);
-  Cycler := TEnumCycler<N>.Create(CurrentIndex);
-  CurrentIndex := Cycler.Modify(AKey = K_Down);
+  LCycler := TEnumCycler<N>.Create(CurrentIndex);
+  CurrentIndex := LCycler.Modify(AKey = K_Down);
 end;
 
 end.
