@@ -163,9 +163,9 @@ uses
   Classes,
   SysUtils,
   Elinor.Map,
-  DisciplesRL.Scenes,
+  Elinor.Scenes,
   DisciplesRL.Scene.Hire,
-  DisciplesRL.Items;
+  Elinor.Items;
 
 { TSaga }
 

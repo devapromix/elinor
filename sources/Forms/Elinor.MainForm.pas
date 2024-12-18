@@ -58,7 +58,7 @@ implementation
 {$ENDIF}
 
 uses
-  DisciplesRL.Scenes,
+  Elinor.Scenes,
   Elinor.Saga;
 
 procedure TMainForm.FormCreate(Sender: TObject);
