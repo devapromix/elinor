@@ -32,7 +32,7 @@ type
     IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver,
       reIconOpenedGates);
   private
-    //ButtonCycler: specialize TEnumCycler<TButtonEnum>;
+    // ButtonCycler: specialize TEnumCycler<TButtonEnum>;
     CursorPos: TButtonEnum;
     Button: array [TButtonEnum] of TButton;
     Icons: array [TIconEnum] of TIcon;
@@ -85,7 +85,7 @@ end;
 procedure TSceneMenu2.PlayGame;
 begin
   TSaga.IsGame := False;
-  TSceneHire.Show(stScenario);
+  Game.Show(scScenario);
 end;
 
 procedure TSceneMenu2.ContinueGame;
@@ -230,13 +230,13 @@ begin
       HighScores;
     K_UP:
       CursorPos := LButtonCycler.Prev;
-    //IIF(CursorPos = ButtonMin, ButtonMax, Pred(CursorPos));
-      //CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) - 1, 0,
-        //Ord(High(TButtonEnum))));
+    // IIF(CursorPos = ButtonMin, ButtonMax, Pred(CursorPos));
+    // CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) - 1, 0,
+    // Ord(High(TButtonEnum))));
     K_DOWN:
       CursorPos := LButtonCycler.Next;
-      //CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) + 1, 0,
-        //Ord(High(TButtonEnum))));
+    // CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) + 1, 0,
+    // Ord(High(TButtonEnum))));
   end;
 end;
 

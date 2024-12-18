@@ -1,4 +1,4 @@
-unit Elinor.Scene.Difficulty;
+unit Elinor.Scene.Scenario;
 
 interface
 
@@ -12,7 +12,7 @@ uses
   Elinor.Scenes;
 
 type
-  TSceneDifficulty = class(TSceneSimpleMenu)
+  TSceneScenario = class(TSceneSimpleMenu)
   private
   public
     constructor Create;
@@ -25,7 +25,7 @@ type
 
 implementation
 
-{ TSceneDifficulty }
+{ TSceneScenario }
 
 uses
   Math,
@@ -35,25 +35,27 @@ uses
   Elinor.Scene.Frames,
   DisciplesRL.Scene.Hire;
 
-procedure TSceneDifficulty.Cancel;
+procedure TSceneScenario.Cancel;
 begin
   inherited;
-  Game.Show(scScenario);
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Show(scMenu);
 end;
 
-procedure TSceneDifficulty.Continue;
+procedure TSceneScenario.Continue;
 begin
   inherited;
-  TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
-  TSceneHire.Show(stRace);
+  //TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Show(scDifficulty);
 end;
 
-constructor TSceneDifficulty.Create;
+constructor TSceneScenario.Create;
 begin
-  inherited Create(reWallpaperDifficulty);
+  inherited Create(reWallpaperScenario);
 end;
 
-procedure TSceneDifficulty.Render;
+procedure TSceneScenario.Render;
 var
   I: Integer;
   LDifficultyEnum: TSaga.TDifficultyEnum;
@@ -81,13 +83,13 @@ begin
   end;
 end;
 
-class procedure TSceneDifficulty.Show;
+class procedure TSceneScenario.Show;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.Show(scDifficulty);
+  Game.Show(scScenario);
 end;
 
-procedure TSceneDifficulty.Update(var Key: Word);
+procedure TSceneScenario.Update(var Key: Word);
 begin
   inherited;
   UpdateEnum<TSaga.TDifficultyEnum>(Key);
