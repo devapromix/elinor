@@ -15,7 +15,7 @@ uses
   Classes,
   Elinor.Saga,
   Elinor.Scenario,
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   Elinor.Scenes,
   Elinor.Resources,
   Elinor.Party;
@@ -84,7 +84,7 @@ uses
   Math,
   SysUtils,
   Elinor.Statistics,
-  DisciplesRL.Common,
+  Elinor.Common,
   Elinor.Map,
   Elinor.Button,
   Elinor.Scene.Party,

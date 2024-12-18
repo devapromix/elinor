@@ -46,7 +46,7 @@ uses
   Elinor.Saga,
   Elinor.Map,
   Elinor.Scene.Party,
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   DisciplesRL.Scene.Hire;
 
 { TSceneSpellbook }

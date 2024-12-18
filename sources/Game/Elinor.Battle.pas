@@ -3,7 +3,7 @@
 interface
 
 uses
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   Elinor.Button;
 
 type

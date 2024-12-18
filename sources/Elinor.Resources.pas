@@ -646,7 +646,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
-  DisciplesRL.Creatures;
+  Elinor.Creatures;
 
 function GetPath(SubDir: string): string;
 begin

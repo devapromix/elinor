@@ -4,7 +4,7 @@ interface
 
 uses
   Types,
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   Elinor.MapObject,
   Elinor.Items,
   Elinor.Map;

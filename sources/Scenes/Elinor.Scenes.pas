@@ -183,7 +183,7 @@ uses
   SysUtils,
   Elinor.MainForm,
   Elinor.Button,
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   DisciplesRL.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Menu2,

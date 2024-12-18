@@ -68,7 +68,7 @@ uses
   Elinor.Scenario,
   Elinor.Map,
   Elinor.Scene.Party,
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   DisciplesRL.Scene.Hire;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);

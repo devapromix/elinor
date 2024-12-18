@@ -12,7 +12,7 @@ uses
   Bass in 'Third-Party\Bass\Bass.pas',
   Elinor.Map in 'Game\Elinor.Map.pas',
   Elinor.Resources in 'Elinor.Resources.pas',
-  DisciplesRL.Creatures in 'DisciplesRL.Creatures.pas',
+  Elinor.Creatures in 'Game\Elinor.Creatures.pas',
   Elinor.Items in 'Game\Elinor.Items.pas',
   Elinor.Party in 'Game\Elinor.Party.pas',
   Elinor.Battle in 'Game\Elinor.Battle.pas',
@@ -39,7 +39,8 @@ uses
   Elinor.Scene.Difficulty in 'Scenes\Elinor.Scene.Difficulty.pas',
   Elinor.Scene.Menu.Simple in 'Scenes\Elinor.Scene.Menu.Simple.pas',
   Elinor.Scene.Scenario in 'Scenes\Elinor.Scene.Scenario.pas',
-  Elinor.Scenario in 'Game\Elinor.Scenario.pas';
+  Elinor.Scenario in 'Game\Elinor.Scenario.pas',
+  Elinor.Common in 'Game\Elinor.Common.pas';
 
 {$R *.res}
 

@@ -14,7 +14,7 @@ uses
 {$ENDIF}
   Classes,
   Elinor.Button,
-  DisciplesRL.Common,
+  Elinor.Common,
   Elinor.Resources,
   Elinor.Scenes;
 

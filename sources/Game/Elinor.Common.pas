@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Common;
+﻿unit Elinor.Common;
 
 interface
 

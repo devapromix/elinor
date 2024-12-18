@@ -7,7 +7,7 @@ uses
   Dialogs,
   Elinor.Resources,
   Elinor.Party,
-  DisciplesRL.Creatures;
+  Elinor.Creatures;
 
 type
   TPartyBase = record

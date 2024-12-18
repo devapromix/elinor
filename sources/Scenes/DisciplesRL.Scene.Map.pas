@@ -43,7 +43,7 @@ uses
   Elinor.Scene.Party,
   DisciplesRL.Scene.Hire,
   Elinor.Party,
-  DisciplesRL.Creatures,
+  Elinor.Creatures,
   Elinor.Scene.Spellbook,
   Elinor.PathFind;
 

@@ -13,7 +13,7 @@ uses
   Elinor.Scenes,
   Elinor.Resources,
   Elinor.Scene.Frames,
-  DisciplesRL.Creatures;
+  Elinor.Creatures;
 
 type
   TSceneParty = class(TSceneFrames)

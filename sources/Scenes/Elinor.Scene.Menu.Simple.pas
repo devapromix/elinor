@@ -41,7 +41,7 @@ uses
   Math,
   SysUtils,
   Elinor.Frame,
-  DisciplesRL.Common,
+  Elinor.Common,
   Elinor.Scenes;
 
 { TSceneSimpleMenu }
