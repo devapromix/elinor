@@ -88,7 +88,7 @@ uses
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Party,
-  Elinor.PathFind;
+  Elinor.PathFind, Elinor.Scene.Leader;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
 begin
@@ -189,7 +189,7 @@ begin
   Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, TSaga.LeaderRace);
   LCreatureEnum := Characters[TSaga.LeaderRace][cgLeaders]
-    [TRaceCharKind(TSceneHire.HireIndex)];
+    [RaceCharKind];
   case TCreature.Character(LCreatureEnum).ReachEnum of
     reAdj:
       begin

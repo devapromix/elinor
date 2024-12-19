@@ -354,7 +354,7 @@ end;
 
 procedure TSceneParty.Render;
 var
-  C, CurCrEnum: TCreatureEnum;
+  C: TCreatureEnum;
 
   procedure RenderButtons;
   var
@@ -400,7 +400,6 @@ var
     I: Integer;
   begin
     DrawTitle(reTitleInventory);
-    CurCrEnum := TLeaderParty.Leader.Enum;
     TextLeft := TFrame.Col(0, psRight) + 12;
     TextTop := TFrame.Row(0) + 6;
     //
@@ -440,8 +439,8 @@ var
   begin
     DrawTitle(reTitleParty);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
-    if (C <> crNone) then
-      TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
+    //if (C <> crNone) then
+    //  TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
     TextTop := SceneTop + 6;
     TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
     AddTextLine('Статистика', True);

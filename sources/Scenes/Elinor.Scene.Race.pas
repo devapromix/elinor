@@ -32,9 +32,9 @@ uses
   System.SysUtils,
   Elinor.Scene.Difficulty,
   Elinor.Saga,
-  DisciplesRL.Scene.Hire,
   Elinor.Frame,
-  Elinor.Creatures;
+  Elinor.Creatures,
+  Elinor.Scene.Leader;
 
 procedure TSceneRace.Cancel;
 begin
@@ -46,7 +46,7 @@ procedure TSceneRace.Continue;
 begin
   inherited;
   TSaga.LeaderRace := TFactionEnum(CurrentIndex);
-  TSceneHire.Show(stLeader);
+  TSceneLeader.Show;
 end;
 
 constructor TSceneRace.Create;
@@ -58,7 +58,7 @@ procedure TSceneRace.Render;
 var
   I: Integer;
   LPlayableRaces: TPlayableRaces;
-  R: TFactionEnum;
+  LFactionEnum: TFactionEnum;
 const
   LPlayableRacesImage: array [TPlayableRaces] of TResEnum = (reTheEmpireLogo,
     reUndeadHordesLogo, reLegionsOfTheDamnedLogo);
@@ -75,11 +75,11 @@ begin
         reActFrame);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
-      R := TFactionEnum(CurrentIndex);
-      AddTextLine(FactionName[R], True);
+      LFactionEnum := TFactionEnum(CurrentIndex);
+      AddTextLine(FactionName[LFactionEnum], True);
       AddTextLine;
       for I := 0 to 11 do
-        AddTextLine(FactionDescription[R][i]);
+        AddTextLine(FactionDescription[LFactionEnum][I]);
     end;
   end;
 end;

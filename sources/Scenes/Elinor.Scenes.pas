@@ -23,7 +23,7 @@ uses
 
 type
   TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
-    scSpellbook, scDifficulty, scScenario, scRace);
+    scSpellbook, scDifficulty, scScenario, scRace, scLeader);
 
 const
   ScreenWidth = 1344;
@@ -196,6 +196,7 @@ uses
   Elinor.Frame,
   Elinor.Scene.Difficulty,
   Elinor.Scene.Race,
+  Elinor.Scene.Leader,
   Elinor.Scene.Scenario;
 
 type
@@ -602,6 +603,7 @@ begin
   FScene[scDifficulty] := TSceneDifficulty.Create;
   FScene[scScenario] := TSceneScenario.Create;
   FScene[scRace] := TSceneRace.Create;
+  FScene[scLeader] := TSceneLeader.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

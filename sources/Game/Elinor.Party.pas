@@ -250,12 +250,12 @@ procedure TParty.Dismiss(const APosition: TPosition);
 begin
   if FCreature[APosition].Leadership > 0 then
     Exit;
-  TCreature.Clear(FCreature[APosition])
+  TCreature.Clear(FCreature[APosition]);
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;
 begin
-  Result := FCreature[APosition]
+  Result := FCreature[APosition];
 end;
 
 function TParty.GetExperience: Integer;

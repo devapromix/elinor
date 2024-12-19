@@ -196,7 +196,7 @@ type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
 
 type
-  TRaceCharKind = (ckWarrior, ckScout, ckMage, ckThief, ckLord, ck2);
+  TRaceCharKind = (ckWarrior, ckScout, ckMage, ckThief, ckLord, ckTemplar);
 
 type
   TLeaderWarriorActVar = (avRest, avRitual, avWar3);

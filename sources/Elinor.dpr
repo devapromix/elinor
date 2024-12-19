@@ -41,7 +41,9 @@ uses
   Elinor.Scene.Scenario in 'Scenes\Elinor.Scene.Scenario.pas',
   Elinor.Scenario in 'Game\Elinor.Scenario.pas',
   Elinor.Common in 'Game\Elinor.Common.pas',
-  Elinor.Scene.Race in 'Scenes\Elinor.Scene.Race.pas';
+  Elinor.Scene.Race in 'Scenes\Elinor.Scene.Race.pas',
+  Elinor.Scene.Leader in 'Scenes\Elinor.Scene.Leader.pas',
+  Elinor.Scene.Menu.Wide in 'Scenes\Elinor.Scene.Menu.Wide.pas';
 
 {$R *.res}
 

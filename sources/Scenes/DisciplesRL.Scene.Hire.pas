@@ -21,8 +21,8 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stVictory, stDefeat,
-    stHighScores2, stLoot, stStoneTab, stSpy, stWar, stAbilities);
+  THireSubSceneEnum = (stCharacter, stVictory, stDefeat, stHighScores2, stLoot,
+    stStoneTab, stSpy, stWar, stAbilities);
 
 type
 
@@ -65,7 +65,6 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
-    procedure RenderCharacterInfo(C: TCreatureEnum; const N: Integer = 0);
     class procedure Show(const ASubScene: THireSubSceneEnum); overload;
     class procedure Show(const Party: TParty; const Position: Integer);
       overload;
@@ -90,6 +89,9 @@ uses
   Elinor.Items,
   Elinor.Scene.Difficulty, Elinor.Scene.Race;
 
+var
+  CurCrEnum: TCreatureEnum;
+
 type
   TButtonEnum = (btOk, btClose);
 
@@ -97,8 +99,6 @@ const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
     // Character
     (reTextHire, reTextClose),
-    // Leader
-    (reTextContinue, reTextCancel),
     // Victory
     (reTextClose, reTextClose),
     // Defeat
@@ -123,8 +123,8 @@ const
   CloseCloseScene = [stAbilities];
   CloseButtonScene = [stVictory, stDefeat, stHighScores2] + AddButtonScene +
     CloseCloseScene;
-  MainButtonsScene = [stCharacter, stLeader, stHighScores2, stSpy, stWar];
-  WideButtonScene = [stCharacter, stLeader];
+  MainButtonsScene = [stCharacter, stHighScores2, stSpy, stWar];
+  WideButtonScene = [stCharacter];
 
 var
   HireParty: TParty = nil;
@@ -133,7 +133,6 @@ var
   BackScene: TSceneEnum = scMenu;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
   Lf, Lk: Integer;
-  CurCrEnum: TCreatureEnum;
   GC, MC: Integer;
   LootRes: TResEnum;
 
@@ -209,8 +208,6 @@ begin
   case SubScene of
     stCharacter:
       Game.Show(scSettlement);
-    stLeader:
-      TSceneRace.Show;
     stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
@@ -282,15 +279,6 @@ var
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stLeader:
-      begin
-        CurCrSkillEnum := TCreature.Character(CurCrEnum).SkillEnum;
-        TSaga.Clear;
-        Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
-        Game.MediaPlayer.PlayMusic(mmGame);
-        Game.MediaPlayer.PlaySound(mmExit);
-        TSceneSettlement.Show(stCapital);
-      end;
     stCharacter:
       begin
         if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
@@ -466,45 +454,6 @@ begin
             Game.NewDay;
         end;
       end;
-  end;
-end;
-
-procedure TSceneHire.RenderCharacterInfo(C: TCreatureEnum; const N: Integer);
-var
-  J: Integer;
-begin
-  TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12 + N;
-  with TCreature.Character(C) do
-  begin
-    AddTextLine(Name[0], True);
-    AddTextLine;
-    AddTextLine('Уровень', Level);
-    AddTextLine('Точность', ChancesToHit);
-    AddTextLine('Инициатива', Initiative);
-    AddTextLine('Здоровье', HitPoints, HitPoints);
-    AddTextLine('Урон', Damage);
-    AddTextLine('Броня', Armor);
-    AddTextLine('Источник', SourceName[SourceEnum]);
-    case ReachEnum of
-      reAny:
-        begin
-          AddTextLine('Дистанция', 'Все поле боя');
-          AddTextLine('Цели', 1);
-        end;
-      reAdj:
-        begin
-          AddTextLine('Дистанция', 'Ближайшие цели');
-          AddTextLine('Цели', 1);
-        end;
-      reAll:
-        begin
-          AddTextLine('Дистанция', 'Все поле боя');
-          AddTextLine('Цели', 6);
-        end;
-    end;
-    for J := 0 to 2 do
-      AddTextLine(Description[J]);
   end;
 end;
 
@@ -837,34 +786,6 @@ begin
           end;
         end;
       end;
-    stLeader:
-      begin
-        DrawImage(reWallpaperLeader);
-        DrawTitle(reTitleLeader);
-        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
-        begin
-          Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
-          if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Left + X, SceneTop + Y, reActFrame)
-          else
-            DrawImage(Left + X, SceneTop + Y, reFrame);
-          with TCreature.Character(Characters[TSaga.LeaderRace]
-            [cgLeaders][K]) do
-            if HitPoints > 0 then
-            begin
-              DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
-              TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(Left + X,
-                SceneTop + Y, Characters[TSaga.LeaderRace][cgLeaders]
-                [K], False);
-            end;
-          Inc(Y, 120);
-          if Y > 240 then
-          begin
-            Y := 0;
-            Inc(X, 320);
-          end;
-        end;
-      end;
     stSpy:
       begin
         DrawImage(reWallpaperDifficulty);
@@ -987,17 +908,13 @@ begin
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reActFrame].Width + 2, SceneTop, reInfoFrame);
   case SubScene of
-    stCharacter, stLeader:
+    stCharacter:
       begin
         K := TRaceCharKind(CurrentIndex);
         case SubScene of
           stCharacter:
             CurCrEnum := Characters[TSaga.LeaderRace][cgCharacters][K];
-          stLeader:
-            CurCrEnum := Characters[TSaga.LeaderRace][cgLeaders][K];
         end;
-        if CurCrEnum <> crNone then
-          RenderCharacterInfo(CurCrEnum);
         case SubScene of
           stCharacter:
             begin
@@ -1006,34 +923,6 @@ begin
                 SceneTop, reGold);
               DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40,
                 SceneTop + 12, TCreature.Character(CurCrEnum).Gold);
-            end;
-          stLeader:
-            if CurCrEnum <> crNone then
-            begin
-              DrawImage(Lf + (ResImage[reActFrame].Width + 2) * 2, SceneTop,
-                reInfoFrame);
-              TextTop := SceneTop + 6;
-              TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14;
-              AddTextLine('Умения Лидера', True);
-              AddTextLine;
-              AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum)
-                .SkillEnum).Name);
-              for I := 0 to 1 do
-                AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum)
-                  .SkillEnum).Description[I]);
-              AddTextLine;
-              AddTextLine;
-              AddTextLine('Экипировка', True);
-              AddTextLine;
-              AddTextLine(Format('Оружие: %s',
-                [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum)
-                .AttackEnum, TCreature.Character(CurCrEnum).SourceEnum)]));
-              AddTextLine;
-              AddTextLine('Скорость Передвижения',
-                TLeaderParty.GetMaxSpeed(CurCrEnum));
-              AddTextLine('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
-              AddTextLine('Заклинаний в день',
-                TLeaderParty.GetMaxSpells(CurCrEnum));
             end;
         end;
       end;
@@ -1097,7 +986,7 @@ var
 begin
   inherited;
   case SubScene of
-    stLeader, stCharacter:
+    stCharacter:
       begin
         FF := CurrentIndex in [0 .. 4];
         case Key of
