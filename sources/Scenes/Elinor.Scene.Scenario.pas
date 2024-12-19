@@ -20,8 +20,6 @@ type
     procedure Update(var Key: Word); override;
     procedure Cancel; override;
     procedure Continue; override;
-    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
-      X, Y: Integer); override;
     class procedure Show;
   end;
 
@@ -64,15 +62,6 @@ begin
   inherited Create(reWallpaperScenario);
 end;
 
-procedure TSceneScenario.MouseDown(AButton: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
-begin
-  if TSaga.IsGame then
-    Exit
-  else
-    inherited;
-end;
-
 procedure TSceneScenario.Render;
 var
   I: Integer;
@@ -82,6 +71,8 @@ const
     (reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
+  IsOneButton := TSaga.IsGame;
+  IsBlockFrames := TSaga.IsGame;
   DrawTitle(reTitleScenario);
   for LScenarioEnum := Low(TScenario.TScenarioEnum)
     to High(TScenario.TScenarioEnum) do
