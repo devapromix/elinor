@@ -12,6 +12,8 @@ uses
 type
   TFactionEnum = (reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
     reMountainClans, reElvenAlliance, reNeutrals);
+
+type
   TPlayableRaces = reTheEmpire .. reLegionsOfTheDamned;
 
 const

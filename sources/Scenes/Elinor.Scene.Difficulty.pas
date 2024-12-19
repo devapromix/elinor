@@ -33,7 +33,7 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Frames,
-  DisciplesRL.Scene.Hire,
+  Elinor.Scene.Race,
   Elinor.Scene.Scenario;
 
 procedure TSceneDifficulty.Cancel;
@@ -46,7 +46,7 @@ procedure TSceneDifficulty.Continue;
 begin
   inherited;
   TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
-  TSceneHire.Show(stRace);
+  TSceneRace.Show;
 end;
 
 constructor TSceneDifficulty.Create;

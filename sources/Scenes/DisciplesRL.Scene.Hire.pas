@@ -21,9 +21,8 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stLeader, stRace,
-    stVictory, stDefeat, stHighScores2, stLoot, stStoneTab, stSpy, stWar,
-    stAbilities);
+  THireSubSceneEnum = (stCharacter, stLeader, stVictory, stDefeat,
+    stHighScores2, stLoot, stStoneTab, stSpy, stWar, stAbilities);
 
 type
 
@@ -41,11 +40,9 @@ type
     procedure Back;
     procedure RenderSpyInfo;
     procedure RenderWarInfo;
-    procedure RenderRace(const Race: TFactionEnum; const AX, AY: Integer);
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
   private
-    procedure RenderRaceInfo;
     procedure RenderHighScores;
     procedure RenderFinalInfo;
     procedure RenderAbilities(const AScenario: TScenario.TScenarioEnum;
@@ -91,7 +88,7 @@ uses
   DisciplesRL.Scene.Battle2,
   Elinor.Scene.Settlement,
   Elinor.Items,
-  Elinor.Scene.Difficulty;
+  Elinor.Scene.Difficulty, Elinor.Scene.Race;
 
 type
   TButtonEnum = (btOk, btClose);
@@ -101,8 +98,6 @@ const
     // Character
     (reTextHire, reTextClose),
     // Leader
-    (reTextContinue, reTextCancel),
-    // Race
     (reTextContinue, reTextCancel),
     // Victory
     (reTextClose, reTextClose),
@@ -126,10 +121,9 @@ const
 const
   AddButtonScene = [stLoot, stStoneTab];
   CloseCloseScene = [stAbilities];
-  CloseButtonScene = [stVictory, stDefeat, stHighScores2] +
-    AddButtonScene + CloseCloseScene;
-  MainButtonsScene = [stCharacter, stLeader, stRace, stHighScores2,
-    stSpy, stWar];
+  CloseButtonScene = [stVictory, stDefeat, stHighScores2] + AddButtonScene +
+    CloseCloseScene;
+  MainButtonsScene = [stCharacter, stLeader, stHighScores2, stSpy, stWar];
   WideButtonScene = [stCharacter, stLeader];
 
 var
@@ -145,12 +139,7 @@ var
 
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
-  case ASubScene of
-    stRace:
-      CurrentIndex := Ord(TSaga.LeaderRace);
-  else
-    CurrentIndex := 0;
-  end;
+  CurrentIndex := 0;
   SubScene := ASubScene;
   Game.Show(scHire);
   if ASubScene = stVictory then
@@ -221,9 +210,7 @@ begin
     stCharacter:
       Game.Show(scSettlement);
     stLeader:
-      TSceneHire.Show(stRace);
-    stRace:
-      TSceneDifficulty.Show();
+      TSceneRace.Show;
     stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
@@ -295,11 +282,6 @@ var
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stRace:
-      begin
-        TSaga.LeaderRace := TFactionEnum(CurrentIndex);
-        TSceneHire.Show(stLeader);
-      end;
     stLeader:
       begin
         CurCrSkillEnum := TCreature.Character(CurCrEnum).SkillEnum;
@@ -526,19 +508,6 @@ begin
   end;
 end;
 
-procedure TSceneHire.RenderRace(const Race: TFactionEnum;
-  const AX, AY: Integer);
-begin
-  case Race of
-    reTheEmpire:
-      DrawImage(AX + 7, AY + 7, reTheEmpireLogo);
-    reUndeadHordes:
-      DrawImage(AX + 7, AY + 7, reUndeadHordesLogo);
-    reLegionsOfTheDamned:
-      DrawImage(AX + 7, AY + 7, reLegionsOfTheDamnedLogo);
-  end;
-end;
-
 procedure TSceneHire.RenderSpy(const N: TLeaderThiefSpyVar;
   const AX, AY: Integer);
 begin
@@ -576,20 +545,6 @@ begin
     sgAncientKnowledge:
       DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
   end;
-end;
-
-procedure TSceneHire.RenderRaceInfo;
-var
-  R: TFactionEnum;
-  J: Integer;
-begin
-  TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  R := TFactionEnum(CurrentIndex);
-  AddTextLine(FactionName[R], True);
-  AddTextLine;
-  for J := 0 to 10 do
-    AddTextLine(FactionDescription[R][J]);
 end;
 
 procedure TSceneHire.RenderAbilitiesInfo;
@@ -910,20 +865,6 @@ begin
           end;
         end;
       end;
-    stRace:
-      begin
-        DrawImage(reWallpaperDifficulty);
-        DrawTitle(reTitleRace);
-        for R := reTheEmpire to reLegionsOfTheDamned do
-        begin
-          if Ord(R) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reActFrame)
-          else
-            DrawImage(Lf, SceneTop + Y, reFrame);
-          RenderRace(R, Lf, SceneTop + Y);
-          Inc(Y, 120);
-        end;
-      end;
     stSpy:
       begin
         DrawImage(reWallpaperDifficulty);
@@ -1096,8 +1037,6 @@ begin
             end;
         end;
       end;
-    stRace:
-      RenderRaceInfo;
     stAbilities:
       RenderAbilitiesInfo;
     stVictory, stDefeat:
@@ -1205,10 +1144,7 @@ begin
       Upd(Ord(High(TLeaderThiefSpyVar)));
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
-    stRace:
-      UpdEnum<TPlayableRaces>(Key);
-    // Upd(Ord(High(TRaceCharKind)));
-     stAbilities:
+    stAbilities:
       UpdEnum<TSaga.TDifficultyEnum>(Key);
     // Upd(Ord(High(TScenario.TScenarioEnum)));
     stVictory, stDefeat, stHighScores2:

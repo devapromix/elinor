@@ -40,7 +40,8 @@ uses
   Elinor.Scene.Menu.Simple in 'Scenes\Elinor.Scene.Menu.Simple.pas',
   Elinor.Scene.Scenario in 'Scenes\Elinor.Scene.Scenario.pas',
   Elinor.Scenario in 'Game\Elinor.Scenario.pas',
-  Elinor.Common in 'Game\Elinor.Common.pas';
+  Elinor.Common in 'Game\Elinor.Common.pas',
+  Elinor.Scene.Race in 'Scenes\Elinor.Scene.Race.pas';
 
 {$R *.res}
 
