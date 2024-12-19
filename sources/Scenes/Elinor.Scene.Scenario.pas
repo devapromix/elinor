@@ -73,7 +73,10 @@ begin
   inherited;
   IsOneButton := TSaga.IsGame;
   IsBlockFrames := TSaga.IsGame;
-  DrawTitle(reTitleScenario);
+  if TSaga.IsGame then
+    DrawTitle(reTitleJournal)
+  else
+    DrawTitle(reTitleScenario);
   for LScenarioEnum := Low(TScenario.TScenarioEnum)
     to High(TScenario.TScenarioEnum) do
   begin
@@ -81,8 +84,12 @@ begin
       LScenarioImage[LScenarioEnum]);
     if Ord(LScenarioEnum) = CurrentIndex then
     begin
-      DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
-        reActFrame);
+      if TSaga.IsGame then
+        DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
+          rePasFrame)
+      else
+        DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
+          reActFrame);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
       AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);

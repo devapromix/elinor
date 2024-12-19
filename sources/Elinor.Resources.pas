@@ -61,8 +61,8 @@ type
     reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
     reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
     reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
-    reTitleAbilities, reTitleInventory, reTitleSpellbook,
-
+    reTitleAbilities, reTitleInventory, reTitleSpellbook, reTitleJournal,
+    //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     // Items
     reItemGold, reItemMana, reItemStoneTable, reItemPotionOfHealing,
@@ -419,6 +419,8 @@ const
     (FileName: 'title.inventory.png'; ResType: teGUI;),
     // Title "Spellbook"
     (FileName: 'title.spellbook.png'; ResType: teGUI;),
+    // Title "Journal"
+    (FileName: 'title.journal.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
