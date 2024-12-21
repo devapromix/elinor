@@ -17,7 +17,7 @@ uses
   Elinor.Party in 'Game\Elinor.Party.pas',
   Elinor.Battle in 'Game\Elinor.Battle.pas',
   Elinor.Scenes in 'Scenes\Elinor.Scenes.pas',
-  DisciplesRL.Scene.Map in 'Scenes\DisciplesRL.Scene.Map.pas',
+  Elinor.Scene.Map in 'Scenes\Elinor.Scene.Map.pas',
   DisciplesRL.Scene.Menu in 'Scenes\DisciplesRL.Scene.Menu.pas',
   DisciplesRL.Scene.Menu2 in 'Scenes\DisciplesRL.Scene.Menu2.pas',
   Elinor.Scene.Party in 'Scenes\Elinor.Scene.Party.pas',
@@ -43,7 +43,8 @@ uses
   Elinor.Common in 'Game\Elinor.Common.pas',
   Elinor.Scene.Race in 'Scenes\Elinor.Scene.Race.pas',
   Elinor.Scene.Leader in 'Scenes\Elinor.Scene.Leader.pas',
-  Elinor.Scene.Menu.Wide in 'Scenes\Elinor.Scene.Menu.Wide.pas';
+  Elinor.Scene.Menu.Wide in 'Scenes\Elinor.Scene.Menu.Wide.pas',
+  Elinor.Scene.Temple in 'Scenes\Elinor.Scene.Temple.pas';
 
 {$R *.res}
 

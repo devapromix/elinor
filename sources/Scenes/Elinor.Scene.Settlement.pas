@@ -69,7 +69,7 @@ uses
   Elinor.Map,
   Elinor.Scene.Party,
   Elinor.Creatures,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire, Elinor.Scene.Temple;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -528,6 +528,11 @@ begin
       Dismiss;
     K_R:
       Revive;
+    K_L:
+      begin
+        Game.MediaPlayer.PlaySound(mmClick);
+        Game.Show(scTemple);
+      end;
     K_LEFT, K_KP_4, K_A:
       MoveCursor(drWest);
     K_RIGHT, K_KP_6, K_D:

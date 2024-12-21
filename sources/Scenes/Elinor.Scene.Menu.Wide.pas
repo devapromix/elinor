@@ -19,7 +19,6 @@ type
   private
     TwoButton: array [TTwoButtonEnum] of TButton;
     FCurrentIndex: Integer;
-    procedure RenderButtons;
     public var
   public
     constructor Create(const AResEnum: TResEnum);
@@ -33,6 +32,7 @@ type
     property CurrentIndex: Integer read FCurrentIndex write FCurrentIndex;
     procedure Update(var Key: Word); override;
     procedure Basic(AKey: Word);
+    procedure RenderButtons;
   end;
 
 implementation

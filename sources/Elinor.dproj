@@ -117,7 +117,7 @@
         <DCCReference Include="Game\Elinor.Party.pas"/>
         <DCCReference Include="Game\Elinor.Battle.pas"/>
         <DCCReference Include="Scenes\Elinor.Scenes.pas"/>
-        <DCCReference Include="Scenes\DisciplesRL.Scene.Map.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Map.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Menu.pas"/>
         <DCCReference Include="Scenes\DisciplesRL.Scene.Menu2.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Party.pas"/>
@@ -144,6 +144,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Race.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Leader.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Menu.Wide.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Temple.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
