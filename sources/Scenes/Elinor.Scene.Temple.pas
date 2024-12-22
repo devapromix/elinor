@@ -19,11 +19,12 @@ uses
 type
   TSceneTemple = class(TSceneWideMenu)
   private type
-    TTwoButtonEnum = (btHeal, btRevive, btParty, btClose);
+    TButtonEnum = (btHeal, btRevive, btParty, btClose);
   private const
-    TwoButtonText: array [TTwoButtonEnum] of TResEnum = (reTextClose,
-      reTextClose, reTextClose, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextClose, reTextClose,
+      reTextClose, reTextClose);
   private
+    Button: array [TButtonEnum] of TButton;
     procedure Close;
     procedure Heal;
     procedure Revive;
@@ -53,30 +54,30 @@ begin
 end;
 
 constructor TSceneTemple.Create;
-// var
-// LButtonEnum: TTwoButtonEnum;
-// LLeft, LWidth: Integer;
+var
+  LButtonEnum: TButtonEnum;
+  LLeft, LWidth: Integer;
 begin
   inherited Create(reWallpaperSettlement);
-  { LWidth := ResImage[reButtonDef].Width + 4;
-    LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
-    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    begin
+  LWidth := ResImage[reButtonDef].Width + 4;
+  LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
     Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
-    ButtonText[LButtonEnum]);
+      ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-    Button[LButtonEnum].Sellected := True;
-    end; }
+      Button[LButtonEnum].Sellected := True;
+  end;
 
 end;
 
 destructor TSceneTemple.Destroy;
-// var
-// LButtonEnum: TButtonEnum;
+var
+  LButtonEnum: TButtonEnum;
 begin
-  // for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-  // FreeAndNil(Button[LButtonEnum]);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[LButtonEnum]);
   inherited;
 end;
 
@@ -104,6 +105,15 @@ begin
 end;
 
 procedure TSceneTemple.Render;
+
+  procedure RenderButtons;
+  var
+    LButtonEnum: TButtonEnum;
+  begin
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[LButtonEnum].Render;
+  end;
+
 begin
   inherited;
 
