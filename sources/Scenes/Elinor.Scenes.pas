@@ -112,9 +112,11 @@ type
     procedure RenderFrame(const PartySide: TPartySide;
       const APartyPosition, AX, AY: Integer; const F: Boolean = False);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-      F: TBGStat); overload;
-    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
-      HP, MaxHP: Integer); overload;
+      ABGStat: TBGStat); overload;
+    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+      ABGStat: TBGStat; HP, MaxHP: Integer); overload;
+    procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
+      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
       MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
       IsExp: Boolean); overload;
@@ -427,9 +429,9 @@ begin
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-  F: TBGStat);
+  ABGStat: TBGStat);
 begin
-  case F of
+  case ABGStat of
     bsCharacter:
       DrawImage(AX + 7, AY + 7, reBGChar);
     bsEnemy:
@@ -440,13 +442,15 @@ begin
   DrawImage(AX + 7, AY + 7, AResEnum);
 end;
 
-procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
-  HP, MaxHP: Integer);
+procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+  ABGStat: TBGStat; HP, MaxHP: Integer);
+const
+  MaxHeight = 104;
 var
-  TmpImage: TPNGImage;
-  CHP: Integer;
+  LImage: TPNGImage;
+  LHeight: Integer;
 
-  function BarHeight(CY, MY, GS: Integer): Integer;
+  function BarHeight(CY, MY: Integer): Integer;
   var
     I: Integer;
   begin
@@ -459,35 +463,35 @@ var
     end;
     if (MY <= 0) then
       MY := 1;
-    I := (CY * GS) div MY;
+    I := (CY * MaxHeight) div MY;
     if I <= 0 then
       I := 0;
     if (CY >= MY) then
-      I := GS;
+      I := MaxHeight;
     Result := I;
   end;
 
 begin
   DrawImage(AX + 7, AY + 7, reBGParalyze);
-  CHP := BarHeight(HP, MaxHP, 104);
-  TmpImage := TPNGImage.Create;
+  LHeight := BarHeight(HP, MaxHP);
+  LImage := TPNGImage.Create;
   try
-    case F of
+    case ABGStat of
       bsCharacter:
-        TmpImage.Assign(ResImage[reBGChar]);
+        LImage.Assign(ResImage[reBGChar]);
       bsEnemy:
-        TmpImage.Assign(ResImage[reBGEnemy]);
+        LImage.Assign(ResImage[reBGEnemy]);
       bsParalyze:
-        TmpImage.Assign(ResImage[reBGParalyze]);
+        LImage.Assign(ResImage[reBGParalyze]);
     end;
-    if (CHP > 0) then
+    if (LHeight > 0) then
     begin
-      TmpImage.SetSize(64, EnsureRange(CHP, 0, 104));
-      DrawImage(AX + 7, AY + 7 + (104 - CHP), TmpImage);
+      LImage.SetSize(64, EnsureRange(LHeight, 0, 104));
+      DrawImage(AX + 7, AY + 7 + (MaxHeight - LHeight), LImage);
     end;
     DrawImage(AX + 7, AY + 7, AResEnum);
   finally
-    FreeAndNil(TmpImage);
+    FreeAndNil(LImage);
   end;
 end;
 
@@ -506,14 +510,15 @@ procedure TScene.DrawUnitInfo(Name: string; AX, AY, Level, Experience,
   HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
   IsExp: Boolean);
 var
-  S: string;
+  LExp: string;
 begin
   DrawText(AX + SceneLeft + 64, AY + 6, Name + '+++');
-  S := '';
+  LExp := '';
   if IsExp then
-    S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
+    LExp := Format(' Опыт %d/%d',
+      [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
-  DrawText(AX + SceneLeft + 64, AY + 27, Format('Уровень %d', [Level]) + S);
+  DrawText(AX + SceneLeft + 64, AY + 27, Format('Уровень %d', [Level]) + LExp);
   DrawText(AX + SceneLeft + 64, AY + 48, Format('Здоровье %d/%d',
     [HitPoints, MaxHitPoints]));
   if Damage > 0 then
@@ -615,17 +620,17 @@ end;
 function TScene.GetPartyPosition(const MX, MY: Integer): Integer;
 var
   R: Integer;
-  Position: TPosition;
-  PartySide: TPartySide;
+  LPosition: TPosition;
+  LPartySide: TPartySide;
 begin
   R := -1;
   Result := R;
-  for PartySide := Low(TPartySide) to High(TPartySide) do
-    for Position := Low(TPosition) to High(TPosition) do
+  for LPartySide := Low(TPartySide) to High(TPartySide) do
+    for LPosition := Low(TPosition) to High(TPosition) do
     begin
       Inc(R);
-      if MouseOver(TFrame.Col(Position, PartySide), TFrame.Row(Position), MX, MY)
-      then
+      if MouseOver(TFrame.Col(LPosition, LPartySide), TFrame.Row(LPosition),
+        MX, MY) then
       begin
         Result := R;
         Exit;
@@ -639,6 +644,40 @@ begin
   with TCreature.Character(ACreature) do
     DrawUnitInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
       Armor, Initiative, ChancesToHit, IsAdv);
+end;
+
+procedure TScene.DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
+  CanHire, ShowExp: Boolean);
+var
+  F: Boolean;
+  LBGStat: TBGStat;
+begin
+  F := Party.Owner = TSaga.LeaderRace;
+  with Party.Creature[Position] do
+  begin
+    if Active then
+      with Game.GetScene(scParty) do
+      begin
+        if F then
+          LBGStat := bsCharacter
+        else
+          LBGStat := bsEnemy;
+        if Paralyze then
+          LBGStat := bsParalyze;
+        if HitPoints <= 0 then
+          DrawUnit(reDead, AX, AY, LBGStat, 0, MaxHitPoints)
+        else
+          DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints, MaxHitPoints);
+        DrawUnitInfo(Position, Party, AX, AY, ShowExp);
+      end
+    else if CanHire then
+    begin
+      DrawImage(((ResImage[reFrame].Width div 2) -
+        (ResImage[rePlus].Width div 2)) + AX,
+        ((ResImage[reFrame].Height div 2) - (ResImage[rePlus].Height div 2)) +
+        AY, rePlus);
+    end;
+  end;
 end;
 
 { TScenes }

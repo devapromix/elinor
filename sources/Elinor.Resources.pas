@@ -54,7 +54,7 @@ type
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
-    reTextHeal, reTextRevive, reTextInventory, reTextAbilities,
+    reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     // Title
     reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
     reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
@@ -362,6 +362,8 @@ const
     (FileName: 'text.inventory.png'; ResType: teGUI;),
     // Text "Abilities"
     (FileName: 'text.abilities.png'; ResType: teGUI;),
+    // Text "Party"
+    (FileName: 'text.party.png'; ResType: teGUI;),
 
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),

@@ -23,7 +23,7 @@ type
     FShowSkills: Boolean;
     FShowInventory: Boolean;
     FShowResources: Boolean;
-    procedure MoveCursor(Dir: TDirectionEnum);
+    procedure MoveCursor(ADirectionEnum: TDirectionEnum);
     procedure Close;
     procedure OpenInventory;
     procedure OpenSkills;
@@ -39,8 +39,6 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
-      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
     class procedure RenderParty(const PartySide: TPartySide;
       const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
@@ -104,9 +102,9 @@ begin
   end;
 end;
 
-procedure TSceneParty.MoveCursor(Dir: TDirectionEnum);
+procedure TSceneParty.MoveCursor(ADirectionEnum: TDirectionEnum);
 begin
-  case Dir of
+  case ADirectionEnum of
     drWest, drEast:
       case ActivePartyPosition of
         0, 2, 4:
@@ -156,40 +154,6 @@ begin
   Game.Show(BackScene);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
-end;
-
-procedure TSceneParty.DrawUnit(Position: TPosition; Party: TParty;
-  AX, AY: Integer; CanHire: Boolean = False; ShowExp: Boolean = True);
-var
-  F: Boolean;
-  V: TBGStat;
-begin
-  F := Party.Owner = TSaga.LeaderRace;
-  with Party.Creature[Position] do
-  begin
-    if Active then
-      with Game.GetScene(scParty) do
-      begin
-        if F then
-          V := bsCharacter
-        else
-          V := bsEnemy;
-        if Paralyze then
-          V := bsParalyze;
-        if HitPoints <= 0 then
-          DrawUnit(reDead, AX, AY, V, 0, MaxHitPoints)
-        else
-          DrawUnit(ResEnum, AX, AY, V, HitPoints, MaxHitPoints);
-        DrawUnitInfo(Position, Party, AX, AY, ShowExp);
-      end
-    else if CanHire then
-    begin
-      DrawImage(((ResImage[reFrame].Width div 2) -
-        (ResImage[rePlus].Width div 2)) + AX,
-        ((ResImage[reFrame].Height div 2) - (ResImage[rePlus].Height div 2)) +
-        AY, rePlus);
-    end;
-  end;
 end;
 
 class procedure TSceneParty.RenderParty(const PartySide: TPartySide;

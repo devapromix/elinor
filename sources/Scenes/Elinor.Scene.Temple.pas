@@ -21,8 +21,8 @@ type
   private type
     TButtonEnum = (btHeal, btRevive, btParty, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextClose, reTextClose,
-      reTextClose, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
+      reTextParty, reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
     procedure Close;
@@ -94,9 +94,12 @@ begin
 end;
 
 procedure TSceneTemple.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
-
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneTemple.Party;
