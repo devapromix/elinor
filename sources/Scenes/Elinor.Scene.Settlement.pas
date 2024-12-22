@@ -23,10 +23,11 @@ type
 type
   TSceneSettlement = class(TSceneFrames)
   private type
-    TButtonEnum = (btHeal, btRevive, btClose, btHire, btDismiss);
+    TButtonEnum = (btTemple, btHire, btParty, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
-      reTextClose, reTextHire, reTextDismiss);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextTemple, reTextHire,
+      reTextParty, reTextClose);
+    procedure Temple;
   private
   class var
     Button: array [TButtonEnum] of TButton;
@@ -35,19 +36,15 @@ type
     CurrentCityIndex: Integer;
   private
     IsUnitSelected: Boolean;
-    ConfirmGold: Integer;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure Heal;
     procedure Dismiss;
-    procedure Revive;
     procedure Hire;
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure MoveUnit;
+    procedure OpenParty;
     procedure DismissCreature;
-    procedure ReviveCreature;
-    procedure HealCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -190,97 +187,6 @@ begin
   end;
 end;
 
-procedure TSceneSettlement.Heal;
-
-  procedure HealIt(const AParty: TParty; const APosition: Integer);
-  begin
-    with AParty.Creature[APosition] do
-    begin
-      if not Active then
-      begin
-        InformDialog('Выберите не пустой слот!');
-        Exit;
-      end;
-      if HitPoints <= 0 then
-      begin
-        InformDialog('Сначала нужно воскресить!');
-        Exit;
-      end;
-      if HitPoints = MaxHitPoints then
-      begin
-        InformDialog('Не нуждается в исцелении!');
-        Exit;
-      end;
-      ConfirmGold := TLeaderParty.Leader.GetGold(MaxHitPoints - HitPoints);
-      if (ConfirmGold > Game.Gold.Value) then
-      begin
-        InformDialog('Нужно больше золота!');
-        Exit;
-      end;
-      ConfirmParty := AParty;
-      ConfirmPartyPosition := APosition;
-      ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
-        HealCreature);
-    end;
-  end;
-
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  CurrentPartyPosition := ActivePartyPosition;
-  case ActivePartyPosition of
-    0 .. 5:
-      HealIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    6 .. 11:
-      HealIt(SettlementParty, ActivePartyPosition - 6);
-  end;
-end;
-
-procedure TSceneSettlement.Revive;
-
-  procedure ReviveIt(const AParty: TParty; const APosition: Integer);
-  begin
-    with AParty.Creature[APosition] do
-    begin
-      if not Active then
-      begin
-        InformDialog('Выберите не пустой слот!');
-        Exit;
-      end;
-      if HitPoints > 0 then
-      begin
-        InformDialog('Не нуждается в воскрешении!');
-        Exit;
-      end
-      else
-      begin
-        ConfirmGold := TLeaderParty.Leader.GetGold
-          (MaxHitPoints + (Level * ((Ord(TSaga.Difficulty) + 1) *
-          TSaga.GoldForRevivePerLevel)));
-        if (Game.Gold.Value < ConfirmGold) then
-        begin
-          InformDialog(Format('Для воскрешения нужно %d золота!',
-            [ConfirmGold]));
-          Exit;
-        end;
-        ConfirmParty := AParty;
-        ConfirmPartyPosition := APosition;
-        ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
-          ReviveCreature);
-      end;
-    end;
-  end;
-
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  CurrentPartyPosition := ActivePartyPosition;
-  case ActivePartyPosition of
-    0 .. 5:
-      ReviveIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    6 .. 11:
-      ReviveIt(SettlementParty, ActivePartyPosition - 6);
-  end;
-end;
-
 procedure TSceneSettlement.Close;
 begin
   case Game.Map.LeaderTile of
@@ -366,12 +272,10 @@ begin
       begin
         if Button[btHire].MouseDown then
           Hire
-        else if Button[btHeal].MouseDown then
-          Heal
-        else if Button[btDismiss].MouseDown then
-          Dismiss
-        else if Button[btRevive].MouseDown then
-          Revive
+        else if Button[btTemple].MouseDown then
+          Temple
+        else if Button[btParty].MouseDown then
+          OpenParty
         else if Button[btClose].MouseDown then
           Close
         else
@@ -456,6 +360,14 @@ begin
   Game.Show(scSettlement);
 end;
 
+procedure TSceneSettlement.Temple;
+begin
+  begin
+    Game.MediaPlayer.PlaySound(mmClick);
+    Game.Show(scTemple);
+  end;
+end;
+
 procedure TSceneSettlement.MoveUnit;
 begin
   if not((ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and
@@ -468,21 +380,15 @@ begin
   end;
 end;
 
+procedure TSceneSettlement.OpenParty;
+begin
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Show(scParty);
+end;
+
 procedure TSceneSettlement.DismissCreature;
 begin
   ConfirmParty.Dismiss(ConfirmPartyPosition);
-end;
-
-procedure TSceneSettlement.ReviveCreature;
-begin
-  Game.Gold.Modify(-ConfirmGold);
-  ConfirmParty.Revive(ConfirmPartyPosition);
-end;
-
-procedure TSceneSettlement.HealCreature;
-begin
-  Game.Gold.Modify(-ConfirmGold);
-  ConfirmParty.Heal(ConfirmPartyPosition);
 end;
 
 procedure TSceneSettlement.Timer;
@@ -512,27 +418,17 @@ begin
       end;
     K_ESCAPE, K_ENTER:
       Close;
-    K_P:
+    K_J:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
     K_I:
       TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
         scSettlement, True);
-    K_T:
-      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement,
-        False, True);
-    K_V:
-      Hire;
     K_H:
-      Heal;
-    K_J:
-      Dismiss;
-    K_R:
-      Revive;
-    K_L:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        Game.Show(scTemple);
-      end;
+      Hire;
+    K_P:
+      OpenParty;
+    K_T:
+      Temple;
     K_LEFT, K_KP_4, K_A:
       MoveCursor(drWest);
     K_RIGHT, K_KP_6, K_D:

@@ -25,10 +25,15 @@ type
       reTextParty, reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
+    ConfirmGold: Integer;
+    ConfirmParty: TParty;
+    ConfirmPartyPosition: TPosition;
     procedure Close;
     procedure Heal;
     procedure Revive;
-    procedure Party;
+    procedure OpenParty;
+    procedure ReviveCreature;
+    procedure HealCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -43,7 +48,10 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  Elinor.Scene.Settlement,
+  Elinor.Scene.Party,
+  Elinor.Saga;
 
 { TSceneTemple }
 
@@ -82,15 +90,72 @@ begin
 end;
 
 procedure TSceneTemple.Heal;
-begin
+  procedure HealIt(const AParty: TParty; const APosition: Integer);
+  begin
+    with AParty.Creature[APosition] do
+    begin
+      if not Active then
+      begin
+        InformDialog('Выберите не пустой слот!');
+        Exit;
+      end;
+      if HitPoints <= 0 then
+      begin
+        InformDialog('Сначала нужно воскресить!');
+        Exit;
+      end;
+      if HitPoints = MaxHitPoints then
+      begin
+        InformDialog('Не нуждается в исцелении!');
+        Exit;
+      end;
+      ConfirmGold := TLeaderParty.Leader.GetGold(MaxHitPoints - HitPoints);
+      if (ConfirmGold > Game.Gold.Value) then
+      begin
+        InformDialog('Нужно больше золота!');
+        Exit;
+      end;
+      ConfirmParty := AParty;
+      ConfirmPartyPosition := APosition;
+      ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
+        HealCreature);
+    end;
+  end;
 
+begin
+  Game.MediaPlayer.PlaySound(mmClick);
+  CurrentPartyPosition := ActivePartyPosition;
+  case ActivePartyPosition of
+    0 .. 5:
+      HealIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
+    // 6 .. 11:
+    // HealIt(SettlementParty, ActivePartyPosition - 6);
+  end;
+end;
+
+procedure TSceneTemple.HealCreature;
+begin
+  Game.Gold.Modify(-ConfirmGold);
+  ConfirmParty.Heal(ConfirmPartyPosition);
 end;
 
 procedure TSceneTemple.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-
+  case AButton of
+    mbLeft:
+      begin
+        if Button[btHeal].MouseDown then
+          Heal
+        else if Button[btRevive].MouseDown then
+          Revive
+        else if Button[btParty].MouseDown then
+          OpenParty
+        else if Button[btClose].MouseDown then
+          Close
+      end;
+  end;
 end;
 
 procedure TSceneTemple.MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -102,9 +167,10 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneTemple.Party;
+procedure TSceneTemple.OpenParty;
 begin
-
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Show(scParty);
 end;
 
 procedure TSceneTemple.Render;
@@ -120,14 +186,61 @@ procedure TSceneTemple.Render;
 begin
   inherited;
 
-  DrawTitle(reTitleSpellbook);
+  DrawTitle(reTitleTemple);
 
   RenderButtons;
 end;
 
 procedure TSceneTemple.Revive;
-begin
 
+  procedure ReviveIt(const AParty: TParty; const APosition: Integer);
+  begin
+    with AParty.Creature[APosition] do
+    begin
+      if not Active then
+      begin
+        InformDialog('Выберите не пустой слот!');
+        Exit;
+      end;
+      if HitPoints > 0 then
+      begin
+        InformDialog('Не нуждается в воскрешении!');
+        Exit;
+      end
+      else
+      begin
+        ConfirmGold := TLeaderParty.Leader.GetGold
+          (MaxHitPoints + (Level * ((Ord(TSaga.Difficulty) + 1) *
+          TSaga.GoldForRevivePerLevel)));
+        if (Game.Gold.Value < ConfirmGold) then
+        begin
+          InformDialog(Format('Для воскрешения нужно %d золота!',
+            [ConfirmGold]));
+          Exit;
+        end;
+        ConfirmParty := AParty;
+        ConfirmPartyPosition := APosition;
+        ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
+          ReviveCreature);
+      end;
+    end;
+  end;
+
+begin
+  Game.MediaPlayer.PlaySound(mmClick);
+  CurrentPartyPosition := ActivePartyPosition;
+  case ActivePartyPosition of
+    0 .. 5:
+      ReviveIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
+    // 6 .. 11:
+    // ReviveIt(SettlementParty, ActivePartyPosition - 6);
+  end;
+end;
+
+procedure TSceneTemple.ReviveCreature;
+begin
+  Game.Gold.Modify(-ConfirmGold);
+  ConfirmParty.Revive(ConfirmPartyPosition);
 end;
 
 procedure TSceneTemple.Timer;
@@ -145,7 +258,7 @@ begin
     K_H:
       Heal;
     K_P:
-      Party;
+      OpenParty;
     K_R:
       Revive;
   end;

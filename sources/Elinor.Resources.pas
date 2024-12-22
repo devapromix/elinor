@@ -55,13 +55,15 @@ type
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
+    reTextTemple,
     // Title
-    reTitleHire, reTitleHighScores, reTitleVictory, reTitleDefeat, reTitleLogo,
-    reTitleRace, reTitleScenario, reTitleLeader, reTextNewDay, reTitleLoot,
-    reTitleParty, reTitleBattle, reTitleVorgel, reTitleEntarion, reTitleTardum,
-    reTitleTemond, reTitleZerton, reTitleDoran, reTitleKront, reTitleHimor,
-    reTitleSodek, reTitleSard, reTitleDifficulty, reTitleThief, reTitleWarrior,
-    reTitleAbilities, reTitleInventory, reTitleSpellbook, reTitleJournal,
+    reTitleTemple, reTitleHire, reTitleHighScores, reTitleVictory,
+    reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
+    reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
+    reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
+    reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
+    reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
+    reTitleSpellbook, reTitleJournal,
     //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     // Items
@@ -364,7 +366,11 @@ const
     (FileName: 'text.abilities.png'; ResType: teGUI;),
     // Text "Party"
     (FileName: 'text.party.png'; ResType: teGUI;),
+    // Text "Temple"
+    (FileName: 'text.temple.png'; ResType: teGUI;),
 
+    // Title "Temple"
+    (FileName: 'title.temple.png'; ResType: teGUI;),
     // Title "Hire"
     (FileName: 'title.hire.png'; ResType: teGUI;),
     // Title "High Scores"
