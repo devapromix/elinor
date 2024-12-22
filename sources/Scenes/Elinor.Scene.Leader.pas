@@ -84,7 +84,7 @@ begin
       if HitPoints > 0 then
       begin
         DrawUnit(ResEnum, LLeft, LTop, bsCharacter);
-        TSceneParty(Game.GetScene(scParty)).DrawUnitInfo(LLeft, LTop,
+        DrawUnitInfo(LLeft, LTop,
           Characters[TSaga.LeaderRace][cgLeaders][LRaceCharKind], False);
       end;
   end;
