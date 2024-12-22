@@ -84,7 +84,7 @@ uses
   Elinor.Map,
   Elinor.Button,
   Elinor.Scene.Party,
-  DisciplesRL.Scene.Battle2,
+  Elinor.Scene.Battle2,
   Elinor.Scene.Settlement,
   Elinor.Items,
   Elinor.Scene.Difficulty, Elinor.Scene.Race;

@@ -1,4 +1,4 @@
-﻿unit DisciplesRL.Scene.Battle2;
+﻿unit Elinor.Scene.Battle2;
 
 interface
 
