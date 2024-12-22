@@ -43,21 +43,26 @@ const
   K_C = ord('C');
   K_D = ord('D');
   K_E = ord('E');
+  K_F = ord('F');
+  K_G = ord('G');
+  K_H = ord('H');
   K_I = ord('I');
   K_J = ord('J');
-  K_H = ord('H');
   K_K = ord('K');
   K_L = ord('L');
   K_M = ord('M');
   K_N = ord('N');
+  K_O = ord('O');
   K_P = ord('P');
   K_Q = ord('Q');
   K_R = ord('R');
   K_S = ord('S');
   K_T = ord('T');
+  K_U = ord('U');
   K_V = ord('V');
   K_W = ord('W');
   K_X = ord('X');
+  K_Y = ord('Y');
   K_Z = ord('Z');
 
   K_RIGHT = 39;
