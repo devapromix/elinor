@@ -45,13 +45,6 @@ type
       const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
     class procedure Show(Party: TParty; CloseScene: TSceneEnum;
       F: Boolean = False; H: Boolean = False); overload;
-    procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
-      MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
-      IsExp: Boolean); overload;
-    procedure DrawUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
-      ShowExp: Boolean = True); overload;
-    procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
-      IsAdv: Boolean = True); overload;
   end;
 
 var
@@ -163,49 +156,6 @@ begin
   Game.Show(BackScene);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
-end;
-
-procedure TSceneParty.DrawUnitInfo(Name: string;
-  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
-  Initiative, ChToHit: Integer; IsExp: Boolean);
-var
-  S: string;
-begin
-  DrawText(AX + SceneLeft + 64, AY + 6, Name);
-  S := '';
-  if IsExp then
-    S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
-      .GetMaxExperiencePerLevel(Level)]);
-  DrawText(AX + SceneLeft + 64, AY + 27, Format('Уровень %d', [Level]) + S);
-  DrawText(AX + SceneLeft + 64, AY + 48, Format('Здоровье %d/%d',
-    [HitPoints, MaxHitPoints]));
-  if Damage > 0 then
-    DrawText(AX + SceneLeft + 64, AY + 69, Format('Урон %d Броня %d',
-      [Damage, Armor]))
-  else
-    DrawText(AX + SceneLeft + 64, AY + 69, Format('Исцеление %d Броня %d',
-      [Heal, Armor]));
-  DrawText(AX + SceneLeft + 64, AY + 90, Format('Инициатива %d Точность %d',
-    [Initiative, ChToHit]) + '%');
-end;
-
-procedure TSceneParty.DrawUnitInfo(Position: TPosition; Party: TParty;
-  AX, AY: Integer; ShowExp: Boolean = True);
-begin
-  with Party.Creature[Position] do
-  begin
-    if Active then
-      DrawUnitInfo(Name[0], AX, AY, Level, Experience, HitPoints, MaxHitPoints,
-        Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
-  end;
-end;
-
-procedure TSceneParty.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
-  IsAdv: Boolean = True);
-begin
-  with TCreature.Character(ACreature) do
-    DrawUnitInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
-      Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
 procedure TSceneParty.DrawUnit(Position: TPosition; Party: TParty;
@@ -439,8 +389,8 @@ var
   begin
     DrawTitle(reTitleParty);
     C := CurrentParty.Creature[ActivePartyPosition].Enum;
-    //if (C <> crNone) then
-    //  TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
+    // if (C <> crNone) then
+    // TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
     TextTop := SceneTop + 6;
     TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
     AddTextLine('Статистика', True);

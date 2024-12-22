@@ -12,6 +12,7 @@ uses
   Vcl.Imaging.PNGImage,
 {$ENDIF}
   Classes,
+  Elinor.Creatures,
   Elinor.Saga,
   Elinor.Map,
   Elinor.Party,
@@ -109,6 +110,13 @@ type
       F: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer; F: TBGStat;
       HP, MaxHP: Integer); overload;
+    procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
+      MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
+      IsExp: Boolean); overload;
+    procedure DrawUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
+      ShowExp: Boolean = True); overload;
+    procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
+      IsAdv: Boolean = True); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure DrawResources;
@@ -183,7 +191,6 @@ uses
   SysUtils,
   Elinor.MainForm,
   Elinor.Button,
-  Elinor.Creatures,
   Elinor.Scene.Map,
   DisciplesRL.Scene.Menu,
   DisciplesRL.Scene.Menu2,
@@ -479,6 +486,41 @@ begin
   end;
 end;
 
+procedure TScene.DrawUnitInfo(Position: TPosition; Party: TParty;
+  AX, AY: Integer; ShowExp: Boolean);
+begin
+  with Party.Creature[Position] do
+  begin
+    if Active then
+      DrawUnitInfo(Name[0], AX, AY, Level, Experience, HitPoints, MaxHitPoints,
+        Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
+  end;
+end;
+
+procedure TScene.DrawUnitInfo(Name: string; AX, AY, Level, Experience,
+  HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
+  IsExp: Boolean);
+var
+  S: string;
+begin
+  DrawText(AX + SceneLeft + 64, AY + 6, Name + '+++');
+  S := '';
+  if IsExp then
+    S := Format(' Опыт %d/%d', [Experience, Party[TLeaderParty.LeaderPartyIndex]
+      .GetMaxExperiencePerLevel(Level)]);
+  DrawText(AX + SceneLeft + 64, AY + 27, Format('Уровень %d', [Level]) + S);
+  DrawText(AX + SceneLeft + 64, AY + 48, Format('Здоровье %d/%d',
+    [HitPoints, MaxHitPoints]));
+  if Damage > 0 then
+    DrawText(AX + SceneLeft + 64, AY + 69, Format('Урон %d Броня %d',
+      [Damage, Armor]))
+  else
+    DrawText(AX + SceneLeft + 64, AY + 69, Format('Исцеление %d Броня %d',
+      [Heal, Armor]));
+  DrawText(AX + SceneLeft + 64, AY + 90, Format('Инициатива %d Точность %d',
+    [Initiative, ChToHit]) + '%');
+end;
+
 procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
 begin
   DrawImage(X, Y, ResImage[Res]);
@@ -584,6 +626,14 @@ begin
         Exit;
       end;
     end;
+end;
+
+procedure TScene.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
+  IsAdv: Boolean);
+begin
+  with TCreature.Character(ACreature) do
+    DrawUnitInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
+      Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
 { TScenes }
