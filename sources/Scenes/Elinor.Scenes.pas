@@ -212,7 +212,8 @@ uses
   Elinor.Scene.Race,
   Elinor.Scene.Leader,
   Elinor.Scene.Scenario,
-  Elinor.Scene.Temple;
+  Elinor.Scene.Temple,
+  Elinor.Scene.Party2;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -691,7 +692,7 @@ begin
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu2.Create;
   FScene[scHire] := TSceneHire.Create;
-  FScene[scParty] := TSceneParty.Create;
+  FScene[scParty] := TSceneParty2.Create;
   FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
   FScene[scSpellbook] := TSceneSpellbook.Create;

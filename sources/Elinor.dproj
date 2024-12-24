@@ -145,6 +145,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Leader.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Menu.Wide.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Temple.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Party2.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
