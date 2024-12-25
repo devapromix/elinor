@@ -271,18 +271,18 @@ end;
 class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
   : Integer;
 var
-  L: Integer;
+  LChance: Integer;
 begin
   Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
   case TSaga.Difficulty of
     dfEasy:
-      L := 60;
+      LChance := 60;
     dfNormal:
-      L := 30;
+      LChance := 30;
     dfHard:
-      L := 10;
+      LChance := 10;
   end;
-  if RandomRange(1, L) = 1 then
+  if RandomRange(1, LChance) = 1 then
     Result := EnsureRange(Result + 1, 1, MaxLevel);
 end;
 
