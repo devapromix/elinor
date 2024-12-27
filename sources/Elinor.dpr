@@ -2,6 +2,8 @@
 
 {$DEFINE BLT}
 
+{$R *.dres}
+
 uses
   {$IFDEF FPC}
   Forms,

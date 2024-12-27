@@ -844,7 +844,12 @@ begin
   begin
     ResImage[I] := TPNGImage.Create;
     if (ResBase[I].FileName <> '') then
-      ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
+      case I of
+        reFrame:
+          ResImage[I].LoadFromResourceName(HInstance, 'FRAME');
+      else
+        ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
+      end;
   end;
   for J := Low(TMusicEnum) to High(TMusicEnum) do
   begin

@@ -3,15 +3,6 @@
 interface
 
 uses
-{$IFDEF FPC}
-  Classes,
-  SysUtils,
-  Forms,
-  Controls,
-  Graphics,
-  Dialogs,
-  ExtCtrls;
-{$ELSE}
   Winapi.Windows,
   Winapi.Messages,
   SysUtils,
@@ -23,7 +14,6 @@ uses
   Vcl.Dialogs,
   Vcl.ExtCtrls,
   Vcl.StdCtrls;
-{$ENDIF}
 
 type
 
@@ -51,11 +41,7 @@ var
 
 implementation
 
-{$IFDEF FPC}
-{$R *.lfm}
-{$ELSE}
 {$R *.dfm}
-{$ENDIF}
 
 uses
   Elinor.Scenes,
