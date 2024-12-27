@@ -146,9 +146,17 @@
         <DCCReference Include="Scenes\Elinor.Scene.Menu.Wide.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Temple.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Party2.pas"/>
-        <RcItem Include="..\resources\frame.png">
+        <RcItem Include="Resources\Sprites\frame.passive.png">
             <ResourceType>RCDATA</ResourceType>
-            <ResourceId>FRAME</ResourceId>
+            <ResourceId>FRAME_PASSIVE</ResourceId>
+        </RcItem>
+        <RcItem Include="Resources\Sprites\frame.active.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>FRAME_ACTIVE</ResourceId>
+        </RcItem>
+        <RcItem Include="Resources\Sprites\frame.main.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>FRAME_MAIN</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -226,7 +234,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="..\resources\frame.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -235,6 +243,18 @@
                 <DeployFile LocalName="..\Elinor.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Elinor.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Resources\Sprites\frame.passive.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

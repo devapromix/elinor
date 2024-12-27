@@ -846,7 +846,11 @@ begin
     if (ResBase[I].FileName <> '') then
       case I of
         reFrame:
-          ResImage[I].LoadFromResourceName(HInstance, 'FRAME');
+          ResImage[I].LoadFromResourceName(HInstance, 'FRAME_MAIN');
+        reActFrame:
+          ResImage[I].LoadFromResourceName(HInstance, 'FRAME_ACTIVE');
+        reSelectFrame:
+          ResImage[I].LoadFromResourceName(HInstance, 'FRAME_PASSIVE');
       else
         ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
       end;
