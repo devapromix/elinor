@@ -141,28 +141,28 @@ procedure TSceneParty2.Render;
   var
     LCreatureEnum: TCreatureEnum;
   begin
-    LCreatureEnum := TLeaderParty.Leader.Creature[ActivePartyPosition].Enum;
+    LCreatureEnum := TLeaderParty.Leader.Creature[CurrentIndex].Enum;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     if (LCreatureEnum <> crNone) then
-      DrawCreatureInfo(TLeaderParty.Leader.Creature[ActivePartyPosition]);
+      DrawCreatureInfo(TLeaderParty.Leader.Creature[CurrentIndex]);
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Статистика', True);
+    AddTextLine('Statistics', True);
     AddTextLine;
-    AddTextLine('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
-    AddTextLine('Очки', Game.Statistics.GetValue(stScore));
-    AddTextLine;
-    AddTextLine;
+    AddTextLine('Wins', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Kills', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Scores', Game.Statistics.GetValue(stScore));
     AddTextLine;
     AddTextLine;
     AddTextLine;
     AddTextLine;
-    AddTextLine(Format('Скорость передвижения %d/%d',
-      [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
-    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.Leadership]));
-    AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
+    AddTextLine;
+    AddTextLine;
+    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed,
+      TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
+    AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;
 
   procedure RenderButtons;

@@ -84,8 +84,8 @@ begin
       if HitPoints > 0 then
       begin
         DrawUnit(ResEnum, LLeft, LTop, bsCharacter);
-        DrawUnitInfo(LLeft, LTop,
-          Characters[TSaga.LeaderRace][cgLeaders][LRaceCharKind], False);
+        DrawUnitInfo(LLeft, LTop, Characters[TSaga.LeaderRace][cgLeaders]
+          [LRaceCharKind], False);
       end;
   end;
 
@@ -103,7 +103,7 @@ begin
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Умения Лидера', True);
+    AddTextLine('Ability', True);
     AddTextLine;
     AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum).Name);
     for I := 0 to 1 do
@@ -111,15 +111,15 @@ begin
         .Description[I]);
     AddTextLine;
     AddTextLine;
-    AddTextLine('Экипировка', True);
+    AddTextLine('Equipment', True);
     AddTextLine;
-    AddTextLine(Format('Оружие: %s',
+    AddTextLine(Format('Weapon: %s',
       [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum).AttackEnum,
       TCreature.Character(CurCrEnum).SourceEnum)]));
     AddTextLine;
-    AddTextLine('Скорость Передвижения', TLeaderParty.GetMaxSpeed(CurCrEnum));
-    AddTextLine('Радиус Обзора', TLeaderParty.GetRadius(CurCrEnum));
-    AddTextLine('Заклинаний в день', TLeaderParty.GetMaxSpells(CurCrEnum));
+    AddTextLine('Speed', TLeaderParty.GetMaxSpeed(CurCrEnum));
+    AddTextLine('Radius', TLeaderParty.GetRadius(CurCrEnum));
+    AddTextLine('Spells per day', TLeaderParty.GetMaxSpells(CurCrEnum));
   end;
 
 end;

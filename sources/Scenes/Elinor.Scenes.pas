@@ -519,20 +519,20 @@ begin
   DrawText(AX + SceneLeft + 64, AY + 6, Name);
   LExp := '';
   if IsExp then
-    LExp := Format(' Опыт %d/%d',
+    LExp := Format(' Exp %d/%d',
       [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
-  DrawText(AX + SceneLeft + 64, AY + 27, Format('Уровень %d', [Level]) + LExp);
-  DrawText(AX + SceneLeft + 64, AY + 48, Format('Здоровье %d/%d',
+  DrawText(AX + SceneLeft + 64, AY + 27, Format('Level %d', [Level]) + LExp);
+  DrawText(AX + SceneLeft + 64, AY + 48, Format('Hit points %d/%d',
     [HitPoints, MaxHitPoints]));
   if Damage > 0 then
-    DrawText(AX + SceneLeft + 64, AY + 69, Format('Урон %d Броня %d',
+    DrawText(AX + SceneLeft + 64, AY + 69, Format('Damage %d Armor %d',
       [Damage, Armor]))
   else
-    DrawText(AX + SceneLeft + 64, AY + 69, Format('Исцеление %d Броня %d',
+    DrawText(AX + SceneLeft + 64, AY + 69, Format('Heal %d Armor %d',
       [Heal, Armor]));
-  DrawText(AX + SceneLeft + 64, AY + 90, Format('Инициатива %d Точность %d',
-    [Initiative, ChToHit]) + '%');
+  DrawText(AX + SceneLeft + 64, AY + 90,
+    Format('Initiative %d Chances to hit %d', [Initiative, ChToHit]) + '%');
 end;
 
 procedure TScene.DrawCreatureInfo(const ACreature: TCreatureBase);
@@ -543,13 +543,13 @@ begin
   begin
     AddTextLine(Name[0], True);
     AddTextLine;
-    AddTextLine('Уровень', Level);
-    AddTextLine('Точность', ChancesToHit);
-    AddTextLine('Инициатива', Initiative);
-    AddTextLine('Здоровье', HitPoints, HitPoints);
-    AddTextLine('Урон', Damage);
-    AddTextLine('Броня', Armor);
-    AddTextLine('Источник', SourceName[SourceEnum]);
+    AddTextLine('Level', Level);
+    AddTextLine('Chances to hit', ChancesToHit);
+    AddTextLine('Initiative', Initiative);
+    AddTextLine('Hit points', HitPoints, HitPoints);
+    AddTextLine('Damage', Damage);
+    AddTextLine('Armor', Armor);
+    AddTextLine('Source', SourceName[SourceEnum]);
     case ReachEnum of
       reAny:
         begin
@@ -581,17 +581,17 @@ begin
   begin
     AddTextLine(Name[0], True);
     AddTextLine;
-    LExp := Format(' Exp. %d/%d',
+    LExp := Format(' Exp %d/%d',
       [Experience, Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
     LStr := 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
-    AddTextLine('Точность', ChancesToHit);
-    AddTextLine('Инициатива', Initiative);
-    AddTextLine('Здоровье', HitPoints, MaxHitPoints);
-    AddTextLine('Урон', Damage);
-    AddTextLine('Броня', Armor);
-    AddTextLine('Источник', SourceName[SourceEnum]);
+    AddTextLine('Chances to hit', ChancesToHit);
+    AddTextLine('Initiative', Initiative);
+    AddTextLine('Hit points', HitPoints, MaxHitPoints);
+    AddTextLine('Damage', Damage);
+    AddTextLine('Armor', Armor);
+    AddTextLine('Source', SourceName[SourceEnum]);
     case ReachEnum of
       reAny:
         begin
