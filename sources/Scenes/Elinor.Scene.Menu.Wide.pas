@@ -19,7 +19,8 @@ type
   private
     TwoButton: array [TTwoButtonEnum] of TButton;
     FCurrentIndex: Integer;
-    public var
+  public
+  var
   public
     constructor Create(const AResEnum: TResEnum);
     destructor Destroy; override;
@@ -96,25 +97,24 @@ end;
 procedure TSceneWideMenu.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 var
-  I: Integer;
+  I, J: Integer;
 begin
   inherited;
   case AButton of
     mbLeft:
       begin
-        for I := 0 to 2 do
-          if MouseOver(TFrame.Col(1), TFrame.Row(I), X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := I;
-            Break;
-          end;
-        begin
-          if TwoButton[btCancel].MouseDown then
-            Cancel;
-          if TwoButton[btContinue].MouseDown then
-            Continue;
-        end;
+        for J := 0 to 1 do
+          for I := 0 to 2 do
+            if MouseOver(TFrame.Col(J), TFrame.Row(I), X, Y) then
+            begin
+              Game.MediaPlayer.PlaySound(mmClick);
+              CurrentIndex := (J * 3) + I;
+              Break;
+            end;
+        if TwoButton[btCancel].MouseDown then
+          Cancel;
+        if TwoButton[btContinue].MouseDown then
+          Continue;
       end;
   end;
 end;
