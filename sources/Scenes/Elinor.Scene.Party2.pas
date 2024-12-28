@@ -148,7 +148,6 @@ procedure TSceneParty2.Render;
       DrawCreatureInfo(TLeaderParty.Leader.Creature[ActivePartyPosition]);
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-
     AddTextLine('Статистика', True);
     AddTextLine;
     AddTextLine('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));

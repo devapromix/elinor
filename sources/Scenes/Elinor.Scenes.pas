@@ -117,11 +117,11 @@ type
       ABGStat: TBGStat; HP, MaxHP: Integer); overload;
     procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
       CanHire: Boolean = False; ShowExp: Boolean = True); overload;
-    procedure DrawUnitInfo(Name: string; AX, AY, Level, Experience, HitPoints,
-      MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
-      IsExp: Boolean); overload;
-    procedure DrawUnitInfo(Position: TPosition; Party: TParty; AX, AY: Integer;
-      ShowExp: Boolean = True); overload;
+    procedure DrawCreatureInfo(Name: string; AX, AY, Level, Experience,
+      HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
+      ChToHit: Integer; IsExp: Boolean); overload;
+    procedure DrawCreatureInfo(Position: TPosition; Party: TParty;
+      AX, AY: Integer; ShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
       IsAdv: Boolean = True); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
@@ -499,20 +499,20 @@ begin
   end;
 end;
 
-procedure TScene.DrawUnitInfo(Position: TPosition; Party: TParty;
+procedure TScene.DrawCreatureInfo(Position: TPosition; Party: TParty;
   AX, AY: Integer; ShowExp: Boolean);
 begin
   with Party.Creature[Position] do
   begin
     if Active then
-      DrawUnitInfo(Name[0], AX, AY, Level, Experience, HitPoints, MaxHitPoints,
-        Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
+      DrawCreatureInfo(Name[0], AX, AY, Level, Experience, HitPoints,
+        MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
   end;
 end;
 
-procedure TScene.DrawUnitInfo(Name: string; AX, AY, Level, Experience,
-  HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative, ChToHit: Integer;
-  IsExp: Boolean);
+procedure TScene.DrawCreatureInfo(Name: string;
+  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
+  Initiative, ChToHit: Integer; IsExp: Boolean);
 var
   LExp: string;
 begin
@@ -735,8 +735,8 @@ procedure TScene.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
   IsAdv: Boolean);
 begin
   with TCreature.Character(ACreature) do
-    DrawUnitInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage, Heal,
-      Armor, Initiative, ChancesToHit, IsAdv);
+    DrawCreatureInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage,
+      Heal, Armor, Initiative, ChancesToHit, IsAdv);
 end;
 
 procedure TScene.DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
@@ -761,7 +761,7 @@ begin
           DrawUnit(reDead, AX, AY, LBGStat, 0, MaxHitPoints)
         else
           DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints, MaxHitPoints);
-        DrawUnitInfo(Position, Party, AX, AY, ShowExp);
+        DrawCreatureInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then
     begin
