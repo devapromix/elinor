@@ -40,7 +40,10 @@ implementation
 uses
   System.SysUtils,
   Elinor.Saga,
-  Elinor.Scenes;
+  Elinor.Scenes,
+  Elinor.Scene.Party,
+  Elinor.Frame,
+  Elinor.Creatures, Elinor.Statistics, DisciplesRL.Scene.Hire;
 
 { TSceneParty }
 
@@ -97,6 +100,7 @@ procedure TSceneParty2.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
+  ActivePartyPosition := GetPartyPosition(X, Y);
   case AButton of
     mbLeft:
       begin
@@ -123,6 +127,45 @@ end;
 
 procedure TSceneParty2.Render;
 
+  procedure RenderParty;
+  var
+    LPosition: TPosition;
+  begin
+    for LPosition := Low(TPosition) to High(TPosition) do
+      if (TLeaderParty.Leader <> nil) then
+        DrawUnit(LPosition, TLeaderParty.Leader, TFrame.Col(LPosition, psLeft),
+          TFrame.Row(LPosition), False, True);
+  end;
+
+  procedure RenderInfo;
+  var
+    LCreatureEnum: TCreatureEnum;
+  begin
+    LCreatureEnum := TLeaderParty.Leader.Creature[ActivePartyPosition].Enum;
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+    if (LCreatureEnum <> crNone) then
+      DrawCreatureInfo(TLeaderParty.Leader.Creature[ActivePartyPosition]);
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(3) + 12;
+
+    AddTextLine('Статистика', True);
+    AddTextLine;
+    AddTextLine('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Очки', Game.Statistics.GetValue(stScore));
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine;
+    AddTextLine(Format('Скорость передвижения %d/%d',
+      [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.Leadership]));
+    AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
+  end;
+
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -135,6 +178,9 @@ begin
   inherited;
 
   DrawTitle(reTitleParty);
+
+  RenderParty;
+  RenderInfo;
 
   RenderButtons;
 end;

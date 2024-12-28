@@ -774,9 +774,9 @@ begin
             if HitPoints > 0 then
             begin
               DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
-              DrawUnitInfo(Left + X,
-                SceneTop + Y, Characters[Party[TLeaderParty.LeaderPartyIndex]
-                .Owner][cgCharacters][K], False);
+              DrawUnitInfo(Left + X, SceneTop + Y,
+                Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+                [cgCharacters][K], False);
             end;
           Inc(Y, 120);
           if Y > 240 then

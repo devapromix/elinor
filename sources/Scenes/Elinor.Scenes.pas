@@ -129,7 +129,8 @@ type
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
     function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
-    function GetPartyPosition(const MX, MY: Integer): Integer;
+    function GetPartyPosition(const AX, AY: Integer): Integer;
+    function GetFramePosition(const AX, AY: Integer): Integer;
     property ScrWidth: Integer read FScrWidth write FScrWidth;
     property Width: Integer read FWidth write FWidth;
     procedure DrawText(const AX, AY: Integer; AText: string); overload;
@@ -143,6 +144,8 @@ type
     procedure AddTextLine(const S, V: string); overload;
     procedure AddTextLine(const S: string; const V: Integer); overload;
     procedure AddTextLine(const S: string; const V, M: Integer); overload;
+    procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
+    procedure DrawCreatureInfo(const ACreature: TCreature); overload;
   end;
 
 type
@@ -513,7 +516,7 @@ procedure TScene.DrawUnitInfo(Name: string; AX, AY, Level, Experience,
 var
   LExp: string;
 begin
-  DrawText(AX + SceneLeft + 64, AY + 6, Name + '+++');
+  DrawText(AX + SceneLeft + 64, AY + 6, Name);
   LExp := '';
   if IsExp then
     LExp := Format(' Опыт %d/%d',
@@ -530,6 +533,86 @@ begin
       [Heal, Armor]));
   DrawText(AX + SceneLeft + 64, AY + 90, Format('Инициатива %d Точность %d',
     [Initiative, ChToHit]) + '%');
+end;
+
+procedure TScene.DrawCreatureInfo(const ACreature: TCreatureBase);
+var
+  I: Integer;
+begin
+  with ACreature do
+  begin
+    AddTextLine(Name[0], True);
+    AddTextLine;
+    AddTextLine('Уровень', Level);
+    AddTextLine('Точность', ChancesToHit);
+    AddTextLine('Инициатива', Initiative);
+    AddTextLine('Здоровье', HitPoints, HitPoints);
+    AddTextLine('Урон', Damage);
+    AddTextLine('Броня', Armor);
+    AddTextLine('Источник', SourceName[SourceEnum]);
+    case ReachEnum of
+      reAny:
+        begin
+          AddTextLine('Дистанция', 'Все поле боя');
+          AddTextLine('Цели', 1);
+        end;
+      reAdj:
+        begin
+          AddTextLine('Дистанция', 'Ближайшие цели');
+          AddTextLine('Цели', 1);
+        end;
+      reAll:
+        begin
+          AddTextLine('Дистанция', 'Все поле боя');
+          AddTextLine('Цели', 6);
+        end;
+    end;
+    for I := 0 to 2 do
+      AddTextLine(Description[I]);
+  end;
+end;
+
+procedure TScene.DrawCreatureInfo(const ACreature: TCreature);
+var
+  I: Integer;
+  LStr, LExp: string;
+begin
+  with ACreature do
+  begin
+    AddTextLine(Name[0], True);
+    AddTextLine;
+    LExp := Format(' Exp. %d/%d',
+      [Experience, Party[TLeaderParty.LeaderPartyIndex]
+      .GetMaxExperiencePerLevel(Level)]);
+    LStr := 'Level ' + Level.ToString + LExp;
+    AddTextLine(LStr);
+    AddTextLine('Точность', ChancesToHit);
+    AddTextLine('Инициатива', Initiative);
+    AddTextLine('Здоровье', HitPoints, MaxHitPoints);
+    AddTextLine('Урон', Damage);
+    AddTextLine('Броня', Armor);
+    AddTextLine('Источник', SourceName[SourceEnum]);
+    case ReachEnum of
+      reAny:
+        begin
+          AddTextLine('Дистанция', 'Все поле боя');
+          AddTextLine('Цели', 1);
+        end;
+      reAdj:
+        begin
+          AddTextLine('Дистанция', 'Ближайшие цели');
+          AddTextLine('Цели', 1);
+        end;
+      reAll:
+        begin
+          AddTextLine('Дистанция', 'Все поле боя');
+          AddTextLine('Цели', 6);
+        end;
+    end;
+    with TCreature.Character(ACreature.Enum) do
+      for I := 0 to 2 do
+        AddTextLine(Description[I]);
+  end;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
@@ -618,24 +701,33 @@ begin
     (MY < AY + ResImage[reFrame].Height);
 end;
 
-function TScene.GetPartyPosition(const MX, MY: Integer): Integer;
+function TScene.GetFramePosition(const AX, AY: Integer): Integer;
 var
-  R: Integer;
+  LY, LX: Integer;
+begin
+  Result := -1;
+  for LX := 0 to 1 do
+    for LY := 0 to 2 do
+      if MouseOver(TFrame.Col(LX), TFrame.Row(LY), AX, AY) then
+      begin
+        Result := (LX * 3) + LY;
+        Exit;
+      end;
+end;
+
+function TScene.GetPartyPosition(const AX, AY: Integer): Integer;
+var
   LPosition: TPosition;
   LPartySide: TPartySide;
 begin
-  R := -1;
-  Result := R;
+  Result := -1;
   for LPartySide := Low(TPartySide) to High(TPartySide) do
     for LPosition := Low(TPosition) to High(TPosition) do
     begin
-      Inc(R);
+      Inc(Result);
       if MouseOver(TFrame.Col(LPosition, LPartySide), TFrame.Row(LPosition),
-        MX, MY) then
-      begin
-        Result := R;
+        AX, AY) then
         Exit;
-      end;
     end;
 end;
 

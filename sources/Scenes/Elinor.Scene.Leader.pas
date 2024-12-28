@@ -96,38 +96,7 @@ begin
   begin
     TextLeft := TFrame.Col(2) + 12;
     TextTop := TFrame.Row(0) + 6;
-    with TCreature.Character(CurCrEnum) do
-    begin
-      AddTextLine(Name[0], True);
-      AddTextLine;
-      AddTextLine('Уровень', Level);
-      AddTextLine('Точность', ChancesToHit);
-      AddTextLine('Инициатива', Initiative);
-      AddTextLine('Здоровье', HitPoints, HitPoints);
-      AddTextLine('Урон', Damage);
-      AddTextLine('Броня', Armor);
-      AddTextLine('Источник', SourceName[SourceEnum]);
-      case ReachEnum of
-        reAny:
-          begin
-            AddTextLine('Дистанция', 'Все поле боя');
-            AddTextLine('Цели', 1);
-          end;
-        reAdj:
-          begin
-            AddTextLine('Дистанция', 'Ближайшие цели');
-            AddTextLine('Цели', 1);
-          end;
-        reAll:
-          begin
-            AddTextLine('Дистанция', 'Все поле боя');
-            AddTextLine('Цели', 6);
-          end;
-      end;
-      for I := 0 to 2 do
-        AddTextLine(Description[I]);
-    end;
-
+    DrawCreatureInfo(TCreature.Character(CurCrEnum));
   end;
 
   if CurCrEnum <> crNone then

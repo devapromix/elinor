@@ -17,7 +17,7 @@ type
     TwoButtonText: array [TTwoButtonEnum] of TResEnum = (reTextCancel,
       reTextContinue);
   private
-    TwoButton: array [TTwoButtonEnum] of TButton;
+    Button: array [TTwoButtonEnum] of TButton;
     FCurrentIndex: Integer;
   public
   var
@@ -39,7 +39,7 @@ type
 implementation
 
 uses
-  Math,
+  Math, Dialogs,
   SysUtils,
   Elinor.Frame,
   Elinor.Common,
@@ -77,11 +77,11 @@ begin
   LLeft := ScrWidth - ((LWidth * (Ord(High(TTwoButtonEnum)) + 1)) div 2);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
   begin
-    TwoButton[LTwoButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+    Button[LTwoButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       TwoButtonText[LTwoButtonEnum]);
     Inc(LLeft, LWidth);
     if (LTwoButtonEnum = btContinue) then
-      TwoButton[LTwoButtonEnum].Sellected := True;
+      Button[LTwoButtonEnum].Sellected := True;
   end;
 end;
 
@@ -90,30 +90,27 @@ var
   LTwoButtonEnum: TTwoButtonEnum;
 begin
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    FreeAndNil(TwoButton[LTwoButtonEnum]);
+    FreeAndNil(Button[LTwoButtonEnum]);
   inherited;
 end;
 
 procedure TSceneWideMenu.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
-var
-  I, J: Integer;
 begin
   inherited;
   case AButton of
     mbLeft:
       begin
-        for J := 0 to 1 do
-          for I := 0 to 2 do
-            if MouseOver(TFrame.Col(J), TFrame.Row(I), X, Y) then
-            begin
-              Game.MediaPlayer.PlaySound(mmClick);
-              CurrentIndex := (J * 3) + I;
-              Break;
-            end;
-        if TwoButton[btCancel].MouseDown then
+        CurrentIndex := GetFramePosition(X, Y);
+        if CurrentIndex >= 0 then
+        begin
+          Game.MediaPlayer.PlaySound(mmClick);
+         // ShowMessage(IntToStr(CurrentIndex));
+          Exit;
+        end;
+        if Button[btCancel].MouseDown then
           Cancel;
-        if TwoButton[btContinue].MouseDown then
+        if Button[btContinue].MouseDown then
           Continue;
       end;
   end;
@@ -125,7 +122,7 @@ var
 begin
   inherited;
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    TwoButton[LTwoButtonEnum].MouseMove(X, Y);
+    Button[LTwoButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneWideMenu.Render;
@@ -156,7 +153,7 @@ var
   LTwoButtonEnum: TTwoButtonEnum;
 begin
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    TwoButton[LTwoButtonEnum].Render;
+    Button[LTwoButtonEnum].Render;
 end;
 
 procedure TSceneWideMenu.Update(var Key: Word);
