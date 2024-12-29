@@ -58,7 +58,7 @@ type
     function GetRandomPosition: TPosition;
     function Hire(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition): Boolean;
-    procedure Dismiss(const APosition: TPosition);
+    function Dismiss(const APosition: TPosition): Boolean;
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
@@ -247,11 +247,13 @@ begin
   FCreature[APosition] := FromParty.Creature[APosition];
 end;
 
-procedure TParty.Dismiss(const APosition: TPosition);
+function TParty.Dismiss(const APosition: TPosition): Boolean;
 begin
+  Result := False;
   if FCreature[APosition].Leadership > 0 then
     Exit;
   TCreature.Clear(FCreature[APosition]);
+  Result := True;
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;

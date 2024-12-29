@@ -44,11 +44,19 @@ end;
 
 procedure TSceneBaseParty.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPartyPosition: Integer;
 begin
   inherited;
   case AButton of
     mbLeft:
-      ActivePartyPosition := EnsureRange(GetPartyPosition(X, Y), 0, 5);
+      begin
+        LPartyPosition := GetPartyPosition(X, Y);
+        case LPartyPosition of
+          0 .. 5:
+            ActivePartyPosition := LPartyPosition;
+        end;
+      end;
   end;
 end;
 

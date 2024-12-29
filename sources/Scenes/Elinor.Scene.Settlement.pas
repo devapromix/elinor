@@ -44,7 +44,7 @@ type
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure MoveUnit;
-    procedure OpenParty;
+    procedure ShowPartyScene;
     procedure DismissCreature;
   public
     constructor Create;
@@ -265,7 +265,7 @@ begin
         else if Button[btTemple].MouseDown then
           Temple
         else if Button[btParty].MouseDown then
-          OpenParty
+          ShowPartyScene
         else if Button[btClose].MouseDown then
           Close
         else
@@ -370,7 +370,7 @@ begin
   end;
 end;
 
-procedure TSceneSettlement.OpenParty;
+procedure TSceneSettlement.ShowPartyScene;
 begin
   case ActivePartyPosition of
     0 .. 5:
@@ -427,7 +427,7 @@ begin
     K_H:
       Hire;
     K_P:
-      OpenParty;
+      ShowPartyScene;
     K_T:
       Temple;
     K_LEFT, K_KP_4, K_A:

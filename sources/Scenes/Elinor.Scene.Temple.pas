@@ -31,7 +31,7 @@ type
     procedure Close;
     procedure Heal;
     procedure Revive;
-    procedure OpenParty;
+    procedure ShowPartyScene;
     procedure ReviveCreature;
     procedure HealCreature;
   public
@@ -151,7 +151,7 @@ begin
         else if Button[btRevive].MouseDown then
           Revive
         else if Button[btParty].MouseDown then
-          OpenParty
+          ShowPartyScene
         else if Button[btClose].MouseDown then
           Close
       end;
@@ -167,7 +167,7 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneTemple.OpenParty;
+procedure TSceneTemple.ShowPartyScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case ActivePartyPosition of
@@ -263,7 +263,7 @@ begin
     K_H:
       Heal;
     K_P:
-      OpenParty;
+      ShowPartyScene;
     K_R:
       Revive;
   end;

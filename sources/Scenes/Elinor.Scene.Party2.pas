@@ -19,10 +19,13 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextAbilities,
       reTextInventory, reTextDismiss, reTextClose);
   private
+    ConfirmParty: TParty;
+    ConfirmPartyPosition: TPosition;
     Button: array [TButtonEnum] of TButton;
-    procedure Abilities;
-    procedure Inventory;
+    procedure ShowAbilitiesScene;
+    procedure ShowInventoryScene;
     procedure Dismiss;
+    procedure DismissCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -39,6 +42,7 @@ type
 implementation
 
 uses
+  System.Math,
   System.SysUtils,
   Elinor.Saga,
   Elinor.Scene.Party,
@@ -55,7 +59,7 @@ var
 
   { TSceneParty }
 
-procedure TSceneParty2.Abilities;
+procedure TSceneParty2.ShowAbilitiesScene;
 begin
 
 end;
@@ -76,7 +80,6 @@ begin
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
-
 end;
 
 destructor TSceneParty2.Destroy;
@@ -89,11 +92,42 @@ begin
 end;
 
 procedure TSceneParty2.Dismiss;
-begin
 
+  procedure DismissIt(const AParty: TParty; const APosition: Integer);
+  begin
+    with AParty.Creature[APosition] do
+    begin
+      if not Active then
+      begin
+        InformDialog('Выберите не пустой слот!');
+        Exit;
+      end;
+      if Leadership > 0 then
+      begin
+        InformDialog('Не возможно уволить!');
+        Exit;
+      end
+      else
+      begin
+        ConfirmParty := AParty;
+        ConfirmPartyPosition := APosition;
+        ConfirmDialog('Отпустить воина?', DismissCreature);
+      end;
+    end;
+  end;
+
+begin
+  Game.MediaPlayer.PlaySound(mmClick);
+  DismissIt(CurrentParty, ActivePartyPosition);
 end;
 
-procedure TSceneParty2.Inventory;
+procedure TSceneParty2.DismissCreature;
+begin
+  if ConfirmParty.Dismiss(ConfirmPartyPosition) then
+    Game.MediaPlayer.PlaySound(mmDismiss);
+end;
+
+procedure TSceneParty2.ShowInventoryScene;
 begin
 
 end;
@@ -102,14 +136,13 @@ procedure TSceneParty2.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  ActivePartyPosition := GetPartyPosition(X, Y);
   case AButton of
     mbLeft:
       begin
         if Button[btAbilities].MouseDown then
-          Abilities
+          ShowAbilitiesScene
         else if Button[btInventory].MouseDown then
-          Inventory
+          ShowInventoryScene
         else if Button[btDismiss].MouseDown then
           Dismiss
         else if Button[btClose].MouseDown then
@@ -222,9 +255,9 @@ begin
     K_ESCAPE, K_ENTER:
       HideScene;
     K_A:
-      Abilities;
+      ShowAbilitiesScene;
     K_I:
-      Inventory;
+      ShowInventoryScene;
     K_D:
       Dismiss;
   end;

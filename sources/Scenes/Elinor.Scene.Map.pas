@@ -22,6 +22,7 @@ type
     FM: Boolean;
     BB: Boolean;
     BT: Boolean;
+    procedure ShowPartyScene;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -153,6 +154,11 @@ begin
     LastMousePos.X := MousePos.X;
     LastMousePos.Y := MousePos.Y;
   end;
+end;
+
+procedure TSceneMap.ShowPartyScene;
+begin
+  TSceneParty2.ShowScene(TLeaderParty.Leader, scMap);
 end;
 
 procedure TSceneMap.Render;
@@ -340,7 +346,7 @@ begin
       if (TLeaderParty.Leader.Enum in LeaderWarrior) then
         TSceneHire.Show(stWar);
     K_P:
-      TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scMap);
+      ShowPartyScene;
     K_J:
       TSceneScenario.Show;
     K_H:
