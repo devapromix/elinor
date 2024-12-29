@@ -59,7 +59,7 @@ begin
   Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderRace;
   Game.MediaPlayer.PlayMusic(mmGame);
   Game.MediaPlayer.PlaySound(mmExit);
-  TSceneSettlement.Show(stCapital);
+  TSceneSettlement.ShowScene(stCapital);
 end;
 
 constructor TSceneLeader.Create;

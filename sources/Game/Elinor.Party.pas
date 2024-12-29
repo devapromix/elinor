@@ -781,14 +781,14 @@ begin
   begin
     Game.MediaPlayer.PlayMusic(mmGame);
     Game.MediaPlayer.PlaySound(mmSettlement);
-    TSceneSettlement.Show(stCapital);
+    TSceneSettlement.ShowScene(stCapital);
     F := False;
   end;
   if Game.Map.LeaderTile in Cities then
   begin
     Game.MediaPlayer.PlayMusic(mmGame);
     Game.MediaPlayer.PlaySound(mmSettlement);
-    TSceneSettlement.Show(stCity);
+    TSceneSettlement.ShowScene(stCity);
     F := False;
   end;
   if (RandomRange(0, 100) < 25) and not Leader.Skills.Has(skSpy) then

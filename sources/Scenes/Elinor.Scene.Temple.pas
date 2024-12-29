@@ -3,14 +3,10 @@
 interface
 
 uses
+  Vcl.Controls,
+  System.Classes,
   Elinor.Scene.Frames,
   Elinor.Scene.Base.Party,
-{$IFDEF FPC}
-  Controls,
-{$ELSE}
-  Vcl.Controls,
-{$ENDIF}
-  Classes,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
@@ -49,11 +45,13 @@ type
 implementation
 
 uses
+  System.Math,
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party,
   Elinor.Saga,
-  Elinor.Scene.Party2, Elinor.Frame;
+  Elinor.Scene.Party2,
+  Elinor.Frame;
 
 var
   ShowResources: Boolean;

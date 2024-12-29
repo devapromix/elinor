@@ -447,7 +447,7 @@ begin
           begin
             Game.MediaPlayer.PlayMusic(mmGame);
             Game.MediaPlayer.PlaySound(mmSettlement);
-            TSceneSettlement.Show(stCity);
+            TSceneSettlement.ShowScene(stCity);
             Exit;
           end;
           if F then

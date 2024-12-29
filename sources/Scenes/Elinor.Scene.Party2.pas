@@ -183,7 +183,7 @@ procedure TSceneParty2.Render;
       DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Statistics', True);
+    AddTextLine('Leader''s Statistics', True);
     AddTextLine;
     AddTextLine('Wins', Game.Statistics.GetValue(stBattlesWon));
     AddTextLine('Kills', Game.Statistics.GetValue(stKilledCreatures));

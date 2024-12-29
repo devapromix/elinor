@@ -3,13 +3,9 @@
 interface
 
 uses
-  Elinor.Scene.Frames,
-{$IFDEF FPC}
-  Controls,
-{$ELSE}
   Vcl.Controls,
-{$ENDIF}
-  Classes,
+  System.Classes,
+  Elinor.Scene.Frames,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
@@ -40,7 +36,6 @@ type
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
     procedure Hire;
-    procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure MoveUnit;
     procedure ShowPartyScene;
@@ -53,13 +48,15 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure Show(SettlementType: TSettlementSubSceneEnum); overload;
+    class procedure ShowScene(SettlementType: TSettlementSubSceneEnum);
+      overload;
+    class procedure HideScene;
   end;
 
 implementation
 
 uses
-  SysUtils,
+  System.SysUtils,
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Map,
@@ -153,7 +150,7 @@ begin
   end;
 end;
 
-procedure TSceneSettlement.Close;
+class procedure TSceneSettlement.HideScene;
 begin
   case Game.Map.LeaderTile of
     reNeutralCity:
@@ -208,6 +205,8 @@ end;
 
 procedure TSceneSettlement.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPartyPosition: Integer;
 begin
   inherited;
   if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) >
@@ -218,8 +217,14 @@ begin
   case AButton of
     mbRight:
       begin
-        ActivePartyPosition := GetPartyPosition(X, Y);
-        Self.MoveUnit;
+        LPartyPosition := GetPartyPosition(X, Y);
+        case LPartyPosition of
+          0 .. 11:
+            begin
+              ActivePartyPosition := LPartyPosition;
+              Self.MoveUnit;
+            end;
+        end;
       end;
     mbLeft:
       begin
@@ -230,13 +235,17 @@ begin
         else if Button[btParty].MouseDown then
           ShowPartyScene
         else if Button[btClose].MouseDown then
-          Close
+          HideScene
         else
         begin
-          CurrentPartyPosition := GetPartyPosition(X, Y);
-          if CurrentPartyPosition < 0 then
-            Exit;
-          ActivePartyPosition := CurrentPartyPosition;
+          LPartyPosition := GetPartyPosition(X, Y);
+          case LPartyPosition of
+            0 .. 11:
+              begin
+                CurrentPartyPosition := LPartyPosition;
+                ActivePartyPosition := CurrentPartyPosition;
+              end;
+          end;
           Game.MediaPlayer.PlaySound(mmClick);
         end;
       end;
@@ -294,7 +303,8 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneSettlement.Show(SettlementType: TSettlementSubSceneEnum);
+class procedure TSceneSettlement.ShowScene(SettlementType
+  : TSettlementSubSceneEnum);
 begin
   CurrentSettlementType := SettlementType;
   case CurrentSettlementType of
@@ -386,12 +396,12 @@ begin
         end;
       end;
     K_ESCAPE, K_ENTER:
-      Close;
-    K_J:
-      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
-    K_I:
-      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
-        scSettlement, True);
+      HideScene;
+    // K_J:
+    // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+    // K_I:
+    // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
+    // scSettlement, True);
     K_H:
       Hire;
     K_P:
