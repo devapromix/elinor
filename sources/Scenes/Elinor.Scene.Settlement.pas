@@ -27,7 +27,7 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextTemple, reTextHire,
       reTextParty, reTextClose);
-    procedure Temple;
+    procedure ShowTempleScene;
   private
   class var
     Button: array [TButtonEnum] of TButton;
@@ -39,13 +39,11 @@ type
     IsUnitSelected: Boolean;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure Dismiss;
     procedure Hire;
     procedure Close;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure MoveUnit;
     procedure ShowPartyScene;
-    procedure DismissCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -155,41 +153,6 @@ begin
   end;
 end;
 
-procedure TSceneSettlement.Dismiss;
-
-  procedure DismissIt(const AParty: TParty; const APosition: Integer);
-  begin
-    with AParty.Creature[APosition] do
-    begin
-      if not Active then
-      begin
-        InformDialog('Выберите не пустой слот!');
-        Exit;
-      end;
-      if Leadership > 0 then
-      begin
-        InformDialog('Не возможно уволить!');
-        Exit;
-      end
-      else
-      begin
-        ConfirmParty := AParty;
-        ConfirmPartyPosition := APosition;
-        ConfirmDialog('Отпустить воина?', DismissCreature);
-      end;
-    end;
-  end;
-
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  case ActivePartyPosition of
-    0 .. 5:
-      DismissIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    6 .. 11:
-      DismissIt(SettlementParty, ActivePartyPosition - 6);
-  end;
-end;
-
 procedure TSceneSettlement.Close;
 begin
   case Game.Map.LeaderTile of
@@ -263,7 +226,7 @@ begin
         if Button[btHire].MouseDown then
           Hire
         else if Button[btTemple].MouseDown then
-          Temple
+          ShowTempleScene
         else if Button[btParty].MouseDown then
           ShowPartyScene
         else if Button[btClose].MouseDown then
@@ -350,11 +313,20 @@ begin
   Game.Show(scSettlement);
 end;
 
-procedure TSceneSettlement.Temple;
+procedure TSceneSettlement.ShowTempleScene;
 begin
-  begin
-    Game.MediaPlayer.PlaySound(mmClick);
-    Game.Show(scTemple);
+  case ActivePartyPosition of
+    0 .. 5:
+      begin
+        TSceneTemple.ShowScene(TLeaderParty.Leader);
+        Game.MediaPlayer.PlaySound(mmClick);
+      end
+  else
+    if not SettlementParty.IsClear then
+    begin
+      TSceneTemple.ShowScene(SettlementParty);
+      Game.MediaPlayer.PlaySound(mmClick);
+    end;
   end;
 end;
 
@@ -375,7 +347,8 @@ begin
   case ActivePartyPosition of
     0 .. 5:
       begin
-        TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+        TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex],
+          scSettlement);
         Game.MediaPlayer.PlaySound(mmClick);
       end
   else
@@ -385,11 +358,6 @@ begin
       Game.MediaPlayer.PlaySound(mmClick);
     end;
   end;
-end;
-
-procedure TSceneSettlement.DismissCreature;
-begin
-  ConfirmParty.Dismiss(ConfirmPartyPosition);
 end;
 
 procedure TSceneSettlement.Timer;
@@ -429,7 +397,7 @@ begin
     K_P:
       ShowPartyScene;
     K_T:
-      Temple;
+      ShowTempleScene;
     K_LEFT, K_KP_4, K_A:
       MoveCursor(drWest);
     K_RIGHT, K_KP_6, K_D:

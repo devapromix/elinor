@@ -4,7 +4,7 @@ interface
 
 uses
   Elinor.Scene.Frames,
-  Elinor.Scene.Menu.Wide,
+  Elinor.Scene.Base.Party,
 {$IFDEF FPC}
   Controls,
 {$ELSE}
@@ -17,7 +17,7 @@ uses
   Elinor.Scenes;
 
 type
-  TSceneTemple = class(TSceneWideMenu)
+  TSceneTemple = class(TSceneBaseParty)
   private type
     TButtonEnum = (btHeal, btRevive, btParty, btClose);
   private const
@@ -28,7 +28,6 @@ type
     ConfirmGold: Integer;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure Close;
     procedure Heal;
     procedure Revive;
     procedure ShowPartyScene;
@@ -43,6 +42,8 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    class procedure ShowScene(AParty: TParty);
+    class procedure HideScene;
   end;
 
 implementation
@@ -51,13 +52,33 @@ uses
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party,
-  Elinor.Saga, Elinor.Scene.Party2;
+  Elinor.Saga,
+  Elinor.Scene.Party2, Elinor.Frame;
 
-{ TSceneTemple }
+var
+  ShowResources: Boolean;
+  CurrentParty: TParty;
 
-procedure TSceneTemple.Close;
+  { TSceneTemple }
+
+class procedure TSceneTemple.ShowScene(AParty: TParty);
+begin
+  CurrentParty := AParty;
+  ShowResources := AParty = TLeaderParty.Leader;
+  if ShowResources then
+  begin
+    ActivePartyPosition := TLeaderParty.GetPosition;
+  end
+  else
+    ActivePartyPosition := AParty.GetRandomPosition;
+  Game.Show(scTemple);
+  Game.MediaPlayer.PlaySound(mmSettlement);
+end;
+
+class procedure TSceneTemple.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound(mmSettlement);
   Game.Show(scSettlement);
 end;
 
@@ -77,7 +98,6 @@ begin
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
-
 end;
 
 destructor TSceneTemple.Destroy;
@@ -124,13 +144,7 @@ procedure TSceneTemple.Heal;
 
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  CurrentPartyPosition := ActivePartyPosition;
-  case ActivePartyPosition of
-    0 .. 5:
-      HealIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    // 6 .. 11:
-    // HealIt(SettlementParty, ActivePartyPosition - 6);
-  end;
+  HealIt(CurrentParty, ActivePartyPosition);
 end;
 
 procedure TSceneTemple.HealCreature;
@@ -153,7 +167,7 @@ begin
         else if Button[btParty].MouseDown then
           ShowPartyScene
         else if Button[btClose].MouseDown then
-          Close
+          HideScene;
       end;
   end;
 end;
@@ -170,15 +184,20 @@ end;
 procedure TSceneTemple.ShowPartyScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  case ActivePartyPosition of
-    0 .. 5:
-      TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scTemple);
-    6 .. 11:
-      TSceneParty2.ShowScene(TSceneSettlement.SettlementParty, scTemple);
-  end;
+  TSceneParty2.ShowScene(CurrentParty, scTemple);
 end;
 
 procedure TSceneTemple.Render;
+
+  procedure RenderParty;
+  var
+    LPosition: TPosition;
+  begin
+    if (Party <> nil) then
+      for LPosition := Low(TPosition) to High(TPosition) do
+        DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
+          TFrame.Row(LPosition), False, True);
+  end;
 
   procedure RenderButtons;
   var
@@ -192,6 +211,7 @@ begin
   inherited;
 
   DrawTitle(reTitleTemple);
+  RenderParty;
 
   RenderButtons;
 end;
@@ -233,13 +253,7 @@ procedure TSceneTemple.Revive;
 
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  CurrentPartyPosition := ActivePartyPosition;
-  case ActivePartyPosition of
-    0 .. 5:
-      ReviveIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    6 .. 11:
-      ReviveIt(TSceneSettlement.SettlementParty, ActivePartyPosition - 6);
-  end;
+  ReviveIt(CurrentParty, ActivePartyPosition);
 end;
 
 procedure TSceneTemple.ReviveCreature;
@@ -259,7 +273,7 @@ begin
   inherited;
   case Key of
     K_ESCAPE, K_ENTER:
-      Close;
+      HideScene;
     K_H:
       Heal;
     K_P:
