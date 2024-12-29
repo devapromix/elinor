@@ -729,6 +729,8 @@ begin
         AX, AY) then
         Exit;
     end;
+  if Result = 11 then
+    Result := -1;
 end;
 
 procedure TScene.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
