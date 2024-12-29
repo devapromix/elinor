@@ -47,7 +47,8 @@ uses
   Elinor.Scene.Leader in 'Scenes\Elinor.Scene.Leader.pas',
   Elinor.Scene.Menu.Wide in 'Scenes\Elinor.Scene.Menu.Wide.pas',
   Elinor.Scene.Temple in 'Scenes\Elinor.Scene.Temple.pas',
-  Elinor.Scene.Party2 in 'Scenes\Elinor.Scene.Party2.pas';
+  Elinor.Scene.Party2 in 'Scenes\Elinor.Scene.Party2.pas',
+  Elinor.Scene.Base.Party in 'Scenes\Elinor.Scene.Base.Party.pas';
 
 {$R *.res}
 

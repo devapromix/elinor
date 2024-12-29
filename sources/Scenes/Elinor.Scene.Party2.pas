@@ -8,10 +8,10 @@ uses
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
-  Elinor.Scene.Menu.Wide;
+  Elinor.Scene.Base.Party;
 
 type
-  TSceneParty2 = class(TSceneWideMenu)
+  TSceneParty2 = class(TSceneBaseParty)
   private type
     TButtonEnum = (btAbilities, btInventory, btDismiss, btClose);
   private const
@@ -33,6 +33,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    class procedure Show;
   end;
 
 implementation
@@ -182,6 +183,11 @@ begin
   RenderInfo;
 
   RenderButtons;
+end;
+
+class procedure TSceneParty2.Show;
+begin
+  //
 end;
 
 procedure TSceneParty2.Timer;
