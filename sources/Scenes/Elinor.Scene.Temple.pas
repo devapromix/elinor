@@ -172,9 +172,9 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   case ActivePartyPosition of
     0 .. 5:
-      TSceneParty2.Show(Party[TLeaderParty.LeaderPartyIndex], scTemple);
+      TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scTemple);
     6 .. 11:
-      TSceneParty2.Show(TSceneSettlement.SettlementParty, scTemple);
+      TSceneParty2.ShowScene(TSceneSettlement.SettlementParty, scTemple);
   end;
 end;
 

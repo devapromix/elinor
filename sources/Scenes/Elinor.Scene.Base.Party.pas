@@ -10,9 +10,6 @@ uses
 
 type
   TSceneBaseParty = class(TSceneFrames)
-  private
-  public
-  var
   public
     constructor Create(const AResEnum: TResEnum);
     destructor Destroy; override;
@@ -26,10 +23,9 @@ type
 implementation
 
 uses
-  Math, Dialogs,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Frame,
-  Elinor.Common,
   Elinor.Scenes,
   Elinor.Party,
   Elinor.Scene.Party;
@@ -52,11 +48,7 @@ begin
   inherited;
   case AButton of
     mbLeft:
-      begin
-        ActivePartyPosition := EnsureRange(GetPartyPosition(X, Y), 0, 5);
-        // Game.MediaPlayer.PlaySound(mmClick);
-        // ShowMessage(IntToStr(CurrentIndex));
-      end;
+      ActivePartyPosition := EnsureRange(GetPartyPosition(X, Y), 0, 5);
   end;
 end;
 

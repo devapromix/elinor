@@ -375,13 +375,13 @@ begin
   case ActivePartyPosition of
     0 .. 5:
       begin
-        TSceneParty2.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+        TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
         Game.MediaPlayer.PlaySound(mmClick);
       end
   else
     if not SettlementParty.IsClear then
     begin
-      TSceneParty2.Show(SettlementParty, scSettlement);
+      TSceneParty2.ShowScene(SettlementParty, scSettlement);
       Game.MediaPlayer.PlaySound(mmClick);
     end;
   end;

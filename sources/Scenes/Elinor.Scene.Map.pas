@@ -340,7 +340,7 @@ begin
       if (TLeaderParty.Leader.Enum in LeaderWarrior) then
         TSceneHire.Show(stWar);
     K_P:
-      TSceneParty2.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
+      TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:
       TSceneScenario.Show;
     K_H:

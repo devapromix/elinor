@@ -20,7 +20,6 @@ type
       reTextInventory, reTextDismiss, reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
-    procedure Close;
     procedure Abilities;
     procedure Inventory;
     procedure Dismiss;
@@ -33,7 +32,8 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure Show(AParty: TParty; const ACloseScene: TSceneEnum);
+    class procedure ShowScene(AParty: TParty; const ACloseScene: TSceneEnum);
+    class procedure HideScene;
   end;
 
 implementation
@@ -58,12 +58,6 @@ var
 procedure TSceneParty2.Abilities;
 begin
 
-end;
-
-procedure TSceneParty2.Close;
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  TSceneSettlement.Show(stCapital);
 end;
 
 constructor TSceneParty2.Create;
@@ -119,7 +113,7 @@ begin
         else if Button[btDismiss].MouseDown then
           Dismiss
         else if Button[btClose].MouseDown then
-          Close
+          HideScene
       end;
   end;
 end;
@@ -192,7 +186,7 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneParty2.Show(AParty: TParty;
+class procedure TSceneParty2.ShowScene(AParty: TParty;
   const ACloseScene: TSceneEnum);
 begin
   CurrentParty := AParty;
@@ -208,6 +202,13 @@ begin
   Game.MediaPlayer.PlaySound(mmSettlement);
 end;
 
+class procedure TSceneParty2.HideScene;
+begin
+  Game.Show(CloseScene);
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound(mmSettlement);
+end;
+
 procedure TSceneParty2.Timer;
 begin
   inherited;
@@ -219,7 +220,7 @@ begin
   inherited;
   case Key of
     K_ESCAPE, K_ENTER:
-      Close;
+      HideScene;
     K_A:
       Abilities;
     K_I:
