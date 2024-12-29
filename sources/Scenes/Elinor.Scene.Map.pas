@@ -46,7 +46,8 @@ uses
   Elinor.Creatures,
   Elinor.Scene.Spellbook,
   Elinor.Scene.Scenario,
-  Elinor.PathFind;
+  Elinor.PathFind,
+  Elinor.Scene.Party2;
 
 { TSceneMap }
 
@@ -339,7 +340,7 @@ begin
       if (TLeaderParty.Leader.Enum in LeaderWarrior) then
         TSceneHire.Show(stWar);
     K_P:
-      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
+      TSceneParty2.Show(Party[TLeaderParty.LeaderPartyIndex], scMap);
     K_J:
       TSceneScenario.Show;
     K_H:

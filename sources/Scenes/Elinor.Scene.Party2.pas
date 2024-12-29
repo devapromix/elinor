@@ -6,6 +6,7 @@ uses
   Vcl.Controls,
   System.Classes,
   Elinor.Button,
+  Elinor.Scenes,
   Elinor.Resources,
   Elinor.Party,
   Elinor.Scene.Base.Party;
@@ -23,7 +24,6 @@ type
     procedure Abilities;
     procedure Inventory;
     procedure Dismiss;
-
   public
     constructor Create;
     destructor Destroy; override;
@@ -33,7 +33,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure Show;
+    class procedure Show(AParty: TParty; const ACloseScene: TSceneEnum);
   end;
 
 implementation
@@ -41,12 +41,19 @@ implementation
 uses
   System.SysUtils,
   Elinor.Saga,
-  Elinor.Scenes,
   Elinor.Scene.Party,
   Elinor.Frame,
-  Elinor.Creatures, Elinor.Statistics, DisciplesRL.Scene.Hire;
+  Elinor.Creatures,
+  Elinor.Statistics,
+  DisciplesRL.Scene.Hire,
+  Elinor.Scene.Settlement;
 
-{ TSceneParty }
+var
+  ShowResources: Boolean;
+  CloseScene: TSceneEnum;
+  CurrentParty: TParty;
+
+  { TSceneParty }
 
 procedure TSceneParty2.Abilities;
 begin
@@ -56,7 +63,7 @@ end;
 procedure TSceneParty2.Close;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.Show(scSettlement);
+  TSceneSettlement.Show(stCapital);
 end;
 
 constructor TSceneParty2.Create;
@@ -132,9 +139,9 @@ procedure TSceneParty2.Render;
   var
     LPosition: TPosition;
   begin
-    for LPosition := Low(TPosition) to High(TPosition) do
-      if (TLeaderParty.Leader <> nil) then
-        DrawUnit(LPosition, TLeaderParty.Leader, TFrame.Col(LPosition, psLeft),
+    if (Party <> nil) then
+      for LPosition := Low(TPosition) to High(TPosition) do
+        DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
           TFrame.Row(LPosition), False, True);
   end;
 
@@ -142,11 +149,11 @@ procedure TSceneParty2.Render;
   var
     LCreatureEnum: TCreatureEnum;
   begin
-    LCreatureEnum := TLeaderParty.Leader.Creature[CurrentIndex].Enum;
+    LCreatureEnum := CurrentParty.Creature[ActivePartyPosition].Enum;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     if (LCreatureEnum <> crNone) then
-      DrawCreatureInfo(TLeaderParty.Leader.Creature[CurrentIndex]);
+      DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Statistics', True);
@@ -185,9 +192,20 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneParty2.Show;
+class procedure TSceneParty2.Show(AParty: TParty;
+  const ACloseScene: TSceneEnum);
 begin
-  //
+  CurrentParty := AParty;
+  CloseScene := ACloseScene;
+  ShowResources := AParty = TLeaderParty.Leader;
+  if ShowResources then
+  begin
+    ActivePartyPosition := TLeaderParty.GetPosition;
+  end
+  else
+    ActivePartyPosition := AParty.GetRandomPosition;
+  Game.Show(scParty);
+  Game.MediaPlayer.PlaySound(mmSettlement);
 end;
 
 procedure TSceneParty2.Timer;

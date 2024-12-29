@@ -51,7 +51,7 @@ uses
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party,
-  Elinor.Saga;
+  Elinor.Saga, Elinor.Scene.Party2;
 
 { TSceneTemple }
 
@@ -170,7 +170,12 @@ end;
 procedure TSceneTemple.OpenParty;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.Show(scParty);
+  case ActivePartyPosition of
+    0 .. 5:
+      TSceneParty2.Show(Party[TLeaderParty.LeaderPartyIndex], scTemple);
+    6 .. 11:
+      TSceneParty2.Show(TSceneSettlement.SettlementParty, scTemple);
+  end;
 end;
 
 procedure TSceneTemple.Render;
@@ -232,8 +237,8 @@ begin
   case ActivePartyPosition of
     0 .. 5:
       ReviveIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    // 6 .. 11:
-    // ReviveIt(SettlementParty, ActivePartyPosition - 6);
+    6 .. 11:
+      ReviveIt(TSceneSettlement.SettlementParty, ActivePartyPosition - 6);
   end;
 end;
 

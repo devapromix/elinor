@@ -32,8 +32,9 @@ type
   class var
     Button: array [TButtonEnum] of TButton;
     CurrentSettlementType: TSettlementSubSceneEnum;
-    SettlementParty: TParty;
     CurrentCityIndex: Integer;
+  public
+    class var SettlementParty: TParty;
   private
     IsUnitSelected: Boolean;
     ConfirmParty: TParty;
@@ -66,7 +67,9 @@ uses
   Elinor.Map,
   Elinor.Scene.Party,
   Elinor.Creatures,
-  DisciplesRL.Scene.Hire, Elinor.Scene.Temple;
+  DisciplesRL.Scene.Hire,
+  Elinor.Scene.Temple,
+  Elinor.Scene.Party2;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -255,19 +258,6 @@ begin
         ActivePartyPosition := GetPartyPosition(X, Y);
         Self.MoveUnit;
       end;
-    mbMiddle:
-      begin
-        case GetPartyPosition(X, Y) of
-          0 .. 5:
-            TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
-              scSettlement);
-        else
-          if not SettlementParty.IsClear then
-            TSceneParty.Show(SettlementParty, scSettlement);
-        end;
-        Game.MediaPlayer.PlaySound(mmClick);
-        Exit;
-      end;
     mbLeft:
       begin
         if Button[btHire].MouseDown then
@@ -382,8 +372,19 @@ end;
 
 procedure TSceneSettlement.OpenParty;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.Show(scParty);
+  case ActivePartyPosition of
+    0 .. 5:
+      begin
+        TSceneParty2.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
+        Game.MediaPlayer.PlaySound(mmClick);
+      end
+  else
+    if not SettlementParty.IsClear then
+    begin
+      TSceneParty2.Show(SettlementParty, scSettlement);
+      Game.MediaPlayer.PlaySound(mmClick);
+    end;
+  end;
 end;
 
 procedure TSceneSettlement.DismissCreature;

@@ -99,6 +99,7 @@ type
   public
   class var
     LeaderPartyIndex: Byte;
+    CreatureIndex: Byte;
     CapitalPartyIndex: Byte;
     Speed: Integer;
     MaxSpeed: Integer;
