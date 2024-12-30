@@ -189,10 +189,10 @@ procedure TSceneParty2.Render;
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Leader''s Statistics', True);
     AddTextLine;
-    AddTextLine('Wins', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Kills', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
     AddTextLine('Scores', Game.Statistics.GetValue(stScore));
-    AddTextLine;
     AddTextLine;
     AddTextLine;
     AddTextLine;
@@ -203,7 +203,7 @@ procedure TSceneParty2.Render;
     AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
     AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;
-// Tiles Moved
+//
 // Items Found
 // Chests Found
 // Potions Drunk
@@ -219,13 +219,15 @@ procedure TSceneParty2.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Game Statistics', True);
+    AddTextLine('Information', True);
     AddTextLine;
     AddTextLine('Game Difficulty', TSaga.DifficultyName[TSaga.Difficulty]);
+    AddTextLine('Day', Game.Day);
+    AddTextLine;
+    AddTextLine('Resources', True);
     AddTextLine;
     AddTextLine('Gold', Game.Gold.Value);
     AddTextLine('Mana', Game.Mana.Value);
-    AddTextLine('Day', Game.Day);
   end;
 
   procedure RenderButtons;

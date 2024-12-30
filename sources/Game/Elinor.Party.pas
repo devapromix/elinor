@@ -3,7 +3,7 @@
 interface
 
 uses
-  Types,
+  System.Types,
   Elinor.Creatures,
   Elinor.MapObject,
   Elinor.Items,
@@ -144,14 +144,15 @@ var
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Saga,
   Elinor.Resources,
   Elinor.Scenes,
   Elinor.Scene.Party,
   Elinor.Scene.Settlement,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  Elinor.Statistics;
 
 { TParty }
 
@@ -728,6 +729,7 @@ begin
   else
   begin
     Leader.SetLocation(AX, AY);
+    Game.Statistics.IncValue(stTilesMoved);
     Game.MediaPlayer.PlaySound(mmStep);
     with TLeaderParty.Leader do
     begin
