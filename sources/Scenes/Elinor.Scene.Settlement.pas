@@ -64,7 +64,7 @@ uses
   Elinor.Creatures,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Temple,
-  Elinor.Scene.Party2;
+  Elinor.Scene.Party2, Elinor.Scene.Hire;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -125,7 +125,7 @@ procedure TSceneSettlement.Hire;
         TLeaderParty.Leader.Leadership)) or
         (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
       begin
-        TSceneHire.Show(AParty, APosition);
+        TSceneHire2.ShowScene(AParty, APosition);
       end
       else
       begin

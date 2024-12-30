@@ -172,7 +172,7 @@ procedure TSceneParty2.Render;
           TFrame.Row(LPosition), False, True);
   end;
 
-  procedure RenderInfo;
+  procedure RenderCreatureInfo;
   var
     LCreatureEnum: TCreatureEnum;
   begin
@@ -181,6 +181,10 @@ procedure TSceneParty2.Render;
     TextLeft := TFrame.Col(2) + 12;
     if (LCreatureEnum <> crNone) then
       DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
+  end;
+
+  procedure RenderLeaderInfo;
+  begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Leader''s Statistics', True);
@@ -199,6 +203,30 @@ procedure TSceneParty2.Render;
     AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
     AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;
+// Tiles Moved
+// Items Found
+// Chests Found
+// Potions Drunk
+// Scrolls Read
+// Spells Cast
+// Melee Attack Performed
+// Ranged Attack Performed
+// Items Used
+// Gold Looted
+// Mana Looted
+// Gold from Sales
+  procedure RenderGuardianInfo;
+  begin
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(3) + 12;
+    AddTextLine('Game Statistics', True);
+    AddTextLine;
+    AddTextLine('Game Difficulty', TSaga.DifficultyName[TSaga.Difficulty]);
+    AddTextLine;
+    AddTextLine('Gold', Game.Gold.Value);
+    AddTextLine('Mana', Game.Mana.Value);
+    AddTextLine('Day', Game.Day);
+  end;
 
   procedure RenderButtons;
   var
@@ -214,7 +242,11 @@ begin
   DrawTitle(reTitleParty);
 
   RenderParty;
-  RenderInfo;
+  RenderCreatureInfo;
+  if CurrentParty = TLeaderParty.Leader then
+    RenderLeaderInfo
+  else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
+    RenderGuardianInfo;
 
   RenderButtons;
 end;

@@ -48,7 +48,8 @@ uses
   Elinor.Scene.Menu.Wide in 'Scenes\Elinor.Scene.Menu.Wide.pas',
   Elinor.Scene.Temple in 'Scenes\Elinor.Scene.Temple.pas',
   Elinor.Scene.Party2 in 'Scenes\Elinor.Scene.Party2.pas',
-  Elinor.Scene.Base.Party in 'Scenes\Elinor.Scene.Base.Party.pas';
+  Elinor.Scene.Base.Party in 'Scenes\Elinor.Scene.Base.Party.pas',
+  Elinor.Scene.Hire in 'Scenes\Elinor.Scene.Hire.pas';
 
 {$R *.res}
 

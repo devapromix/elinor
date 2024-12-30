@@ -757,35 +757,6 @@ begin
   It2 := reNone;
   It3 := reNone;
   case SubScene of
-    stCharacter:
-      begin
-        DrawImage(reWallpaperSettlement);
-        DrawTitle(reTitleHire);
-        for K := Low(TRaceCharKind) to High(TRaceCharKind) do
-        begin
-          Left := IfThen(Ord(K) > 2, Lk, Lk - 2);
-          if K = TRaceCharKind(CurrentIndex) then
-            DrawImage(Left + X, SceneTop + Y, reActFrame)
-          else
-            DrawImage(Left + X, SceneTop + Y, reFrame);
-          with TCreature.Character
-            (Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-            [cgCharacters][K]) do
-            if HitPoints > 0 then
-            begin
-              DrawUnit(ResEnum, Left + X, SceneTop + Y, bsCharacter);
-              DrawUnitInfo(Left + X, SceneTop + Y,
-                Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-                [cgCharacters][K], False);
-            end;
-          Inc(Y, 120);
-          if Y > 240 then
-          begin
-            Y := 0;
-            Inc(X, 320);
-          end;
-        end;
-      end;
     stSpy:
       begin
         DrawImage(reWallpaperDifficulty);

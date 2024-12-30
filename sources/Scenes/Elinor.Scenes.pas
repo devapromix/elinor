@@ -23,7 +23,7 @@ uses
   Elinor.Resources;
 
 type
-  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
+  TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple);
 
 const
@@ -216,7 +216,8 @@ uses
   Elinor.Scene.Leader,
   Elinor.Scene.Scenario,
   Elinor.Scene.Temple,
-  Elinor.Scene.Party2;
+  Elinor.Scene.Party2,
+  Elinor.Scene.Hire;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -786,6 +787,7 @@ begin
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu2.Create;
   FScene[scHire] := TSceneHire.Create;
+  FScene[scHire2] := TSceneHire2.Create;
   FScene[scParty] := TSceneParty2.Create;
   FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
