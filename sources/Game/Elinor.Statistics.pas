@@ -6,7 +6,7 @@ type
   TStatistics = class(TObject)
   public type
     TStatisticsEnum = (stKilledCreatures, stBattlesWon, stTilesMoved, stScore,
-      stGoldMined, stManaMined);
+      stGoldMined, stManaMined, stChestsFound, stItemsFound);
   private
     FValue: array [TStatisticsEnum] of Integer;
   public

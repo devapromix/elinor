@@ -190,12 +190,12 @@ procedure TSceneParty2.Render;
     AddTextLine('Leader''s Statistics', True);
     AddTextLine;
     AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Killed Creatures',
+      Game.Statistics.GetValue(stKilledCreatures));
     AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
+    AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
+    AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
     AddTextLine('Scores', Game.Statistics.GetValue(stScore));
-    AddTextLine;
-    AddTextLine;
-    AddTextLine;
     AddTextLine;
     AddTextLine;
     AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed,
@@ -203,9 +203,6 @@ procedure TSceneParty2.Render;
     AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
     AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;
-//
-// Items Found
-// Chests Found
 // Potions Drunk
 // Scrolls Read
 // Spells Cast

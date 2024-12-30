@@ -754,6 +754,7 @@ begin
       reBag:
         begin
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
+          Game.Statistics.IncValue(stChestsFound);
           TSaga.AddLoot(reBag);
           F := False;
         end;

@@ -220,8 +220,6 @@ begin
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
           ResImage[Game.Map.GetTile(lrTile, X, Y)]);
       //
-
-      //
       if (ResBase[Game.Map.GetTile(lrObj, X, Y)].ResType in [teEnemy, teBag])
       then
         if F then

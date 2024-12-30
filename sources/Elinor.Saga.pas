@@ -120,7 +120,7 @@ uses
   Elinor.Map,
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,
-  Elinor.Items;
+  Elinor.Items, Elinor.Statistics;
 
 { TSaga }
 
@@ -231,6 +231,7 @@ var
         NewItem := RandomRange(1, TItemBase.Count);
       until (TItemBase.Item(NewItem).Level <= LLevel);
       TLeaderParty.Leader.Inventory.Add(TItemBase.Item(NewItem).Enum);
+      Game.Statistics.IncValue(stItemsFound);
     end
     else
       NewItem := 0;
