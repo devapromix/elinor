@@ -291,7 +291,9 @@ begin
   if IsNewDay then
   begin
     Gold.Mine;
+    Game.Statistics.IncValue(stGoldMined, Gold.FromMinePerDay);
     Mana.Mine;
+    Game.Statistics.IncValue(stManaMined, Mana.FromMinePerDay);
     Map.Clear(lrSee);
     if (TLeaderParty.Leader.Enum in LeaderWarrior) then
       TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);

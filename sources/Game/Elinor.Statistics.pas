@@ -5,7 +5,8 @@ interface
 type
   TStatistics = class(TObject)
   public type
-    TStatisticsEnum = (stKilledCreatures, stBattlesWon, stTilesMoved, stScore);
+    TStatisticsEnum = (stKilledCreatures, stBattlesWon, stTilesMoved, stScore,
+      stGoldMined, stManaMined);
   private
     FValue: array [TStatisticsEnum] of Integer;
   public

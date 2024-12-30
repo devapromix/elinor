@@ -228,6 +228,11 @@ procedure TSceneParty2.Render;
     AddTextLine;
     AddTextLine('Gold', Game.Gold.Value);
     AddTextLine('Mana', Game.Mana.Value);
+    AddTextLine;
+    AddTextLine('Statistics', True);
+    AddTextLine;
+    AddTextLine('Gold Mined', Game.Statistics.GetValue(stGoldMined));
+    AddTextLine('Mana Mined', Game.Statistics.GetValue(stManaMined));
   end;
 
   procedure RenderButtons;
