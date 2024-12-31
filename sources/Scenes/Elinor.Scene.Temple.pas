@@ -51,7 +51,8 @@ uses
   Elinor.Scene.Party,
   Elinor.Scene.Party2,
   Elinor.Saga,
-  Elinor.Frame;
+  Elinor.Frame,
+  Elinor.Creatures;
 
 var
   ShowResources: Boolean;
@@ -191,10 +192,21 @@ procedure TSceneTemple.Render;
   var
     LPosition: TPosition;
   begin
-    if (Party <> nil) then
+    if (CurrentParty <> nil) then
       for LPosition := Low(TPosition) to High(TPosition) do
         DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
           TFrame.Row(LPosition), False, True);
+  end;
+
+  procedure RenderCharacterInfo;
+  var
+    LCreatureEnum: TCreatureEnum;
+  begin
+    LCreatureEnum := CurrentParty.Creature[ActivePartyPosition].Enum;
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+    if (LCreatureEnum <> crNone) then
+      DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
   end;
 
   procedure RenderButtons;
