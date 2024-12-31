@@ -85,7 +85,14 @@ end;
 
 procedure TSceneHire2.Hire;
 begin
-
+  if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+    [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
+  begin
+    Game.MediaPlayer.PlaySound(mmGold);
+    Game.Show(scSettlement);
+  end
+  else
+    InformDialog('Не хватает денег!');
 end;
 
 class function TSceneHire2.HireIndex: Integer;
@@ -119,7 +126,7 @@ end;
 
 procedure TSceneHire2.Render;
 
-  procedure RenderParty;
+  procedure RenderCharacters;
   var
     LRaceCharKind: TRaceCharKind;
     LX, LY, LLeft, LTop: Integer;
@@ -142,6 +149,18 @@ procedure TSceneHire2.Render;
     end;
   end;
 
+  procedure RenderCharacterInfo;
+  var
+    LCreatureEnum: TCreatureEnum;
+  begin
+    LCreatureEnum := Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+      [cgCharacters][TRaceCharKind(CurrentIndex)];
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+    if (LCreatureEnum <> crNone) then
+      DrawCreatureInfo(TCreature.Character(LCreatureEnum));
+  end;
+
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -154,7 +173,8 @@ begin
   inherited;
   DrawTitle(reTitleHire);
 
-  RenderParty;
+  RenderCharacters;
+  RenderCharacterInfo;
 
   RenderButtons;
 end;
@@ -162,7 +182,6 @@ end;
 class procedure TSceneHire2.ShowScene(const AParty: TParty;
   const APosition: Integer);
 begin
-  // CurrentIndex := 0;
   HireParty := AParty;
   HirePosition := APosition;
   Game.Show(scHire2);
