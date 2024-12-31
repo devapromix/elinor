@@ -5,8 +5,11 @@ interface
 type
   TStatistics = class(TObject)
   public type
-    TStatisticsEnum = (stKilledCreatures, stBattlesWon, stTilesMoved, stScore,
+    TStatisticsEnum = (stKilledCreatures, stBattlesWon, stTilesMoved, stScores,
       stGoldMined, stManaMined, stChestsFound, stItemsFound);
+  private const
+    ScoresModif: array [TStatisticsEnum] of Integer = (10, 35, 1, 0, 2,
+      2, 20, 5);
   private
     FValue: array [TStatisticsEnum] of Integer;
   public
@@ -32,6 +35,8 @@ procedure TStatistics.IncValue(const AStatisticsEnum: TStatisticsEnum;
   const Value: Integer);
 begin
   FValue[AStatisticsEnum] := FValue[AStatisticsEnum] + Value;
+  if AStatisticsEnum <> stScores then
+    IncValue(stScores, Value * ScoresModif[AStatisticsEnum]);
 end;
 
 function TStatistics.GetValue(const AStatisticsEnum: TStatisticsEnum): Integer;

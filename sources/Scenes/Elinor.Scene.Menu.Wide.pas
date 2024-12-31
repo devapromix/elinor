@@ -39,8 +39,8 @@ type
 implementation
 
 uses
-  Math, Dialogs,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Frame,
   Elinor.Common,
   Elinor.Scenes;

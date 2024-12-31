@@ -513,11 +513,11 @@ procedure TSceneHire.RenderFinalInfo;
 begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  AddTextLine('Статистика', True);
+  AddTextLine('Statistics', True);
   AddTextLine;
-  AddTextLine('Выиграно боев', Game.Statistics.GetValue(stBattlesWon));
-  AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
-  AddTextLine('Очки', Game.Statistics.GetValue(stScore));
+  AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
+  AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+  AddTextLine('Scores', Game.Statistics.GetValue(stScores));
 end;
 
 procedure TSceneHire.RenderHighScores;

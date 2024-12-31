@@ -187,7 +187,7 @@ procedure TSceneParty2.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Leader''s Statistics', True);
+    AddTextLine('Statistics', True);
     AddTextLine;
     AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
     AddTextLine('Killed Creatures',
@@ -195,7 +195,7 @@ procedure TSceneParty2.Render;
     AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
     AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
     AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
-    AddTextLine('Scores', Game.Statistics.GetValue(stScore));
+    AddTextLine('Scores', Game.Statistics.GetValue(stScores));
     AddTextLine;
     AddTextLine;
     AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed,
@@ -223,8 +223,8 @@ procedure TSceneParty2.Render;
     AddTextLine;
     AddTextLine('Resources', True);
     AddTextLine;
-    AddTextLine('Gold', Game.Gold.Value);
-    AddTextLine('Mana', Game.Mana.Value);
+    AddTextLine('Gold Mines/Gold', Game.Gold.Mines, Game.Gold.Value);
+    AddTextLine('Mana Mines/Mana', Game.Mana.Mines, Game.Mana.Value);
     AddTextLine;
     AddTextLine('Statistics', True);
     AddTextLine;

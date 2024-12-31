@@ -357,19 +357,19 @@ var
     // TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
     TextTop := SceneTop + 6;
     TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
-    AddTextLine('Статистика', True);
+    AddTextLine('Statistics', True);
     AddTextLine;
-    AddTextLine('Выиграно битв', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Убито врагов', Game.Statistics.GetValue(stKilledCreatures));
-    AddTextLine('Очки', Game.Statistics.GetValue(stScore));
-    AddTextLine;
-    AddTextLine;
+    AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Scores', Game.Statistics.GetValue(stScores));
     AddTextLine;
     AddTextLine;
-    AddTextLine(Format('Скорость передвижения %d/%d',
+    AddTextLine;
+    AddTextLine;
+    AddTextLine(Format('Speed %d/%d',
       [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
-    AddTextLine(Format('Лидерство %d', [TLeaderParty.Leader.Leadership]));
-    AddTextLine(Format('Радиус обзора %d', [TLeaderParty.Leader.Radius]));
+    AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
+    AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;
 
 begin
