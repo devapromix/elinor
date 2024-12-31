@@ -84,9 +84,14 @@ begin
 end;
 
 procedure TSceneHire2.Hire;
+var
+  LCreatureEnum: TCreatureEnum;
 begin
-  if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-    [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
+  LCreatureEnum := Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+    [cgCharacters][TRaceCharKind(CurrentIndex)];
+  if (LCreatureEnum = crNone) then
+    Exit;
+  if HireParty.Hire(LCreatureEnum, HirePosition) then
   begin
     Game.MediaPlayer.PlaySound(mmGold);
     Game.Show(scSettlement);
