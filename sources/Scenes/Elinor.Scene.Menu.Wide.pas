@@ -96,17 +96,21 @@ end;
 
 procedure TSceneWideMenu.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPartyPosition: Integer;
 begin
   inherited;
   case AButton of
     mbLeft:
       begin
-        CurrentIndex := GetFramePosition(X, Y);
-        if CurrentIndex >= 0 then
-        begin
-          Game.MediaPlayer.PlaySound(mmClick);
-         // ShowMessage(IntToStr(CurrentIndex));
-          Exit;
+        LPartyPosition := GetFramePosition(X, Y);
+        case LPartyPosition of
+          0 .. 5:
+            begin
+              CurrentIndex := LPartyPosition;
+              Game.MediaPlayer.PlaySound(mmClick);
+              Exit;
+            end;
         end;
         if Button[btCancel].MouseDown then
           Cancel;
