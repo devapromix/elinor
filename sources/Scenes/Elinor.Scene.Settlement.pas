@@ -19,10 +19,10 @@ type
 type
   TSceneSettlement = class(TSceneFrames)
   private type
-    TButtonEnum = (btTemple, btHire, btParty, btClose);
+    TButtonEnum = (btTower, btTemple, btHire, btParty, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextTemple, reTextHire,
-      reTextParty, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextTower, reTextTemple,
+      reTextHire, reTextParty, reTextClose);
     procedure ShowTempleScene;
   private
   class var
@@ -39,6 +39,7 @@ type
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure MoveUnit;
     procedure ShowPartyScene;
+    procedure ShowMageTowerScene;
   public
     constructor Create;
     destructor Destroy; override;
@@ -64,7 +65,8 @@ uses
   Elinor.Creatures,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Temple,
-  Elinor.Scene.Party2, Elinor.Scene.Hire;
+  Elinor.Scene.Party2,
+  Elinor.Scene.Hire;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -352,6 +354,12 @@ begin
   end;
 end;
 
+procedure TSceneSettlement.ShowMageTowerScene;
+begin
+  // TSceneMageTower.ShowScene;
+  Game.MediaPlayer.PlaySound(mmClick);
+end;
+
 procedure TSceneSettlement.ShowPartyScene;
 begin
   case ActivePartyPosition of
@@ -406,6 +414,8 @@ begin
       Hire;
     K_P:
       ShowPartyScene;
+    K_M:
+      ShowMageTowerScene;
     K_T:
       ShowTempleScene;
     K_LEFT, K_KP_4, K_A:

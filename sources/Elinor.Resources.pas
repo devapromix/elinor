@@ -55,7 +55,7 @@ type
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
-    reTextTemple,
+    reTextTemple, reTextTower,
     // Title
     reTitleTemple, reTitleHire, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -63,7 +63,7 @@ type
     reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
     reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
-    reTitleSpellbook, reTitleJournal,
+    reTitleSpellbook, reTitleJournal, reTitleMageTower,
     //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
     // Items
@@ -368,6 +368,8 @@ const
     (FileName: 'text.party.png'; ResType: teGUI;),
     // Text "Temple"
     (FileName: 'text.temple.png'; ResType: teGUI;),
+    // Text "Tower"
+    (FileName: 'text.mage_tower.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
@@ -429,6 +431,8 @@ const
     (FileName: 'title.spellbook.png'; ResType: teGUI;),
     // Title "Journal"
     (FileName: 'title.journal.png'; ResType: teGUI;),
+    // Title "Mage Tower"
+    (FileName: 'title.mage_tower.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
