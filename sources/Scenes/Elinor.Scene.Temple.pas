@@ -222,6 +222,7 @@ begin
 
   DrawTitle(reTitleTemple);
   RenderParty;
+  RenderCharacterInfo;
 
   RenderButtons;
 end;

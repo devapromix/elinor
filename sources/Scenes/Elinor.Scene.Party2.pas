@@ -197,6 +197,7 @@ procedure TSceneParty2.Render;
     AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
     AddTextLine('Scores', Game.Statistics.GetValue(stScores));
     AddTextLine;
+    AddTextLine('Parameters', True);
     AddTextLine;
     AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed,
       TLeaderParty.Leader.MaxSpeed]));
@@ -221,15 +222,16 @@ procedure TSceneParty2.Render;
     AddTextLine('Game Difficulty', TSaga.DifficultyName[TSaga.Difficulty]);
     AddTextLine('Day', Game.Day);
     AddTextLine;
-    AddTextLine('Resources', True);
+    AddTextLine('Statistics', True);
     AddTextLine;
     AddTextLine('Gold Mines/Gold', Game.Gold.Mines, Game.Gold.Value);
     AddTextLine('Mana Mines/Mana', Game.Mana.Mines, Game.Mana.Value);
+    AddTextLine('Gold/Mana Mined', Game.Statistics.GetValue(stGoldMined),
+      Game.Statistics.GetValue(stManaMined));
     AddTextLine;
-    AddTextLine('Statistics', True);
+    AddTextLine('Parameters', True);
     AddTextLine;
-    AddTextLine('Gold Mined', Game.Statistics.GetValue(stGoldMined));
-    AddTextLine('Mana Mined', Game.Statistics.GetValue(stManaMined));
+    AddTextLine('Leadership 5');
   end;
 
   procedure RenderButtons;

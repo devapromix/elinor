@@ -110,12 +110,12 @@ begin
       AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum)
         .Description[I]);
     AddTextLine;
-    AddTextLine;
     AddTextLine('Equipment', True);
     AddTextLine;
     AddTextLine(Format('Weapon: %s',
       [TCreature.EquippedWeapon(TCreature.Character(CurCrEnum).AttackEnum,
       TCreature.Character(CurCrEnum).SourceEnum)]));
+    AddTextLine('Parameters', True);
     AddTextLine;
     AddTextLine('Speed', TLeaderParty.GetMaxSpeed(CurCrEnum));
     AddTextLine('Radius', TLeaderParty.GetRadius(CurCrEnum));
