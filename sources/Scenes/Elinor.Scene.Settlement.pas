@@ -19,9 +19,9 @@ type
 type
   TSceneSettlement = class(TSceneFrames)
   private type
-    TButtonEnum = (btTower, btTemple, btHire, btParty, btClose);
+    TButtonEnum = (btTemple, btHire, btParty, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextTower, reTextTemple,
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextTemple,
       reTextHire, reTextParty, reTextClose);
     procedure ShowTempleScene;
   private
@@ -357,7 +357,7 @@ end;
 procedure TSceneSettlement.ShowMageTowerScene;
 begin
   // TSceneMageTower.ShowScene;
-  Game.MediaPlayer.PlaySound(mmClick);
+  //Game.MediaPlayer.PlaySound(mmClick);
 end;
 
 procedure TSceneSettlement.ShowPartyScene;
@@ -414,8 +414,8 @@ begin
       Hire;
     K_P:
       ShowPartyScene;
-    K_M:
-      ShowMageTowerScene;
+    //K_M:
+    //  ShowMageTowerScene;
     K_T:
       ShowTempleScene;
     K_LEFT, K_KP_4, K_A:

@@ -369,7 +369,7 @@ const
     // Text "Temple"
     (FileName: 'text.temple.png'; ResType: teGUI;),
     // Text "Tower"
-    (FileName: 'text.mage_tower.png'; ResType: teGUI;),
+    (FileName: 'text.tower.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
