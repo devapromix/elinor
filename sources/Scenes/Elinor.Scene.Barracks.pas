@@ -15,9 +15,9 @@ uses
 type
   TSceneBarracks = class(TSceneBaseParty)
   private type
-    TButtonEnum = (btHeal, btRevive, btParty, btClose);
+    TButtonEnum = (btRecruit, btDismiss, btParty, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextHeal, reTextRevive,
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextRecruit, reTextDismiss,
       reTextParty, reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
@@ -27,8 +27,8 @@ type
     procedure Heal;
     procedure Revive;
     procedure ShowPartyScene;
-    procedure ReviveCreature;
-    procedure HealCreature;
+    procedure DismissCreature;
+    procedure RecruitCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -137,7 +137,7 @@ procedure TSceneBarracks.Heal;
       ConfirmParty := AParty;
       ConfirmPartyPosition := APosition;
       ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
-        HealCreature);
+        RecruitCreature);
     end;
   end;
 
@@ -146,7 +146,7 @@ begin
   HealIt(CurrentParty, ActivePartyPosition);
 end;
 
-procedure TSceneBarracks.HealCreature;
+procedure TSceneBarracks.RecruitCreature;
 begin
   Game.Gold.Modify(-ConfirmGold);
   ConfirmParty.Heal(ConfirmPartyPosition);
@@ -159,9 +159,9 @@ begin
   case AButton of
     mbLeft:
       begin
-        if Button[btHeal].MouseDown then
+        if Button[btRecruit].MouseDown then
           Heal
-        else if Button[btRevive].MouseDown then
+        else if Button[btDismiss].MouseDown then
           Revive
         else if Button[btParty].MouseDown then
           ShowPartyScene
@@ -257,7 +257,7 @@ procedure TSceneBarracks.Revive;
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
         ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
-          ReviveCreature);
+          DismissCreature);
       end;
     end;
   end;
@@ -267,7 +267,7 @@ begin
   ReviveIt(CurrentParty, ActivePartyPosition);
 end;
 
-procedure TSceneBarracks.ReviveCreature;
+procedure TSceneBarracks.DismissCreature;
 begin
   Game.Gold.Modify(-ConfirmGold);
   ConfirmParty.Revive(ConfirmPartyPosition);
