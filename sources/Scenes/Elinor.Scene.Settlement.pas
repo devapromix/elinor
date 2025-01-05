@@ -40,6 +40,7 @@ type
     procedure MoveUnit;
     procedure ShowPartyScene;
     procedure ShowMageTowerScene;
+    procedure ShowBarracksScene;
   public
     constructor Create;
     destructor Destroy; override;
@@ -354,6 +355,11 @@ begin
   end;
 end;
 
+procedure TSceneSettlement.ShowBarracksScene;
+begin
+
+end;
+
 procedure TSceneSettlement.ShowMageTowerScene;
 begin
   // TSceneMageTower.ShowScene;
@@ -412,6 +418,8 @@ begin
     // scSettlement, True);
     K_H:
       Hire;
+    K_B:
+      ShowBarracksScene;
     K_P:
       ShowPartyScene;
     //K_M:
