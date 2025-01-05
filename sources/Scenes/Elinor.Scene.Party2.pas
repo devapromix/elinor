@@ -14,10 +14,10 @@ uses
 type
   TSceneParty2 = class(TSceneBaseParty)
   private type
-    TButtonEnum = (btAbilities, btInventory, btDismiss, btClose);
+    TButtonEnum = (btAbilities, btInventory, btSpellbook, btClose);
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextAbilities,
-      reTextInventory, reTextDismiss, reTextClose);
+      reTextInventory, reTextSpellbook, reTextClose);
   private
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
@@ -143,7 +143,7 @@ begin
           ShowAbilitiesScene
         else if Button[btInventory].MouseDown then
           ShowInventoryScene
-        else if Button[btDismiss].MouseDown then
+        else if Button[btSpellbook].MouseDown then
           Dismiss
         else if Button[btClose].MouseDown then
           HideScene

@@ -19,10 +19,10 @@ type
 type
   TSceneSettlement = class(TSceneFrames)
   private type
-    TButtonEnum = (btTemple, btHire, btParty, btClose);
+    TButtonEnum = (btTemple, btBarracks, btParty, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextTemple,
-      reTextHire, reTextParty, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextTemple, reTextBarracks,
+      reTextParty, reTextClose);
     procedure ShowTempleScene;
   private
   class var
@@ -67,7 +67,7 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Temple,
   Elinor.Scene.Party2,
-  Elinor.Scene.Hire;
+  Elinor.Scene.Hire, Elinor.Scene.Barracks;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -231,8 +231,8 @@ begin
       end;
     mbLeft:
       begin
-        if Button[btHire].MouseDown then
-          Hire
+        if Button[btBarracks].MouseDown then
+          ShowBarracksScene
         else if Button[btTemple].MouseDown then
           ShowTempleScene
         else if Button[btParty].MouseDown then
@@ -357,13 +357,26 @@ end;
 
 procedure TSceneSettlement.ShowBarracksScene;
 begin
+  case ActivePartyPosition of
+    0 .. 5:
+      begin
+        TSceneBarracks.ShowScene(TLeaderParty.Leader);
+        Game.MediaPlayer.PlaySound(mmClick);
+      end
+  else
+    if not SettlementParty.IsClear then
+    begin
+      TSceneBarracks.ShowScene(SettlementParty);
+      Game.MediaPlayer.PlaySound(mmClick);
+    end;
+  end;
 
 end;
 
 procedure TSceneSettlement.ShowMageTowerScene;
 begin
   // TSceneMageTower.ShowScene;
-  //Game.MediaPlayer.PlaySound(mmClick);
+  // Game.MediaPlayer.PlaySound(mmClick);
 end;
 
 procedure TSceneSettlement.ShowPartyScene;
@@ -416,14 +429,12 @@ begin
     // K_I:
     // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
     // scSettlement, True);
-    K_H:
-      Hire;
     K_B:
       ShowBarracksScene;
     K_P:
       ShowPartyScene;
-    //K_M:
-    //  ShowMageTowerScene;
+    // K_M:
+    // ShowMageTowerScene;
     K_T:
       ShowTempleScene;
     K_LEFT, K_KP_4, K_A:
