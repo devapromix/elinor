@@ -23,6 +23,10 @@ type
     BB: Boolean;
     BT: Boolean;
     procedure ShowPartyScene;
+    procedure ShowScenarioScene;
+    procedure ShowSpellbookScene;
+    procedure ShowAbilitiesScene;
+    procedure ShowInventoryScene;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -154,6 +158,26 @@ begin
     LastMousePos.X := MousePos.X;
     LastMousePos.Y := MousePos.Y;
   end;
+end;
+
+procedure TSceneMap.ShowInventoryScene;
+begin
+  TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+end;
+
+procedure TSceneMap.ShowAbilitiesScene;
+begin
+  TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, False, True);
+end;
+
+procedure TSceneMap.ShowSpellbookScene;
+begin
+  TSceneSpellbook.Show;
+end;
+
+procedure TSceneMap.ShowScenarioScene;
+begin
+  TSceneScenario.Show;
 end;
 
 procedure TSceneMap.ShowPartyScene;
@@ -313,42 +337,41 @@ begin
         Game.MediaPlayer.PlaySound(mmSettlement);
         Game.Show(scMenu);
       end;
-    K_LEFT, K_KP_4, K_A:
+    K_LEFT, K_KP_4:
       TLeaderParty.Leader.Move(drWest);
-    K_RIGHT, K_KP_6, K_D:
+    K_RIGHT, K_KP_6:
       TLeaderParty.Leader.Move(drEast);
-    K_UP, K_KP_8, K_W:
+    K_UP, K_KP_8:
       TLeaderParty.Leader.Move(drNorth);
-    K_DOWN, K_KP_2, K_X:
+    K_DOWN, K_KP_2:
       TLeaderParty.Leader.Move(drSouth);
-    K_KP_7, K_Q:
+    K_KP_7:
       TLeaderParty.Leader.Move(drNorthWest);
-    K_KP_9, K_E:
+    K_KP_9:
       TLeaderParty.Leader.Move(drNorthEast);
-    K_KP_1, K_Z:
+    K_KP_1:
       TLeaderParty.Leader.Move(drSouthWest);
-    K_KP_3, K_C:
+    K_KP_3:
       TLeaderParty.Leader.Move(drSouthEast);
-    K_ENTER, K_KP_5, K_S:
+    K_ENTER, K_W, K_KP_5:
       TLeaderParty.Leader.Move(drOrigin);
     K_M:
       FM := not FM;
     K_K:
       Game.Map.Clear(lrPath);
     K_I:
-      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+      ShowInventoryScene;
     K_T:
-      TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap,
-        False, True);
+      ShowAbilitiesScene;
     K_V:
       if (TLeaderParty.Leader.Enum in LeaderWarrior) then
         TSceneHire.Show(stWar);
     K_P:
       ShowPartyScene;
     K_J:
-      TSceneScenario.Show;
-    K_H:
-      TSceneSpellbook.Show;
+      ShowScenarioScene;
+    K_S:
+      ShowSpellbookScene;
   end;
 end;
 
