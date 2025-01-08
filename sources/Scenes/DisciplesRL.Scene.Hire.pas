@@ -98,7 +98,7 @@ type
 const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
     // Character
-    (reTextHire, reTextClose),
+    (reTextRecruit, reTextClose),
     // Victory
     (reTextClose, reTextClose),
     // Defeat

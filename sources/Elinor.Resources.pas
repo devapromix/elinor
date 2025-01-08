@@ -53,9 +53,9 @@ type
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
-    reTextHire, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
+    reTextRecruit, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
-    reTextTemple, reTextTower, reTextBarracks, reTextRecruit, reTextSpellbook,
+    reTextTemple, reTextTower, reTextBarracks, reTextSpellbook,
     // Title
     reTitleTemple, reTitleHire, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -346,8 +346,8 @@ const
     (FileName: 'text.continue.png'; ResType: teGUI;),
     // Text "Dismiss"
     (FileName: 'text.dismiss.png'; ResType: teGUI;),
-    // Text "Hire"
-    (FileName: 'text.hire.png'; ResType: teGUI;),
+    // Text "Recruit"
+    (FileName: 'text.recruit.png'; ResType: teGUI;),
     // Text "Close"
     (FileName: 'text.close.png'; ResType: teGUI;),
     // Text "Ok"
@@ -379,8 +379,8 @@ const
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
-    // Title "Hire"
-    (FileName: 'title.hire.png'; ResType: teGUI;),
+    // Title "Recruit"
+    (FileName: 'title.recruit.png'; ResType: teGUI;),
     // Title "High Scores"
     (FileName: 'title.high_scores.png'; ResType: teGUI;),
     // Title "Victory"

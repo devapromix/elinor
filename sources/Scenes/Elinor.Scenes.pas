@@ -791,7 +791,7 @@ begin
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu2.Create;
   FScene[scHire] := TSceneHire.Create;
-  FScene[scHire2] := TSceneHire2.Create;
+  FScene[scHire2] := TSceneRecruit.Create;
   FScene[scParty] := TSceneParty2.Create;
   FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;

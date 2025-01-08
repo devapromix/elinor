@@ -11,11 +11,11 @@ uses
   Elinor.Scene.Menu.Wide;
 
 type
-  TSceneHire2 = class(TSceneWideMenu)
+  TSceneRecruit = class(TSceneWideMenu)
   private type
     TButtonEnum = (btHire, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextHire, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextRecruit, reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
     procedure Hire;
@@ -49,7 +49,7 @@ var
 
   { TSceneHire }
 
-constructor TSceneHire2.Create;
+constructor TSceneRecruit.Create;
 var
   LButtonEnum: TButtonEnum;
   LLeft, LWidth: Integer;
@@ -67,7 +67,7 @@ begin
   end;
 end;
 
-destructor TSceneHire2.Destroy;
+destructor TSceneRecruit.Destroy;
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -76,14 +76,14 @@ begin
   inherited;
 end;
 
-class procedure TSceneHire2.HideScene;
+class procedure TSceneRecruit.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
   Game.Show(scSettlement);
 end;
 
-procedure TSceneHire2.Hire;
+procedure TSceneRecruit.Hire;
 var
   LCreatureEnum: TCreatureEnum;
 begin
@@ -100,12 +100,12 @@ begin
     InformDialog('Не хватает денег!');
 end;
 
-class function TSceneHire2.HireIndex: Integer;
+class function TSceneRecruit.HireIndex: Integer;
 begin
   // Result := CurrentIndex;
 end;
 
-procedure TSceneHire2.MouseDown(AButton: TMouseButton; Shift: TShiftState;
+procedure TSceneRecruit.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
@@ -120,7 +120,7 @@ begin
   end;
 end;
 
-procedure TSceneHire2.MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TSceneRecruit.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -129,7 +129,7 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneHire2.Render;
+procedure TSceneRecruit.Render;
 
   procedure RenderCharacters;
   var
@@ -176,7 +176,7 @@ procedure TSceneHire2.Render;
 
 begin
   inherited;
-  DrawTitle(reTitleHire);
+  DrawTitle(reTitleRecruit);
 
   RenderCharacters;
   RenderCharacterInfo;
@@ -184,7 +184,7 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneHire2.ShowScene(const AParty: TParty;
+class procedure TSceneRecruit.ShowScene(const AParty: TParty;
   const APosition: Integer);
 begin
   HireParty := AParty;
@@ -192,13 +192,13 @@ begin
   Game.Show(scHire2);
 end;
 
-procedure TSceneHire2.Timer;
+procedure TSceneRecruit.Timer;
 begin
   inherited;
 
 end;
 
-procedure TSceneHire2.Update(var Key: Word);
+procedure TSceneRecruit.Update(var Key: Word);
 begin
   inherited;
   case Key of

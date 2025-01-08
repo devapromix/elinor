@@ -35,11 +35,9 @@ type
     IsUnitSelected: Boolean;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure Hire;
     procedure MoveCursor(Dir: TDirectionEnum);
     procedure MoveUnit;
     procedure ShowPartyScene;
-    procedure ShowMageTowerScene;
     procedure ShowBarracksScene;
   public
     constructor Create;
@@ -67,7 +65,8 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Temple,
   Elinor.Scene.Party2,
-  Elinor.Scene.Hire, Elinor.Scene.Barracks;
+  Elinor.Scene.Hire,
+  Elinor.Scene.Barracks;
 
 procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
 begin
@@ -110,47 +109,6 @@ begin
       end;
   end;
   Game.Render;
-end;
-
-procedure TSceneSettlement.Hire;
-
-  procedure HireIt(const AParty: TParty; const APosition: Integer);
-  begin
-    with AParty.Creature[APosition] do
-    begin
-      if Active then
-      begin
-        InformDialog('Выберите пустой слот!');
-        Exit;
-      end;
-      if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and
-        (Party[TLeaderParty.LeaderPartyIndex].Count <
-        TLeaderParty.Leader.Leadership)) or
-        (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
-      begin
-        TSceneHire2.ShowScene(AParty, APosition);
-      end
-      else
-      begin
-        if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
-          Leadership) then
-          InformDialog('Нужно развить лидерство!')
-        else
-          InformDialog('Не возможно нанять!');
-        Exit;
-      end;
-    end;
-  end;
-
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  CurrentPartyPosition := ActivePartyPosition;
-  case ActivePartyPosition of
-    0 .. 5:
-      HireIt(Party[TLeaderParty.LeaderPartyIndex], ActivePartyPosition);
-    6 .. 11:
-      HireIt(SettlementParty, ActivePartyPosition - 6);
-  end;
 end;
 
 class procedure TSceneSettlement.HideScene;
@@ -373,12 +331,6 @@ begin
 
 end;
 
-procedure TSceneSettlement.ShowMageTowerScene;
-begin
-  // TSceneMageTower.ShowScene;
-  // Game.MediaPlayer.PlaySound(mmClick);
-end;
-
 procedure TSceneSettlement.ShowPartyScene;
 begin
   case ActivePartyPosition of
@@ -424,17 +376,10 @@ begin
       end;
     K_ESCAPE, K_ENTER:
       HideScene;
-    // K_J:
-    // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scSettlement);
-    // K_I:
-    // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex],
-    // scSettlement, True);
     K_B:
       ShowBarracksScene;
     K_P:
       ShowPartyScene;
-    // K_M:
-    // ShowMageTowerScene;
     K_T:
       ShowTempleScene;
     K_LEFT, K_KP_4, K_A:

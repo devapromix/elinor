@@ -28,7 +28,6 @@ type
     procedure Dismiss;
     procedure ShowPartyScene;
     procedure DismissCreature;
-    procedure RecruitCreature;
   public
     constructor Create;
     destructor Destroy; override;
@@ -52,7 +51,7 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
-  Elinor.Creatures;
+  Elinor.Creatures, Elinor.Scene.Hire;
 
 var
   ShowResources: Boolean;
@@ -109,47 +108,38 @@ begin
 end;
 
 procedure TSceneBarracks.Recruit;
-  procedure HealIt(const AParty: TParty; const APosition: Integer);
+
+  procedure RecruitIt(const AParty: TParty; const APosition: Integer);
   begin
     with AParty.Creature[APosition] do
     begin
-      if not Active then
+      if Active then
       begin
-        InformDialog('Выберите не пустой слот!');
+        InformDialog('Выберите пустой слот!');
         Exit;
       end;
-      if HitPoints <= 0 then
+      if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and
+        (Party[TLeaderParty.LeaderPartyIndex].Count <
+        TLeaderParty.Leader.Leadership)) or
+        (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
       begin
-        InformDialog('Сначала нужно воскресить!');
+        TSceneRecruit.ShowScene(AParty, APosition);
+      end
+      else
+      begin
+        if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
+          Leadership) then
+          InformDialog('Нужно развить лидерство!')
+        else
+          InformDialog('Не возможно нанять!');
         Exit;
       end;
-      if HitPoints = MaxHitPoints then
-      begin
-        InformDialog('Не нуждается в исцелении!');
-        Exit;
-      end;
-      ConfirmGold := TLeaderParty.Leader.GetGold(MaxHitPoints - HitPoints);
-      if (ConfirmGold > Game.Gold.Value) then
-      begin
-        InformDialog('Нужно больше золота!');
-        Exit;
-      end;
-      ConfirmParty := AParty;
-      ConfirmPartyPosition := APosition;
-      ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
-        RecruitCreature);
     end;
   end;
 
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  HealIt(CurrentParty, ActivePartyPosition);
-end;
-
-procedure TSceneBarracks.RecruitCreature;
-begin
-  Game.Gold.Modify(-ConfirmGold);
-  ConfirmParty.Heal(ConfirmPartyPosition);
+  RecruitIt(CurrentParty, ActivePartyPosition);
 end;
 
 procedure TSceneBarracks.MouseDown(AButton: TMouseButton; Shift: TShiftState;
