@@ -18,7 +18,7 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextRecruit, reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
-    procedure Hire;
+    procedure Recruit;
   public
     constructor Create;
     destructor Destroy; override;
@@ -83,7 +83,7 @@ begin
   Game.Show(scSettlement);
 end;
 
-procedure TSceneRecruit.Hire;
+procedure TSceneRecruit.Recruit;
 var
   LCreatureEnum: TCreatureEnum;
 begin
@@ -113,7 +113,7 @@ begin
     mbLeft:
       begin
         if Button[btHire].MouseDown then
-          Hire
+          Recruit
         else if Button[btClose].MouseDown then
           HideScene;
       end;
@@ -204,8 +204,8 @@ begin
   case Key of
     K_ESCAPE:
       HideScene;
-    K_ENTER:
-      Hire;
+    K_ENTER, K_R:
+      Recruit;
   end;
 end;
 

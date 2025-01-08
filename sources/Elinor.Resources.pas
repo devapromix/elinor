@@ -57,7 +57,7 @@ type
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook,
     // Title
-    reTitleTemple, reTitleHire, reTitleHighScores, reTitleVictory,
+    reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
     reTextNewDay, reTitleLoot, reTitleParty, reTitleBattle, reTitleVorgel,
     reTitleEntarion, reTitleTardum, reTitleTemond, reTitleZerton, reTitleDoran,
@@ -372,8 +372,6 @@ const
     (FileName: 'text.tower.png'; ResType: teGUI;),
     // Text "Barracks"
     (FileName: 'text.barracks.png'; ResType: teGUI;),
-    // Text "Recruit"
-    (FileName: 'text.recruit.png'; ResType: teGUI;),
     // Text "Spellbook"
     (FileName: 'text.spellbook.png'; ResType: teGUI;),
 

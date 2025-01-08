@@ -172,7 +172,7 @@ begin
     K_ENTER:
       if FF then
         Continue;
-    K_UP:
+    K_UP, K_KP_8:
       begin
         Game.MediaPlayer.PlaySound(mmClick);
         case CurrentIndex of
@@ -180,7 +180,7 @@ begin
             CurrentIndex := CurrentIndex - 1;
         end;
       end;
-    K_Down:
+    K_DOWN, K_KP_2:
       begin
         Game.MediaPlayer.PlaySound(mmClick);
         case CurrentIndex of
@@ -188,7 +188,7 @@ begin
             CurrentIndex := CurrentIndex + 1;
         end;
       end;
-    K_LEFT:
+    K_LEFT, K_KP_4:
       begin
         Game.MediaPlayer.PlaySound(mmClick);
         case CurrentIndex of
@@ -196,7 +196,7 @@ begin
             CurrentIndex := CurrentIndex - 3;
         end;
       end;
-    K_RIGHT:
+    K_RIGHT, K_KP_6:
       begin
         Game.MediaPlayer.PlaySound(mmClick);
         case CurrentIndex of

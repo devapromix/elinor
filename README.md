@@ -11,7 +11,7 @@ of their gods.
 * WADX, Arrows, Numeric Keypad - select character
 * RMB on empty slot - move character to another slot
 * Space - Select slot or character/move character
-* P - Open party screen
+* P - Open party/statistics screen
 * I - Open leader's equipment/inventory
 * S - Open spellbook (show list of learned leader spells)
 * A - Show list of learned leader abilities
@@ -21,20 +21,24 @@ of their gods.
 ### 2. In barracks scene:
 * Esc/Enter - Close scene
 * Arrows, Numeric keypad - select character's slot
-* R - Recruit a new warrior to the party (if you have enough gold coins)
+* R - Open recruit scene
 * D - Dismiss the warrior (if it is not the party leader or capital guardian)
 * P - Open party/statistics screen
 
-### 3. In temple scene:
+### 3. In recruit scene:
+* Esc - Close scene
+* Arrows, Numeric keypad - select character's slot
+* R, Enter - Recruit a new warrior to the party (if you have enough gold coins)
+
+### 4. In temple scene:
 * Esc/Enter - Close scene
 * Arrows, Numeric keypad - select character's slot
 * H - Heal a creature (if you have enough gold coins)
 * R - Revive a creature (if you have enough gold coins)
 * P - Open party/statistics screen
 	
-### 4. On the map:
+### 5. On the map:
 * Esc - Exit to main menu
-* QWEADZXC, Стрелки, Цифр. клавиатура - выбрать персонажа
 * W, Enter, numeric key 5 - wait (if on the capital/city tile - enter the capital/city)
 * P - Open leader's party/statistics screen
 * J - открыть журнал (информация по текущему сценарию)
@@ -42,12 +46,12 @@ of their gods.
 * S - Open spellbook (show list of learned leader spells)
 * A - Show list of learned leader abilities
 	
-### 5. In battle scene:
+### 6. In battle scene:
 * Esc/Enter - Exit (if win/lose)
 * WADX, Arrows, Numeric keypad - Select enemy character
 * Space, LMB on character - Attack enemy character
 	
-### 6. In leader's scene:
+### 7. In leader's scene:
 * Esc/Enter - Close scene
 * I - Open leader's equipment/inventory
 * S - Open spellbook (show list of learned leader spells)
