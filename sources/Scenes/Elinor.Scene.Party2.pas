@@ -24,8 +24,7 @@ type
     Button: array [TButtonEnum] of TButton;
     procedure ShowAbilitiesScene;
     procedure ShowInventoryScene;
-    procedure Dismiss;
-    procedure DismissCreature;
+    procedure ShowSpellbookScene;
   public
     constructor Create;
     destructor Destroy; override;
@@ -91,42 +90,6 @@ begin
   inherited;
 end;
 
-procedure TSceneParty2.Dismiss;
-
-  procedure DismissIt(const AParty: TParty; const APosition: Integer);
-  begin
-    with AParty.Creature[APosition] do
-    begin
-      if not Active then
-      begin
-        InformDialog('Выберите не пустой слот!');
-        Exit;
-      end;
-      if Leadership > 0 then
-      begin
-        InformDialog('Не возможно уволить!');
-        Exit;
-      end
-      else
-      begin
-        ConfirmParty := AParty;
-        ConfirmPartyPosition := APosition;
-        ConfirmDialog('Отпустить воина?', DismissCreature);
-      end;
-    end;
-  end;
-
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  DismissIt(CurrentParty, ActivePartyPosition);
-end;
-
-procedure TSceneParty2.DismissCreature;
-begin
-  if ConfirmParty.Dismiss(ConfirmPartyPosition) then
-    Game.MediaPlayer.PlaySound(mmDismiss);
-end;
-
 procedure TSceneParty2.ShowInventoryScene;
 begin
 
@@ -144,7 +107,7 @@ begin
         else if Button[btInventory].MouseDown then
           ShowInventoryScene
         else if Button[btSpellbook].MouseDown then
-          Dismiss
+          ShowSpellbookScene
         else if Button[btClose].MouseDown then
           HideScene
       end;
@@ -273,6 +236,11 @@ begin
   Game.MediaPlayer.PlaySound(mmSettlement);
 end;
 
+procedure TSceneParty2.ShowSpellbookScene;
+begin
+
+end;
+
 class procedure TSceneParty2.HideScene;
 begin
   Game.Show(CloseScene);
@@ -296,8 +264,8 @@ begin
       ShowAbilitiesScene;
     K_I:
       ShowInventoryScene;
-    K_D:
-      Dismiss;
+    K_S:
+      ShowSpellbookScene;
   end;
 end;
 

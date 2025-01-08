@@ -24,8 +24,8 @@ type
     ConfirmGold: Integer;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure Heal;
-    procedure Revive;
+    procedure Recruit;
+    procedure Dismiss;
     procedure ShowPartyScene;
     procedure DismissCreature;
     procedure RecruitCreature;
@@ -108,7 +108,7 @@ begin
   inherited;
 end;
 
-procedure TSceneBarracks.Heal;
+procedure TSceneBarracks.Recruit;
   procedure HealIt(const AParty: TParty; const APosition: Integer);
   begin
     with AParty.Creature[APosition] do
@@ -160,9 +160,9 @@ begin
     mbLeft:
       begin
         if Button[btRecruit].MouseDown then
-          Heal
+          Recruit
         else if Button[btDismiss].MouseDown then
-          Revive
+          Dismiss
         else if Button[btParty].MouseDown then
           ShowPartyScene
         else if Button[btClose].MouseDown then
@@ -227,9 +227,9 @@ begin
   RenderButtons;
 end;
 
-procedure TSceneBarracks.Revive;
+procedure TSceneBarracks.Dismiss;
 
-  procedure ReviveIt(const AParty: TParty; const APosition: Integer);
+  procedure DismissIt(const AParty: TParty; const APosition: Integer);
   begin
     with AParty.Creature[APosition] do
     begin
@@ -238,39 +238,29 @@ procedure TSceneBarracks.Revive;
         InformDialog('Выберите не пустой слот!');
         Exit;
       end;
-      if HitPoints > 0 then
+      if Leadership > 0 then
       begin
-        InformDialog('Не нуждается в воскрешении!');
+        InformDialog('Не возможно уволить!');
         Exit;
       end
       else
       begin
-        ConfirmGold := TLeaderParty.Leader.GetGold
-          (MaxHitPoints + (Level * ((Ord(TSaga.Difficulty) + 1) *
-          TSaga.GoldForRevivePerLevel)));
-        if (Game.Gold.Value < ConfirmGold) then
-        begin
-          InformDialog(Format('Для воскрешения нужно %d золота!',
-            [ConfirmGold]));
-          Exit;
-        end;
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
-        ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
-          DismissCreature);
+        ConfirmDialog('Отпустить воина?', DismissCreature);
       end;
     end;
   end;
 
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  ReviveIt(CurrentParty, ActivePartyPosition);
+  DismissIt(CurrentParty, ActivePartyPosition);
 end;
 
 procedure TSceneBarracks.DismissCreature;
 begin
-  Game.Gold.Modify(-ConfirmGold);
-  ConfirmParty.Revive(ConfirmPartyPosition);
+  if ConfirmParty.Dismiss(ConfirmPartyPosition) then
+    Game.MediaPlayer.PlaySound(mmDismiss);
 end;
 
 procedure TSceneBarracks.Timer;
@@ -285,12 +275,12 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       HideScene;
-    K_H:
-      Heal;
+    K_R:
+      Recruit;
     K_P:
       ShowPartyScene;
-    K_R:
-      Revive;
+    K_D:
+      Dismiss;
   end;
 end;
 
