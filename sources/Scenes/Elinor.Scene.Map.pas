@@ -68,15 +68,14 @@ begin
       begin
         if BB then
           Exit;
-
-        if CurrentSpell then
+        if CurrentSpell = spTrueHealing then
         begin
           // Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
           CurrentPartyIndex := TSaga.GetPartyIndex(MousePos.X, MousePos.Y);
           if CurrentPartyIndex > 0 then
           begin
             Party[CurrentPartyIndex].HealAll(25);
-            CurrentSpell := False;
+            CurrentSpell := spNone;
           end;
           Exit;
         end;
@@ -89,6 +88,8 @@ begin
       end;
     mbRight:
       begin
+        if CurrentSpell <> spNone then
+          Exit;
         if BB then
           Exit;
 
@@ -272,7 +273,7 @@ begin
           ResImage[reDark]);
     end;
   // Cursor
-  if CurrentSpell then
+  if CurrentSpell <> spNone then
   begin
     // for X := MousePos.X - 1 to MousePos.X + 1 do
     // for Y := MousePos.Y - 1 to MousePos.Y + 1 do
@@ -327,9 +328,9 @@ begin
   case Key of
     K_ESCAPE:
       begin
-        if CurrentSpell then
+        if CurrentSpell <> spNone then
         begin
-          CurrentSpell := False;
+          CurrentSpell := spNone;
           Exit;
         end;
         Game.MediaPlayer.PlayMusic(mmMenu);

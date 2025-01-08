@@ -2,8 +2,11 @@
 
 interface
 
+type
+  TSpellEnum = (spNone, spTrueHealing);
+
 var
-  CurrentSpell: Boolean = False;
+  CurrentSpell: TSpellEnum = spNone;
 
 implementation
 

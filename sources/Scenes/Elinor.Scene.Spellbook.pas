@@ -16,7 +16,7 @@ type
   private type
     TButtonEnum = (btCast, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextRecruit, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextCast, reTextClose);
   private
   class var
     Button: array [TButtonEnum] of TButton;
@@ -55,7 +55,7 @@ var
 
 procedure TSceneSpellbook.CastSpell;
 begin
-  CurrentSpell := True;
+  CurrentSpell := spTrueHealing;
   Game.MediaPlayer.PlaySound(mmSpellbook);
   Game.Show(scMap);
 end;

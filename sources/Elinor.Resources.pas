@@ -55,7 +55,7 @@ type
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
     reTextRecruit, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
-    reTextTemple, reTextTower, reTextBarracks, reTextSpellbook,
+    reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -374,6 +374,8 @@ const
     (FileName: 'text.barracks.png'; ResType: teGUI;),
     // Text "Spellbook"
     (FileName: 'text.spellbook.png'; ResType: teGUI;),
+    // Text "Cast"
+    (FileName: 'text.cast.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
