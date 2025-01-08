@@ -1,61 +1,74 @@
 ﻿![screenshot](https://github.com/devapromix/elinor/blob/master/resources/title.logo.png)
 
-Simple party roguelike game based on Disciples game.
+Set in the magical realm of the Sacred Lands, three races - the Empire, 
+the Legions of the Damned, and the Undead Hordes - battle for the destiny 
+of their gods.
 
 ## I. Keybindings:
 
-### 1. В столице/городе:
-* Esc/Enter - выход из города (карта мира)
-* WADX, Стрелки, Цифр. клавиатура - выбрать персонажа
-* ПКМ по пустому слоту - переместить персонажа в другой слот
-* P - Open leader's party screen
-* Space - выбрать слот или персонажа/переместить персонажа
-* V - нанять нового персонажа
-* H - исцелить персонажа
-* R - воскресить персонажа
-* J - отпустить персонажа
-* I - Открыть экипировку/инвентарь лидера (см. пункт 4)
-* T - Открыть список изученных навыков лидера (см. пункт 4)
+### 1. In capital/city:
+* Esc/Enter - Exit from the capital/city (world map)
+* WADX, Arrows, Numeric Keypad - select character
+* RMB on empty slot - move character to another slot
+* Space - Select slot or character/move character
+* P - Open party screen
+* I - Open leader's equipment/inventory
+* S - Open spellbook (show list of learned leader spells)
+* A - Show list of learned leader abilities
+* T - Show temple scene
+* B - Show barracks scene
 
-### 2. На карте мира:
-* Esc - выход в меню
+### 2. In barracks scene:
+* Esc/Enter - Close scene
+* Arrows, Numeric keypad - select character's slot
+* R - Recruit a new warrior to the party (if you have enough gold coins)
+* D - Dismiss the warrior (if it is not the party leader or capital guardian)
+* P - Open party/statistics screen
+
+### 3. In temple scene:
+* Esc/Enter - Close scene
+* Arrows, Numeric keypad - select character's slot
+* H - Heal a creature (if you have enough gold coins)
+* R - Revive a creature (if you have enough gold coins)
+* P - Open party/statistics screen
+	
+### 4. On the map:
+* Esc - Exit to main menu
 * QWEADZXC, Стрелки, Цифр. клавиатура - выбрать персонажа
-* Enter, S, цифр. клав. 5 - ждать, если на тайле столицы/города - войти в город
-* СКМ по вражескому отряду- меню выбора действий вора (только лидер вор)
-* СКМ по столице/дружественному городу - информация о гарнизоне
-* СКМ по собственному отряду, V - меню выбора действий воина (только лидер воин)
+* W, Enter, numeric key 5 - wait (if on the capital/city tile - enter the capital/city)
 * P - Open leader's party/statistics screen
 * J - открыть журнал (информация по текущему сценарию)
-* I - Открыть экипировку/инвентарь лидера (см. пункт 4)
-* T - Открыть список изученных навыков лидера (см. пункт 4)
-* H - Открыть книгу магии
+* I - Open leader's equipment/inventory
+* S - Open spellbook (show list of learned leader spells)
+* A - Show list of learned leader abilities
 	
-### 3. На поле боя:
-* Esc/Enter - выход (если победа/поражение)
-* WADX, Стрелки, Цифр. клавиатура - выбрать враж. персонажа
-* Space, ЛКМ по персонажу - атаковать враж. персонажа
+### 5. In battle scene:
+* Esc/Enter - Exit (if win/lose)
+* WADX, Arrows, Numeric keypad - Select enemy character
+* Space, LMB on character - Attack enemy character
 	
-### 4. В окне отряда:
-* Esc/Enter - выход
-* WADX, Стрелки, Цифр. клавиатура - выбрать персонажа/прокрутить информацию о навыках
-* P - Open leader's party screen
-* I - Открыть экипировку/инвентарь лидера
-* T - Показать список изученных навыков лидера
+### 6. In leader's scene:
+* Esc/Enter - Close scene
+* I - Open leader's equipment/inventory
+* S - Open spellbook (show list of learned leader spells)
+* A - Show list of learned leader abilities
 
-## II. Действия лидеров:
+## II. Actions of leaders:
 
-### 1. Воин:
+### 1. Warrior:
 
-### 2. Скаут:
+### 2. Scout:
 
-### 3. Маг:
+### 3. Mage:
 
-### 4. Вор:
-* Заслать Шпиона - лидер может видеть состав и состояние воинов вражеской партии
-* Вызвать на Дуэль - лидер вызывает вражеского лидера на дуэль	
-* Отравить Колодцы - лидер отравляет всех воинов во вражеской партии
-### 4. Лорд:
-Ауры.
+### 4. Thief:
+* Send Spy - the leader can see the composition and condition of the enemy party's warriors
+* Challenge to Duel - the leader challenges the enemy leader to a duel
+* Poison Wells - the leader poisons all warriors in the enemy party
+
+### 5. Lord:
+
+### 6. Templar:
 
 ## III. Current State
 The game is currently in demo stage with very limited contents and lots of issues to solve and improve.
@@ -64,7 +77,7 @@ The game is currently in demo stage with very limited contents and lots of issue
 Contributions are welcome! Please fork this repository and then once you have made and tested your changes, submit a pull request.
 
 ## V. Credits
-2018-2024 by Sergiy Tkach (Apromix)
+2018-2025 by Sergiy Tkach (Apromix)
 
 ### Art:
 * Gilgaphoenixignis - https://opengameart.org/users/gilgaphoenixignis
