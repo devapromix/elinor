@@ -206,7 +206,7 @@ begin
   DrawTitle(reTitleLogo);
   RenderButtons;
   RenderIcons;
-  DrawText(650, '2018-2024 by Apromix');
+  DrawText(650, '2018-2025 by Apromix');
 end;
 
 procedure TSceneMenu2.Timer;

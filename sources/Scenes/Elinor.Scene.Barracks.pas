@@ -51,7 +51,9 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
-  Elinor.Creatures, Elinor.Scene.Hire;
+  Elinor.Creatures,
+  Elinor.Scene.Hire,
+  Elinor.Statistics;
 
 var
   ShowResources: Boolean;
@@ -199,6 +201,28 @@ procedure TSceneBarracks.Render;
       DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
   end;
 
+  procedure RenderLeaderInfo;
+  begin
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(3) + 12;
+    AddTextLine('Statistics', True);
+    AddTextLine;
+    AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
+    AddTextLine('Killed Creatures',
+      Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
+    AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
+    AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
+    AddTextLine('Scores', Game.Statistics.GetValue(stScores));
+    AddTextLine;
+    AddTextLine('Parameters', True);
+    AddTextLine;
+    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed,
+      TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
+    AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
+  end;
+
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -213,6 +237,7 @@ begin
   DrawTitle(reTitleBarracks);
   RenderParty;
   RenderCharacterInfo;
+  RenderLeaderInfo;
 
   RenderButtons;
 end;

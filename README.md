@@ -8,8 +8,8 @@ of their gods.
 
 ### 1. In capital/city:
 * Esc/Enter - Exit from the capital/city (world map)
-* WADX, Arrows, Numeric Keypad - select character
-* RMB on empty slot - move character to another slot
+* WADX, Arrows, Numeric Keypad - Select character
+* RMB on empty slot - Move character to another slot
 * Space - Select slot or character/move character
 * P - Open party/statistics screen
 * I - Open leader's equipment/inventory
@@ -20,28 +20,28 @@ of their gods.
 
 ### 2. In barracks scene:
 * Esc/Enter - Close scene
-* Arrows, Numeric keypad - select character's slot
+* Arrows, Numeric keypad - Select character's slot
 * R - Open recruit scene
 * D - Dismiss the warrior (if it is not the party leader or capital guardian)
 * P - Open party/statistics screen
 
 ### 3. In recruit scene:
 * Esc - Close scene
-* Arrows, Numeric keypad - select character's slot
+* Arrows, Numeric keypad - Select character's slot
 * R, Enter - Recruit a new warrior to the party (if you have enough gold coins)
 
 ### 4. In temple scene:
 * Esc/Enter - Close scene
-* Arrows, Numeric keypad - select character's slot
+* Arrows, Numeric keypad - Select character's slot
 * H - Heal a creature (if you have enough gold coins)
 * R - Revive a creature (if you have enough gold coins)
 * P - Open party/statistics screen
 	
 ### 5. On the map:
 * Esc - Exit to main menu
-* W, Enter, numeric key 5 - wait (if on the capital/city tile - enter the capital/city)
+* W, Enter, numeric key 5 - Wait (if on the capital/city tile - enter the capital/city)
 * P - Open leader's party/statistics screen
-* J - открыть журнал (информация по текущему сценарию)
+* J - Open journal (information on the current scenario)
 * I - Open leader's equipment/inventory
 * S - Open spellbook (show list of learned leader spells)
 * A - Show list of learned leader abilities

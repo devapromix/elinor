@@ -80,7 +80,7 @@ class procedure TSceneRecruit.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
-  Game.Show(scSettlement);
+  Game.Show(scBarracks);
 end;
 
 procedure TSceneRecruit.Recruit;
