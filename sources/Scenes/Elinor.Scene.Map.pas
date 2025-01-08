@@ -66,20 +66,8 @@ begin
   case Button of
     mbLeft:
       begin
-        if BB then
+        if Spells.CastAt(MousePos.X, MousePos.Y) or BB then
           Exit;
-        if CurrentSpell = spTrueHealing then
-        begin
-          // Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
-          CurrentPartyIndex := TSaga.GetPartyIndex(MousePos.X, MousePos.Y);
-          if CurrentPartyIndex > 0 then
-          begin
-            Party[CurrentPartyIndex].HealAll(25);
-            CurrentSpell := spNone;
-          end;
-          Exit;
-        end;
-
         if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
           TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
         else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
@@ -88,7 +76,7 @@ begin
       end;
     mbRight:
       begin
-        if CurrentSpell <> spNone then
+        if Spells.Current <> spNone then
           Exit;
         if BB then
           Exit;
@@ -273,7 +261,7 @@ begin
           ResImage[reDark]);
     end;
   // Cursor
-  if CurrentSpell <> spNone then
+  if Spells.Current <> spNone then
   begin
     // for X := MousePos.X - 1 to MousePos.X + 1 do
     // for Y := MousePos.Y - 1 to MousePos.Y + 1 do
@@ -328,9 +316,9 @@ begin
   case Key of
     K_ESCAPE:
       begin
-        if CurrentSpell <> spNone then
+        if Spells.Current <> spNone then
         begin
-          CurrentSpell := spNone;
+          Spells.Current := spNone;
           Exit;
         end;
         Game.MediaPlayer.PlayMusic(mmMenu);

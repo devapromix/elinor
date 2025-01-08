@@ -3,15 +3,10 @@
 interface
 
 uses
-{$IFDEF FPC}
-  Graphics,
-  Controls,
-{$ELSE}
+  System.Classes,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
-{$ENDIF}
-  Classes,
   Elinor.Creatures,
   Elinor.Saga,
   Elinor.Map,
