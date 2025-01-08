@@ -3,13 +3,9 @@
 interface
 
 uses
-  Elinor.Scene.Frames,
-{$IFDEF FPC}
-  Controls,
-{$ELSE}
   Vcl.Controls,
-{$ENDIF}
-  Classes,
+  System.Classes,
+  Elinor.Scene.Frames,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
@@ -26,7 +22,6 @@ type
     Button: array [TButtonEnum] of TButton;
     SettlementParty: TParty;
   private
-    procedure Close;
   public
     constructor Create;
     destructor Destroy; override;
@@ -36,24 +31,29 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure Show;
+    class procedure ShowScene(const ACloseSceneEnum: TSceneEnum);
+    class procedure CloseScene;
   end;
 
 implementation
 
 uses
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Saga,
   Elinor.Map,
   Elinor.Scene.Party,
   Elinor.Creatures,
   DisciplesRL.Scene.Hire;
 
-{ TSceneSpellbook }
+var
+  CloseSceneEnum: TSceneEnum;
 
-procedure TSceneSpellbook.Close;
+  { TSceneSpellbook }
+
+class procedure TSceneSpellbook.CloseScene;
 begin
-  Game.Show(scMap);
+  Game.Show(CloseSceneEnum);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSpellbook);
 end;
@@ -119,8 +119,9 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneSpellbook.Show;
+class procedure TSceneSpellbook.ShowScene(const ACloseSceneEnum: TSceneEnum);
 begin
+  CloseSceneEnum := ACloseSceneEnum;
   Game.MediaPlayer.PlaySound(mmSpellbook);
   Game.Show(scSpellbook);
 end;
@@ -136,7 +137,7 @@ begin
   inherited;
   case Key of
     K_ESCAPE, K_ENTER:
-      Close;
+      CloseScene;
   end;
 end;
 

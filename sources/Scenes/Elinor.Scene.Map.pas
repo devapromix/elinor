@@ -162,17 +162,17 @@ end;
 
 procedure TSceneMap.ShowInventoryScene;
 begin
-  TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+  // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
 end;
 
 procedure TSceneMap.ShowAbilitiesScene;
 begin
-  TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, False, True);
+  // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, False, True);
 end;
 
 procedure TSceneMap.ShowSpellbookScene;
 begin
-  TSceneSpellbook.Show;
+  TSceneSpellbook.ShowScene(scMap);
 end;
 
 procedure TSceneMap.ShowScenarioScene;

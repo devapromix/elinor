@@ -49,7 +49,8 @@ uses
   Elinor.Creatures,
   Elinor.Statistics,
   DisciplesRL.Scene.Hire,
-  Elinor.Scene.Settlement;
+  Elinor.Scene.Settlement,
+  Elinor.Scene.Spellbook;
 
 var
   ShowResources: Boolean;
@@ -238,7 +239,7 @@ end;
 
 procedure TSceneParty2.ShowSpellbookScene;
 begin
-
+  TSceneSpellbook.ShowScene(scParty);
 end;
 
 class procedure TSceneParty2.HideScene;
