@@ -94,7 +94,7 @@ begin
   if HireParty.Hire(LCreatureEnum, HirePosition) then
   begin
     Game.MediaPlayer.PlaySound(mmGold);
-    Game.Show(scSettlement);
+    Game.Show(scBarracks);
   end
   else
     InformDialog('Не хватает денег!');

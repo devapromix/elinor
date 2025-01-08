@@ -183,11 +183,16 @@ procedure TSceneBarracks.Render;
   procedure RenderParty;
   var
     LPosition: TPosition;
+    LCanHire: Boolean;
   begin
+    LCanHire := True;
+    if CurrentParty = Party[TLeaderParty.LeaderPartyIndex] then
+      LCanHire := Party[TLeaderParty.LeaderPartyIndex].Count <
+        TLeaderParty.Leader.Leadership;
     if (CurrentParty <> nil) then
       for LPosition := Low(TPosition) to High(TPosition) do
         DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
-          TFrame.Row(LPosition), False, True);
+          TFrame.Row(LPosition), LCanHire, True);
   end;
 
   procedure RenderCharacterInfo;
