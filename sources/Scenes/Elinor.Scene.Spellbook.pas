@@ -14,14 +14,15 @@ uses
 type
   TSceneSpellbook = class(TSceneFrames)
   private type
-    TButtonEnum = (btClose);
+    TButtonEnum = (btCast, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextRecruit, reTextClose);
   private
   class var
     Button: array [TButtonEnum] of TButton;
     SettlementParty: TParty;
   private
+    procedure CastSpell;
   public
     constructor Create;
     destructor Destroy; override;
@@ -32,7 +33,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure ShowScene(const ACloseSceneEnum: TSceneEnum);
-    class procedure CloseScene;
+    class procedure HideScene;
   end;
 
 implementation
@@ -44,14 +45,22 @@ uses
   Elinor.Map,
   Elinor.Scene.Party,
   Elinor.Creatures,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire,
+  Elinor.Spells;
 
 var
   CloseSceneEnum: TSceneEnum;
 
   { TSceneSpellbook }
 
-class procedure TSceneSpellbook.CloseScene;
+procedure TSceneSpellbook.CastSpell;
+begin
+  CurrentSpell := True;
+  Game.MediaPlayer.PlaySound(mmSpellbook);
+  Game.Show(scMap);
+end;
+
+class procedure TSceneSpellbook.HideScene;
 begin
   Game.Show(CloseSceneEnum);
   Game.MediaPlayer.PlaySound(mmClick);
@@ -89,7 +98,15 @@ procedure TSceneSpellbook.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-
+  case AButton of
+    mbLeft:
+      begin
+        if Button[btCast].MouseDown then
+          CastSpell
+        else if Button[btClose].MouseDown then
+          HideScene;
+      end;
+  end;
 end;
 
 procedure TSceneSpellbook.MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -136,8 +153,10 @@ procedure TSceneSpellbook.Update(var Key: Word);
 begin
   inherited;
   case Key of
-    K_ESCAPE, K_ENTER:
-      CloseScene;
+    K_ESCAPE:
+      HideScene;
+    K_C, K_ENTER:
+      CastSpell;
   end;
 end;
 

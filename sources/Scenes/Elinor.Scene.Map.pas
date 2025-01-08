@@ -19,7 +19,6 @@ type
   private
   var
     LastMousePos, MousePos: TPoint;
-    FM: Boolean;
     BB: Boolean;
     BT: Boolean;
     procedure ShowPartyScene;
@@ -52,7 +51,8 @@ uses
   Elinor.Scene.Spellbook,
   Elinor.Scene.Scenario,
   Elinor.PathFind,
-  Elinor.Scene.Party2;
+  Elinor.Scene.Party2,
+  Elinor.Spells;
 
 { TSceneMap }
 
@@ -69,14 +69,14 @@ begin
         if BB then
           Exit;
 
-        if FM then
+        if CurrentSpell then
         begin
           // Game.Map.UpdateRadius(MousePos.X, MousePos.Y, 1);
           CurrentPartyIndex := TSaga.GetPartyIndex(MousePos.X, MousePos.Y);
           if CurrentPartyIndex > 0 then
           begin
             Party[CurrentPartyIndex].HealAll(25);
-            FM := False;
+            CurrentSpell := False;
           end;
           Exit;
         end;
@@ -272,7 +272,7 @@ begin
           ResImage[reDark]);
     end;
   // Cursor
-  if FM then
+  if CurrentSpell then
   begin
     // for X := MousePos.X - 1 to MousePos.X + 1 do
     // for Y := MousePos.Y - 1 to MousePos.Y + 1 do
@@ -327,9 +327,9 @@ begin
   case Key of
     K_ESCAPE:
       begin
-        if FM then
+        if CurrentSpell then
         begin
-          FM := False;
+          CurrentSpell := False;
           Exit;
         end;
         Game.MediaPlayer.PlayMusic(mmMenu);
@@ -355,8 +355,6 @@ begin
       TLeaderParty.Leader.Move(drSouthEast);
     K_ENTER, K_W, K_KP_5:
       TLeaderParty.Leader.Move(drOrigin);
-    K_M:
-      FM := not FM;
     K_K:
       Game.Map.Clear(lrPath);
     K_I:

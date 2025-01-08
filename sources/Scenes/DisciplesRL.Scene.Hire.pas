@@ -21,8 +21,8 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stCharacter, stVictory, stDefeat, stHighScores2, stLoot,
-    stStoneTab, stSpy, stWar, stAbilities);
+  THireSubSceneEnum = (stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
+    stSpy, stWar, stAbilities);
 
 type
 
@@ -87,7 +87,8 @@ uses
   Elinor.Scene.Battle2,
   Elinor.Scene.Settlement,
   Elinor.Items,
-  Elinor.Scene.Difficulty, Elinor.Scene.Race;
+  Elinor.Scene.Difficulty,
+  Elinor.Scene.Race;
 
 var
   CurCrEnum: TCreatureEnum;
@@ -97,8 +98,6 @@ type
 
 const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
-    // Character
-    (reTextRecruit, reTextClose),
     // Victory
     (reTextClose, reTextClose),
     // Defeat
@@ -123,13 +122,13 @@ const
   CloseCloseScene = [stAbilities];
   CloseButtonScene = [stVictory, stDefeat, stHighScores2] + AddButtonScene +
     CloseCloseScene;
-  MainButtonsScene = [stCharacter, stHighScores2, stSpy, stWar];
-  WideButtonScene = [stCharacter];
+  MainButtonsScene = [stHighScores2, stSpy, stWar];
+  WideButtonScene = [];
 
 var
   HireParty: TParty = nil;
   HirePosition: Integer = 0;
-  SubScene: THireSubSceneEnum = stCharacter;
+  SubScene: THireSubSceneEnum;
   BackScene: TSceneEnum = scMenu;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
   Lf, Lk: Integer;
@@ -147,9 +146,7 @@ end;
 
 class procedure TSceneHire.Show(const Party: TParty; const Position: Integer);
 begin
-  HireParty := Party;
-  HirePosition := Position;
-  Show(stCharacter);
+
 end;
 
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
@@ -206,8 +203,6 @@ procedure TSceneHire.Back;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stCharacter:
-      Game.Show(scSettlement);
     stSpy, stWar, stAbilities:
       Game.Show(scMap);
     stDefeat:
@@ -279,17 +274,6 @@ var
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stCharacter:
-      begin
-        if HireParty.Hire(Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-          [cgCharacters][TRaceCharKind(CurrentIndex)], HirePosition) then
-        begin
-          Game.MediaPlayer.PlaySound(mmGold);
-          Game.Show(scSettlement);
-        end
-        else
-          InformDialog('Не хватает денег!');
-      end;
     stDefeat:
       begin
         TSaga.IsGame := False;
@@ -879,24 +863,6 @@ begin
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reActFrame].Width + 2, SceneTop, reInfoFrame);
   case SubScene of
-    stCharacter:
-      begin
-        K := TRaceCharKind(CurrentIndex);
-        case SubScene of
-          stCharacter:
-            CurCrEnum := Characters[TSaga.LeaderRace][cgCharacters][K];
-        end;
-        case SubScene of
-          stCharacter:
-            begin
-              DrawResources;
-              DrawImage(Lf + (ResImage[reActFrame].Width * 2) - 70,
-                SceneTop, reGold);
-              DrawText(Lf + (ResImage[reActFrame].Width * 2) - 40,
-                SceneTop + 12, TCreature.Character(CurCrEnum).Gold);
-            end;
-        end;
-      end;
     stAbilities:
       RenderAbilitiesInfo;
     stVictory, stDefeat:
@@ -957,49 +923,6 @@ var
 begin
   inherited;
   case SubScene of
-    stCharacter:
-      begin
-        FF := CurrentIndex in [0 .. 4];
-        case Key of
-          K_ESCAPE:
-            Back;
-          K_ENTER:
-            if FF then
-              Ok;
-          K_UP:
-            begin
-              Game.MediaPlayer.PlaySound(mmClick);
-              case CurrentIndex of
-                1, 2, 4, 5:
-                  Dec(CurrentIndex);
-              end;
-            end;
-          K_Down:
-            begin
-              Game.MediaPlayer.PlaySound(mmClick);
-              case CurrentIndex of
-                0, 1, 3, 4:
-                  Inc(CurrentIndex);
-              end;
-            end;
-          K_LEFT:
-            begin
-              Game.MediaPlayer.PlaySound(mmClick);
-              case CurrentIndex of
-                3 .. 5:
-                  Dec(CurrentIndex, 3);
-              end;
-            end;
-          K_RIGHT:
-            begin
-              Game.MediaPlayer.PlaySound(mmClick);
-              case CurrentIndex of
-                0 .. 2:
-                  Inc(CurrentIndex, 3);
-              end;
-            end;
-        end;
-      end;
     stSpy:
       Upd(Ord(High(TLeaderThiefSpyVar)));
     stWar:

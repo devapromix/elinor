@@ -24,7 +24,7 @@ type
     ConfirmGold: Integer;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure Recruit;
+    procedure ShowRecruitScene;
     procedure Dismiss;
     procedure ShowPartyScene;
     procedure DismissCreature;
@@ -109,7 +109,7 @@ begin
   inherited;
 end;
 
-procedure TSceneBarracks.Recruit;
+procedure TSceneBarracks.ShowRecruitScene;
 
   procedure RecruitIt(const AParty: TParty; const APosition: Integer);
   begin
@@ -152,7 +152,7 @@ begin
     mbLeft:
       begin
         if Button[btRecruit].MouseDown then
-          Recruit
+          ShowRecruitScene
         else if Button[btDismiss].MouseDown then
           Dismiss
         else if Button[btParty].MouseDown then
@@ -296,7 +296,7 @@ begin
     K_ESCAPE, K_ENTER:
       HideScene;
     K_R:
-      Recruit;
+      ShowRecruitScene;
     K_P:
       ShowPartyScene;
     K_D:
