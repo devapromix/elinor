@@ -7,31 +7,52 @@ interface
 {$ENDIF}
 
 uses
+  Elinor.Spells,
   Elinor.Resources;
 
 type
   TFactionEnum = (reTheEmpire, reUndeadHordes, reLegionsOfTheDamned,
-    reMountainClans, reElvenAlliance, reNeutrals);
+    reMountainClans, reElvenAlliance, faGreenskinTribes, reNeutrals);
 
 type
   TPlayableRaces = reTheEmpire .. reLegionsOfTheDamned;
 
 const
   FactionIdent: array [TFactionEnum] of string = ('the-empire', 'undead-hordes',
-    'legion-of-the-damned', 'mountain-clans', 'elven-alliance', 'neutrals');
+    'legion-of-the-damned', 'mountain-clans', 'elven-alliance',
+    'greenskin-tribes', 'neutrals');
 
 const
   Factions = [reTheEmpire, reUndeadHordes, reLegionsOfTheDamned];
 
 const
   FactionName: array [TFactionEnum] of string = ('Защитники Империи',
-    'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Эльфийский Союз',
-    'Нейтралы');
+    'Орды Нежити', 'Легионы Проклятых', 'Горные Кланы', 'Elven Alliance',
+    'Greenskin Tribes', 'Neutrals');
 
 const
   FactionTerrain: array [TFactionEnum] of TResEnum = (reTheEmpireTerrain,
     reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reNeutralTerrain,
-    reNeutralTerrain, reNeutralTerrain);
+    reNeutralTerrain, reNeutralTerrain, reNeutralTerrain);
+
+const
+  FactionSpellbook: array [TFactionEnum] of array [0 .. 5] of TSpellEnum = (
+    // The Empire Spellbook
+    (spTrueHealing, spNone, spNone, spNone, spNone, spNone),
+    // Undead Hordes Spellbook
+    (spNone, spNone, spNone, spNone, spNone, spNone),
+    // Legions Of The Damned Spellbook
+    (spNone, spNone, spNone, spNone, spNone, spNone),
+    // MountainClans Spellbook
+    (spNone, spNone, spNone, spNone, spNone, spNone),
+    // ElvenAlliance Spellbook
+    (spNone, spNone, spNone, spNone, spNone, spNone),
+    // Greenskin Tribes Spellbook
+    (spNone, spNone, spNone, spNone, spNone, spNone),
+    // Neutrals Spellbook
+    (spNone, spNone, spNone, spNone, spNone, spNone)
+    //
+    );
 
 type
   TSubRaceEnum = (reCustom, reAngel, reHuman, reUndead, reHeretic, reDwarf,
@@ -69,6 +90,8 @@ const
     // Mountain Clans
     ('', '', '', '', '', '', '', '', '', '', ''),
     // Elven Alliance
+    ('', '', '', '', '', '', '', '', '', '', ''),
+    // Greenskin Tribes
     ('', '', '', '', '', '', '', '', '', '', ''),
     // Neutrals
     ('', '', '', '', '', '', '', '', '', '', ''));

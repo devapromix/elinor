@@ -517,7 +517,7 @@ type
     mmWolfHit, mmWolfDeath, mmWolfAttack, mmBearHit, mmBearDeath, mmBearAttack,
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
-    mmAttack, mmGold, mmSpellbook, mmDismiss);
+    mmAttack, mmGold, mmSpellbook, mmDismiss, mmSpell);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -636,7 +636,9 @@ const
     // Spellbook
     (FileName: 'spellbook.mp3'; ResType: teSound;),
     // Dismiss
-    (FileName: 'dismiss.wav'; ResType: teSound;)
+    (FileName: 'dismiss.wav'; ResType: teSound;),
+    // Spell
+    (FileName: 'coin.wav'; ResType: teSound;)
     //
     );
 

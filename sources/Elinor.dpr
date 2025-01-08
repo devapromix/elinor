@@ -50,7 +50,8 @@ uses
   Elinor.Scene.Party2 in 'Scenes\Elinor.Scene.Party2.pas',
   Elinor.Scene.Base.Party in 'Scenes\Elinor.Scene.Base.Party.pas',
   Elinor.Scene.Hire in 'Scenes\Elinor.Scene.Hire.pas',
-  Elinor.Scene.Barracks in 'Scenes\Elinor.Scene.Barracks.pas';
+  Elinor.Scene.Barracks in 'Scenes\Elinor.Scene.Barracks.pas',
+  Elinor.Spells.Types in 'Elinor.Spells.Types.pas';
 
 {$R *.res}
 

@@ -2,6 +2,9 @@
 
 interface
 
+uses
+  Elinor.Spells.Types;
+
 type
   TSpellEnum = (spNone, spTrueHealing);
 
@@ -23,6 +26,7 @@ type
     destructor Destroy; override;
     function CastAt(const AX, AY: Integer): Boolean; override;
     property Current: TSpellEnum read FCurrent write FCurrent;
+    class function Spell(const ASpellEnum: TSpellEnum): TSpellBase; static;
   end;
 
 type
@@ -40,9 +44,22 @@ implementation
 uses
   System.SysUtils, Dialogs,
   Elinor.Saga,
-  Elinor.Party;
+  Elinor.Party,
+  Elinor.Creatures,
+  Elinor.Resources;
 
-{ TSpell }
+const
+  SpellBase: array [TSpellEnum] of TSpellBase = (
+    // None
+    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmSpell;
+    ResEnum: reNone;),
+    // True Healing
+    (Name: 'True Healing'; Level: 1; Mana: 10;
+    SoundEnum: mmSpell; ResEnum: reNone;)
+    //
+    );
+
+  { TSpell }
 
 function TSpell.CastAt(const AX, AY: Integer): Boolean;
 begin
@@ -85,6 +102,11 @@ begin
   for LSpellEnum := Succ(Low(TSpellEnum)) to High(TSpellEnum) do
     FreeAndNil(FSpell[LSpellEnum]);
   inherited;
+end;
+
+class function TSpells.Spell(const ASpellEnum: TSpellEnum): TSpellBase;
+begin
+  Result := SpellBase[ASpellEnum];
 end;
 
 { TTrueHealingSpell }
