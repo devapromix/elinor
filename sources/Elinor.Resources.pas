@@ -518,7 +518,7 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmRevive);
+    mmPlague, mmRevive);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -644,6 +644,8 @@ const
     (FileName: 'dispell.wav'; ResType: teSound;),
     // Heal
     (FileName: 'heal.wav'; ResType: teSound;),
+    // Plague
+    (FileName: 'plague.wav'; ResType: teSound;),
     // Revive
     (FileName: 'revive.wav'; ResType: teSound;)
     //

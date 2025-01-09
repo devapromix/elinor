@@ -187,6 +187,7 @@ begin
   begin
     Result := True;
     ShowMessage('Plague');
+    Game.MediaPlayer.PlaySound(mmPlague);
     Party[LPartyIndex].TakeDamageAll(35);
   end;
 end;
