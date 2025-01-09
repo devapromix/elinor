@@ -7,12 +7,8 @@
 interface
 
 uses
-{$IFDEF FPC}
-  Controls,
-{$ELSE}
   Vcl.Controls,
-{$ENDIF}
-  Classes,
+  System.Classes,
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Creatures,
@@ -77,8 +73,9 @@ type
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
+  Elinor.Factions,
   Elinor.Statistics,
   Elinor.Common,
   Elinor.Map,

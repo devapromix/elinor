@@ -3,6 +3,7 @@
 interface
 
 uses
+  Elinor.Factions,
   Elinor.Creatures,
   Elinor.MapObject,
   Elinor.Resources;
@@ -80,8 +81,8 @@ function IsMoveLeader(AX, AY: Integer): Boolean; stdcall;
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Party,
@@ -175,9 +176,9 @@ begin
   TLeaderParty.CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
-    Game.Map.MapPlace[0].Y, TSaga.LeaderRace);
+    Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
   Party[TSaga.GetPartyCount - 1].AddCreature
-    (Characters[TSaga.LeaderRace][cgGuardian][ckGuardian], 3);
+    (Characters[TSaga.LeaderFaction][cgGuardian][ckGuardian], 3);
 end;
 
 procedure AddLeaderParty;
@@ -187,9 +188,8 @@ begin
   TLeaderParty.LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
-    Game.Map.MapPlace[0].Y, TSaga.LeaderRace);
-  LCreatureEnum := Characters[TSaga.LeaderRace][cgLeaders]
-    [RaceCharKind];
+    Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
+  LCreatureEnum := Characters[TSaga.LeaderFaction][cgLeaders][RaceCharKind];
   case TCreature.Character(LCreatureEnum).ReachEnum of
     reAdj:
       begin
@@ -215,8 +215,8 @@ var
     case AObjID of
       0:
         LResEnum := reSTower;
-    //else
-    //  LResEnum := reSTower;
+      // else
+      // LResEnum := reSTower;
     end;
     FMap[lrObj][AX, AY] := LResEnum;
   end;
@@ -536,14 +536,14 @@ begin
     case I of
       0: // Capital
         begin
-          case TSaga.LeaderRace of
-            reTheEmpire:
+          case TSaga.LeaderFaction of
+            faTheEmpire:
               Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
                 Game.Map.MapPlace[I].Y] := reTheEmpireCapital;
-            reUndeadHordes:
+            faUndeadHordes:
               Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
                 Game.Map.MapPlace[I].Y] := reUndeadHordesCapital;
-            reLegionsOfTheDamned:
+            faLegionsOfTheDamned:
               Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
                 Game.Map.MapPlace[I].Y] := reLegionsOfTheDamnedCapital;
           end;
@@ -597,7 +597,7 @@ begin
   inherited;
   CurLevel := 0;
   MaxLevel := 2;
-  Owner := reNeutrals;
+  Owner := faNeutrals;
 end;
 
 class function TMapPlace.GetIndex(const AX, AY: Integer): Integer;
@@ -618,11 +618,11 @@ class procedure TMapPlace.UpdateRadius(const AID: Integer);
 begin
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrTile],
-    FactionTerrain[TSaga.LeaderRace], [reNeutralCity, reRuin, reTower] +
+    FactionTerrain[TSaga.LeaderFaction], [reNeutralCity, reRuin, reTower] +
     Capitals + Cities);
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrDark], reNone);
-  Game.Map.MapPlace[AID].Owner := TSaga.LeaderRace;
+  Game.Map.MapPlace[AID].Owner := TSaga.LeaderFaction;
 end;
 
 class function TMapPlace.GetCityCount: Integer;

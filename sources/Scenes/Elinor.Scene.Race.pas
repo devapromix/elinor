@@ -3,10 +3,10 @@
 interface
 
 uses
-  Elinor.Scene.Menu.Simple,
   Vcl.Controls,
   System.Classes,
   Elinor.Button,
+  Elinor.Scene.Menu.Simple,
   Elinor.Resources,
   Elinor.Party,
   Elinor.Scenes;
@@ -28,8 +28,9 @@ implementation
 { TSceneRace }
 
 uses
-  Math,
+  System.Math,
   System.SysUtils,
+  Elinor.Factions,
   Elinor.Scene.Difficulty,
   Elinor.Saga,
   Elinor.Frame,
@@ -45,7 +46,7 @@ end;
 procedure TSceneRace.Continue;
 begin
   inherited;
-  TSaga.LeaderRace := TFactionEnum(CurrentIndex);
+  TSaga.LeaderFaction := TFactionEnum(CurrentIndex);
   TSceneLeader.Show;
 end;
 
@@ -57,15 +58,15 @@ end;
 procedure TSceneRace.Render;
 var
   I: Integer;
-  LPlayableRaces: TPlayableRaces;
+  LPlayableRaces: TPlayableFactions;
   LFactionEnum: TFactionEnum;
 const
-  LPlayableRacesImage: array [TPlayableRaces] of TResEnum = (reTheEmpireLogo,
+  LPlayableRacesImage: array [TPlayableFactions] of TResEnum = (reTheEmpireLogo,
     reUndeadHordesLogo, reLegionsOfTheDamnedLogo);
 begin
   inherited;
   DrawTitle(reTitleRace);
-  for LPlayableRaces := Low(TPlayableRaces) to High(TPlayableRaces) do
+  for LPlayableRaces := Low(TPlayableFactions) to High(TPlayableFactions) do
   begin
     DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
       LPlayableRacesImage[LPlayableRaces]);
@@ -93,7 +94,7 @@ end;
 procedure TSceneRace.Update(var Key: Word);
 begin
   inherited;
-  UpdateEnum<TPlayableRaces>(Key);
+  UpdateEnum<TPlayableFactions>(Key);
 end;
 
 end.

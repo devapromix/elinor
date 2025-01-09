@@ -4,6 +4,7 @@ interface
 
 uses
   System.Types,
+  Elinor.Factions,
   Elinor.Creatures,
   Elinor.MapObject,
   Elinor.Items,
@@ -234,7 +235,7 @@ constructor TParty.Create(const AX, AY: Integer);
 begin
   inherited Create(AX, AY);
   Self.Clear;
-  Owner := reNeutrals;
+  Owner := faNeutrals;
 end;
 
 destructor TParty.Destroy;
@@ -493,11 +494,11 @@ end;
 procedure TLeaderParty.ChCityOwner;
 begin
   case Party[LeaderPartyIndex].Owner of
-    reTheEmpire:
+    faTheEmpire:
       Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
-    reUndeadHordes:
+    faUndeadHordes:
       Game.Map.SetTile(lrTile, X, Y, reUndeadHordesCity);
-    reLegionsOfTheDamned:
+    faLegionsOfTheDamned:
       Game.Map.SetTile(lrTile, X, Y, reLegionsOfTheDamnedCity);
   end;
 end;

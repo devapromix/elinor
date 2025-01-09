@@ -3,8 +3,8 @@
 interface
 
 uses
-  Types,
-  Dialogs,
+  System.Types,
+  Elinor.Factions,
   Elinor.Resources,
   Elinor.Party,
   Elinor.Creatures;
@@ -24,7 +24,7 @@ type
 
   class var
     NewItem: Integer;
-    LeaderRace: TFactionEnum;
+    LeaderFaction: TFactionEnum;
     Difficulty: TDifficultyEnum;
     PartyBase: array of TPartyBase;
     IsGame: Boolean;
@@ -114,9 +114,9 @@ type
 implementation
 
 uses
-  Math,
-  Classes,
-  SysUtils,
+  System.Math,
+  System.Classes,
+  System.SysUtils,
   Elinor.Map,
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,
@@ -136,7 +136,7 @@ begin
   repeat
     LPartyIndex := RandomRange(0, Length(PartyBase));
   until (PartyBase[LPartyIndex].Level = LLevel) and
-    (PartyBase[LPartyIndex].Faction <> TSaga.LeaderRace);
+    (PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
   if IsFinal then
     LPartyIndex := High(PartyBase);
   with Party[TSaga.GetPartyCount - 1] do
@@ -183,7 +183,7 @@ begin
   Game.Map.SetTile(lrObj, AX, AY, reEnemy);
   TSaga.PartyInit(AX, AY, IsFinal);
   LPartyIndex := GetPartyIndex(AX, AY);
-  Party[LPartyIndex].Owner := reNeutrals;
+  Party[LPartyIndex].Owner := faNeutrals;
 
   if Game.Wizard then
   begin
