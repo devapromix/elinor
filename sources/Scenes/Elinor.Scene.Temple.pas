@@ -150,6 +150,7 @@ procedure TSceneTemple.HealCreature;
 begin
   Game.Gold.Modify(-ConfirmGold);
   ConfirmParty.Heal(ConfirmPartyPosition);
+  Game.MediaPlayer.PlaySound(mmHeal);
 end;
 
 procedure TSceneTemple.MouseDown(AButton: TMouseButton; Shift: TShiftState;
