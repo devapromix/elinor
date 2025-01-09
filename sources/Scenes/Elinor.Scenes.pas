@@ -9,6 +9,7 @@ uses
   Vcl.Imaging.PNGImage,
   Elinor.Creatures,
   Elinor.Saga,
+  Elinor.Spells,
   Elinor.Map,
   Elinor.Party,
   Elinor.Scenario,
@@ -142,6 +143,7 @@ type
     procedure AddTextLine(const S: string; const V, M: Integer); overload;
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
+    procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
   end;
 
 type
@@ -432,6 +434,12 @@ begin
     Game.Surface.Height), ResImage[Res]);
 end;
 
+procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
+begin
+  DrawImage(AX + 7, AY + 7, reBGChar);
+  DrawImage(AX + 7, AY + 7, TSpells.Spell(ASpellEnum).ResEnum);
+end;
+
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
   ABGStat: TBGStat);
 begin
@@ -520,8 +528,8 @@ begin
   LExp := '';
   if IsExp then
     LExp := Format(' Exp %d/%d',
-      [Experience, Party[TLeaderParty.LeaderPartyIndex]
-      .GetMaxExperiencePerLevel(Level)]);
+      [Experience, Party[TLeaderParty.LeaderPartyIndex].GetMaxExperiencePerLevel
+      (Level)]);
   DrawText(AX + SceneLeft + 64, AY + 27, Format('Level %d', [Level]) + LExp);
   DrawText(AX + SceneLeft + 64, AY + 48, Format('Hit points %d/%d',
     [HitPoints, MaxHitPoints]));
@@ -582,8 +590,8 @@ begin
     AddTextLine(Name[0], True);
     AddTextLine;
     LExp := Format(' Exp %d/%d',
-      [Experience, Party[TLeaderParty.LeaderPartyIndex]
-      .GetMaxExperiencePerLevel(Level)]);
+      [Experience, Party[TLeaderParty.LeaderPartyIndex].GetMaxExperiencePerLevel
+      (Level)]);
     LStr := 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
     AddTextLine('Chances to hit', ChancesToHit);
@@ -747,7 +755,7 @@ var
   F: Boolean;
   LBGStat: TBGStat;
 begin
-  F := Party.Owner = TSaga.LeaderRace;
+  F := Party.Owner = TSaga.LeaderFaction;
   with Party.Creature[Position] do
   begin
     if Active then

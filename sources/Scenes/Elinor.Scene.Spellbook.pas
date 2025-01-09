@@ -46,7 +46,10 @@ uses
   Elinor.Scene.Party,
   Elinor.Creatures,
   DisciplesRL.Scene.Hire,
-  Elinor.Spells;
+  Elinor.Spells,
+  Elinor.Frame,
+  Elinor.Spells.Types,
+  Elinor.Factions;
 
 var
   CloseSceneEnum: TSceneEnum;
@@ -120,6 +123,38 @@ end;
 
 procedure TSceneSpellbook.Render;
 
+  procedure RenderSpells;
+  var
+    LSpellIndex: Integer;
+    LSpellEnum: TSpellEnum;
+    LLeft, LTop: Integer;
+  begin
+    for LSpellIndex := 0 to 5 do
+    begin
+      LLeft := IfThen(LSpellIndex > 2, TFrame.Col(1), TFrame.Col(0));
+      LTop := IfThen(LSpellIndex > 2, TFrame.Row(LSpellIndex - 3),
+        TFrame.Row(LSpellIndex));
+      LSpellEnum := FactionSpellbook[TSaga.LeaderFaction][LSpellIndex];
+      if (LSpellEnum = spNone) then
+        Continue;
+      DrawSpell(LSpellEnum, LLeft, LTop);
+    end;
+  end;
+
+  procedure RenderSpellInfo;
+  begin
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+
+  end;
+
+  procedure RenderStatistics;
+  begin
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+
+  end;
+
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -132,6 +167,9 @@ begin
   inherited;
 
   DrawTitle(reTitleSpellbook);
+  RenderSpells;
+  RenderSpellInfo;
+  RenderStatistics;
 
   RenderButtons;
 end;
