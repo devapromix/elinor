@@ -6,7 +6,13 @@ uses
   Elinor.Spells.Types;
 
 type
-  TSpellEnum = (spNone, spTrueHealing);
+  TSpellEnum = (spNone,
+    // The Empire Spellbook
+    spTrueHealing,
+    // Undead Hordes Spellbook
+    spPlague
+    //
+    );
 
 type
   TSpell = class(TObject)
@@ -29,10 +35,15 @@ type
     class function Spell(const ASpellEnum: TSpellEnum): TSpellBase; static;
   end;
 
+  { Spells }
+
 type
   TTrueHealingSpell = class(TSpell)
-    constructor Create;
-    destructor Destroy; override;
+    function CastAt(const AX, AY: Integer): Boolean; override;
+  end;
+
+type
+  TPlagueSpell = class(TSpell)
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
@@ -51,11 +62,12 @@ uses
 const
   SpellBase: array [TSpellEnum] of TSpellBase = (
     // None
-    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmSpell;
-    ResEnum: reNone;),
+    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmSpell; ResEnum: reNone;),
     // True Healing
-    (Name: 'True Healing'; Level: 1; Mana: 10;
-    SoundEnum: mmSpell; ResEnum: reNone;)
+    (Name: 'True Healing'; Level: 1; Mana: 10; SoundEnum: mmSpell;
+    ResEnum: reMyzrael;),
+    // Plague
+    (Name: 'Plague'; Level: 1; Mana: 12; SoundEnum: mmSpell; ResEnum: reAshgan;)
     //
     );
 
@@ -125,15 +137,20 @@ begin
   end;
 end;
 
-constructor TTrueHealingSpell.Create;
+{ TPlagueSpell }
+
+function TPlagueSpell.CastAt(const AX, AY: Integer): Boolean;
+var
+  LPartyIndex: Integer;
 begin
-
-end;
-
-destructor TTrueHealingSpell.Destroy;
-begin
-
   inherited;
+  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  if (LPartyIndex > 0) and (LPartyIndex <> TLeaderParty.LeaderPartyIndex) then
+  begin
+    Result := True;
+    showmessage('Plague');
+    Party[LPartyIndex].TakeDamageAll(35);
+  end;
 end;
 
 initialization
