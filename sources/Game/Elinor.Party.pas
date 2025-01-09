@@ -95,6 +95,7 @@ type
     FSkills: TSkills;
     FInventory: TInventory;
     FEquipment: TEquipment;
+    FInvisibility: Boolean;
     function GetRadius: Integer; overload;
     function GetLeadership: Integer;
   public
@@ -137,6 +138,8 @@ type
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
     function GetGold(const AGold: Integer): Integer;
+    property Invisibility: Boolean read FInvisibility write FInvisibility;
+    function GetInvisibility: Boolean;
   end;
 
 var
@@ -523,6 +526,7 @@ begin
   FSkills := TSkills.Create;
   FInventory := TInventory.Create;
   FEquipment := TEquipment.Create;
+  FInvisibility := False;
   FRadius := 1;
 end;
 
@@ -605,7 +609,11 @@ begin
   Result := AGold;
   if Skills.Has(skTemplar) then
     Result := AGold div 2;
+end;
 
+function TLeaderParty.GetInvisibility: Boolean;
+begin
+  Result := Invisibility or Skills.Has(skStealth);
 end;
 
 function TLeaderParty.GetLeadership: Integer;
@@ -795,7 +803,7 @@ begin
     TSceneSettlement.ShowScene(stCity);
     F := False;
   end;
-  if (RandomRange(0, 100) < 25) and not Leader.Skills.Has(skSpy) then
+  if (RandomRange(0, 100) < 25) and not Leader.Skills.Has(skStealth) then
     for JX := Leader.X - 1 to Leader.X + 1 do
       for JY := Leader.Y - 1 to Leader.Y + 1 do
         if Game.Map.InMap(JX, JY) then

@@ -257,8 +257,12 @@ begin
 
       // Leader
       if (X = TLeaderParty.Leader.X) and (Y = TLeaderParty.Leader.Y) then
-        DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
-          ResImage[rePlayer]);
+        if TLeaderParty.Leader.GetInvisibility then
+          DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+            ResImage[rePlayerInvisibility])
+        else
+          DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize,
+            ResImage[rePlayer]);
 
       // Path
       if (Game.Map.GetTile(lrPath, X, Y) <> reNone) then

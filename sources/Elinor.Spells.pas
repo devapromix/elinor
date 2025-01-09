@@ -152,6 +152,8 @@ constructor TSpells.Create;
 begin
   FActiveSpell := TActiveSpell.Create;
   FSpell[spTrueHealing] := TTrueHealingSpell.Create;
+  FSpell[spPlague] := TPlagueSpell.Create;
+  FSpell[spConcealment] := TConcealmentSpell.Create;
 end;
 
 destructor TSpells.Destroy;

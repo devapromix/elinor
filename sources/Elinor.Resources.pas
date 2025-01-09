@@ -31,8 +31,8 @@ type
 
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
-    reNoWay, reCursorMagic, rePlayer, reDark, reGold, reMana, reBag,
-    reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
+    reNoWay, reCursorMagic, rePlayer, rePlayerInvisibility, reDark, reGold,
+    reMana, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
     reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
     reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reMineGold,
     reMineMana, reMountain1, reMountain2, reMountain3, reMountain4,
@@ -172,6 +172,8 @@ const
     (FileName: 'cursor.magic.png'; ResType: teGUI;),
     // Player
     (FileName: 'mapobject.player.png'; ResType: tePlayer;),
+    // Player Invisibility
+    (FileName: 'mapobject.player.invisibility.png'; ResType: tePlayer;),
     // Fog
     (FileName: 'transparent.png'; ResType: teGUI;),
     // Gold
