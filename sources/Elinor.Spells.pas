@@ -10,7 +10,9 @@ type
     // The Empire Spellbook
     spTrueHealing,
     // Undead Hordes Spellbook
-    spPlague
+    spPlague,
+    // Legions of the Damned Spellbook
+    spConcealment
     //
     );
 
@@ -59,6 +61,11 @@ type
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
+type
+  TConcealmentSpell = class(TSpell)
+    function CastAt(const AX, AY: Integer): Boolean; override;
+  end;
+
 var
   Spells: TSpells;
 
@@ -80,7 +87,11 @@ const
     (Name: 'True Healing'; Level: 1; Mana: 10; SoundEnum: mmBlock;
     ResEnum: reMyzrael;),
     // Plague
-    (Name: 'Plague'; Level: 1; Mana: 12; SoundEnum: mmBlock; ResEnum: reAshgan;)
+    (Name: 'Plague'; Level: 1; Mana: 15; SoundEnum: mmBlock;
+    ResEnum: reAshgan;),
+    // Concealment
+    (Name: 'Concealment'; Level: 1; Mana: 12; SoundEnum: mmBlock;
+    ResEnum: reAshkael;)
     //
     );
 
@@ -189,6 +200,23 @@ begin
     ShowMessage('Plague');
     Game.MediaPlayer.PlaySound(mmPlague);
     Party[LPartyIndex].TakeDamageAll(35);
+  end;
+end;
+
+{ TConcealmentSpell }
+
+function TConcealmentSpell.CastAt(const AX, AY: Integer): Boolean;
+var
+  LPartyIndex: Integer;
+begin
+  inherited;
+  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  if (LPartyIndex > 0) and (LPartyIndex = TLeaderParty.LeaderPartyIndex) then
+  begin
+    Result := True;
+    ShowMessage('Concealment');
+    // Game.MediaPlayer.PlaySound(mmHeal);
+    // to do
   end;
 end;
 
