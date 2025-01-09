@@ -38,7 +38,7 @@ const
     // Undead Hordes Spellbook
     (spPlague, spNone, spNone, spNone, spNone, spNone),
     // Legions Of The Damned Spellbook
-    (spNone, spNone, spNone, spNone, spNone, spNone),
+    (spConcealment, spNone, spNone, spNone, spNone, spNone),
     // MountainClans Spellbook
     (spNone, spNone, spNone, spNone, spNone, spNone),
     // ElvenAlliance Spellbook

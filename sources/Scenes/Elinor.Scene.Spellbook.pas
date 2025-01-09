@@ -57,11 +57,17 @@ var
   { TSceneSpellbook }
 
 procedure TSceneSpellbook.CastSpell;
+var
+  LSpellEnum: TSpellEnum;
 begin
-  Spells.ActiveSpell.SetActiveSpell(spTrueHealing);
-  Game.MediaPlayer.PlaySound(mmSpellbook);
-  Game.MediaPlayer.PlaySound(mmPrepareMagic);
-  Game.Show(scMap);
+  LSpellEnum := FactionSpellbook[TLeaderParty.Leader.Owner][0];
+  if (LSpellEnum <> spNone) then
+  begin
+    Spells.ActiveSpell.SetActiveSpell(LSpellEnum);
+    Game.MediaPlayer.PlaySound(mmSpellbook);
+    Game.MediaPlayer.PlaySound(mmPrepareMagic);
+    Game.Show(scMap);
+  end;
 end;
 
 class procedure TSceneSpellbook.HideScene;
