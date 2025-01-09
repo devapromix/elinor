@@ -58,8 +58,9 @@ var
 
 procedure TSceneSpellbook.CastSpell;
 begin
-  Spells.Current := spTrueHealing;
+  Spells.ActiveSpell.SetActiveSpell(spTrueHealing);
   Game.MediaPlayer.PlaySound(mmSpellbook);
+  Game.MediaPlayer.PlaySound(mmPrepareMagic);
   Game.Show(scMap);
 end;
 

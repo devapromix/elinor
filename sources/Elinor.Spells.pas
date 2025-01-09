@@ -23,15 +23,27 @@ type
   end;
 
 type
+  TActiveSpell = class(TObject)
+  private
+    FSpellEnum: TSpellEnum;
+  public
+    constructor Create;
+    property SpellEnum: TSpellEnum read FSpellEnum;
+    procedure SetActiveSpell(const ASpellEnum: TSpellEnum);
+    function IsSpell: Boolean;
+    procedure Clear;
+  end;
+
+type
   TSpells = class(TSpell)
   private
     FSpell: array [TSpellEnum] of TSpell;
-    FCurrent: TSpellEnum;
+    FActiveSpell: TActiveSpell;
   public
     constructor Create;
     destructor Destroy; override;
     function CastAt(const AX, AY: Integer): Boolean; override;
-    property Current: TSpellEnum read FCurrent write FCurrent;
+    property ActiveSpell: TActiveSpell read FActiveSpell write FActiveSpell;
     class function Spell(const ASpellEnum: TSpellEnum): TSpellBase; static;
   end;
 
@@ -57,17 +69,18 @@ uses
   Elinor.Saga,
   Elinor.Party,
   Elinor.Creatures,
-  Elinor.Resources;
+  Elinor.Resources,
+  Elinor.Scenes;
 
 const
   SpellBase: array [TSpellEnum] of TSpellBase = (
     // None
-    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmSpell; ResEnum: reNone;),
+    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;),
     // True Healing
-    (Name: 'True Healing'; Level: 1; Mana: 10; SoundEnum: mmSpell;
+    (Name: 'True Healing'; Level: 1; Mana: 10; SoundEnum: mmBlock;
     ResEnum: reMyzrael;),
     // Plague
-    (Name: 'Plague'; Level: 1; Mana: 12; SoundEnum: mmSpell; ResEnum: reAshgan;)
+    (Name: 'Plague'; Level: 1; Mana: 12; SoundEnum: mmBlock; ResEnum: reAshgan;)
     //
     );
 
@@ -89,21 +102,44 @@ begin
   inherited;
 end;
 
+{ TCurrentSpell }
+
+procedure TActiveSpell.Clear;
+begin
+  Game.MediaPlayer.PlaySound(mmDispell);
+  FSpellEnum := spNone;
+end;
+
+constructor TActiveSpell.Create;
+begin
+  FSpellEnum := spNone;
+end;
+
+function TActiveSpell.IsSpell: Boolean;
+begin
+  Result := FSpellEnum <> spNone;
+end;
+
+procedure TActiveSpell.SetActiveSpell(const ASpellEnum: TSpellEnum);
+begin
+  FSpellEnum := ASpellEnum;
+end;
+
 { TSpells }
 
 function TSpells.CastAt(const AX, AY: Integer): Boolean;
 begin
   inherited;
-  if Current = spNone then
+  if not ActiveSpell.IsSpell then
     Exit;
-  Result := FSpell[Current].CastAt(AX, AY);
+  Result := FSpell[ActiveSpell.SpellEnum].CastAt(AX, AY);
   if Result then
-    Current := spNone;
+    ActiveSpell.Clear;
 end;
 
 constructor TSpells.Create;
 begin
-  Current := spNone;
+  FActiveSpell := TActiveSpell.Create;
   FSpell[spTrueHealing] := TTrueHealingSpell.Create;
 end;
 
@@ -113,6 +149,7 @@ var
 begin
   for LSpellEnum := Succ(Low(TSpellEnum)) to High(TSpellEnum) do
     FreeAndNil(FSpell[LSpellEnum]);
+  FreeAndNil(FActiveSpell);
   inherited;
 end;
 
@@ -132,7 +169,8 @@ begin
   if (LPartyIndex > 0) and (LPartyIndex = TLeaderParty.LeaderPartyIndex) then
   begin
     Result := True;
-    showmessage('True Healing');
+    ShowMessage('True Healing');
+    Game.MediaPlayer.PlaySound(mmHeal);
     Party[LPartyIndex].HealAll(25);
   end;
 end;
@@ -148,7 +186,7 @@ begin
   if (LPartyIndex > 0) and (LPartyIndex <> TLeaderParty.LeaderPartyIndex) then
   begin
     Result := True;
-    showmessage('Plague');
+    ShowMessage('Plague');
     Party[LPartyIndex].TakeDamageAll(35);
   end;
 end;

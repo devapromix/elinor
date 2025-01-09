@@ -65,20 +65,21 @@ begin
   inherited;
   case Button of
     mbLeft:
+      { begin
+        if Spells.CastAt(MousePos.X, MousePos.Y) or BB then
+        Exit;
+        if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
+        TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
+        else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
+        Game.Map.InMap(MousePos.X, MousePos.Y) then
+        TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
+        end;
+        mbRight:
+      }
       begin
         if Spells.CastAt(MousePos.X, MousePos.Y) or BB then
           Exit;
-        if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
-          TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y)
-        else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
-          Game.Map.InMap(MousePos.X, MousePos.Y) then
-          TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
-      end;
-    mbRight:
-      begin
-        if Spells.Current <> spNone then
-          Exit;
-        if BB then
+        if Spells.ActiveSpell.IsSpell() then
           Exit;
 
         FX := MousePos.X;
@@ -110,30 +111,39 @@ begin
           SY := NY;
         until ((SX = FX) and (SY = FY));
       end;
-    mbMiddle:
+    mbRight:
       begin
-        if BB then
+        if Spells.ActiveSpell.IsSpell() then
+        begin
+          Spells.ActiveSpell.Clear();
           Exit;
-
-        if TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y) then
-          if not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y) then
-          begin
-            TSceneHire.MPX := MousePos.X;
-            TSceneHire.MPY := MousePos.Y;
-            // Leader Thief
-            if (TLeaderParty.Leader.Enum in LeaderThief) then
-              if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
-                TSceneHire.Show(stSpy);
-          end
-          else
-          begin
-            // Leader Warrior
-            if (TLeaderParty.Leader.Enum in LeaderWarrior) then
-              if (MousePos.X = TLeaderParty.Leader.X) and
-                (MousePos.Y = TLeaderParty.Leader.Y) then
-                TSceneHire.Show(stWar);
-          end;
+        end;
+        Game.Map.Clear(lrPath);
       end;
+    { mbMiddle:
+      begin
+      if BB then
+      Exit;
+
+      if TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y) then
+      if not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y) then
+      begin
+      TSceneHire.MPX := MousePos.X;
+      TSceneHire.MPY := MousePos.Y;
+      // Leader Thief
+      if (TLeaderParty.Leader.Enum in LeaderThief) then
+      if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
+      TSceneHire.Show(stSpy);
+      end
+      else
+      begin
+      // Leader Warrior
+      if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+      if (MousePos.X = TLeaderParty.Leader.X) and
+      (MousePos.Y = TLeaderParty.Leader.Y) then
+      TSceneHire.Show(stWar);
+      end;
+      end; }
   end;
 end;
 
@@ -261,7 +271,7 @@ begin
           ResImage[reDark]);
     end;
   // Cursor
-  if Spells.Current <> spNone then
+  if Spells.ActiveSpell.IsSpell() then
   begin
     // for X := MousePos.X - 1 to MousePos.X + 1 do
     // for Y := MousePos.Y - 1 to MousePos.Y + 1 do
@@ -316,9 +326,9 @@ begin
   case Key of
     K_ESCAPE:
       begin
-        if Spells.Current <> spNone then
+        if Spells.ActiveSpell.IsSpell() then
         begin
-          Spells.Current := spNone;
+          Spells.ActiveSpell.Clear();
           Exit;
         end;
         Game.MediaPlayer.PlayMusic(mmMenu);
@@ -344,8 +354,6 @@ begin
       TLeaderParty.Leader.Move(drSouthEast);
     K_ENTER, K_W, K_KP_5:
       TLeaderParty.Leader.Move(drOrigin);
-    K_K:
-      Game.Map.Clear(lrPath);
     K_I:
       ShowInventoryScene;
     K_T:
