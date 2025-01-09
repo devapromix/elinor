@@ -420,7 +420,7 @@ type
 {$REGION Abilities}
 
 type
-  TSkillEnum = (skNone, skFly, skStrenght, skSpy, skHawkEye1, skHawkEye2,
+  TSkillEnum = (skNone, skFly, skStrenght, skStealth, skHawkEye1, skHawkEye2,
     skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
@@ -589,7 +589,7 @@ const
     HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDagger; SkillEnum: skSpy; Rating: 0;),
+    AttackEnum: atDagger; SkillEnum: skStealth; Rating: 0;),
     // Warlord
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reWarlord;
     Size: szSmall; Name: ('Полководец', 'Полководца');
@@ -689,7 +689,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDaggerOfShadows; SkillEnum: skSpy; Rating: 0;),
+    AttackEnum: atDaggerOfShadows; SkillEnum: skStealth; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reDominator; Size: szSmall; Name: ('Доминатор', 'Доминатора');
@@ -783,7 +783,7 @@ const
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atFireDagger; SkillEnum: skSpy; Rating: 0;),
+    AttackEnum: atFireDagger; SkillEnum: skStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reChieftain; Size: szSmall; Name: ('Атаман', 'Атамана');
@@ -1209,7 +1209,7 @@ const
     Description: ('Добавляет к атаке предводителя', '10% урона.'); Level: 5;
     Leaders: LeaderWarrior;),
     // Spy
-    (Enum: skSpy; Name: 'Тайные Тропы';
+    (Enum: skStealth; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
     'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
     // Hawk Eye #1
