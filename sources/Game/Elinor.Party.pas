@@ -807,7 +807,7 @@ begin
     TSceneSettlement.ShowScene(stCity);
     F := False;
   end;
-  if (RandomRange(0, 100) < 25) and not Leader.Skills.Has(skStealth) then
+  if (RandomRange(0, 100) < 25) and not Leader.GetInvisibility() then
     for JX := Leader.X - 1 to Leader.X + 1 do
       for JY := Leader.Y - 1 to Leader.Y + 1 do
         if Game.Map.InMap(JX, JY) then
