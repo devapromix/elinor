@@ -496,6 +496,7 @@ begin
             with Party.Creature[Position] do
               if Alive and (HitPoints < MaxHitPoints) then
               begin
+                Game.MediaPlayer.PlaySound(mmHeal);
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
                 Battle.Heal(Party.Creature[AtkPos].Name[0],
                   Party.Creature[Position].Name[1],
