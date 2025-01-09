@@ -272,6 +272,7 @@ procedure TSceneTemple.ReviveCreature;
 begin
   Game.Gold.Modify(-ConfirmGold);
   ConfirmParty.Revive(ConfirmPartyPosition);
+  Game.MediaPlayer.PlaySound(mmRevive);
 end;
 
 procedure TSceneTemple.Timer;
