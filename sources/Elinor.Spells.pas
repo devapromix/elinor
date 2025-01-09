@@ -217,8 +217,8 @@ begin
   begin
     Result := True;
     ShowMessage('Concealment');
-    // Game.MediaPlayer.PlaySound(mmHeal);
-    // to do
+    Game.MediaPlayer.PlaySound(mmInvisibility);
+    TLeaderParty.Leader.Invisibility := True;
   end;
 end;
 

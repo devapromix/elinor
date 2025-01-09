@@ -750,18 +750,21 @@ begin
     case Game.Map.GetTile(lrObj, Leader.X, Leader.Y) of
       reGold:
         begin
+          TLeaderParty.Leader.Invisibility := False;
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reGold);
           F := False;
         end;
       reMana:
         begin
+          TLeaderParty.Leader.Invisibility := False;
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSaga.AddLoot(reMana);
           F := False;
         end;
       reBag:
         begin
+          TLeaderParty.Leader.Invisibility := False;
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           Game.Statistics.IncValue(stChestsFound);
           TSaga.AddLoot(reBag);
@@ -769,6 +772,7 @@ begin
         end;
       reEnemy:
         begin
+          TLeaderParty.Leader.Invisibility := False;
           Game.Show(scBattle);
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           F := False;
