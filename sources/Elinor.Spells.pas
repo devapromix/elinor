@@ -83,16 +83,17 @@ uses
 const
   SpellBase: array [TSpellEnum] of TSpellBase = (
     // None
-    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;),
+    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;
+    Faction: faNeutrals),
     // True Healing
-    (Name: 'True Healing'; Level: 1; Mana: 10; SoundEnum: mmBlock;
-    ResEnum: reTrueHealing;),
+    (Name: 'True Healing'; Level: 1; Mana: 15; SoundEnum: mmHeal;
+    ResEnum: reTrueHealing; Faction: faTheEmpire),
     // Plague
-    (Name: 'Plague'; Level: 1; Mana: 15; SoundEnum: mmBlock;
-    ResEnum: reAshgan;),
+    (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
+    Faction: faUndeadHordes),
     // Concealment
-    (Name: 'Concealment'; Level: 1; Mana: 12; SoundEnum: mmBlock;
-    ResEnum: reAshkael;)
+    (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
+    ResEnum: reConcealment; Faction: faLegionsOfTheDamned)
     //
     );
 

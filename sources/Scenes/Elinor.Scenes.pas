@@ -243,7 +243,7 @@ begin
   Surface.Width := ScreenWidth;
   Surface.Height := ScreenHeight;
   Surface.Canvas.Font.Size := 12;
-  Surface.Canvas.Font.Color := clGreen;
+  Surface.Canvas.Font.Color := clSilver;
   Surface.Canvas.Brush.Style := bsClear;
   Wizard := False;
   for I := 1 to ParamCount do

@@ -143,17 +143,33 @@ procedure TSceneSpellbook.Render;
       LTop := IfThen(LSpellIndex > 2, TFrame.Row(LSpellIndex - 3),
         TFrame.Row(LSpellIndex));
       LSpellEnum := FactionSpellbookSpells[TSaga.LeaderFaction][LSpellIndex];
-      if (LSpellEnum = spNone) then
-        Continue;
-      DrawSpell(LSpellEnum, LLeft, LTop);
+      if (LSpellEnum <> spNone) then
+      begin
+        DrawSpell(LSpellEnum, LLeft, LTop);
+        DrawText(LLeft + 74, LTop + 6, TSpells.Spell(LSpellEnum).Name);
+        DrawText(LLeft + 74, LTop + 27,
+          Format('Level %d', [TSpells.Spell(LSpellEnum).Level]));
+        DrawText(LLeft + 74, LTop + 48,
+          Format('Mana %d', [TSpells.Spell(LSpellEnum).Mana]));
+      end;
     end;
   end;
 
   procedure RenderSpellInfo;
+  var
+    LSpellEnum: TSpellEnum;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
-
+    LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner]
+      [CurrentIndex];
+    if (LSpellEnum <> spNone) then
+    begin
+      AddTextLine(TSpells.Spell(LSpellEnum).Name, True);
+      AddTextLine;
+      AddTextLine('Level', TSpells.Spell(LSpellEnum).Level);
+      AddTextLine('Mana', TSpells.Spell(LSpellEnum).Mana);
+    end;
   end;
 
   procedure RenderStatistics;

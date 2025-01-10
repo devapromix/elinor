@@ -86,7 +86,7 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
     // Spells
-    reTrueHealing,
+    reTrueHealing, rePlague, reConcealment,
     // Races
     reHumanMale);
 
@@ -520,13 +520,17 @@ const
     // Elven Alliance
     (FileName: 'bg.elven_alliance.png'; ResType: teGUI;),
     // Greenskin Tribes
-    (FileName: 'bg.greenskin tribes.png'; ResType: teGUI;),
+    (FileName: 'bg.greenskin_tribes.png'; ResType: teGUI;),
     // Neutrals
     (FileName: 'bg.neutrals.png'; ResType: teGUI;),
 
     // SPELLS //
     // True Healing
     (FileName: 'spell.true_healing.png'; ResType: teGUI;),
+    // Plague
+    (FileName: 'spell.plague.png'; ResType: teGUI;),
+    // Concealment
+    (FileName: 'spell.concealment.png'; ResType: teGUI;),
 
     // RACES //
     // Human male
