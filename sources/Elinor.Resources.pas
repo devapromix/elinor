@@ -86,7 +86,7 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
     // Spells
-    reTrueHealing, rePlague, reConcealment,
+    reTrueHealing, reSpeed, rePlague, reConcealment,
     // Races
     reHumanMale);
 
@@ -527,6 +527,8 @@ const
     // SPELLS //
     // True Healing
     (FileName: 'spell.true_healing.png'; ResType: teGUI;),
+    // Speed
+    (FileName: 'spell.speed.png'; ResType: teGUI;),
     // Plague
     (FileName: 'spell.plague.png'; ResType: teGUI;),
     // Concealment
@@ -549,7 +551,7 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive);
+    mmPlague, mmInvisibility, mmRevive, mmSpeed);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -680,7 +682,9 @@ const
     // Invisibility
     (FileName: 'invisibility.wav'; ResType: teSound;),
     // Revive
-    (FileName: 'revive.wav'; ResType: teSound;)
+    (FileName: 'revive.wav'; ResType: teSound;),
+    // Speed
+    (FileName: 'speed.wav'; ResType: teSound;)
     //
     );
 

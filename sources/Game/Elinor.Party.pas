@@ -140,6 +140,7 @@ type
     function GetGold(const AGold: Integer): Integer;
     property Invisibility: Boolean read FInvisibility write FInvisibility;
     function GetInvisibility: Boolean;
+    class procedure SetMaxSpeed;
   end;
 
 var
@@ -512,8 +513,7 @@ begin
   Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
   Inventory.Clear;
   Equipment.Clear;
-  MaxSpeed := GetMaxSpeed;
-  Speed := MaxSpeed;
+  SetMaxSpeed;
   FRadius := IfThen(Game.Wizard, 9, 1);
   FSpells := GetMaxSpells;
   FSpy := GetMaxSpy;
@@ -825,6 +825,12 @@ begin
     Game.NewDay;
 end;
 
+class procedure TLeaderParty.SetMaxSpeed;
+begin
+  MaxSpeed := Leader.GetMaxSpeed;
+  Speed := MaxSpeed;
+end;
+
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
 begin
   Leader.PutAt(Leader.X + AX, Leader.Y + AY);
@@ -843,7 +849,7 @@ begin
     begin
       Inc(Game.Day);
       Game.IsNewDay := True;
-      Speed := MaxSpeed;
+      SetMaxSpeed;
     end;
     Inc(LCount);
   until (LCount >= ACount);

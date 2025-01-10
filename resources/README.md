@@ -11,3 +11,6 @@ The Empire:
 https://cooltext.com/Logo-Design-House-Arryn
 Font: Gothic -> AvQest
 Font size: 65
+
+Spells
+https://game-icons.net/
