@@ -24,7 +24,7 @@ type
     reAMark, reASell,
 
     rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
-    reBGChar, reBGEnemy, reBGParalyze, reDead,
+    reBGCharacter, reBGEnemy, reBGParalyze, reDead,
 
     reFrame, reSelectFrame, reSmallFrame, reActFrame, rePasFrame, reBigFrame,
     reInfoFrame, reItemFrame,
@@ -82,6 +82,11 @@ type
     reWallpaperScenario,
     //
     reIconScores, reIconScoresOver, reIconClosedGates, reIconOpenedGates,
+    // BG
+    reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
+    reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
+    // Spells
+    reTrueHealing,
     // Races
     reHumanMale);
 
@@ -502,6 +507,26 @@ const
     (FileName: 'icon.gates.closed.png'; ResType: teIcon;),
     // Opened Gates
     (FileName: 'icon.gates.opened.png'; ResType: teIcon;),
+
+    // SPELLBOOK BG //
+    // The Empire
+    (FileName: 'bg.the_empire.png'; ResType: teGUI;),
+    // Undead Hordes
+    (FileName: 'bg.undead_hordes.png'; ResType: teGUI;),
+    // Legions Of The Damned
+    (FileName: 'bg.legions_of_the_damned.png'; ResType: teGUI;),
+    // Mountain Clans
+    (FileName: 'bg.mountain_clans.png'; ResType: teGUI;),
+    // Elven Alliance
+    (FileName: 'bg.elven_alliance.png'; ResType: teGUI;),
+    // Greenskin Tribes
+    (FileName: 'bg.greenskin tribes.png'; ResType: teGUI;),
+    // Neutrals
+    (FileName: 'bg.neutrals.png'; ResType: teGUI;),
+
+    // SPELLS //
+    // True Healing
+    (FileName: 'spell.true_healing.png'; ResType: teGUI;),
 
     // RACES //
     // Human male

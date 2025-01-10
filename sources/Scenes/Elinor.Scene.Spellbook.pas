@@ -9,10 +9,11 @@ uses
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
+  Elinor.Scene.Menu.Wide,
   Elinor.Scenes;
 
 type
-  TSceneSpellbook = class(TSceneFrames)
+  TSceneSpellbook = class(TSceneWideMenu)
   private type
     TButtonEnum = (btCast, btClose);
   private const
@@ -49,7 +50,7 @@ uses
   Elinor.Spells,
   Elinor.Frame,
   Elinor.Spells.Types,
-  Elinor.Factions;
+  Elinor.Spellbook;
 
 var
   CloseSceneEnum: TSceneEnum;
@@ -60,7 +61,7 @@ procedure TSceneSpellbook.CastSpell;
 var
   LSpellEnum: TSpellEnum;
 begin
-  LSpellEnum := FactionSpellbook[TLeaderParty.Leader.Owner][0];
+  LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
   if (LSpellEnum <> spNone) then
   begin
     Spells.ActiveSpell.SetActiveSpell(LSpellEnum);
@@ -82,7 +83,7 @@ var
   LButtonEnum: TButtonEnum;
   LLeft, LWidth: Integer;
 begin
-  inherited Create(reWallpaperSettlement, fgLS6, fgRM1);
+  inherited Create(reWallpaperSettlement);
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
@@ -141,7 +142,7 @@ procedure TSceneSpellbook.Render;
       LLeft := IfThen(LSpellIndex > 2, TFrame.Col(1), TFrame.Col(0));
       LTop := IfThen(LSpellIndex > 2, TFrame.Row(LSpellIndex - 3),
         TFrame.Row(LSpellIndex));
-      LSpellEnum := FactionSpellbook[TSaga.LeaderFaction][LSpellIndex];
+      LSpellEnum := FactionSpellbookSpells[TSaga.LeaderFaction][LSpellIndex];
       if (LSpellEnum = spNone) then
         Continue;
       DrawSpell(LSpellEnum, LLeft, LTop);

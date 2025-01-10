@@ -73,6 +73,7 @@ var
   LLeft, LWidth: Integer;
 begin
   inherited Create(AResEnum, fgLS6, fgRM2);
+  CurrentIndex := 0;
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TTwoButtonEnum)) + 1)) div 2);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do

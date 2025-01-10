@@ -3,7 +3,6 @@
 interface
 
 uses
-  Elinor.Spells,
   Elinor.Resources;
 
 type
@@ -30,25 +29,6 @@ const
   FactionTerrain: array [TFactionEnum] of TResEnum = (reTheEmpireTerrain,
     reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reNeutralTerrain,
     reNeutralTerrain, reNeutralTerrain, reNeutralTerrain);
-
-const
-  FactionSpellbook: array [TFactionEnum] of array [0 .. 5] of TSpellEnum = (
-    // The Empire Spellbook
-    (spTrueHealing, spNone, spNone, spNone, spNone, spNone),
-    // Undead Hordes Spellbook
-    (spPlague, spNone, spNone, spNone, spNone, spNone),
-    // Legions Of The Damned Spellbook
-    (spConcealment, spNone, spNone, spNone, spNone, spNone),
-    // MountainClans Spellbook
-    (spNone, spNone, spNone, spNone, spNone, spNone),
-    // ElvenAlliance Spellbook
-    (spNone, spNone, spNone, spNone, spNone, spNone),
-    // Greenskin Tribes Spellbook
-    (spNone, spNone, spNone, spNone, spNone, spNone),
-    // Neutrals Spellbook
-    (spNone, spNone, spNone, spNone, spNone, spNone)
-    //
-    );
 
 const
   FactionDescription: array [TFactionEnum] of array [0 .. 10] of string = (

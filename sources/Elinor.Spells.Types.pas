@@ -3,6 +3,7 @@
 interface
 
 uses
+  Elinor.Factions,
   Elinor.Resources;
 
 type
@@ -12,6 +13,7 @@ type
     Mana: Byte;
     SoundEnum: TMusicEnum;
     ResEnum: TResEnum;
+    Faction: TFactionEnum;
   end;
 
 implementation

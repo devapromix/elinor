@@ -3,6 +3,8 @@
 interface
 
 uses
+  Elinor.Factions,
+  Elinor.Resources,
   Elinor.Spells.Types;
 
 type
@@ -76,7 +78,6 @@ uses
   Elinor.Saga,
   Elinor.Party,
   Elinor.Creatures,
-  Elinor.Resources,
   Elinor.Scenes;
 
 const
@@ -85,7 +86,7 @@ const
     (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;),
     // True Healing
     (Name: 'True Healing'; Level: 1; Mana: 10; SoundEnum: mmBlock;
-    ResEnum: reMyzrael;),
+    ResEnum: reTrueHealing;),
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 15; SoundEnum: mmBlock;
     ResEnum: reAshgan;),

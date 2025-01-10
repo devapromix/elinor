@@ -215,8 +215,10 @@ uses
   Elinor.Scene.Scenario,
   Elinor.Scene.Temple,
   Elinor.Scene.Barracks,
+  Elinor.Spellbook,
   Elinor.Scene.Party2,
-  Elinor.Scene.Hire;
+  Elinor.Scene.Hire,
+  Elinor.Factions;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -436,8 +438,8 @@ end;
 
 procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
 begin
-  DrawImage(AX + 7, AY + 7, reBGChar);
-  DrawImage(AX + 7, AY + 7, TSpells.Spell(ASpellEnum).ResEnum);
+  DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
+  DrawImage(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
@@ -445,7 +447,7 @@ procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
 begin
   case ABGStat of
     bsCharacter:
-      DrawImage(AX + 7, AY + 7, reBGChar);
+      DrawImage(AX + 7, AY + 7, reBGCharacter);
     bsEnemy:
       DrawImage(AX + 7, AY + 7, reBGEnemy);
     bsParalyze:
@@ -490,7 +492,7 @@ begin
   try
     case ABGStat of
       bsCharacter:
-        LImage.Assign(ResImage[reBGChar]);
+        LImage.Assign(ResImage[reBGCharacter]);
       bsEnemy:
         LImage.Assign(ResImage[reBGEnemy]);
       bsParalyze:
@@ -733,8 +735,8 @@ begin
     for LPosition := Low(TPosition) to High(TPosition) do
     begin
       Inc(Result);
-      if MouseOver(TFrame.Col(LPosition, LPartySide), TFrame.Row(LPosition),
-        AX, AY) then
+      if MouseOver(TFrame.Col(LPosition, LPartySide), TFrame.Row(LPosition), AX,
+        AY) then
         Exit;
     end;
   if Result = 11 then

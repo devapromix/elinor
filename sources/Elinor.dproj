@@ -151,6 +151,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Barracks.pas"/>
         <DCCReference Include="Elinor.Spells.Types.pas"/>
         <DCCReference Include="Game\Elinor.Factions.pas"/>
+        <DCCReference Include="Game\Elinor.Spellbook.pas"/>
         <RcItem Include="Resources\Sprites\frame.passive.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>FRAME_PASSIVE</ResourceId>
@@ -239,7 +240,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -257,7 +258,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
