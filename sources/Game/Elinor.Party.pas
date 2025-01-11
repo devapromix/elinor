@@ -55,6 +55,7 @@ type
     function GetInitiative(const APosition: TPosition): Integer;
     procedure SetState(const APosition: TPosition; const Flag: Boolean);
     procedure Clear;
+    procedure ClearTempValuesAll;
     function IsClear: Boolean;
     function GetRandomPosition: TPosition;
     function Hire(const ACreatureEnum: TCreatureEnum;
@@ -218,6 +219,14 @@ var
 begin
   for LPosition := Low(TPosition) to High(TPosition) do
     FCreature[LPosition].Paralyze := False;
+end;
+
+procedure TParty.ClearTempValuesAll;
+var
+  LPosition: TPosition;
+begin
+  for LPosition := Low(TPosition) to High(TPosition) do
+    FCreature[LPosition].ClearTempValues;
 end;
 
 procedure TParty.Clear;

@@ -3,12 +3,8 @@
 interface
 
 uses
-{$IFDEF FPC}
-  Controls,
-{$ELSE}
   Vcl.Controls,
-{$ENDIF}
-  Classes,
+  System.Classes,
   Elinor.Creatures,
   Elinor.Scenes,
   Elinor.Scene.Frames,
@@ -67,9 +63,8 @@ type
 implementation
 
 uses
-  Math,
-  Dialogs,
-  SysUtils,
+  System.Math, Dialogs,
+  System.SysUtils,
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Statistics,
@@ -89,6 +84,7 @@ const
 class procedure TSceneBattle2.AfterVictory;
 begin
   TLeaderParty.Leader.ClearParalyzeAll;
+  TLeaderParty.Leader.ClearTempValuesAll;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
     Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
@@ -297,7 +293,8 @@ begin
   if AtkParty.Creature[AtkPos].Alive and DefParty.Creature[DefPos].Alive then
   begin
     begin
-      if AtkParty.Creature[AtkPos].ChancesToHit < RandomRange(0, 100) + 1 then
+      if AtkParty.Creature[AtkPos].GetChancesToHit() < RandomRange(0, 100) + 1
+      then
       begin
         Battle.Miss(AtkParty.Creature[AtkPos].Name[0],
           DefParty.Creature[DefPos].Name[1]);

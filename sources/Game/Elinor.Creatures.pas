@@ -496,6 +496,7 @@ type
     HitPoints: Integer;
     Initiative: Integer;
     ChancesToHit: Integer;
+    TempChancesToHit: Integer;
     Leadership: Integer;
     Level: Integer;
     Experience: Integer;
@@ -510,6 +511,9 @@ type
     function IsLeader(): Boolean;
     function IsMaxLevel: Boolean;
     function GenderEnding(VerbForm: Byte = 0): string;
+    function GetChancesToHit(): Integer;
+    procedure ModifyChancesToHit(const AValue: Integer);
+    procedure ClearTempValues;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
     class procedure Assign(var ACreature: TCreature;
@@ -1045,6 +1049,7 @@ begin
     SourceEnum := CreatureBase[I].SourceEnum;
     ReachEnum := CreatureBase[I].ReachEnum;
     SkillEnum := CreatureBase[I].SkillEnum;
+    ClearTempValues;
   end;
 end;
 
@@ -1078,6 +1083,7 @@ begin
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
     SkillEnum := skNone;
+    ClearTempValues;
   end;
 end;
 
@@ -1130,6 +1136,21 @@ begin
     (CreatureBase[TCreatureEnum(N)].ReachEnum = R) and
     (TSaga.LeaderFaction <> CreatureBase[TCreatureEnum(N)].Faction);
   Result := TCreatureEnum(N);
+end;
+
+procedure TCreature.ClearTempValues;
+begin
+  TempChancesToHit := 0;
+end;
+
+function TCreature.GetChancesToHit(): Integer;
+begin
+  Result := EnsureRange(ChancesToHit + TempChancesToHit, 10, 95);
+end;
+
+procedure TCreature.ModifyChancesToHit(const AValue: Integer);
+begin
+  TempChancesToHit := TempChancesToHit + AValue;
 end;
 
 function TCreature.Alive: Boolean;

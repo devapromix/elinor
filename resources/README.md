@@ -13,4 +13,4 @@ Font: Gothic -> AvQest
 Font size: 65
 
 Spells
-https://game-icons.net/
+https://game-icons.net/tags.html

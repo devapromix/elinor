@@ -516,7 +516,7 @@ begin
   begin
     if Active then
       DrawCreatureInfo(Name[0], AX, AY, Level, Experience, HitPoints,
-        MaxHitPoints, Damage, Heal, Armor, Initiative, ChancesToHit, ShowExp);
+        MaxHitPoints, Damage, Heal, Armor, Initiative, GetChancesToHit(), ShowExp);
   end;
 end;
 
@@ -596,7 +596,7 @@ begin
       (Level)]);
     LStr := 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
-    AddTextLine('Chances to hit', ChancesToHit);
+    AddTextLine('Chances to hit', GetChancesToHit());
     AddTextLine('Initiative', Initiative);
     AddTextLine('Hit points', HitPoints, MaxHitPoints);
     AddTextLine('Damage', Damage);
