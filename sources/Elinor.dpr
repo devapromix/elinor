@@ -53,7 +53,9 @@ uses
   Elinor.Scene.Barracks in 'Scenes\Elinor.Scene.Barracks.pas',
   Elinor.Spells.Types in 'Elinor.Spells.Types.pas',
   Elinor.Factions in 'Game\Elinor.Factions.pas',
-  Elinor.Spellbook in 'Game\Elinor.Spellbook.pas';
+  Elinor.Spellbook in 'Game\Elinor.Spellbook.pas',
+  Elinor.Scene.Skills in 'Scenes\Elinor.Scene.Skills.pas',
+  Elinor.Scene.Inventory in 'Scenes\Elinor.Scene.Inventory.pas';
 
 {$R *.res}
 

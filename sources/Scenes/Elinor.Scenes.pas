@@ -21,7 +21,7 @@ uses
 type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
-    scBarracks);
+    scBarracks, scInventory);
 
 const
   ScreenWidth = 1344;
@@ -218,7 +218,8 @@ uses
   Elinor.Spellbook,
   Elinor.Scene.Party2,
   Elinor.Scene.Hire,
-  Elinor.Factions;
+  Elinor.Factions,
+  Elinor.Scene.Inventory;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -798,6 +799,7 @@ begin
   FScene[scHire] := TSceneHire.Create;
   FScene[scHire2] := TSceneRecruit.Create;
   FScene[scParty] := TSceneParty2.Create;
+  FScene[scInventory] := TSceneInventory.Create;
   FScene[scBattle] := TSceneBattle2.Create;
   FScene[scSettlement] := TSceneSettlement.Create;
   FScene[scSpellbook] := TSceneSpellbook.Create;

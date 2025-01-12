@@ -50,7 +50,8 @@ uses
   Elinor.Statistics,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Settlement,
-  Elinor.Scene.Spellbook;
+  Elinor.Scene.Spellbook,
+  Elinor.Scene.Inventory;
 
 var
   ShowResources: Boolean;
@@ -93,7 +94,7 @@ end;
 
 procedure TSceneParty2.ShowInventoryScene;
 begin
-
+  TSceneInventory.ShowScene(CurrentParty, scParty);
 end;
 
 procedure TSceneParty2.MouseDown(AButton: TMouseButton; Shift: TShiftState;

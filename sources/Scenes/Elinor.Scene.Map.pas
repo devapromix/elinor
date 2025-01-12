@@ -52,7 +52,8 @@ uses
   Elinor.Scene.Scenario,
   Elinor.PathFind,
   Elinor.Scene.Party2,
-  Elinor.Spells;
+  Elinor.Spells,
+  Elinor.Scene.Inventory;
 
 { TSceneMap }
 
@@ -161,7 +162,7 @@ end;
 
 procedure TSceneMap.ShowInventoryScene;
 begin
-  // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, True);
+  TSceneInventory.ShowScene(Party[TLeaderParty.LeaderPartyIndex], scMap);
 end;
 
 procedure TSceneMap.ShowAbilitiesScene;
