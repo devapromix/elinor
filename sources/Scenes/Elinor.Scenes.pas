@@ -34,6 +34,7 @@ const
   K_ESCAPE = 27;
   K_ENTER = 13;
   K_SPACE = 32;
+  K_TAB = 9;
 
   K_A = ord('A');
   K_B = ord('B');
@@ -517,7 +518,8 @@ begin
   begin
     if Active then
       DrawCreatureInfo(Name[0], AX, AY, Level, Experience, HitPoints,
-        MaxHitPoints, Damage, Heal, Armor, Initiative, GetChancesToHit(), ShowExp);
+        MaxHitPoints, Damage, Heal, Armor, Initiative,
+        GetChancesToHit(), ShowExp);
   end;
 end;
 
@@ -531,8 +533,8 @@ begin
   LExp := '';
   if IsExp then
     LExp := Format(' Exp %d/%d',
-      [Experience, Party[TLeaderParty.LeaderPartyIndex].GetMaxExperiencePerLevel
-      (Level)]);
+      [Experience, Party[TLeaderParty.LeaderPartyIndex]
+      .GetMaxExperiencePerLevel(Level)]);
   DrawText(AX + SceneLeft + 64, AY + 27, Format('Level %d', [Level]) + LExp);
   DrawText(AX + SceneLeft + 64, AY + 48, Format('Hit points %d/%d',
     [HitPoints, MaxHitPoints]));
@@ -593,8 +595,8 @@ begin
     AddTextLine(Name[0], True);
     AddTextLine;
     LExp := Format(' Exp %d/%d',
-      [Experience, Party[TLeaderParty.LeaderPartyIndex].GetMaxExperiencePerLevel
-      (Level)]);
+      [Experience, Party[TLeaderParty.LeaderPartyIndex]
+      .GetMaxExperiencePerLevel(Level)]);
     LStr := 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
     AddTextLine('Chances to hit', GetChancesToHit());
@@ -736,8 +738,8 @@ begin
     for LPosition := Low(TPosition) to High(TPosition) do
     begin
       Inc(Result);
-      if MouseOver(TFrame.Col(LPosition, LPartySide), TFrame.Row(LPosition), AX,
-        AY) then
+      if MouseOver(TFrame.Col(LPosition, LPartySide), TFrame.Row(LPosition),
+        AX, AY) then
         Exit;
     end;
   if Result = 11 then

@@ -19,6 +19,8 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
   private
+    EquipmentSelItemIndex: Integer;
+    InventorySelItemIndex: Integer;
     Button: array [TButtonEnum] of TButton;
     ConfirmGold: Integer;
     ConfirmParty: TParty;
@@ -47,12 +49,13 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
-  Elinor.Creatures;
+  Elinor.Creatures, Elinor.Items;
 
 var
   ShowResources: Boolean;
   CurrentParty: TParty;
   CloseSceneEnum: TSceneEnum;
+  ActiveSection: Integer = 0;
 
   { TSceneInventory }
 
@@ -95,6 +98,8 @@ begin
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
+  EquipmentSelItemIndex := 0;
+  InventorySelItemIndex := 0;
 end;
 
 destructor TSceneInventory.Destroy;
@@ -146,15 +151,40 @@ procedure TSceneInventory.Render;
           TFrame.Row(LPosition), False, True);
   end;
 
-  procedure RenderCharacterInfo;
+  procedure RenderEquipment;
   var
-    LCreatureEnum: TCreatureEnum;
+    I: Integer;
   begin
-    LCreatureEnum := CurrentParty.Creature[ActivePartyPosition].Enum;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
-    if (LCreatureEnum <> crNone) then
-      DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
+    DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight) +
+      42, reItemFrame);
+    AddTextLine('Equipment', True);
+    AddTextLine;
+    for I := 0 to MaxEquipmentItems - 1 do
+      case I of
+        5:
+          AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I,
+            TCreature.EquippedWeapon(TCreature.Character
+            (TLeaderParty.Leader.Enum).AttackEnum,
+            TCreature.Character(TLeaderParty.Leader.Enum).SourceEnum)));
+      else
+        AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I));
+      end;
+  end;
+
+  procedure RenderInventory;
+  var
+    I: Integer;
+  begin
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(3) + 12;
+    DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight) +
+      42, reItemFrame);
+    AddTextLine('Inventory', True);
+    AddTextLine;
+    for I := 0 to MaxInventoryItems - 1 do
+      AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
   end;
 
   procedure RenderButtons;
@@ -170,7 +200,8 @@ begin
 
   DrawTitle(reTitleInventory);
   RenderParty;
-  // RenderCharacterInfo;
+  RenderEquipment;
+  RenderInventory;
 
   RenderButtons;
 end;
@@ -183,10 +214,66 @@ end;
 
 procedure TSceneInventory.Update(var Key: Word);
 begin
-  inherited;
   case Key of
-    K_ESCAPE, K_ENTER:
+    K_UP:
+      begin
+        case ActiveSection of
+          1:
+            begin
+              Dec(EquipmentSelItemIndex);
+              if EquipmentSelItemIndex < 0 then
+                EquipmentSelItemIndex := MaxEquipmentItems - 1;
+              Exit;
+            end;
+          2:
+            begin
+              Dec(InventorySelItemIndex);
+              if InventorySelItemIndex < 0 then
+                InventorySelItemIndex := MaxEquipmentItems - 1;
+              Exit;
+            end;
+        end;
+      end;
+    K_DOWN:
+      begin
+        case ActiveSection of
+          1:
+            begin
+              Inc(EquipmentSelItemIndex);
+              if EquipmentSelItemIndex > MaxEquipmentItems - 1 then
+                EquipmentSelItemIndex := 0;
+              Exit;
+            end;
+          2:
+            begin
+              Inc(InventorySelItemIndex);
+              if InventorySelItemIndex > MaxEquipmentItems - 1 then
+                InventorySelItemIndex := 0;
+              Exit;
+            end;
+        end;
+      end
+  end;
+  if ActiveSection = 0 then
+    inherited;
+  case Key of
+    K_ESCAPE:
       HideScene;
+    K_ENTER:
+      begin
+        case ActiveSection of
+          1:
+            TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
+          2:
+            TLeaderParty.Leader.Equip(InventorySelItemIndex);
+        end;
+      end;
+    K_SPACE:
+      begin
+        Inc(ActiveSection);
+        if ActiveSection > 2 then
+          ActiveSection := 0;
+      end;
   end;
 end;
 

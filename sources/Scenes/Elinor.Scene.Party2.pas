@@ -62,7 +62,7 @@ var
 
 procedure TSceneParty2.ShowAbilitiesScene;
 begin
-
+  if CurrentParty = TLeaderParty.Leader then;
 end;
 
 constructor TSceneParty2.Create;
@@ -94,7 +94,8 @@ end;
 
 procedure TSceneParty2.ShowInventoryScene;
 begin
-  TSceneInventory.ShowScene(CurrentParty, scParty);
+  if CurrentParty = TLeaderParty.Leader then
+    TSceneInventory.ShowScene(CurrentParty, scParty);
 end;
 
 procedure TSceneParty2.MouseDown(AButton: TMouseButton; Shift: TShiftState;
