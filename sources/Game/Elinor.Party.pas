@@ -198,7 +198,7 @@ var
 begin
   Result := False;
   for Position := Low(TPosition) to High(TPosition) do
-    if (Creature[Position].HitPoints > 0) then
+    if not Creature[Position].HitPoints.IsMinCurrValue then
       Exit;
   Result := True;
 end;
@@ -284,14 +284,14 @@ begin
   for LPosition := Low(TPosition) to High(TPosition) do
     with Creature[LPosition] do
       if Active then
-        Inc(Result, MaxHitPoints);
+        Inc(Result, HitPoints.GetMaxValue);
 end;
 
 function TParty.GetHitPoints(const APosition: TPosition): Integer;
 begin
   Result := 0;
   if FCreature[APosition].Active then
-    Result := FCreature[APosition].HitPoints;
+    Result := FCreature[APosition].HitPoints.GetCurrValue;
 end;
 
 function TParty.GetInitiative(const APosition: TPosition): Integer;
@@ -355,14 +355,14 @@ procedure TParty.Heal(const APosition: TPosition);
 begin
   with FCreature[APosition] do
     if Alive then
-      HitPoints := MaxHitPoints;
+      HitPoints.SetToMaxValue;
 end;
 
 procedure TParty.Heal(const APosition: TPosition; const AHitPoints: Integer);
 begin
   with FCreature[APosition] do
     if Alive then
-      HitPoints := EnsureRange(HitPoints + AHitPoints, 0, MaxHitPoints);
+      HitPoints.ModifyCurrValue(AHitPoints);
 end;
 
 procedure TParty.HealAll(const AHitPoints: Integer);
@@ -394,7 +394,7 @@ procedure TParty.Revive(const APosition: TPosition);
 begin
   with FCreature[APosition] do
     if not Alive then
-      HitPoints := 1;
+      HitPoints.SetCurrValue(1);
 end;
 
 procedure TParty.SetCreature(APosition: TPosition; const Value: TCreature);
@@ -405,7 +405,7 @@ end;
 procedure TParty.SetHitPoints(const APosition: TPosition;
   const AHitPoints: Integer);
 begin
-  FCreature[APosition].HitPoints := AHitPoints;
+  FCreature[APosition].HitPoints.SetCurrValue(AHitPoints);
 end;
 
 procedure TParty.SetState(const APosition: TPosition; const Flag: Boolean);
@@ -435,21 +435,22 @@ begin
 end;
 
 procedure TParty.TakeDamage(const ADamage: Integer; const APosition: TPosition);
+var
+  LDamage: Integer;
 begin
   if ADamage <= 0 then
     Exit;
   with FCreature[APosition] do
     if Active then
     begin
-      if (HitPoints > 0) then
-        if (ADamage - Armor.GetFullValue() > 0) then
-        begin
-          HitPoints := HitPoints - (ADamage - Armor.GetFullValue());
-        end
+      if not HitPoints.IsMinCurrValue then
+      begin
+        LDamage := ADamage - Armor.GetFullValue();
+        if (LDamage > 0) then
+          HitPoints.ModifyCurrValue(-LDamage)
         else
           Game.MediaPlayer.PlaySound(mmBlock);
-      if (HitPoints < 0) then
-        HitPoints := 0;
+      end;
     end;
 end;
 
@@ -467,13 +468,15 @@ begin
   with FCreature[APosition] do
     if Alive then
       if (AHitPoints > 0) then
-        if (HitPoints + AHitPoints <= MaxHitPoints) then
-          HitPoints := HitPoints + AHitPoints
+        if (HitPoints.GetCurrValue + AHitPoints <= HitPoints.GetMaxValue) then
+          HitPoints.ModifyCurrValue(AHitPoints)
         else
-          HitPoints := MaxHitPoints;
+          HitPoints.SetToMaxValue;
 end;
 
 procedure TParty.UpdateLevel(const APosition: TPosition);
+var
+  LMaxHitPoints: Integer;
 begin
   with FCreature[APosition] do
   begin
@@ -481,8 +484,10 @@ begin
       Exit;
     Experience := 0;
     Game.MediaPlayer.PlaySound(mmLevel);
-    MaxHitPoints := EnsureRange(MaxHitPoints + (MaxHitPoints div 10), 25, 1000);
-    HitPoints := MaxHitPoints;
+
+    LMaxHitPoints := EnsureRange(HitPoints.GetMaxValue +
+      (HitPoints.GetMaxValue div 10), 25, 1000);
+    HitPoints.SetValue(LMaxHitPoints);
     Initiative.ModifyCurrValue(1, 10, 80);
     ChancesToHit.ModifyCurrValue(1, 10, 95);
     if Damage.GetCurrValue > 0 then

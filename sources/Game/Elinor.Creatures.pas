@@ -495,15 +495,14 @@ type
     Enum: TCreatureEnum;
     ResEnum: TResEnum;
     Name: array [0 .. 1] of string;
-    MaxHitPoints: Integer;
-    HitPoints: Integer;
-    Initiative: TAttribute;
-    ChancesToHit: TAttribute;
+    HitPoints: TCurrMaxAttribute;
+    Initiative: TCurrTempAttribute;
+    ChancesToHit: TCurrTempAttribute;
     Leadership: Integer;
     Level: Integer;
     Experience: Integer;
-    Damage: TAttribute;
-    Armor: TAttribute;
+    Damage: TCurrTempAttribute;
+    Armor: TCurrTempAttribute;
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
@@ -1036,8 +1035,7 @@ begin
     ResEnum := CreatureBase[I].ResEnum;
     for J := 0 to 1 do
       Name[J] := CreatureBase[I].Name[J];
-    MaxHitPoints := CreatureBase[I].HitPoints;
-    HitPoints := CreatureBase[I].HitPoints;
+    HitPoints.SetValue(CreatureBase[I].HitPoints);
     Initiative.SetCurrValue(CreatureBase[I].Initiative);
     ChancesToHit.SetCurrValue(CreatureBase[I].ChancesToHit);
     Leadership := CreatureBase[I].Leadership;
@@ -1070,8 +1068,7 @@ begin
     ResEnum := reNone;
     for J := 0 to 1 do
       Name[J] := '';
-    MaxHitPoints := 0;
-    HitPoints := 0;
+    HitPoints.Clear;
     Initiative.ClearFull;
     ChancesToHit.ClearFull;
     Leadership := 0;
@@ -1142,11 +1139,13 @@ procedure TCreature.ClearTempValues;
 begin
   ChancesToHit.ClearTemp;
   Initiative.ClearTemp;
+  Damage.ClearTemp;
+  Armor.ClearTemp;
 end;
 
 function TCreature.Alive: Boolean;
 begin
-  Result := Active and (HitPoints > 0);
+  Result := Active and not HitPoints.IsMinCurrValue;
 end;
 
 function TCreature.AliveAndNeedExp: Boolean;

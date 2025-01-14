@@ -517,9 +517,10 @@ begin
   with Party.Creature[Position] do
   begin
     if Active then
-      DrawCreatureInfo(Name[0], AX, AY, Level, Experience, HitPoints,
-        MaxHitPoints, Damage.GetFullValue(), Heal, Armor.GetFullValue(),
-        Initiative.GetFullValue(), ChancesToHit.GetFullValue(), ShowExp);
+      DrawCreatureInfo(Name[0], AX, AY, Level, Experience,
+        HitPoints.GetCurrValue, HitPoints.GetMaxValue, Damage.GetFullValue(),
+        Heal, Armor.GetFullValue(), Initiative.GetFullValue(),
+        ChancesToHit.GetFullValue(), ShowExp);
   end;
 end;
 
@@ -601,7 +602,7 @@ begin
     AddTextLine(LStr);
     AddTextLine('Chances to hit', ChancesToHit.GetFullValue());
     AddTextLine('Initiative', Initiative.GetFullValue());
-    AddTextLine('Hit points', HitPoints, MaxHitPoints);
+    AddTextLine('Hit points', HitPoints.GetCurrValue, HitPoints.GetMaxValue);
     AddTextLine('Damage', Damage.GetFullValue());
     AddTextLine('Armor', Armor.GetFullValue());
     AddTextLine('Source', SourceName[SourceEnum]);
@@ -772,10 +773,11 @@ begin
           LBGStat := bsEnemy;
         if Paralyze then
           LBGStat := bsParalyze;
-        if HitPoints <= 0 then
-          DrawUnit(reDead, AX, AY, LBGStat, 0, MaxHitPoints)
+        if HitPoints.IsMinCurrValue then
+          DrawUnit(reDead, AX, AY, LBGStat, 0, HitPoints.GetMaxValue)
         else
-          DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints, MaxHitPoints);
+          DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints.GetCurrValue,
+            HitPoints.GetMaxValue);
         DrawCreatureInfo(Position, Party, AX, AY, ShowExp);
       end
     else if CanHire then

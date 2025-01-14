@@ -118,17 +118,18 @@ procedure TSceneTemple.Heal;
         InformDialog('Выберите не пустой слот!');
         Exit;
       end;
-      if HitPoints <= 0 then
+      if HitPoints.IsMinCurrValue then
       begin
         InformDialog('Сначала нужно воскресить!');
         Exit;
       end;
-      if HitPoints = MaxHitPoints then
+      if HitPoints.GetCurrValue = HitPoints.GetMaxValue then
       begin
         InformDialog('Не нуждается в исцелении!');
         Exit;
       end;
-      ConfirmGold := TLeaderParty.Leader.GetGold(MaxHitPoints - HitPoints);
+      ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue -
+        HitPoints.GetCurrValue);
       if (ConfirmGold > Game.Gold.Value) then
       begin
         InformDialog('Нужно больше золота!');
@@ -239,7 +240,7 @@ procedure TSceneTemple.Revive;
         InformDialog('Выберите не пустой слот!');
         Exit;
       end;
-      if HitPoints > 0 then
+      if not HitPoints.IsMinCurrValue then
       begin
         InformDialog('Не нуждается в воскрешении!');
         Exit;
@@ -247,7 +248,7 @@ procedure TSceneTemple.Revive;
       else
       begin
         ConfirmGold := TLeaderParty.Leader.GetGold
-          (MaxHitPoints + (Level * ((Ord(TSaga.Difficulty) + 1) *
+          (HitPoints.GetMaxValue + (Level * ((Ord(TSaga.Difficulty) + 1) *
           TSaga.GoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin

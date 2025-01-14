@@ -115,9 +115,10 @@ var
     for Position := 0 to 5 do
       if LeaderParty.Creature[Position].Alive then
       begin
-        if (LeaderParty.Creature[Position].HitPoints < MinHitPoints) then
+        if (LeaderParty.Creature[Position].HitPoints.GetCurrValue < MinHitPoints)
+        then
         begin
-          MinHitPoints := LeaderParty.Creature[Position].HitPoints;
+          MinHitPoints := LeaderParty.Creature[Position].HitPoints.GetCurrValue;
           CurPosition := Position;
         end;
       end;
@@ -143,9 +144,9 @@ var
 
   function HasWarriors: Boolean;
   begin
-    Result := (LeaderParty.Creature[1].HitPoints > 0) or
-      (LeaderParty.Creature[3].HitPoints > 0) or
-      (LeaderParty.Creature[5].HitPoints > 0);
+    Result := (LeaderParty.Creature[1].HitPoints.GetCurrValue > 0) or
+      (LeaderParty.Creature[3].HitPoints.GetCurrValue > 0) or
+      (LeaderParty.Creature[5].HitPoints.GetCurrValue > 0);
   end;
 
   procedure AtkAdj;
@@ -372,7 +373,7 @@ begin
             TCreature.Character(AtkCrEnum).SourceEnum,
             AtkParty.Creature[AtkPos].Name[0], DefParty.Creature[DefPos].Name
             [1], LDamage);
-          if (DefParty.Creature[DefPos].HitPoints > 0) then
+          if (DefParty.Creature[DefPos].HitPoints.GetCurrValue > 0) then
             Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum)
               .Sound[csHit])
           else
@@ -384,21 +385,21 @@ begin
           F := False;
           case AtkPos of
             1, 3, 5:
-              F := (AtkParty.Creature[0].HitPoints > 0) or
-                (AtkParty.Creature[2].HitPoints > 0) or
-                (AtkParty.Creature[4].HitPoints > 0);
+              F := (AtkParty.Creature[0].HitPoints.GetCurrValue > 0) or
+                (AtkParty.Creature[2].HitPoints.GetCurrValue > 0) or
+                (AtkParty.Creature[4].HitPoints.GetCurrValue > 0);
           end;
           if not F then
             case DefPos of
               0, 2, 4:
                 begin
                   if (AtkPos = 0) and (DefPos = 4) and
-                    ((DefParty.Creature[0].HitPoints > 0) or
-                    (DefParty.Creature[2].HitPoints > 0)) then
+                    ((DefParty.Creature[0].HitPoints.GetCurrValue > 0) or
+                    (DefParty.Creature[2].HitPoints.GetCurrValue > 0)) then
                     Exit;
                   if (AtkPos = 4) and (DefPos = 0) and
-                    ((DefParty.Creature[2].HitPoints > 0) or
-                    (DefParty.Creature[4].HitPoints > 0)) then
+                    ((DefParty.Creature[2].HitPoints.GetCurrValue > 0) or
+                    (DefParty.Creature[4].HitPoints.GetCurrValue > 0)) then
                     Exit;
                   Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum)
                     .Sound[csAttack]);
@@ -410,7 +411,7 @@ begin
                     AtkParty.Creature[AtkPos].Name[0],
                     DefParty.Creature[DefPos].Name[1],
                     AtkParty.Creature[AtkPos].Damage.GetFullValue);
-                  if (DefParty.Creature[DefPos].HitPoints > 0) then
+                  if (DefParty.Creature[DefPos].HitPoints.GetCurrValue > 0) then
                     Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum)
                       .Sound[csHit])
                   else
@@ -419,9 +420,9 @@ begin
                 end;
               1, 3, 5:
                 begin
-                  F := (DefParty.Creature[0].HitPoints > 0) or
-                    (DefParty.Creature[2].HitPoints > 0) or
-                    (DefParty.Creature[4].HitPoints > 0);
+                  F := (DefParty.Creature[0].HitPoints.GetCurrValue > 0) or
+                    (DefParty.Creature[2].HitPoints.GetCurrValue > 0) or
+                    (DefParty.Creature[4].HitPoints.GetCurrValue > 0);
                   if not F then
                   begin
                     Game.MediaPlayer.PlaySound(TCreature.Character(AtkCrEnum)
@@ -434,7 +435,8 @@ begin
                       AtkParty.Creature[AtkPos].Name[0],
                       DefParty.Creature[DefPos].Name[1],
                       AtkParty.Creature[AtkPos].Damage.GetFullValue);
-                    if (DefParty.Creature[DefPos].HitPoints > 0) then
+                    if (DefParty.Creature[DefPos].HitPoints.GetCurrValue > 0)
+                    then
                       Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum)
                         .Sound[csHit])
                     else
@@ -466,7 +468,7 @@ begin
                 AtkParty.Creature[AtkPos].Name[0],
                 DefParty.Creature[Position].Name[1],
                 AtkParty.Creature[AtkPos].Damage.GetFullValue);
-              if (DefParty.Creature[Position].HitPoints > 0) then
+              if (DefParty.Creature[Position].HitPoints.GetCurrValue > 0) then
                 Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum)
                   .Sound[csHit])
               else
@@ -493,7 +495,7 @@ begin
         begin
           for Position := Low(TPosition) to High(TPosition) do
             with Party.Creature[Position] do
-              if Alive and (HitPoints < MaxHitPoints) then
+              if Alive and (HitPoints.GetCurrValue < HitPoints.GetMaxValue) then
               begin
                 Game.MediaPlayer.PlaySound(mmHeal);
                 Party.Heal(Position, Party.Creature[AtkPos].Heal);
@@ -504,7 +506,7 @@ begin
         end
     else
       with Party.Creature[DefPos] do
-        if Alive and (HitPoints < MaxHitPoints) then
+        if Alive and (HitPoints.GetCurrValue < HitPoints.GetMaxValue) then
         begin
           Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
           Battle.Heal(Party.Creature[AtkPos].Name[0],
