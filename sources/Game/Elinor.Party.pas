@@ -298,7 +298,7 @@ function TParty.GetInitiative(const APosition: TPosition): Integer;
 begin
   Result := 0;
   if FCreature[APosition].Active then
-    Result := FCreature[APosition].GetInitiative();
+    Result := FCreature[APosition].Initiative.GetFullValue();
 end;
 
 function TParty.GetMaxExperiencePerLevel(const Level: Integer): Integer;
@@ -483,8 +483,8 @@ begin
     Game.MediaPlayer.PlaySound(mmLevel);
     MaxHitPoints := EnsureRange(MaxHitPoints + (MaxHitPoints div 10), 25, 1000);
     HitPoints := MaxHitPoints;
-    Initiative := EnsureRange(Initiative + 1, 10, 80);
-    ChancesToHit := EnsureRange(ChancesToHit + 1, 10, 95);
+    Initiative.ModifyCurrValue(1, 10, 80);
+    ChancesToHit.ModifyCurrValue(1, 10, 95);
     if Damage > 0 then
       Damage := EnsureRange(Damage + (Damage div 10), 0, 300);
     if Heal > 0 then

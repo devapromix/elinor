@@ -293,8 +293,8 @@ begin
   if AtkParty.Creature[AtkPos].Alive and DefParty.Creature[DefPos].Alive then
   begin
     begin
-      if AtkParty.Creature[AtkPos].GetChancesToHit() < RandomRange(0, 100) + 1
-      then
+      if AtkParty.Creature[AtkPos].ChancesToHit.GetFullValue() <
+        RandomRange(0, 100) + 1 then
       begin
         Battle.Miss(AtkParty.Creature[AtkPos].Name[0],
           DefParty.Creature[DefPos].Name[1]);

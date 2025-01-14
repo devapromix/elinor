@@ -55,7 +55,8 @@ uses
   Elinor.Factions in 'Game\Elinor.Factions.pas',
   Elinor.Spellbook in 'Game\Elinor.Spellbook.pas',
   Elinor.Scene.Skills in 'Scenes\Elinor.Scene.Skills.pas',
-  Elinor.Scene.Inventory in 'Scenes\Elinor.Scene.Inventory.pas';
+  Elinor.Scene.Inventory in 'Scenes\Elinor.Scene.Inventory.pas',
+  Elinor.Attribute in 'Game\Elinor.Attribute.pas';
 
 {$R *.res}
 

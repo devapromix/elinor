@@ -2,12 +2,15 @@
 
 interface
 
+// http://gormel.altervista.org/mastro_gp/Disciples2/
+
 {$IFDEF FPC}
 {$MODESWITCH ADVANCEDRECORDS}
 {$ENDIF}
 
 uses
   Elinor.Factions,
+  Elinor.Attribute,
   Elinor.Resources;
 
 type
@@ -494,10 +497,8 @@ type
     Name: array [0 .. 1] of string;
     MaxHitPoints: Integer;
     HitPoints: Integer;
-    Initiative: Integer;
-    ChancesToHit: Integer;
-    TempInitiative: Integer;
-    TempChancesToHit: Integer;
+    Initiative: TAttribute;
+    ChancesToHit: TAttribute;
     Leadership: Integer;
     Level: Integer;
     Experience: Integer;
@@ -512,10 +513,6 @@ type
     function IsLeader(): Boolean;
     function IsMaxLevel: Boolean;
     function GenderEnding(VerbForm: Byte = 0): string;
-    function GetChancesToHit(): Integer;
-    procedure ModifyChancesToHit(const AValue: Integer);
-    function GetInitiative(): Integer;
-    procedure ModifyInitiative(const AValue: Integer);
     procedure ClearTempValues;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
@@ -1041,8 +1038,8 @@ begin
       Name[J] := CreatureBase[I].Name[J];
     MaxHitPoints := CreatureBase[I].HitPoints;
     HitPoints := CreatureBase[I].HitPoints;
-    Initiative := CreatureBase[I].Initiative;
-    ChancesToHit := CreatureBase[I].ChancesToHit;
+    Initiative.SetCurrValue(CreatureBase[I].Initiative);
+    ChancesToHit.SetCurrValue(CreatureBase[I].ChancesToHit);
     Leadership := CreatureBase[I].Leadership;
     Level := CreatureBase[I].Level;
     Experience := 0;
@@ -1075,8 +1072,8 @@ begin
       Name[J] := '';
     MaxHitPoints := 0;
     HitPoints := 0;
-    Initiative := 0;
-    ChancesToHit := 0;
+    Initiative.ClearFull;
+    ChancesToHit.ClearFull;
     Leadership := 0;
     Level := 0;
     Experience := 0;
@@ -1143,28 +1140,8 @@ end;
 
 procedure TCreature.ClearTempValues;
 begin
-  TempChancesToHit := 0;
-  TempInitiative := 0;
-end;
-
-function TCreature.GetChancesToHit(): Integer;
-begin
-  Result := EnsureRange(ChancesToHit + TempChancesToHit, 10, 95);
-end;
-
-procedure TCreature.ModifyChancesToHit(const AValue: Integer);
-begin
-  TempChancesToHit := TempChancesToHit + AValue;
-end;
-
-function TCreature.GetInitiative(): Integer;
-begin
-  Result := EnsureRange(Initiative + TempInitiative, 0, 100);
-end;
-
-procedure TCreature.ModifyInitiative(const AValue: Integer);
-begin
-  TempInitiative := TempInitiative + AValue;
+  ChancesToHit.ClearTemp;
+  Initiative.ClearTemp;
 end;
 
 function TCreature.Alive: Boolean;
