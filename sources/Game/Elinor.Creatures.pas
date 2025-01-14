@@ -496,6 +496,7 @@ type
     HitPoints: Integer;
     Initiative: Integer;
     ChancesToHit: Integer;
+    TempInitiative: Integer;
     TempChancesToHit: Integer;
     Leadership: Integer;
     Level: Integer;
@@ -513,6 +514,8 @@ type
     function GenderEnding(VerbForm: Byte = 0): string;
     function GetChancesToHit(): Integer;
     procedure ModifyChancesToHit(const AValue: Integer);
+    function GetInitiative(): Integer;
+    procedure ModifyInitiative(const AValue: Integer);
     procedure ClearTempValues;
     class procedure Clear(var ACreature: TCreature); static;
     class function Character(const I: TCreatureEnum): TCreatureBase; static;
@@ -1141,6 +1144,7 @@ end;
 procedure TCreature.ClearTempValues;
 begin
   TempChancesToHit := 0;
+  TempInitiative := 0;
 end;
 
 function TCreature.GetChancesToHit(): Integer;
@@ -1151,6 +1155,16 @@ end;
 procedure TCreature.ModifyChancesToHit(const AValue: Integer);
 begin
   TempChancesToHit := TempChancesToHit + AValue;
+end;
+
+function TCreature.GetInitiative(): Integer;
+begin
+  Result := EnsureRange(Initiative + TempInitiative, 0, 100);
+end;
+
+procedure TCreature.ModifyInitiative(const AValue: Integer);
+begin
+  TempInitiative := TempInitiative + AValue;
 end;
 
 function TCreature.Alive: Boolean;

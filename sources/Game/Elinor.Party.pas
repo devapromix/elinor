@@ -298,7 +298,7 @@ function TParty.GetInitiative(const APosition: TPosition): Integer;
 begin
   Result := 0;
   if FCreature[APosition].Active then
-    Result := FCreature[APosition].Initiative;
+    Result := FCreature[APosition].GetInitiative();
 end;
 
 function TParty.GetMaxExperiencePerLevel(const Level: Integer): Integer;
@@ -854,7 +854,7 @@ begin
   LCount := 0;
   repeat
     Dec(Speed);
-    if (Speed = 0) then
+    if (Speed <= 0) then
     begin
       Inc(Game.Day);
       Game.IsNewDay := True;
