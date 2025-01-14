@@ -502,8 +502,8 @@ type
     Leadership: Integer;
     Level: Integer;
     Experience: Integer;
-    Damage: Integer;
-    Armor: Integer;
+    Damage: TAttribute;
+    Armor: TAttribute;
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
@@ -1043,8 +1043,8 @@ begin
     Leadership := CreatureBase[I].Leadership;
     Level := CreatureBase[I].Level;
     Experience := 0;
-    Damage := CreatureBase[I].Damage;
-    Armor := CreatureBase[I].Armor;
+    Damage.SetCurrValue(CreatureBase[I].Damage);
+    Armor.SetCurrValue(CreatureBase[I].Armor);
     Heal := CreatureBase[I].Heal;
     SourceEnum := CreatureBase[I].SourceEnum;
     ReachEnum := CreatureBase[I].ReachEnum;
@@ -1077,8 +1077,8 @@ begin
     Leadership := 0;
     Level := 0;
     Experience := 0;
-    Damage := 0;
-    Armor := 0;
+    Damage.ClearFull;
+    Armor.ClearFull;
     Heal := 0;
     SourceEnum := seWeapon;
     ReachEnum := reAdj;

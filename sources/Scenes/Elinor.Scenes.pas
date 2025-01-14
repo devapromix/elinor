@@ -518,8 +518,8 @@ begin
   begin
     if Active then
       DrawCreatureInfo(Name[0], AX, AY, Level, Experience, HitPoints,
-        MaxHitPoints, Damage, Heal, Armor, Initiative.GetFullValue(),
-        ChancesToHit.GetFullValue(), ShowExp);
+        MaxHitPoints, Damage.GetFullValue(), Heal, Armor.GetFullValue(),
+        Initiative.GetFullValue(), ChancesToHit.GetFullValue(), ShowExp);
   end;
 end;
 
@@ -602,8 +602,8 @@ begin
     AddTextLine('Chances to hit', ChancesToHit.GetFullValue());
     AddTextLine('Initiative', Initiative.GetFullValue());
     AddTextLine('Hit points', HitPoints, MaxHitPoints);
-    AddTextLine('Damage', Damage);
-    AddTextLine('Armor', Armor);
+    AddTextLine('Damage', Damage.GetFullValue());
+    AddTextLine('Armor', Armor.GetFullValue());
     AddTextLine('Source', SourceName[SourceEnum]);
     case ReachEnum of
       reAny:

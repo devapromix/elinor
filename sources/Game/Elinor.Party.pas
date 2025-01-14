@@ -442,9 +442,9 @@ begin
     if Active then
     begin
       if (HitPoints > 0) then
-        if (ADamage - Armor > 0) then
+        if (ADamage - Armor.GetFullValue() > 0) then
         begin
-          HitPoints := HitPoints - (ADamage - Armor);
+          HitPoints := HitPoints - (ADamage - Armor.GetFullValue());
         end
         else
           Game.MediaPlayer.PlaySound(mmBlock);
@@ -485,8 +485,8 @@ begin
     HitPoints := MaxHitPoints;
     Initiative.ModifyCurrValue(1, 10, 80);
     ChancesToHit.ModifyCurrValue(1, 10, 95);
-    if Damage > 0 then
-      Damage := EnsureRange(Damage + (Damage div 10), 0, 300);
+    if Damage.GetCurrValue > 0 then
+      Damage.ModifyCurrValue((Damage.GetCurrValue div 10), 0, 300);
     if Heal > 0 then
       Heal := EnsureRange(Heal + (Heal div 15), 0, 150);
     Level := EnsureRange(Level + 1, 0, TSaga.MaxLevel);
