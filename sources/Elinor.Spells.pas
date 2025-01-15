@@ -10,7 +10,7 @@ uses
 type
   TSpellEnum = (spNone,
     // The Empire Spellbook
-    spTrueHealing, spSpeed,
+    spTrueHealing, spSpeed, spLivingArmor,
     // Undead Hordes Spellbook
     spPlague,
     // Legions of the Damned Spellbook
@@ -80,6 +80,11 @@ type
   end;
 
 type
+  TLivingArmorSpell = class(TSpell)
+    function CastAt(const AX, AY: Integer): Boolean; override;
+  end;
+
+type
   TPlagueSpell = class(TSpell)
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
@@ -110,8 +115,11 @@ const
     (Name: 'True Healing'; Level: 1; Mana: 15; SoundEnum: mmHeal;
     ResEnum: reTrueHealing; Faction: faTheEmpire),
     // Speed
-    (Name: 'Speed'; Level: 1; Mana: 25; SoundEnum: mmHeal;
-    ResEnum: reTrueHealing; Faction: faTheEmpire),
+    (Name: 'Speed'; Level: 1; Mana: 25; SoundEnum: mmHeal; ResEnum: reSpeed;
+    Faction: faTheEmpire),
+    // Living Armor
+    (Name: 'Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
+    ResEnum: reLivingArmor; Faction: faTheEmpire),
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
     Faction: faUndeadHordes),
@@ -179,6 +187,7 @@ begin
   FActiveSpell := TActiveSpell.Create;
   FSpell[spTrueHealing] := TTrueHealingSpell.Create;
   FSpell[spSpeed] := TSpeedSpell.Create;
+  FSpell[spLivingArmor] := TLivingArmorSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
 end;
@@ -229,6 +238,23 @@ begin
     ShowMessage('Speed');
     Game.MediaPlayer.PlaySound(mmSpeed);
     TLeaderParty.SetMaxSpeed;
+  end;
+end;
+
+{ TLivingArmorSpell }
+
+function TLivingArmorSpell.CastAt(const AX, AY: Integer): Boolean;
+var
+  LPartyIndex: Integer;
+begin
+  inherited;
+  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  if (LPartyIndex > 0) and (LPartyIndex <> TLeaderParty.LeaderPartyIndex) then
+  begin
+    Result := True;
+    ShowMessage('Living Armor');
+    Game.MediaPlayer.PlaySound(mmAttack);
+    Game.Show(scBattle);
   end;
 end;
 

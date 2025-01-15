@@ -17,7 +17,7 @@ const
   FactionSpellbookSpells: array [TFactionEnum] of array [0 .. 5]
     of TSpellEnum = (
     // The Empire Spellbook
-    (spTrueHealing, spSpeed, spNone, spNone, spNone, spNone),
+    (spTrueHealing, spSpeed, spLivingArmor, spNone, spNone, spNone),
     // Undead Hordes Spellbook
     (spPlague, spNone, spNone, spNone, spNone, spNone),
     // Legions Of The Damned Spellbook

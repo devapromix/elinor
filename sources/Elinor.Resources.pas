@@ -86,7 +86,7 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
     // Spells
-    reTrueHealing, reSpeed, rePlague, reConcealment,
+    reTrueHealing, reSpeed, reLivingArmor, rePlague, reConcealment,
     // Races
     reHumanMale);
 
@@ -529,6 +529,8 @@ const
     (FileName: 'spell.true_healing.png'; ResType: teGUI;),
     // Speed
     (FileName: 'spell.speed.png'; ResType: teGUI;),
+    // Living Armor
+    (FileName: 'spell.living_armor.png'; ResType: teGUI;),
     // Plague
     (FileName: 'spell.plague.png'; ResType: teGUI;),
     // Concealment
