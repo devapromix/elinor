@@ -21,7 +21,6 @@ type
   private
   class var
     Button: array [TButtonEnum] of TButton;
-    SettlementParty: TParty;
   private
     procedure CastSpell;
   public

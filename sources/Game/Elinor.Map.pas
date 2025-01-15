@@ -177,8 +177,20 @@ begin
   SetLength(Party, TSaga.GetPartyCount + 1);
   Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
-  Party[TSaga.GetPartyCount - 1].AddCreature
-    (Characters[TSaga.LeaderFaction][cgGuardian][ckGuardian], 3);
+  Party[TSaga.GetPartyCount - 1].AddCreature(Characters[TSaga.LeaderFaction]
+    [cgGuardian][ckGuardian], 3);
+end;
+
+procedure AddSummonParty;
+var
+  LCreatureEnum: TCreatureEnum;
+begin
+  TLeaderParty.SummonPartyIndex := High(Party) + 1;
+  SetLength(Party, TSaga.GetPartyCount + 1);
+  Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
+    Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
+  LCreatureEnum := crGoblin;
+  Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 2);
 end;
 
 procedure AddLeaderParty;
@@ -342,8 +354,9 @@ begin
       (GetDistToCapital(LX, LY) >= 5);
     AddObjectAt(LX, LY, LMapPlaceIndex);
   end;
-  //
+  // Parties
   AddCapitalParty;
+  AddSummonParty;
   AddLeaderParty;
 end;
 

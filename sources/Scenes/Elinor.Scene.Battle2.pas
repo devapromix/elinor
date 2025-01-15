@@ -58,6 +58,8 @@ type
     procedure Show(const S: TSceneEnum); override;
     property Enabled: Boolean read FEnabled write FEnabled;
     class procedure AfterVictory;
+    class procedure ShowScene();
+    class procedure HideScene;
   end;
 
 implementation
@@ -517,6 +519,11 @@ begin
   end;
 end;
 
+class procedure TSceneBattle2.HideScene;
+begin
+
+end;
+
 procedure TSceneBattle2.Paralyze(AtkParty, DefParty: TParty;
   AtkPos, DefPos: TPosition);
 var
@@ -741,6 +748,11 @@ begin
   IsNewSkill := False;
   StartBattle;
   Game.MediaPlayer.PlayMusic(mmBattle);
+end;
+
+class procedure TSceneBattle2.ShowScene;
+begin
+
 end;
 
 procedure TSceneBattle2.Timer;

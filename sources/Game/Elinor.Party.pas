@@ -105,6 +105,7 @@ type
     LeaderPartyIndex: Byte;
     CreatureIndex: Byte;
     CapitalPartyIndex: Byte;
+    SummonPartyIndex: Byte;
     Speed: TCurrMaxAttribute;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
