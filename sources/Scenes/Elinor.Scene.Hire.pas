@@ -88,7 +88,7 @@ var
   LCreatureEnum: TCreatureEnum;
 begin
   LCreatureEnum := Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-    [cgCharacters][TRaceCharKind(CurrentIndex)];
+    [cgCharacters][TFactionLeaderKind(CurrentIndex)];
   if (LCreatureEnum = crNone) then
     Exit;
   if HireParty.Hire(LCreatureEnum, HirePosition) then
@@ -133,10 +133,10 @@ procedure TSceneRecruit.Render;
 
   procedure RenderCharacters;
   var
-    LRaceCharKind: TRaceCharKind;
+    LRaceCharKind: TFactionLeaderKind;
     LX, LY, LLeft, LTop: Integer;
   begin
-    for LRaceCharKind := Low(TRaceCharKind) to High(TRaceCharKind) do
+    for LRaceCharKind := Low(TFactionLeaderKind) to High(TFactionLeaderKind) do
     begin
       LX := IfThen(Ord(LRaceCharKind) > 2, 1, 0);
       LY := IfThen(Ord(LRaceCharKind) > 2, Ord(LRaceCharKind) - 3,
@@ -159,7 +159,7 @@ procedure TSceneRecruit.Render;
     LCreatureEnum: TCreatureEnum;
   begin
     LCreatureEnum := Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
-      [cgCharacters][TRaceCharKind(CurrentIndex)];
+      [cgCharacters][TFactionLeaderKind(CurrentIndex)];
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     if (LCreatureEnum <> crNone) then

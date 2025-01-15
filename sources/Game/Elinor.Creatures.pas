@@ -141,7 +141,7 @@ type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
 
 type
-  TRaceCharKind = (ckWarrior, ckScout, ckMage, ckThief, ckLord, ckTemplar);
+  TFactionLeaderKind = (ckWarrior, ckScout, ckMage, ckThief, ckLord, ckTemplar);
 
 type
   TLeaderWarriorActVar = (avRest, avRitual, avWar3);
@@ -176,7 +176,7 @@ const
 
 const
   Characters: array [faTheEmpire .. faLegionsOfTheDamned] of array
-    [TRaceCharGroup] of array [TRaceCharKind] of TCreatureEnum = (
+    [TRaceCharGroup] of array [TFactionLeaderKind] of TCreatureEnum = (
     // The Empire Capital Guardian
     ((crNone, crNone, crMyzrael, crNone, crNone, crNone),
     // The Empire Leaders

@@ -25,7 +25,7 @@ type
   end;
 
 var
-  RaceCharKind: TRaceCharKind;
+  RaceCharKind: TFactionLeaderKind;
 
 implementation
 
@@ -69,12 +69,12 @@ end;
 
 procedure TSceneLeader.Render;
 var
-  LRaceCharKind: TRaceCharKind;
+  LRaceCharKind: TFactionLeaderKind;
   LLeft, LTop, X, Y, I, J, N: Integer;
 begin
   inherited;
   DrawTitle(reTitleLeader);
-  for LRaceCharKind := Low(TRaceCharKind) to High(TRaceCharKind) do
+  for LRaceCharKind := Low(TFactionLeaderKind) to High(TFactionLeaderKind) do
   begin
     LLeft := IfThen(Ord(LRaceCharKind) > 2, TFrame.Col(1), TFrame.Col(0));
     LTop := IfThen(Ord(LRaceCharKind) > 2, TFrame.Row(Ord(LRaceCharKind) - 3),
@@ -89,7 +89,7 @@ begin
       end;
   end;
 
-  RaceCharKind := TRaceCharKind(CurrentIndex);
+  RaceCharKind := TFactionLeaderKind(CurrentIndex);
   CurCrEnum := Characters[TSaga.LeaderFaction][cgLeaders][RaceCharKind];
 
   if CurCrEnum <> crNone then

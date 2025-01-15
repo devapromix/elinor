@@ -698,7 +698,7 @@ procedure TSceneHire.Render;
 var
   Left, X, Y, I: Integer;
   R: TFactionEnum;
-  K: TRaceCharKind;
+  K: TFactionLeaderKind;
   S: TScenario.TScenarioEnum;
   D: TSaga.TDifficultyEnum;
   Z: TLeaderThiefSpyVar;

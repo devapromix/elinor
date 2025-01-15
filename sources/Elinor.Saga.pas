@@ -120,7 +120,8 @@ uses
   Elinor.Map,
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,
-  Elinor.Items, Elinor.Statistics;
+  Elinor.Items,
+  Elinor.Statistics;
 
 { TSaga }
 
