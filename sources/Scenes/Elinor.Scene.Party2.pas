@@ -165,8 +165,8 @@ procedure TSceneParty2.Render;
     AddTextLine;
     AddTextLine('Parameters', True);
     AddTextLine;
-    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed,
-      TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed.GetCurrValue,
+      TLeaderParty.Leader.Speed.GetMaxValue]));
     AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
     AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;

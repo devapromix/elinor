@@ -7,6 +7,7 @@ uses
   Elinor.Factions,
   Elinor.Creatures,
   Elinor.MapObject,
+  Elinor.Attribute,
   Elinor.Items,
   Elinor.Map;
 
@@ -104,8 +105,7 @@ type
     LeaderPartyIndex: Byte;
     CreatureIndex: Byte;
     CapitalPartyIndex: Byte;
-    Speed: Integer;
-    MaxSpeed: Integer;
+    Speed: TCurrMaxAttribute;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -841,8 +841,7 @@ end;
 
 class procedure TLeaderParty.SetMaxSpeed;
 begin
-  MaxSpeed := Leader.GetMaxSpeed;
-  Speed := MaxSpeed;
+  Speed.SetValue(Leader.GetMaxSpeed);
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -858,8 +857,8 @@ begin
     Exit;
   LCount := 0;
   repeat
-    Dec(Speed);
-    if (Speed <= 0) then
+    Speed.ModifyCurrValue(-1);
+    if Speed.IsMinCurrValue then
     begin
       Inc(Game.Day);
       Game.IsNewDay := True;

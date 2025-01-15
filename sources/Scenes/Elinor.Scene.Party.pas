@@ -360,14 +360,15 @@ var
     AddTextLine('Statistics', True);
     AddTextLine;
     AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+    AddTextLine('Killed Creatures',
+      Game.Statistics.GetValue(stKilledCreatures));
     AddTextLine('Scores', Game.Statistics.GetValue(stScores));
     AddTextLine;
     AddTextLine;
     AddTextLine;
     AddTextLine;
-    AddTextLine(Format('Speed %d/%d',
-      [TLeaderParty.Leader.Speed, TLeaderParty.Leader.MaxSpeed]));
+    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed.GetCurrValue,
+      TLeaderParty.Leader.Speed.GetMaxValue]));
     AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
     AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
   end;
