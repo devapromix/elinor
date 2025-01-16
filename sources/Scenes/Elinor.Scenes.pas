@@ -89,6 +89,7 @@ type
   private
     FWidth: Integer;
     FScrWidth: Integer;
+    procedure DrawCreatureReach(const AReachEnum: TReachEnum);
   public
     constructor Create;
     destructor Destroy; override;
@@ -549,6 +550,27 @@ begin
     Format('Initiative %d Chances to hit %d', [Initiative, ChToHit]) + '%');
 end;
 
+procedure TScene.DrawCreatureReach(const AReachEnum: TReachEnum);
+begin
+    case AReachEnum of
+      reAny:
+        begin
+          AddTextLine('Distance', 'Any unit');
+          AddTextLine('Targets', 1);
+        end;
+      reAdj:
+        begin
+          AddTextLine('Distance', 'Adjacent units');
+          AddTextLine('Targets', 1);
+        end;
+      reAll:
+        begin
+          AddTextLine('Distance', 'All units');
+          AddTextLine('Targets', 6);
+        end;
+    end;
+end;
+
 procedure TScene.DrawCreatureInfo(const ACreature: TCreatureBase);
 var
   I: Integer;
@@ -564,23 +586,7 @@ begin
     AddTextLine('Damage', Damage);
     AddTextLine('Armor', Armor);
     AddTextLine('Source', SourceName[SourceEnum]);
-    case ReachEnum of
-      reAny:
-        begin
-          AddTextLine('Дистанция', 'Все поле боя');
-          AddTextLine('Цели', 1);
-        end;
-      reAdj:
-        begin
-          AddTextLine('Дистанция', 'Ближайшие цели');
-          AddTextLine('Цели', 1);
-        end;
-      reAll:
-        begin
-          AddTextLine('Дистанция', 'Все поле боя');
-          AddTextLine('Цели', 6);
-        end;
-    end;
+    DrawCreatureReach(ReachEnum);
     for I := 0 to 2 do
       AddTextLine(Description[I]);
   end;
@@ -606,23 +612,7 @@ begin
     AddTextLine('Damage', Damage.GetFullValue());
     AddTextLine('Armor', Armor.GetFullValue());
     AddTextLine('Source', SourceName[SourceEnum]);
-    case ReachEnum of
-      reAny:
-        begin
-          AddTextLine('Дистанция', 'Все поле боя');
-          AddTextLine('Цели', 1);
-        end;
-      reAdj:
-        begin
-          AddTextLine('Дистанция', 'Ближайшие цели');
-          AddTextLine('Цели', 1);
-        end;
-      reAll:
-        begin
-          AddTextLine('Дистанция', 'Все поле боя');
-          AddTextLine('Цели', 6);
-        end;
-    end;
+    DrawCreatureReach(ReachEnum);
     with TCreature.Character(ACreature.Enum) do
       for I := 0 to 2 do
         AddTextLine(Description[I]);
