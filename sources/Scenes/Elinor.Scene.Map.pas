@@ -363,9 +363,6 @@ begin
       ShowInventoryScene;
     K_T:
       ShowAbilitiesScene;
-    K_V:
-      if (TLeaderParty.Leader.Enum in FighterLeader) then
-        TSceneHire.Show(stWar);
     K_P:
       ShowPartyScene;
     K_J:

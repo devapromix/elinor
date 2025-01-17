@@ -424,7 +424,7 @@ type
 {$REGION Abilities}
 
 type
-  TSkillEnum = (skNone, skFly, skStrenght, skStealth, skHawkEye1, skHawkEye2,
+  TSkillEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye2,
     skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
@@ -1224,8 +1224,8 @@ const
     (Enum: skStealth; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
     'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
-    // Hawk Eye #1
-    (Enum: skHawkEye1; Name: 'Зоркость';
+    // Sharp Eye
+    (Enum: skSharpEye; Name: 'Sharp Eye';
     Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 1;
     Leaders: ScoutingLeader;),
     // Hawk Eye #2
