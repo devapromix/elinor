@@ -299,7 +299,7 @@ begin
     Mana.Mine;
     Game.Statistics.IncValue(stManaMined, Mana.FromMinePerDay);
     Map.Clear(lrSee);
-    if (TLeaderParty.Leader.Enum in LeaderWarrior) then
+    if (TLeaderParty.Leader.Enum in FighterLeader) then
       TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
     TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;

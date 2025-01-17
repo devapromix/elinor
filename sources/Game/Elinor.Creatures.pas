@@ -113,13 +113,14 @@ type
 {$ENDREGION CreatureEnum}
 
 const
-  LeaderWarrior = [crPaladin, crDeathKnight, crDuke];
+  FighterLeader = [crPaladin, crDeathKnight, crDuke];
   LeaderScout = [crRanger, crNosferat, crCounselor];
   LeaderMage = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief = [crThief, crThug, crRipper];
   LeaderLord = [crWarlord, crDominator, crChieftain];
-  AllLeaders = LeaderWarrior + LeaderScout + LeaderMage + LeaderThief +
-    LeaderLord;
+  TemplarLeader = [];
+  AllLeaders = FighterLeader + LeaderScout + LeaderMage + LeaderThief +
+    LeaderLord + TemplarLeader;
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -1214,11 +1215,11 @@ const
     (Enum: skNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];),
     // Fly
     (Enum: skFly; Name: 'Полет'; Description: ('Умение позволяет предводителю',
-    'и его отряду летать над землей.'); Level: 1; Leaders: LeaderWarrior;),
+    'и его отряду летать над землей.'); Level: 1; Leaders: FighterLeader;),
     // Strength
     (Enum: skStrenght; Name: 'Сила';
     Description: ('Добавляет к атаке предводителя', '10% урона.'); Level: 5;
-    Leaders: LeaderWarrior;),
+    Leaders: FighterLeader;),
     // Spy
     (Enum: skStealth; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
