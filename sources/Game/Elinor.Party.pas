@@ -136,7 +136,8 @@ type
     property Skills: TSkills read FSkills write FSkills;
     property Inventory: TInventory read FInventory write FInventory;
     property Equipment: TEquipment read FEquipment write FEquipment;
-    class function GetRadius(const CrEnum: TCreatureEnum): Integer; overload;
+    class function GetRadius(const ACreatureEnum: TCreatureEnum)
+      : Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
     function GetGold(const AGold: Integer): Integer;
@@ -606,7 +607,7 @@ end;
 
 class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;
 begin
-  if (CrEnum in LeaderScout) then
+  if (CrEnum in ScoutingLeader) then
     Result := TSaga.LeaderScoutMaxSpeed
   else if (CrEnum in LeaderLord) then
     Result := TSaga.LeaderLordMaxSpeed
@@ -669,9 +670,10 @@ begin
     Inc(Result);
 end;
 
-class function TLeaderParty.GetRadius(const CrEnum: TCreatureEnum): Integer;
+class function TLeaderParty.GetRadius(const ACreatureEnum
+  : TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderScout, TSaga.LeaderScoutMaxRadius,
+  Result := IfThen(ACreatureEnum in ScoutingLeader, TSaga.LeaderScoutMaxRadius,
     TSaga.LeaderDefaultMaxRadius);
 end;
 

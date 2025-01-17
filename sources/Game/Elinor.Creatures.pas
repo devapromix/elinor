@@ -114,12 +114,12 @@ type
 
 const
   FighterLeader = [crPaladin, crDeathKnight, crDuke];
-  LeaderScout = [crRanger, crNosferat, crCounselor];
+  ScoutingLeader = [crRanger, crNosferat, crCounselor];
   LeaderMage = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief = [crThief, crThug, crRipper];
   LeaderLord = [crWarlord, crDominator, crChieftain];
   TemplarLeader = [];
-  AllLeaders = FighterLeader + LeaderScout + LeaderMage + LeaderThief +
+  AllLeaders = FighterLeader + ScoutingLeader + LeaderMage + LeaderThief +
     LeaderLord + TemplarLeader;
 
 type
@@ -1227,11 +1227,11 @@ const
     // Hawk Eye #1
     (Enum: skHawkEye1; Name: 'Зоркость';
     Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 1;
-    Leaders: LeaderScout;),
+    Leaders: ScoutingLeader;),
     // Hawk Eye #2
     (Enum: skHawkEye2; Name: 'Зоркость';
     Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 3;
-    Leaders: LeaderScout;),
+    Leaders: ScoutingLeader;),
     // Hawk Eye #3
     (Enum: skHawkEye3; Name: 'Зоркость';
     Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 5;
@@ -1271,7 +1271,7 @@ const
     // Accuracy
     (Enum: skAccuracy; Name: 'Точность';
     Description: ('Увеличивает шанс предводителя', 'попасть по противнику.');
-    Level: 7; Leaders: LeaderScout;),
+    Level: 7; Leaders: ScoutingLeader;),
     // Ori
     (Enum: skOri; Name: 'Ориентирование';
     Description: ('Увеличивает дистанцию, которую может',
