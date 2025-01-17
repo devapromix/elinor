@@ -424,7 +424,7 @@ type
 {$REGION Abilities}
 
 type
-  TSkillEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye2,
+  TSkillEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye,
     skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
@@ -1229,7 +1229,7 @@ const
     Description: ('Allows the leader to see ', 'further'); Level: 1;
     Leaders: ScoutingLeader;),
     // Hawk Eye #2
-    (Enum: skHawkEye2; Name: 'Зоркость';
+    (Enum: skHawkEye; Name: 'Hawk Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 3;
     Leaders: ScoutingLeader;),
     // Far Sight

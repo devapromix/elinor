@@ -682,7 +682,7 @@ begin
   Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
   if Self.Skills.Has(skSharpEye) then
     Result := Result + 1;
-  if Self.Skills.Has(skHawkEye2) then
+  if Self.Skills.Has(skHawkEye) then
     Result := Result + 1;
   if Self.Skills.Has(skFarSight) then
     Result := Result + 1;
