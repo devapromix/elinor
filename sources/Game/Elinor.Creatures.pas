@@ -428,7 +428,7 @@ type
     skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
-    skTemplar, skVamp);
+    skTemplar, skVampirism);
 
 type
   TSkill = record
@@ -673,7 +673,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
-    AttackEnum: atDrainLife; SkillEnum: skVamp; Rating: 0;),
+    AttackEnum: atDrainLife; SkillEnum: skVampirism; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reLichQueen; Size: szSmall;
@@ -1309,7 +1309,7 @@ const
     Description: ('Allows the leader to heal and resurrect',
     'troops at half the cost'); Level: 1; Leaders: LeaderLord;),
     // Vampirism
-    (Enum: skVamp; Name: 'Вампиризм';
+    (Enum: skVampirism; Name: 'Вампиризм';
     Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');
     Level: 1; Leaders: [crNosferat];)
     //
