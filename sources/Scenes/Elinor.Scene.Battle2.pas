@@ -47,6 +47,7 @@ type
     procedure Kill(DefCrEnum: TCreatureEnum);
   public
     class var IsDuel: Boolean;
+    class var IsSummon: Boolean;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -244,6 +245,13 @@ end;
 
 procedure TSceneBattle2.Defeat;
 begin
+  if IsSummon then
+  begin
+    IsSummon := False;
+    Game.MediaPlayer.PlayMusic(mmMap);
+    Game.Show(scMap);
+    Exit;
+  end;
   TSceneHire.Show(stDefeat);
 end;
 
@@ -270,7 +278,9 @@ begin
   else
   begin
     EnemyParty := Party[I];
-    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+    // LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+    LeaderParty := Party[TLeaderParty.SummonPartyIndex];
+    IsSummon := True;
   end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
@@ -284,10 +294,10 @@ begin
     Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty,
       DuelLeaderPosition);
   Battle.Clear;
-  if LeaderParty.IsClear then
-    Defeat;
   if EnemyParty.IsClear then
     Victory;
+  if LeaderParty.IsClear then
+    Defeat;
 end;
 
 procedure TSceneBattle2.Turn(const TurnType: TTurnType;

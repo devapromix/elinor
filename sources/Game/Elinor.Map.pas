@@ -190,7 +190,7 @@ begin
   Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
   LCreatureEnum := crGoblin;
-  Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 2);
+  Party[TLeaderParty.SummonPartyIndex].AddCreature(LCreatureEnum, 2);
 end;
 
 procedure AddLeaderParty;
