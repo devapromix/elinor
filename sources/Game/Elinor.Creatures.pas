@@ -425,7 +425,7 @@ type
 
 type
   TSkillEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye2,
-    skHawkEye3, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
+    skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
     skTemplar, skVamp);
@@ -1226,15 +1226,15 @@ const
     'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
     // Sharp Eye
     (Enum: skSharpEye; Name: 'Sharp Eye';
-    Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 1;
+    Description: ('Allows the leader to see ', 'further'); Level: 1;
     Leaders: ScoutingLeader;),
     // Hawk Eye #2
     (Enum: skHawkEye2; Name: 'Зоркость';
-    Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 3;
+    Description: ('Allows the leader to see ', 'further'); Level: 3;
     Leaders: ScoutingLeader;),
-    // Hawk Eye #3
-    (Enum: skHawkEye3; Name: 'Зоркость';
-    Description: ('Позволяет предводителю видеть', 'дальше.'); Level: 5;
+    // Far Sight
+    (Enum: skFarSight; Name: 'Far Sight';
+    Description: ('Allows the leader to see ', 'further'); Level: 5;
     Leaders: AllLeaders;),
     // Artifact
     (Enum: skArtifactLore; Name: 'Знание Артефактов';

@@ -684,7 +684,7 @@ begin
     Result := Result + 1;
   if Self.Skills.Has(skHawkEye2) then
     Result := Result + 1;
-  if Self.Skills.Has(skHawkEye3) then
+  if Self.Skills.Has(skFarSight) then
     Result := Result + 1;
 end;
 
