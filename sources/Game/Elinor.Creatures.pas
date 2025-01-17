@@ -1301,16 +1301,16 @@ const
     Description: ('Позволяет предводителю брать в руки',
     'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
     // Sorcery
-    (Enum: skSorcery; Name: 'Волшебство';
-    Description: ('Позволяет предводителю использовать',
-    'заклинания два раза в день'); Level: 1; Leaders: LeaderMage;),
+    (Enum: skSorcery; Name: 'Sorcery';
+    Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
+    Leaders: LeaderMage;),
     // Templar
     (Enum: skTemplar; Name: 'Tempalar';
     Description: ('Allows the leader to heal and resurrect',
     'troops at half the cost'); Level: 1; Leaders: LeaderLord;),
     // Vampirism
-    (Enum: skVampirism; Name: 'Вампиризм';
-    Description: ('Предводитель высасывает жизненную', 'силу своих врагов.');
+    (Enum: skVampirism; Name: 'Vampirism';
+    Description: ('The leader sucks out the life force', 'of his enemies');
     Level: 1; Leaders: [crNosferat];)
     //
     );
