@@ -155,6 +155,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Skills.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Inventory.pas"/>
         <DCCReference Include="Game\Elinor.Attribute.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Abilities.pas"/>
         <RcItem Include="Resources\Sprites\frame.passive.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>FRAME_PASSIVE</ResourceId>
@@ -243,7 +244,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -261,7 +262,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

@@ -105,9 +105,9 @@ begin
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Ability', True);
     AddTextLine;
-    AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum).Name);
+    AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).SkillEnum).Name);
     for I := 0 to 1 do
-      AddTextLine(TSkills.Ability(TCreature.Character(CurCrEnum).SkillEnum)
+      AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).SkillEnum)
         .Description[I]);
     AddTextLine;
     AddTextLine('Equipment', True);

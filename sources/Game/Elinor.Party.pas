@@ -94,7 +94,7 @@ type
     FRadius: Integer;
     FSpells: Integer;
     FSpy: Integer;
-    FSkills: TSkills;
+    FSkills: TAbilities;
     FInventory: TInventory;
     FEquipment: TEquipment;
     FInvisibility: Boolean;
@@ -133,7 +133,7 @@ type
     function GetMaxSpeed: Integer; overload;
     class function GetMaxSpeed(const CrEnum: TCreatureEnum): Integer; overload;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
-    property Skills: TSkills read FSkills write FSkills;
+    property Skills: TAbilities read FSkills write FSkills;
     property Inventory: TInventory read FInventory write FInventory;
     property Equipment: TEquipment read FEquipment write FEquipment;
     class function GetRadius(const ACreatureEnum: TCreatureEnum)
@@ -539,7 +539,7 @@ end;
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
 begin
   inherited Create(AX, AY, AOwner);
-  FSkills := TSkills.Create;
+  FSkills := TAbilities.Create;
   FInventory := TInventory.Create;
   FEquipment := TEquipment.Create;
   FInvisibility := False;

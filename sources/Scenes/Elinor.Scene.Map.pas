@@ -53,7 +53,8 @@ uses
   Elinor.PathFind,
   Elinor.Scene.Party2,
   Elinor.Spells,
-  Elinor.Scene.Inventory;
+  Elinor.Scene.Inventory,
+  Elinor.Scene.Abilities;
 
 { TSceneMap }
 
@@ -167,7 +168,7 @@ end;
 
 procedure TSceneMap.ShowAbilitiesScene;
 begin
-  // TSceneParty.Show(Party[TLeaderParty.LeaderPartyIndex], scMap, False, True);
+  TSceneAbilities.ShowScene(scMap);
 end;
 
 procedure TSceneMap.ShowSpellbookScene;
@@ -361,7 +362,7 @@ begin
       TLeaderParty.Leader.Move(drOrigin);
     K_I:
       ShowInventoryScene;
-    K_T:
+    K_A:
       ShowAbilitiesScene;
     K_P:
       ShowPartyScene;

@@ -215,7 +215,7 @@ begin
           begin
             LeaderParty.UpdateLevel(LPosition);
             Battle.UpdateLevel(Name[0], GenderEnding, Level + 1);
-            IsNewSkill := (Leadership > 0) and (Level <= MaxSkills);
+            IsNewSkill := (Leadership > 0) and (Level <= MaxAbilities);
           end;
   end;
 end;

@@ -26,7 +26,7 @@ type
     procedure MoveCursor(ADirectionEnum: TDirectionEnum);
     procedure Close;
     procedure OpenInventory;
-    procedure OpenSkills;
+    procedure OpenAbilities;
   private
     EquipmentSelItemIndex: Integer;
     InventorySelItemIndex: Integer;
@@ -139,7 +139,7 @@ begin
   ActivePartyPosition := TLeaderParty.GetPosition;
 end;
 
-procedure TSceneParty.OpenSkills;
+procedure TSceneParty.OpenAbilities;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   FShowInventory := False;
@@ -221,7 +221,7 @@ begin
         end;
         if Button[btSkills].MouseDown and FShowResources then
         begin
-          OpenSkills;
+          OpenAbilities;
           Exit;
         end;
         if Button[btClose].MouseDown then
@@ -282,7 +282,7 @@ var
   procedure ShowSkills;
   var
     I: Integer;
-    LSkillEnum: TSkillEnum;
+    LSkillEnum: TAbilityEnum;
   begin
     DrawTitle(reTitleAbilities);
     TextLeft := 250 + TFrame.Col(0, psRight) + 12;
@@ -291,14 +291,14 @@ var
     TextTop := TFrame.Row(0) + 6;
     AddTextLine('Умения Лидера', True);
     AddTextLine;
-    for I := 0 to MaxSkills - 1 do
+    for I := 0 to MaxAbilities - 1 do
     begin
-      LSkillEnum := TLeaderParty.Leader.Skills.Get(I);
+      LSkillEnum := TLeaderParty.Leader.Skills.GetEnum(I);
       if LSkillEnum <> skNone then
       begin
-        AddTextLine(TSkills.Ability(LSkillEnum).Name);
-        AddTextLine(TSkills.Ability(LSkillEnum).Description[0]);
-        AddTextLine(TSkills.Ability(LSkillEnum).Description[1]);
+        AddTextLine(TAbilities.Ability(LSkillEnum).Name);
+        AddTextLine(TAbilities.Ability(LSkillEnum).Description[0]);
+        AddTextLine(TAbilities.Ability(LSkillEnum).Description[1]);
         if I = 3 then
         begin
           TextLeft := TFrame.Col(0, psRight) + 320 + 12;
@@ -412,7 +412,7 @@ begin
         OpenInventory;
     K_T:
       if FShowResources then
-        OpenSkills;
+        OpenAbilities;
     K_LEFT, K_KP_4, K_A:
       if FShowSkills or FShowInventory then
 

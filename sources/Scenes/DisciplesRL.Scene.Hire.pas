@@ -50,7 +50,7 @@ type
   class var
     MPX: Integer;
     MPY: Integer;
-    CurCrSkillEnum: TSkillEnum;
+    CurCrSkillEnum: TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -290,7 +290,7 @@ begin
     stAbilities:
       begin
         with TLeaderParty.Leader.Skills do
-          Add(RandomSkillEnum[CurrentIndex]);
+          Add(RandomAbilityEnum[CurrentIndex]);
         TSceneBattle2.AfterVictory;
       end;
     stStoneTab:
@@ -479,15 +479,15 @@ end;
 
 procedure TSceneHire.RenderAbilitiesInfo;
 var
-  S: TSkillEnum;
+  S: TAbilityEnum;
 begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  S := TLeaderParty.Leader.Skills.RandomSkillEnum[CurrentIndex];
-  AddTextLine(TSkills.Ability(S).Name, True);
+  S := TLeaderParty.Leader.Skills.RandomAbilityEnum[CurrentIndex];
+  AddTextLine(TAbilities.Ability(S).Name, True);
   AddTextLine;
-  AddTextLine(TSkills.Ability(S).Description[0]);
-  AddTextLine(TSkills.Ability(S).Description[1]);
+  AddTextLine(TAbilities.Ability(S).Description[0]);
+  AddTextLine(TAbilities.Ability(S).Description[1]);
 end;
 
 procedure TSceneHire.RenderFinalInfo;

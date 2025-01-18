@@ -424,15 +424,15 @@ type
 {$REGION Abilities}
 
 type
-  TSkillEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye,
+  TAbilityEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye,
     skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
     skTemplar, skVampirism);
 
 type
-  TSkill = record
-    Enum: TSkillEnum;
+  TAbility = record
+    Enum: TAbilityEnum;
     Name: string;
     Description: array [0 .. 1] of string;
     Level: Byte;
@@ -440,22 +440,22 @@ type
   end;
 
 const
-  MaxSkills = 12;
+  MaxAbilities = 12;
 
 type
-  TSkills = class(TObject)
+  TAbilities = class(TObject)
   private
-    FSkill: array [0 .. MaxSkills - 1] of TSkill;
+    FAbility: array [0 .. MaxAbilities - 1] of TAbility;
   public
-    RandomSkillEnum: array [0 .. 2] of TSkillEnum;
+    RandomAbilityEnum: array [0 .. 2] of TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
-    function Has(const SkillEnum: TSkillEnum): Boolean;
-    procedure Add(const SkillEnum: TSkillEnum);
-    function Get(const I: Integer): TSkillEnum;
+    function Has(const SkillEnum: TAbilityEnum): Boolean;
+    procedure Add(const SkillEnum: TAbilityEnum);
+    function GetEnum(const I: Integer): TAbilityEnum;
     procedure Gen;
     procedure Clear;
-    class function Ability(const A: TSkillEnum): TSkill; static;
+    class function Ability(const A: TAbilityEnum): TAbility; static;
   end;
 {$ENDREGION Abilities}
 
@@ -482,7 +482,7 @@ type
     Sound: array [TCrSoundEnum] of TMusicEnum;
     Gender: TCreatureGender;
     AttackEnum: TAttackEnum;
-    SkillEnum: TSkillEnum;
+    SkillEnum: TAbilityEnum;
     Rating: Word;
   end;
 
@@ -507,7 +507,7 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
-    SkillEnum: TSkillEnum;
+    SkillEnum: TAbilityEnum;
     function Alive: Boolean;
     function AliveAndNeedExp: Boolean;
     function IsLeader(): Boolean;
@@ -1210,7 +1210,7 @@ end;
 {$REGION Abilities}
 
 const
-  SkillBase: array [TSkillEnum] of TSkill = (
+  SkillBase: array [TAbilityEnum] of TAbility = (
     // None
     (Enum: skNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];),
     // Fly
@@ -1317,54 +1317,54 @@ const
 
   { TAbilities }
 
-class function TSkills.Ability(const A: TSkillEnum): TSkill;
+class function TAbilities.Ability(const A: TAbilityEnum): TAbility;
 begin
   Result := SkillBase[A];
 end;
 
-procedure TSkills.Add(const SkillEnum: TSkillEnum);
+procedure TAbilities.Add(const SkillEnum: TAbilityEnum);
 var
   I: Integer;
 begin
-  for I := 0 to MaxSkills - 1 do
-    if (FSkill[I].Enum = skNone) then
+  for I := 0 to MaxAbilities - 1 do
+    if (FAbility[I].Enum = skNone) then
     begin
-      FSkill[I] := SkillBase[SkillEnum];
+      FAbility[I] := SkillBase[SkillEnum];
       Exit;
     end;
 end;
 
-procedure TSkills.Clear;
+procedure TAbilities.Clear;
 var
   I: Integer;
 begin
-  for I := 0 to MaxSkills - 1 do
-    FSkill[I] := SkillBase[skNone];
+  for I := 0 to MaxAbilities - 1 do
+    FAbility[I] := SkillBase[skNone];
 end;
 
-constructor TSkills.Create;
+constructor TAbilities.Create;
 begin
   Self.Clear;
 end;
 
-destructor TSkills.Destroy;
+destructor TAbilities.Destroy;
 begin
 
   inherited;
 end;
 
-procedure TSkills.Gen;
+procedure TAbilities.Gen;
 var
   I, J: Integer;
-  LSkillEnum: TSkillEnum;
+  LSkillEnum: TAbilityEnum;
 
-  function GetRandomSkillEnum: TSkillEnum;
+  function GetRandomSkillEnum: TAbilityEnum;
   begin
-    Result := TSkillEnum(RandomRange(Ord(Succ(Low(TSkillEnum))),
-      Ord(High(TSkillEnum))));
+    Result := TAbilityEnum(RandomRange(Ord(Succ(Low(TAbilityEnum))),
+      Ord(High(TAbilityEnum))));
   end;
 
-  function GetLeadershipSkillEnum: TSkillEnum;
+  function GetLeadershipSkillEnum: TAbilityEnum;
   begin
     if Has(skLeadership1) and Has(skLeadership2) and Has(skLeadership3) and
       Has(skLeadership4) then
@@ -1381,7 +1381,7 @@ var
 begin
   I := RandomRange(0, 3);
   for J := 0 to 2 do
-    RandomSkillEnum[J] := skNone;
+    RandomAbilityEnum[J] := skNone;
   for J := 0 to 2 do
   begin
     repeat
@@ -1389,26 +1389,26 @@ begin
         LSkillEnum := GetLeadershipSkillEnum
       else
         LSkillEnum := GetRandomSkillEnum;
-    until not Has(LSkillEnum) and (LSkillEnum <> RandomSkillEnum[0]) and
-      (LSkillEnum <> RandomSkillEnum[1]) and (LSkillEnum <> RandomSkillEnum[2])
+    until not Has(LSkillEnum) and (LSkillEnum <> RandomAbilityEnum[0]) and
+      (LSkillEnum <> RandomAbilityEnum[1]) and (LSkillEnum <> RandomAbilityEnum[2])
       and (SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
       (TLeaderParty.Leader.Enum in SkillBase[LSkillEnum].Leaders);
-    RandomSkillEnum[J] := LSkillEnum;
+    RandomAbilityEnum[J] := LSkillEnum;
   end;
 end;
 
-function TSkills.Get(const I: Integer): TSkillEnum;
+function TAbilities.GetEnum(const I: Integer): TAbilityEnum;
 begin
-  Result := FSkill[I].Enum;
+  Result := FAbility[I].Enum;
 end;
 
-function TSkills.Has(const SkillEnum: TSkillEnum): Boolean;
+function TAbilities.Has(const SkillEnum: TAbilityEnum): Boolean;
 var
   I: Integer;
 begin
   Result := False;
-  for I := 0 to MaxSkills - 1 do
-    if FSkill[I].Enum = SkillEnum then
+  for I := 0 to MaxAbilities - 1 do
+    if FAbility[I].Enum = SkillEnum then
     begin
       Result := True;
       Exit;

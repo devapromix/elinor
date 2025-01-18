@@ -21,7 +21,7 @@ uses
 type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
-    scBarracks, scInventory);
+    scBarracks, scInventory, scAbilities);
 
 const
   ScreenWidth = 1344;
@@ -221,7 +221,8 @@ uses
   Elinor.Scene.Party2,
   Elinor.Scene.Hire,
   Elinor.Factions,
-  Elinor.Scene.Inventory;
+  Elinor.Scene.Inventory,
+  Elinor.Scene.Abilities;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -803,6 +804,7 @@ begin
   FScene[scLeader] := TSceneLeader.Create;
   FScene[scTemple] := TSceneTemple.Create;
   FScene[scBarracks] := TSceneBarracks.Create;
+  FScene[scAbilities] := TSceneAbilities.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

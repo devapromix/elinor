@@ -51,7 +51,8 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Settlement,
   Elinor.Scene.Spellbook,
-  Elinor.Scene.Inventory;
+  Elinor.Scene.Inventory,
+  Elinor.Scene.Abilities;
 
 var
   ShowResources: Boolean;
@@ -62,7 +63,8 @@ var
 
 procedure TSceneParty2.ShowAbilitiesScene;
 begin
-  if CurrentParty = TLeaderParty.Leader then;
+  if CurrentParty = TLeaderParty.Leader then
+    TSceneAbilities.ShowScene(scParty);
 end;
 
 constructor TSceneParty2.Create;
