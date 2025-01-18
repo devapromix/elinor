@@ -428,7 +428,7 @@ type
     skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
-    skTemplar, abMountaineering, skVampirism);
+    skTemplar, abMountaineering, abForestry, skVampirism);
 
 type
   TAbility = record
@@ -1312,6 +1312,10 @@ const
     (Enum: abMountaineering; Name: 'Mountaineering';
     Description: ('The ability allows the leader to pave',
     'the way through the mountains'); Level: 2; Leaders: AllLeaders;),
+    // Forestry
+    (Enum: abForestry; Name: 'Forestry';
+    Description: ('The party does not receive penalty when',
+    'moving through forested areas'); Level: 2; Leaders: AllLeaders;),
     // Vampirism
     (Enum: skVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
