@@ -156,6 +156,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Inventory.pas"/>
         <DCCReference Include="Game\Elinor.Attribute.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Abilities.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.NewAbility.pas"/>
         <RcItem Include="Resources\Sprites\frame.passive.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>FRAME_PASSIVE</ResourceId>

@@ -94,7 +94,7 @@ type
     FRadius: Integer;
     FSpells: Integer;
     FSpy: Integer;
-    FSkills: TAbilities;
+    FAbilities: TAbilities;
     FInventory: TInventory;
     FEquipment: TEquipment;
     FInvisibility: Boolean;
@@ -133,7 +133,7 @@ type
     function GetMaxSpeed: Integer; overload;
     class function GetMaxSpeed(const CrEnum: TCreatureEnum): Integer; overload;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
-    property Skills: TAbilities read FSkills write FSkills;
+    property Abilities: TAbilities read FAbilities write FAbilities;
     property Inventory: TInventory read FInventory write FInventory;
     property Equipment: TEquipment read FEquipment write FEquipment;
     class function GetRadius(const ACreatureEnum: TCreatureEnum)
@@ -525,8 +525,8 @@ end;
 
 procedure TLeaderParty.Clear;
 begin
-  Skills.Clear;
-  Leader.Skills.Add(TSceneHire.CurCrSkillEnum);
+  Abilities.Clear;
+  Leader.Abilities.Add(TSceneHire.CurCrSkillEnum);
   Inventory.Clear;
   Equipment.Clear;
   SetMaxSpeed;
@@ -539,7 +539,7 @@ end;
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
 begin
   inherited Create(AX, AY, AOwner);
-  FSkills := TAbilities.Create;
+  FAbilities := TAbilities.Create;
   FInventory := TInventory.Create;
   FEquipment := TEquipment.Create;
   FInvisibility := False;
@@ -550,7 +550,7 @@ destructor TLeaderParty.Destroy;
 begin
   FreeAndNil(FEquipment);
   FreeAndNil(FInventory);
-  FreeAndNil(FSkills);
+  FreeAndNil(FAbilities);
   inherited;
 end;
 
@@ -601,7 +601,7 @@ end;
 function TLeaderParty.GetMaxSpeed: Integer;
 begin
   Result := TLeaderParty.GetMaxSpeed(TLeaderParty.Leader.Enum);
-  if Skills.Has(skOri) then
+  if Abilities.IsAbility(skOri) then
     Result := Result + 5;
 end;
 
@@ -623,32 +623,32 @@ end;
 function TLeaderParty.GetGold(const AGold: Integer): Integer;
 begin
   Result := AGold;
-  if Skills.Has(skTemplar) then
+  if Abilities.IsAbility(skTemplar) then
     Result := AGold div 2;
 end;
 
 function TLeaderParty.GetInvisibility: Boolean;
 begin
-  Result := Invisibility or Skills.Has(skStealth);
+  Result := Invisibility or Abilities.IsAbility(skStealth);
 end;
 
 function TLeaderParty.GetLeadership: Integer;
 begin
   Result := 1;
-  if Self.Skills.Has(skLeadership1) then
+  if Self.Abilities.IsAbility(skLeadership1) then
     Result := Result + 1;
-  if Self.Skills.Has(skLeadership2) then
+  if Self.Abilities.IsAbility(skLeadership2) then
     Result := Result + 1;
-  if Self.Skills.Has(skLeadership3) then
+  if Self.Abilities.IsAbility(skLeadership3) then
     Result := Result + 1;
-  if Self.Skills.Has(skLeadership4) then
+  if Self.Abilities.IsAbility(skLeadership4) then
     Result := Result + 1;
 end;
 
 function TLeaderParty.GetMaxSpells: Integer;
 begin
   Result := 1;
-  if Self.Skills.Has(skSorcery) then
+  if Self.Abilities.IsAbility(skSorcery) then
     Result := Result + 1;
 end;
 
@@ -680,11 +680,11 @@ end;
 function TLeaderParty.GetRadius: Integer;
 begin
   Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
-  if Self.Skills.Has(skSharpEye) then
+  if Self.Abilities.IsAbility(skSharpEye) then
     Result := Result + 1;
-  if Self.Skills.Has(skHawkEye) then
+  if Self.Abilities.IsAbility(skHawkEye) then
     Result := Result + 1;
-  if Self.Skills.Has(skFarSight) then
+  if Self.Abilities.IsAbility(skFarSight) then
     Result := Result + 1;
 end;
 

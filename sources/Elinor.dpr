@@ -57,7 +57,8 @@ uses
   Elinor.Scene.Skills in 'Scenes\Elinor.Scene.Skills.pas',
   Elinor.Scene.Inventory in 'Scenes\Elinor.Scene.Inventory.pas',
   Elinor.Attribute in 'Game\Elinor.Attribute.pas',
-  Elinor.Scene.Abilities in 'Scenes\Elinor.Scene.Abilities.pas';
+  Elinor.Scene.Abilities in 'Scenes\Elinor.Scene.Abilities.pas',
+  Elinor.Scene.NewAbility in 'Scenes\Elinor.Scene.NewAbility.pas';
 
 {$R *.res}
 

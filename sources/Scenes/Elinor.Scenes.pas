@@ -21,7 +21,7 @@ uses
 type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
-    scBarracks, scInventory, scAbilities);
+    scBarracks, scInventory, scAbilities, scNewAbility);
 
 const
   ScreenWidth = 1344;
@@ -222,7 +222,8 @@ uses
   Elinor.Scene.Hire,
   Elinor.Factions,
   Elinor.Scene.Inventory,
-  Elinor.Scene.Abilities;
+  Elinor.Scene.Abilities,
+  Elinor.Scene.NewAbility;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -553,23 +554,23 @@ end;
 
 procedure TScene.DrawCreatureReach(const AReachEnum: TReachEnum);
 begin
-    case AReachEnum of
-      reAny:
-        begin
-          AddTextLine('Distance', 'Any unit');
-          AddTextLine('Targets', 1);
-        end;
-      reAdj:
-        begin
-          AddTextLine('Distance', 'Adjacent units');
-          AddTextLine('Targets', 1);
-        end;
-      reAll:
-        begin
-          AddTextLine('Distance', 'All units');
-          AddTextLine('Targets', 6);
-        end;
-    end;
+  case AReachEnum of
+    reAny:
+      begin
+        AddTextLine('Distance', 'Any unit');
+        AddTextLine('Targets', 1);
+      end;
+    reAdj:
+      begin
+        AddTextLine('Distance', 'Adjacent units');
+        AddTextLine('Targets', 1);
+      end;
+    reAll:
+      begin
+        AddTextLine('Distance', 'All units');
+        AddTextLine('Targets', 6);
+      end;
+  end;
 end;
 
 procedure TScene.DrawCreatureInfo(const ACreature: TCreatureBase);
@@ -805,6 +806,7 @@ begin
   FScene[scTemple] := TSceneTemple.Create;
   FScene[scBarracks] := TSceneBarracks.Create;
   FScene[scAbilities] := TSceneAbilities.Create;
+  FScene[scNewAbility] := TSceneNewAbility.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

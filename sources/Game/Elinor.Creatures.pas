@@ -450,10 +450,10 @@ type
     RandomAbilityEnum: array [0 .. 2] of TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
-    function Has(const SkillEnum: TAbilityEnum): Boolean;
+    function IsAbility(const SkillEnum: TAbilityEnum): Boolean;
     procedure Add(const SkillEnum: TAbilityEnum);
     function GetEnum(const I: Integer): TAbilityEnum;
-    procedure Gen;
+    procedure GenRandomList;
     procedure Clear;
     class function Ability(const A: TAbilityEnum): TAbility; static;
   end;
@@ -1353,7 +1353,7 @@ begin
   inherited;
 end;
 
-procedure TAbilities.Gen;
+procedure TAbilities.GenRandomList;
 var
   I, J: Integer;
   LSkillEnum: TAbilityEnum;
@@ -1366,15 +1366,15 @@ var
 
   function GetLeadershipSkillEnum: TAbilityEnum;
   begin
-    if Has(skLeadership1) and Has(skLeadership2) and Has(skLeadership3) and
-      Has(skLeadership4) then
+    if IsAbility(skLeadership1) and IsAbility(skLeadership2) and
+      IsAbility(skLeadership3) and IsAbility(skLeadership4) then
       Exit(GetRandomSkillEnum);
     Result := skLeadership1;
-    if Has(skLeadership1) then
+    if IsAbility(skLeadership1) then
       Result := skLeadership2;
-    if Has(skLeadership2) then
+    if IsAbility(skLeadership2) then
       Result := skLeadership3;
-    if Has(skLeadership3) then
+    if IsAbility(skLeadership3) then
       Result := skLeadership4;
   end;
 
@@ -1389,9 +1389,10 @@ begin
         LSkillEnum := GetLeadershipSkillEnum
       else
         LSkillEnum := GetRandomSkillEnum;
-    until not Has(LSkillEnum) and (LSkillEnum <> RandomAbilityEnum[0]) and
-      (LSkillEnum <> RandomAbilityEnum[1]) and (LSkillEnum <> RandomAbilityEnum[2])
-      and (SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
+    until not IsAbility(LSkillEnum) and (LSkillEnum <> RandomAbilityEnum[0]) and
+      (LSkillEnum <> RandomAbilityEnum[1]) and
+      (LSkillEnum <> RandomAbilityEnum[2]) and
+      (SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
       (TLeaderParty.Leader.Enum in SkillBase[LSkillEnum].Leaders);
     RandomAbilityEnum[J] := LSkillEnum;
   end;
@@ -1402,7 +1403,7 @@ begin
   Result := FAbility[I].Enum;
 end;
 
-function TAbilities.Has(const SkillEnum: TAbilityEnum): Boolean;
+function TAbilities.IsAbility(const SkillEnum: TAbilityEnum): Boolean;
 var
   I: Integer;
 begin

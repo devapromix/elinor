@@ -54,7 +54,7 @@ uses
   Elinor.Scene.Party2,
   Elinor.Spells,
   Elinor.Scene.Inventory,
-  Elinor.Scene.Abilities;
+  Elinor.Scene.Abilities, Elinor.Scene.NewAbility;
 
 { TSceneMap }
 
@@ -360,6 +360,11 @@ begin
       TLeaderParty.Leader.Move(drSouthEast);
     K_ENTER, K_W, K_KP_5:
       TLeaderParty.Leader.Move(drOrigin);
+    K_N:
+      begin
+        TLeaderParty.Leader.Abilities.GenRandomList;
+        TSceneNewAbility.ShowScene;
+      end;
     K_I:
       ShowInventoryScene;
     K_A:

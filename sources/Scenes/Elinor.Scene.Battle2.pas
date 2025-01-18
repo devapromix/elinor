@@ -74,7 +74,7 @@ uses
   Elinor.Resources,
   Elinor.Button,
   Elinor.Scene.Party,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire, Elinor.Scene.NewAbility;
 
 var
   CloseButton: TButton;
@@ -236,8 +236,8 @@ begin
   if IsNewSkill then
   begin
     IsNewSkill := False;
-    TLeaderParty.Leader.Skills.Gen;
-    TSceneHire.Show(stAbilities);
+    TLeaderParty.Leader.Abilities.GenRandomList;
+    TSceneNewAbility.ShowScene;
     Exit;
   end;
   AfterVictory;

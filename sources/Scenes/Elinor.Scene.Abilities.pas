@@ -127,7 +127,7 @@ procedure TSceneAbilities.Render;
     AddTextLine;
     for I := 0 to MaxAbilities - 1 do
     begin
-      LSkillEnum := TLeaderParty.Leader.Skills.GetEnum(I);
+      LSkillEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
       if LSkillEnum <> skNone then
       begin
         AddTextLine(TAbilities.Ability(LSkillEnum).Name);

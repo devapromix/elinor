@@ -18,7 +18,7 @@ uses
 
 type
   THireSubSceneEnum = (stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
-    stSpy, stWar, stAbilities);
+    stSpy, stWar);
 
 type
 
@@ -41,9 +41,6 @@ type
   private
     procedure RenderHighScores;
     procedure RenderFinalInfo;
-    procedure RenderAbilities(const AScenario: TScenario.TScenarioEnum;
-      const AX, AY: Integer);
-    procedure RenderAbilitiesInfo;
     procedure UpdEnum<N>(AKey: Word);
     procedure Basic(AKey: Word);
   public
@@ -108,15 +105,13 @@ const
     // Thief Spy
     (reTextContinue, reTextClose),
     // Warrior War
-    (reTextContinue, reTextClose),
-    // Abilities
-    (reTextClose, reTextClose)
+    (reTextContinue, reTextClose)
     //
     );
 
 const
   AddButtonScene = [stLoot, stStoneTab];
-  CloseCloseScene = [stAbilities];
+  CloseCloseScene = [];
   CloseButtonScene = [stVictory, stDefeat, stHighScores2] + AddButtonScene +
     CloseCloseScene;
   MainButtonsScene = [stHighScores2, stSpy, stWar];
@@ -200,7 +195,7 @@ procedure TSceneHire.Back;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stSpy, stWar, stAbilities:
+    stSpy, stWar:
       Game.Show(scMap);
     stDefeat:
       begin
@@ -286,12 +281,6 @@ begin
     stHighScores2:
       begin
         Game.Show(scMenu);
-      end;
-    stAbilities:
-      begin
-        with TLeaderParty.Leader.Skills do
-          Add(RandomAbilityEnum[CurrentIndex]);
-        TSceneBattle2.AfterVictory;
       end;
     stStoneTab:
       begin
@@ -462,32 +451,6 @@ begin
     avWar3:
       DrawImage(AX + 7, AY + 7, reWarriorWar3);
   end;
-end;
-
-procedure TSceneHire.RenderAbilities(const AScenario: TScenario.TScenarioEnum;
-  const AX, AY: Integer);
-begin
-  case AScenario of
-    sgDarkTower:
-      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
-    sgOverlord:
-      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
-    sgAncientKnowledge:
-      DrawImage(AX + 7, AY + 7, reScenarioDarkTower);
-  end;
-end;
-
-procedure TSceneHire.RenderAbilitiesInfo;
-var
-  S: TAbilityEnum;
-begin
-  TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
-  S := TLeaderParty.Leader.Skills.RandomAbilityEnum[CurrentIndex];
-  AddTextLine(TAbilities.Ability(S).Name, True);
-  AddTextLine;
-  AddTextLine(TAbilities.Ability(S).Description[0]);
-  AddTextLine(TAbilities.Ability(S).Description[1]);
 end;
 
 procedure TSceneHire.RenderFinalInfo;
@@ -766,21 +729,6 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stAbilities:
-      begin
-        DrawImage(reWallpaperScenario);
-        DrawTitle(reTitleAbilities);
-        for S := Low(TScenario.TScenarioEnum)
-          to High(TScenario.TScenarioEnum) do
-        begin
-          if Ord(S) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reActFrame)
-          else
-            DrawImage(Lf, SceneTop + Y, reFrame);
-          RenderAbilities(S, Lf, SceneTop + Y);
-          Inc(Y, 120);
-        end;
-      end;
     stVictory:
       begin
         DrawImage(reWallpaperDefeat);
@@ -860,8 +808,6 @@ begin
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reActFrame].Width + 2, SceneTop, reInfoFrame);
   case SubScene of
-    stAbilities:
-      RenderAbilitiesInfo;
     stVictory, stDefeat:
       RenderFinalInfo;
     stHighScores2:
@@ -924,9 +870,6 @@ begin
       Upd(Ord(High(TLeaderThiefSpyVar)));
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
-    stAbilities:
-      UpdEnum<TSaga.TDifficultyEnum>(Key);
-    // Upd(Ord(High(TScenario.TScenarioEnum)));
     stVictory, stDefeat, stHighScores2:
       Basic(Key);
   end;
