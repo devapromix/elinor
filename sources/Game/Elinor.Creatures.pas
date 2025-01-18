@@ -447,7 +447,7 @@ type
   private
     FAbility: array [0 .. MaxAbilities - 1] of TAbility;
   public
-    RandomAbilityEnum: array [0 .. 2] of TAbilityEnum;
+    RandomAbilityEnum: array [0 .. 5] of TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
     function IsAbility(const SkillEnum: TAbilityEnum): Boolean;
@@ -1379,10 +1379,10 @@ var
   end;
 
 begin
-  I := RandomRange(0, 3);
-  for J := 0 to 2 do
+  I := RandomRange(0, 6);
+  for J := 0 to 5 do
     RandomAbilityEnum[J] := skNone;
-  for J := 0 to 2 do
+  for J := 0 to 5 do
   begin
     repeat
       if I = J then
@@ -1392,7 +1392,7 @@ begin
     until not IsAbility(LSkillEnum) and (LSkillEnum <> RandomAbilityEnum[0]) and
       (LSkillEnum <> RandomAbilityEnum[1]) and
       (LSkillEnum <> RandomAbilityEnum[2]) and
-      (SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
+      //(SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
       (TLeaderParty.Leader.Enum in SkillBase[LSkillEnum].Leaders);
     RandomAbilityEnum[J] := LSkillEnum;
   end;
