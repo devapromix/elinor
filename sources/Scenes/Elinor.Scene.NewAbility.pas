@@ -128,6 +128,11 @@ var
     AddTextLine(TAbilities.Ability(LAbilityEnum).Description[1]);
   end;
 
+  procedure RenderLeaderAbilitiesList;
+  begin
+
+  end;
+
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -142,6 +147,7 @@ begin
 
   RenderAbilities;
   RenderAbilityInfo;
+  RenderLeaderAbilitiesList;
 
   RenderButtons;
 end;

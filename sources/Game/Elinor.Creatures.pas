@@ -532,7 +532,7 @@ type
 implementation
 
 uses
-  System.Math,
+  System.Math, dialogs,
   System.SysUtils,
   Elinor.Party,
   Elinor.Saga;
@@ -1242,7 +1242,7 @@ const
     Level: 1; Leaders: AllLeaders;),
     // Banner
     (Enum: skBannerBearer; Name: 'Знаменосец';
-    Description: ('Позволяет предводителю носить', 'боевые знамена.'); Level: 2;
+    Description: ('Позволяет предводителю носить', 'боевые знамена.'); Level: 1;
     Leaders: AllLeaders;),
     // Boots
     (Enum: skTravelLore; Name: 'Опыт Странника';
@@ -1271,7 +1271,7 @@ const
     // Accuracy
     (Enum: skAccuracy; Name: 'Точность';
     Description: ('Увеличивает шанс предводителя', 'попасть по противнику.');
-    Level: 7; Leaders: ScoutingLeader;),
+    Level: 6; Leaders: ScoutingLeader;),
     // Ori
     (Enum: skOri; Name: 'Ориентирование';
     Description: ('Увеличивает дистанцию, которую может',
@@ -1295,7 +1295,7 @@ const
     // Book
     (Enum: skBook; Name: 'Тайное Знание';
     Description: ('Позволяет предводителю читать',
-    'магические книги и таблички.'); Level: 2; Leaders: AllLeaders;),
+    'магические книги и таблички.'); Level: 1; Leaders: AllLeaders;),
     // Orb
     (Enum: skOrb; Name: 'Знание Сфер';
     Description: ('Позволяет предводителю брать в руки',
@@ -1305,7 +1305,7 @@ const
     Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
     Leaders: LeaderMage;),
     // Templar
-    (Enum: skTemplar; Name: 'Tempalar';
+    (Enum: skTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
     'troops at half the cost'); Level: 1; Leaders: LeaderLord;),
     // Vampirism
@@ -1355,46 +1355,51 @@ end;
 
 procedure TAbilities.GenRandomList;
 var
-  I, J: Integer;
-  LSkillEnum: TAbilityEnum;
+  I: Integer;
+  LAbilityEnum: TAbilityEnum;
 
-  function GetRandomSkillEnum: TAbilityEnum;
+  procedure ClearRandomAbilities;
+  var
+    I: Integer;
+  begin
+    for I := 0 to 5 do
+      RandomAbilityEnum[I] := skNone;
+  end;
+
+  function GetRandomAbility: TAbilityEnum;
   begin
     Result := TAbilityEnum(RandomRange(Ord(Succ(Low(TAbilityEnum))),
       Ord(High(TAbilityEnum))));
   end;
 
-  function GetLeadershipSkillEnum: TAbilityEnum;
+  function CheckAbilityLevel(const ASkillEnum: TAbilityEnum): Boolean;
   begin
-    if IsAbility(skLeadership1) and IsAbility(skLeadership2) and
-      IsAbility(skLeadership3) and IsAbility(skLeadership4) then
-      Exit(GetRandomSkillEnum);
-    Result := skLeadership1;
-    if IsAbility(skLeadership1) then
-      Result := skLeadership2;
-    if IsAbility(skLeadership2) then
-      Result := skLeadership3;
-    if IsAbility(skLeadership3) then
-      Result := skLeadership4;
+    Result := (SkillBase[LAbilityEnum].Level <= TLeaderParty.Leader.Level);
+  end;
+
+  function IsRandomAbility(const ASkillEnum: TAbilityEnum): Boolean;
+  var
+    I: Integer;
+  begin
+    Result := False;
+    for I := 0 to 5 do
+      if ASkillEnum = RandomAbilityEnum[I] then
+      begin
+        Result := True;
+        Exit;
+      end;
   end;
 
 begin
-  I := RandomRange(0, 6);
-  for J := 0 to 5 do
-    RandomAbilityEnum[J] := skNone;
-  for J := 0 to 5 do
+  ClearRandomAbilities;
+  for I := 0 to 5 do
   begin
     repeat
-      if I = J then
-        LSkillEnum := GetLeadershipSkillEnum
-      else
-        LSkillEnum := GetRandomSkillEnum;
-    until not IsAbility(LSkillEnum) and (LSkillEnum <> RandomAbilityEnum[0]) and
-      (LSkillEnum <> RandomAbilityEnum[1]) and
-      (LSkillEnum <> RandomAbilityEnum[2]) and
-      //(SkillBase[LSkillEnum].Level <= TLeaderParty.Leader.Level) and
-      (TLeaderParty.Leader.Enum in SkillBase[LSkillEnum].Leaders);
-    RandomAbilityEnum[J] := LSkillEnum;
+      LAbilityEnum := GetRandomAbility;
+    until not IsAbility(LAbilityEnum) and not IsRandomAbility(LAbilityEnum) and
+      CheckAbilityLevel(LAbilityEnum) and
+      (TLeaderParty.Leader.Enum in SkillBase[LAbilityEnum].Leaders);
+    RandomAbilityEnum[I] := LAbilityEnum;
   end;
 end;
 
