@@ -428,7 +428,7 @@ type
     skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
     skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
-    skTemplar, skVampirism);
+    skTemplar, abMountaineering, skVampirism);
 
 type
   TAbility = record
@@ -1308,6 +1308,10 @@ const
     (Enum: skTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
     'troops at half the cost'); Level: 1; Leaders: LeaderLord;),
+    // Mountaineering
+    (Enum: abMountaineering; Name: 'Mountaineering';
+    Description: ('The ability allows the leader to pave',
+    'the way through the mountains'); Level: 2; Leaders: AllLeaders;),
     // Vampirism
     (Enum: skVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
