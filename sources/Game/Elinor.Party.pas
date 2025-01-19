@@ -91,14 +91,10 @@ type
 
   TLeaderParty = class(TParty)
   private
-    FRadius: Integer;
-    FSpells: Integer;
-    FSpy: Integer;
     FAbilities: TAbilities;
     FInventory: TInventory;
     FEquipment: TEquipment;
     FInvisibility: Boolean;
-    function GetRadius: Integer; overload;
     function GetLeadership: Integer;
   public
   class var
@@ -106,16 +102,14 @@ type
     CreatureIndex: Byte;
     CapitalPartyIndex: Byte;
     SummonPartyIndex: Byte;
-    Speed: TCurrMaxAttribute;
+    MovementPoints: TCurrMaxAttribute;
+    SpellsPerDay: TCurrMaxAttribute;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
     procedure Clear;
-    property Radius: Integer read GetRadius;
     property Leadership: Integer read GetLeadership;
-    property Spells: Integer read FSpells write FSpells;
-    property Spy: Integer read FSpy write FSpy;
-    procedure UpdateRadius;
+    procedure UpdateSightRadius;
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
     class function Leader: TLeaderParty;
@@ -124,26 +118,32 @@ type
     class procedure PutAt(const AX, AY: ShortInt;
       const IsInfo: Boolean = False);
     class function GetPosition: TPosition;
-    function InRadius(const AX, AY: Integer): Boolean;
+    function InSightRadius(const AX, AY: Integer): Boolean;
     function Enum: TCreatureEnum;
     function Level: Integer;
-    function GetMaxSpy: Integer;
-    function GetMaxSpells: Integer; overload;
-    class function GetMaxSpells(const CrEnum: TCreatureEnum): Integer; overload;
-    function GetMaxSpeed: Integer; overload;
-    class function GetMaxSpeed(const CrEnum: TCreatureEnum): Integer; overload;
+    function GetMaxSpellsPerDay: Integer; overload;
+    class function GetSpellsPerDay(const CrEnum: TCreatureEnum)
+      : Integer; overload;
+    function GetMaxMovementPoints: Integer; overload;
+    class function GetMovementPoints(const CrEnum: TCreatureEnum)
+      : Integer; overload;
     function IsPartyOwner(const AX, AY: Integer): Boolean;
     property Abilities: TAbilities read FAbilities write FAbilities;
     property Inventory: TInventory read FInventory write FInventory;
     property Equipment: TEquipment read FEquipment write FEquipment;
-    class function GetRadius(const ACreatureEnum: TCreatureEnum)
+    function GetSightRadius: Integer; overload;
+    class function GetSightRadius(const ACreatureEnum: TCreatureEnum)
       : Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
     procedure UnEquip(const EquipmentItemIndex: Integer);
     function GetGold(const AGold: Integer): Integer;
     property Invisibility: Boolean read FInvisibility write FInvisibility;
     function GetInvisibility: Boolean;
-    class procedure SetMaxSpeed;
+    class procedure SetMaxMovementPoints;
+    class procedure SetMaxSpellsPerDay;
+    class function GetSpellCastingRange(const CrEnum: TCreatureEnum)
+      : Integer; overload;
+    function GetSpellCastingRange: Integer; overload;
   end;
 
 var
@@ -529,11 +529,9 @@ begin
   Leader.Abilities.Add(TSceneHire.CurCrAbilityEnum);
   Inventory.Clear;
   Equipment.Clear;
-  SetMaxSpeed;
-  FRadius := IfThen(Game.Wizard, 9, 1);
-  FSpells := GetMaxSpells;
-  FSpy := GetMaxSpy;
-  Self.UpdateRadius;
+  SetMaxMovementPoints;
+  SetMaxSpellsPerDay;
+  Self.UpdateSightRadius;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
@@ -543,7 +541,6 @@ begin
   FInventory := TInventory.Create;
   FEquipment := TEquipment.Create;
   FInvisibility := False;
-  FRadius := 1;
 end;
 
 destructor TLeaderParty.Destroy;
@@ -598,16 +595,17 @@ begin
   Result := TLeaderParty.Leader.Creature[TLeaderParty.GetPosition].Level;
 end;
 
-function TLeaderParty.GetMaxSpeed: Integer;
+function TLeaderParty.GetMaxMovementPoints: Integer;
 begin
-  Result := TLeaderParty.GetMaxSpeed(TLeaderParty.Leader.Enum);
+  Result := TLeaderParty.GetMovementPoints(TLeaderParty.Leader.Enum);
   if Abilities.IsAbility(abPathfinding) then
     Result := Result + 5;
   if Abilities.IsAbility(abAdvancedPathfinding) then
     Result := Result + 7;
 end;
 
-class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;
+class function TLeaderParty.GetMovementPoints(const CrEnum
+  : TCreatureEnum): Integer;
 begin
   if (CrEnum in ScoutingLeaders) then
     Result := TSaga.LeaderScoutMaxSpeed
@@ -617,7 +615,19 @@ begin
     Result := TSaga.LeaderDefaultMaxSpeed;
 end;
 
-class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
+class function TLeaderParty.GetSpellCastingRange(const CrEnum
+  : TCreatureEnum): Integer;
+begin
+  Result := IfThen(CrEnum in MageLeaders, 2, 1);
+end;
+
+function TLeaderParty.GetSpellCastingRange: Integer;
+begin
+  Result := TLeaderParty.GetSpellCastingRange(TLeaderParty.Leader.Enum);
+end;
+
+class function TLeaderParty.GetSpellsPerDay(const CrEnum
+  : TCreatureEnum): Integer;
 begin
   Result := IfThen(CrEnum in MageLeaders, 2, 1);
 end;
@@ -647,7 +657,7 @@ begin
     Result := Result + 1;
 end;
 
-function TLeaderParty.GetMaxSpells: Integer;
+function TLeaderParty.GetMaxSpellsPerDay: Integer;
 begin
   Result := 1;
   if Self.Abilities.IsAbility(abSorcery) then
@@ -672,16 +682,16 @@ begin
     Inc(Result);
 end;
 
-class function TLeaderParty.GetRadius(const ACreatureEnum
+class function TLeaderParty.GetSightRadius(const ACreatureEnum
   : TCreatureEnum): Integer;
 begin
   Result := IfThen(ACreatureEnum in ScoutingLeaders, TSaga.LeaderScoutMaxRadius,
     TSaga.LeaderDefaultMaxRadius);
 end;
 
-function TLeaderParty.GetRadius: Integer;
+function TLeaderParty.GetSightRadius: Integer;
 begin
-  Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
+  Result := TLeaderParty.GetSightRadius(TLeaderParty.Leader.Enum);
   if Self.Abilities.IsAbility(abSharpEye) then
     Result := Result + 1;
   if Self.Abilities.IsAbility(abHawkEye) then
@@ -690,15 +700,9 @@ begin
     Result := Result + 1;
 end;
 
-function TLeaderParty.GetMaxSpy: Integer;
+function TLeaderParty.InSightRadius(const AX, AY: Integer): Boolean;
 begin
-  Result := IfThen(TLeaderParty.Leader.Enum in ThiefLeaders,
-    TSaga.LeaderThiefSpyAttemptCountPerDay, 1);
-end;
-
-function TLeaderParty.InRadius(const AX, AY: Integer): Boolean;
-begin
-  Result := (Game.Map.GetDist(AX, AY, X, Y) <= Radius);
+  Result := (Game.Map.GetDist(AX, AY, X, Y) <= GetSightRadius);
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;
@@ -762,7 +766,7 @@ begin
     with TLeaderParty.Leader do
     begin
       SetLocation(AX, AY);
-      UpdateRadius;
+      UpdateSightRadius;
       Turn(1);
     end;
     F := True;
@@ -844,9 +848,14 @@ begin
     Game.NewDay;
 end;
 
-class procedure TLeaderParty.SetMaxSpeed;
+class procedure TLeaderParty.SetMaxMovementPoints;
 begin
-  Speed.SetValue(Leader.GetMaxSpeed);
+  MovementPoints.SetValue(Leader.GetMaxMovementPoints);
+end;
+
+class procedure TLeaderParty.SetMaxSpellsPerDay;
+begin
+  SpellsPerDay.SetValue(Leader.GetMaxSpellsPerDay);
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -862,21 +871,21 @@ begin
     Exit;
   LCount := 0;
   repeat
-    Speed.ModifyCurrValue(-1);
-    if Speed.IsMinCurrValue then
+    MovementPoints.ModifyCurrValue(-1);
+    if MovementPoints.IsMinCurrValue then
     begin
       Inc(Game.Day);
       Game.IsNewDay := True;
-      SetMaxSpeed;
+      SetMaxMovementPoints;
     end;
     Inc(LCount);
   until (LCount >= ACount);
   Game.ShowNewDayMessageTime := 0;
 end;
 
-procedure TLeaderParty.UpdateRadius;
+procedure TLeaderParty.UpdateSightRadius;
 begin
-  Game.Map.UpdateRadius(Self.X, Self.Y, Self.Radius,
+  Game.Map.UpdateRadius(Self.X, Self.Y, Self.GetSightRadius,
     Game.Map.GetLayer(lrDark), reNone);
 end;
 

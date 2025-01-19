@@ -105,11 +105,11 @@ begin
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Ability', True);
     AddTextLine;
-    AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).AbilityEnum).Name);
+    AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum)
+      .AbilityEnum).Name);
     for I := 0 to 1 do
       AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).AbilityEnum)
         .Description[I]);
-    AddTextLine;
     AddTextLine('Equipment', True);
     AddTextLine;
     AddTextLine(Format('Weapon: %s',
@@ -117,9 +117,11 @@ begin
       TCreature.Character(CurCrEnum).SourceEnum)]));
     AddTextLine('Parameters', True);
     AddTextLine;
-    AddTextLine('Speed', TLeaderParty.GetMaxSpeed(CurCrEnum));
-    AddTextLine('Radius', TLeaderParty.GetRadius(CurCrEnum));
-    AddTextLine('Spells per day', TLeaderParty.GetMaxSpells(CurCrEnum));
+    AddTextLine('Movement points', TLeaderParty.GetMovementPoints(CurCrEnum));
+    AddTextLine('Sight radius', TLeaderParty.GetSightRadius(CurCrEnum));
+    AddTextLine('Spells per day', TLeaderParty.GetSpellsPerDay(CurCrEnum));
+    AddTextLine('Spell casting range',
+      TLeaderParty.GetSpellCastingRange(CurCrEnum));
   end;
 
 end;

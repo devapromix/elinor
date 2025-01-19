@@ -223,7 +223,7 @@ begin
         DrawImage(X * TMap.TileSize, Y * TMap.TileSize,
           ResImage[reNeutralTerrain]);
       end;
-      F := not TLeaderParty.Leader.InRadius(X, Y) and
+      F := not TLeaderParty.Leader.InSightRadius(X, Y) and
         not(Game.Map.GetTile(lrTile, X, Y) in Tiles + Capitals + Cities) and
         (Game.Map.GetTile(lrDark, X, Y) = reNone) and
         not(Game.Map.GetTile(lrSee, X, Y) = reNone);

@@ -237,7 +237,7 @@ begin
     Result := True;
     ShowMessage('Speed');
     Game.MediaPlayer.PlaySound(mmSpeed);
-    TLeaderParty.SetMaxSpeed;
+    TLeaderParty.SetMaxMovementPoints;
   end;
 end;
 

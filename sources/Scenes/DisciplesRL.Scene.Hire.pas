@@ -302,46 +302,46 @@ begin
         case TLeaderThiefSpyVar(CurrentIndex) of
           svIntroduceSpy:
             begin
-              if TLeaderParty.Leader.Spy > 0 then
-              begin
+              { if TLeaderParty.Leader.Spy > 0 then
+                begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TrySpy(svIntroduceSpy) then
                 begin
-                  TLeaderParty.Leader.PutAt(MPX, MPY, True);
+                TLeaderParty.Leader.PutAt(MPX, MPY, True);
                 end;
-              end
-              else
-                NoSpy;
+                end
+                else
+                NoSpy; }
             end;
           svDuel:
             begin
-              if TLeaderParty.Leader.Spy > 0 then
-              begin
+              { if TLeaderParty.Leader.Spy > 0 then
+                begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TrySpy(svDuel) then
                 begin
-                  InformDialog('Вы вызвали противника на дуэль!');
-                  TSceneBattle2.IsDuel := True;
-                  TLeaderParty.Leader.PutAt(MPX, MPY);
+                InformDialog('Вы вызвали противника на дуэль!');
+                TSceneBattle2.IsDuel := True;
+                TLeaderParty.Leader.PutAt(MPX, MPY);
                 end;
-              end
-              else
-                NoSpy;
+                end
+                else
+                NoSpy; }
             end;
           svPoison:
             begin
-              if TLeaderParty.Leader.Spy > 0 then
-              begin
+              { if TLeaderParty.Leader.Spy > 0 then
+                begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TrySpy(svPoison) then
                 begin
-                  I := TSaga.GetPartyIndex(MPX, MPY);
-                  Party[I].TakeDamageAll(ThiefPoisonDamage);
-                  InformDialog('Вы отравили все колодцы в округе!');
+                I := TSaga.GetPartyIndex(MPX, MPY);
+                Party[I].TakeDamageAll(ThiefPoisonDamage);
+                InformDialog('Вы отравили все колодцы в округе!');
                 end;
-              end
-              else
-                NoSpy;
+                end
+                else
+                NoSpy; }
             end
         else
           Game.Show(scMap);
@@ -352,46 +352,46 @@ begin
         case TLeaderWarriorActVar(CurrentIndex) of
           avRest:
             begin
-              if TLeaderParty.Leader.Spy > 0 then
-              begin
+              { if TLeaderParty.Leader.Spy > 0 then
+                begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TryWar(avRest) then
                 begin
-                  // TLeaderParty.Leader.PutAt(MPX, MPY, True);
+                // TLeaderParty.Leader.PutAt(MPX, MPY, True);
                 end;
-              end
-              else
-                NoSpy;
+                end
+                else
+                NoSpy; }
             end;
           avRitual:
             begin
-              if TLeaderParty.Leader.Spy > 0 then
-              begin
+              { if TLeaderParty.Leader.Spy > 0 then
+                begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TryWar(avRitual) then
                 begin
-                  // InformDialog('Вы вызвали противника на дуэль!');
-                  // TSceneBattle2.IsDuel := True;
-                  // TLeaderParty.Leader.PutAt(MPX, MPY);
+                // InformDialog('Вы вызвали противника на дуэль!');
+                // TSceneBattle2.IsDuel := True;
+                // TLeaderParty.Leader.PutAt(MPX, MPY);
                 end;
-              end
-              else
-                NoSpy;
+                end
+                else
+                NoSpy; }
             end;
           avWar3:
             begin
-              if TLeaderParty.Leader.Spy > 0 then
-              begin
+              { if TLeaderParty.Leader.Spy > 0 then
+                begin
                 TLeaderParty.Leader.Spy := TLeaderParty.Leader.Spy - 1;
                 if TryWar(avWar3) then
                 begin
-                  // I := TSaga.GetPartyIndex(MPX, MPY);
-                  // Party[I].TakeDamageAll(ThiefPoisonDamage);
-                  // InformDialog('Вы отравили все колодцы в округе!');
+                // I := TSaga.GetPartyIndex(MPX, MPY);
+                // Party[I].TakeDamageAll(ThiefPoisonDamage);
+                // InformDialog('Вы отравили все колодцы в округе!');
                 end;
-              end
-              else
-                NoSpy;
+                end
+                else
+                NoSpy; }
             end
         else
           Game.Show(scMap);
@@ -485,8 +485,8 @@ begin
   AddTextLine;
   AddTextLine;
   AddTextLine;
-  AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
-    TLeaderParty.Leader.GetMaxSpy]));
+  // AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+  // TLeaderParty.Leader.GetMaxSpy]));
   AddTextLine(Format('Вероятность успеха: %d %', [ThiefChanceOfSuccess(S)]));
   case S of
     svPoison:
@@ -510,8 +510,8 @@ begin
   AddTextLine;
   AddTextLine;
   AddTextLine;
-  AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
-    TLeaderParty.Leader.GetMaxSpy]));
+  //AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+  //  TLeaderParty.Leader.GetMaxSpy]));
   AddTextLine(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
 end;
 

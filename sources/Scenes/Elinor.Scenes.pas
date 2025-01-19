@@ -308,8 +308,7 @@ begin
     Map.Clear(lrSee);
     if (TLeaderParty.Leader.Enum in FighterLeaders) then
       TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);
-    TLeaderParty.Leader.Spells := TLeaderParty.Leader.GetMaxSpells;
-    TLeaderParty.Leader.Spy := TLeaderParty.Leader.GetMaxSpy;
+    TLeaderParty.Leader.SpellsPerDay.SetToMaxValue;
     ShowNewDayMessageTime := 20;
     MediaPlayer.PlaySound(mmDay);
     IsNewDay := False;
@@ -732,10 +731,13 @@ begin
   AddTextLine('Scores', Game.Statistics.GetValue(stScores));
   AddTextLine('Parameters', True);
   AddTextLine;
-  AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed.GetCurrValue,
-    TLeaderParty.Leader.Speed.GetMaxValue]));
-  AddTextLine('Sight Radius', TLeaderParty.Leader.GetSightRadius);
-  // AddTextLine('Spells per day', TLeaderParty.GetSpellsPerDay(CurCrEnum));
+  AddTextLine(Format('Movement points %d/%d',
+    [TLeaderParty.Leader.MovementPoints.GetCurrValue,
+    TLeaderParty.Leader.MovementPoints.GetMaxValue]));
+  AddTextLine('Sight radius', TLeaderParty.Leader.GetSightRadius);
+  AddTextLine(Format('Spells per day %d/%d',
+    [TLeaderParty.Leader.SpellsPerDay.GetCurrValue,
+    TLeaderParty.Leader.SpellsPerDay.GetMaxValue]));
   AddTextLine('Spell casting range', TLeaderParty.Leader.GetSpellCastingRange);
 end;
 
