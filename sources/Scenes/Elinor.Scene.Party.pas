@@ -294,7 +294,7 @@ var
     for I := 0 to MaxAbilities - 1 do
     begin
       LSkillEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
-      if LSkillEnum <> skNone then
+      if LSkillEnum <> abNone then
       begin
         AddTextLine(TAbilities.Ability(LSkillEnum).Name);
         AddTextLine(TAbilities.Ability(LSkillEnum).Description[0]);

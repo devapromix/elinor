@@ -149,7 +149,7 @@ var
     for I := 0 to MaxAbilities - 1 do
     begin
       LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
-      if (LAbilityEnum <> skNone) and not TAbilities.IsAbilityLeadership
+      if (LAbilityEnum <> abNone) and not TAbilities.IsAbilityLeadership
         (LAbilityEnum) then
         AddTextLine(TAbilities.Ability(LAbilityEnum).Name);
     end;
