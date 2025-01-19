@@ -121,6 +121,7 @@ const
   TemplarLeaders = [];
   AllLeaders = FighterLeaders + ScoutingLeaders + MageLeaders + ThiefLeaders +
     LordLeaders + TemplarLeaders;
+  FlyLeaders = [crDuke, crCounselor, crArchDevil, crChieftain];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -426,10 +427,11 @@ type
 type
   TAbilityEnum = (abNone, abFly, abStrength, abMight, abStealth, abSharpEye,
     abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
-    abLeadership1, abLeadership2, abLeadership3, abLeadership4, skWand,
-    abAccuracy, abPathfinding, abAdvancedPathfinding, abDealmaker, abHaggler,
-    skProtect, skTalisman, skInstructor, skBook, skOrb, abSorcery, abTemplar,
-    abMountaineering, abForestry, abDoragorEye, abVampirism);
+    abLeadership1, abLeadership2, abLeadership3, abLeadership4,
+    abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
+    abDealmaker, abHaggler, skProtect, skTalisman, skInstructor, skBook, skOrb,
+    abSorcery, abTemplar, abMountaineering, abForestry, abDoragorPower,
+    abVampirism);
 
 type
   TAbility = record
@@ -569,7 +571,7 @@ const
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atPaladinSword; AbilityEnum: abFly; Rating: 0;),
+    AttackEnum: atPaladinSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Ranger
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reRanger;
     Size: szSmall; Name: ('Следопыт', 'Следопыта');
@@ -588,7 +590,7 @@ const
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
-    AttackEnum: atMagic; AbilityEnum: skWand; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thief
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reThief;
     Size: szSmall; Name: ('Вор', 'Вора');
@@ -667,7 +669,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atSlayerSword; AbilityEnum: abFly; Rating: 0;),
+    AttackEnum: atSlayerSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Nosferat
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reVampire;
     ResEnum: reNosferat; Size: szSmall; Name: ('Носферату', 'Носферату');
@@ -687,7 +689,7 @@ const
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
-    AttackEnum: atMagic; AbilityEnum: skWand; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thug
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead; ResEnum: reThug;
     Size: szSmall; Name: ('Головорез', 'Головореза');
@@ -782,7 +784,7 @@ const
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
-    AttackEnum: atMagic; AbilityEnum: skWand; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Ripper
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reRipper; Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
@@ -1219,8 +1221,8 @@ const
     (Enum: abNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];
     ResEnum: reNone;),
     // Fly
-    (Enum: abFly; Name: 'Полет'; Description: ('Умение позволяет предводителю',
-    'и его отряду летать над землей.'); Level: 1; Leaders: FighterLeaders;
+    (Enum: abFly; Name: 'Fly'; Description: ('The skill allows the leader and',
+    'his party to fly above the ground'); Level: 1; Leaders: FlyLeaders;
     ResEnum: reNone;),
     // Strength
     (Enum: abStrength; Name: 'Strength';
@@ -1275,11 +1277,10 @@ const
     (Enum: abLeadership4; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
     Level: 4; Leaders: AllLeaders; ResEnum: reNone;),
-    // Wand
-    (Enum: skWand; Name: 'Посохи и Свитки';
-    Description: ('Позволяет предводителю использовать',
-    'магические посохи и свитки.'); Level: 1; Leaders: MageLeaders;
-    ResEnum: reNone;),
+    // Use Staffs And Scrolls
+    (Enum: abUseStaffsAndScrolls; Name: 'Use Staffs And Scrolls';
+    Description: ('Allows the leader to use ', 'magic staffs and scrolls');
+    Level: 1; Leaders: MageLeaders; ResEnum: reNone;),
     // Accuracy
     (Enum: abAccuracy; Name: 'Accuracy';
     Description: ('Increases the leader''s chance to', 'hit the enemy.');
@@ -1347,8 +1348,8 @@ const
     Description: ('The party does not receive penalty when',
     'moving through forested areas'); Level: 2; Leaders: AllLeaders;
     ResEnum: reNone;),
-    // Doragor Eye
-    (Enum: abDoragorEye; Name: 'Doragor Eye';
+    // Doragor Power
+    (Enum: abDoragorPower; Name: 'Doragor Power';
     Description: ('Allows the leader to cast spells', 'at a greater range');
     Level: 4; Leaders: MageLeaders; ResEnum: reNone;),
     // Vampirism

@@ -626,6 +626,9 @@ end;
 function TLeaderParty.GetSpellCastingRange: Integer;
 begin
   Result := TLeaderParty.GetSpellCastingRange(TLeaderParty.Leader.Enum);
+  if Abilities.IsAbility(abDoragorPower) then
+    Result := Result + 1;
+
 end;
 
 class function TLeaderParty.GetSpellsPerDay(const CrEnum
