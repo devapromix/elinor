@@ -148,6 +148,9 @@ type
     procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer);
+    procedure RenderLeaderInfo;
+    procedure RenderGuardianInfo;
+
   end;
 
 type
@@ -692,6 +695,48 @@ begin
   end
   else if (SelectPartyPosition = LPartyPosition) then
     DrawImage(AX, AY, reSelectFrame);
+end;
+
+procedure TScene.RenderGuardianInfo;
+begin
+  TextTop := TFrame.Row(0) + 6;
+  TextLeft := TFrame.Col(3) + 12;
+  AddTextLine('Information', True);
+  AddTextLine;
+  AddTextLine('Game Difficulty', TSaga.DifficultyName[TSaga.Difficulty]);
+  AddTextLine('Day', Game.Day);
+  AddTextLine;
+  AddTextLine('Statistics', True);
+  AddTextLine;
+  AddTextLine('Gold Mines/Gold', Game.Gold.Mines, Game.Gold.Value);
+  AddTextLine('Mana Mines/Mana', Game.Mana.Mines, Game.Mana.Value);
+  AddTextLine('Gold/Mana Mined', Game.Statistics.GetValue(stGoldMined),
+    Game.Statistics.GetValue(stManaMined));
+  AddTextLine;
+  AddTextLine('Parameters', True);
+  AddTextLine;
+  AddTextLine('Leadership 5');
+end;
+
+procedure TScene.RenderLeaderInfo;
+begin
+  TextTop := TFrame.Row(0) + 6;
+  TextLeft := TFrame.Col(3) + 12;
+  AddTextLine('Statistics', True);
+  AddTextLine;
+  AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
+  AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+  AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
+  AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
+  AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
+  AddTextLine('Scores', Game.Statistics.GetValue(stScores));
+  AddTextLine('Parameters', True);
+  AddTextLine;
+  AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed.GetCurrValue,
+    TLeaderParty.Leader.Speed.GetMaxValue]));
+  AddTextLine('Sight Radius', TLeaderParty.Leader.GetSightRadius);
+  // AddTextLine('Spells per day', TLeaderParty.GetSpellsPerDay(CurCrEnum));
+  AddTextLine('Spell casting range', TLeaderParty.Leader.GetSpellCastingRange);
 end;
 
 procedure TScene.DrawResources;

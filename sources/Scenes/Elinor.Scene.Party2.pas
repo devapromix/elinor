@@ -151,57 +151,6 @@ procedure TSceneParty2.Render;
       DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
   end;
 
-  procedure RenderLeaderInfo;
-  begin
-    TextTop := TFrame.Row(0) + 6;
-    TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Statistics', True);
-    AddTextLine;
-    AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Killed Creatures',
-      Game.Statistics.GetValue(stKilledCreatures));
-    AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
-    AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
-    AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
-    AddTextLine('Scores', Game.Statistics.GetValue(stScores));
-    AddTextLine;
-    AddTextLine('Parameters', True);
-    AddTextLine;
-    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed.GetCurrValue,
-      TLeaderParty.Leader.Speed.GetMaxValue]));
-    AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
-    AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
-  end;
-// Potions Drunk
-// Scrolls Read
-// Spells Cast
-// Melee Attack Performed
-// Ranged Attack Performed
-// Items Used
-// Gold Looted
-// Mana Looted
-// Gold from Sales
-  procedure RenderGuardianInfo;
-  begin
-    TextTop := TFrame.Row(0) + 6;
-    TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Information', True);
-    AddTextLine;
-    AddTextLine('Game Difficulty', TSaga.DifficultyName[TSaga.Difficulty]);
-    AddTextLine('Day', Game.Day);
-    AddTextLine;
-    AddTextLine('Statistics', True);
-    AddTextLine;
-    AddTextLine('Gold Mines/Gold', Game.Gold.Mines, Game.Gold.Value);
-    AddTextLine('Mana Mines/Mana', Game.Mana.Mines, Game.Mana.Value);
-    AddTextLine('Gold/Mana Mined', Game.Statistics.GetValue(stGoldMined),
-      Game.Statistics.GetValue(stManaMined));
-    AddTextLine;
-    AddTextLine('Parameters', True);
-    AddTextLine;
-    AddTextLine('Leadership 5');
-  end;
-
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -217,6 +166,7 @@ begin
 
   RenderParty;
   RenderCreatureInfo;
+
   if CurrentParty = TLeaderParty.Leader then
     RenderLeaderInfo
   else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
