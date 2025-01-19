@@ -456,6 +456,8 @@ type
     procedure GenRandomList;
     procedure Clear;
     class function Ability(const A: TAbilityEnum): TAbility; static;
+    class function IsAbilityLeadership(const AAbilityEnum: TAbilityEnum)
+      : Boolean; static;
   end;
 {$ENDREGION Abilities}
 
@@ -1249,21 +1251,21 @@ const
     Description: ('Позволяет предводителю носить', 'магическую обувь.');
     Level: 1; Leaders: AllLeaders;),
     // Leadership #1
-    (Enum: skLeadership1; Name: 'Лидерство';
-    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
-    Level: 2; Leaders: AllLeaders;),
+    (Enum: skLeadership1; Name: 'Leadership';
+    Description: ('Allows the leader to take a warrior', 'into the party');
+    Level: 1; Leaders: AllLeaders;),
     // Leadership #2
-    (Enum: skLeadership2; Name: 'Лидерство';
-    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
-    Level: 3; Leaders: AllLeaders;),
+    (Enum: skLeadership2; Name: 'Leadership';
+    Description: ('Allows the leader to take a warrior', 'into the party');
+    Level: 2; Leaders: AllLeaders;),
     // Leadership #3
-    (Enum: skLeadership3; Name: 'Лидерство';
-    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
-    Level: 4; Leaders: AllLeaders;),
+    (Enum: skLeadership3; Name: 'Leadership';
+    Description: ('Allows the leader to take a warrior', 'into the party');
+    Level: 3; Leaders: AllLeaders;),
     // Leadership #4
-    (Enum: skLeadership4; Name: 'Лидерство';
-    Description: ('Позволяет предводителю взять в', 'отряд еще одного воина.');
-    Level: 5; Leaders: AllLeaders;),
+    (Enum: skLeadership4; Name: 'Leadership';
+    Description: ('Allows the leader to take a warrior', 'into the party');
+    Level: 4; Leaders: AllLeaders;),
     // Wand
     (Enum: skWand; Name: 'Посохи и Свитки';
     Description: ('Позволяет предводителю использовать',
@@ -1328,6 +1330,13 @@ const
 class function TAbilities.Ability(const A: TAbilityEnum): TAbility;
 begin
   Result := AbilityBase[A];
+end;
+
+class function TAbilities.IsAbilityLeadership(const AAbilityEnum
+  : TAbilityEnum): Boolean;
+begin
+  Result := (AAbilityEnum = skLeadership1) or (AAbilityEnum = skLeadership2) or
+    (AAbilityEnum = skLeadership3) or (AAbilityEnum = skLeadership4);
 end;
 
 procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);

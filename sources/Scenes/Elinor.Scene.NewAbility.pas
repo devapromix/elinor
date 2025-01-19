@@ -143,12 +143,14 @@ var
   begin
     TextLeft := TFrame.Col(3) + 12;
     TextTop := TFrame.Row(0) + 6;
+    AddTextLine('Leader Abilities', True);
     AddTextLine;
-    AddTextLine('Leadership', TLeaderParty.);
+    AddTextLine('Leadership', TLeaderParty.Leader.Leadership);
     for I := 0 to MaxAbilities - 1 do
     begin
       LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
-      if LAbilityEnum <> skNone then
+      if (LAbilityEnum <> skNone) and not TAbilities.IsAbilityLeadership
+        (LAbilityEnum) then
         AddTextLine(TAbilities.Ability(LAbilityEnum).Name);
     end;
   end;

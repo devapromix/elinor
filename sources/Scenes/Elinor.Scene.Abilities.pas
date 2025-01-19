@@ -115,7 +115,7 @@ procedure TSceneAbilities.Render;
 
   procedure RenderAbilities;
   var
-    I: Integer;
+    I, J: Integer;
     LAbilityEnum: TAbilityEnum;
   begin
     DrawTitle(reTitleAbilities);
@@ -123,19 +123,26 @@ procedure TSceneAbilities.Render;
     TextTop := TFrame.Row(0) + 6;
     AddTextLine('Leader Abilities', True);
     AddTextLine;
+    AddTextLine(TAbilities.Ability(skLeadership1).Name,
+      TLeaderParty.Leader.Leadership);
+    AddTextLine(TAbilities.Ability(skLeadership1).Description[0]);
+    AddTextLine(TAbilities.Ability(skLeadership1).Description[1]);
+    J := 0;
     for I := 0 to MaxAbilities - 1 do
     begin
       LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
-      if LAbilityEnum <> skNone then
+      if (LAbilityEnum <> skNone) and not TAbilities.IsAbilityLeadership
+        (LAbilityEnum) then
       begin
         AddTextLine(TAbilities.Ability(LAbilityEnum).Name);
         AddTextLine(TAbilities.Ability(LAbilityEnum).Description[0]);
         AddTextLine(TAbilities.Ability(LAbilityEnum).Description[1]);
-        if I = 3 then
+        if J = 2 then
         begin
           TextLeft := TFrame.Col(0, psRight) + 320 + 12;
           TextTop := TFrame.Row(0) + 6;
         end;
+        Inc(J);
       end;
     end;
   end;
