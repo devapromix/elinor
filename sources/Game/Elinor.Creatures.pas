@@ -427,8 +427,8 @@ type
   TAbilityEnum = (abNone, abFly, abStrength, abMight, abStealth, abSharpEye,
     abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
     abLeadership1, abLeadership2, abLeadership3, abLeadership4, skWand,
-    abAccuracy, abPathfinding, abAdvancedPathfinding, skTrader, skProtect,
-    skTalisman, skInstructor, skBook, skOrb, abSorcery, abTemplar,
+    abAccuracy, abPathfinding, abAdvancedPathfinding, abDealmaker, abHaggler,
+    skProtect, skTalisman, skInstructor, skBook, skOrb, abSorcery, abTemplar,
     abMountaineering, abForestry, abVampirism);
 
 type
@@ -1287,10 +1287,16 @@ const
     (Enum: abAdvancedPathfinding; Name: 'Advanced Pathfinding';
     Description: ('Increases the distance that the',
     'leader''s party can travel'); Level: 4; Leaders: ScoutingLeaders;),
-    // Trader
-    (Enum: skTrader; Name: 'Торговец';
-    Description: ('Обладатель этой способности',
-    'получает скидку 20% у торговца.'); Level: 4; Leaders: LordLeaders;),
+    // Dealmaker
+    (Enum: abDealmaker; Name: 'Dealmaker';
+    Description: ('The owner of this ability',
+    'receives a 10% discount from the merchant'); Level: 4;
+    Leaders: AllLeaders;),
+    // Haggler
+    (Enum: abHaggler; Name: 'Haggler';
+    Description: ('The owner of this ability',
+    'receives a 15% discount from the merchant'); Level: 5;
+    Leaders: LordLeaders;),
     // Protect
     (Enum: skProtect; Name: 'Естественная Броня';
     Description: ('Предводитель будет поглощать 10%', 'наносимого ему урона.');
