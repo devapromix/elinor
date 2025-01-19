@@ -113,14 +113,14 @@ type
 {$ENDREGION CreatureEnum}
 
 const
-  FighterLeader = [crPaladin, crDeathKnight, crDuke];
-  ScoutingLeader = [crRanger, crNosferat, crCounselor];
-  MageLeader = [crArchmage, crLichQueen, crArchDevil];
-  LeaderThief = [crThief, crThug, crRipper];
-  LeaderLord = [crWarlord, crDominator, crChieftain];
-  TemplarLeader = [];
-  AllLeaders = FighterLeader + ScoutingLeader + MageLeader + LeaderThief +
-    LeaderLord + TemplarLeader;
+  FighterLeaders = [crPaladin, crDeathKnight, crDuke];
+  ScoutingLeaders = [crRanger, crNosferat, crCounselor];
+  MageLeaders = [crArchmage, crLichQueen, crArchDevil];
+  ThiefLeaders = [crThief, crThug, crRipper];
+  LordLeaders = [crWarlord, crDominator, crChieftain];
+  TemplarLeaders = [];
+  AllLeaders = FighterLeaders + ScoutingLeaders + MageLeaders + ThiefLeaders +
+    LordLeaders + TemplarLeaders;
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -1217,27 +1217,27 @@ const
     (Enum: abNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];),
     // Fly
     (Enum: abFly; Name: 'Полет'; Description: ('Умение позволяет предводителю',
-    'и его отряду летать над землей.'); Level: 1; Leaders: FighterLeader;),
+    'и его отряду летать над землей.'); Level: 1; Leaders: FighterLeaders;),
     // Strength
     (Enum: abStrength; Name: 'Strength';
     Description: ('Adds 10% damage to the attack', 'of the fighter leader');
-    Level: 5; Leaders: FighterLeader;),
+    Level: 4; Leaders: FighterLeaders;),
     // Might
     (Enum: abMight; Name: 'Might';
     Description: ('Adds 15% damage to the attack', 'of the fighter leader');
-    Level: 6; Leaders: FighterLeader;),
+    Level: 6; Leaders: FighterLeaders;),
     // Spy
     (Enum: skStealth; Name: 'Тайные Тропы';
     Description: ('Предводитель скрытно проведет отряд',
-    'в любой из уголков Невендаара.'); Level: 1; Leaders: LeaderThief;),
+    'в любой из уголков Невендаара.'); Level: 1; Leaders: ThiefLeaders;),
     // Sharp Eye
     (Enum: skSharpEye; Name: 'Sharp Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 1;
-    Leaders: ScoutingLeader;),
+    Leaders: ScoutingLeaders;),
     // Hawk Eye #2
     (Enum: skHawkEye; Name: 'Hawk Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 3;
-    Leaders: ScoutingLeader;),
+    Leaders: ScoutingLeaders;),
     // Far Sight
     (Enum: skFarSight; Name: 'Far Sight';
     Description: ('Allows the leader to see ', 'further'); Level: 5;
@@ -1273,11 +1273,11 @@ const
     // Wand
     (Enum: skWand; Name: 'Посохи и Свитки';
     Description: ('Позволяет предводителю использовать',
-    'магические посохи и свитки.'); Level: 1; Leaders: MageLeader;),
+    'магические посохи и свитки.'); Level: 1; Leaders: MageLeaders;),
     // Accuracy
     (Enum: skAccuracy; Name: 'Точность';
     Description: ('Увеличивает шанс предводителя', 'попасть по противнику.');
-    Level: 6; Leaders: ScoutingLeader;),
+    Level: 6; Leaders: ScoutingLeaders;),
     // Ori
     (Enum: skOri; Name: 'Ориентирование';
     Description: ('Увеличивает дистанцию, которую может',
@@ -1285,7 +1285,7 @@ const
     // Trader
     (Enum: skTrader; Name: 'Торговец';
     Description: ('Обладатель этой способности',
-    'получает скидку 20% у торговца.'); Level: 4; Leaders: LeaderLord;),
+    'получает скидку 20% у торговца.'); Level: 4; Leaders: LordLeaders;),
     // Protect
     (Enum: skProtect; Name: 'Естественная Броня';
     Description: ('Предводитель будет поглощать 10%', 'наносимого ему урона.');
@@ -1309,11 +1309,11 @@ const
     // Sorcery
     (Enum: abSorcery; Name: 'Sorcery';
     Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
-    Leaders: MageLeader;),
+    Leaders: MageLeaders;),
     // Templar
     (Enum: skTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
-    'troops at half the cost'); Level: 1; Leaders: LeaderLord;),
+    'troops at half the cost'); Level: 1; Leaders: LordLeaders;),
     // Mountaineering
     (Enum: abMountaineering; Name: 'Mountaineering';
     Description: ('The ability allows the leader to pave',
@@ -1322,6 +1322,10 @@ const
     (Enum: abForestry; Name: 'Forestry';
     Description: ('The party does not receive penalty when',
     'moving through forested areas'); Level: 2; Leaders: AllLeaders;),
+    // Doragor Eye
+    (Enum: abDoragorEye; Name: 'Doragor Eye';
+    Description: ('Allows the leader to cast spells', 'at a greater range');
+    Level: 4; Leaders: MageLeaders;),
     // Vampirism
     (Enum: skVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');

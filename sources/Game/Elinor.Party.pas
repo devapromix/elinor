@@ -607,9 +607,9 @@ end;
 
 class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;
 begin
-  if (CrEnum in ScoutingLeader) then
+  if (CrEnum in ScoutingLeaders) then
     Result := TSaga.LeaderScoutMaxSpeed
-  else if (CrEnum in LeaderLord) then
+  else if (CrEnum in LordLeaders) then
     Result := TSaga.LeaderLordMaxSpeed
   else
     Result := TSaga.LeaderDefaultMaxSpeed;
@@ -617,7 +617,7 @@ end;
 
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in MageLeader, 2, 1);
+  Result := IfThen(CrEnum in MageLeaders, 2, 1);
 end;
 
 function TLeaderParty.GetGold(const AGold: Integer): Integer;
@@ -673,7 +673,7 @@ end;
 class function TLeaderParty.GetRadius(const ACreatureEnum
   : TCreatureEnum): Integer;
 begin
-  Result := IfThen(ACreatureEnum in ScoutingLeader, TSaga.LeaderScoutMaxRadius,
+  Result := IfThen(ACreatureEnum in ScoutingLeaders, TSaga.LeaderScoutMaxRadius,
     TSaga.LeaderDefaultMaxRadius);
 end;
 
@@ -690,7 +690,7 @@ end;
 
 function TLeaderParty.GetMaxSpy: Integer;
 begin
-  Result := IfThen(TLeaderParty.Leader.Enum in LeaderThief,
+  Result := IfThen(TLeaderParty.Leader.Enum in ThiefLeaders,
     TSaga.LeaderThiefSpyAttemptCountPerDay, 1);
 end;
 
