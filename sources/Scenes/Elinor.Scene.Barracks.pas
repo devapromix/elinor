@@ -206,28 +206,6 @@ procedure TSceneBarracks.Render;
       DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
   end;
 
-  procedure RenderLeaderInfo;
-  begin
-    TextTop := TFrame.Row(0) + 6;
-    TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Statistics', True);
-    AddTextLine;
-    AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
-    AddTextLine('Killed Creatures',
-      Game.Statistics.GetValue(stKilledCreatures));
-    AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
-    AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
-    AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
-    AddTextLine('Scores', Game.Statistics.GetValue(stScores));
-    AddTextLine;
-    AddTextLine('Parameters', True);
-    AddTextLine;
-    AddTextLine(Format('Speed %d/%d', [TLeaderParty.Leader.Speed.GetCurrValue,
-      TLeaderParty.Leader.Speed.GetMaxValue]));
-    AddTextLine(Format('Leadership %d', [TLeaderParty.Leader.Leadership]));
-    AddTextLine(Format('Radius %d', [TLeaderParty.Leader.Radius]));
-  end;
-
   procedure RenderButtons;
   var
     LButtonEnum: TButtonEnum;
@@ -240,9 +218,14 @@ begin
   inherited;
 
   DrawTitle(reTitleBarracks);
+
   RenderParty;
   RenderCharacterInfo;
-  RenderLeaderInfo;
+
+  if CurrentParty = TLeaderParty.Leader then
+    RenderLeaderInfo
+  else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
+    RenderGuardianInfo;
 
   RenderButtons;
 end;
