@@ -95,6 +95,8 @@ type
     FInventory: TInventory;
     FEquipment: TEquipment;
     FInvisibility: Boolean;
+    FSpellsPerDay: TCurrMaxAttribute;
+    FMovementPoints: TCurrMaxAttribute;
     function GetLeadership: Integer;
   public
   class var
@@ -102,12 +104,12 @@ type
     CreatureIndex: Byte;
     CapitalPartyIndex: Byte;
     SummonPartyIndex: Byte;
-    MovementPoints: TCurrMaxAttribute;
-    SpellsPerDay: TCurrMaxAttribute;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
     procedure Clear;
+    property MovementPoints: TCurrMaxAttribute read FMovementPoints write FMovementPoints;
+    property SpellsPerDay: TCurrMaxAttribute read FSpellsPerDay write FSpellsPerDay;
     property Leadership: Integer read GetLeadership;
     procedure UpdateSightRadius;
     procedure Turn(const ACount: Integer = 1);
@@ -139,8 +141,8 @@ type
     function GetGold(const AGold: Integer): Integer;
     property Invisibility: Boolean read FInvisibility write FInvisibility;
     function GetInvisibility: Boolean;
-    class procedure SetMaxMovementPoints;
-    class procedure SetMaxSpellsPerDay;
+    procedure SetMaxMovementPoints;
+    procedure SetMaxSpellsPerDay;
     class function GetSpellCastingRange(const CrEnum: TCreatureEnum)
       : Integer; overload;
     function GetSpellCastingRange: Integer; overload;
@@ -848,12 +850,12 @@ begin
     Game.NewDay;
 end;
 
-class procedure TLeaderParty.SetMaxMovementPoints;
+procedure TLeaderParty.SetMaxMovementPoints;
 begin
   MovementPoints.SetValue(Leader.GetMaxMovementPoints);
 end;
 
-class procedure TLeaderParty.SetMaxSpellsPerDay;
+procedure TLeaderParty.SetMaxSpellsPerDay;
 begin
   SpellsPerDay.SetValue(Leader.GetMaxSpellsPerDay);
 end;
@@ -877,6 +879,7 @@ begin
       Inc(Game.Day);
       Game.IsNewDay := True;
       SetMaxMovementPoints;
+      SetMaxSpellsPerDay;
     end;
     Inc(LCount);
   until (LCount >= ACount);
