@@ -223,8 +223,14 @@ begin
   inherited;
 
   DrawTitle(reTitleTemple);
+
   RenderParty;
   RenderCharacterInfo;
+
+  if CurrentParty = TLeaderParty.Leader then
+    RenderLeaderInfo
+  else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
+    RenderGuardianInfo;
 
   RenderButtons;
 end;
