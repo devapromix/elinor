@@ -19,6 +19,7 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
   private
     Button: array [TButtonEnum] of TButton;
+    procedure CloseScene;
   public
     constructor Create;
     destructor Destroy; override;
@@ -90,7 +91,7 @@ begin
     mbLeft:
       begin
         if Button[btClose].MouseDown then
-          HideScene;
+          CloseScene;
       end;
   end;
 
@@ -103,6 +104,13 @@ begin
   inherited;
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
     Button[LButtonEnum].MouseMove(X, Y);
+end;
+
+procedure TSceneNewAbility.CloseScene;
+begin
+  with TLeaderParty.Leader.Abilities do
+    Add(RandomAbilityEnum[ActivePartyPosition]);
+  HideScene;
 end;
 
 procedure TSceneNewAbility.Render;
@@ -129,8 +137,20 @@ var
   end;
 
   procedure RenderLeaderAbilitiesList;
+  var
+    I: Integer;
+    LAbilityEnum: TAbilityEnum;
   begin
-
+    TextLeft := TFrame.Col(3) + 12;
+    TextTop := TFrame.Row(0) + 6;
+    AddTextLine;
+    AddTextLine('Leadership', TLeaderParty.);
+    for I := 0 to MaxAbilities - 1 do
+    begin
+      LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
+      if LAbilityEnum <> skNone then
+        AddTextLine(TAbilities.Ability(LAbilityEnum).Name);
+    end;
   end;
 
   procedure RenderButtons;
@@ -169,11 +189,7 @@ begin
   inherited;
   case Key of
     K_ENTER:
-      begin
-        with TLeaderParty.Leader.Abilities do
-          Add(RandomAbilityEnum[ActivePartyPosition]);
-        HideScene;
-      end;
+      CloseScene;
   end;
 end;
 

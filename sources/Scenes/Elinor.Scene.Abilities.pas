@@ -119,8 +119,6 @@ procedure TSceneAbilities.Render;
     LAbilityEnum: TAbilityEnum;
   begin
     DrawTitle(reTitleAbilities);
-    TextLeft := 250 + TFrame.Col(0, psRight) + 12;
-    TextTop := TFrame.Row(0) + 6 + (TextLineHeight div 2);
     TextLeft := TFrame.Col(0, psRight) + 12;
     TextTop := TFrame.Row(0) + 6;
     AddTextLine('Leader Abilities', True);
