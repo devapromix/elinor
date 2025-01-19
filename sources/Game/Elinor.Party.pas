@@ -526,7 +526,7 @@ end;
 procedure TLeaderParty.Clear;
 begin
   Abilities.Clear;
-  Leader.Abilities.Add(TSceneHire.CurCrSkillEnum);
+  Leader.Abilities.Add(TSceneHire.CurCrAbilityEnum);
   Inventory.Clear;
   Equipment.Clear;
   SetMaxSpeed;
@@ -617,7 +617,7 @@ end;
 
 class function TLeaderParty.GetMaxSpells(const CrEnum: TCreatureEnum): Integer;
 begin
-  Result := IfThen(CrEnum in LeaderMage, 2, 1);
+  Result := IfThen(CrEnum in MageLeader, 2, 1);
 end;
 
 function TLeaderParty.GetGold(const AGold: Integer): Integer;
@@ -648,7 +648,7 @@ end;
 function TLeaderParty.GetMaxSpells: Integer;
 begin
   Result := 1;
-  if Self.Abilities.IsAbility(skSorcery) then
+  if Self.Abilities.IsAbility(abSorcery) then
     Result := Result + 1;
 end;
 

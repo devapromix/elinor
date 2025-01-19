@@ -54,7 +54,7 @@ procedure TSceneLeader.Continue;
 begin
   inherited;
   Game.MediaPlayer.PlaySound(mmClick);
-  TSceneHire.CurCrSkillEnum := TCreature.Character(CurCrEnum).SkillEnum;
+  TSceneHire.CurCrAbilityEnum := TCreature.Character(CurCrEnum).AbilityEnum;
   TSaga.Clear;
   Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderFaction;
   Game.MediaPlayer.PlayMusic(mmGame);
@@ -105,9 +105,9 @@ begin
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Ability', True);
     AddTextLine;
-    AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).SkillEnum).Name);
+    AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).AbilityEnum).Name);
     for I := 0 to 1 do
-      AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).SkillEnum)
+      AddTextLine(TAbilities.Ability(TCreature.Character(CurCrEnum).AbilityEnum)
         .Description[I]);
     AddTextLine;
     AddTextLine('Equipment', True);

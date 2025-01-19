@@ -115,11 +115,11 @@ type
 const
   FighterLeader = [crPaladin, crDeathKnight, crDuke];
   ScoutingLeader = [crRanger, crNosferat, crCounselor];
-  LeaderMage = [crArchmage, crLichQueen, crArchDevil];
+  MageLeader = [crArchmage, crLichQueen, crArchDevil];
   LeaderThief = [crThief, crThug, crRipper];
   LeaderLord = [crWarlord, crDominator, crChieftain];
   TemplarLeader = [];
-  AllLeaders = FighterLeader + ScoutingLeader + LeaderMage + LeaderThief +
+  AllLeaders = FighterLeader + ScoutingLeader + MageLeader + LeaderThief +
     LeaderLord + TemplarLeader;
 
 type
@@ -427,7 +427,7 @@ type
   TAbilityEnum = (skNone, skFly, skStrenght, skStealth, skSharpEye, skHawkEye,
     skFarSight, skArtifactLore, skBannerBearer, skTravelLore, skLeadership1,
     skLeadership2, skLeadership3, skLeadership4, skWand, skAccuracy, skOri,
-    skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, skSorcery,
+    skTrader, skProtect, skTalisman, skInstructor, skBook, skOrb, abSorcery,
     skTemplar, abMountaineering, abForestry, skVampirism);
 
 type
@@ -450,8 +450,8 @@ type
     RandomAbilityEnum: array [0 .. 5] of TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
-    function IsAbility(const SkillEnum: TAbilityEnum): Boolean;
-    procedure Add(const SkillEnum: TAbilityEnum);
+    function IsAbility(const AAbilityEnum: TAbilityEnum): Boolean;
+    procedure Add(const AAbilityEnum: TAbilityEnum);
     function GetEnum(const I: Integer): TAbilityEnum;
     procedure GenRandomList;
     procedure Clear;
@@ -482,7 +482,7 @@ type
     Sound: array [TCrSoundEnum] of TMusicEnum;
     Gender: TCreatureGender;
     AttackEnum: TAttackEnum;
-    SkillEnum: TAbilityEnum;
+    AbilityEnum: TAbilityEnum;
     Rating: Word;
   end;
 
@@ -507,7 +507,7 @@ type
     Heal: Integer;
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
-    SkillEnum: TAbilityEnum;
+    AbilityEnum: TAbilityEnum;
     function Alive: Boolean;
     function AliveAndNeedExp: Boolean;
     function IsLeader(): Boolean;
@@ -545,7 +545,7 @@ const
     Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
-    SkillEnum: skNone; Rating: 0;),
+    AbilityEnum: skNone; Rating: 0;),
     // The Empire
 {$REGION The Empire}
     // Myzrael
@@ -556,7 +556,7 @@ const
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
     Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
-    AttackEnum: atMagic; SkillEnum: skNone; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: skNone; Rating: 0;),
     // Paladin
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: rePaladin;
     Size: szSmall; Name: ('Паладин', 'Паладина');
@@ -565,7 +565,7 @@ const
     HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atPaladinSword; SkillEnum: skFly; Rating: 0;),
+    AttackEnum: atPaladinSword; AbilityEnum: skFly; Rating: 0;),
     // Ranger
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reRanger;
     Size: szSmall; Name: ('Следопыт', 'Следопыта');
@@ -575,7 +575,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atHunterBow; SkillEnum: skTravelLore; Rating: 0;),
+    AttackEnum: atHunterBow; AbilityEnum: skTravelLore; Rating: 0;),
     // Archmage
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
     Size: szSmall; Name: ('Архимаг', 'Архимага');
@@ -584,7 +584,7 @@ const
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
-    AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: skWand; Rating: 0;),
     // Thief
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reThief;
     Size: szSmall; Name: ('Вор', 'Вора');
@@ -593,7 +593,7 @@ const
     HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDagger; SkillEnum: skStealth; Rating: 0;),
+    AttackEnum: atDagger; AbilityEnum: skStealth; Rating: 0;),
     // Warlord
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reWarlord;
     Size: szSmall; Name: ('Полководец', 'Полководца');
@@ -602,7 +602,7 @@ const
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; SkillEnum: skTemplar; Rating: 0;),
+    AttackEnum: atBattleAxe; AbilityEnum: skTemplar; Rating: 0;),
     // Squire
     (Ident: 'squire'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reSquire;
     Size: szSmall; Name: ('Сквайр', 'Сквайра');
@@ -612,7 +612,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skNone; Rating: 25;),
+    AttackEnum: atLongSword; AbilityEnum: skNone; Rating: 25;),
     // Archer
     (Ident: 'archer'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArcher;
     Size: szSmall; Name: ('Лучник', 'Лучника');
@@ -622,7 +622,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 40;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atBow; SkillEnum: skNone; Rating: 10;),
+    AttackEnum: atBow; AbilityEnum: skNone; Rating: 10;),
     // Apprentice
     (Ident: 'apprentice'; Faction: faTheEmpire; SubRace: reHuman;
     ResEnum: reApprentice; Size: szSmall; Name: ('Ученик', 'Ученика');
@@ -631,7 +631,7 @@ const
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
-    AttackEnum: atMagic; SkillEnum: skNone; Rating: 5;),
+    AttackEnum: atMagic; AbilityEnum: skNone; Rating: 5;),
     // Acolyte
     (Ident: 'acolyte'; Faction: faTheEmpire; SubRace: reHuman;
     ResEnum: reAcolyte; Size: szSmall; Name: ('Служка', 'Служку');
@@ -640,7 +640,7 @@ const
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
     Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
-    AttackEnum: atHealing; SkillEnum: skNone; Rating: 5;),
+    AttackEnum: atHealing; AbilityEnum: skNone; Rating: 5;),
 {$ENDREGION The Empire}
     // Undead Hordes
 {$REGION Undead Hordes}
@@ -652,7 +652,7 @@ const
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
     Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
-    AttackEnum: atMagic; SkillEnum: skNone; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: skNone; Rating: 0;),
     // Death Knight
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reDeathKnight; Size: szSmall;
@@ -663,7 +663,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atSlayerSword; SkillEnum: skFly; Rating: 0;),
+    AttackEnum: atSlayerSword; AbilityEnum: skFly; Rating: 0;),
     // Nosferat
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reVampire;
     ResEnum: reNosferat; Size: szSmall; Name: ('Носферату', 'Носферату');
@@ -673,7 +673,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
-    AttackEnum: atDrainLife; SkillEnum: skVampirism; Rating: 0;),
+    AttackEnum: atDrainLife; AbilityEnum: skVampirism; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reLichQueen; Size: szSmall;
@@ -683,7 +683,7 @@ const
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
-    AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: skWand; Rating: 0;),
     // Thug
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead; ResEnum: reThug;
     Size: szSmall; Name: ('Головорез', 'Головореза');
@@ -693,7 +693,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDaggerOfShadows; SkillEnum: skStealth; Rating: 0;),
+    AttackEnum: atDaggerOfShadows; AbilityEnum: skStealth; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reDominator; Size: szSmall; Name: ('Доминатор', 'Доминатора');
@@ -702,7 +702,7 @@ const
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; SkillEnum: skTemplar; Rating: 0;),
+    AttackEnum: atBattleAxe; AbilityEnum: skTemplar; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reFighter; Size: szSmall; Name: ('Воин', 'Воина');
@@ -711,7 +711,7 @@ const
     HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
+    AttackEnum: atLongSword; AbilityEnum: skNone; Rating: 30;),
     // Ghost
     (Ident: 'ghost'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reGhost; Size: szSmall; Name: ('Призрак', 'Призрака');
@@ -720,7 +720,7 @@ const
     Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
     Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgNeuter;
-    AttackEnum: atParalyze; SkillEnum: skNone; Rating: 10;),
+    AttackEnum: atParalyze; AbilityEnum: skNone; Rating: 10;),
     // Initiate
     (Ident: 'initiate'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reInitiate; Size: szSmall; Name: ('Адепт', 'Адепта');
@@ -728,7 +728,7 @@ const
     'своей богини Мортис.'); HitPoints: 45; Initiative: 40; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath;
     ReachEnum: reAll; Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);
-    Gender: cgMale; AttackEnum: atMagic; SkillEnum: skNone; Rating: 10;),
+    Gender: cgMale; AttackEnum: atMagic; AbilityEnum: skNone; Rating: 10;),
     // Wyvern
     (Ident: 'wyvern'; Faction: faUndeadHordes; SubRace: reUndeadDragon;
     ResEnum: reWyvern; Size: szBig; Name: ('Виверна', 'Виверну');
@@ -738,7 +738,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAll; Gold: 100;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
-    AttackEnum: atPoisonousBreath; SkillEnum: skNone; Rating: 40;),
+    AttackEnum: atPoisonousBreath; AbilityEnum: skNone; Rating: 40;),
 {$ENDREGION UndeadHordes}
     // Legions Of The Damned
 {$REGION Legions Of The Damned}
@@ -751,7 +751,7 @@ const
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll; Gold: 0;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
-    SkillEnum: skNone; Rating: 0;),
+    AbilityEnum: skNone; Rating: 0;),
     // Duke
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reDuke; Size: szSmall; Name: ('Герцог', 'Герцога');
@@ -760,7 +760,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atPhoenixSword; SkillEnum: skFly; Rating: 0;),
+    AttackEnum: atPhoenixSword; AbilityEnum: skFly; Rating: 0;),
     // Counselor
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reCounselor; Size: szSmall; Name: ('Советник', 'Советника');
@@ -769,7 +769,7 @@ const
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atCrossbow; SkillEnum: skTravelLore; Rating: 0;),
+    AttackEnum: atCrossbow; AbilityEnum: skTravelLore; Rating: 0;),
     // Arch-Devil
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reArchdevil; Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
@@ -778,7 +778,7 @@ const
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
-    AttackEnum: atMagic; SkillEnum: skWand; Rating: 0;),
+    AttackEnum: atMagic; AbilityEnum: skWand; Rating: 0;),
     // Ripper
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reRipper; Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
@@ -787,7 +787,7 @@ const
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atFireDagger; SkillEnum: skStealth; Rating: 0;),
+    AttackEnum: atFireDagger; AbilityEnum: skStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reChieftain; Size: szSmall; Name: ('Атаман', 'Атамана');
@@ -796,7 +796,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
-    AttackEnum: atFireHammer; SkillEnum: skTemplar; Rating: 0;),
+    AttackEnum: atFireHammer; AbilityEnum: skTemplar; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: rePossessed; Size: szSmall; Name: ('Одержимый', 'Одержимого');
@@ -806,7 +806,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
+    AttackEnum: atLongSword; AbilityEnum: skNone; Rating: 30;),
     // Gargoyle
     (Ident: 'gargoyle'; Faction: faLegionsOfTheDamned; SubRace: reGargoyle;
     ResEnum: reStoneGargoyle; Size: szBig; Name: ('Горгулья', 'Горгулью');
@@ -815,7 +815,7 @@ const
     HitPoints: 75; Initiative: 60; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 25; Armor: 15; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
     Gold: 90; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
-    AttackEnum: atStones; SkillEnum: skNone; Rating: 30;),
+    AttackEnum: atStones; AbilityEnum: skNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reCultist; Size: szSmall; Name: ('Культист', 'Культиста');
@@ -824,7 +824,7 @@ const
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
-    AttackEnum: atMagic; SkillEnum: skNone; Rating: 20;),
+    AttackEnum: atMagic; AbilityEnum: skNone; Rating: 20;),
     // Devil
     (Ident: 'devil'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reDevil; Size: szBig; Name: ('Чёрт', 'Чёрта');
@@ -833,7 +833,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atClaws;
-    SkillEnum: skNone; Rating: 35;),
+    AbilityEnum: skNone; Rating: 35;),
 {$ENDREGION Legions Of The Damned}
     // Neutral Green Skins
 {$REGION Green Skins}
@@ -845,7 +845,7 @@ const
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
-    Gender: cgMale; AttackEnum: atSpear; SkillEnum: skNone; Rating: 25;),
+    Gender: cgMale; AttackEnum: atSpear; AbilityEnum: skNone; Rating: 25;),
     // Goblin Rider
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblin; Size: szSmall;
@@ -855,7 +855,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAdj; Gold: 120;
     Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
-    AttackEnum: atSpear; SkillEnum: skNone; Rating: 30;),
+    AttackEnum: atSpear; AbilityEnum: skNone; Rating: 30;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;
@@ -865,7 +865,7 @@ const
     HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atBow; SkillEnum: skNone; Rating: 20;),
+    AttackEnum: atBow; AbilityEnum: skNone; Rating: 20;),
     // Goblin Elder
     (Ident: 'goblin-elder'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinElder; Size: szSmall;
@@ -875,7 +875,7 @@ const
     HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);
-    Gender: cgMale; AttackEnum: atMagic; SkillEnum: skNone; Rating: 10;),
+    Gender: cgMale; AttackEnum: atMagic; AbilityEnum: skNone; Rating: 10;),
 
     // Orc
     (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
@@ -885,7 +885,7 @@ const
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; SkillEnum: skNone; Rating: 40;),
+    AttackEnum: atBattleAxe; AbilityEnum: skNone; Rating: 40;),
 
     // Ogre
     (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
@@ -895,7 +895,7 @@ const
     Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
     Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
-    AttackEnum: atClub; SkillEnum: skNone; Rating: 50;),
+    AttackEnum: atClub; AbilityEnum: skNone; Rating: 50;),
 {$ENDREGION Green Skins}
     // Neutral Humans
 {$REGION Humans}
@@ -907,7 +907,7 @@ const
     ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
     Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
-    AttackEnum: atSpear; SkillEnum: skNone; Rating: 10;),
+    AttackEnum: atSpear; AbilityEnum: skNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
     ResEnum: reGoblin; Size: szSmall; Name: ('Пехотинец', 'Пехотинца');
@@ -916,7 +916,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atLongSword; SkillEnum: skNone; Rating: 30;),
+    AttackEnum: atLongSword; AbilityEnum: skNone; Rating: 30;),
     // Rogue
     (Ident: 'rogue'; Faction: faNeutrals; SubRace: reHuman; ResEnum: reRogue;
     Size: szSmall; Name: ('Разбойник', 'Разбойника');
@@ -925,7 +925,7 @@ const
     Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 80;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDagger; SkillEnum: skNone; Rating: 20;),
+    AttackEnum: atDagger; AbilityEnum: skNone; Rating: 20;),
 {$ENDREGION Humans}
     // Neutral Undeads
 {$REGION Undeads}
@@ -937,7 +937,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
     Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
-    AttackEnum: atClaws; SkillEnum: skNone; Rating: 40;),
+    AttackEnum: atClaws; AbilityEnum: skNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: faNeutrals; SubRace: reDarkElf;
     ResEnum: reSquire; Size: szSmall;
@@ -947,7 +947,7 @@ const
     HitPoints: 110; Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDaggerOfShadows; SkillEnum: skNone; Rating: 45;),
+    AttackEnum: atDaggerOfShadows; AbilityEnum: skNone; Rating: 45;),
     // Reaper
     (Ident: 'reaper'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reReaper;
     Size: szSmall; Name: ('Жнец', 'Жнеца');
@@ -956,7 +956,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 4; Damage: 75; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 325;
     Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
-    AttackEnum: atScythe; SkillEnum: skNone; Rating: 70;),
+    AttackEnum: atScythe; AbilityEnum: skNone; Rating: 70;),
 {$ENDREGION Undeads}
     // Neutral Heretics
 {$REGION Heretics}
@@ -966,7 +966,7 @@ const
     HitPoints: 55; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 75; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atClaws; SkillEnum: skNone; Rating: 35;),
+    AttackEnum: atClaws; AbilityEnum: skNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals
 {$REGION Animals}
@@ -979,7 +979,7 @@ const
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400;
     Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atBites; SkillEnum: skNone; Rating: 80;),
+    AttackEnum: atBites; AbilityEnum: skNone; Rating: 80;),
 
     // Wolf
     (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: reWolf;
@@ -990,7 +990,7 @@ const
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
-    AttackEnum: atBites; SkillEnum: skNone; Rating: 70;),
+    AttackEnum: atBites; AbilityEnum: skNone; Rating: 70;),
 
     // Polar Bear
     (Ident: 'polar-bear'; Faction: faNeutrals; SubRace: reAnimal;
@@ -999,7 +999,7 @@ const
     Leadership: 0; Level: 1; Damage: 85; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
-    AttackEnum: atBites; SkillEnum: skNone; Rating: 60;),
+    AttackEnum: atBites; AbilityEnum: skNone; Rating: 60;),
     // Brown Bear
     (Ident: 'brown-bear'; Faction: faNeutrals; SubRace: reAnimal;
     ResEnum: reBear; Size: szBig; Name: ('Бурый Медведь', 'Бурого Медведя');
@@ -1007,7 +1007,7 @@ const
     Leadership: 0; Level: 1; Damage: 80; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 600;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
-    AttackEnum: atBites; SkillEnum: skNone; Rating: 55;),
+    AttackEnum: atBites; AbilityEnum: skNone; Rating: 55;),
     // Black Bear
     (Ident: 'black-bear'; Faction: faNeutrals; SubRace: reAnimal;
     ResEnum: reBear; Size: szBig; Name: ('Черный Медведь', 'Черного Медведя');
@@ -1015,7 +1015,7 @@ const
     Leadership: 0; Level: 1; Damage: 75; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 500;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
-    AttackEnum: atBites; SkillEnum: skNone; Rating: 50;)
+    AttackEnum: atBites; AbilityEnum: skNone; Rating: 50;)
 {$ENDREGION Animals}
     //
     );
@@ -1047,7 +1047,7 @@ begin
     Heal := CreatureBase[I].Heal;
     SourceEnum := CreatureBase[I].SourceEnum;
     ReachEnum := CreatureBase[I].ReachEnum;
-    SkillEnum := CreatureBase[I].SkillEnum;
+    AbilityEnum := CreatureBase[I].AbilityEnum;
     ClearTempValues;
   end;
 end;
@@ -1080,7 +1080,7 @@ begin
     Heal := 0;
     SourceEnum := seWeapon;
     ReachEnum := reAdj;
-    SkillEnum := skNone;
+    AbilityEnum := skNone;
     ClearTempValues;
   end;
 end;
@@ -1210,7 +1210,7 @@ end;
 {$REGION Abilities}
 
 const
-  SkillBase: array [TAbilityEnum] of TAbility = (
+  AbilityBase: array [TAbilityEnum] of TAbility = (
     // None
     (Enum: skNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];),
     // Fly
@@ -1267,7 +1267,7 @@ const
     // Wand
     (Enum: skWand; Name: 'Посохи и Свитки';
     Description: ('Позволяет предводителю использовать',
-    'магические посохи и свитки.'); Level: 1; Leaders: LeaderMage;),
+    'магические посохи и свитки.'); Level: 1; Leaders: MageLeader;),
     // Accuracy
     (Enum: skAccuracy; Name: 'Точность';
     Description: ('Увеличивает шанс предводителя', 'попасть по противнику.');
@@ -1301,9 +1301,9 @@ const
     Description: ('Позволяет предводителю брать в руки',
     'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
     // Sorcery
-    (Enum: skSorcery; Name: 'Sorcery';
+    (Enum: abSorcery; Name: 'Sorcery';
     Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
-    Leaders: LeaderMage;),
+    Leaders: MageLeader;),
     // Templar
     (Enum: skTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
@@ -1311,7 +1311,7 @@ const
     // Mountaineering
     (Enum: abMountaineering; Name: 'Mountaineering';
     Description: ('The ability allows the leader to pave',
-    'the way through the mountains'); Level: 2; Leaders: AllLeaders;),
+    'the way through the mountains'); Level: 3; Leaders: AllLeaders;),
     // Forestry
     (Enum: abForestry; Name: 'Forestry';
     Description: ('The party does not receive penalty when',
@@ -1327,17 +1327,17 @@ const
 
 class function TAbilities.Ability(const A: TAbilityEnum): TAbility;
 begin
-  Result := SkillBase[A];
+  Result := AbilityBase[A];
 end;
 
-procedure TAbilities.Add(const SkillEnum: TAbilityEnum);
+procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
 var
   I: Integer;
 begin
   for I := 0 to MaxAbilities - 1 do
     if (FAbility[I].Enum = skNone) then
     begin
-      FAbility[I] := SkillBase[SkillEnum];
+      FAbility[I] := AbilityBase[AAbilityEnum];
       Exit;
     end;
 end;
@@ -1347,7 +1347,7 @@ var
   I: Integer;
 begin
   for I := 0 to MaxAbilities - 1 do
-    FAbility[I] := SkillBase[skNone];
+    FAbility[I] := AbilityBase[skNone];
 end;
 
 constructor TAbilities.Create;
@@ -1380,18 +1380,18 @@ var
       Ord(High(TAbilityEnum))));
   end;
 
-  function CheckAbilityLevel(const ASkillEnum: TAbilityEnum): Boolean;
+  function CheckAbilityLevel(const AAbilityEnum: TAbilityEnum): Boolean;
   begin
-    Result := (SkillBase[LAbilityEnum].Level <= TLeaderParty.Leader.Level);
+    Result := (AbilityBase[AAbilityEnum].Level <= TLeaderParty.Leader.Level);
   end;
 
-  function IsRandomAbility(const ASkillEnum: TAbilityEnum): Boolean;
+  function IsRandomAbility(const AAbilityEnum: TAbilityEnum): Boolean;
   var
     I: Integer;
   begin
     Result := False;
     for I := 0 to 5 do
-      if ASkillEnum = RandomAbilityEnum[I] then
+      if AAbilityEnum = RandomAbilityEnum[I] then
       begin
         Result := True;
         Exit;
@@ -1406,7 +1406,7 @@ begin
       LAbilityEnum := GetRandomAbility;
     until not IsAbility(LAbilityEnum) and not IsRandomAbility(LAbilityEnum) and
       CheckAbilityLevel(LAbilityEnum) and
-      (TLeaderParty.Leader.Enum in SkillBase[LAbilityEnum].Leaders);
+      (TLeaderParty.Leader.Enum in AbilityBase[LAbilityEnum].Leaders);
     RandomAbilityEnum[I] := LAbilityEnum;
   end;
 end;
@@ -1416,13 +1416,13 @@ begin
   Result := FAbility[I].Enum;
 end;
 
-function TAbilities.IsAbility(const SkillEnum: TAbilityEnum): Boolean;
+function TAbilities.IsAbility(const AAbilityEnum: TAbilityEnum): Boolean;
 var
   I: Integer;
 begin
   Result := False;
   for I := 0 to MaxAbilities - 1 do
-    if FAbility[I].Enum = SkillEnum then
+    if FAbility[I].Enum = AAbilityEnum then
     begin
       Result := True;
       Exit;

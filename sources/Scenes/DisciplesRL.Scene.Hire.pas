@@ -47,7 +47,7 @@ type
   class var
     MPX: Integer;
     MPY: Integer;
-    CurCrSkillEnum: TAbilityEnum;
+    CurCrAbilityEnum: TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;

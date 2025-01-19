@@ -22,7 +22,7 @@ type
     InitiativeList: TStringList;
     CurrentPosition: Integer;
     ttt: Integer;
-    IsNewSkill: Boolean;
+    IsNewAbility: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
     FEnabled: Boolean;
@@ -215,7 +215,7 @@ begin
           begin
             LeaderParty.UpdateLevel(LPosition);
             Battle.UpdateLevel(Name[0], GenderEnding, Level + 1);
-            IsNewSkill := (Leadership > 0) and (Level <= MaxAbilities);
+            IsNewAbility := (Leadership > 0) and (Level <= MaxAbilities);
           end;
   end;
 end;
@@ -233,9 +233,9 @@ begin
   Game.MediaPlayer.PlayMusic(mmMap);
   Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
-  if IsNewSkill then
+  if IsNewAbility then
   begin
-    IsNewSkill := False;
+    IsNewAbility := False;
     TLeaderParty.Leader.Abilities.GenRandomList;
     TSceneNewAbility.ShowScene;
     Exit;
@@ -755,7 +755,7 @@ end;
 procedure TSceneBattle2.Show(const S: TSceneEnum);
 begin
   inherited;
-  IsNewSkill := False;
+  IsNewAbility := False;
   StartBattle;
   Game.MediaPlayer.PlayMusic(mmBattle);
 end;

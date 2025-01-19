@@ -116,7 +116,7 @@ procedure TSceneAbilities.Render;
   procedure RenderAbilities;
   var
     I: Integer;
-    LSkillEnum: TAbilityEnum;
+    LAbilityEnum: TAbilityEnum;
   begin
     DrawTitle(reTitleAbilities);
     TextLeft := 250 + TFrame.Col(0, psRight) + 12;
@@ -127,12 +127,12 @@ procedure TSceneAbilities.Render;
     AddTextLine;
     for I := 0 to MaxAbilities - 1 do
     begin
-      LSkillEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
-      if LSkillEnum <> skNone then
+      LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
+      if LAbilityEnum <> skNone then
       begin
-        AddTextLine(TAbilities.Ability(LSkillEnum).Name);
-        AddTextLine(TAbilities.Ability(LSkillEnum).Description[0]);
-        AddTextLine(TAbilities.Ability(LSkillEnum).Description[1]);
+        AddTextLine(TAbilities.Ability(LAbilityEnum).Name);
+        AddTextLine(TAbilities.Ability(LAbilityEnum).Description[0]);
+        AddTextLine(TAbilities.Ability(LAbilityEnum).Description[1]);
         if I = 3 then
         begin
           TextLeft := TFrame.Col(0, psRight) + 320 + 12;
