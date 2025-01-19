@@ -601,8 +601,10 @@ end;
 function TLeaderParty.GetMaxSpeed: Integer;
 begin
   Result := TLeaderParty.GetMaxSpeed(TLeaderParty.Leader.Enum);
-  if Abilities.IsAbility(skOri) then
+  if Abilities.IsAbility(abPathfinding) then
     Result := Result + 5;
+  if Abilities.IsAbility(abAdvancedPathfinding) then
+    Result := Result + 7;
 end;
 
 class function TLeaderParty.GetMaxSpeed(const CrEnum: TCreatureEnum): Integer;

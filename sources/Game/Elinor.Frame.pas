@@ -10,6 +10,8 @@ type
   public
     class function Row(const ARow: Byte): Integer; overload;
     class function Row(const APosition: TPosition): Integer; overload;
+    class function Row(const APosition: TPosition; const APartySide: TPartySide)
+      : Integer; overload;
     class function Col(const ACol: Byte): Integer; overload;
     class function Col(const APosition: TPosition; const APartySide: TPartySide)
       : Integer; overload;
@@ -65,6 +67,15 @@ end;
 class function TFrame.Mid: Integer;
 begin
   Result := ScreenWidth - ((320 * 4) + 26);
+end;
+
+class function TFrame.Row(const APosition: TPosition;
+  const APartySide: TPartySide): Integer;
+begin
+  case APartySide of
+    psLeft:
+      Row(APosition div 2);
+  end;
 end;
 
 class function TFrame.Row(const APosition: TPosition): Integer;

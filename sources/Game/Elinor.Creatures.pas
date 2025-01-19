@@ -429,7 +429,7 @@ type
     abLeadership1, abLeadership2, abLeadership3, abLeadership4, skWand,
     abAccuracy, abPathfinding, abAdvancedPathfinding, abDealmaker, abHaggler,
     skProtect, skTalisman, skInstructor, skBook, skOrb, abSorcery, abTemplar,
-    abMountaineering, abForestry, abVampirism);
+    abMountaineering, abForestry, abDoragorEye, abVampirism);
 
 type
   TAbility = record
@@ -438,6 +438,7 @@ type
     Description: array [0 .. 1] of string;
     Level: Byte;
     Leaders: set of TCreatureEnum;
+    ResEnum: TResEnum;
   end;
 
 const
@@ -1215,132 +1216,145 @@ end;
 const
   AbilityBase: array [TAbilityEnum] of TAbility = (
     // None
-    (Enum: abNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];),
+    (Enum: abNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];
+    ResEnum: reNone;),
     // Fly
     (Enum: abFly; Name: 'Полет'; Description: ('Умение позволяет предводителю',
-    'и его отряду летать над землей.'); Level: 1; Leaders: FighterLeaders;),
+    'и его отряду летать над землей.'); Level: 1; Leaders: FighterLeaders;
+    ResEnum: reNone;),
     // Strength
     (Enum: abStrength; Name: 'Strength';
     Description: ('Adds 10% damage to the attack', 'of the fighter leader');
-    Level: 4; Leaders: FighterLeaders;),
+    Level: 4; Leaders: FighterLeaders; ResEnum: reNone;),
     // Might
     (Enum: abMight; Name: 'Might';
     Description: ('Adds 15% damage to the attack', 'of the fighter leader');
-    Level: 6; Leaders: FighterLeaders;),
-    // Spy
+    Level: 6; Leaders: FighterLeaders; ResEnum: reNone;),
+    // Stealth
     (Enum: abStealth; Name: 'Stealth';
     Description: ('The leader will secretly lead the',
-    'detachment to any corner of Nevendaar'); Level: 1; Leaders: ThiefLeaders;),
+    'detachment to any corner of Nevendaar'); Level: 1; Leaders: ThiefLeaders;
+    ResEnum: reNone;),
     // Sharp Eye
     (Enum: abSharpEye; Name: 'Sharp Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 1;
-    Leaders: ScoutingLeaders;),
+    Leaders: ScoutingLeaders; ResEnum: reSharpEye;),
     // Hawk Eye #2
     (Enum: abHawkEye; Name: 'Hawk Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 3;
-    Leaders: ScoutingLeaders;),
+    Leaders: ScoutingLeaders; ResEnum: reNone;),
     // Far Sight
     (Enum: abFarSight; Name: 'Far Sight';
     Description: ('Allows the leader to see ', 'further'); Level: 5;
-    Leaders: AllLeaders;),
+    Leaders: AllLeaders; ResEnum: reNone;),
     // Artifact Lore
     (Enum: abArtifactLore; Name: 'Artifact Lore';
     Description: ('Allows the leader to wear rare', 'magical artifacts');
-    Level: 1; Leaders: AllLeaders;),
+    Level: 1; Leaders: AllLeaders; ResEnum: reNone;),
     // Banner Bearer
     (Enum: abBannerBearer; Name: 'Banner Bearer';
     Description: ('Allows the leader to carry', 'battle flags'); Level: 1;
-    Leaders: AllLeaders;),
+    Leaders: AllLeaders; ResEnum: reNone;),
     // TravelLore
     (Enum: abTravelLore; Name: 'Travel Lore';
     Description: ('Allows the leader to wear magic', 'shoes'); Level: 1;
-    Leaders: AllLeaders;),
+    Leaders: AllLeaders; ResEnum: reNone;),
     // Leadership #1
     (Enum: abLeadership1; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 1; Leaders: AllLeaders;),
+    Level: 1; Leaders: AllLeaders; ResEnum: reNone;),
     // Leadership #2
     (Enum: abLeadership2; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 2; Leaders: AllLeaders;),
+    Level: 2; Leaders: AllLeaders; ResEnum: reNone;),
     // Leadership #3
     (Enum: abLeadership3; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 3; Leaders: AllLeaders;),
+    Level: 3; Leaders: AllLeaders; ResEnum: reNone;),
     // Leadership #4
     (Enum: abLeadership4; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 4; Leaders: AllLeaders;),
+    Level: 4; Leaders: AllLeaders; ResEnum: reNone;),
     // Wand
     (Enum: skWand; Name: 'Посохи и Свитки';
     Description: ('Позволяет предводителю использовать',
-    'магические посохи и свитки.'); Level: 1; Leaders: MageLeaders;),
+    'магические посохи и свитки.'); Level: 1; Leaders: MageLeaders;
+    ResEnum: reNone;),
     // Accuracy
     (Enum: abAccuracy; Name: 'Accuracy';
     Description: ('Increases the leader''s chance to', 'hit the enemy.');
-    Level: 6; Leaders: ScoutingLeaders;),
+    Level: 6; Leaders: ScoutingLeaders; ResEnum: reNone;),
     // Pathfinding
     (Enum: abPathfinding; Name: 'Pathfinding';
     Description: ('Increases the distance that the',
-    'leader''s party can travel'); Level: 1; Leaders: AllLeaders;),
+    'leader''s party can travel'); Level: 1; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Advanced Pathfinding
     (Enum: abAdvancedPathfinding; Name: 'Advanced Pathfinding';
     Description: ('Increases the distance that the',
-    'leader''s party can travel'); Level: 4; Leaders: ScoutingLeaders;),
+    'leader''s party can travel'); Level: 4; Leaders: ScoutingLeaders;
+    ResEnum: reNone;),
     // Dealmaker
     (Enum: abDealmaker; Name: 'Dealmaker';
     Description: ('The owner of this ability',
-    'receives a 10% discount from the merchant'); Level: 4;
-    Leaders: AllLeaders;),
+    'receives a 10% discount from the merchant'); Level: 4; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Haggler
     (Enum: abHaggler; Name: 'Haggler';
     Description: ('The owner of this ability',
     'receives a 15% discount from the merchant'); Level: 5;
-    Leaders: LordLeaders;),
+    Leaders: LordLeaders; ResEnum: reNone;),
     // Protect
     (Enum: skProtect; Name: 'Естественная Броня';
     Description: ('Предводитель будет поглощать 10%', 'наносимого ему урона.');
-    Level: 6; Leaders: AllLeaders;),
+    Level: 6; Leaders: AllLeaders; ResEnum: reNone;),
     // Talisman
     (Enum: skTalisman; Name: 'Сила Талисманов';
     Description: ('Позволяет предводителю надевать',
-    'талисманы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
+    'талисманы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Instructor
     (Enum: skInstructor; Name: 'Инструктор';
     Description: ('Все воины в отряде предводителя',
-    'будут получать больше опыта.'); Level: 4; Leaders: AllLeaders;),
+    'будут получать больше опыта.'); Level: 4; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Book
     (Enum: skBook; Name: 'Тайное Знание';
     Description: ('Позволяет предводителю читать',
-    'магические книги и таблички.'); Level: 1; Leaders: AllLeaders;),
+    'магические книги и таблички.'); Level: 1; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Orb
     (Enum: skOrb; Name: 'Знание Сфер';
     Description: ('Позволяет предводителю брать в руки',
-    'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;),
+    'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Sorcery
     (Enum: abSorcery; Name: 'Sorcery';
     Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
-    Leaders: MageLeaders;),
+    Leaders: MageLeaders; ResEnum: reNone;),
     // Templar
     (Enum: abTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
-    'troops at half the cost'); Level: 1; Leaders: LordLeaders;),
+    'troops at half the cost'); Level: 1; Leaders: LordLeaders;
+    ResEnum: reNone;),
     // Mountaineering
     (Enum: abMountaineering; Name: 'Mountaineering';
     Description: ('The ability allows the leader to pave',
-    'the way through the mountains'); Level: 3; Leaders: AllLeaders;),
+    'the way through the mountains'); Level: 3; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Forestry
     (Enum: abForestry; Name: 'Forestry';
     Description: ('The party does not receive penalty when',
-    'moving through forested areas'); Level: 2; Leaders: AllLeaders;),
+    'moving through forested areas'); Level: 2; Leaders: AllLeaders;
+    ResEnum: reNone;),
     // Doragor Eye
     (Enum: abDoragorEye; Name: 'Doragor Eye';
     Description: ('Allows the leader to cast spells', 'at a greater range');
-    Level: 4; Leaders: MageLeaders;),
+    Level: 4; Leaders: MageLeaders; ResEnum: reNone;),
     // Vampirism
     (Enum: abVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
-    Level: 1; Leaders: [crNosferat];)
+    Level: 1; Leaders: [crNosferat]; ResEnum: reNone;)
     //
     );
 

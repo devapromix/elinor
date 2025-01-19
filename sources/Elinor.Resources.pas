@@ -87,6 +87,8 @@ type
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
     // Spells
     reTrueHealing, reSpeed, reLivingArmor, rePlague, reConcealment,
+    // Abilities
+    reSharpEye,
     // Races
     reHumanMale);
 
@@ -535,6 +537,10 @@ const
     (FileName: 'spell.plague.png'; ResType: teGUI;),
     // Concealment
     (FileName: 'spell.concealment.png'; ResType: teGUI;),
+
+    // ABILITIES //
+    // Sharp Eye
+    (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
 
     // RACES //
     // Human male

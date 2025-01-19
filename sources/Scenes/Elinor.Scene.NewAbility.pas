@@ -118,8 +118,25 @@ var
   I: Integer;
 
   procedure RenderAbilities;
+  var
+    LAbilityPosition: TPosition;
+    LAbilityEnum: TAbilityEnum;
+    LLeft, LTop: Integer;
   begin
-
+    for LAbilityPosition := 0 to 5 do
+    begin
+      LLeft := TFrame.Col(LAbilityPosition, psLeft);
+      LTop := TFrame.Row(LAbilityPosition);
+      LAbilityEnum := TLeaderParty.Leader.Abilities.RandomAbilityEnum
+        [LAbilityPosition];
+      if (LAbilityEnum <> abNone) then
+      begin
+        DrawAbility(LAbilityEnum, LLeft, LTop);
+        DrawText(LLeft + 74, LTop + 6, TAbilities.Ability(LAbilityEnum).Name);
+        DrawText(LLeft + 74, LTop + 27, Format('Level %d',
+          [TAbilities.Ability(LAbilityEnum).Level]));
+      end;
+    end;
   end;
 
   procedure RenderAbilityInfo;
@@ -132,6 +149,7 @@ var
       [ActivePartyPosition];
     AddTextLine(TAbilities.Ability(LAbilityEnum).Name, True);
     AddTextLine;
+    AddTextLine('Level', TAbilities.Ability(LAbilityEnum).Level);
     AddTextLine(TAbilities.Ability(LAbilityEnum).Description[0]);
     AddTextLine(TAbilities.Ability(LAbilityEnum).Description[1]);
   end;

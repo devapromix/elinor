@@ -146,6 +146,8 @@ type
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
     procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
+    procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
+      const AX, AY: Integer);
   end;
 
 type
@@ -445,6 +447,13 @@ procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
 begin
   DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
   DrawImage(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
+end;
+
+procedure TScene.DrawAbility(const AAbilityEnum: TAbilityEnum;
+  const AX, AY: Integer);
+begin
+  DrawImage(AX + 7, AY + 7, reBGCharacter);
+  DrawImage(AX + 7, AY + 29, TAbilities.Ability(AAbilityEnum).ResEnum);
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
