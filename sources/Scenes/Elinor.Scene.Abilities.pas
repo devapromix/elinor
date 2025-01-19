@@ -123,10 +123,10 @@ procedure TSceneAbilities.Render;
     TextTop := TFrame.Row(0) + 6;
     AddTextLine('Leader Abilities', True);
     AddTextLine;
-    AddTextLine(TAbilities.Ability(skLeadership1).Name,
+    AddTextLine(TAbilities.Ability(abLeadership1).Name,
       TLeaderParty.Leader.Leadership);
-    AddTextLine(TAbilities.Ability(skLeadership1).Description[0]);
-    AddTextLine(TAbilities.Ability(skLeadership1).Description[1]);
+    AddTextLine(TAbilities.Ability(abLeadership1).Description[0]);
+    AddTextLine(TAbilities.Ability(abLeadership1).Description[1]);
     J := 0;
     for I := 0 to MaxAbilities - 1 do
     begin

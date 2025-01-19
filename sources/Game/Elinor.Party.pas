@@ -623,25 +623,25 @@ end;
 function TLeaderParty.GetGold(const AGold: Integer): Integer;
 begin
   Result := AGold;
-  if Abilities.IsAbility(skTemplar) then
+  if Abilities.IsAbility(abTemplar) then
     Result := AGold div 2;
 end;
 
 function TLeaderParty.GetInvisibility: Boolean;
 begin
-  Result := Invisibility or Abilities.IsAbility(skStealth);
+  Result := Invisibility or Abilities.IsAbility(abStealth);
 end;
 
 function TLeaderParty.GetLeadership: Integer;
 begin
   Result := 1;
-  if Self.Abilities.IsAbility(skLeadership1) then
+  if Self.Abilities.IsAbility(abLeadership1) then
     Result := Result + 1;
-  if Self.Abilities.IsAbility(skLeadership2) then
+  if Self.Abilities.IsAbility(abLeadership2) then
     Result := Result + 1;
-  if Self.Abilities.IsAbility(skLeadership3) then
+  if Self.Abilities.IsAbility(abLeadership3) then
     Result := Result + 1;
-  if Self.Abilities.IsAbility(skLeadership4) then
+  if Self.Abilities.IsAbility(abLeadership4) then
     Result := Result + 1;
 end;
 
@@ -680,11 +680,11 @@ end;
 function TLeaderParty.GetRadius: Integer;
 begin
   Result := TLeaderParty.GetRadius(TLeaderParty.Leader.Enum);
-  if Self.Abilities.IsAbility(skSharpEye) then
+  if Self.Abilities.IsAbility(abSharpEye) then
     Result := Result + 1;
-  if Self.Abilities.IsAbility(skHawkEye) then
+  if Self.Abilities.IsAbility(abHawkEye) then
     Result := Result + 1;
-  if Self.Abilities.IsAbility(skFarSight) then
+  if Self.Abilities.IsAbility(abFarSight) then
     Result := Result + 1;
 end;
 

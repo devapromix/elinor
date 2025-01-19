@@ -424,11 +424,12 @@ type
 {$REGION Abilities}
 
 type
-  TAbilityEnum = (abNone, abFly, abStrength, abMight, skStealth, skSharpEye,
-    skHawkEye, skFarSight, skArtifactLore, skBannerBearer, skTravelLore,
-    skLeadership1, skLeadership2, skLeadership3, skLeadership4, skWand,
-    skAccuracy, skOri, skTrader, skProtect, skTalisman, skInstructor, skBook,
-    skOrb, abSorcery, skTemplar, abMountaineering, abForestry, skVampirism);
+  TAbilityEnum = (abNone, abFly, abStrength, abMight, abStealth, abSharpEye,
+    abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
+    abLeadership1, abLeadership2, abLeadership3, abLeadership4, skWand,
+    abAccuracy, abPathfinding, abAdvancedPathfinding, skTrader, skProtect,
+    skTalisman, skInstructor, skBook, skOrb, abSorcery, abTemplar,
+    abMountaineering, abForestry, abVampirism);
 
 type
   TAbility = record
@@ -577,7 +578,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atHunterBow; AbilityEnum: skTravelLore; Rating: 0;),
+    AttackEnum: atHunterBow; AbilityEnum: abTravelLore; Rating: 0;),
     // Archmage
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
     Size: szSmall; Name: ('Архимаг', 'Архимага');
@@ -595,7 +596,7 @@ const
     HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDagger; AbilityEnum: skStealth; Rating: 0;),
+    AttackEnum: atDagger; AbilityEnum: abStealth; Rating: 0;),
     // Warlord
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reWarlord;
     Size: szSmall; Name: ('Полководец', 'Полководца');
@@ -604,7 +605,7 @@ const
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; AbilityEnum: skTemplar; Rating: 0;),
+    AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Squire
     (Ident: 'squire'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reSquire;
     Size: szSmall; Name: ('Сквайр', 'Сквайра');
@@ -675,7 +676,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
-    AttackEnum: atDrainLife; AbilityEnum: skVampirism; Rating: 0;),
+    AttackEnum: atDrainLife; AbilityEnum: abVampirism; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reLichQueen; Size: szSmall;
@@ -695,7 +696,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDaggerOfShadows; AbilityEnum: skStealth; Rating: 0;),
+    AttackEnum: atDaggerOfShadows; AbilityEnum: abStealth; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reDominator; Size: szSmall; Name: ('Доминатор', 'Доминатора');
@@ -704,7 +705,7 @@ const
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atBattleAxe; AbilityEnum: skTemplar; Rating: 0;),
+    AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reFighter; Size: szSmall; Name: ('Воин', 'Воина');
@@ -771,7 +772,7 @@ const
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
-    AttackEnum: atCrossbow; AbilityEnum: skTravelLore; Rating: 0;),
+    AttackEnum: atCrossbow; AbilityEnum: abTravelLore; Rating: 0;),
     // Arch-Devil
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reArchdevil; Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
@@ -789,7 +790,7 @@ const
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atFireDagger; AbilityEnum: skStealth; Rating: 0;),
+    AttackEnum: atFireDagger; AbilityEnum: abStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reChieftain; Size: szSmall; Name: ('Атаман', 'Атамана');
@@ -798,7 +799,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
-    AttackEnum: atFireHammer; AbilityEnum: skTemplar; Rating: 0;),
+    AttackEnum: atFireHammer; AbilityEnum: abTemplar; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: rePossessed; Size: szSmall; Name: ('Одержимый', 'Одержимого');
@@ -1227,47 +1228,47 @@ const
     Description: ('Adds 15% damage to the attack', 'of the fighter leader');
     Level: 6; Leaders: FighterLeaders;),
     // Spy
-    (Enum: skStealth; Name: 'Тайные Тропы';
-    Description: ('Предводитель скрытно проведет отряд',
-    'в любой из уголков Невендаара.'); Level: 1; Leaders: ThiefLeaders;),
+    (Enum: abStealth; Name: 'Stealth';
+    Description: ('The leader will secretly lead the',
+    'detachment to any corner of Nevendaar'); Level: 1; Leaders: ThiefLeaders;),
     // Sharp Eye
-    (Enum: skSharpEye; Name: 'Sharp Eye';
+    (Enum: abSharpEye; Name: 'Sharp Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 1;
     Leaders: ScoutingLeaders;),
     // Hawk Eye #2
-    (Enum: skHawkEye; Name: 'Hawk Eye';
+    (Enum: abHawkEye; Name: 'Hawk Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 3;
     Leaders: ScoutingLeaders;),
     // Far Sight
-    (Enum: skFarSight; Name: 'Far Sight';
+    (Enum: abFarSight; Name: 'Far Sight';
     Description: ('Allows the leader to see ', 'further'); Level: 5;
     Leaders: AllLeaders;),
-    // Artifact
-    (Enum: skArtifactLore; Name: 'Знание Артефактов';
-    Description: ('Позволяет предводителю носить', 'магические артефакты.');
+    // Artifact Lore
+    (Enum: abArtifactLore; Name: 'Artifact Lore';
+    Description: ('Allows the leader to wear rare', 'magical artifacts');
     Level: 1; Leaders: AllLeaders;),
-    // Banner
-    (Enum: skBannerBearer; Name: 'Знаменосец';
-    Description: ('Позволяет предводителю носить', 'боевые знамена.'); Level: 1;
+    // Banner Bearer
+    (Enum: abBannerBearer; Name: 'Banner Bearer';
+    Description: ('Allows the leader to carry', 'battle flags'); Level: 1;
     Leaders: AllLeaders;),
-    // Boots
-    (Enum: skTravelLore; Name: 'Опыт Странника';
-    Description: ('Позволяет предводителю носить', 'магическую обувь.');
-    Level: 1; Leaders: AllLeaders;),
+    // TravelLore
+    (Enum: abTravelLore; Name: 'Travel Lore';
+    Description: ('Allows the leader to wear magic', 'shoes'); Level: 1;
+    Leaders: AllLeaders;),
     // Leadership #1
-    (Enum: skLeadership1; Name: 'Leadership';
+    (Enum: abLeadership1; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
     Level: 1; Leaders: AllLeaders;),
     // Leadership #2
-    (Enum: skLeadership2; Name: 'Leadership';
+    (Enum: abLeadership2; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
     Level: 2; Leaders: AllLeaders;),
     // Leadership #3
-    (Enum: skLeadership3; Name: 'Leadership';
+    (Enum: abLeadership3; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
     Level: 3; Leaders: AllLeaders;),
     // Leadership #4
-    (Enum: skLeadership4; Name: 'Leadership';
+    (Enum: abLeadership4; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
     Level: 4; Leaders: AllLeaders;),
     // Wand
@@ -1275,13 +1276,17 @@ const
     Description: ('Позволяет предводителю использовать',
     'магические посохи и свитки.'); Level: 1; Leaders: MageLeaders;),
     // Accuracy
-    (Enum: skAccuracy; Name: 'Точность';
-    Description: ('Увеличивает шанс предводителя', 'попасть по противнику.');
+    (Enum: abAccuracy; Name: 'Accuracy';
+    Description: ('Increases the leader''s chance to', 'hit the enemy.');
     Level: 6; Leaders: ScoutingLeaders;),
-    // Ori
-    (Enum: skOri; Name: 'Ориентирование';
-    Description: ('Увеличивает дистанцию, которую может',
-    'пройти отряд предводителя.'); Level: 1; Leaders: AllLeaders;),
+    // Pathfinding
+    (Enum: abPathfinding; Name: 'Pathfinding';
+    Description: ('Increases the distance that the',
+    'leader''s party can travel'); Level: 1; Leaders: AllLeaders;),
+    // Advanced Pathfinding
+    (Enum: abAdvancedPathfinding; Name: 'Advanced Pathfinding';
+    Description: ('Increases the distance that the',
+    'leader''s party can travel'); Level: 4; Leaders: ScoutingLeaders;),
     // Trader
     (Enum: skTrader; Name: 'Торговец';
     Description: ('Обладатель этой способности',
@@ -1311,7 +1316,7 @@ const
     Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
     Leaders: MageLeaders;),
     // Templar
-    (Enum: skTemplar; Name: 'Templar';
+    (Enum: abTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
     'troops at half the cost'); Level: 1; Leaders: LordLeaders;),
     // Mountaineering
@@ -1327,7 +1332,7 @@ const
     Description: ('Allows the leader to cast spells', 'at a greater range');
     Level: 4; Leaders: MageLeaders;),
     // Vampirism
-    (Enum: skVampirism; Name: 'Vampirism';
+    (Enum: abVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
     Level: 1; Leaders: [crNosferat];)
     //
@@ -1343,8 +1348,8 @@ end;
 class function TAbilities.IsAbilityLeadership(const AAbilityEnum
   : TAbilityEnum): Boolean;
 begin
-  Result := (AAbilityEnum = skLeadership1) or (AAbilityEnum = skLeadership2) or
-    (AAbilityEnum = skLeadership3) or (AAbilityEnum = skLeadership4);
+  Result := (AAbilityEnum = abLeadership1) or (AAbilityEnum = abLeadership2) or
+    (AAbilityEnum = abLeadership3) or (AAbilityEnum = abLeadership4);
 end;
 
 procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
