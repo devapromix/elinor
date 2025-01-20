@@ -79,6 +79,8 @@ begin
         mbRight:
       }
       begin
+        if (Game.Map.GetTile(lrDark, MousePos.X, MousePos.Y) = reDark) then
+          Exit;
         if Spells.CastAt(MousePos.X, MousePos.Y) or BB then
           Exit;
         if Spells.ActiveSpell.IsSpell() then

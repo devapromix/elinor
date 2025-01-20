@@ -19,4 +19,4 @@ Source: "..\resources\music\*"; DestDir: "{app}\resources\music"
 Source: "..\resources\sounds\*"; DestDir: "{app}\resources\sounds"
 
 [Icons]
-Name: "{group}\Elinor"; Filename: "{app}\setup\Elinor.ico"
+Name: "{group}\Elinor"; Filename: "{app}\Elinor.exe"
