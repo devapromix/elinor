@@ -49,7 +49,8 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
-  Elinor.Creatures, Elinor.Items;
+  Elinor.Creatures,
+  Elinor.Items;
 
 var
   ShowResources: Boolean;
@@ -262,6 +263,8 @@ begin
     K_ENTER:
       begin
         case ActiveSection of
+          0:
+            HideScene;
           1:
             TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
           2:

@@ -121,7 +121,7 @@ const
   TemplarLeaders = [];
   AllLeaders = FighterLeaders + ScoutingLeaders + MageLeaders + ThiefLeaders +
     LordLeaders + TemplarLeaders;
-  FlyLeaders = [crDuke, crCounselor, crArchDevil, crChieftain];
+  FlyLeaders = [crDuke, crArchDevil, crChieftain];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
