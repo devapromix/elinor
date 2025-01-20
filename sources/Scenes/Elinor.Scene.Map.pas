@@ -190,7 +190,7 @@ end;
 
 procedure TSceneMap.Render;
 var
-  X, Y: Integer;
+  X, Y, LX, LY: Integer;
   F: Boolean;
 
   procedure RenderNewDayMessage;
@@ -279,20 +279,22 @@ begin
           ResImage[reDark]);
     end;
   // Cursor
+  LX := MousePos.X * Game.Map.TileSize;
+  LY := MousePos.Y * Game.Map.TileSize;
   if Spells.ActiveSpell.IsSpell() then
   begin
     // for X := MousePos.X - 1 to MousePos.X + 1 do
     // for Y := MousePos.Y - 1 to MousePos.Y + 1 do
     // DrawImage(X * Game.Map.TileSize, Y * Game.Map.TileSize, ResImage[reCursorMagic])
-    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
-      ResImage[reCursorMagic]);
+    if TLeaderParty.Leader.InSpellCastingRange(MousePos.X, MousePos.Y) then
+      DrawImage(LX, LY, ResImage[reCursorMagic])
+    else
+      DrawImage(LX, LY, ResImage[reNoWay]);
   end
   else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) then
-    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
-      ResImage[reCursor])
+    DrawImage(LX, LY, ResImage[reCursor])
   else
-    DrawImage(MousePos.X * Game.Map.TileSize, MousePos.Y * Game.Map.TileSize,
-      ResImage[reNoWay]);
+    DrawImage(LX, LY, ResImage[reNoWay]);
   // New Day Message
   if Game.ShowNewDayMessageTime > 0 then
     RenderNewDayMessage;

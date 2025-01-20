@@ -146,6 +146,7 @@ type
     class function GetSpellCastingRange(const CrEnum: TCreatureEnum)
       : Integer; overload;
     function GetSpellCastingRange: Integer; overload;
+    function InSpellCastingRange(const AX, AY: Integer): Boolean;
   end;
 
 var
@@ -708,6 +709,11 @@ end;
 function TLeaderParty.InSightRadius(const AX, AY: Integer): Boolean;
 begin
   Result := (Game.Map.GetDist(AX, AY, X, Y) <= GetSightRadius);
+end;
+
+function TLeaderParty.InSpellCastingRange(const AX, AY: Integer): Boolean;
+begin
+  Result := (Game.Map.GetDist(AX, AY, X, Y) <= GetSpellCastingRange);
 end;
 
 class function TLeaderParty.Leader: TLeaderParty;
