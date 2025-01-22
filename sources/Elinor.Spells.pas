@@ -17,7 +17,6 @@ type
     spConcealment
     //
     );
-
   // enum class SpellType
   {
     Attack,
@@ -36,8 +35,11 @@ type
 
 type
   TSpell = class(TObject)
+  private
+    FSpellEnum: TSpellEnum;
+  protected
+    constructor Create(ASpellEnum: TSpellEnum);
   public
-    constructor Create;
     destructor Destroy; override;
     function CastAt(const AX, AY: Integer): Boolean; virtual;
   end;
@@ -71,26 +73,31 @@ type
 
 type
   TTrueHealingSpell = class(TSpell)
+    constructor Create;
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
 type
   TSpeedSpell = class(TSpell)
+    constructor Create;
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
 type
   TLivingArmorSpell = class(TSpell)
+    constructor Create;
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
 type
   TPlagueSpell = class(TSpell)
+    constructor Create;
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
 type
   TConcealmentSpell = class(TSpell)
+    constructor Create;
     function CastAt(const AX, AY: Integer): Boolean; override;
   end;
 
@@ -106,8 +113,11 @@ uses
   Elinor.Creatures,
   Elinor.Scenes;
 
+type
+  TSpellBaseArray = array [TSpellEnum] of TSpellBase;
+
 const
-  SpellBase: array [TSpellEnum] of TSpellBase = (
+  SpellBase: TSpellBaseArray = (
     // None
     (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;
     Faction: faNeutrals),
@@ -136,9 +146,10 @@ begin
   Result := False;
 end;
 
-constructor TSpell.Create;
+constructor TSpell.Create(ASpellEnum: TSpellEnum);
 begin
-
+  inherited Create;
+  FSpellEnum := ASpellEnum;
 end;
 
 destructor TSpell.Destroy;
@@ -184,6 +195,7 @@ end;
 
 constructor TSpells.Create;
 begin
+  inherited Create(spNone);
   FActiveSpell := TActiveSpell.Create;
   FSpell[spTrueHealing] := TTrueHealingSpell.Create;
   FSpell[spSpeed] := TSpeedSpell.Create;
@@ -219,9 +231,14 @@ begin
   begin
     Result := True;
     ShowMessage('True Healing');
-    Game.MediaPlayer.PlaySound(mmHeal);
+    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
     Party[LPartyIndex].HealAll(25);
   end;
+end;
+
+constructor TTrueHealingSpell.Create;
+begin
+  inherited Create(spTrueHealing);
 end;
 
 { TSpeedSpell }
@@ -236,9 +253,14 @@ begin
   begin
     Result := True;
     ShowMessage('Speed');
-    Game.MediaPlayer.PlaySound(mmSpeed);
+    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
     TLeaderParty.Leader.SetMaxMovementPoints;
   end;
+end;
+
+constructor TSpeedSpell.Create;
+begin
+  inherited Create(spSpeed);
 end;
 
 { TLivingArmorSpell }
@@ -253,9 +275,14 @@ begin
   begin
     Result := True;
     ShowMessage('Living Armor');
-    Game.MediaPlayer.PlaySound(mmAttack);
+    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
     Game.Show(scBattle);
   end;
+end;
+
+constructor TLivingArmorSpell.Create;
+begin
+  inherited Create(spLivingArmor);
 end;
 
 { TPlagueSpell }
@@ -270,9 +297,14 @@ begin
   begin
     Result := True;
     ShowMessage('Plague');
-    Game.MediaPlayer.PlaySound(mmPlague);
+    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
     Party[LPartyIndex].TakeDamageAll(35);
   end;
+end;
+
+constructor TPlagueSpell.Create;
+begin
+  inherited Create(spPlague);
 end;
 
 { TConcealmentSpell }
@@ -287,9 +319,14 @@ begin
   begin
     Result := True;
     ShowMessage('Concealment');
-    Game.MediaPlayer.PlaySound(mmInvisibility);
+    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
     TLeaderParty.Leader.Invisibility := True;
   end;
+end;
+
+constructor TConcealmentSpell.Create;
+begin
+  inherited Create(spConcealment);
 end;
 
 initialization

@@ -17,7 +17,8 @@ type
     constructor Create; overload;
     destructor Destroy; override;
     property Location: TLocation read FLocation write FLocation;
-    procedure SetLocation(const AX, AY: Integer);
+    procedure SetLocation(const AX, AY: Integer); overload;
+    procedure SetLocation(const ALocation: TLocation); overload;
     function GetLocation: TLocation;
     property X: Integer read FLocation.X;
     property Y: Integer read FLocation.Y;
@@ -51,6 +52,11 @@ procedure TMapObject.SetLocation(const AX, AY: Integer);
 begin
   FLocation.X := AX;
   FLocation.Y := AY;
+end;
+
+procedure TMapObject.SetLocation(const ALocation: TLocation);
+begin
+  FLocation := ALocation;
 end;
 
 end.
