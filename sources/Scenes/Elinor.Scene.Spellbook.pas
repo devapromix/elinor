@@ -19,8 +19,7 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextCast, reTextClose);
   private
-  class var
-    Button: array [TButtonEnum] of TButton;
+    class var Button: array [TButtonEnum] of TButton;
   private
     procedure CastSpell;
   public
@@ -59,11 +58,19 @@ var
 procedure TSceneSpellbook.CastSpell;
 var
   LSpellEnum: TSpellEnum;
+  LMana: Byte;
 begin
   LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
   if (LSpellEnum <> spNone) then
   begin
+    LMana := Spells.Spell(LSpellEnum).Mana;
+    if LMana > Game.Mana.Value then
+    begin
+      InformDialog('Not enough mana to cast this spell!');
+      Exit;
+    end;
     Spells.ActiveSpell.SetActiveSpell(LSpellEnum);
+    Game.Mana.Modify(-LMana);
     Game.MediaPlayer.PlaySound(mmSpellbook);
     Game.MediaPlayer.PlaySound(mmPrepareMagic);
     Game.Show(scMap);
