@@ -7,6 +7,9 @@ uses
   Elinor.Resources;
 
 type
+  TSpellTarget = (stNone, stLeader, stEnemy);
+
+type
   TSpellBase = record
     Name: string;
     Level: Integer;
@@ -14,6 +17,7 @@ type
     SoundEnum: TMusicEnum;
     ResEnum: TResEnum;
     Faction: TFactionEnum;
+    SpellTarget: TSpellTarget
   end;
 
 implementation

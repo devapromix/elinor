@@ -28,9 +28,6 @@ type
     Unfog,
     RestoreMove,
     Invisibility,
-    RemoveRod,
-    ChangeTerrain,
-    GiveWards,
   }
 
 type
@@ -39,6 +36,9 @@ type
     FSpellEnum: TSpellEnum;
   protected
     constructor Create(ASpellEnum: TSpellEnum);
+    function IsValidTarget(const AX, AY: Integer): Boolean;
+    procedure PlaySpellEffects; virtual;
+    procedure ApplySpellEffect(const APartyIndex: Integer); virtual; abstract;
   public
     destructor Destroy; override;
     function CastAt(const AX, AY: Integer): Boolean; virtual;
@@ -61,6 +61,7 @@ type
   private
     FSpell: array [TSpellEnum] of TSpell;
     FActiveSpell: TActiveSpell;
+    procedure RegisterSpells;
   public
     constructor Create;
     destructor Destroy; override;
@@ -73,32 +74,42 @@ type
 
 type
   TTrueHealingSpell = class(TSpell)
+  public
     constructor Create;
-    function CastAt(const AX, AY: Integer): Boolean; override;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
 type
   TSpeedSpell = class(TSpell)
+  public
     constructor Create;
-    function CastAt(const AX, AY: Integer): Boolean; override;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
 type
   TLivingArmorSpell = class(TSpell)
+  public
     constructor Create;
-    function CastAt(const AX, AY: Integer): Boolean; override;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
 type
   TPlagueSpell = class(TSpell)
+  public
     constructor Create;
-    function CastAt(const AX, AY: Integer): Boolean; override;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
 type
   TConcealmentSpell = class(TSpell)
+  public
     constructor Create;
-    function CastAt(const AX, AY: Integer): Boolean; override;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
 var
@@ -120,30 +131,40 @@ const
   SpellBase: TSpellBaseArray = (
     // None
     (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;
-    Faction: faNeutrals),
+    Faction: faNeutrals; SpellTarget: stNone;),
     // True Healing
     (Name: 'True Healing'; Level: 1; Mana: 15; SoundEnum: mmHeal;
-    ResEnum: reTrueHealing; Faction: faTheEmpire),
+    ResEnum: reTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;),
     // Speed
     (Name: 'Speed'; Level: 1; Mana: 25; SoundEnum: mmHeal; ResEnum: reSpeed;
-    Faction: faTheEmpire),
+    Faction: faTheEmpire; SpellTarget: stLeader;),
     // Living Armor
     (Name: 'Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
-    ResEnum: reLivingArmor; Faction: faTheEmpire),
+    ResEnum: reLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;),
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
-    Faction: faUndeadHordes),
+    Faction: faUndeadHordes; SpellTarget: stEnemy;),
     // Concealment
     (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
-    ResEnum: reConcealment; Faction: faLegionsOfTheDamned)
+    ResEnum: reConcealment; Faction: faLegionsOfTheDamned;
+    SpellTarget: stLeader;)
     //
     );
 
   { TSpell }
 
 function TSpell.CastAt(const AX, AY: Integer): Boolean;
+var
+  LPartyIndex: Integer;
 begin
   Result := False;
+  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  if IsValidTarget(AX, AY) then
+  begin
+    Result := True;
+    PlaySpellEffects;
+    ApplySpellEffect(LPartyIndex);
+  end;
 end;
 
 constructor TSpell.Create(ASpellEnum: TSpellEnum);
@@ -156,6 +177,30 @@ destructor TSpell.Destroy;
 begin
 
   inherited;
+end;
+
+function TSpell.IsValidTarget(const AX, AY: Integer): Boolean;
+var
+  LPartyIndex: Integer;
+begin
+  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  case SpellBase[FSpellEnum].SpellTarget of
+    stLeader:
+      Result := (LPartyIndex > 0) and
+        (LPartyIndex = TLeaderParty.LeaderPartyIndex);
+    stEnemy:
+      Result := (LPartyIndex > 0) and
+        (LPartyIndex <> TLeaderParty.LeaderPartyIndex);
+  else
+    Result := False;
+  end;
+end;
+
+procedure TSpell.PlaySpellEffects;
+begin
+  if Game.Wizard then
+    ShowMessage('Spell: ' + SpellBase[FSpellEnum].Name);
+  Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
 end;
 
 { TCurrentSpell }
@@ -197,11 +242,7 @@ constructor TSpells.Create;
 begin
   inherited Create(spNone);
   FActiveSpell := TActiveSpell.Create;
-  FSpell[spTrueHealing] := TTrueHealingSpell.Create;
-  FSpell[spSpeed] := TSpeedSpell.Create;
-  FSpell[spLivingArmor] := TLivingArmorSpell.Create;
-  FSpell[spPlague] := TPlagueSpell.Create;
-  FSpell[spConcealment] := TConcealmentSpell.Create;
+  RegisterSpells;
 end;
 
 destructor TSpells.Destroy;
@@ -219,21 +260,20 @@ begin
   Result := SpellBase[ASpellEnum];
 end;
 
+procedure TSpells.RegisterSpells;
+begin
+  FSpell[spTrueHealing] := TTrueHealingSpell.Create;
+  FSpell[spSpeed] := TSpeedSpell.Create;
+  FSpell[spLivingArmor] := TLivingArmorSpell.Create;
+  FSpell[spPlague] := TPlagueSpell.Create;
+  FSpell[spConcealment] := TConcealmentSpell.Create;
+end;
+
 { TTrueHealingSpell }
 
-function TTrueHealingSpell.CastAt(const AX, AY: Integer): Boolean;
-var
-  LPartyIndex: Integer;
+procedure TTrueHealingSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  inherited;
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
-  if (LPartyIndex > 0) and (LPartyIndex = TLeaderParty.LeaderPartyIndex) then
-  begin
-    Result := True;
-    ShowMessage('True Healing');
-    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
-    Party[LPartyIndex].HealAll(25);
-  end;
+  Party[APartyIndex].HealAll(25);
 end;
 
 constructor TTrueHealingSpell.Create;
@@ -243,19 +283,9 @@ end;
 
 { TSpeedSpell }
 
-function TSpeedSpell.CastAt(const AX, AY: Integer): Boolean;
-var
-  LPartyIndex: Integer;
+procedure TSpeedSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  inherited;
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
-  if (LPartyIndex > 0) and (LPartyIndex = TLeaderParty.LeaderPartyIndex) then
-  begin
-    Result := True;
-    ShowMessage('Speed');
-    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
-    TLeaderParty.Leader.SetMaxMovementPoints;
-  end;
+  TLeaderParty.Leader.SetMaxMovementPoints;
 end;
 
 constructor TSpeedSpell.Create;
@@ -265,19 +295,9 @@ end;
 
 { TLivingArmorSpell }
 
-function TLivingArmorSpell.CastAt(const AX, AY: Integer): Boolean;
-var
-  LPartyIndex: Integer;
+procedure TLivingArmorSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  inherited;
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
-  if (LPartyIndex > 0) and (LPartyIndex <> TLeaderParty.LeaderPartyIndex) then
-  begin
-    Result := True;
-    ShowMessage('Living Armor');
-    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
-    Game.Show(scBattle);
-  end;
+  Game.Show(scBattle);
 end;
 
 constructor TLivingArmorSpell.Create;
@@ -287,19 +307,9 @@ end;
 
 { TPlagueSpell }
 
-function TPlagueSpell.CastAt(const AX, AY: Integer): Boolean;
-var
-  LPartyIndex: Integer;
+procedure TPlagueSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  inherited;
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
-  if (LPartyIndex > 0) and (LPartyIndex <> TLeaderParty.LeaderPartyIndex) then
-  begin
-    Result := True;
-    ShowMessage('Plague');
-    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
-    Party[LPartyIndex].TakeDamageAll(35);
-  end;
+  Party[APartyIndex].TakeDamageAll(35);
 end;
 
 constructor TPlagueSpell.Create;
@@ -309,19 +319,9 @@ end;
 
 { TConcealmentSpell }
 
-function TConcealmentSpell.CastAt(const AX, AY: Integer): Boolean;
-var
-  LPartyIndex: Integer;
+procedure TConcealmentSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  inherited;
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
-  if (LPartyIndex > 0) and (LPartyIndex = TLeaderParty.LeaderPartyIndex) then
-  begin
-    Result := True;
-    ShowMessage('Concealment');
-    Game.MediaPlayer.PlaySound(SpellBase[FSpellEnum].SoundEnum);
-    TLeaderParty.Leader.Invisibility := True;
-  end;
+  TLeaderParty.Leader.Invisibility := True;
 end;
 
 constructor TConcealmentSpell.Create;
