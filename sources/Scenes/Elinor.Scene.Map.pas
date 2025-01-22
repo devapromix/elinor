@@ -54,7 +54,9 @@ uses
   Elinor.Scene.Party2,
   Elinor.Spells,
   Elinor.Scene.Inventory,
-  Elinor.Scene.Abilities, Elinor.Scene.NewAbility;
+  Elinor.Scene.Abilities,
+  Elinor.Scene.NewAbility,
+  Elinor.Scene.MageTower;
 
 { TSceneMap }
 
@@ -369,6 +371,8 @@ begin
         TLeaderParty.Leader.Abilities.GenRandomList;
         TSceneNewAbility.ShowScene;
       end;
+    K_M:
+      TSceneMageTower.ShowScene;
     K_I:
       ShowInventoryScene;
     K_A:

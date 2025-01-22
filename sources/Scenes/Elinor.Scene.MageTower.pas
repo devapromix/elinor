@@ -1,4 +1,4 @@
-﻿unit Elinor.Scene.Spellbook;
+unit Elinor.Scene.MageTower;
 
 interface
 
@@ -14,15 +14,15 @@ uses
   Elinor.Scenes;
 
 type
-  TSceneSpellbook = class(TSceneWideMenu)
+  TSceneMageTower = class(TSceneWideMenu)
   private type
-    TButtonEnum = (btCast, btClose);
+    TButtonEnum = (btLearn, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextCast, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextLearn, reTextClose);
   private
     class var Button: array [TButtonEnum] of TButton;
   private
-    procedure CastSpell;
+    procedure LearnSpell;
   public
     constructor Create;
     destructor Destroy; override;
@@ -32,7 +32,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure ShowScene(const ACloseSceneEnum: TSceneEnum);
+    class procedure ShowScene;
     class procedure HideScene;
   end;
 
@@ -50,41 +50,38 @@ uses
   Elinor.Spells.Types,
   Elinor.Spellbook;
 
-var
-  CloseSceneEnum: TSceneEnum;
+{ TSceneMageTower }
 
-  { TSceneSpellbook }
-
-procedure TSceneSpellbook.CastSpell;
+procedure TSceneMageTower.LearnSpell;
 var
   LSpellEnum: TSpellEnum;
   LMana: Byte;
 begin
   LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
-  if (LSpellEnum <> spNone) and Spells.IsLearned(LSpellEnum) then
+  if (LSpellEnum <> spNone) and not Spells.IsLearned(LSpellEnum) then
   begin
-    LMana := Spells.Spell(LSpellEnum).Mana;
+    LMana := Spells.Spell(LSpellEnum).Mana * 2;
     if LMana > Game.Mana.Value then
     begin
-      InformDialog('Not enough mana to cast this spell!');
+      Game.MediaPlayer.PlaySound(mmSpellbook);
+      InformDialog('Not enough mana to learn this spell!');
       Exit;
     end;
-    Spells.ActiveSpell.SetActiveSpell(LSpellEnum);
-    Game.Mana.Modify(-LMana);
     Game.MediaPlayer.PlaySound(mmSpellbook);
-    Game.MediaPlayer.PlaySound(mmPrepareMagic);
-    Game.Show(scMap);
+    Game.Mana.Modify(-LMana);
+    Spells.Learn(LSpellEnum);
+    InformDialog('The spell has been added to the spellbook!');
   end;
 end;
 
-class procedure TSceneSpellbook.HideScene;
+class procedure TSceneMageTower.HideScene;
 begin
-  Game.Show(CloseSceneEnum);
+  Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSpellbook);
 end;
 
-constructor TSceneSpellbook.Create;
+constructor TSceneMageTower.Create;
 var
   LButtonEnum: TButtonEnum;
   LLeft, LWidth: Integer;
@@ -102,7 +99,7 @@ begin
   end;
 end;
 
-destructor TSceneSpellbook.Destroy;
+destructor TSceneMageTower.Destroy;
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -111,22 +108,22 @@ begin
   inherited;
 end;
 
-procedure TSceneSpellbook.MouseDown(AButton: TMouseButton; Shift: TShiftState;
+procedure TSceneMageTower.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
   case AButton of
     mbLeft:
       begin
-        if Button[btCast].MouseDown then
-          CastSpell
+        if Button[btLearn].MouseDown then
+          LearnSpell
         else if Button[btClose].MouseDown then
           HideScene;
       end;
   end;
 end;
 
-procedure TSceneSpellbook.MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TSceneMageTower.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -135,7 +132,7 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneSpellbook.Render;
+procedure TSceneMageTower.Render;
 
   procedure RenderSpells;
   var
@@ -151,10 +148,8 @@ procedure TSceneSpellbook.Render;
       LSpellEnum := FactionSpellbookSpells[TSaga.LeaderFaction][LSpellIndex];
       if (LSpellEnum <> spNone) then
       begin
-        DrawSpell(LSpellEnum, LLeft, LTop, not Spells.IsLearned(LSpellEnum));
+        DrawSpell(LSpellEnum, LLeft, LTop, Spells.IsLearned(LSpellEnum));
         DrawText(LLeft + 74, LTop + 6, TSpells.Spell(LSpellEnum).Name);
-        DrawText(LLeft + 74, LTop + 27,
-          Format('Level %d', [TSpells.Spell(LSpellEnum).Level]));
       end;
     end;
   end;
@@ -172,6 +167,9 @@ procedure TSceneSpellbook.Render;
       AddTextLine(TSpells.Spell(LSpellEnum).Name, True);
       AddTextLine;
       AddTextLine('Level', TSpells.Spell(LSpellEnum).Level);
+      AddTextLine;
+      AddTextLine(Format('Research cost %d mana',
+        [TSpells.Spell(LSpellEnum).Mana * 2]));
       AddTextLine;
       AddTextLine(Format('Casting cost %d mana',
         [TSpells.Spell(LSpellEnum).Mana]));
@@ -199,7 +197,7 @@ procedure TSceneSpellbook.Render;
 begin
   inherited;
 
-  DrawTitle(reTitleSpellbook);
+  DrawTitle(reTitleMageTower);
   RenderSpells;
   RenderSpellInfo;
   RenderStatistics;
@@ -207,27 +205,26 @@ begin
   RenderButtons;
 end;
 
-class procedure TSceneSpellbook.ShowScene(const ACloseSceneEnum: TSceneEnum);
+class procedure TSceneMageTower.ShowScene;
 begin
-  CloseSceneEnum := ACloseSceneEnum;
   Game.MediaPlayer.PlaySound(mmSpellbook);
-  Game.Show(scSpellbook);
+  Game.Show(scMageTower);
 end;
 
-procedure TSceneSpellbook.Timer;
+procedure TSceneMageTower.Timer;
 begin
   inherited;
 
 end;
 
-procedure TSceneSpellbook.Update(var Key: Word);
+procedure TSceneMageTower.Update(var Key: Word);
 begin
   inherited;
   case Key of
     K_ESCAPE:
       HideScene;
-    K_C, K_ENTER:
-      CastSpell;
+    K_L, K_ENTER:
+      LearnSpell;
   end;
 end;
 

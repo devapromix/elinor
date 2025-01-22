@@ -31,11 +31,12 @@ type
 
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
-    reNoWay, reCursorMagic, rePlayer, rePlayerInvisibility, reDark, reGold,
-    reMana, reBag, reNeutralCity, reTheEmpireCity, reUndeadHordesCity,
-    reLegionsOfTheDamnedCity, reTheEmpireCapital, reUndeadHordesCapital,
-    reLegionsOfTheDamnedCapital, reRuin, reTower, reSTower, reMineGold,
-    reMineMana, reMountain1, reMountain2, reMountain3, reMountain4,
+    reNoWay, reCursorMagic, rePlayer, rePlayerInvisibility, reDark,
+    reBGTransparent, reGold, reMana, reBag, reNeutralCity, reTheEmpireCity,
+    reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital,
+    reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower,
+    reSTower, reMineGold, reMineMana, reMountain1, reMountain2, reMountain3,
+    reMountain4,
     // Trees
     reTree1, reTree2, reTree3, reTree4, reTree5, reUndeadHordesTree,
     reLegionsOfTheDamnedTree,
@@ -56,6 +57,7 @@ type
     reTextRecruit, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
+    reTextLearn,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -131,13 +133,13 @@ const
     (FileName: 'logo.undead_hordes.png'; ResType: teGUI;),
     // Legions Of The Damned Logo
     (FileName: 'logo.legions_of_the_damned.png'; ResType: teGUI;),
-    // Фон для друж. юнитов
+    // Char
     (FileName: 'bg.character.png'; ResType: teGUI;),
-    // Фон для врагов
+    // Enemy
     (FileName: 'bg.enemy.png'; ResType: teGUI;),
-    // Фон для эф. паралич
+    // Paralyze
     (FileName: 'bg.paralyze.png'; ResType: teGUI;),
-    // Череп
+    // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
     // Frame
     (FileName: 'frame.png'; ResType: teGUI;),
@@ -183,6 +185,8 @@ const
     (FileName: 'mapobject.player.invisibility.png'; ResType: tePlayer;),
     // Fog
     (FileName: 'transparent.png'; ResType: teGUI;),
+    // BG Transparent
+    (FileName: 'bg.transparent.png'; ResType: teGUI;),
     // Gold
     (FileName: 'mapobject.gold.png'; ResType: teRes;),
     // Mana
@@ -385,6 +389,8 @@ const
     (FileName: 'text.spellbook.png'; ResType: teGUI;),
     // Text "Cast"
     (FileName: 'text.cast.png'; ResType: teGUI;),
+    // Text "Learn"
+    (FileName: 'text.learn.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),

@@ -58,7 +58,8 @@ uses
   Elinor.Scene.Inventory in 'Scenes\Elinor.Scene.Inventory.pas',
   Elinor.Attribute in 'Game\Elinor.Attribute.pas',
   Elinor.Scene.Abilities in 'Scenes\Elinor.Scene.Abilities.pas',
-  Elinor.Scene.NewAbility in 'Scenes\Elinor.Scene.NewAbility.pas';
+  Elinor.Scene.NewAbility in 'Scenes\Elinor.Scene.NewAbility.pas',
+  Elinor.Scene.MageTower in 'Scenes\Elinor.Scene.MageTower.pas';
 
 {$R *.res}
 

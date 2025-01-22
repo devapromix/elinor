@@ -21,7 +21,7 @@ uses
 type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
-    scBarracks, scInventory, scAbilities, scNewAbility);
+    scBarracks, scInventory, scAbilities, scNewAbility, scMageTower);
 
 const
   ScreenWidth = 1344;
@@ -145,7 +145,8 @@ type
     procedure AddTextLine(const S: string; const V, M: Integer); overload;
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
-    procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
+    procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
+      IsDrawTransparent: Boolean = False);
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer);
     procedure RenderLeaderInfo;
@@ -228,7 +229,8 @@ uses
   Elinor.Factions,
   Elinor.Scene.Inventory,
   Elinor.Scene.Abilities,
-  Elinor.Scene.NewAbility;
+  Elinor.Scene.NewAbility,
+  Elinor.Scene.MageTower;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -289,8 +291,14 @@ begin
   Day := 1;
   IsNewDay := False;
   ShowNewDayMessageTime := 0;
-  Gold.Clear(250);
-  Mana.Clear(10);
+  if Wizard then
+    Gold.Clear(5000)
+  else
+    Gold.Clear(250);
+  if Wizard then
+    Mana.Clear(500)
+  else
+    Mana.Clear(10);
   Statistics.Clear;
   Spells.Clear;
   Scenario.Clear;
@@ -446,10 +454,13 @@ begin
     Game.Surface.Height), ResImage[Res]);
 end;
 
-procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer);
+procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
+  IsDrawTransparent: Boolean = False);
 begin
   DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
   DrawImage(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
+  if IsDrawTransparent then
+    DrawImage(AX + 7, AY + 7, reBGTransparent);
 end;
 
 procedure TScene.DrawAbility(const AAbilityEnum: TAbilityEnum;
@@ -864,6 +875,7 @@ begin
   FScene[scBarracks] := TSceneBarracks.Create;
   FScene[scAbilities] := TSceneAbilities.Create;
   FScene[scNewAbility] := TSceneNewAbility.Create;
+  FScene[scMageTower] := TSceneMageTower.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;
