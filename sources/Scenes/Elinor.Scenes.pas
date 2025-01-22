@@ -292,6 +292,7 @@ begin
   Gold.Clear(250);
   Mana.Clear(10);
   Statistics.Clear;
+  Spells.Clear;
   Scenario.Clear;
   Map.Clear;
   Map.Gen;

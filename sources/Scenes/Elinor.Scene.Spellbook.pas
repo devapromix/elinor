@@ -61,7 +61,7 @@ var
   LMana: Byte;
 begin
   LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
-  if (LSpellEnum <> spNone) then
+  if (LSpellEnum <> spNone) and Spells.IsLearned(LSpellEnum) then
   begin
     LMana := Spells.Spell(LSpellEnum).Mana;
     if LMana > Game.Mana.Value then
@@ -149,7 +149,7 @@ procedure TSceneSpellbook.Render;
       LTop := IfThen(LSpellIndex > 2, TFrame.Row(LSpellIndex - 3),
         TFrame.Row(LSpellIndex));
       LSpellEnum := FactionSpellbookSpells[TSaga.LeaderFaction][LSpellIndex];
-      if (LSpellEnum <> spNone) then
+      if (LSpellEnum <> spNone) and Spells.IsLearned(LSpellEnum) then
       begin
         DrawSpell(LSpellEnum, LLeft, LTop);
         DrawText(LLeft + 74, LTop + 6, TSpells.Spell(LSpellEnum).Name);
@@ -169,7 +169,7 @@ procedure TSceneSpellbook.Render;
     TextLeft := TFrame.Col(2) + 12;
     LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner]
       [CurrentIndex];
-    if (LSpellEnum <> spNone) then
+    if (LSpellEnum <> spNone) and Spells.IsLearned(LSpellEnum) then
     begin
       AddTextLine(TSpells.Spell(LSpellEnum).Name, True);
       AddTextLine;

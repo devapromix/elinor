@@ -24,7 +24,7 @@ type
     Heal,
     Boost,
     Summon,
-    Fog = 6,
+    Fog
     Unfog,
     RestoreMove,
     Invisibility,
@@ -60,11 +60,15 @@ type
   TSpells = class(TSpell)
   private
     FSpell: array [TSpellEnum] of TSpell;
+    FLearned: array [TSpellEnum] of Boolean;
     FActiveSpell: TActiveSpell;
     procedure RegisterSpells;
   public
     constructor Create;
     destructor Destroy; override;
+    procedure Clear;
+    procedure Learn(const ASpellEnum: TSpellEnum);
+    function IsLearned(const ASpellEnum: TSpellEnum): Boolean;
     function CastAt(const AX, AY: Integer): Boolean; override;
     property ActiveSpell: TActiveSpell read FActiveSpell write FActiveSpell;
     class function Spell(const ASpellEnum: TSpellEnum): TSpellBase; static;
@@ -238,6 +242,14 @@ begin
     ActiveSpell.Clear;
 end;
 
+procedure TSpells.Clear;
+var
+  LSpellEnum: TSpellEnum;
+begin
+  for LSpellEnum := Succ(Low(TSpellEnum)) to High(TSpellEnum) do
+    FLearned[LSpellEnum] := False;
+end;
+
 constructor TSpells.Create;
 begin
   inherited Create(spNone);
@@ -253,6 +265,20 @@ begin
     FreeAndNil(FSpell[LSpellEnum]);
   FreeAndNil(FActiveSpell);
   inherited;
+end;
+
+function TSpells.IsLearned(const ASpellEnum: TSpellEnum): Boolean;
+begin
+  Result := FLearned[ASpellEnum];
+end;
+
+procedure TSpells.Learn(const ASpellEnum: TSpellEnum);
+begin
+  if not FLearned[ASpellEnum] then
+  begin
+    FLearned[ASpellEnum] := True;
+    Game.MediaPlayer.PlaySound(mmDispell);
+  end
 end;
 
 class function TSpells.Spell(const ASpellEnum: TSpellEnum): TSpellBase;
