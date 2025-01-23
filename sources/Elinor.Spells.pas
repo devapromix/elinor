@@ -14,7 +14,7 @@ type
     // Undead Hordes Spellbook
     spPlague,
     // Legions of the Damned Spellbook
-    spConcealment
+    spConcealment, spChainsOfDread
     //
     );
   // enum class SpellType
@@ -116,6 +116,14 @@ type
     procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
+type
+  TChainsOfDreadSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
 var
   Spells: TSpells;
 
@@ -151,7 +159,11 @@ const
     // Concealment
     (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
     ResEnum: reConcealment; Faction: faLegionsOfTheDamned;
-    SpellTarget: stLeader;)
+    SpellTarget: stLeader;),
+    // Chains Of Dread
+    (Name: 'Chains Of Dread'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
+    ResEnum: reConcealment; Faction: faLegionsOfTheDamned;
+    SpellTarget: stEnemy;)
     //
     );
 
@@ -293,6 +305,7 @@ begin
   FSpell[spLivingArmor] := TLivingArmorSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
+  FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
 end;
 
 { TTrueHealingSpell }
@@ -353,6 +366,18 @@ end;
 constructor TConcealmentSpell.Create;
 begin
   inherited Create(spConcealment);
+end;
+
+{ TChainsOfDreadSpell }
+
+procedure TChainsOfDreadSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  Party[APartyIndex].ParalyzeParty;
+end;
+
+constructor TChainsOfDreadSpell.Create;
+begin
+  inherited Create(spChainsOfDread);
 end;
 
 initialization

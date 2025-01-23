@@ -315,6 +315,7 @@ begin
     Mana.Mine;
     Game.Statistics.IncValue(stManaMined, Mana.FromMinePerDay);
     Map.Clear(lrSee);
+    Map.UnParalyzeAllParties;
     if (TLeaderParty.Leader.Enum in FighterLeaders) then
       TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.SpellsPerDay.SetToMaxValue;

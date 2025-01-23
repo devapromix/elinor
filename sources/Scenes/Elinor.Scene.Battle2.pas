@@ -86,7 +86,7 @@ const
 
 class procedure TSceneBattle2.AfterVictory;
 begin
-  TLeaderParty.Leader.ClearParalyzeAll;
+  TLeaderParty.Leader.UnParalyzeParty;
   TLeaderParty.Leader.ClearTempValuesAll;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
     Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
@@ -319,7 +319,7 @@ begin
       if AtkParty.Creature[AtkPos].Paralyze then
       begin
         Battle.Log.Add('Паралич прошел.');
-        AtkParty.ClearParalyze(AtkPos);
+        AtkParty.UnParalyze(AtkPos);
         NextTurn;
         Exit;
       end;

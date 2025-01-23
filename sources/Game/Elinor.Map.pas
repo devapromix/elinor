@@ -73,6 +73,7 @@ type
     procedure GenCityName;
     function GetCityName(const I: Integer): string;
     function GetCityNameTitleRes(const I: TCityNum): TResEnum;
+    procedure UnParalyzeAllParties;
   end;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
@@ -89,7 +90,8 @@ uses
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Party,
-  Elinor.PathFind, Elinor.Scene.Leader;
+  Elinor.PathFind,
+  Elinor.Scene.Leader;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
 begin
@@ -402,6 +404,14 @@ begin
             Game.Mana.AddMine;
           MapLayer[AX + X, AY + Y] := AResEnum;
         end;
+end;
+
+procedure TMap.UnParalyzeAllParties;
+var
+  I: Integer;
+begin
+  for I := Low(Party) to High(Party) do
+    Party[I].UnParalyzeParty;
 end;
 
 procedure TMap.UpdateRadius(const AX, AY, ARadius: Integer);

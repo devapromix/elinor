@@ -37,7 +37,6 @@ type
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
     function GetCount: Integer;
-  private
   public
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum); overload;
@@ -46,8 +45,10 @@ type
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
     property Owner: TFactionEnum read FOwner write FOwner;
-    procedure ClearParalyze(const APosition: TPosition);
-    procedure ClearParalyzeAll;
+    procedure UnParalyze(const APosition: TPosition);
+    procedure UnParalyzeParty;
+    procedure ParalyzeParty;
+    function IsParalyzeParty: Boolean;
     property Creature[APosition: TPosition]: TCreature read GetCreature
       write SetCreature;
     procedure SetHitPoints(const APosition: TPosition;
@@ -108,8 +109,10 @@ type
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
     procedure Clear;
-    property MovementPoints: TCurrMaxAttribute read FMovementPoints write FMovementPoints;
-    property SpellsPerDay: TCurrMaxAttribute read FSpellsPerDay write FSpellsPerDay;
+    property MovementPoints: TCurrMaxAttribute read FMovementPoints
+      write FMovementPoints;
+    property SpellsPerDay: TCurrMaxAttribute read FSpellsPerDay
+      write FSpellsPerDay;
     property Leadership: Integer read GetLeadership;
     procedure UpdateSightRadius;
     procedure Turn(const ACount: Integer = 1);
@@ -213,17 +216,38 @@ begin
   FCreature[APosition].Paralyze := True;
 end;
 
-procedure TParty.ClearParalyze(const APosition: TPosition);
+procedure TParty.ParalyzeParty;
+var
+  LPosition: TPosition;
+begin
+  for LPosition := Low(TPosition) to High(TPosition) do
+    FCreature[LPosition].Paralyze := True;
+end;
+
+procedure TParty.UnParalyze(const APosition: TPosition);
 begin
   FCreature[APosition].Paralyze := False;
 end;
 
-procedure TParty.ClearParalyzeAll;
+procedure TParty.UnParalyzeParty;
 var
   LPosition: TPosition;
 begin
   for LPosition := Low(TPosition) to High(TPosition) do
     FCreature[LPosition].Paralyze := False;
+end;
+
+function TParty.IsParalyzeParty: Boolean;
+var
+  LPosition: TPosition;
+begin
+  Result := False;
+  for LPosition := Low(TPosition) to High(TPosition) do
+    if FCreature[LPosition].Paralyze then
+    begin
+      Result := True;
+      Exit;
+    end;
 end;
 
 procedure TParty.ClearTempValuesAll;
@@ -841,7 +865,7 @@ begin
     TSceneSettlement.ShowScene(stCity);
     F := False;
   end;
-  if (RandomRange(0, 100) < 25) and not Leader.GetInvisibility() then
+  if not Leader.GetInvisibility() then
     for JX := Leader.X - 1 to Leader.X + 1 do
       for JY := Leader.Y - 1 to Leader.Y + 1 do
         if Game.Map.InMap(JX, JY) then
@@ -849,9 +873,13 @@ begin
           case Game.Map.GetTile(lrObj, JX, JY) of
             reEnemy:
               begin
-                TLeaderParty.PutAt(JX, JY);
-                F := False;
-                Exit;
+                I := TSaga.GetPartyIndex(JX, JY);
+                if not Party[I].IsClear and not Party[I].IsParalyzeParty() then
+                begin
+                  TLeaderParty.PutAt(JX, JY);
+                  F := False;
+                  Exit;
+                end;
               end;
           end;
         end;

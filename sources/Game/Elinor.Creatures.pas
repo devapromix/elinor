@@ -3,6 +3,7 @@
 interface
 
 // http://gormel.altervista.org/mastro_gp/Disciples2/
+// https://rpgwatch.com/news/disciples--liberation--abilities-cheatsheet-46823.html
 
 {$IFDEF FPC}
 {$MODESWITCH ADVANCEDRECORDS}
