@@ -10,7 +10,7 @@ uses
 type
   TSpellEnum = (spNone,
     // The Empire Spellbook
-    spTrueHealing, spSpeed, spLivingArmor,
+    spTrueHealing, spSpeed, spBless, spLivingArmor,
     // Undead Hordes Spellbook
     spPlague, spCurse,
     // Legions of the Damned Spellbook
@@ -117,6 +117,14 @@ type
   end;
 
 type
+  TBlessSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
   TConcealmentSpell = class(TSpell)
   public
     constructor Create;
@@ -157,6 +165,9 @@ const
     ResEnum: reTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;),
     // Speed
     (Name: 'Speed'; Level: 1; Mana: 25; SoundEnum: mmHeal; ResEnum: reSpeed;
+    Faction: faTheEmpire; SpellTarget: stLeader;),
+    // Bless
+    (Name: 'Bless'; Level: 1; Mana: 5; SoundEnum: mmHeal; ResEnum: reBless;
     Faction: faTheEmpire; SpellTarget: stLeader;),
     // Living Armor
     (Name: 'Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
@@ -313,6 +324,7 @@ procedure TSpells.RegisterSpells;
 begin
   FSpell[spTrueHealing] := TTrueHealingSpell.Create;
   FSpell[spSpeed] := TSpeedSpell.Create;
+  FSpell[spBless] := TBlessSpell.Create;
   FSpell[spLivingArmor] := TLivingArmorSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spCurse] := TCurseSpell.Create;
@@ -396,12 +408,24 @@ end;
 
 procedure TCurseSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].ModifyPartyChancesToHit(-10);
+  Party[APartyIndex].ModifyPartyChancesToHit(-15);
 end;
 
 constructor TCurseSpell.Create;
 begin
   inherited Create(spCurse);
+end;
+
+{ TBlessSpell }
+
+procedure TBlessSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  Party[APartyIndex].ModifyPartyChancesToHit(15);
+end;
+
+constructor TBlessSpell.Create;
+begin
+  inherited Create(spBless);
 end;
 
 initialization
