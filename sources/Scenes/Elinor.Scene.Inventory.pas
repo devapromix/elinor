@@ -52,11 +52,14 @@ uses
   Elinor.Creatures,
   Elinor.Items;
 
+type
+  TItemSectionEnum = (isParty, isEquipment, isInventory);
+
 var
   ShowResources: Boolean;
   CurrentParty: TParty;
   CloseSceneEnum: TSceneEnum;
-  ActiveSection: Integer = 0;
+  ActiveSection: TItemSectionEnum;
 
   { TSceneInventory }
 
@@ -67,11 +70,10 @@ begin
   CloseSceneEnum := ACloseSceneEnum;
   ShowResources := AParty = TLeaderParty.Leader;
   if ShowResources then
-  begin
-    ActivePartyPosition := TLeaderParty.GetPosition;
-  end
+    ActivePartyPosition := TLeaderParty.GetPosition
   else
     ActivePartyPosition := AParty.GetRandomPosition;
+  ActiveSection := isParty;
   Game.Show(scInventory);
   Game.MediaPlayer.PlaySound(mmSettlement);
 end;
@@ -119,13 +121,7 @@ begin
   case AButton of
     mbLeft:
       begin
-        { if Button[btHeal].MouseDown then
-          Heal
-          else if Button[btRevive].MouseDown then
-          Revive
-          else if Button[btParty].MouseDown then
-          ShowPartyScene
-          else } if Button[btClose].MouseDown then
+        if Button[btClose].MouseDown then
           HideScene;
       end;
   end;
@@ -219,14 +215,14 @@ begin
     K_UP:
       begin
         case ActiveSection of
-          1:
+          isEquipment:
             begin
               Dec(EquipmentSelItemIndex);
               if EquipmentSelItemIndex < 0 then
                 EquipmentSelItemIndex := MaxEquipmentItems - 1;
               Exit;
             end;
-          2:
+          isInventory:
             begin
               Dec(InventorySelItemIndex);
               if InventorySelItemIndex < 0 then
@@ -238,14 +234,14 @@ begin
     K_DOWN:
       begin
         case ActiveSection of
-          1:
+          isEquipment:
             begin
               Inc(EquipmentSelItemIndex);
               if EquipmentSelItemIndex > MaxEquipmentItems - 1 then
                 EquipmentSelItemIndex := 0;
               Exit;
             end;
-          2:
+          isInventory:
             begin
               Inc(InventorySelItemIndex);
               if InventorySelItemIndex > MaxEquipmentItems - 1 then
@@ -255,7 +251,7 @@ begin
         end;
       end
   end;
-  if ActiveSection = 0 then
+  if ActiveSection = isParty then
     inherited;
   case Key of
     K_ESCAPE:
@@ -263,20 +259,16 @@ begin
     K_ENTER:
       begin
         case ActiveSection of
-          0:
+          isParty:
             HideScene;
-          1:
+          isEquipment:
             TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
-          2:
+          isInventory:
             TLeaderParty.Leader.Equip(InventorySelItemIndex);
         end;
       end;
     K_SPACE:
-      begin
-        Inc(ActiveSection);
-        if ActiveSection > 2 then
-          ActiveSection := 0;
-      end;
+      ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 3);
   end;
 end;
 
