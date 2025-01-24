@@ -162,7 +162,7 @@ const
     SpellTarget: stLeader;),
     // Chains Of Dread
     (Name: 'Chains Of Dread'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
-    ResEnum: reConcealment; Faction: faLegionsOfTheDamned;
+    ResEnum: reChainsOfDread; Faction: faLegionsOfTheDamned;
     SpellTarget: stEnemy;)
     //
     );

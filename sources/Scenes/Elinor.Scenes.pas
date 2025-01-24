@@ -458,8 +458,8 @@ end;
 procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
   IsDrawTransparent: Boolean = False);
 begin
-  DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
   DrawImage(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
+  DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
   if IsDrawTransparent then
     DrawImage(AX + 7, AY + 7, reBGTransparent);
 end;

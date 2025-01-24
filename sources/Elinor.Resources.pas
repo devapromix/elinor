@@ -88,7 +88,7 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
     // Spells
-    reTrueHealing, reSpeed, reLivingArmor, rePlague, reConcealment,
+    reTrueHealing, reSpeed, reLivingArmor, rePlague, reConcealment, reChainsOfDread,
     // Abilities
     reSharpEye,
     // Races
@@ -543,6 +543,8 @@ const
     (FileName: 'spell.plague.png'; ResType: teGUI;),
     // Concealment
     (FileName: 'spell.concealment.png'; ResType: teGUI;),
+    // Chains Of Dread
+    (FileName: 'spell.chains_of_dread.png'; ResType: teGUI;),
 
     // ABILITIES //
     // Sharp Eye
