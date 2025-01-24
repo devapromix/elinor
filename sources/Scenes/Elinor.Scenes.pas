@@ -317,7 +317,7 @@ begin
     Map.Clear(lrSee);
     Map.UnParalyzeAllParties;
     if (TLeaderParty.Leader.Enum in FighterLeaders) then
-      TLeaderParty.Leader.HealAll(TSaga.LeaderWarriorHealAllInPartyPerDay);
+      TLeaderParty.Leader.HealParty(TSaga.LeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.SpellsPerDay.SetToMaxValue;
     ShowNewDayMessageTime := 20;
     MediaPlayer.PlaySound(mmDay);

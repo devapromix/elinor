@@ -66,7 +66,7 @@ type
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
-    procedure HealAll(const AHitPoints: Integer);
+    procedure HealParty(const AHitPoints: Integer);
     procedure Paralyze(const APosition: TPosition);
     procedure Revive(const APosition: TPosition);
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
@@ -84,6 +84,7 @@ type
     function GetExperience: Integer;
     function GetMaxExperiencePerLevel(const Level: Integer): Integer;
     class procedure Gen(const AX, AY: Integer; IsFinal: Boolean); static;
+    procedure ModifyPartyChancesToHit(const AValue: Integer);
   end;
 
 type
@@ -286,6 +287,14 @@ begin
   inherited;
 end;
 
+procedure TParty.ModifyPartyChancesToHit(const AValue: Integer);
+var
+  LPosition: TPosition;
+begin
+  for LPosition := Low(TPosition) to High(TPosition) do
+  FCreature[LPosition].ChancesToHit.ModifyTempValue(AValue);
+end;
+
 procedure TParty.MoveCreature(FromParty: TParty; const APosition: TPosition);
 begin
   FCreature[APosition] := FromParty.Creature[APosition];
@@ -394,7 +403,7 @@ begin
       HitPoints.ModifyCurrValue(AHitPoints);
 end;
 
-procedure TParty.HealAll(const AHitPoints: Integer);
+procedure TParty.HealParty(const AHitPoints: Integer);
 var
   LPosition: TPosition;
 begin

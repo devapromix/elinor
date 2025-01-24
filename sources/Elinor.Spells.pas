@@ -12,7 +12,7 @@ type
     // The Empire Spellbook
     spTrueHealing, spSpeed, spLivingArmor,
     // Undead Hordes Spellbook
-    spPlague,
+    spPlague, spCurse,
     // Legions of the Damned Spellbook
     spConcealment, spChainsOfDread
     //
@@ -109,6 +109,14 @@ type
   end;
 
 type
+  TCurseSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
   TConcealmentSpell = class(TSpell)
   public
     constructor Create;
@@ -155,6 +163,9 @@ const
     ResEnum: reLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;),
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
+    Faction: faUndeadHordes; SpellTarget: stEnemy;),
+    // Curse
+    (Name: 'Curse'; Level: 1; Mana: 5; SoundEnum: mmPlague; ResEnum: reCurse;
     Faction: faUndeadHordes; SpellTarget: stEnemy;),
     // Concealment
     (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
@@ -304,6 +315,7 @@ begin
   FSpell[spSpeed] := TSpeedSpell.Create;
   FSpell[spLivingArmor] := TLivingArmorSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
+  FSpell[spCurse] := TCurseSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
 end;
@@ -312,7 +324,7 @@ end;
 
 procedure TTrueHealingSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].HealAll(25);
+  Party[APartyIndex].HealParty(25);
 end;
 
 constructor TTrueHealingSpell.Create;
@@ -378,6 +390,18 @@ end;
 constructor TChainsOfDreadSpell.Create;
 begin
   inherited Create(spChainsOfDread);
+end;
+
+{ TCurseSpell }
+
+procedure TCurseSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  Party[APartyIndex].ModifyPartyChancesToHit(-10);
+end;
+
+constructor TCurseSpell.Create;
+begin
+  inherited Create(spCurse);
 end;
 
 initialization

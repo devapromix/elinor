@@ -74,7 +74,8 @@ uses
   Elinor.Resources,
   Elinor.Button,
   Elinor.Scene.Party,
-  DisciplesRL.Scene.Hire, Elinor.Scene.NewAbility;
+  DisciplesRL.Scene.Hire,
+  Elinor.Scene.NewAbility;
 
 var
   CloseButton: TButton;
@@ -278,8 +279,8 @@ begin
   else
   begin
     EnemyParty := Party[I];
-    // LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
-    LeaderParty := Party[TLeaderParty.SummonPartyIndex];
+    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+    // LeaderParty := Party[TLeaderParty.SummonPartyIndex];
     IsSummon := True;
   end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
@@ -795,7 +796,7 @@ begin
         TLeaderParty.Leader.UpdateXP(100, TLeaderParty.Leader.GetPosition);
     K_H:
       if Game.Wizard then
-        TLeaderParty.Leader.HealAll(100);
+        TLeaderParty.Leader.HealParty(100);
     K_D:
       if Game.Wizard then
         Defeat;
