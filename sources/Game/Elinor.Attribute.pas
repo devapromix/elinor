@@ -61,7 +61,7 @@ end;
 
 procedure TCurrTempAttribute.ModifyCurrValue(const AValue, AMin, AMax: Integer);
 begin
-  FCurr := EnsureRange(AValue, AMin, AMax);
+  FCurr := EnsureRange(FCurr + AValue, AMin, AMax);
 end;
 
 procedure TCurrTempAttribute.ModifyTempValue(const AValue: Integer);
