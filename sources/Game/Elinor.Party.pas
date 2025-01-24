@@ -37,10 +37,13 @@ type
     function GetCreature(APosition: TPosition): TCreature;
     procedure SetCreature(APosition: TPosition; const Value: TCreature);
     function GetCount: Integer;
+  private
+    FCanAttack: Boolean;
   public
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum); overload;
     destructor Destroy; override;
+    property CanAttack: Boolean read FCanAttack write FCanAttack;
     procedure MoveCreature(FromParty: TParty; const APosition: TPosition);
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
@@ -272,6 +275,7 @@ begin
   inherited Create(AX, AY);
   Self.Clear;
   Owner := AOwner;
+  CanAttack := True;
 end;
 
 constructor TParty.Create(const AX, AY: Integer);
@@ -279,6 +283,7 @@ begin
   inherited Create(AX, AY);
   Self.Clear;
   Owner := faNeutrals;
+  CanAttack := True;
 end;
 
 destructor TParty.Destroy;
@@ -883,7 +888,9 @@ begin
             reEnemy:
               begin
                 I := TSaga.GetPartyIndex(JX, JY);
-                if not Party[I].IsClear and not Party[I].IsParalyzeParty() then
+
+                if not Party[I].IsClear and Party[I].CanAttack and
+                  not Party[I].IsParalyzeParty() then
                 begin
                   TLeaderParty.PutAt(JX, JY);
                   F := False;

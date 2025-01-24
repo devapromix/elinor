@@ -340,7 +340,7 @@ begin
     until (FMap[lrObj][LX, LY] = reNone) and
       (FMap[lrTile][LX, LY] = reNeutralTerrain) and
       (GetDistToCapital(LX, LY) >= 3);
-    TSaga.AddPartyAt(LX, LY);
+    TSaga.AddPartyAt(LX, LY, True);
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (LMapPlaceIndex < TScenario.ScenarioStoneTabMax) then
       Game.Scenario.AddStoneTab(LX, LY);
@@ -578,20 +578,20 @@ begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
             := reNeutralCity;
           ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
-          TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
+          TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y, False);
         end;
       TScenario.ScenarioTowerIndex: // Tower
         begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
             := reTower;
           TSaga.AddPartyAt(Game.Map.MapPlace[I].X,
-            Game.Map.MapPlace[I].Y, True);
+            Game.Map.MapPlace[I].Y, False, True);
         end
     else // Ruin
       begin
         Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
           := reRuin;
-        TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
+        TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y, False);
       end;
     end;
     // Mines

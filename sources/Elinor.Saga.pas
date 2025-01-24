@@ -105,7 +105,7 @@ type
     class procedure PartyFree; static;
     class function GetPartyCount: Integer; static;
     class function GetPartyIndex(const AX, AY: Integer): Integer; static;
-    class procedure AddPartyAt(const AX, AY: Integer;
+    class procedure AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
       IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
     class function GetTileLevel(const AX: Integer; const AY: Integer): Integer;
@@ -174,7 +174,8 @@ begin
     end;
 end;
 
-class procedure TSaga.AddPartyAt(const AX, AY: Integer; IsFinal: Boolean);
+class procedure TSaga.AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
+  IsFinal: Boolean);
 var
   LPartyIndex: Integer;
   LStringList: TStringList;
@@ -185,6 +186,7 @@ begin
   TSaga.PartyInit(AX, AY, IsFinal);
   LPartyIndex := GetPartyIndex(AX, AY);
   Party[LPartyIndex].Owner := faNeutrals;
+  Party[LPartyIndex].CanAttack := CanAttack;
 
   if Game.Wizard then
   begin
