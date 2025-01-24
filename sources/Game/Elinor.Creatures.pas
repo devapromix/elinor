@@ -426,7 +426,7 @@ type
 {$REGION Abilities}
 
 type
-  TAbilityEnum = (abNone, abFly, abStrength, abMight, abStealth, abSharpEye,
+  TAbilityEnum = (abNone, abFlying, abStrength, abMight, abStealth, abSharpEye,
     abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
     abLeadership1, abLeadership2, abLeadership3, abLeadership4,
     abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
@@ -767,7 +767,7 @@ const
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atPhoenixSword; AbilityEnum: abFly; Rating: 0;),
+    AttackEnum: atPhoenixSword; AbilityEnum: abFlying; Rating: 0;),
     // Counselor
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reCounselor; Size: szSmall; Name: ('Советник', 'Советника');
@@ -1221,8 +1221,9 @@ const
     // None
     (Enum: abNone; Name: ''; Description: ('', ''); Level: 1; Leaders: [];
     ResEnum: reNone;),
-    // Fly
-    (Enum: abFly; Name: 'Fly'; Description: ('The skill allows the leader and',
+    // Flying
+    (Enum: abFlying; Name: 'Flying';
+    Description: ('The skill allows the leader and',
     'his party to fly above the ground'); Level: 1; Leaders: FlyLeaders;
     ResEnum: reNone;),
     // Strength
@@ -1258,7 +1259,7 @@ const
     (Enum: abBannerBearer; Name: 'Banner Bearer';
     Description: ('Allows the leader to carry', 'battle flags'); Level: 1;
     Leaders: AllLeaders; ResEnum: reNone;),
-    // TravelLore
+    // Travel Lore
     (Enum: abTravelLore; Name: 'Travel Lore';
     Description: ('Allows the leader to wear magic', 'shoes'); Level: 1;
     Leaders: AllLeaders; ResEnum: reNone;),
@@ -1306,7 +1307,7 @@ const
     Description: ('The owner of this ability',
     'receives a 15% discount from the merchant'); Level: 5;
     Leaders: LordLeaders; ResEnum: reNone;),
-    // Protect
+    // Natural Armor
     (Enum: skProtect; Name: 'Естественная Броня';
     Description: ('Предводитель будет поглощать 10%', 'наносимого ему урона.');
     Level: 6; Leaders: AllLeaders; ResEnum: reNone;),

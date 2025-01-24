@@ -86,7 +86,7 @@ type
     reIconScores, reIconScoresOver, reIconClosedGates, reIconOpenedGates,
     // BG
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
-    reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals,
+    reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Spells
     reTrueHealing, reSpeed, reBless,reLivingArmor, rePlague, reConcealment,
     reChainsOfDread, reCurse,
@@ -532,6 +532,8 @@ const
     (FileName: 'bg.greenskin_tribes.png'; ResType: teGUI;),
     // Neutrals
     (FileName: 'bg.neutrals.png'; ResType: teGUI;),
+    // Abilities
+    (FileName: 'bg.abilities.png'; ResType: teGUI;),
 
     // SPELLS //
     // True Healing

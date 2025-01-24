@@ -467,8 +467,8 @@ end;
 procedure TScene.DrawAbility(const AAbilityEnum: TAbilityEnum;
   const AX, AY: Integer);
 begin
-  DrawImage(AX + 7, AY + 7, reBGCharacter);
   DrawImage(AX + 7, AY + 29, TAbilities.Ability(AAbilityEnum).ResEnum);
+  DrawImage(AX + 7, AY + 7, reBGAbility);
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
