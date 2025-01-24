@@ -292,7 +292,7 @@ var
   LPosition: TPosition;
 begin
   for LPosition := Low(TPosition) to High(TPosition) do
-  FCreature[LPosition].ChancesToHit.ModifyTempValue(AValue);
+    FCreature[LPosition].ChancesToHit.ModifyTempValue(AValue);
 end;
 
 procedure TParty.MoveCreature(FromParty: TParty; const APosition: TPosition);
@@ -327,16 +327,16 @@ end;
 
 function TParty.GetHitPoints(const APosition: TPosition): Integer;
 begin
-  Result := 0;
-  if FCreature[APosition].Active then
-    Result := FCreature[APosition].HitPoints.GetCurrValue;
+  if not FCreature[APosition].Active then
+    Exit(0);
+  Result := FCreature[APosition].HitPoints.GetCurrValue;
 end;
 
 function TParty.GetInitiative(const APosition: TPosition): Integer;
 begin
-  Result := 0;
-  if FCreature[APosition].Active then
-    Result := FCreature[APosition].Initiative.GetFullValue();
+  if not FCreature[APosition].Active then
+    Exit(0);
+  Result := FCreature[APosition].Initiative.GetFullValue();
 end;
 
 function TParty.GetMaxExperiencePerLevel(const Level: Integer): Integer;
@@ -684,16 +684,16 @@ begin
 end;
 
 function TLeaderParty.GetLeadership: Integer;
+const
+  LeadershipAbilities: array [0 .. 3] of TAbilityEnum = (abLeadership1,
+    abLeadership2, abLeadership3, abLeadership4);
+var
+  LAbilityEnum: TAbilityEnum;
 begin
   Result := 1;
-  if Self.Abilities.IsAbility(abLeadership1) then
-    Result := Result + 1;
-  if Self.Abilities.IsAbility(abLeadership2) then
-    Result := Result + 1;
-  if Self.Abilities.IsAbility(abLeadership3) then
-    Result := Result + 1;
-  if Self.Abilities.IsAbility(abLeadership4) then
-    Result := Result + 1;
+  for LAbilityEnum in LeadershipAbilities do
+    if Self.Abilities.IsAbility(LAbilityEnum) then
+      Inc(Result);
 end;
 
 function TLeaderParty.GetMaxSpellsPerDay: Integer;
