@@ -66,6 +66,7 @@ procedure TSceneWideMenu.MoveCursor(const AArrowKeyDirectionEnum
   : TArrowKeyDirectionEnum);
 begin
   CurrentIndex := PositionTransitions[AArrowKeyDirectionEnum, CurrentIndex];
+  Game.MediaPlayer.PlaySound(mmClick);
   Game.Render;
 end;
 

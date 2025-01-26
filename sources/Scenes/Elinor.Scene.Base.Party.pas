@@ -5,11 +5,14 @@ interface
 uses
   System.Classes,
   Vcl.Controls,
+  Elinor.Direction,
   Elinor.Resources,
   Elinor.Scene.Frames;
 
 type
   TSceneBaseParty = class(TSceneFrames)
+  private
+    procedure MoveCursor(const AArrowKeyDirectionEnum: TArrowKeyDirectionEnum);
   public
     constructor Create(const AResEnum: TResEnum);
     destructor Destroy; override;
@@ -30,7 +33,29 @@ uses
   Elinor.Party,
   Elinor.Scene.Party;
 
-{ TSceneSimpleMenu }
+const
+  PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 5] of Integer = (
+    // Left
+    (1, 0, 3, 2, 5, 4),
+    // Right
+    (1, 0, 3, 2, 5, 4),
+    // Up
+    (4, 5, 0, 1, 2, 3),
+    // Down
+    (2, 3, 4, 5, 0, 1)
+    //
+    );
+
+  { TSceneSimpleMenu }
+
+procedure TSceneBaseParty.MoveCursor(const AArrowKeyDirectionEnum
+  : TArrowKeyDirectionEnum);
+begin
+  ActivePartyPosition := PositionTransitions[AArrowKeyDirectionEnum,
+    ActivePartyPosition];
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Render;
+end;
 
 constructor TSceneBaseParty.Create(const AResEnum: TResEnum);
 begin
@@ -63,7 +88,6 @@ end;
 procedure TSceneBaseParty.MouseMove(Shift: TShiftState; X, Y: Integer);
 begin
   inherited;
-
 end;
 
 procedure TSceneBaseParty.Render;
@@ -90,36 +114,14 @@ procedure TSceneBaseParty.Update(var Key: Word);
 begin
   inherited;
   case Key of
-    K_UP:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case ActivePartyPosition of
-          2, 3, 4, 5:
-            ActivePartyPosition := ActivePartyPosition - 2;
-          0, 1:
-            ActivePartyPosition := ActivePartyPosition + 4;
-        end;
-      end;
-    K_DOWN:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case ActivePartyPosition of
-          0, 1, 2, 3:
-            ActivePartyPosition := ActivePartyPosition + 2;
-          4, 5:
-            ActivePartyPosition := ActivePartyPosition - 4;
-        end;
-      end;
-    K_LEFT, K_RIGHT:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case ActivePartyPosition of
-          0, 2, 4:
-            ActivePartyPosition := ActivePartyPosition + 1;
-          1, 3, 5:
-            ActivePartyPosition := ActivePartyPosition - 1;
-        end;
-      end;
+    K_LEFT, K_KP_4:
+      MoveCursor(kdLeft);
+    K_RIGHT, K_KP_6:
+      MoveCursor(kdRight);
+    K_UP, K_KP_8:
+      MoveCursor(kdUp);
+    K_DOWN, K_KP_2:
+      MoveCursor(kdDown);
   end;
 end;
 

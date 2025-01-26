@@ -87,6 +87,7 @@ procedure TSceneSettlement.MoveCursor(const AArrowKeyDirectionEnum
 begin
   ActivePartyPosition := PositionTransitions[AArrowKeyDirectionEnum,
     ActivePartyPosition];
+  Game.MediaPlayer.PlaySound(mmClick);
   Game.Render;
 end;
 
