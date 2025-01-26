@@ -42,6 +42,7 @@ uses
   SysUtils,
   Elinor.Map,
   Elinor.Resources,
+  Elinor.Direction,
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Scene.Party,

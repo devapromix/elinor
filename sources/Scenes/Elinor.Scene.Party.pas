@@ -13,6 +13,7 @@ uses
   Elinor.Scenes,
   Elinor.Resources,
   Elinor.Scene.Frames,
+  Elinor.Direction,
   Elinor.Creatures;
 
 type
