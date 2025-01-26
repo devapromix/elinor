@@ -36,7 +36,7 @@ type
     IsUnitSelected: Boolean;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
-    procedure MoveCursor(Dir: TDirectionEnum);
+    procedure MoveCursor(const AArrowKeyDirectionEnum: TArrowKeyDirectionEnum);
     procedure MoveUnit;
     procedure ShowPartyScene;
     procedure ShowBarracksScene;
@@ -69,9 +69,24 @@ uses
   Elinor.Scene.Hire,
   Elinor.Scene.Barracks;
 
-procedure TSceneSettlement.MoveCursor(Dir: TDirectionEnum);
+const
+  PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 11] of Integer = (
+    // Left
+    (1, 7, 3, 9, 5, 11, 0, 6, 2, 8, 4, 10),
+    // Right
+    (6, 0, 8, 2, 10, 4, 7, 1, 9, 3, 11, 5),
+    // Up
+    (4, 5, 0, 1, 2, 3, 10, 11, 6, 7, 8, 9),
+    // Down
+    (2, 3, 4, 5, 0, 1, 8, 9, 10, 11, 6, 7)
+    //
+    );
+
+procedure TSceneSettlement.MoveCursor(const AArrowKeyDirectionEnum
+  : TArrowKeyDirectionEnum);
 begin
-  ActivePartyPosition := PositionTransitions[Dir, ActivePartyPosition];
+  ActivePartyPosition := PositionTransitions[AArrowKeyDirectionEnum,
+    ActivePartyPosition];
   Game.Render;
 end;
 
@@ -346,14 +361,14 @@ begin
       ShowPartyScene;
     K_T:
       ShowTempleScene;
-    K_LEFT, K_KP_4, K_A:
-      MoveCursor(drWest);
-    K_RIGHT, K_KP_6, K_D:
-      MoveCursor(drEast);
-    K_UP, K_KP_8, K_W:
-      MoveCursor(drNorth);
-    K_DOWN, K_KP_2, K_X:
-      MoveCursor(drSouth);
+    K_LEFT, K_KP_4:
+      MoveCursor(kdLeft);
+    K_RIGHT, K_KP_6:
+      MoveCursor(kdRight);
+    K_UP, K_KP_8:
+      MoveCursor(kdUp);
+    K_DOWN, K_KP_2:
+      MoveCursor(kdDown);
   end;
 end;
 

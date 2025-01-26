@@ -7,6 +7,7 @@ uses
   Vcl.Controls,
   Elinor.Resources,
   Elinor.Button,
+  Elinor.Direction,
   Elinor.Scene.Frames;
 
 type
@@ -30,6 +31,7 @@ type
       X, Y: Integer); override;
     procedure Cancel; virtual;
     procedure Continue; virtual;
+    procedure MoveCursor(const AArrowKeyDirectionEnum: TArrowKeyDirectionEnum);
     property CurrentIndex: Integer read FCurrentIndex write FCurrentIndex;
     procedure Update(var Key: Word); override;
     procedure Basic(AKey: Word);
@@ -45,7 +47,27 @@ uses
   Elinor.Common,
   Elinor.Scenes;
 
-{ TSceneSimpleMenu }
+const
+  PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 5] of Integer = (
+    // Left
+    (3, 4, 5, 0, 1, 2),
+    // Right
+    (3, 4, 5, 0, 1, 2),
+    // Up
+    (2, 0, 1, 5, 3, 4),
+    // Down
+    (1, 2, 0, 4, 5, 3)
+    //
+    );
+
+  { TSceneSimpleMenu }
+
+procedure TSceneWideMenu.MoveCursor(const AArrowKeyDirectionEnum
+  : TArrowKeyDirectionEnum);
+begin
+  CurrentIndex := PositionTransitions[AArrowKeyDirectionEnum, CurrentIndex];
+  Game.Render;
+end;
 
 procedure TSceneWideMenu.Basic(AKey: Word);
 begin
@@ -173,38 +195,14 @@ begin
     K_ENTER:
       if FF then
         Continue;
-    K_UP, K_KP_8:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case CurrentIndex of
-          1, 2, 4, 5:
-            CurrentIndex := CurrentIndex - 1;
-        end;
-      end;
-    K_DOWN, K_KP_2:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case CurrentIndex of
-          0, 1, 3, 4:
-            CurrentIndex := CurrentIndex + 1;
-        end;
-      end;
     K_LEFT, K_KP_4:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case CurrentIndex of
-          3 .. 5:
-            CurrentIndex := CurrentIndex - 3;
-        end;
-      end;
+      MoveCursor(kdLeft);
     K_RIGHT, K_KP_6:
-      begin
-        Game.MediaPlayer.PlaySound(mmClick);
-        case CurrentIndex of
-          0 .. 2:
-            CurrentIndex := CurrentIndex + 3;
-        end;
-      end;
+      MoveCursor(kdRight);
+    K_UP, K_KP_8:
+      MoveCursor(kdUp);
+    K_DOWN, K_KP_2:
+      MoveCursor(kdDown);
   end;
 end;
 
