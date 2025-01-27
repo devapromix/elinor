@@ -218,7 +218,7 @@ uses
   Elinor.Scene.Spellbook,
   Elinor.Frame,
   Elinor.Scene.Difficulty,
-  Elinor.Scene.Race,
+  Elinor.Scene.Faction,
   Elinor.Scene.Leader,
   Elinor.Scene.Scenario,
   Elinor.Scene.Temple,

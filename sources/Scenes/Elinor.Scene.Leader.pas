@@ -34,7 +34,7 @@ implementation
 uses
   Math, dialogs,
   System.SysUtils,
-  Elinor.Scene.Race,
+  Elinor.Scene.Faction,
   DisciplesRL.Scene.Hire,
   Elinor.Saga,
   Elinor.Scene.Settlement,

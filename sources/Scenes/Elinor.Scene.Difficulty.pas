@@ -33,7 +33,7 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Frames,
-  Elinor.Scene.Race,
+  Elinor.Scene.Faction,
   Elinor.Scene.Scenario;
 
 procedure TSceneDifficulty.Cancel;

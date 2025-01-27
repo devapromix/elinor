@@ -43,7 +43,7 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Frames,
-  Elinor.Scene.Race,
+  Elinor.Scene.Faction,
   Elinor.Scene.Scenario,
   Elinor.Scene.Battle2,
   Elinor.Scenario,

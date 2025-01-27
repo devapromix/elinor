@@ -82,7 +82,7 @@ uses
   Elinor.Scene.Settlement,
   Elinor.Items,
   Elinor.Scene.Difficulty,
-  Elinor.Scene.Race;
+  Elinor.Scene.Faction;
 
 var
   CurCrEnum: TCreatureEnum;

@@ -144,7 +144,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Scenario.pas"/>
         <DCCReference Include="Game\Elinor.Scenario.pas"/>
         <DCCReference Include="Game\Elinor.Common.pas"/>
-        <DCCReference Include="Scenes\Elinor.Scene.Race.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Faction.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Leader.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Menu.Wide.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Temple.pas"/>
@@ -251,7 +251,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -269,7 +269,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
