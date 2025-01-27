@@ -107,10 +107,13 @@ procedure TSceneAbilities.Render;
   procedure RenderParty;
   var
     LPosition: TPosition;
+    LX, LY: Integer;
   begin
     for LPosition := Low(TPosition) to High(TPosition) do
       DrawUnit(LPosition, TLeaderParty.Leader, TFrame.Col(LPosition, psLeft),
         TFrame.Row(LPosition), False, True);
+    GetSceneActivePartyPosition(LX, LY);
+    DrawImage(LX, LY, rePasFrame);
   end;
 
   procedure RenderAbilities;

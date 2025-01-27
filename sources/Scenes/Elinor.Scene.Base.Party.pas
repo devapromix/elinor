@@ -21,6 +21,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure Update(var Key: Word); override;
+    procedure GetSceneActivePartyPosition(var LX: Integer; var LY: Integer);
   end;
 
 implementation
@@ -95,18 +96,7 @@ var
   LX, LY: Integer;
 begin
   inherited;
-  case ActivePartyPosition of
-    0, 2, 4:
-      begin
-        LX := TFrame.Col(1);
-        LY := TFrame.Row(ActivePartyPosition div 2);
-      end;
-    1, 3, 5:
-      begin
-        LX := TFrame.Col(0);
-        LY := TFrame.Row(ActivePartyPosition div 2);
-      end;
-  end;
+  GetSceneActivePartyPosition(LX, LY);
   DrawImage(LX, LY, reActFrame);
 end;
 
@@ -122,6 +112,22 @@ begin
       MoveCursor(kdUp);
     K_DOWN, K_KP_2:
       MoveCursor(kdDown);
+  end;
+end;
+
+procedure TSceneBaseParty.GetSceneActivePartyPosition(var LX: Integer; var LY: Integer);
+begin
+  case ActivePartyPosition of
+    0, 2, 4:
+      begin
+        LX := TFrame.Col(1);
+        LY := TFrame.Row(ActivePartyPosition div 2);
+      end;
+    1, 3, 5:
+      begin
+        LX := TFrame.Col(0);
+        LY := TFrame.Row(ActivePartyPosition div 2);
+      end;
   end;
 end;
 
