@@ -3,7 +3,7 @@
 interface
 
 uses
-  Types;
+  System.Types;
 
 {
   Сценарии:
@@ -27,18 +27,11 @@ type
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
-    ScenarioName: array [TScenarioEnum] of string = ('Темная Башня',
-      'Повелитель', 'Древние Знания');
-    ScenarioDescription: array [TScenarioEnum] of array [0 .. 10] of string = (
-      // Темная Башня
-      ('', '', '', '', '', '', '', '', '', '', 'Цель: разрушить Темную Башню'),
-      // Повелитель
-      ('', '', '', '', '', '', '', '', '', '', 'Цель: захватить все города'),
-      // Древние Знания
-      ('', '', '', '', '', '', '', '', '', '',
-      'Цель: найти все каменные таблички')
-      //
-      );
+    ScenarioName: array [TScenarioEnum] of string = ('The Dark Tower',
+      'Overlord', 'Ancient Knowledge');
+    ScenarioObjective: array [TScenarioEnum] of string =
+      ('Destroy the Dark Tower', 'Capture all cities',
+      'Find all stone tablets');
   public
     StoneTab: Integer;
     CurrentScenario: TScenarioEnum;
@@ -49,13 +42,16 @@ type
     procedure AddStoneTab(const X, Y: Integer);
     function ScenarioOverlordState: string;
     function ScenarioAncientKnowledgeState: string;
+    class function GetDescription(const AScenarioEnum: TScenarioEnum;
+      const AIndex: Integer): string;
   end;
 
 implementation
 
 uses
-  Math,
+  System.Math,
   System.SysUtils,
+  Elinor.Resources,
   Elinor.Map;
 
 { TScenario }
@@ -71,6 +67,12 @@ procedure TScenario.Clear;
 begin
   StoneCounter := 0;
   StoneTab := 0;
+end;
+
+class function TScenario.GetDescription(const AScenarioEnum: TScenarioEnum;
+  const AIndex: Integer): string;
+begin
+  Result := TResources.IndexValue('scenario.description', 'dark-tower', AIndex);
 end;
 
 function TScenario.IsStoneTab(const X, Y: Integer): Boolean;

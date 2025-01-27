@@ -94,8 +94,10 @@ begin
       TextLeft := TFrame.Col(2) + 12;
       AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);
       AddTextLine;
-      for I := 0 to 10 do
-        AddTextLine(TScenario.ScenarioDescription[LScenarioEnum][I]);
+      for I := 0 to 9 do
+        AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
+      AddTextLine;
+      AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
       if TSaga.IsGame then
       begin
         CurrentIndex := Ord(Game.Scenario.CurrentScenario);
