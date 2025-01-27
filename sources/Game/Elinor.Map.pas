@@ -655,7 +655,7 @@ begin
   Result := 0;
   for I := 1 to TScenario.ScenarioCitiesMax do
   begin
-    if (Game.Map.MapPlace[I].Owner in Factions) then
+    if (Game.Map.MapPlace[I].Owner in PlayableFactions) then
       Inc(Result);
   end;
 end;

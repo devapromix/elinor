@@ -13,12 +13,12 @@ type
   TPlayableFactions = faTheEmpire .. faLegionsOfTheDamned;
 
 const
+  PlayableFactions = [faTheEmpire, faUndeadHordes, faLegionsOfTheDamned];
+
+const
   FactionIdent: array [TFactionEnum] of string = ('the-empire', 'undead-hordes',
     'legions-of-the-damned', 'mountain-clans', 'elven-alliance',
     'greenskin-tribes', 'neutrals');
-
-const
-  Factions = [faTheEmpire, faUndeadHordes, faLegionsOfTheDamned];
 
 const
   FactionName: array [TFactionEnum] of string = ('The Empire', 'Undead Hordes',
@@ -30,43 +30,22 @@ const
     reUndeadHordesTerrain, reLegionsOfTheDamnedTerrain, reNeutralTerrain,
     reNeutralTerrain, reNeutralTerrain, reNeutralTerrain);
 
-const
-  FactionDescription: array [TFactionEnum] of array [0 .. 10] of string = (
-    // The Empire
-    ('Империя пришла в упадок. Больше',
-    'не радуют глаз возделанные поля и цве-',
-    'тущие сады. Землю раздирают склоки и',
-    'раздоры. Аристократы и разбойничьи', 'атаманы провозгласили собственные',
-    'королевства. Старейшины всматривают-',
-    'ся в небеса, взывая к Небесному Отцу.',
-    'Но он глух к их просьбам и молитвам.', 'Некогда мирная, гордая и единая',
-    'Империя, что создавалась тысячи лет,', 'осталась лишь в воспоминаниях…'),
-    // Undead Hordes
-    ('Поглощенная ненавистью и страданием,', 'Мортис создала армию мертвецов.',
-    'Где теперь ее возлюбленный Галлеан?',
-    'В каком уголке Невендаара бродит его',
-    'душа? Почему не возвращается к ней?', 'Как его воскресить? И когда духи',
-    'открыли ей существование святого', 'отрока, Мортис поклялась, что она',
-    'воссоединится со своим возлюбленным,', 'даже если для этого ей придется',
-    'утопить весь мир в крови…'),
-    // Legions Of The Damned
-    ('И снова земные слуги Бетрезена бродят',
-    'по Невендаару, сея хаос и разруху.',
-    'Им осталось провести последний ритуал',
-    'и даровать Бетрезену неограниченную',
-    'свободу. Десять лет назад они потерпе-',
-    'ли поражение и были заперты в Горном', 'Храме… И вот десять лет истекли:',
-    'теперь ничто не мешает легионам', 'снова попытаться совершить ритуал,',
-    'который освободит Бетрезена раз и', 'навсегда…'),
-    // Mountain Clans
-    ('', '', '', '', '', '', '', '', '', '', ''),
-    // Elven Alliance
-    ('', '', '', '', '', '', '', '', '', '', ''),
-    // Greenskin Tribes
-    ('', '', '', '', '', '', '', '', '', '', ''),
-    // Neutrals
-    ('', '', '', '', '', '', '', '', '', '', ''));
+type
+  TFaction = class(TObject)
+  public
+    class function GetDescription(const AFactionEnum: TFactionEnum;
+      const AIndex: Integer): string;
+  end;
 
 implementation
+
+{ TFaction }
+
+class function TFaction.GetDescription(const AFactionEnum: TFactionEnum;
+  const AIndex: Integer): string;
+begin
+  Result := TResources.IndexValue('factions.descriptions',
+    FactionIdent[AFactionEnum], AIndex);
+end;
 
 end.

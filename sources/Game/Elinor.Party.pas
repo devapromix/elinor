@@ -769,7 +769,7 @@ begin
   if not IsInfo then
     for I := 0 to High(Game.Map.MapPlace) do
     begin
-      if (Game.Map.MapPlace[I].Owner in Factions) then
+      if (Game.Map.MapPlace[I].Owner in PlayableFactions) then
         if (Game.Map.MapPlace[I].CurLevel < Game.Map.MapPlace[I].MaxLevel) then
         begin
           Inc(Game.Map.MapPlace[I].CurLevel);

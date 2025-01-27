@@ -88,7 +88,7 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Spells
-    reTrueHealing, reSpeed, reBless,reLivingArmor, rePlague, reConcealment,
+    reTrueHealing, reSpeed, reBless, reLivingArmor, rePlague, reConcealment,
     reChainsOfDread, reCurse,
     // Abilities
     reSharpEye,
@@ -724,6 +724,8 @@ type
       var StringList: TStringList); overload;
     class function KeysCount(const FileName, SectionName: string): Integer;
     class function RandomValue(const FileName, SectionName: string): string;
+    class function IndexValue(const AFileName, ASectionName: string;
+      const AIndex: Integer): string;
     class function RandomSectionIdent(const FileName: string): string;
     class procedure LoadParties(const FileName: string);
   end;
@@ -752,25 +754,14 @@ end;
 class function TResources.RandomValue(const FileName,
   SectionName: string): string;
 var
-{$IFDEF FPC}
-  JSONData: TJSONData;
-  S: string;
-  I: Integer;
-{$ELSE}
   JSONObject: TJSONObject;
   JSONArray: TJSONArray;
-{$ENDIF}
   SL: TStringList;
 begin
   Result := '';
   SL := TStringList.Create;
   try
     SL.LoadFromFile(GetPath('resources') + LowerCase(FileName) + '.json');
-{$IFDEF FPC}
-    JSONData := GetJSON(SL.Text);
-    I := JSONData.FindPath(SectionName).Count;
-    Result := JSONData.FindPath(SectionName).Items[RandomRange(0, I)].AsString;
-{$ELSE}
     JSONObject := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
     try
       JSONArray := JSONObject.Get(SectionName).JsonValue as TJSONArray;
@@ -778,7 +769,29 @@ begin
     finally
       FreeAndNil(JSONObject);
     end;
-{$ENDIF}
+  finally
+    FreeAndNil(SL);
+  end;
+end;
+
+class function TResources.IndexValue(const AFileName, ASectionName: string;
+  const AIndex: Integer): string;
+var
+  JSONObject: TJSONObject;
+  JSONArray: TJSONArray;
+  SL: TStringList;
+begin
+  Result := '';
+  SL := TStringList.Create;
+  try
+    SL.LoadFromFile(GetPath('resources') + LowerCase(AFileName) + '.json');
+    JSONObject := TJSONObject.ParseJSONValue(SL.Text) as TJSONObject;
+    try
+      JSONArray := JSONObject.Get(ASectionName).JsonValue as TJSONArray;
+      Result := JSONArray.Items[AIndex].Value;
+    finally
+      FreeAndNil(JSONObject);
+    end;
   finally
     FreeAndNil(SL);
   end;

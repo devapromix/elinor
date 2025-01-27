@@ -79,8 +79,8 @@ begin
       LFactionEnum := TFactionEnum(CurrentIndex);
       AddTextLine(FactionName[LFactionEnum], True);
       AddTextLine;
-      for I := 0 to 11 do
-        AddTextLine(FactionDescription[LFactionEnum][I]);
+      for I := 0 to 10 do
+        AddTextLine(TFaction.GetDescription(LFactionEnum, I));
     end;
   end;
 end;
