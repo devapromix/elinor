@@ -230,7 +230,8 @@ uses
   Elinor.Scene.Inventory,
   Elinor.Scene.Abilities,
   Elinor.Scene.NewAbility,
-  Elinor.Scene.MageTower;
+  Elinor.Scene.MageTower,
+  Elinor.Difficulty;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -715,7 +716,7 @@ begin
   TextLeft := TFrame.Col(3) + 12;
   AddTextLine('Information', True);
   AddTextLine;
-  AddTextLine('Game Difficulty', TSaga.DifficultyName[TSaga.Difficulty]);
+  AddTextLine('Game Difficulty', DifficultyName[TSaga.Difficulty]);
   AddTextLine('Day', Game.Day);
   AddTextLine;
   AddTextLine('Statistics', True);

@@ -34,7 +34,8 @@ uses
   Elinor.Frame,
   Elinor.Scene.Frames,
   Elinor.Scene.Faction,
-  Elinor.Scene.Scenario;
+  Elinor.Scene.Scenario,
+  Elinor.Difficulty;
 
 procedure TSceneDifficulty.Cancel;
 begin
@@ -45,7 +46,7 @@ end;
 procedure TSceneDifficulty.Continue;
 begin
   inherited;
-  TSaga.Difficulty := TSaga.TDifficultyEnum(CurrentIndex);
+  TSaga.Difficulty := TDifficultyEnum(CurrentIndex);
   TSceneRace.Show;
 end;
 
@@ -57,10 +58,10 @@ end;
 procedure TSceneDifficulty.Render;
 var
   I: Integer;
-  LDifficultyEnum: TSaga.TDifficultyEnum;
+  LDifficultyEnum: TDifficultyEnum;
 const
-  LDifficultyImage: array [TSaga.TDifficultyEnum] of TResEnum =
-    (reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo);
+  LDifficultyImage: array [TDifficultyEnum] of TResEnum = (reDifficultyEasyLogo,
+    reDifficultyNormalLogo, reDifficultyHardLogo);
 begin
   inherited;
   DrawTitle(reTitleDifficulty);
@@ -74,10 +75,10 @@ begin
         reActFrame);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
-      AddTextLine(TSaga.DifficultyName[LDifficultyEnum], True);
+      AddTextLine(DifficultyName[LDifficultyEnum], True);
       AddTextLine;
       for I := 0 to 11 do
-        AddTextLine(TSaga.DifficultyDescription[LDifficultyEnum][I]);
+        AddTextLine(Difficulty.GetDescription(LDifficultyEnum, I));
     end;
   end;
 end;
@@ -91,9 +92,7 @@ end;
 procedure TSceneDifficulty.Update(var Key: Word);
 begin
   inherited;
-  UpdateEnum<TSaga.TDifficultyEnum>(Key);
+  UpdateEnum<TDifficultyEnum>(Key);
 end;
 
 end.
-
-

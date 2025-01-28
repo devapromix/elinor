@@ -91,7 +91,8 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Party,
   Elinor.PathFind,
-  Elinor.Scene.Leader;
+  Elinor.Scene.Leader,
+  Elinor.Difficulty;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
 begin

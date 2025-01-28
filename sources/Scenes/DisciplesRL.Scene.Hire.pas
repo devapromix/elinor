@@ -82,7 +82,7 @@ uses
   Elinor.Scene.Settlement,
   Elinor.Items,
   Elinor.Scene.Difficulty,
-  Elinor.Scene.Faction;
+  Elinor.Scene.Faction, Elinor.Difficulty;
 
 var
   CurCrEnum: TCreatureEnum;
@@ -663,7 +663,7 @@ var
   R: TFactionEnum;
   K: TFactionLeaderKind;
   S: TScenario.TScenarioEnum;
-  D: TSaga.TDifficultyEnum;
+  D: TDifficultyEnum;
   Z: TLeaderThiefSpyVar;
   N: TLeaderWarriorActVar;
   ItemRes: TResEnum;

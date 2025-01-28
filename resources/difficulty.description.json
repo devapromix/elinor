@@ -1,0 +1,44 @@
+﻿{
+    "easy": [
+        "Especially valuable in an unstable world,",
+        "where at every step you can get involved",
+        "in a bloody battle, is the ability",
+        "to improve your chances in one or several",
+        "upcoming fights by drinking a magical",
+        "elixir or reading a powerful",
+        "spell from a book of magic. The chances",
+        "of victory in this case increase",
+        "significantly, and the price for such efforts",
+        "becomes experience, an elixir, a sphere,",
+        "a talisman, a banner, or another rare ",
+		"artifact."
+    ],
+	"normal": [
+        "The magic of the creators of ancient ",
+        "knowledge and relics is still alive, as",
+        "are the memories and knowledge of",
+        "warriors of the past, miraculously sealed",
+        "in their tombs. By thoroughly exploring",
+        "abandoned and half-ruined buildings,",
+        "you can acquire something useful. For",
+        "example, the Talisman of Thanatos or",
+        "the Amulet of Mental Purity crafted by",
+        "sages. The owner of these artifacts,",
+        "invaluable knowledge, and skills could",
+		"be you."
+	],
+	"hard": [
+		"Enemies in Nevendaar are exceptionally",
+        "strong, which is why many put in titanic",
+        "efforts to defend themselves from their ",
+        "attacks, if not completely, then at least ",
+        "partially. Raw strength, the power of faith,",
+        "the skills of a commander, the agility and",
+        "precision of an adventurer, and the",
+        "thieving abilities of rogues will help you",
+        "avoid hostile attacks and discover",
+        "powerful ancient artifacts and relics as",
+        "well as gain valuable secret knowledge of",
+		"epochs that have sunk into oblivion."
+	]
+}

@@ -61,7 +61,8 @@ uses
   Elinor.Scene.NewAbility in 'Scenes\Elinor.Scene.NewAbility.pas',
   Elinor.Scene.MageTower in 'Scenes\Elinor.Scene.MageTower.pas',
   Elinor.Abilities in 'Game\Elinor.Abilities.pas',
-  Elinor.Direction in 'Game\Elinor.Direction.pas';
+  Elinor.Direction in 'Game\Elinor.Direction.pas',
+  Elinor.Difficulty in 'Game\Elinor.Difficulty.pas';
 
 {$R *.res}
 
