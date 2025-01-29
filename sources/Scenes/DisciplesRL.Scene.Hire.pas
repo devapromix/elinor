@@ -662,7 +662,7 @@ var
   Left, X, Y, I: Integer;
   R: TFactionEnum;
   K: TFactionLeaderKind;
-  S: TScenario.TScenarioEnum;
+  S: TScenarioEnum;
   D: TDifficultyEnum;
   Z: TLeaderThiefSpyVar;
   N: TLeaderWarriorActVar;

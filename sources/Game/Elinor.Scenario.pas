@@ -19,10 +19,15 @@ uses
 }
 
 type
+  TScenarioEnum = (sgDarkTower, sgOverlord,
+    sgAncientKnowledge { , sgDragonhunter } );
+
+const
+  ScenarioIdent: array [TScenarioEnum] of string = ('the-dark-tower',
+    'overlord', 'ancient-knowledge');
+
+type
   TScenario = class(TObject)
-  public type
-    TScenarioEnum = (sgDarkTower, sgOverlord,
-      sgAncientKnowledge { , sgDragonhunter } );
   public const
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
@@ -72,7 +77,8 @@ end;
 class function TScenario.GetDescription(const AScenarioEnum: TScenarioEnum;
   const AIndex: Integer): string;
 begin
-  Result := TResources.IndexValue('scenario.description', 'dark-tower', AIndex);
+  Result := TResources.IndexValue('scenario.description',
+    ScenarioIdent[AScenarioEnum], AIndex);
 end;
 
 function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
@@ -90,13 +96,13 @@ end;
 
 function TScenario.ScenarioAncientKnowledgeState: string;
 begin
-  Result := Format('Найдено каменных табличек: %d из %d',
+  Result := Format('Stone tablets found: %d of %d',
     [StoneTab, ScenarioStoneTabMax]);
 end;
 
 function TScenario.ScenarioOverlordState: string;
 begin
-  Result := Format('Захвачено городов: %d из %d',
+  Result := Format('Cities captured: %d of %d',
     [TMapPlace.GetCityCount, ScenarioCitiesMax]);
 end;
 

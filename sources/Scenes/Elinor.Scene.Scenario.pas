@@ -52,7 +52,7 @@ begin
     Game.Show(scMap)
   else
   begin
-    Game.Scenario.CurrentScenario := TScenario.TScenarioEnum(CurrentIndex);
+    Game.Scenario.CurrentScenario := TScenarioEnum(CurrentIndex);
     TSceneDifficulty.Show;
   end;
 end;
@@ -65,9 +65,9 @@ end;
 procedure TSceneScenario.Render;
 var
   I: Integer;
-  LScenarioEnum: TScenario.TScenarioEnum;
+  LScenarioEnum: TScenarioEnum;
 const
-  LScenarioImage: array [TScenario.TScenarioEnum] of TResEnum =
+  LScenarioImage: array [TScenarioEnum] of TResEnum =
     (reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
@@ -77,8 +77,8 @@ begin
     DrawTitle(reTitleJournal)
   else
     DrawTitle(reTitleScenario);
-  for LScenarioEnum := Low(TScenario.TScenarioEnum)
-    to High(TScenario.TScenarioEnum) do
+  for LScenarioEnum := Low(TScenarioEnum)
+    to High(TScenarioEnum) do
   begin
     DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LScenarioEnum)) + 7,
       LScenarioImage[LScenarioEnum]);
@@ -96,7 +96,6 @@ begin
       AddTextLine;
       for I := 0 to 9 do
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
-      AddTextLine;
       AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
       if TSaga.IsGame then
       begin
@@ -126,7 +125,7 @@ begin
     Exit;
   end;
   inherited;
-  UpdateEnum<TScenario.TScenarioEnum>(Key);
+  UpdateEnum<TScenarioEnum>(Key);
 end;
 
 end.

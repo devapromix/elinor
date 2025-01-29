@@ -1,14 +1,26 @@
 ﻿{
-  "dark-tower": [
+  "the-dark-tower": [
     "The Dark Tower rises majestically into ",
     "the sky, casting a shadow over the land.",
     "Its walls are black from time and magic,",
     "and an ominous silence reigns around.",
-    " The air thick with dark energy, a",
+    "The air thick with dark energy, a",
     "sense of dread fills the space.",
     "At the top of the tower, an evil sorcerer",
     "completes preparations for a secret",
     "ancient ritual. That could destroy all",
-    "life around..."
+    "life around."
+  ],
+  "overlord": [
+    "This land is torn by war, and the cries",
+	"of the fallen echo through the",
+	"devastation. Once proud free cities are",
+	"now overrun by invaders and lie in ruins",
+    "awaiting their fate. To claim the title of",
+	"Overlord, you must conquer every city on",
+	"the map, crushing all who stand in your",
+	"way. Your army must be unstoppable,",
+	"and your strategy impeccable. These",
+	"battles will determine the fate of this land."
   ]
 }
