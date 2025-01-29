@@ -70,17 +70,6 @@ begin
   inherited;
   case Button of
     mbLeft:
-      { begin
-        if Spells.CastAt(MousePos.X, MousePos.Y) or BB then
-        Exit;
-        if Game.Wizard and Game.Map.InMap(MousePos.X, MousePos.Y) then
-        TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
-        else if Game.Map.IsLeaderMove(MousePos.X, MousePos.Y) and
-        Game.Map.InMap(MousePos.X, MousePos.Y) then
-        TLeaderParty.Leader.PutAt(MousePos.X, MousePos.Y);
-        end;
-        mbRight:
-      }
       begin
         if (Game.Map.GetTile(lrDark, MousePos.X, MousePos.Y) = reDark) then
           Exit;
@@ -127,30 +116,6 @@ begin
         end;
         Game.Map.Clear(lrPath);
       end;
-    { mbMiddle:
-      begin
-      if BB then
-      Exit;
-
-      if TLeaderParty.Leader.InRadius(MousePos.X, MousePos.Y) then
-      if not TLeaderParty.Leader.IsPartyOwner(MousePos.X, MousePos.Y) then
-      begin
-      TSceneHire.MPX := MousePos.X;
-      TSceneHire.MPY := MousePos.Y;
-      // Leader Thief
-      if (TLeaderParty.Leader.Enum in LeaderThief) then
-      if TSaga.GetPartyIndex(MousePos.X, MousePos.Y) > 0 then
-      TSceneHire.Show(stSpy);
-      end
-      else
-      begin
-      // Leader Warrior
-      if (TLeaderParty.Leader.Enum in LeaderWarrior) then
-      if (MousePos.X = TLeaderParty.Leader.X) and
-      (MousePos.Y = TLeaderParty.Leader.Y) then
-      TSceneHire.Show(stWar);
-      end;
-      end; }
   end;
 end;
 
@@ -198,7 +163,7 @@ var
 
   procedure RenderNewDayMessage;
   begin
-    DrawImage(10, 10, reFrame);
+    DrawImage(10, 10, reFrameSlot);
     DrawImage(60, 10, reTextNewDay);
     DrawImage(45, 70, reGold);
     DrawText(75, 84, '+' + IntToStr(Game.Gold.FromMinePerDay));

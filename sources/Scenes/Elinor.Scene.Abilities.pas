@@ -113,7 +113,7 @@ procedure TSceneAbilities.Render;
       DrawUnit(LPosition, TLeaderParty.Leader, TFrame.Col(LPosition, psLeft),
         TFrame.Row(LPosition), False, True);
     GetSceneActivePartyPosition(LX, LY);
-    DrawImage(LX, LY, rePasFrame);
+    DrawImage(LX, LY, reFrameSlotPassive);
   end;
 
   procedure RenderAbilities;

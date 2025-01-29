@@ -73,7 +73,7 @@ begin
     if Ord(LPlayableRaces) = CurrentIndex then
     begin
       DrawImage(TFrame.Col(1), SceneTop + (Ord(LPlayableRaces) * 120),
-        reActFrame);
+        reFrameSlotActive);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
       LFactionEnum := TFactionEnum(CurrentIndex);

@@ -230,8 +230,8 @@ var
     case AObjID of
       0:
         LResEnum := reSTower;
-      // else
-      // LResEnum := reSTower;
+    else
+      LResEnum := reSTower;
     end;
     FMap[lrObj][AX, AY] := LResEnum;
   end;
@@ -471,7 +471,7 @@ end;
 function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
 begin
   Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
-    TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1) or Game.Wizard) and
+    TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1)) and
     not(FMap[lrObj][X, Y] in StopTiles);
 end;
 
@@ -579,14 +579,15 @@ begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
             := reNeutralCity;
           ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
-          TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y, False);
+          TSaga.AddPartyAt(Game.Map.MapPlace[I].X,
+            Game.Map.MapPlace[I].Y, False);
         end;
       TScenario.ScenarioTowerIndex: // Tower
         begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
             := reTower;
-          TSaga.AddPartyAt(Game.Map.MapPlace[I].X,
-            Game.Map.MapPlace[I].Y, False, True);
+          TSaga.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y,
+            False, True);
         end
     else // Ruin
       begin
@@ -597,12 +598,12 @@ begin
     end;
     // Mines
     repeat
-      DX := RandomRange(-2, 2);
-      DY := RandomRange(-2, 2);
+      DX := RandomRange(-1, 2);
+      DY := RandomRange(-1, 2);
     until ((DX <> 0) and (DY <> 0));
     repeat
-      FX := RandomRange(-2, 2);
-      FY := RandomRange(-2, 2);
+      FX := RandomRange(-1, 2);
+      FY := RandomRange(-1, 2);
     until ((FX <> 0) and (FY <> 0) and (FX <> DX) and (FY <> DY));
     case I of
       0 .. TScenario.ScenarioCitiesMax:

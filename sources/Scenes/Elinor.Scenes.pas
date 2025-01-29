@@ -702,12 +702,12 @@ begin
   if (ActivePartyPosition = LPartyPosition) then
   begin
     if F then
-      DrawImage(AX, AY, rePasFrame)
+      DrawImage(AX, AY, reFrameSlotPassive)
     else
-      DrawImage(AX, AY, reActFrame);
+      DrawImage(AX, AY, reFrameSlotActive);
   end
   else if (SelectPartyPosition = LPartyPosition) then
-    DrawImage(AX, AY, reSelectFrame);
+    DrawImage(AX, AY, reFrameSlotPassive);
 end;
 
 procedure TScene.RenderGuardianInfo;
@@ -773,8 +773,8 @@ end;
 
 function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
-  Result := (MX > AX) and (MX < AX + ResImage[reFrame].Width) and (MY > AY) and
-    (MY < AY + ResImage[reFrame].Height);
+  Result := (MX > AX) and (MX < AX + ResImage[reFrameSlot].Width) and (MY > AY)
+    and (MY < AY + ResImage[reFrameSlot].Height);
 end;
 
 function TScene.GetFramePosition(const AX, AY: Integer): Integer;
@@ -844,10 +844,10 @@ begin
       end
     else if CanHire then
     begin
-      DrawImage(((ResImage[reFrame].Width div 2) -
+      DrawImage(((ResImage[reFrameSlot].Width div 2) -
         (ResImage[rePlus].Width div 2)) + AX,
-        ((ResImage[reFrame].Height div 2) - (ResImage[rePlus].Height div 2)) +
-        AY, rePlus);
+        ((ResImage[reFrameSlot].Height div 2) - (ResImage[rePlus].Height div 2))
+        + AY, rePlus);
     end;
   end;
 end;

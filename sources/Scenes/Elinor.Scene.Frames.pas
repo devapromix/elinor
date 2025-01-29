@@ -60,7 +60,7 @@ begin
   end;
   for I := MinFrameCount to MaxFrameCount do
   begin
-    FSurface.Canvas.Draw(LLeft, LTop, ResImage[reFrame]);
+    FSurface.Canvas.Draw(LLeft, LTop, ResImage[reFrameSlot]);
     Inc(LTop, 120);
     if LTop > TScene.SceneTop + 240 then
     begin

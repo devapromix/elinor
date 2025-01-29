@@ -193,7 +193,7 @@ begin
   FShowInventory := False;
   EquipmentSelItemIndex := -1;
   InventorySelItemIndex := -1;
-  Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
+  Lf := ScrWidth - (ResImage[reFrameSlot].Width) - 2;
 end;
 
 destructor TSceneParty.Destroy;
@@ -320,7 +320,7 @@ var
     //
     if EquipmentSelItemIndex >= 0 then
       DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight)
-        + 42, reItemFrame);
+        + 42, reFrameItem);
     //
     AddTextLine('Экипировка', True);
     AddTextLine;
@@ -342,7 +342,7 @@ var
       (TLeaderParty.Leader.Inventory.Item(InventorySelItemIndex).Enum <> iNone)
     then
       DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
-        + 42, reItemFrame);
+        + 42, reFrameItem);
     //
     AddTextLine('Инвентарь', True);
     AddTextLine;
@@ -357,7 +357,7 @@ var
     // if (C <> crNone) then
     // TSceneHire(Game.GetScene(scHire)).RenderCharacterInfo(C, 20);
     TextTop := SceneTop + 6;
-    TextLeft := Lf + (ResImage[reActFrame].Width * 2) + 14 + 20;
+    TextLeft := Lf + (ResImage[reFrameSlotActive].Width * 2) + 14 + 20;
     AddTextLine('Statistics', True);
     AddTextLine;
   end;

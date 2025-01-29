@@ -25,10 +25,10 @@ type
 
     rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
-
-    reFrame, reSelectFrame, reSmallFrame, reActFrame, rePasFrame, reBigFrame,
-    reInfoFrame, reItemFrame,
-
+    // Frames
+    reFrameSlot, reFrameSlotActive, reFrameSlotPassive,
+    reSmallFrame, reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
+    //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
     reNoWay, reCursorMagic, rePlayer, rePlayerInvisibility, reDark,
@@ -121,6 +121,7 @@ const
     // None
     (FileName: ''; ResType: teNone;),
 
+    // PATH //
     // AMark
     (FileName: 'path.amark.png'; ResType: tePath;),
     // ASell
@@ -142,22 +143,25 @@ const
     (FileName: 'bg.paralyze.png'; ResType: teGUI;),
     // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
-    // Frame
-    (FileName: 'frame.png'; ResType: teGUI;),
-    // Select Frame
-    (FileName: 'frame.select.png'; ResType: teGUI;),
+
+    // FRAMES //
+    // Frame Slot
+    (FileName: 'frame.slot.png'; ResType: teGUI;),
+    // Frame Slot Active
+    (FileName: 'frame.slot.active.png'; ResType: teGUI;),
+    // Frame Slot Passive
+    (FileName: 'frame.slot.passive.png'; ResType: teGUI;),
     // Small Frame
     (FileName: 'frame.small.png'; ResType: teGUI;),
-    // Active Frame
-    (FileName: 'actframe.png'; ResType: teGUI;),
-    // Passive Frame
-    (FileName: 'pasframe.png'; ResType: teGUI;),
     // Big Frame
-    (FileName: 'big_frame.png'; ResType: teGUI;),
+    (FileName: 'frame.big.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'frame.info.png'; ResType: teGUI;),
-    // Item Frame
+    // Frame Item
     (FileName: 'frame.item.png'; ResType: teGUI;),
+    // Frame Item Active
+    (FileName: 'frame.item.active.png'; ResType: teGUI;),
+
     // Time
     (FileName: 'time.png'; ResType: teGUI;),
     // Neutral Terrain
@@ -246,6 +250,8 @@ const
     (FileName: 'button.act.png'; ResType: teGUI;),
     // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
+
+    // CHARACTERS //
     // Myzrael
     (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
     // Paladin
@@ -342,6 +348,7 @@ const
     (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
     // Rogue
     (FileName: 'character.neutrals.rogue.png'; ResType: teGUI;),
+
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"
@@ -944,16 +951,7 @@ begin
   begin
     ResImage[I] := TPNGImage.Create;
     if (ResBase[I].FileName <> '') then
-      case I of
-        reFrame:
-          ResImage[I].LoadFromResourceName(HInstance, 'FRAME_MAIN');
-        reActFrame:
-          ResImage[I].LoadFromResourceName(HInstance, 'FRAME_ACTIVE');
-        reSelectFrame:
-          ResImage[I].LoadFromResourceName(HInstance, 'FRAME_PASSIVE');
-      else
-        ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
-      end;
+      ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
   end;
   for J := Low(TMusicEnum) to High(TMusicEnum) do
   begin

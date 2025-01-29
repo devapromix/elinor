@@ -97,7 +97,7 @@ var
 begin
   inherited;
   GetSceneActivePartyPosition(LX, LY);
-  DrawImage(LX, LY, reActFrame);
+  DrawImage(LX, LY, reFrameSlotActive);
 end;
 
 procedure TSceneBaseParty.Update(var Key: Word);

@@ -245,7 +245,7 @@ var
 
   function TrySpy(V: TLeaderThiefSpyVar): Boolean;
   begin
-    Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V)) or Game.Wizard;
+    Result := (RandomRange(0, 100) <= ThiefChanceOfSuccess(V));
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
@@ -255,7 +255,7 @@ var
 
   function TryWar(V: TLeaderWarriorActVar): Boolean;
   begin
-    Result := (RandomRange(0, 100) <= WarriorChanceOfSuccess(V)) or Game.Wizard;
+    Result := (RandomRange(0, 100) <= WarriorChanceOfSuccess(V));
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
@@ -456,7 +456,7 @@ end;
 procedure TSceneHire.RenderFinalInfo;
 begin
   TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
+  TextLeft := Lf + ResImage[reFrameSlotActive].Width + 12;
   AddTextLine('Statistics', True);
   AddTextLine;
   AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
@@ -475,7 +475,7 @@ var
   S: TLeaderThiefSpyVar;
 begin
   TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
+  TextLeft := Lf + ResImage[reFrameSlotActive].Width + 12;
   S := TLeaderThiefSpyVar(CurrentIndex);
   AddTextLine(TSaga.SpyName[S], True);
   AddTextLine;
@@ -500,7 +500,7 @@ var
   S: TLeaderWarriorActVar;
 begin
   TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reActFrame].Width + 12;
+  TextLeft := Lf + ResImage[reFrameSlotActive].Width + 12;
   S := TLeaderWarriorActVar(CurrentIndex);
   AddTextLine(TSaga.WarName[S], True);
   AddTextLine;
@@ -568,8 +568,8 @@ begin
         Button[J][I].Sellected := True;
     end;
   end;
-  Lf := ScrWidth - (ResImage[reFrame].Width) - 2;
-  Lk := ScrWidth - (((ResImage[reFrame].Width) * 2) + 2);
+  Lf := ScrWidth - (ResImage[reFrameSlot].Width) - 2;
+  Lk := ScrWidth - (((ResImage[reFrameSlot].Width) * 2) + 2);
 end;
 
 destructor TSceneHire.Destroy;
@@ -708,9 +708,9 @@ begin
         for Z := svIntroduceSpy to svPoison do
         begin
           if Ord(Z) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reFrameSlotActive)
           else
-            DrawImage(Lf, SceneTop + Y, reFrame);
+            DrawImage(Lf, SceneTop + Y, reFrameSlot);
           RenderSpy(Z, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
@@ -722,9 +722,9 @@ begin
         for N := avRest to avWar3 do
         begin
           if Ord(N) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reActFrame)
+            DrawImage(Lf, SceneTop + Y, reFrameSlotActive)
           else
-            DrawImage(Lf, SceneTop + Y, reFrame);
+            DrawImage(Lf, SceneTop + Y, reFrameSlot);
           RenderWar(N, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
@@ -806,7 +806,7 @@ begin
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
-    DrawImage(Lf + ResImage[reActFrame].Width + 2, SceneTop, reInfoFrame);
+    DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop, reInfoFrame);
   case SubScene of
     stVictory, stDefeat:
       RenderFinalInfo;

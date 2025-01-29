@@ -86,10 +86,10 @@ begin
     begin
       if TSaga.IsGame then
         DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
-          rePasFrame)
+          reFrameSlotPassive)
       else
         DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
-          reActFrame);
+          reFrameSlotActive);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
       AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);

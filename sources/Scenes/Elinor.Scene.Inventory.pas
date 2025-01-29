@@ -155,7 +155,7 @@ procedure TSceneInventory.Render;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight) +
-      42, reItemFrame);
+      42, reFrameItem);
     AddTextLine('Equipment', True);
     AddTextLine;
     for I := 0 to MaxEquipmentItems - 1 do
@@ -177,7 +177,7 @@ procedure TSceneInventory.Render;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
     DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight) +
-      42, reItemFrame);
+      42, reFrameItem);
     AddTextLine('Inventory', True);
     AddTextLine;
     for I := 0 to MaxInventoryItems - 1 do

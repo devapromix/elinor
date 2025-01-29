@@ -171,7 +171,7 @@ begin
         LY := TFrame.Row(CurrentIndex - 3);
       end;
   end;
-  DrawImage(LX, LY, reActFrame);
+  DrawImage(LX, LY, reFrameSlotActive);
 
   RenderButtons;
 end;

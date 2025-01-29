@@ -72,7 +72,7 @@ begin
     if Ord(LDifficultyEnum) = CurrentIndex then
     begin
       DrawImage(TFrame.Col(1), SceneTop + (Ord(LDifficultyEnum) * 120),
-        reActFrame);
+        reFrameSlotActive);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
       AddTextLine(DifficultyName[LDifficultyEnum], True);

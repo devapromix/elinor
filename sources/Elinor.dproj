@@ -88,10 +88,10 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
-        <Debugger_RunParams>-w -m</Debugger_RunParams>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_Keys>CompanyName=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
         <Icon_MainIcon>Elinor_Icon.ico</Icon_MainIcon>
+        <Debugger_RunParams>-w</Debugger_RunParams>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -164,18 +164,6 @@
         <DCCReference Include="Game\Elinor.Abilities.pas"/>
         <DCCReference Include="Game\Elinor.Direction.pas"/>
         <DCCReference Include="Game\Elinor.Difficulty.pas"/>
-        <RcItem Include="Resources\Sprites\frame.passive.png">
-            <ResourceType>RCDATA</ResourceType>
-            <ResourceId>FRAME_PASSIVE</ResourceId>
-        </RcItem>
-        <RcItem Include="Resources\Sprites\frame.active.png">
-            <ResourceType>RCDATA</ResourceType>
-            <ResourceId>FRAME_ACTIVE</ResourceId>
-        </RcItem>
-        <RcItem Include="Resources\Sprites\frame.main.png">
-            <ResourceType>RCDATA</ResourceType>
-            <ResourceId>FRAME_MAIN</ResourceId>
-        </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -252,27 +240,9 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="..\Elinor.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Elinor.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Resources\Sprites\frame.passive.png" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
