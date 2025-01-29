@@ -4,7 +4,7 @@ interface
 
 uses
   Elinor.Spells,
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Resources;
 
 type
@@ -21,7 +21,7 @@ const
     // Undead Hordes Spellbook
     (spPlague, spCurse, spNone, spNone, spNone, spNone),
     // Legions Of The Damned Spellbook
-    (spConcealment, spChainsOfDread, spNone, spNone, spNone, spNone),
+    (spConcealment, spChainsOfDread, spWeaken, spNone, spNone, spNone),
     // MountainClans Spellbook
     (spNone, spNone, spNone, spNone, spNone, spNone),
     // ElvenAlliance Spellbook

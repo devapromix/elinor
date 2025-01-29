@@ -4,7 +4,7 @@ interface
 
 uses
   System.Types,
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Creatures,
   Elinor.MapObject,
   Elinor.Attribute,
@@ -80,6 +80,7 @@ type
     function GetMaxExperiencePerLevel(const Level: Integer): Integer;
     class procedure Gen(const AX, AY: Integer; IsFinal: Boolean); static;
     procedure ModifyPartyChancesToHit(const AValue: Integer);
+    procedure ModifyPartyDamage(const AValue: Integer);
   end;
 
 type
@@ -290,6 +291,14 @@ var
 begin
   for LPosition := Low(TPosition) to High(TPosition) do
     FCreature[LPosition].ChancesToHit.ModifyTempValue(AValue);
+end;
+
+procedure TParty.ModifyPartyDamage(const AValue: Integer);
+var
+  LPosition: TPosition;
+begin
+  for LPosition := Low(TPosition) to High(TPosition) do
+    FCreature[LPosition].Damage.ModifyTempValue(AValue);
 end;
 
 procedure TParty.MoveCreature(FromParty: TParty; const APosition: TPosition);

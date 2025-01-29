@@ -226,7 +226,7 @@ uses
   Elinor.Spellbook,
   Elinor.Scene.Party2,
   Elinor.Scene.Hire,
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Scene.Inventory,
   Elinor.Scene.Abilities,
   Elinor.Scene.NewAbility,

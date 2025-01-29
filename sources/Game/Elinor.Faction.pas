@@ -1,4 +1,4 @@
-﻿unit Elinor.Factions;
+﻿unit Elinor.Faction;
 
 interface
 
@@ -44,7 +44,7 @@ implementation
 class function TFaction.GetDescription(const AFactionEnum: TFactionEnum;
   const AIndex: Integer): string;
 begin
-  Result := TResources.IndexValue('factions.descriptions',
+  Result := TResources.IndexValue('faction.description',
     FactionIdent[AFactionEnum], AIndex);
 end;
 

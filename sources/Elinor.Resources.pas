@@ -89,7 +89,7 @@ type
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Spells
     reTrueHealing, reSpeed, reBless, reLivingArmor, rePlague, reConcealment,
-    reChainsOfDread, reCurse,
+    reChainsOfDread, reCurse, reWeaken,
     // Abilities
     reSharpEye,
     // Races
@@ -552,6 +552,8 @@ const
     (FileName: 'spell.chains_of_dread.png'; ResType: teGUI;),
     // Curse
     (FileName: 'spell.curse.png'; ResType: teGUI;),
+    // Weaken
+    (FileName: 'spell.weaken.png'; ResType: teGUI;),
 
     // ABILITIES //
     // Sharp Eye

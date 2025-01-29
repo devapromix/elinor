@@ -4,7 +4,7 @@ interface
 
 uses
   System.Types,
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Resources,
   Elinor.Difficulty,
   Elinor.Party,

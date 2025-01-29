@@ -72,7 +72,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Statistics,
   Elinor.Common,
   Elinor.Map,

@@ -10,7 +10,7 @@ interface
 {$ENDIF}
 
 uses
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Attribute,
   Elinor.Resources;
 

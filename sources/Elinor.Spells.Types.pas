@@ -3,7 +3,7 @@
 interface
 
 uses
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Resources;
 
 type

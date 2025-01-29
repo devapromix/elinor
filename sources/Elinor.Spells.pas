@@ -3,7 +3,7 @@
 interface
 
 uses
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Resources,
   Elinor.Spells.Types;
 
@@ -14,7 +14,7 @@ type
     // Undead Hordes Spellbook
     spPlague, spCurse,
     // Legions of the Damned Spellbook
-    spConcealment, spChainsOfDread
+    spConcealment, spChainsOfDread, spWeaken
     //
     );
   // enum class SpellType
@@ -140,6 +140,14 @@ type
     procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
+type
+  TWeakenSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
 var
   Spells: TSpells;
 
@@ -185,7 +193,10 @@ const
     // Chains Of Dread
     (Name: 'Chains Of Dread'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
     ResEnum: reChainsOfDread; Faction: faLegionsOfTheDamned;
-    SpellTarget: stEnemy;)
+    SpellTarget: stEnemy;),
+    // Weaken
+    (Name: 'Weaken'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
+    ResEnum: reWeaken; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;)
     //
     );
 
@@ -330,6 +341,7 @@ begin
   FSpell[spCurse] := TCurseSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
+  FSpell[spWeaken] := TWeakenSpell.Create;
 end;
 
 { TTrueHealingSpell }
@@ -426,6 +438,18 @@ end;
 constructor TBlessSpell.Create;
 begin
   inherited Create(spBless);
+end;
+
+{ TWeakenSpell }
+
+procedure TWeakenSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  Party[APartyIndex].ModifyPartyDamage(10);
+end;
+
+constructor TWeakenSpell.Create;
+begin
+  inherited Create(spWeaken);
 end;
 
 initialization

@@ -153,7 +153,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Hire.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Barracks.pas"/>
         <DCCReference Include="Elinor.Spells.Types.pas"/>
-        <DCCReference Include="Game\Elinor.Factions.pas"/>
+        <DCCReference Include="Game\Elinor.Faction.pas"/>
         <DCCReference Include="Game\Elinor.Spellbook.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Skills.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Inventory.pas"/>
@@ -252,7 +252,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -270,7 +270,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Resources\Sprites\frame.active.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="Resources\Sprites\frame.main.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

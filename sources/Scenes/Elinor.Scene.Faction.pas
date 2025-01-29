@@ -30,7 +30,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Factions,
+  Elinor.Faction,
   Elinor.Scene.Difficulty,
   Elinor.Saga,
   Elinor.Frame,

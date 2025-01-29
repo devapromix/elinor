@@ -52,7 +52,7 @@ uses
   Elinor.Scene.Hire in 'Scenes\Elinor.Scene.Hire.pas',
   Elinor.Scene.Barracks in 'Scenes\Elinor.Scene.Barracks.pas',
   Elinor.Spells.Types in 'Elinor.Spells.Types.pas',
-  Elinor.Factions in 'Game\Elinor.Factions.pas',
+  Elinor.Faction in 'Game\Elinor.Faction.pas',
   Elinor.Spellbook in 'Game\Elinor.Spellbook.pas',
   Elinor.Scene.Skills in 'Scenes\Elinor.Scene.Skills.pas',
   Elinor.Scene.Inventory in 'Scenes\Elinor.Scene.Inventory.pas',
