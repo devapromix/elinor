@@ -121,8 +121,25 @@ begin
   case AButton of
     mbLeft:
       begin
+        case ActiveSection of
+          isEquipment:
+            if (EquipmentSelItemIndex > -1) then
+            begin
+              TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
+            end;
+          isInventory:
+            if (InventorySelItemIndex > -1) then
+            begin
+              TLeaderParty.Leader.Equip(InventorySelItemIndex);
+            end;
+
+        end;
         if Button[btClose].MouseDown then
           HideScene;
+      end;
+    mbRight:
+      begin
+
       end;
   end;
 end;
@@ -132,6 +149,21 @@ var
   LButtonEnum: TButtonEnum;
 begin
   inherited;
+  if MouseOver(X, Y, TFrame.Col(1, psLeft) + 8, TFrame.Row(0) + 48, 640,
+    TextLineHeight * 12) then
+    ActiveSection := isParty;
+  if MouseOver(X, Y, TFrame.Col(0, psRight) + 8, TFrame.Row(0) + 48, 320,
+    TextLineHeight * 12) then
+  begin
+    ActiveSection := isEquipment;
+    EquipmentSelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight;
+  end;
+  if MouseOver(X, Y, TFrame.Col(1, psRight) + 8, TFrame.Row(0) + 48, 320,
+    TextLineHeight * 12) then
+  begin
+    ActiveSection := isInventory;
+    InventorySelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight;
+  end;
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
     Button[LButtonEnum].MouseMove(X, Y);
 end;
