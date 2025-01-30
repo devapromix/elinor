@@ -141,11 +141,17 @@ procedure TSceneInventory.Render;
   procedure RenderParty;
   var
     LPosition: TPosition;
+    LX, LY: Integer;
   begin
     if (CurrentParty <> nil) then
       for LPosition := Low(TPosition) to High(TPosition) do
         DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
           TFrame.Row(LPosition), False, True);
+    if ActiveSection <> isParty then
+    begin
+      GetSceneActivePartyPosition(LX, LY);
+      DrawImage(LX, LY, reFrameSlotPassive);
+    end;
   end;
 
   procedure RenderEquipment;
@@ -154,8 +160,15 @@ procedure TSceneInventory.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
-    DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight) +
-      42, reFrameItem);
+    case ActiveSection of
+      isEquipment:
+        DrawImage(TextLeft - 4,
+          TextTop + (EquipmentSelItemIndex * TextLineHeight) + 42,
+          reFrameItemActive);
+    else
+      DrawImage(TextLeft - 4, TextTop + (EquipmentSelItemIndex * TextLineHeight)
+        + 42, reFrameItem);
+    end;
     AddTextLine('Equipment', True);
     AddTextLine;
     for I := 0 to MaxEquipmentItems - 1 do
@@ -176,8 +189,15 @@ procedure TSceneInventory.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight) +
-      42, reFrameItem);
+    case ActiveSection of
+      isInventory:
+        DrawImage(TextLeft - 4,
+          TextTop + (InventorySelItemIndex * TextLineHeight) + 42,
+          reFrameItemActive);
+    else
+      DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
+        + 42, reFrameItem);
+    end;
     AddTextLine('Inventory', True);
     AddTextLine;
     for I := 0 to MaxInventoryItems - 1 do
