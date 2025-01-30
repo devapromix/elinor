@@ -38,7 +38,6 @@ type
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
   private
-    procedure RenderHighScores;
     procedure RenderFinalInfo;
     procedure UpdEnum<N>(AKey: Word);
     procedure Basic(AKey: Word);
@@ -450,11 +449,6 @@ begin
   AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
   AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
   AddTextLine('Scores', Game.Statistics.GetValue(stScores));
-end;
-
-procedure TSceneHire.RenderHighScores;
-begin
-
 end;
 
 procedure TSceneHire.RenderSpyInfo;

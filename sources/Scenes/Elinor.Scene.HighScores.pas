@@ -30,7 +30,7 @@ uses
   Math,
   SysUtils,
   Elinor.Scenario,
-  Elinor.Frame;
+  Elinor.Frame, Elinor.Statistics;
 
 { TSceneHighScores }
 
@@ -64,11 +64,17 @@ begin
   DrawTitle(reTitleHighScores);
 
   DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
-    reFrameSlotActive);
+    reFrameSlotPassive);
   TextTop := TFrame.Row(0) + 6;
   TextLeft := TFrame.Col(2) + 12;
-  AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);
+  AddTextLine('Statistics', True);
   AddTextLine;
+  AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
+  AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
+  AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
+  AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
+  AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
+  AddTextLine('Scores', Game.Statistics.GetValue(stScores));
 end;
 
 class procedure TSceneHighScores.ShowScene;
