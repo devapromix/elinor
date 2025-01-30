@@ -17,8 +17,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stVictory, stDefeat, stHighScores2, stLoot, stStoneTab,
-    stSpy, stWar);
+  THireSubSceneEnum = (stVictory, stDefeat, stLoot, stStoneTab, stSpy, stWar);
 
 type
 
@@ -82,7 +81,7 @@ uses
   Elinor.Scene.Settlement,
   Elinor.Items,
   Elinor.Scene.Difficulty,
-  Elinor.Scene.Faction, Elinor.Difficulty;
+  Elinor.Scene.Faction, Elinor.Difficulty, Elinor.Scene.HighScores;
 
 var
   CurCrEnum: TCreatureEnum;
@@ -95,8 +94,6 @@ const
     // Victory
     (reTextClose, reTextClose),
     // Defeat
-    (reTextClose, reTextClose),
-    // Scores
     (reTextClose, reTextClose),
     // Loot
     (reTextClose, reTextClose),
@@ -112,9 +109,8 @@ const
 const
   AddButtonScene = [stLoot, stStoneTab];
   CloseCloseScene = [];
-  CloseButtonScene = [stVictory, stDefeat, stHighScores2] + AddButtonScene +
-    CloseCloseScene;
-  MainButtonsScene = [stHighScores2, stSpy, stWar];
+  CloseButtonScene = [stVictory, stDefeat] + AddButtonScene + CloseCloseScene;
+  MainButtonsScene = [stSpy, stWar];
   WideButtonScene = [];
 
 var
@@ -200,16 +196,12 @@ begin
     stDefeat:
       begin
         TSaga.IsGame := False;
-        TSceneHire.Show(stHighScores2);
+        TSceneHighScores.ShowScene;
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
-        TSceneHire.Show(stHighScores2);
-      end;
-    stHighScores2:
-      begin
-        Game.Show(scMenu);
+        TSceneHighScores.ShowScene;
       end;
   end;
 end;
@@ -269,18 +261,14 @@ begin
     stDefeat:
       begin
         TSaga.IsGame := False;
-        TSceneHire.Show(stHighScores2);
+        TSceneHighScores.ShowScene;
         Game.MediaPlayer.PlayMusic(mmMenu);
       end;
     stVictory:
       begin
         TSaga.IsGame := False;
-        TSceneHire.Show(stHighScores2);
+        TSceneHighScores.ShowScene;
         Game.MediaPlayer.PlayMusic(mmMenu);
-      end;
-    stHighScores2:
-      begin
-        Game.Show(scMenu);
       end;
     stStoneTab:
       begin
@@ -510,8 +498,8 @@ begin
   AddTextLine;
   AddTextLine;
   AddTextLine;
-  //AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
-  //  TLeaderParty.Leader.GetMaxSpy]));
+  // AddTextLine(Format('Попыток на день: %d/%d', [TLeaderParty.Leader.Spy,
+  // TLeaderParty.Leader.GetMaxSpy]));
   AddTextLine(Format('Вероятность успеха: %d %', [WarriorChanceOfSuccess(S)]));
 end;
 
@@ -739,11 +727,6 @@ begin
         DrawImage(reWallpaperDefeat);
         DrawTitle(reTitleDefeat);
       end;
-    stHighScores2:
-      begin
-        DrawImage(reWallpaperDefeat);
-        DrawTitle(reTitleHighScores);
-      end;
     stStoneTab:
       begin
         DrawImage(reWallpaperLoot);
@@ -806,12 +789,11 @@ begin
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
-    DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop, reInfoFrame);
+    DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop,
+      reInfoFrame);
   case SubScene of
     stVictory, stDefeat:
       RenderFinalInfo;
-    stHighScores2:
-      RenderHighScores;
     stSpy:
       RenderSpyInfo;
     stWar:
@@ -870,7 +852,7 @@ begin
       Upd(Ord(High(TLeaderThiefSpyVar)));
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
-    stVictory, stDefeat, stHighScores2:
+    stVictory, stDefeat:
       Basic(Key);
   end;
   if (SubScene in CloseButtonScene) then

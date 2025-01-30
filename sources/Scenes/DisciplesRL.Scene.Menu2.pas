@@ -41,7 +41,7 @@ type
     procedure ConfirmQuit;
     procedure PlayGame;
     procedure ContinueGame;
-    procedure HighScores;
+    procedure ShowHighScores;
   public
     constructor Create;
     destructor Destroy; override;
@@ -59,7 +59,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
-  DisciplesRL.Scene.Hire;
+  DisciplesRL.Scene.Hire, Elinor.Scene.HighScores;
 
 procedure TSceneMenu2.Next;
 begin
@@ -97,9 +97,9 @@ begin
   end;
 end;
 
-procedure TSceneMenu2.HighScores;
+procedure TSceneMenu2.ShowHighScores;
 begin
-  TSceneHire.Show(stHighScores2);
+  TSceneHighScores.ShowScene;
 end;
 
 { TSceneMenu }
@@ -159,7 +159,7 @@ begin
             Next;
           end;
         if Icons[itHighScores].MouseDown then
-          HighScores;
+          ShowHighScores;
         if Icons[itQuit].MouseDown then
           ConfirmQuit;
       end;
@@ -227,7 +227,7 @@ begin
     K_ESCAPE:
       ConfirmQuit;
     K_S:
-      HighScores;
+      ShowHighScores;
     K_UP:
       CursorPos := LButtonCycler.Prev;
     // IIF(CursorPos = ButtonMin, ButtonMax, Pred(CursorPos));

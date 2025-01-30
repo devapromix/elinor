@@ -20,14 +20,14 @@ type
 
 type
   TResEnum = (reNone,
-
+    //
     reAMark, reASell,
-
+    //
     rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
-    reFrameSlot, reFrameSlotActive, reFrameSlotPassive,
-    reSmallFrame, reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
+    reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reSmallFrame,
+    reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -40,7 +40,7 @@ type
     // Trees
     reTree1, reTree2, reTree3, reTree4, reTree5, reUndeadHordesTree,
     reLegionsOfTheDamnedTree,
-
+    //
     reButtonDef, reButtonAct, reCorpse,
     // Creatures
     reMyzrael, rePaladin, reRanger, reArchmage, reSquire, reArcher, reThief,
@@ -66,17 +66,20 @@ type
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
     reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
     reTitleSpellbook, reTitleJournal, reTitleMageTower, reTitleBarracks,
-    //
+
+    // SCENARIO //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
-    // Items
+
+    // ITEMS //
     reItemGold, reItemMana, reItemStoneTable, reItemPotionOfHealing,
+
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
     reThiefSpy, reThiefDuel, reThiefPoison,
     //
     reWarriorRest,
-
+    //
     reWarriorRitual,
     //
     reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,

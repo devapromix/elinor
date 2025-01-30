@@ -253,8 +253,8 @@ procedure TSceneTemple.Revive;
       end
       else
       begin
-        ConfirmGold := TLeaderParty.Leader.GetGold
-          (HitPoints.GetMaxValue + (Level * ((Ord(TSaga.Difficulty) + 1) *
+        ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue +
+          (Level * ((Ord(TSaga.Difficulty) + 1) *
           TSaga.GoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin
