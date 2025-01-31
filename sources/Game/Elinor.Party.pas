@@ -64,6 +64,7 @@ type
     procedure HealParty(const AHitPoints: Integer);
     procedure Paralyze(const APosition: TPosition);
     procedure Revive(const APosition: TPosition);
+    procedure ReviveParty;
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
     procedure UpdateLevel(const APosition: TPosition); virtual;
@@ -115,6 +116,7 @@ type
     procedure Turn(const ACount: Integer = 1);
     procedure ChCityOwner;
     class function Leader: TLeaderParty;
+    class function Summoned: TLeaderParty;
     class procedure Move(const AX, AY: ShortInt); overload;
     class procedure Move(Dir: TDirectionEnum); overload;
     class procedure PutAt(const AX, AY: ShortInt;
@@ -439,6 +441,14 @@ begin
   with FCreature[APosition] do
     if not Alive then
       HitPoints.SetCurrValue(1);
+end;
+
+procedure TParty.ReviveParty;
+var
+  LPosition: TPosition;
+begin
+  for LPosition := Low(TPosition) to High(TPosition) do
+    Revive(LPosition);
 end;
 
 procedure TParty.SetCreature(APosition: TPosition; const Value: TCreature);
@@ -912,6 +922,11 @@ end;
 procedure TLeaderParty.SetMaxSpellsPerDay;
 begin
   SpellsPerDay.SetValue(Leader.GetMaxSpellsPerDay);
+end;
+
+class function TLeaderParty.Summoned: TLeaderParty;
+begin
+  Result := TLeaderParty(Party[SummonPartyIndex]);
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);

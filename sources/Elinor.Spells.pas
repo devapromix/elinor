@@ -158,7 +158,7 @@ uses
   Elinor.Saga,
   Elinor.Party,
   Elinor.Creatures,
-  Elinor.Scenes;
+  Elinor.Scenes, Elinor.Scene.Battle2;
 
 type
   TSpellBaseArray = array [TSpellEnum] of TSpellBase;
@@ -372,7 +372,7 @@ end;
 
 procedure TLivingArmorSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Game.Show(scBattle);
+  TSceneBattle2.SummonCreature(APartyIndex, crGoblin);
 end;
 
 constructor TLivingArmorSpell.Create;

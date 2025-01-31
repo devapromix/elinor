@@ -48,6 +48,7 @@ type
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
+    class var EnemyPartyIndex: Integer;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -61,6 +62,8 @@ type
     class procedure AfterVictory;
     class procedure ShowScene();
     class procedure HideScene;
+    class procedure SummonCreature(const APartyIndex: Integer;
+      const ACreatureEnum: TCreatureEnum);
   end;
 
 implementation
@@ -75,7 +78,9 @@ uses
   Elinor.Button,
   Elinor.Scene.Party,
   Elinor.Scene.Defeat,
-  Elinor.Scene.NewAbility, DisciplesRL.Scene.Hire;
+  Elinor.Scene.NewAbility,
+  DisciplesRL.Scene.Hire,
+  Elinor.Map;
 
 var
   CloseButton: TButton;
@@ -87,6 +92,7 @@ const
 
 class procedure TSceneBattle2.AfterVictory;
 begin
+  IsSummon := False;
   TLeaderParty.Leader.UnParalyzeParty;
   TLeaderParty.Leader.ClearTempValuesAll;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
@@ -278,10 +284,16 @@ begin
   end
   else
   begin
-    EnemyParty := Party[I];
-    LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
-    // LeaderParty := Party[TLeaderParty.SummonPartyIndex];
-    IsSummon := True;
+    if IsSummon then
+    begin
+      EnemyParty := Party[EnemyPartyIndex];
+      LeaderParty := Party[TLeaderParty.SummonPartyIndex]
+    end
+    else
+    begin
+      EnemyParty := Party[I];
+      LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+    end;
   end;
   ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
@@ -680,6 +692,17 @@ procedure TSceneBattle2.StartRound;
 begin
   SetInitiative;
   NextTurn;
+end;
+
+class procedure TSceneBattle2.SummonCreature(const APartyIndex: Integer;
+  const ACreatureEnum: TCreatureEnum);
+begin
+  TLeaderParty.Leader.Invisibility := False;
+  EnemyPartyIndex := APartyIndex;
+  IsSummon := True;
+  TLeaderParty.Summoned.ReviveParty;
+  TLeaderParty.Summoned.HealParty(9999);
+  Game.Show(scBattle);
 end;
 
 procedure TSceneBattle2.SetInitiative;

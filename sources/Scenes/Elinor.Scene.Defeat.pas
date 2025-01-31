@@ -51,7 +51,6 @@ class procedure TSceneDefeat.ShowScene;
 begin
   ActivePartyPosition := TLeaderParty.GetPosition;
   Game.Show(scDefeat);
-  Game.MediaPlayer.PlayMusic(mmDefeat);
 end;
 
 class procedure TSceneDefeat.HideScene;
