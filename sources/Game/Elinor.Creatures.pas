@@ -50,7 +50,7 @@ type
     // Undead Hordes Warrior Leader
     crDeathKnight,
     // Undead Hordes Scout Leader
-    crNosferat,
+    crNosferatu,
     // Undead Hordes Mage Leader
     crLichQueen,
     // Undead Hordes Thief Leader
@@ -115,7 +115,7 @@ type
 
 const
   FighterLeaders = [crPaladin, crDeathKnight, crDuke];
-  ScoutingLeaders = [crRanger, crNosferat, crCounselor];
+  ScoutingLeaders = [crRanger, crNosferatu, crCounselor];
   MageLeaders = [crArchmage, crLichQueen, crArchDevil];
   ThiefLeaders = [crThief, crThug, crRipper];
   LordLeaders = [crWarlord, crDominator, crChieftain];
@@ -190,7 +190,7 @@ const
     // Undead Hordes Capital Guardian
     ((crNone, crNone, crAshgan, crNone, crNone, crNone),
     // Undead Hordes Leaders
-    (crDeathKnight, crNosferat, crLichQueen, crThug, crDominator, crNone), //
+    (crDeathKnight, crNosferatu, crLichQueen, crThug, crDominator, crNone), //
     // Undead Hordes Characters
     (crFighter, crGhost, crInitiate, crWyvern, crNone, crNone)), //
     //
@@ -430,7 +430,7 @@ type
     abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
     abLeadership1, abLeadership2, abLeadership3, abLeadership4,
     abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
-    abDealmaker, abHaggler, skProtect, skTalisman, skInstructor, skBook, skOrb,
+    abDealmaker, abHaggler, skNaturalArmor, skArcanePower, skWeaponMaster, skArcaneKnowledge, skArcaneLore,
     abSorcery, abTemplar, abMountaineering, abForestry, abDoragorPower,
     abVampirism);
 

@@ -37,7 +37,7 @@ const
     (Enum: abSharpEye; Name: 'Sharp Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 1;
     Leaders: ScoutingLeaders; ResEnum: reSharpEye;),
-    // Hawk Eye #2
+    // Hawk Eye
     (Enum: abHawkEye; Name: 'Hawk Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 3;
     Leaders: ScoutingLeaders; ResEnum: reNone;),
@@ -79,8 +79,8 @@ const
     Level: 1; Leaders: MageLeaders; ResEnum: reNone;),
     // Accuracy
     (Enum: abAccuracy; Name: 'Accuracy';
-    Description: ('Increases the leader''s chance to', 'hit the enemy.');
-    Level: 6; Leaders: ScoutingLeaders; ResEnum: reNone;),
+    Description: ('Increases the leader''s chance to', 'hit the enemy');
+    Level: 6; Leaders: AllLeaders; ResEnum: reNone;),
     // Pathfinding
     (Enum: abPathfinding; Name: 'Pathfinding';
     Description: ('Increases the distance that the',
@@ -102,32 +102,30 @@ const
     'receives a 15% discount from the merchant'); Level: 5;
     Leaders: LordLeaders; ResEnum: reNone;),
     // Natural Armor
-    (Enum: skProtect; Name: 'Естественная Броня';
-    Description: ('Предводитель будет поглощать 10%', 'наносимого ему урона.');
+    (Enum: skNaturalArmor; Name: 'Natural Armor';
+    Description: ('The leader will absorb 10% of ', 'damage dealt to him');
     Level: 6; Leaders: AllLeaders; ResEnum: reNone;),
-    // Talisman
-    (Enum: skTalisman; Name: 'Сила Талисманов';
-    Description: ('Позволяет предводителю надевать',
-    'талисманы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;
+    // Arcane Power
+    (Enum: skArcanePower; Name: 'Arcane Power';
+    Description: ('Allows the leader to put on talismans',
+    'and use them in battle'); Level: 1; Leaders: AllLeaders; ResEnum: reNone;),
+    // Weapon Master
+    (Enum: skWeaponMaster; Name: 'Weapon Master';
+    Description: ('All the warriors in the party of the leader',
+    'will gain more experience'); Level: 4; Leaders: AllLeaders;
     ResEnum: reNone;),
-    // Instructor
-    (Enum: skInstructor; Name: 'Инструктор';
-    Description: ('Все воины в отряде предводителя',
-    'будут получать больше опыта.'); Level: 4; Leaders: AllLeaders;
-    ResEnum: reNone;),
-    // Book
-    (Enum: skBook; Name: 'Тайное Знание';
-    Description: ('Позволяет предводителю читать',
-    'магические книги и таблички.'); Level: 1; Leaders: AllLeaders;
-    ResEnum: reNone;),
-    // Orb
-    (Enum: skOrb; Name: 'Знание Сфер';
-    Description: ('Позволяет предводителю брать в руки',
-    'сферы и использовать их в бою.'); Level: 1; Leaders: AllLeaders;
+    // Arcane Knowledge
+    (Enum: skArcaneKnowledge; Name: 'Arcane Knowledge';
+    Description: ('Allows the leader to read', 'magic books'); Level: 1;
+    Leaders: AllLeaders; ResEnum: reNone;),
+    // Arcane Lore
+    (Enum: skArcaneLore; Name: 'Arcane Lore';
+    Description: ('Allows the leader to take in hand',
+    'spheres and use them in battle'); Level: 1; Leaders: AllLeaders;
     ResEnum: reNone;),
     // Sorcery
     (Enum: abSorcery; Name: 'Sorcery';
-    Description: ('Allows the leader to cast spells', 'twice a day.'); Level: 1;
+    Description: ('Allows the leader to cast spells', 'twice a day'); Level: 1;
     Leaders: MageLeaders; ResEnum: reNone;),
     // Templar
     (Enum: abTemplar; Name: 'Templar';
@@ -151,7 +149,7 @@ const
     // Vampirism
     (Enum: abVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
-    Level: 1; Leaders: [crNosferat]; ResEnum: reNone;)
+    Level: 1; Leaders: [crNosferatu]; ResEnum: reNone;)
     //
     );
 
