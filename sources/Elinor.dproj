@@ -166,6 +166,7 @@
         <DCCReference Include="Game\Elinor.Difficulty.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.HighScores.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Victory.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Defeat.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

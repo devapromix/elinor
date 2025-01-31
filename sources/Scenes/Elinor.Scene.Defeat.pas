@@ -1,4 +1,4 @@
-﻿unit Elinor.Scene.Victory;
+﻿unit Elinor.Scene.Defeat;
 
 interface
 
@@ -13,7 +13,7 @@ uses
   Elinor.Scenes;
 
 type
-  TSceneVictory = class(TSceneBaseParty)
+  TSceneDefeat = class(TSceneBaseParty)
   private type
     TButtonEnum = (btClose);
   private const
@@ -45,16 +45,16 @@ uses
   Elinor.Frame,
   Elinor.Creatures;
 
-{ TSceneVictory }
+{ TSceneDefeat }
 
-class procedure TSceneVictory.ShowScene;
+class procedure TSceneDefeat.ShowScene;
 begin
   ActivePartyPosition := TLeaderParty.GetPosition;
-  Game.Show(scVictory);
-  Game.MediaPlayer.PlayMusic(mmVictory);
+  Game.Show(scDefeat);
+  Game.MediaPlayer.PlayMusic(mmDefeat);
 end;
 
-class procedure TSceneVictory.HideScene;
+class procedure TSceneDefeat.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlayMusic(mmMenu);
@@ -62,7 +62,7 @@ begin
   TSceneHighScores.ShowScene;
 end;
 
-constructor TSceneVictory.Create;
+constructor TSceneDefeat.Create;
 var
   LButtonEnum: TButtonEnum;
   LLeft, LWidth: Integer;
@@ -80,7 +80,7 @@ begin
   end;
 end;
 
-destructor TSceneVictory.Destroy;
+destructor TSceneDefeat.Destroy;
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -89,7 +89,7 @@ begin
   inherited;
 end;
 
-procedure TSceneVictory.MouseDown(AButton: TMouseButton; Shift: TShiftState;
+procedure TSceneDefeat.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
@@ -102,7 +102,7 @@ begin
   end;
 end;
 
-procedure TSceneVictory.MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TSceneDefeat.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -111,7 +111,7 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneVictory.Render;
+procedure TSceneDefeat.Render;
 
   procedure RenderParty;
   var
@@ -144,7 +144,7 @@ procedure TSceneVictory.Render;
 begin
   inherited;
 
-  DrawTitle(reTitleVictory);
+  DrawTitle(reTitleDefeat);
 
   RenderParty;
   RenderCharacterInfo;
@@ -154,13 +154,13 @@ begin
   RenderButtons;
 end;
 
-procedure TSceneVictory.Timer;
+procedure TSceneDefeat.Timer;
 begin
   inherited;
 
 end;
 
-procedure TSceneVictory.Update(var Key: Word);
+procedure TSceneDefeat.Update(var Key: Word);
 begin
   inherited;
   case Key of

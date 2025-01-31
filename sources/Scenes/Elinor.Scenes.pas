@@ -22,7 +22,7 @@ type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower,
-    scHighScores, scVictory);
+    scHighScores, scVictory, scDefeat);
 
 const
   ScreenWidth = 1344;
@@ -150,7 +150,7 @@ type
       IsDrawTransparent: Boolean = False);
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer);
-    procedure RenderLeaderInfo;
+    procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
     procedure RenderGuardianInfo;
 
   end;
@@ -234,6 +234,7 @@ uses
   Elinor.Scene.MageTower,
   Elinor.Scene.HighScores,
   Elinor.Scene.Victory,
+  Elinor.Scene.Defeat,
   Elinor.Difficulty;
 
 type
@@ -734,7 +735,7 @@ begin
   AddTextLine('Leadership 5');
 end;
 
-procedure TScene.RenderLeaderInfo;
+procedure TScene.RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
 begin
   TextTop := TFrame.Row(0) + 6;
   TextLeft := TFrame.Col(3) + 12;
@@ -746,6 +747,8 @@ begin
   AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
   AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
   AddTextLine('Scores', Game.Statistics.GetValue(stScores));
+  if AIsOnlyStatistics then
+    Exit;
   AddTextLine('Parameters', True);
   AddTextLine;
   AddTextLine(Format('Movement points %d/%d',
@@ -883,6 +886,7 @@ begin
   FScene[scMageTower] := TSceneMageTower.Create;
   FScene[scHighScores] := TSceneHighScores.Create;
   FScene[scVictory] := TSceneVictory.Create;
+  FScene[scDefeat] := TSceneDefeat.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

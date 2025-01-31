@@ -74,8 +74,8 @@ uses
   Elinor.Resources,
   Elinor.Button,
   Elinor.Scene.Party,
-  DisciplesRL.Scene.Hire,
-  Elinor.Scene.NewAbility;
+  Elinor.Scene.Defeat,
+  Elinor.Scene.NewAbility, DisciplesRL.Scene.Hire;
 
 var
   CloseButton: TButton;
@@ -253,7 +253,7 @@ begin
     Game.Show(scMap);
     Exit;
   end;
-  TSceneHire.Show(stDefeat);
+  TSceneDefeat.ShowScene;
 end;
 
 procedure TSceneBattle2.StartBattle;

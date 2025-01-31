@@ -64,7 +64,8 @@ uses
   Elinor.Direction in 'Game\Elinor.Direction.pas',
   Elinor.Difficulty in 'Game\Elinor.Difficulty.pas',
   Elinor.Scene.HighScores in 'Scenes\Elinor.Scene.HighScores.pas',
-  Elinor.Scene.Victory in 'Scenes\Elinor.Scene.Victory.pas';
+  Elinor.Scene.Victory in 'Scenes\Elinor.Scene.Victory.pas',
+  Elinor.Scene.Defeat in 'Scenes\Elinor.Scene.Defeat.pas';
 
 {$R *.res}
 

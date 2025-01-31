@@ -17,7 +17,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stDefeat, stLoot, stStoneTab, stSpy, stWar);
+  THireSubSceneEnum = (stLoot, stStoneTab, stSpy, stWar);
 
 type
 
@@ -90,8 +90,6 @@ type
 
 const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
-    // Defeat
-    (reTextClose, reTextClose),
     // Loot
     (reTextClose, reTextClose),
     // StoneTab
@@ -106,7 +104,7 @@ const
 const
   AddButtonScene = [stLoot, stStoneTab];
   CloseCloseScene = [];
-  CloseButtonScene = [stDefeat] + AddButtonScene + CloseCloseScene;
+  CloseButtonScene = AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stSpy, stWar];
   WideButtonScene = [];
 
@@ -188,11 +186,6 @@ begin
   case SubScene of
     stSpy, stWar:
       Game.Show(scMap);
-    stDefeat:
-      begin
-        TSaga.IsGame := False;
-        TSceneHighScores.ShowScene;
-      end;
   end;
 end;
 
@@ -248,12 +241,6 @@ var
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stDefeat:
-      begin
-        TSaga.IsGame := False;
-        TSceneHighScores.ShowScene;
-        Game.MediaPlayer.PlayMusic(mmMenu);
-      end;
     stStoneTab:
       begin
         if (Game.Scenario.CurrentScenario = sgAncientKnowledge) then
@@ -684,11 +671,6 @@ begin
           RenderWar(N, Lf, SceneTop + Y);
           Inc(Y, 120);
         end;
-      end;
-    stDefeat:
-      begin
-        DrawImage(reWallpaperDefeat);
-        DrawTitle(reTitleDefeat);
       end;
     stStoneTab:
       begin
