@@ -95,6 +95,8 @@ begin
   IsSummon := False;
   TLeaderParty.Leader.UnParalyzeParty;
   TLeaderParty.Leader.ClearTempValuesAll;
+  TLeaderParty.Summoned.UnParalyzeParty;
+  TLeaderParty.Summoned.ClearTempValuesAll;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
     Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin
@@ -122,6 +124,12 @@ var
   begin
     CurPosition := -1;
     MinHitPoints := 99999;
+    if LeaderParty.IsClear then
+    begin
+      CurPosition := 0;
+      ClickOnPosition;
+      Exit;
+    end;
     for Position := 0 to 5 do
       if LeaderParty.Creature[Position].Alive then
       begin
@@ -143,6 +151,12 @@ var
   var
     Position: TPosition;
   begin
+    if LeaderParty.IsClear then
+    begin
+      CurPosition := 0;
+      ClickOnPosition;
+      Exit;
+    end;
     for Position := 0 to 5 do
       if LeaderParty.Creature[Position].Alive then
       begin
@@ -166,6 +180,12 @@ var
     begin
       if HasWarriors then
       begin
+        if LeaderParty.IsClear then
+        begin
+          CurPosition := 0;
+          ClickOnPosition;
+          Exit;
+        end;
         for Position := 0 to 5 do
         begin
           if LeaderParty.Creature[Position].Alive then
@@ -702,6 +722,8 @@ begin
   IsSummon := True;
   TLeaderParty.Summoned.ReviveParty;
   TLeaderParty.Summoned.HealParty(9999);
+  TLeaderParty.Summoned.UnParalyzeParty;
+  TLeaderParty.Summoned.ClearTempValuesAll;
   Game.Show(scBattle);
 end;
 
