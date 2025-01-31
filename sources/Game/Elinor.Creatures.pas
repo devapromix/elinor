@@ -432,7 +432,7 @@ type
     abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
     abDealmaker, abHaggler, skNaturalArmor, skArcanePower, skWeaponMaster,
     skArcaneKnowledge, skArcaneLore, abSorcery, abTemplar, abMountaineering,
-    abForestry, abDoragorPower, abVampirism, abNaturalHealing);
+    abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics);
 
 type
   TAbility = record

@@ -154,6 +154,11 @@ const
     (Enum: abNaturalHealing; Name: 'Natural Healing';
     Description: ('This ability allows the leader',
     'to heal 10% of his life every day'); Level: 3; Leaders: TemplarLeaders;
+    ResEnum: reNone;),
+    // Logistics
+    (Enum: abLogistics; Name: 'Logistics';
+    Description: ('The leader''s party can travel',
+    'a greater distance in a day'); Level: 5; Leaders: LordLeaders;
     ResEnum: reNone;)
     //
     );
