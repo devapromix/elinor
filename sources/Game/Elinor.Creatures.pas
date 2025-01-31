@@ -430,9 +430,9 @@ type
     abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
     abLeadership1, abLeadership2, abLeadership3, abLeadership4,
     abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
-    abDealmaker, abHaggler, skNaturalArmor, skArcanePower, skWeaponMaster, skArcaneKnowledge, skArcaneLore,
-    abSorcery, abTemplar, abMountaineering, abForestry, abDoragorPower,
-    abVampirism);
+    abDealmaker, abHaggler, skNaturalArmor, skArcanePower, skWeaponMaster,
+    skArcaneKnowledge, skArcaneLore, abSorcery, abTemplar, abMountaineering,
+    abForestry, abDoragorPower, abVampirism, abNaturalHealing);
 
 type
   TAbility = record

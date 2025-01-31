@@ -149,7 +149,12 @@ const
     // Vampirism
     (Enum: abVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
-    Level: 1; Leaders: [crNosferatu]; ResEnum: reNone;)
+    Level: 1; Leaders: [crNosferatu]; ResEnum: reNone;),
+    // Natural Healing
+    (Enum: abNaturalHealing; Name: 'Natural Healing';
+    Description: ('This ability allows the leader',
+    'to heal 10% of his life every day'); Level: 3; Leaders: TemplarLeaders;
+    ResEnum: reNone;)
     //
     );
 
