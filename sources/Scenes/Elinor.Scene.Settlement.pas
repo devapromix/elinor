@@ -67,7 +67,7 @@ uses
   Elinor.Scene.Temple,
   Elinor.Scene.Party2,
   Elinor.Scene.Hire,
-  Elinor.Scene.Barracks;
+  Elinor.Scene.Barracks, Elinor.Scene.Victory;
 
 const
   PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 11] of Integer = (
@@ -105,7 +105,7 @@ begin
   begin
     if (TMapPlace.GetCityCount = TScenario.ScenarioCitiesMax) then
     begin
-      TSceneHire.Show(stVictory);
+      TSceneVictory.ShowScene;
       Exit;
     end;
   end;

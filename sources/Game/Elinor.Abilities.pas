@@ -102,24 +102,24 @@ const
     'receives a 15% discount from the merchant'); Level: 5;
     Leaders: LordLeaders; ResEnum: reNone;),
     // Natural Armor
-    (Enum: skNaturalArmor; Name: 'Natural Armor';
+    (Enum: abNaturalArmor; Name: 'Natural Armor';
     Description: ('The leader will absorb 10% of ', 'damage dealt to him');
     Level: 6; Leaders: AllLeaders; ResEnum: reNone;),
     // Arcane Power
-    (Enum: skArcanePower; Name: 'Arcane Power';
+    (Enum: abArcanePower; Name: 'Arcane Power';
     Description: ('Allows the leader to put on talismans',
     'and use them in battle'); Level: 1; Leaders: AllLeaders; ResEnum: reNone;),
     // Weapon Master
-    (Enum: skWeaponMaster; Name: 'Weapon Master';
+    (Enum: abWeaponMaster; Name: 'Weapon Master';
     Description: ('All the warriors in the party of the leader',
     'will gain more experience'); Level: 4; Leaders: AllLeaders;
     ResEnum: reNone;),
     // Arcane Knowledge
-    (Enum: skArcaneKnowledge; Name: 'Arcane Knowledge';
+    (Enum: abArcaneKnowledge; Name: 'Arcane Knowledge';
     Description: ('Allows the leader to read', 'magic books'); Level: 1;
     Leaders: AllLeaders; ResEnum: reNone;),
     // Arcane Lore
-    (Enum: skArcaneLore; Name: 'Arcane Lore';
+    (Enum: abArcaneLore; Name: 'Arcane Lore';
     Description: ('Allows the leader to take in hand',
     'spheres and use them in battle'); Level: 1; Leaders: AllLeaders;
     ResEnum: reNone;),

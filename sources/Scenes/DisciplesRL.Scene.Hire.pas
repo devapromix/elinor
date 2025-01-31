@@ -17,7 +17,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stVictory, stDefeat, stLoot, stStoneTab, stSpy, stWar);
+  THireSubSceneEnum = (stDefeat, stLoot, stStoneTab, stSpy, stWar);
 
 type
 
@@ -38,7 +38,6 @@ type
     procedure RenderSpy(const N: TLeaderThiefSpyVar; const AX, AY: Integer);
     procedure RenderWar(const N: TLeaderWarriorActVar; const AX, AY: Integer);
   private
-    procedure RenderFinalInfo;
     procedure UpdEnum<N>(AKey: Word);
     procedure Basic(AKey: Word);
   public
@@ -80,7 +79,8 @@ uses
   Elinor.Scene.Settlement,
   Elinor.Items,
   Elinor.Scene.Difficulty,
-  Elinor.Scene.Faction, Elinor.Difficulty, Elinor.Scene.HighScores;
+  Elinor.Scene.Faction, Elinor.Difficulty, Elinor.Scene.HighScores,
+  Elinor.Scene.Victory;
 
 var
   CurCrEnum: TCreatureEnum;
@@ -90,8 +90,6 @@ type
 
 const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
-    // Victory
-    (reTextClose, reTextClose),
     // Defeat
     (reTextClose, reTextClose),
     // Loot
@@ -108,7 +106,7 @@ const
 const
   AddButtonScene = [stLoot, stStoneTab];
   CloseCloseScene = [];
-  CloseButtonScene = [stVictory, stDefeat] + AddButtonScene + CloseCloseScene;
+  CloseButtonScene = [stDefeat] + AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stSpy, stWar];
   WideButtonScene = [];
 
@@ -127,8 +125,6 @@ begin
   CurrentIndex := 0;
   SubScene := ASubScene;
   Game.Show(scHire);
-  if ASubScene = stVictory then
-    Game.MediaPlayer.PlayMusic(mmVictory);
 end;
 
 class procedure TSceneHire.Show(const Party: TParty; const Position: Integer);
@@ -197,11 +193,6 @@ begin
         TSaga.IsGame := False;
         TSceneHighScores.ShowScene;
       end;
-    stVictory:
-      begin
-        TSaga.IsGame := False;
-        TSceneHighScores.ShowScene;
-      end;
   end;
 end;
 
@@ -263,18 +254,12 @@ begin
         TSceneHighScores.ShowScene;
         Game.MediaPlayer.PlayMusic(mmMenu);
       end;
-    stVictory:
-      begin
-        TSaga.IsGame := False;
-        TSceneHighScores.ShowScene;
-        Game.MediaPlayer.PlayMusic(mmMenu);
-      end;
     stStoneTab:
       begin
         if (Game.Scenario.CurrentScenario = sgAncientKnowledge) then
           if Game.Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
           begin
-            TSceneHire.Show(stVictory);
+            TSceneVictory.ShowScene;
             Exit;
           end
           else
@@ -395,7 +380,7 @@ begin
             case Game.Map.LeaderTile of
               reTower:
                 begin
-                  TSceneHire.Show(stVictory);
+                  TSceneVictory.ShowScene;
                   Exit;
                 end;
             end;
@@ -438,17 +423,6 @@ begin
     avWar3:
       DrawImage(AX + 7, AY + 7, reWarriorWar3);
   end;
-end;
-
-procedure TSceneHire.RenderFinalInfo;
-begin
-  TextTop := SceneTop + 6;
-  TextLeft := Lf + ResImage[reFrameSlotActive].Width + 12;
-  AddTextLine('Statistics', True);
-  AddTextLine;
-  AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
-  AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
-  AddTextLine('Scores', Game.Statistics.GetValue(stScores));
 end;
 
 procedure TSceneHire.RenderSpyInfo;
@@ -711,11 +685,6 @@ begin
           Inc(Y, 120);
         end;
       end;
-    stVictory:
-      begin
-        DrawImage(reWallpaperDefeat);
-        DrawTitle(reTitleVictory);
-      end;
     stDefeat:
       begin
         DrawImage(reWallpaperDefeat);
@@ -786,8 +755,6 @@ begin
     DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop,
       reInfoFrame);
   case SubScene of
-    stVictory, stDefeat:
-      RenderFinalInfo;
     stSpy:
       RenderSpyInfo;
     stWar:
@@ -846,8 +813,6 @@ begin
       Upd(Ord(High(TLeaderThiefSpyVar)));
     stWar:
       Upd(Ord(High(TLeaderWarriorActVar)));
-    stVictory, stDefeat:
-      Basic(Key);
   end;
   if (SubScene in CloseButtonScene) then
     case Key of

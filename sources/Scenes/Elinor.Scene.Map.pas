@@ -57,7 +57,7 @@ uses
   Elinor.Scene.Inventory,
   Elinor.Scene.Abilities,
   Elinor.Scene.NewAbility,
-  Elinor.Scene.MageTower;
+  Elinor.Scene.MageTower, Elinor.Scene.Victory;
 
 { TSceneMap }
 
@@ -349,6 +349,8 @@ begin
       ShowScenarioScene;
     K_S:
       ShowSpellbookScene;
+    K_V:
+      TSceneVictory.ShowScene;
   end;
 end;
 

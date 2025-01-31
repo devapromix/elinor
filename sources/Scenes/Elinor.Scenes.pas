@@ -22,7 +22,7 @@ type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower,
-    scHighScores);
+    scHighScores, scVictory);
 
 const
   ScreenWidth = 1344;
@@ -233,6 +233,7 @@ uses
   Elinor.Scene.NewAbility,
   Elinor.Scene.MageTower,
   Elinor.Scene.HighScores,
+  Elinor.Scene.Victory,
   Elinor.Difficulty;
 
 type
@@ -881,6 +882,7 @@ begin
   FScene[scNewAbility] := TSceneNewAbility.Create;
   FScene[scMageTower] := TSceneMageTower.Create;
   FScene[scHighScores] := TSceneHighScores.Create;
+  FScene[scVictory] := TSceneVictory.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;
