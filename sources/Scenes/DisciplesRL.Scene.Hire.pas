@@ -53,7 +53,6 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    procedure DrawItem(ItemRes: array of TResEnum);
     class function HireIndex: Integer; static;
     class procedure Show(const ASubScene: THireSubSceneEnum); overload;
     class procedure Show(const Party: TParty; const Position: Integer);
@@ -152,30 +151,6 @@ end;
 class function TSceneHire.HireIndex: Integer;
 begin
   Result := CurrentIndex;
-end;
-
-procedure TSceneHire.DrawItem(ItemRes: array of TResEnum);
-var
-  I, X: Integer;
-begin
-  DrawImage(ScrWidth - 59 - 120, 295, reSmallFrame);
-  DrawImage(ScrWidth - 59, 295, reSmallFrame);
-  DrawImage(ScrWidth - 59 + 120, 295, reSmallFrame);
-  case Length(ItemRes) of
-    1:
-      if ItemRes[0] <> reNone then
-        DrawImage(ScrWidth - 32, 300, ItemRes[0]);
-    2, 3:
-      begin
-        X := -120;
-        for I := 0 to Length(ItemRes) - 1 do
-        begin
-          if ItemRes[I] <> reNone then
-            DrawImage(ScrWidth - 32 + X, 300, ItemRes[I]);
-          Inc(X, 120);
-        end;
-      end;
-  end;
 end;
 
 procedure TSceneHire.Back;
@@ -352,33 +327,6 @@ begin
             end
         else
           Game.Show(scMap);
-        end;
-      end;
-    stLoot:
-      begin
-        Game.MediaPlayer.PlaySound(mmLoot);
-        F := True;
-        Game.Show(scMap);
-        begin
-          if (Game.Scenario.CurrentScenario = sgDarkTower) then
-          begin
-            case Game.Map.LeaderTile of
-              reTower:
-                begin
-                  TSceneVictory.ShowScene;
-                  Exit;
-                end;
-            end;
-          end;
-          if Game.Map.LeaderTile = reNeutralCity then
-          begin
-            Game.MediaPlayer.PlayMusic(mmGame);
-            Game.MediaPlayer.PlaySound(mmSettlement);
-            TSceneSettlement.ShowScene(stCity);
-            Exit;
-          end;
-          if F then
-            Game.NewDay;
         end;
       end;
   end;
@@ -607,40 +555,11 @@ var
   D: TDifficultyEnum;
   Z: TLeaderThiefSpyVar;
   N: TLeaderWarriorActVar;
-  ItemRes: TResEnum;
-  It1, It2, It3: TResEnum;
-
-  procedure DrawGold;
-  begin
-    case GC of
-      0:
-        DrawItem([reItemGold]);
-      1:
-        DrawItem([reItemGold, reItemGold]);
-      2:
-        DrawItem([reItemGold, reItemGold, reItemGold]);
-    end;
-  end;
-
-  procedure DrawMana;
-  begin
-    case MC of
-      0:
-        DrawItem([reItemMana]);
-      1:
-        DrawItem([reItemMana, reItemMana]);
-      2:
-        DrawItem([reItemMana, reItemMana, reItemMana]);
-    end;
-  end;
 
 begin
   inherited;
   Y := 0;
   X := 0;
-  It1 := reNone;
-  It2 := reNone;
-  It3 := reNone;
   case SubScene of
     stSpy:
       begin
@@ -674,61 +593,9 @@ begin
       begin
         DrawImage(reWallpaperLoot);
         DrawTitle(reTitleLoot);
-        DrawItem([reItemStoneTable]);
+        //DrawItem([reItemStoneTable]);
         DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');
         DrawText(470, Game.Scenario.ScenarioAncientKnowledgeState);
-      end;
-    stLoot:
-      begin
-        DrawImage(reWallpaperLoot);
-        DrawTitle(reTitleLoot);
-        case LootRes of
-          reGold:
-            begin
-              DrawGold;
-              DrawText(450, 'СОКРОВИЩЕ');
-              DrawText(470, 'ЗОЛОТО +' + IntToStr(Game.Gold.NewValue));
-            end;
-          reMana:
-            begin
-              DrawMana;
-              DrawText(450, 'СОКРОВИЩЕ');
-              DrawText(470, 'МАНА +' + IntToStr(Game.Mana.NewValue));
-            end;
-          reBag:
-            begin
-              Y := 470;
-              DrawText(450, 'СОКРОВИЩЕ');
-              if Game.Gold.NewValue > 0 then
-              begin
-                It1 := reItemGold;
-                DrawText(Y, 'ЗОЛОТО +' + IntToStr(Game.Gold.NewValue));
-                Inc(Y, 20);
-              end;
-              if Game.Mana.NewValue > 0 then
-              begin
-                if It1 = reNone then
-                  It1 := reItemMana
-                else
-                  It2 := reItemMana;
-                DrawText(Y, 'МАНА +' + IntToStr(Game.Mana.NewValue));
-                Inc(Y, 20);
-              end;
-              if TSaga.NewItem > 0 then
-              begin
-                ItemRes := TItemBase.Item(TSaga.NewItem).ItRes;
-                if It1 = reNone then
-                  It1 := ItemRes
-                else if It2 = reNone then
-                  It2 := ItemRes
-                else
-                  It3 := ItemRes;
-                DrawText(Y, TItemBase.Item(TSaga.NewItem).Name);
-                Inc(Y, 20);
-              end;
-              DrawItem([It1, It2, It3]);
-            end;
-        end;
       end;
   end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then

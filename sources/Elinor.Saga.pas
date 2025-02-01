@@ -230,7 +230,7 @@ begin
             AddMana;
       end;
   end;
-  TSceneLoot.Show(LootRes);
+  TSceneLoot.ShowScene(LootRes);
 end;
 
 class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
