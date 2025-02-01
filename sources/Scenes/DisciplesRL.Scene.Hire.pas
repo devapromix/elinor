@@ -17,7 +17,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stLoot, stStoneTab, stSpy, stWar);
+  THireSubSceneEnum = (stStoneTab, stSpy, stWar);
 
 type
 
@@ -90,8 +90,6 @@ type
 
 const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
-    // Loot
-    (reTextClose, reTextClose),
     // StoneTab
     (reTextClose, reTextClose),
     // Thief Spy
@@ -102,7 +100,7 @@ const
     );
 
 const
-  AddButtonScene = [stLoot, stStoneTab];
+  AddButtonScene = [stStoneTab];
   CloseCloseScene = [];
   CloseButtonScene = AddButtonScene + CloseCloseScene;
   MainButtonsScene = [stSpy, stWar];
@@ -143,7 +141,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
 begin
   TSceneHire.Show(ASubScene, ABackScene);
   case SubScene of
-    stLoot, stStoneTab:
+    stStoneTab:
       Game.MediaPlayer.PlaySound(mmLoot);
   end;
   LootRes := ALootRes;

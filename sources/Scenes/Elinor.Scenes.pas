@@ -22,7 +22,7 @@ type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower,
-    scHighScores, scVictory, scDefeat);
+    scHighScores, scVictory, scDefeat, scLoot);
 
 const
   ScreenWidth = 1344;
@@ -227,6 +227,7 @@ uses
   Elinor.Spellbook,
   Elinor.Scene.Party2,
   Elinor.Scene.Hire,
+  Elinor.Scene.Loot,
   Elinor.Faction,
   Elinor.Scene.Inventory,
   Elinor.Scene.Abilities,
@@ -887,6 +888,7 @@ begin
   FScene[scHighScores] := TSceneHighScores.Create;
   FScene[scVictory] := TSceneVictory.Create;
   FScene[scDefeat] := TSceneDefeat.Create;
+  FScene[scLoot] := TSceneLoot.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

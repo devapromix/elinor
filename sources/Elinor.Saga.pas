@@ -83,7 +83,7 @@ uses
   Elinor.Scenes,
   DisciplesRL.Scene.Hire,
   Elinor.Items,
-  Elinor.Statistics;
+  Elinor.Statistics, Elinor.Scene.Loot;
 
 { TSaga }
 
@@ -230,7 +230,7 @@ begin
             AddMana;
       end;
   end;
-  TSceneHire.Show(stLoot, scMap, LootRes);
+  TSceneLoot.Show(LootRes);
 end;
 
 class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
