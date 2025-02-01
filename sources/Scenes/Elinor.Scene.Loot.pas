@@ -51,14 +51,29 @@ var
   { TSceneLoot }
 
 constructor TSceneLoot.Create;
+var
+  LButtonEnum: TButtonEnum;
+  LLeft, LWidth: Integer;
 begin
   inherited Create;
-
+  LWidth := ResImage[reButtonDef].Width + 4;
+  LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+      ButtonText[LButtonEnum]);
+    Inc(LLeft, LWidth);
+    if (LButtonEnum = btClose) then
+      Button[LButtonEnum].Sellected := True;
+  end;
 end;
 
 destructor TSceneLoot.Destroy;
+var
+  LButtonEnum: TButtonEnum;
 begin
-
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[LButtonEnum]);
   inherited;
 end;
 
@@ -114,13 +129,26 @@ procedure TSceneLoot.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
+  case AButton of
+    mbLeft:
+      begin
+        if Button[btClose].MouseDown then
+          HideScene;
+      end;
+    mbRight:
+      begin
 
+      end;
+  end;
 end;
 
 procedure TSceneLoot.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
-
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneLoot.Render;
@@ -128,6 +156,14 @@ var
   ItemRes: TResEnum;
   It1, It2, It3: TResEnum;
   Left, X, Y, I: Integer;
+
+  procedure RenderButtons;
+  var
+    LButtonEnum: TButtonEnum;
+  begin
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[LButtonEnum].Render;
+  end;
 
 begin
   inherited;
@@ -184,10 +220,14 @@ begin
         DrawItem([It1, It2, It3]);
       end;
   end;
+  RenderButtons;
 end;
 
 class procedure TSceneLoot.ShowScene(const ALootRes: TResEnum);
 begin
+  LootRes := ALootRes;
+  GC := RandomRange(0, 3);
+  MC := RandomRange(0, 3);
   Game.MediaPlayer.PlaySound(mmLoot);
   Game.Show(scLoot);
 end;
@@ -229,7 +269,11 @@ end;
 procedure TSceneLoot.Update(var Key: Word);
 begin
   inherited;
+  case Key of
+    K_ESCAPE, K_ENTER:
+      HideScene;
 
+  end;
 end;
 
 end.

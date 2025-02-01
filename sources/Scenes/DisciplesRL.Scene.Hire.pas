@@ -42,8 +42,6 @@ type
     procedure Basic(AKey: Word);
   public
   class var
-    MPX: Integer;
-    MPY: Integer;
     CurCrAbilityEnum: TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
@@ -100,10 +98,8 @@ const
 
 const
   AddButtonScene = [stStoneTab];
-  CloseCloseScene = [];
-  CloseButtonScene = AddButtonScene + CloseCloseScene;
+  CloseButtonScene = AddButtonScene;
   MainButtonsScene = [stSpy, stWar];
-  WideButtonScene = [];
 
 var
   HireParty: TParty = nil;
@@ -112,8 +108,6 @@ var
   BackScene: TSceneEnum = scMenu;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
   Lf, Lk: Integer;
-  GC, MC: Integer;
-  LootRes: TResEnum;
 
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
@@ -143,9 +137,6 @@ begin
     stStoneTab:
       Game.MediaPlayer.PlaySound(mmLoot);
   end;
-  LootRes := ALootRes;
-  GC := RandomRange(0, 3);
-  MC := RandomRange(0, 3);
 end;
 
 class function TSceneHire.HireIndex: Integer;
@@ -197,7 +188,7 @@ var
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
-      TLeaderParty.Leader.PutAt(MPX, MPY);
+      //TLeaderParty.Leader.PutAt(MPX, MPY);
     end;
   end;
 
@@ -207,7 +198,7 @@ var
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
-      TLeaderParty.Leader.PutAt(MPX, MPY);
+      //TLeaderParty.Leader.PutAt(MPX, MPY);
     end;
   end;
 
@@ -439,8 +430,6 @@ var
   Lc, W: Integer;
 begin
   inherited;
-  MPX := 0;
-  MPY := 0;
   for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
   begin
     W := ResImage[reButtonDef].Width + 4;
@@ -479,44 +468,6 @@ begin
   case AButton of
     mbLeft:
       begin
-        if (SubScene in WideButtonScene) then
-        begin
-          if MouseOver(Lk, SceneTop, X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := 0;
-          end;
-          if MouseOver(Lk, SceneTop + 120, X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := 1;
-          end;
-          if MouseOver(Lk, SceneTop + 240, X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := 2;
-          end;
-        end;
-        if not(SubScene in CloseButtonScene) or (SubScene in CloseCloseScene)
-        then
-        begin
-          if MouseOver(Lf, SceneTop, X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := IfThen(SubScene in WideButtonScene, 3, 0);
-          end;
-          if MouseOver(Lf, SceneTop + 120, X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := IfThen(SubScene in WideButtonScene, 4, 1);
-          end;
-          if MouseOver(Lf, SceneTop + 240, X, Y) then
-          begin
-            Game.MediaPlayer.PlaySound(mmClick);
-            CurrentIndex := IfThen(SubScene in WideButtonScene, 5, 2);
-          end;
-        end;
-
         if SubScene in MainButtonsScene then
           if Button[SubScene][btOk].MouseDown then
             Ok
@@ -549,10 +500,6 @@ end;
 procedure TSceneHire.Render;
 var
   Left, X, Y, I: Integer;
-  R: TFactionEnum;
-  K: TFactionLeaderKind;
-  S: TScenarioEnum;
-  D: TDifficultyEnum;
   Z: TLeaderThiefSpyVar;
   N: TLeaderWarriorActVar;
 
