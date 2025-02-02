@@ -21,7 +21,8 @@ type
     FMaxValue: Integer;
     FValue: Integer;
     FEnumeratorTypeInfo: PTypeInfo;
-    function Cycle(Cond, Limit, Change: Integer; DoSave: Boolean = False): Integer;
+    function Cycle(Cond, Limit, Change: Integer;
+      DoSave: Boolean = False): Integer;
     function GetValue: T;
     function AsT(IntValue: Integer): T;
   public
@@ -36,7 +37,23 @@ type
     property ValueAsInt: Integer read FValue;
   end;
 
-//function IIF(Condition: Boolean; IfTrue: Variant; IfFalse: Variant): Variant;
+  // function IIF(Condition: Boolean; IfTrue: Variant; IfFalse: Variant): Variant;
+
+const
+  CNoFreeSpace = 'There is no free space!';
+  CChooseEmptySlot = 'Choose an empty slot!';
+  CChooseNonEmptySlot = 'Choose a non-empty slot!';
+  CNeedLeadership = 'Not enough leadership points!';
+  CCannotHire = 'Cannot hire!';
+  CCannotDismiss = 'Cannot dismiss!';
+  CConfirmDismiss = 'Dismiss the warrior?';
+  CNeedResurrection = 'Must resurrect first!';
+  CNoHealingNeeded = 'Does not need healing!';
+  CNeedMoreGold = 'Need more gold!';
+  CHealConfirmFormat = 'Heal for %d gold?';
+  CNoRevivalNeeded = 'Does not need revival!';
+  CRevivalGoldNeededFormat = 'Need %d gold for revival!';
+  CRevivalConfirmFormat = 'Revive for %d gold?';
 
 implementation
 
@@ -54,8 +71,8 @@ end;
 
 { TEnumCycler }
 
-constructor TEnumCycler<T>.Create(AInitialValue: Integer; AMinValue: Integer = -1;
-  AMaxValue: Integer = -1);
+constructor TEnumCycler<T>.Create(AInitialValue: Integer;
+  AMinValue: Integer = -1; AMaxValue: Integer = -1);
 var
   LEnumerationTypeData: PTypeData;
   LEnumeratorTypeInfo: PTypeInfo;
@@ -70,7 +87,8 @@ begin
   FEnumeratorTypeInfo := LEnumeratorTypeInfo;
 end;
 
-function TEnumCycler<T>.Cycle(Cond, Limit, Change: Integer; DoSave: Boolean = False): Integer;
+function TEnumCycler<T>.Cycle(Cond, Limit, Change: Integer;
+  DoSave: Boolean = False): Integer;
 begin
   Result := IfThen(FValue = Cond, Limit, Change);
   FValue := IfThen(DoSave, Result, FValue);
@@ -79,11 +97,11 @@ end;
 function TEnumCycler<T>.AsT(IntValue: Integer): T;
 begin
   Result :=
-  {$IFDEF FPC}
+{$IFDEF FPC}
     T(IntValue);
-  {$ELSE}
+{$ELSE}
     TValue.FromOrdinal(FEnumeratorTypeInfo, IntValue).AsType<T>();
-  {$ENDIF}
+{$ENDIF}
 end;
 
 function TEnumCycler<T>.GetValue: T;

@@ -52,7 +52,8 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
-  Elinor.Creatures;
+  Elinor.Creatures,
+  Elinor.Common;
 
 var
   ShowResources: Boolean;
@@ -109,36 +110,36 @@ begin
 end;
 
 procedure TSceneTemple.Heal;
+
   procedure HealIt(const AParty: TParty; const APosition: Integer);
   begin
     with AParty.Creature[APosition] do
     begin
       if not Active then
       begin
-        InformDialog('Выберите не пустой слот!');
+        InformDialog(CChooseNonEmptySlot);
         Exit;
       end;
       if HitPoints.IsMinCurrValue then
       begin
-        InformDialog('Сначала нужно воскресить!');
+        InformDialog(CNeedResurrection);
         Exit;
       end;
       if HitPoints.GetCurrValue = HitPoints.GetMaxValue then
       begin
-        InformDialog('Не нуждается в исцелении!');
+        InformDialog(CNoHealingNeeded);
         Exit;
       end;
       ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue -
         HitPoints.GetCurrValue);
       if (ConfirmGold > Game.Gold.Value) then
       begin
-        InformDialog('Нужно больше золота!');
+        InformDialog(CNeedMoreGold);
         Exit;
       end;
       ConfirmParty := AParty;
       ConfirmPartyPosition := APosition;
-      ConfirmDialog(Format('Исцелить за %d золота?', [ConfirmGold]),
-        HealCreature);
+      ConfirmDialog(Format(CHealConfirmFormat, [ConfirmGold]), HealCreature);
     end;
   end;
 
@@ -243,12 +244,12 @@ procedure TSceneTemple.Revive;
     begin
       if not Active then
       begin
-        InformDialog('Выберите не пустой слот!');
+        InformDialog(CChooseNonEmptySlot);
         Exit;
       end;
       if not HitPoints.IsMinCurrValue then
       begin
-        InformDialog('Не нуждается в воскрешении!');
+        InformDialog(CNoRevivalNeeded);
         Exit;
       end
       else
@@ -258,13 +259,12 @@ procedure TSceneTemple.Revive;
           TSaga.GoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin
-          InformDialog(Format('Для воскрешения нужно %d золота!',
-            [ConfirmGold]));
+          InformDialog(Format(CRevivalGoldNeededFormat, [ConfirmGold]));
           Exit;
         end;
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
-        ConfirmDialog(Format('Воскресить за %d золота?', [ConfirmGold]),
+        ConfirmDialog(Format(CRevivalConfirmFormat, [ConfirmGold]),
           ReviveCreature);
       end;
     end;

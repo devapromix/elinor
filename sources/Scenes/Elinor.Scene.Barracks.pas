@@ -53,7 +53,8 @@ uses
   Elinor.Frame,
   Elinor.Creatures,
   Elinor.Scene.Hire,
-  Elinor.Statistics;
+  Elinor.Statistics,
+  Elinor.Common;
 
 var
   ShowResources: Boolean;
@@ -117,7 +118,7 @@ procedure TSceneBarracks.ShowRecruitScene;
     begin
       if Active then
       begin
-        InformDialog('Выберите пустой слот!');
+        InformDialog(CChooseEmptySlot);
         Exit;
       end;
       if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and
@@ -131,9 +132,9 @@ procedure TSceneBarracks.ShowRecruitScene;
       begin
         if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
           Leadership) then
-          InformDialog('Нужно развить лидерство!')
+          InformDialog(CNeedLeadership)
         else
-          InformDialog('Не возможно нанять!');
+          InformDialog(CCannotHire);
         Exit;
       end;
     end;
@@ -238,19 +239,19 @@ procedure TSceneBarracks.Dismiss;
     begin
       if not Active then
       begin
-        InformDialog('Выберите не пустой слот!');
+        InformDialog(CChooseNonEmptySlot);
         Exit;
       end;
       if Leadership > 0 then
       begin
-        InformDialog('Не возможно уволить!');
+        InformDialog(CCannotDismiss);
         Exit;
       end
       else
       begin
         ConfirmParty := AParty;
         ConfirmPartyPosition := APosition;
-        ConfirmDialog('Отпустить воина?', DismissCreature);
+        ConfirmDialog(CConfirmDismiss, DismissCreature);
       end;
     end;
   end;

@@ -52,7 +52,8 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
-  Elinor.Items;
+  Elinor.Items,
+  Elinor.Common;
 
 type
   TItemSectionEnum = (isParty, isEquipment, isInventory);
@@ -266,7 +267,7 @@ procedure TSceneInventory.UnEquip;
 begin
   if (EquipmentSelItemIndex > -1) then
     if TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex) then
-      InformDialog('There is no free space in the bag!');
+      InformDialog(CNoFreeSpace);
 end;
 
 procedure TSceneInventory.Update(var Key: Word);
