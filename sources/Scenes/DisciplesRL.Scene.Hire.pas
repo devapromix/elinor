@@ -133,10 +133,6 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
   const ABackScene: TSceneEnum; const ALootRes: TResEnum);
 begin
   TSceneHire.Show(ASubScene, ABackScene);
-  case SubScene of
-    stStoneTab:
-      Game.MediaPlayer.PlaySound(mmLoot);
-  end;
 end;
 
 class function TSceneHire.HireIndex: Integer;
@@ -465,36 +461,11 @@ procedure TSceneHire.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  case AButton of
-    mbLeft:
-      begin
-        if SubScene in MainButtonsScene then
-          if Button[SubScene][btOk].MouseDown then
-            Ok
-          else if Button[SubScene][btClose].MouseDown then
-            Back;
-
-        if (SubScene in CloseButtonScene) then
-        begin
-          if Button[SubScene][btOk].MouseDown then
-            Ok;
-        end;
-
-      end;
-  end;
 end;
 
 procedure TSceneHire.MouseMove(Shift: TShiftState; X, Y: Integer);
-var
-  I: TButtonEnum;
 begin
   inherited;
-  if (SubScene in CloseButtonScene) then
-    Button[SubScene][btOk].MouseMove(X, Y)
-  else
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[SubScene][I].MouseMove(X, Y);
-  Render;
 end;
 
 procedure TSceneHire.Render;
@@ -508,34 +479,6 @@ begin
   Y := 0;
   X := 0;
   case SubScene of
-    stSpy:
-      begin
-        DrawImage(reWallpaperDifficulty);
-        DrawTitle(reTitleThief);
-        for Z := svIntroduceSpy to svPoison do
-        begin
-          if Ord(Z) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reFrameSlotActive)
-          else
-            DrawImage(Lf, SceneTop + Y, reFrameSlot);
-          RenderSpy(Z, Lf, SceneTop + Y);
-          Inc(Y, 120);
-        end;
-      end;
-    stWar:
-      begin
-        DrawImage(reWallpaperDifficulty);
-        DrawTitle(reTitleWarrior);
-        for N := avRest to avWar3 do
-        begin
-          if Ord(N) = CurrentIndex then
-            DrawImage(Lf, SceneTop + Y, reFrameSlotActive)
-          else
-            DrawImage(Lf, SceneTop + Y, reFrameSlot);
-          RenderWar(N, Lf, SceneTop + Y);
-          Inc(Y, 120);
-        end;
-      end;
     stStoneTab:
       begin
         DrawImage(reWallpaperLoot);
@@ -548,12 +491,6 @@ begin
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop,
       reInfoFrame);
-  case SubScene of
-    stSpy:
-      RenderSpyInfo;
-    stWar:
-      RenderWarInfo;
-  end;
   RenderButtons;
 end;
 
@@ -561,58 +498,19 @@ procedure TSceneHire.Timer;
 
 begin
   inherited;
-
 end;
 
 procedure TSceneHire.Basic(AKey: Word);
 begin
-  case AKey of
-    K_ESCAPE:
-      Back;
-    K_ENTER:
-      Ok;
-  end;
 end;
 
 procedure TSceneHire.UpdEnum<N>(AKey: Word);
-var
-  Cycler: TEnumCycler<N>;
 begin
-  Basic(AKey);
-  if not(AKey in [K_UP, K_Down]) then
-    Exit;
-  Game.MediaPlayer.PlaySound(mmClick);
-  Cycler := TEnumCycler<N>.Create(CurrentIndex);
-  CurrentIndex := Cycler.Modify(AKey = K_Down);
 end;
 
 procedure TSceneHire.Update(var Key: Word);
-var
-  FF: Boolean;
-
-  procedure Upd(const MaxValue: Integer);
-  begin
-    Basic(Key);
-    if not(Key in [K_UP, K_Down]) then
-      Exit;
-    Game.MediaPlayer.PlaySound(mmClick);
-    CurrentIndex := EnsureRange(CurrentIndex + IfThen(Key = K_UP, -1, 1), 0,
-      MaxValue);
-  end;
-
 begin
   inherited;
-  case SubScene of
-    stSpy:
-      Upd(Ord(High(TLeaderThiefSpyVar)));
-    stWar:
-      Upd(Ord(High(TLeaderWarriorActVar)));
-  end;
-  if (SubScene in CloseButtonScene) then
-    case Key of
-      K_ESCAPE, K_ENTER:
-        Ok;
-    end;
 end;
 
 end.

@@ -18,8 +18,6 @@ type
   private
     Button: array [TButtonEnum] of TButton;
     procedure DrawItem(ItemRes: array of TResEnum);
-    procedure DrawGold;
-    procedure DrawMana;
   public
     constructor Create;
     destructor Destroy; override;
@@ -77,18 +75,6 @@ begin
   inherited;
 end;
 
-procedure TSceneLoot.DrawGold;
-begin
-  case GC of
-    0:
-      DrawItem([reItemGold]);
-    1:
-      DrawItem([reItemGold, reItemGold]);
-    2:
-      DrawItem([reItemGold, reItemGold, reItemGold]);
-  end;
-end;
-
 procedure TSceneLoot.DrawItem(ItemRes: array of TResEnum);
 var
   I, X: Integer;
@@ -110,18 +96,6 @@ begin
           Inc(X, 120);
         end;
       end;
-  end;
-end;
-
-procedure TSceneLoot.DrawMana;
-begin
-  case MC of
-    0:
-      DrawItem([reItemMana]);
-    1:
-      DrawItem([reItemMana, reItemMana]);
-    2:
-      DrawItem([reItemMana, reItemMana, reItemMana]);
   end;
 end;
 
@@ -174,18 +148,6 @@ begin
   DrawImage(reWallpaperLoot);
   DrawTitle(reTitleLoot);
   case LootRes of
-    reGold:
-      begin
-        DrawGold;
-        DrawText(450, 'СОКРОВИЩЕ');
-        DrawText(470, 'ЗОЛОТО +' + IntToStr(Game.Gold.NewValue));
-      end;
-    reMana:
-      begin
-        DrawMana;
-        DrawText(450, 'СОКРОВИЩЕ');
-        DrawText(470, 'МАНА +' + IntToStr(Game.Mana.NewValue));
-      end;
     reBag:
       begin
         Y := 470;

@@ -59,6 +59,7 @@ procedure TSceneSpellbook.CastSpell;
 var
   LSpellEnum: TSpellEnum;
   LMana: Byte;
+  L: TStringList;
 begin
   LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
   if (LSpellEnum <> spNone) and Spells.IsLearned(LSpellEnum) then

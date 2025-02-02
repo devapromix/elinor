@@ -80,7 +80,7 @@ uses
   Elinor.Scene.Defeat,
   Elinor.Scene.NewAbility,
   DisciplesRL.Scene.Hire,
-  Elinor.Map;
+  Elinor.Map, Elinor.Scene.Loot2;
 
 var
   CloseButton: TButton;
@@ -97,6 +97,8 @@ begin
   TLeaderParty.Leader.ClearTempValuesAll;
   TLeaderParty.Summoned.UnParalyzeParty;
   TLeaderParty.Summoned.ClearTempValuesAll;
+  TSceneLoot2.ShowScene;
+  Exit;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
     Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
   begin

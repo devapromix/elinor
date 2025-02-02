@@ -22,7 +22,7 @@ type
   TSceneEnum = (scHire, scHire2, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower,
-    scHighScores, scVictory, scDefeat, scLoot);
+    scHighScores, scVictory, scDefeat, scLoot, scLoot2);
 
 const
   ScreenWidth = 1344;
@@ -236,7 +236,9 @@ uses
   Elinor.Scene.HighScores,
   Elinor.Scene.Victory,
   Elinor.Scene.Defeat,
-  Elinor.Difficulty, Elinor.Loot;
+  Elinor.Difficulty,
+  Elinor.Loot,
+  Elinor.Scene.Loot2;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -890,6 +892,7 @@ begin
   FScene[scVictory] := TSceneVictory.Create;
   FScene[scDefeat] := TSceneDefeat.Create;
   FScene[scLoot] := TSceneLoot.Create;
+  FScene[scLoot2] := TSceneLoot2.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

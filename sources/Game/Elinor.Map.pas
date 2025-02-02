@@ -48,6 +48,9 @@ type
     CityArr: array [TCityNum] of Integer;
   private
     FMap: array [TLayerEnum] of TMapLayer;
+    procedure AddItemAt(LY: Integer; LX: Integer);
+    procedure AddManaAt(LY, LX: Integer);
+    procedure AddGoldAt(LY, LX: Integer);
   public
     MapPlace: array [0 .. MapPlacesCount - 1] of TMapPlace;
     constructor Create;
@@ -220,6 +223,24 @@ begin
   end;
 end;
 
+procedure TMap.AddItemAt(LY: Integer; LX: Integer);
+begin
+  FMap[lrObj][LX, LY] := reBag;
+  Loot.AddItemAt(LX, LY);
+end;
+
+procedure TMap.AddManaAt(LY: Integer; LX: Integer);
+begin
+  FMap[lrObj][LX, LY] := reMana;
+  Loot.AddManaAt(LX, LY);
+end;
+
+procedure TMap.AddGoldAt(LY: Integer; LX: Integer);
+begin
+  FMap[lrObj][LX, LY] := reGold;
+  Loot.AddGoldAt(LX, LY);
+end;
+
 procedure TMap.Gen;
 var
   LX, LY, RX, RY, LMapPlaceIndex: Integer;
@@ -326,21 +347,12 @@ begin
       (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
         0:
-          begin
-            FMap[lrObj][LX, LY] := reGold;
-            Loot.AddGoldAt(LX, LY);
-          end;
+          AddGoldAt(LY, LX);
         1:
-          begin
-            FMap[lrObj][LX, LY] := reMana;
-            Loot.AddManaAt(LX, LY);
-          end;
+          AddManaAt(LY, LX);
       end
     else
-    begin
-      FMap[lrObj][LX, LY] := reBag;
-      Loot.AddItemAt(LX, LY);
-    end;
+      AddItemAt(LY, LX);
   end;
   // Enemies
   for LMapPlaceIndex := 0 to High(MapPlace) do
@@ -352,7 +364,6 @@ begin
       (FMap[lrTile][LX, LY] = reNeutralTerrain) and
       (GetDistToCapital(LX, LY) >= 3);
     TSaga.AddPartyAt(LX, LY, True);
-    Loot.AddItemAt(LX, LY);
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (LMapPlaceIndex < TScenario.ScenarioStoneTabMax) then
       Game.Scenario.AddStoneTab(LX, LY);

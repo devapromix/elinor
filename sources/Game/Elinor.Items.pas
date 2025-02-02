@@ -147,56 +147,56 @@ const
 
     // Valuables
     // Runic Key
-    (Enum: iRunicKey; Name: 'Рунический Ключ'; Level: 1; ItType: itValuable;
+    (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Wotan's Scroll
     (Enum: iWotansScroll; Name: 'Свиток Вотана'; Level: 2; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Ember Salts
-    (Enum: iEmberSalts; Name: 'Тлеющая Соль'; Level: 3; ItType: itValuable;
+    (Enum: iEmberSalts; Name: 'Ember Salts'; Level: 3; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Emerald
-    (Enum: iEmerald; Name: 'Изумруд'; Level: 4; ItType: itValuable;
+    (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Ruby
-    (Enum: iRuby; Name: 'Рубин'; Level: 5; ItType: itValuable; ItSlot: isNone;
+    (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItSlot: isNone;
     ItRes: reNone),
     // Sapphire
-    (Enum: iSapphire; Name: 'Сапфир'; Level: 6; ItType: itValuable;
+    (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Diamond
-    (Enum: iDiamond; Name: 'Бриллиант'; Level: 7; ItType: itValuable;
+    (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Ancient Relic
-    (Enum: iAncientRelic; Name: 'Древняя Реликвия'; Level: 8;
+    (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8;
     ItType: itValuable; ItSlot: isNone; ItRes: reNone),
 
     // Potions
     // Potion of Healing
-    (Enum: iPotionOfHealing; Name: 'Эликсир Исцеления'; Level: 1;
+    (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfHealing),
 
     // Artifacts
     // Dwarven Bracer
-    (Enum: iDwarvenBracer; Name: 'Гномьи Наручи'; Level: 1; ItType: itArtifact;
+    (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
     ItSlot: isArtifact; ItRes: reNone),
     // Runestone
-    (Enum: iRunestone; Name: 'Рунный Камень'; Level: 2; ItType: itArtifact;
+    (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
     ItSlot: isArtifact; ItRes: reNone),
     // Horn Of Awareness
-    (Enum: iHornOfAwareness; Name: 'Рог Чистого Сознания'; Level: 3;
+    (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
     ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone),
     // Soul Crystal
-    (Enum: iSoulCrystal; Name: 'Кристалл Души'; Level: 4; ItType: itArtifact;
+    (Enum: iSoulCrystal; Name: 'Soul Crystal'; Level: 4; ItType: itArtifact;
     ItSlot: isArtifact; ItRes: reNone),
     // Skull Bracers
-    (Enum: iSkullBracers; Name: 'Браслет из Черепов'; Level: 5;
+    (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5;
     ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone),
     // Lute Of Charming
-    (Enum: iLuteOfCharming; Name: 'Лютня Обаяния'; Level: 6; ItType: itArtifact;
+    (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6; ItType: itArtifact;
     ItSlot: isArtifact; ItRes: reNone),
     // Skull Of Thanatos
-    (Enum: iSkullOfThanatos; Name: 'Череп Танатоса'; Level: 7;
+    (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
     ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone),
     // Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Коготь Бетрезена'; Level: 8;
@@ -235,7 +235,6 @@ const
     // Mjolnir's Crown
     (Enum: iMjolnirsCrown; Name: 'Корона Мьельнира'; Level: 6; ItType: itHelm;
     ItSlot: isHelm; ItRes: reNone),
-
     // Imperial Crown
     (Enum: iImperialCrown; Name: 'Корона Империи'; Level: 8; ItType: itHelm;
     ItSlot: isHelm; ItRes: reNone));

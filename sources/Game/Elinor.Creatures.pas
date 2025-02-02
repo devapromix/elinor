@@ -542,7 +542,8 @@ uses
   System.Math, dialogs,
   System.SysUtils,
   Elinor.Party,
-  Elinor.Saga, Elinor.Abilities;
+  Elinor.Saga,
+  Elinor.Abilities;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (

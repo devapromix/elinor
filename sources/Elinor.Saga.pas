@@ -154,43 +154,29 @@ begin
     Party[LPartyIndex].CanAttack := False;
   Loot.AddItemAt(AX, AY);
 
-  if Game.Wizard then
-  begin
+  { if Game.Wizard then
+    begin
     LStringList := TStringList.Create;
     try
-      if FileExists('parties.txt') then
-        LStringList.LoadFromFile('parties.txt');
-      LText := Format('Level-%d ', [TSaga.GetTileLevel(Party[LPartyIndex].X,
-        Party[LPartyIndex].Y)]);
-      for LPosition := Low(TPosition) to High(TPosition) do
-        LText := LText + Format('%d-%s ',
-          [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
-      LStringList.Append(Trim(LText));
-      LStringList.Sort;
-      LStringList.SaveToFile('parties.txt');
+    if FileExists('parties.txt') then
+    LStringList.LoadFromFile('parties.txt');
+    LText := Format('Level-%d ', [TSaga.GetTileLevel(Party[LPartyIndex].X,
+    Party[LPartyIndex].Y)]);
+    for LPosition := Low(TPosition) to High(TPosition) do
+    LText := LText + Format('%d-%s ',
+    [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
+    LStringList.Append(Trim(LText));
+    LStringList.Sort;
+    LStringList.SaveToFile('parties.txt');
     finally
-      FreeAndNil(LStringList);
+    FreeAndNil(LStringList);
     end;
-  end;
+    end; }
 end;
 
 class procedure TSaga.AddLoot(LootRes: TResEnum);
 var
   LLevel: Integer;
-
-  procedure AddGold;
-  begin
-    Game.Gold.NewValue := RandomRange(LLevel * 2, LLevel * 3) * 10;
-    Game.Gold.Modify(Game.Gold.NewValue);
-  end;
-
-  procedure AddMana;
-  begin
-    Game.Mana.NewValue := RandomRange(LLevel * 1, LLevel * 3);
-    if Game.Mana.NewValue < 3 then
-      Game.Mana.NewValue := 3;
-    Game.Mana.Modify(Game.Mana.NewValue);
-  end;
 
   procedure AddItem;
   begin
@@ -214,26 +200,9 @@ begin
   NewItem := 0;
   LLevel := TSaga.GetTileLevel(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   case LootRes of
-    reGold:
-      AddGold;
-    reMana:
-      AddMana;
     reBag:
       begin
-        case RandomRange(0, 3) of
-          0:
-            AddGold;
-        end;
-        case RandomRange(0, 3) of
-          0:
-            AddMana;
-        end;
         AddItem;
-        if (NewItem = 0) then
-          if (RandomRange(0, 2) = 0) then
-            AddGold
-          else
-            AddMana;
       end;
   end;
   TSceneLoot.ShowScene(LootRes);
