@@ -92,7 +92,8 @@ uses
   Elinor.Scene.Party,
   Elinor.PathFind,
   Elinor.Scene.Leader,
-  Elinor.Difficulty;
+  Elinor.Difficulty,
+  Elinor.Loot;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
 begin
@@ -325,12 +326,21 @@ begin
       (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
         0:
-          FMap[lrObj][LX, LY] := reGold;
+          begin
+            FMap[lrObj][LX, LY] := reGold;
+            Loot.AddGoldAt(LX, LY);
+          end;
         1:
-          FMap[lrObj][LX, LY] := reMana;
+          begin
+            FMap[lrObj][LX, LY] := reMana;
+            Loot.AddManaAt(LX, LY);
+          end;
       end
     else
+    begin
       FMap[lrObj][LX, LY] := reBag;
+      Loot.AddItemAt(LX, LY);
+    end;
   end;
   // Enemies
   for LMapPlaceIndex := 0 to High(MapPlace) do
@@ -342,6 +352,7 @@ begin
       (FMap[lrTile][LX, LY] = reNeutralTerrain) and
       (GetDistToCapital(LX, LY) >= 3);
     TSaga.AddPartyAt(LX, LY, True);
+    Loot.AddItemAt(LX, LY);
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (LMapPlaceIndex < TScenario.ScenarioStoneTabMax) then
       Game.Scenario.AddStoneTab(LX, LY);
@@ -574,6 +585,7 @@ begin
           ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
           TMapPlace.UpdateRadius(I);
         end;
+
       1 .. TScenario.ScenarioCitiesMax: // City
         begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
@@ -582,6 +594,7 @@ begin
           TSaga.AddPartyAt(Game.Map.MapPlace[I].X,
             Game.Map.MapPlace[I].Y, False);
         end;
+
       TScenario.ScenarioTowerIndex: // Tower
         begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]

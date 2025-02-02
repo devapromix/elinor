@@ -81,9 +81,10 @@ uses
   System.SysUtils,
   Elinor.Map,
   Elinor.Scenes,
-  DisciplesRL.Scene.Hire,
   Elinor.Items,
-  Elinor.Statistics, Elinor.Scene.Loot;
+  Elinor.Statistics,
+  Elinor.Scene.Loot,
+  Elinor.Loot;
 
 { TSaga }
 
@@ -149,6 +150,9 @@ begin
   LPartyIndex := GetPartyIndex(AX, AY);
   Party[LPartyIndex].Owner := faNeutrals;
   Party[LPartyIndex].CanAttack := CanAttack;
+  if IsFinal then
+    Party[LPartyIndex].CanAttack := False;
+  Loot.AddItemAt(AX, AY);
 
   if Game.Wizard then
   begin

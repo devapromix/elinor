@@ -236,7 +236,7 @@ uses
   Elinor.Scene.HighScores,
   Elinor.Scene.Victory,
   Elinor.Scene.Defeat,
-  Elinor.Difficulty;
+  Elinor.Difficulty, Elinor.Loot;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -309,6 +309,7 @@ begin
   Spells.Clear;
   Scenario.Clear;
   Map.Clear;
+  Loot.Clear;
   Map.Gen;
 end;
 
