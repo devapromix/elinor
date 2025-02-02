@@ -199,7 +199,9 @@ var
       Game.Statistics.IncValue(stItemsFound);
     end
     else
+    begin
       NewItem := 0;
+    end;
   end;
 
 begin

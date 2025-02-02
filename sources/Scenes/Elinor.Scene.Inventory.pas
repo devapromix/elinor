@@ -25,6 +25,8 @@ type
     ConfirmGold: Integer;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
+    procedure UnEquip;
+    procedure Equip;
   public
     constructor Create;
     destructor Destroy; override;
@@ -123,16 +125,9 @@ begin
       begin
         case ActiveSection of
           isEquipment:
-            if (EquipmentSelItemIndex > -1) then
-            begin
-              TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
-            end;
+            UnEquip;
           isInventory:
-            if (InventorySelItemIndex > -1) then
-            begin
-              TLeaderParty.Leader.Equip(InventorySelItemIndex);
-            end;
-
+            Equip;
         end;
         if Button[btClose].MouseDown then
           HideScene;
@@ -261,6 +256,19 @@ begin
 
 end;
 
+procedure TSceneInventory.Equip;
+begin
+  if (InventorySelItemIndex > -1) then
+    TLeaderParty.Leader.Equip(InventorySelItemIndex);
+end;
+
+procedure TSceneInventory.UnEquip;
+begin
+  if (EquipmentSelItemIndex > -1) then
+    if TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex) then
+      InformDialog('There is no free space in the bag!');
+end;
+
 procedure TSceneInventory.Update(var Key: Word);
 begin
   case Key of
@@ -314,9 +322,9 @@ begin
           isParty:
             HideScene;
           isEquipment:
-            TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex);
+            UnEquip;
           isInventory:
-            TLeaderParty.Leader.Equip(InventorySelItemIndex);
+            Equip;
         end;
       end;
     K_SPACE:

@@ -139,7 +139,7 @@ type
     class function GetSightRadius(const ACreatureEnum: TCreatureEnum)
       : Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
-    procedure UnEquip(const EquipmentItemIndex: Integer);
+    function UnEquip(const EquipmentItemIndex: Integer): Boolean;
     function GetGold(const AGold: Integer): Integer;
     property Invisibility: Boolean read FInvisibility write FInvisibility;
     function GetInvisibility: Boolean;
@@ -627,17 +627,18 @@ begin
       end;
 end;
 
-procedure TLeaderParty.UnEquip(const EquipmentItemIndex: Integer);
+function TLeaderParty.UnEquip(const EquipmentItemIndex: Integer): Boolean;
 var
   InvItemEnum: TItemEnum;
   EqItemEnum: TItemEnum;
   SlotIndex: Integer;
 begin
+  Result := False;
   EqItemEnum := Equipment.Item(EquipmentItemIndex).Enum;
   if EqItemEnum = iNone then
     Exit;
   if Inventory.Count = MaxInventoryItems then
-    Exit;
+    Exit(True);
   Equipment.Clear(EquipmentItemIndex);
   Inventory.Add(EqItemEnum);
 end;
