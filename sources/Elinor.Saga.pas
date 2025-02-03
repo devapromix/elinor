@@ -154,6 +154,10 @@ begin
     Party[LPartyIndex].CanAttack := False;
   Loot.AddItemAt(AX, AY);
 
+  Loot.AddGoldAt(AX, AY);
+  Loot.AddGoldAt(AX, AY);
+  Loot.AddGoldAt(AX, AY);
+
   { if Game.Wizard then
     begin
     LStringList := TStringList.Create;

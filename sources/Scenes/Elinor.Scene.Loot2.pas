@@ -135,8 +135,23 @@ end;
 procedure TSceneLoot2.Render;
 
   procedure RenderItems;
+  var
+    X, Y, I, J, LCount: Integer;
+    LLeft, LTop: Integer;
+    LLootItem: TLootItem;
   begin
-
+    X := TLeaderParty.Leader.X;
+    Y := TLeaderParty.Leader.Y;
+    LCount := Loot.Count(X, Y);
+    for I := 0 to LCount - 1 do
+    begin
+      LLeft := IfThen(I > 2, TFrame.Col(1), TFrame.Col(0));
+      LTop := IfThen(I > 2, TFrame.Row(I - 3), TFrame.Row(I));
+      DrawSpell(spSpeed, LLeft, LTop, True);
+      J := Loot.GetItemIndex(X, Y, I);
+      LLootItem := Loot.GetLootItem(J);
+      DrawText(LLeft + 74, LTop + 6, TItemBase.Item(LLootItem.ItemEnum).Name);
+    end;
   end;
 
   procedure RenderItemInfo;
@@ -144,13 +159,11 @@ procedure TSceneLoot2.Render;
     LLootItem: TLootItem;
     X, Y, I: Integer;
   begin
-    if CurrentIndex > 0 then
-      Exit;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     X := TLeaderParty.Leader.X;
     Y := TLeaderParty.Leader.Y;
-    I := Loot.GetItemIndex(X, Y);
+    I := Loot.GetItemIndex(X, Y, CurrentIndex);
     if I >= 0 then
     begin
       LLootItem := Loot.GetLootItem(I);

@@ -23,14 +23,16 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    function Count: Integer;
+    function Count: Integer; overload;
+    function Count(const AX, AY: Integer): Integer; overload;
     procedure Clear; overload;
     procedure Clear(const AItemIndex: Integer); overload;
     procedure AddGoldAt(const AX, AY: Integer);
     procedure AddManaAt(const AX, AY: Integer);
     procedure AddItemAt(const AX, AY: Integer);
     procedure AddStoneTabAt(const AX, AY: Integer);
-    function GetItemIndex(const AX, AY: Integer): Integer;
+    function GetItemIndex(const AX, AY: Integer): Integer; overload;
+    function GetItemIndex(const AX, AY, AIndex: Integer): Integer; overload;
     function GetLootItem(const AItemIndex: Integer): TLootItem; overload;
     function GetLootItem(const AX, AY: Integer): TLootItem; overload;
   end;
@@ -143,6 +145,16 @@ begin
   end;
 end;
 
+function TLoot.Count(const AX, AY: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Count - 1 do
+    if (FLootItem[I].X = AX) and (FLootItem[I].Y = AY) then
+      Inc(Result);
+end;
+
 function TLoot.Count: Integer;
 begin
   Result := Length(FLootItem);
@@ -157,6 +169,22 @@ destructor TLoot.Destroy;
 begin
   SetLength(FLootItem, 0);
   inherited;
+end;
+
+function TLoot.GetItemIndex(const AX, AY, AIndex: Integer): Integer;
+var
+  I, LIndex: Integer;
+begin
+  Result := -1;
+  LIndex := 0;
+  for I := 0 to Count - 1 do
+    if (FLootItem[I].X = AX) and (FLootItem[I].Y = AY) then
+    begin
+      if LIndex = AIndex then
+        Exit(I)
+      else
+        Inc(LIndex);
+    end;
 end;
 
 function TLoot.GetLootItem(const AX, AY: Integer): TLootItem;
