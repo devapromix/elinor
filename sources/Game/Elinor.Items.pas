@@ -47,6 +47,8 @@ type
 
 type
   TItemEnum = (iNone,
+    // Special
+    iGold, iMana,
     // Valuables
     iRunicKey, iWotansScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
     iAncientRelic,
@@ -145,6 +147,14 @@ const
     (Enum: iNone; Name: ''; Level: 0; ItType: itSpecial; ItSlot: isNone;
     ItRes: reNone),
 
+    // Special
+    // Gold
+    (Enum: iGold; Name: 'Gold'; Level: 1; ItType: itSpecial; ItSlot: isNone;
+    ItRes: reItemGold),
+    // Mana
+    (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItSlot: isNone;
+    ItRes: reItemMana),
+
     // Valuables
     // Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
@@ -168,8 +178,8 @@ const
     (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
     // Ancient Relic
-    (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8;
-    ItType: itValuable; ItSlot: isNone; ItRes: reNone),
+    (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
+    ItSlot: isNone; ItRes: reNone),
 
     // Potions
     // Potion of Healing
@@ -190,11 +200,11 @@ const
     (Enum: iSoulCrystal; Name: 'Soul Crystal'; Level: 4; ItType: itArtifact;
     ItSlot: isArtifact; ItRes: reNone),
     // Skull Bracers
-    (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5;
-    ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone),
-    // Lute Of Charming
-    (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6; ItType: itArtifact;
+    (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
     ItSlot: isArtifact; ItRes: reNone),
+    // Lute Of Charming
+    (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
+    ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone),
     // Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
     ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone),
