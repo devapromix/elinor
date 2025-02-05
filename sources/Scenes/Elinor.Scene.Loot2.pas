@@ -57,19 +57,17 @@ uses
 procedure TSceneLoot2.PickupItem;
 var
   LLootItem: TLootItem;
-  X, Y, I: Integer;
+  X, Y, LItemIndex: Integer;
 begin
-  if CurrentIndex > 0 then
-    Exit;
   X := TLeaderParty.Leader.X;
   Y := TLeaderParty.Leader.Y;
-  I := Loot.GetItemIndex(X, Y);
-  if I >= 0 then
+  LItemIndex := Loot.GetItemIndex(X, Y, CurrentIndex);
+  if LItemIndex >= 0 then
   begin
-    LLootItem := Loot.GetLootItem(I);
+    LLootItem := Loot.GetLootItem(LItemIndex);
     TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
     Game.Statistics.IncValue(stItemsFound);
-    Loot.Clear(I);
+    Loot.Clear(LItemIndex);
   end;
 
 end;
@@ -147,9 +145,9 @@ procedure TSceneLoot2.Render;
     begin
       LLeft := IfThen(I > 2, TFrame.Col(1), TFrame.Col(0));
       LTop := IfThen(I > 2, TFrame.Row(I - 3), TFrame.Row(I));
-      DrawSpell(spSpeed, LLeft, LTop, True);
       J := Loot.GetItemIndex(X, Y, I);
       LLootItem := Loot.GetLootItem(J);
+      DrawItem(LLootItem.ItemEnum, LLeft, LTop);
       DrawText(LLeft + 74, LTop + 6, TItemBase.Item(LLootItem.ItemEnum).Name);
     end;
   end;

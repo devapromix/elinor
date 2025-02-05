@@ -11,6 +11,7 @@ uses
   Elinor.Saga,
   Elinor.Spells,
   Elinor.Map,
+  Elinor.Items,
   Elinor.Party,
   Elinor.Scenario,
   Elinor.MediaPlayer,
@@ -150,6 +151,7 @@ type
       IsDrawTransparent: Boolean = False);
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer);
+    procedure DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
     procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
     procedure RenderGuardianInfo;
 
@@ -657,6 +659,12 @@ end;
 procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
 begin
   DrawImage(X, Y, ResImage[Res]);
+end;
+
+procedure TScene.DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
+begin
+  DrawImage(AX + 7, AY + 7, reBGCharacter);
+  DrawImage(AX + 7, AY + 29, TItemBase.Item(AItemEnum).ItRes);
 end;
 
 procedure TScene.DrawText(const AX, AY: Integer; AText: string);

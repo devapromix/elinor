@@ -65,7 +65,7 @@ begin
   begin
     X := AX;
     Y := AY;
-    ItemEnum := iNone;
+    ItemEnum := iGold;
     LootType := ltGold;
     Amount := RandomRange(LLevel * 2, LLevel * 4) * 10;
   end;
@@ -85,7 +85,8 @@ begin
     Y := AY;
     repeat
       LItemIndex := RandomRange(1, TItemBase.Count);
-    until (TItemBase.Item(LItemIndex).Level <= LLevel);
+    until (TItemBase.Item(LItemIndex).Level <= LLevel) and
+      (TItemBase.Item(LItemIndex).ItType <> itSpecial);
     ItemEnum := TItemBase.Item(LItemIndex).Enum;
     LootType := ltItem;
     Amount := 1;
