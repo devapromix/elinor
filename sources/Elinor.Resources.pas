@@ -586,7 +586,7 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive, mmSpeed);
+    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -718,6 +718,8 @@ const
     (FileName: 'invisibility.wav'; ResType: teSound;),
     // Revive
     (FileName: 'revive.wav'; ResType: teSound;),
+    // Mana
+    (FileName: 'mana.wav'; ResType: teSound;),
     // Speed
     (FileName: 'speed.wav'; ResType: teSound;)
     //

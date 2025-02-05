@@ -6,6 +6,7 @@ interface
 {$MODESWITCH ADVANCEDRECORDS}
 {$ENDIF}
 
+// https://www.ign.com/articles/2005/12/19/disciples-ii-rise-of-the-elves-items-listfaq-677342
 // Предметы в Д1 -- http://alldisciples.ru/modules.php?name=Articles&pa=showarticle&artid=328
 // Предметы в Д2 -- http://alldisciples.ru/modules.php?name=Articles&pa=showarticle&artid=223
 uses
@@ -69,9 +70,14 @@ type
     // iHornOfIncubus,
     // iRoyalScepter
 
+    // Orbs
+    // iGoblinOrb, iImpOrb, iZombieOrb, iVampireOrb,
+    // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
+    // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing, iOrbOfLife,
+
     // Rings
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
-    iRingOfTheAges, iHagsRing, iThanatosRing,
+    iRingOfTheAges, iRingOfHag, iThanatosRing,
 
     // Helms
     iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
@@ -214,7 +220,7 @@ const
 
     // Rings
     // Stone Ring
-    (Enum: iStoneRing; Name: 'Каменное Кольцо'; Level: 1; ItType: itRing;
+    (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Бронзовое Кольцо'; Level: 2; ItType: itRing;
@@ -232,7 +238,7 @@ const
     (Enum: iRingOfTheAges; Name: 'Кольцо Веков'; Level: 6; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Hag's Ring,
-    (Enum: iHagsRing; Name: 'Кольцо Ведьмы'; Level: 7; ItType: itRing;
+    (Enum: iRingOfHag; Name: 'Кольцо Ведьмы'; Level: 7; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Thanatos Ring
     (Enum: iThanatosRing; Name: 'Кольцо Танатоса'; Level: 8; ItType: itRing;

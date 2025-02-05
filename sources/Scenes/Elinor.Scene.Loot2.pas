@@ -65,9 +65,28 @@ begin
   if LItemIndex >= 0 then
   begin
     LLootItem := Loot.GetLootItem(LItemIndex);
-    TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
-    Game.Statistics.IncValue(stItemsFound);
-    Loot.Clear(LItemIndex);
+    case LLootItem.LootType of
+      ltGold:
+        begin
+          Game.MediaPlayer.PlaySound(mmGold);
+          Game.Gold.Modify(LLootItem.Amount);
+          Loot.Clear(LItemIndex);
+        end;
+      ltMana:
+        begin
+          Game.MediaPlayer.PlaySound(mmMana);
+          Game.Mana.Modify(LLootItem.Amount);
+          Loot.Clear(LItemIndex);
+        end;
+      ltItem:
+        begin
+          Game.MediaPlayer.PlaySound(mmLoot);
+          TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
+          Game.Statistics.IncValue(stItemsFound);
+          Loot.Clear(LItemIndex);
+        end;
+    end;
+
   end;
 
 end;
