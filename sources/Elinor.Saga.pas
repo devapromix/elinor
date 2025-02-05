@@ -155,8 +155,9 @@ begin
   Loot.AddItemAt(AX, AY);
 
   Loot.AddGoldAt(AX, AY);
+  Loot.AddManaAt(AX, AY);
   Loot.AddGoldAt(AX, AY);
-  Loot.AddGoldAt(AX, AY);
+  Loot.AddManaAt(AX, AY);
 
   { if Game.Wizard then
     begin

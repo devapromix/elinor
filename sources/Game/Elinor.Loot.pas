@@ -105,7 +105,7 @@ begin
   begin
     X := AX;
     Y := AY;
-    ItemEnum := iNone;
+    ItemEnum := iMana;
     LootType := ltMana;
     Amount := RandomRange(LLevel * 1, LLevel * 3);
   end;
