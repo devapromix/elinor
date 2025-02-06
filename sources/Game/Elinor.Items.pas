@@ -49,7 +49,7 @@ type
 type
   TItemEnum = (iNone,
     // Special
-    iGold, iMana,
+    iGold, iMana, iStoneTab,
     // Valuables
     iRunicKey, iWotansScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
     iAncientRelic,
@@ -160,6 +160,9 @@ const
     // Mana
     (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItSlot: isNone;
     ItRes: reItemMana),
+    // Stone Tablet
+    (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial; ItSlot: isNone;
+    ItRes: reNone),
 
     // Valuables
     // Runic Key
