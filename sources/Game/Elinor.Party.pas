@@ -23,6 +23,8 @@ type
   { TParty }
 
   TParty = class(TMapObject)
+  public const
+    MaxLevel = 8;
   strict private
     FOwner: TFactionEnum;
     FCreature: array [TPosition] of TCreature;
@@ -154,12 +156,15 @@ type
 type
   TParties = class
   private
+    procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
   public
     constructor Create;
     destructor Destroy; override;
     function GetPartyIndex(const AX, AY: Integer): Integer;
     function Count: Integer;
     procedure Clear;
+    procedure AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
+      IsFinal: Boolean = False);
   end;
 
 var
@@ -170,6 +175,7 @@ implementation
 
 uses
   System.Math,
+  System.Classes,
   System.SysUtils,
   Elinor.Saga,
   Elinor.Resources,
@@ -177,7 +183,8 @@ uses
   Elinor.Scene.Party,
   Elinor.Scene.Settlement,
   DisciplesRL.Scene.Hire,
-  Elinor.Statistics;
+  Elinor.Statistics,
+  Elinor.Loot;
 
 { TParty }
 
@@ -560,7 +567,7 @@ begin
       Damage.ModifyCurrValue((Damage.GetCurrValue div 10), 0, 300);
     if Heal > 0 then
       Heal := EnsureRange(Heal + (Heal div 15), 0, 150);
-    Level := EnsureRange(Level + 1, 0, TSaga.MaxLevel);
+    Level := EnsureRange(Level + 1, 0, MaxLevel);
   end;
 end;
 
@@ -1003,6 +1010,70 @@ begin
       Result := I;
       Exit;
     end;
+end;
+
+procedure TParties.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
+var
+  LLevel, LPartyIndex: Integer;
+  LPosition: TPosition;
+  LCreatureEnum: TCreatureEnum;
+begin
+  LLevel := EnsureRange(TSaga.GetTileLevel(AX, AY), 1, TParty.MaxLevel);
+  SetLength(Party, Parties.Count + 1);
+  Party[Parties.Count - 1] := TParty.Create(AX, AY);
+  repeat
+    LPartyIndex := RandomRange(0, Length(TSaga.PartyBase));
+  until (TSaga.PartyBase[LPartyIndex].Level = LLevel) and
+    (TSaga.PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
+  if IsFinal then
+    LPartyIndex := High(TSaga.PartyBase);
+  with Party[Parties.Count - 1] do
+  begin
+    for LPosition := Low(TPosition) to High(TPosition) do
+      AddCreature(TSaga.PartyBase[LPartyIndex].Character[LPosition], LPosition);
+  end;
+end;
+
+procedure TParties.AddPartyAt(const AX, AY: Integer;
+  CanAttack, IsFinal: Boolean);
+var
+  LPartyIndex: Integer;
+  LStringList: TStringList;
+  LPosition: TPosition;
+  LText: string;
+begin
+  Game.Map.SetTile(lrObj, AX, AY, reEnemy);
+  PartyInit(AX, AY, IsFinal);
+  LPartyIndex := Parties.GetPartyIndex(AX, AY);
+  Party[LPartyIndex].Owner := faNeutrals;
+  Party[LPartyIndex].CanAttack := CanAttack;
+  if IsFinal then
+    Party[LPartyIndex].CanAttack := False;
+  Loot.AddItemAt(AX, AY);
+
+  Loot.AddGoldAt(AX, AY);
+  Loot.AddManaAt(AX, AY);
+  Loot.AddGoldAt(AX, AY);
+  Loot.AddManaAt(AX, AY);
+
+  { if Game.Wizard then
+    begin
+    LStringList := TStringList.Create;
+    try
+    if FileExists('parties.txt') then
+    LStringList.LoadFromFile('parties.txt');
+    LText := Format('Level-%d ', [TSaga.GetTileLevel(Party[LPartyIndex].X,
+    Party[LPartyIndex].Y)]);
+    for LPosition := Low(TPosition) to High(TPosition) do
+    LText := LText + Format('%d-%s ',
+    [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
+    LStringList.Append(Trim(LText));
+    LStringList.Sort;
+    LStringList.SaveToFile('parties.txt');
+    finally
+    FreeAndNil(LStringList);
+    end;
+    end; }
 end;
 
 procedure TParties.Clear;

@@ -27,7 +27,6 @@ type
     PartyBase: array of TPartyBase;
     IsGame: Boolean;
   public const
-    MaxLevel = 8;
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
       'Вызвать на Дуэль', 'Отравить Колодцы');
     SpyDescription: array [TLeaderThiefSpyVar] of array [0 .. 4] of string = (
@@ -63,9 +62,6 @@ type
     LeaderDefaultMaxRadius = 1;
   public
     class procedure Clear; static;
-    class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
-    class procedure AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
-      IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
     class function GetTileLevel(const AX: Integer; const AY: Integer): Integer;
   end;
@@ -84,70 +80,6 @@ uses
   Elinor.Loot;
 
 { TSaga }
-
-class procedure TSaga.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
-var
-  LLevel, LPartyIndex: Integer;
-  LPosition: TPosition;
-  LCreatureEnum: TCreatureEnum;
-begin
-  LLevel := EnsureRange(GetTileLevel(AX, AY), 1, MaxLevel);
-  SetLength(Party, Parties.Count + 1);
-  Party[Parties.Count - 1] := TParty.Create(AX, AY);
-  repeat
-    LPartyIndex := RandomRange(0, Length(PartyBase));
-  until (PartyBase[LPartyIndex].Level = LLevel) and
-    (PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
-  if IsFinal then
-    LPartyIndex := High(PartyBase);
-  with Party[Parties.Count - 1] do
-  begin
-    for LPosition := Low(TPosition) to High(TPosition) do
-      AddCreature(PartyBase[LPartyIndex].Character[LPosition], LPosition);
-  end;
-end;
-
-class procedure TSaga.AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
-  IsFinal: Boolean);
-var
-  LPartyIndex: Integer;
-  LStringList: TStringList;
-  LPosition: TPosition;
-  LText: string;
-begin
-  Game.Map.SetTile(lrObj, AX, AY, reEnemy);
-  TSaga.PartyInit(AX, AY, IsFinal);
-  LPartyIndex := Parties.GetPartyIndex(AX, AY);
-  Party[LPartyIndex].Owner := faNeutrals;
-  Party[LPartyIndex].CanAttack := CanAttack;
-  if IsFinal then
-    Party[LPartyIndex].CanAttack := False;
-  Loot.AddItemAt(AX, AY);
-
-  Loot.AddGoldAt(AX, AY);
-  Loot.AddManaAt(AX, AY);
-  Loot.AddGoldAt(AX, AY);
-  Loot.AddManaAt(AX, AY);
-
-  { if Game.Wizard then
-    begin
-    LStringList := TStringList.Create;
-    try
-    if FileExists('parties.txt') then
-    LStringList.LoadFromFile('parties.txt');
-    LText := Format('Level-%d ', [TSaga.GetTileLevel(Party[LPartyIndex].X,
-    Party[LPartyIndex].Y)]);
-    for LPosition := Low(TPosition) to High(TPosition) do
-    LText := LText + Format('%d-%s ',
-    [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
-    LStringList.Append(Trim(LText));
-    LStringList.Sort;
-    LStringList.SaveToFile('parties.txt');
-    finally
-    FreeAndNil(LStringList);
-    end;
-    end; }
-end;
 
 class procedure TSaga.AddLoot(LootRes: TResEnum);
 var
@@ -188,7 +120,7 @@ class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
 var
   LChance: Integer;
 begin
-  Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1, MaxLevel);
+  Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1, TParty.MaxLevel);
   case TSaga.Difficulty of
     dfEasy:
       LChance := 60;
@@ -198,7 +130,7 @@ begin
       LChance := 10;
   end;
   if RandomRange(1, LChance) = 1 then
-    Result := EnsureRange(Result + 1, 1, MaxLevel);
+    Result := EnsureRange(Result + 1, 1, TParty.MaxLevel);
 end;
 
 class procedure TSaga.Clear;

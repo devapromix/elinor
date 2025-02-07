@@ -1169,7 +1169,7 @@ end;
 
 function TCreature.IsMaxLevel: Boolean;
 begin
-  Result := Level >= TSaga.MaxLevel;
+  Result := Level >= TParty.MaxLevel;
 end;
 
 class function TCreature.StrToCharEnum(const ChName: string): TCreatureEnum;
