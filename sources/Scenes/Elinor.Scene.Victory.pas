@@ -58,7 +58,7 @@ class procedure TSceneVictory.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlayMusic(mmMenu);
-  TSaga.IsGame := False;
+  Game.IsGame := False;
   TSceneHighScores.ShowScene;
 end;
 

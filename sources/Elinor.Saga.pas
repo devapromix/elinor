@@ -14,10 +14,8 @@ type
   TSaga = class(TObject)
   public
   class var
-    NewItem: Integer;
     LeaderFaction: TFactionEnum;
     Difficulty: TDifficultyEnum;
-    IsGame: Boolean;
   public const
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
       'Вызвать на Дуэль', 'Отравить Колодцы');
@@ -53,8 +51,6 @@ type
     LeaderDefaultMaxSpeed = 7;
     LeaderDefaultMaxRadius = 1;
   public
-    class procedure Clear; static;
-    class procedure AddLoot(LootRes: TResEnum); static;
   end;
 
 implementation
@@ -68,49 +64,5 @@ uses
   Elinor.Items,
   Elinor.Statistics,
   Elinor.Loot;
-
-{ TSaga }
-
-class procedure TSaga.AddLoot(LootRes: TResEnum);
-var
-  LLevel: Integer;
-
-  procedure AddItem;
-  begin
-    if (TLeaderParty.Leader.Inventory.Count < MaxInventoryItems) then
-    begin
-      repeat
-        NewItem := RandomRange(1, TItemBase.Count);
-      until (TItemBase.Item(NewItem).Level <= LLevel);
-      TLeaderParty.Leader.Inventory.Add(TItemBase.Item(NewItem).Enum);
-      Game.Statistics.IncValue(stItemsFound);
-    end
-    else
-    begin
-      NewItem := 0;
-    end;
-  end;
-
-begin
-  Game.Gold.NewValue := 0;
-  Game.Mana.NewValue := 0;
-  NewItem := 0;
-  LLevel := TMap.GetTileLevel(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
-  case LootRes of
-    reBag:
-      begin
-        AddItem;
-      end;
-  end;
-  //TSceneLoot.ShowScene(LootRes);
-end;
-
-class procedure TSaga.Clear;
-begin
-  IsGame := True;
-  NewItem := 0;
-  Game.Clear;
-  TLeaderParty.Leader.Clear;
-end;
 
 end.

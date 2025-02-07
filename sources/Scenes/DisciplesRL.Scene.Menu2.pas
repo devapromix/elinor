@@ -84,13 +84,13 @@ end;
 
 procedure TSceneMenu2.PlayGame;
 begin
-  TSaga.IsGame := False;
+  Game.IsGame := False;
   Game.Show(scScenario);
 end;
 
 procedure TSceneMenu2.ContinueGame;
 begin
-  if TSaga.IsGame then
+  if Game.IsGame then
   begin
     Game.MediaPlayer.PlayMusic(mmMap);
     Game.Show(scMap);

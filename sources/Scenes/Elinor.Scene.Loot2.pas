@@ -91,7 +91,7 @@ end;
 
 class procedure TSceneLoot2.HideScene;
 begin
-  Loot.AddBag;
+  Loot.AttemptToPlaceAChest;
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmLoot);

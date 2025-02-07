@@ -35,7 +35,7 @@ type
     function GetItemIndex(const AX, AY, AIndex: Integer): Integer; overload;
     function GetLootItem(const AItemIndex: Integer): TLootItem; overload;
     function GetLootItem(const AX, AY: Integer): TLootItem; overload;
-    procedure AddBag;
+    procedure AttemptToPlaceAChest;
   end;
 
 var
@@ -133,7 +133,7 @@ begin
   end;
 end;
 
-procedure TLoot.AddBag;
+procedure TLoot.AttemptToPlaceAChest;
 var
   LItemIndex, LX, LY: Integer;
 begin

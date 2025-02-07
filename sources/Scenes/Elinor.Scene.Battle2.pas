@@ -104,9 +104,7 @@ begin
   begin
     Inc(Game.Scenario.StoneTab);
     TSceneHire.Show(stStoneTab, scHire, reGold);
-  end
-  else
-    TSaga.AddLoot(reBag);
+  end;
 end;
 
 procedure TSceneBattle2.Kill(DefCrEnum: TCreatureEnum);

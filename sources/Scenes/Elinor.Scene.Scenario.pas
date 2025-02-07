@@ -39,7 +39,7 @@ uses
 
 procedure TSceneScenario.Cancel;
 begin
-  if TSaga.IsGame then
+  if Game.IsGame then
     Game.Show(scMap)
   else
     Game.Show(scMenu);
@@ -48,7 +48,7 @@ end;
 procedure TSceneScenario.Continue;
 begin
   inherited;
-  if TSaga.IsGame then
+  if Game.IsGame then
     Game.Show(scMap)
   else
   begin
@@ -71,9 +71,9 @@ const
     (reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
-  IsOneButton := TSaga.IsGame;
-  IsBlockFrames := TSaga.IsGame;
-  if TSaga.IsGame then
+  IsOneButton := Game.IsGame;
+  IsBlockFrames := Game.IsGame;
+  if Game.IsGame then
     DrawTitle(reTitleJournal)
   else
     DrawTitle(reTitleScenario);
@@ -84,7 +84,7 @@ begin
       LScenarioImage[LScenarioEnum]);
     if Ord(LScenarioEnum) = CurrentIndex then
     begin
-      if TSaga.IsGame then
+      if Game.IsGame then
         DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
           reFrameSlotPassive)
       else
@@ -97,7 +97,7 @@ begin
       for I := 0 to 9 do
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
       AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
-      if TSaga.IsGame then
+      if Game.IsGame then
       begin
         CurrentIndex := Ord(Game.Scenario.CurrentScenario);
         case Game.Scenario.CurrentScenario of
@@ -119,7 +119,7 @@ end;
 
 procedure TSceneScenario.Update(var Key: Word);
 begin
-  if TSaga.IsGame then
+  if Game.IsGame then
   begin
     Basic(Key);
     Exit;

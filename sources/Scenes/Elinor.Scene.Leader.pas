@@ -55,7 +55,7 @@ begin
   inherited;
   Game.MediaPlayer.PlaySound(mmClick);
   TSceneHire.CurCrAbilityEnum := TCreature.Character(CurCrEnum).AbilityEnum;
-  TSaga.Clear;
+  Game.Clear;
   Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderFaction;
   Game.MediaPlayer.PlayMusic(mmGame);
   Game.MediaPlayer.PlaySound(mmExit);

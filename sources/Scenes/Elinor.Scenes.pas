@@ -183,6 +183,7 @@ type
 type
   TGame = class(TScenes)
   public
+    IsGame: Boolean;
     Day: Integer;
     IsNewDay: Boolean;
     ShowNewDayMessageTime: ShortInt;
@@ -297,6 +298,7 @@ end;
 
 procedure TGame.Clear;
 begin
+  IsGame := True;
   Day := 1;
   IsNewDay := False;
   ShowNewDayMessageTime := 0;
@@ -315,6 +317,7 @@ begin
   Map.Clear;
   Loot.Clear;
   Map.Gen;
+  TLeaderParty.Leader.Clear;
 end;
 
 procedure TGame.NewDay;
