@@ -192,7 +192,7 @@ uses
   Elinor.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   Elinor.Statistics,
-  Elinor.Loot;
+  Elinor.Loot, Elinor.Scene.Loot2;
 
 { TParty }
 
@@ -863,14 +863,14 @@ begin
         begin
           TLeaderParty.Leader.Invisibility := False;
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
-          TSaga.AddLoot(reGold);
+          TSceneLoot2.ShowScene;
           F := False;
         end;
       reMana:
         begin
           TLeaderParty.Leader.Invisibility := False;
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
-          TSaga.AddLoot(reMana);
+          TSceneLoot2.ShowScene;
           F := False;
         end;
       reBag:
@@ -878,7 +878,7 @@ begin
           TLeaderParty.Leader.Invisibility := False;
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           Game.Statistics.IncValue(stChestsFound);
-          TSaga.AddLoot(reBag);
+          TSceneLoot2.ShowScene;
           F := False;
         end;
       reEnemy:

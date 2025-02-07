@@ -224,7 +224,7 @@ end;
 class procedure TSceneLoot2.ShowScene;
 begin
   Game.MediaPlayer.PlaySound(mmLoot);
-  Game.Show(scLoot2);
+  Game.Show(scLoot);
 end;
 
 procedure TSceneLoot2.Timer;

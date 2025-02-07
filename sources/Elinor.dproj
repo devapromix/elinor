@@ -167,7 +167,6 @@
         <DCCReference Include="Scenes\Elinor.Scene.HighScores.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Victory.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Defeat.pas"/>
-        <DCCReference Include="Scenes\Elinor.Scene.Loot.pas"/>
         <DCCReference Include="Game\Elinor.Loot.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Loot2.pas"/>
         <BuildConfiguration Include="Release">

@@ -66,7 +66,6 @@ uses
   Elinor.Scene.HighScores in 'Scenes\Elinor.Scene.HighScores.pas',
   Elinor.Scene.Victory in 'Scenes\Elinor.Scene.Victory.pas',
   Elinor.Scene.Defeat in 'Scenes\Elinor.Scene.Defeat.pas',
-  Elinor.Scene.Loot in 'Scenes\Elinor.Scene.Loot.pas',
   Elinor.Loot in 'Game\Elinor.Loot.pas',
   Elinor.Scene.Loot2 in 'Scenes\Elinor.Scene.Loot2.pas';
 

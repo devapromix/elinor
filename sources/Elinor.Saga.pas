@@ -67,7 +67,6 @@ uses
   Elinor.Scenes,
   Elinor.Items,
   Elinor.Statistics,
-  Elinor.Scene.Loot,
   Elinor.Loot;
 
 { TSaga }
@@ -103,7 +102,7 @@ begin
         AddItem;
       end;
   end;
-  TSceneLoot.ShowScene(LootRes);
+  //TSceneLoot.ShowScene(LootRes);
 end;
 
 class procedure TSaga.Clear;
