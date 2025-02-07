@@ -46,7 +46,7 @@ end;
 procedure TSceneDifficulty.Continue;
 begin
   inherited;
-  TSaga.Difficulty := TDifficultyEnum(CurrentIndex);
+  Difficulty.Level := TDifficultyEnum(CurrentIndex);
   TSceneRace.Show;
 end;
 

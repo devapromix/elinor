@@ -138,7 +138,7 @@ var
 begin
   Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1,
     TParty.MaxLevel);
-  case TSaga.Difficulty of
+  case Difficulty.Level of
     dfEasy:
       LChance := 60;
     dfNormal:
@@ -362,7 +362,7 @@ begin
       LY := RandomRange(2, MapHeight - 2);
     until (FMap[lrTile][LX, LY] = reNeutralTerrain) and
       (FMap[lrObj][LX, LY] = reNone);
-    if (GetDistToCapital(LX, LY) <= (15 - (Ord(TSaga.Difficulty) * 2))) and
+    if (GetDistToCapital(LX, LY) <= (15 - (Ord(Difficulty.Level) * 2))) and
       (RandomRange(0, 9) > 2) then
       case RandomRange(0, 2) of
         0:
@@ -574,7 +574,7 @@ begin
     repeat
       case I of
         0: // Capital
-          case TSaga.Difficulty of
+          case Difficulty.Level of
             dfEasy:
               PX := RandomRange(17, Game.Map.Width - 17);
             dfNormal:

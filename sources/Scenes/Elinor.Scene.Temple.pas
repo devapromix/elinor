@@ -53,7 +53,8 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Difficulty;
 
 var
   ShowResources: Boolean;
@@ -255,7 +256,7 @@ procedure TSceneTemple.Revive;
       else
       begin
         ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue +
-          (Level * ((Ord(TSaga.Difficulty) + 1) *
+          (Level * ((Ord(Difficulty.Level) + 1) *
           TSaga.GoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin

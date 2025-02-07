@@ -15,7 +15,6 @@ type
   public
   class var
     LeaderFaction: TFactionEnum;
-    Difficulty: TDifficultyEnum;
   public const
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
       'Вызвать на Дуэль', 'Отравить Колодцы');

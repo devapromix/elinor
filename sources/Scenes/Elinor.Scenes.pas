@@ -735,7 +735,7 @@ begin
   TextLeft := TFrame.Col(3) + 12;
   AddTextLine('Information', True);
   AddTextLine;
-  AddTextLine('Game Difficulty', DifficultyName[TSaga.Difficulty]);
+  AddTextLine('Game Difficulty', DifficultyName[Difficulty.Level]);
   AddTextLine('Day', Game.Day);
   AddTextLine;
   AddTextLine('Statistics', True);

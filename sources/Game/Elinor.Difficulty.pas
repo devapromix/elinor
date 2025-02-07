@@ -17,11 +17,13 @@ const
 type
   TDifficulty = class(TObject)
   private
+    FLevel: TDifficultyEnum;
   public
     constructor Create;
     destructor Destroy; override;
     class function GetDescription(const ADifficultyEnum: TDifficultyEnum;
       const AIndex: Integer): string;
+    property Level: TDifficultyEnum read FLevel write FLevel;
   end;
 
 var
@@ -37,7 +39,7 @@ uses
 
 constructor TDifficulty.Create;
 begin
-
+  Self.Level := dfEasy;
 end;
 
 destructor TDifficulty.Destroy;
