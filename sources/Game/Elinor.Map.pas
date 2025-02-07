@@ -181,10 +181,10 @@ end;
 procedure AddCapitalParty;
 begin
   TLeaderParty.CapitalPartyIndex := High(Party) + 1;
-  SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
+  SetLength(Party, Parties.Count + 1);
+  Party[Parties.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
-  Party[TSaga.GetPartyCount - 1].AddCreature(Characters[TSaga.LeaderFaction]
+  Party[Parties.Count - 1].AddCreature(Characters[TSaga.LeaderFaction]
     [cgGuardian][ckGuardian], 3);
 end;
 
@@ -193,8 +193,8 @@ var
   LCreatureEnum: TCreatureEnum;
 begin
   TLeaderParty.SummonPartyIndex := High(Party) + 1;
-  SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TParty.Create(Game.Map.MapPlace[0].X,
+  SetLength(Party, Parties.Count + 1);
+  Party[Parties.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
   LCreatureEnum := crGoblin;
   Party[TLeaderParty.SummonPartyIndex].AddCreature(LCreatureEnum, 2);
@@ -205,8 +205,8 @@ var
   LCreatureEnum: TCreatureEnum;
 begin
   TLeaderParty.LeaderPartyIndex := High(Party) + 1;
-  SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
+  SetLength(Party, Parties.Count + 1);
+  Party[Parties.Count - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
   LCreatureEnum := Characters[TSaga.LeaderFaction][cgLeaders][RaceCharKind];
   case TCreature.Character(LCreatureEnum).ReachEnum of

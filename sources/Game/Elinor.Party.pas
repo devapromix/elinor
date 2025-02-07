@@ -151,8 +151,20 @@ type
     function InSpellCastingRange(const AX, AY: Integer): Boolean;
   end;
 
+type
+  TParties = class
+  private
+  public
+    constructor Create;
+    destructor Destroy; override;
+    function GetPartyIndex(const AX, AY: Integer): Integer;
+    function Count: Integer;
+    procedure Clear;
+  end;
+
 var
   Party: array of TParty;
+  Parties: TParties;
 
 implementation
 
@@ -724,7 +736,7 @@ function TLeaderParty.IsPartyOwner(const AX, AY: Integer): Boolean;
 var
   CurrentPartyIndex: Integer;
 begin
-  CurrentPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  CurrentPartyIndex := Parties.GetPartyIndex(AX, AY);
   if CurrentPartyIndex < 0 then
     Result := False
   else
@@ -805,7 +817,7 @@ begin
     end;
     if Game.Map.GetTile(lrTile, AX, AY) in Cities then
     begin
-      I := TSaga.GetPartyIndex(AX, AY);
+      I := Parties.GetPartyIndex(AX, AY);
       if not Party[I].IsClear then
         TSceneParty.Show(Party[I], scMap);
       Exit;
@@ -813,7 +825,7 @@ begin
     case Game.Map.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
-          I := TSaga.GetPartyIndex(AX, AY);
+          I := Parties.GetPartyIndex(AX, AY);
           TSceneParty.Show(Party[I], scMap);
         end;
     end;
@@ -899,7 +911,7 @@ begin
           case Game.Map.GetTile(lrObj, JX, JY) of
             reEnemy:
               begin
-                I := TSaga.GetPartyIndex(JX, JY);
+                I := Parties.GetPartyIndex(JX, JY);
 
                 if not Party[I].IsClear and Party[I].CanAttack and
                   not Party[I].IsParalyzeParty() then
@@ -961,5 +973,53 @@ begin
   Game.Map.UpdateRadius(Self.X, Self.Y, Self.GetSightRadius,
     Game.Map.GetLayer(lrDark), reNone);
 end;
+
+{ TParties }
+
+constructor TParties.Create;
+begin
+
+end;
+
+destructor TParties.Destroy;
+begin
+
+  inherited;
+end;
+
+function TParties.Count: Integer;
+begin
+  Result := Length(Party);
+end;
+
+function TParties.GetPartyIndex(const AX, AY: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := -1;
+  for I := 0 to Count - 1 do
+    if (Party[I].X = AX) and (Party[I].Y = AY) then
+    begin
+      Result := I;
+      Exit;
+    end;
+end;
+
+procedure TParties.Clear;
+var
+  I: Integer;
+begin
+  for I := 0 to Parties.Count - 1 do
+    FreeAndNil(Party[I]);
+  SetLength(Party, 0);
+end;
+
+initialization
+
+Parties := TParties.Create;
+
+finalization
+
+FreeAndNil(Parties);
 
 end.

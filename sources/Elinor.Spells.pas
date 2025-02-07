@@ -207,7 +207,7 @@ var
   LPartyIndex: Integer;
 begin
   Result := False;
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  LPartyIndex := Parties.GetPartyIndex(AX, AY);
   if IsValidTarget(AX, AY) then
   begin
     Result := True;
@@ -232,7 +232,7 @@ function TSpell.IsValidTarget(const AX, AY: Integer): Boolean;
 var
   LPartyIndex: Integer;
 begin
-  LPartyIndex := TSaga.GetPartyIndex(AX, AY);
+  LPartyIndex := Parties.GetPartyIndex(AX, AY);
   case SpellBase[FSpellEnum].SpellTarget of
     stLeader:
       Result := (LPartyIndex > 0) and

@@ -309,6 +309,7 @@ begin
     Mana.Clear(500)
   else
     Mana.Clear(10);
+  Parties.Clear;
   Statistics.Clear;
   Spells.Clear;
   Scenario.Clear;
@@ -929,7 +930,7 @@ begin
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[LButtonEnum]);
   FreeAndNil(Button);
-  TSaga.PartyFree;
+  Parties.Clear;
   inherited;
 end;
 

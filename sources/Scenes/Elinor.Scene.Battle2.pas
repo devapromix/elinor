@@ -260,7 +260,7 @@ begin
     InformDialog('Вы победили на дуэли и воины вражеского отряда разбежались!');
   end;
   Game.MediaPlayer.PlayMusic(mmMap);
-  Party[TSaga.GetPartyIndex(TLeaderParty.Leader.X,
+  Party[Parties.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
   if IsNewAbility then
   begin
@@ -291,7 +291,7 @@ var
 begin
   Battle.Clear;
   Enabled := True;
-  I := TSaga.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  I := Parties.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if IsDuel then
   begin
     DuelEnemyParty.Clear;

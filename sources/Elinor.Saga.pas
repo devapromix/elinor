@@ -64,9 +64,6 @@ type
   public
     class procedure Clear; static;
     class procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean); static;
-    class procedure PartyFree; static;
-    class function GetPartyCount: Integer; static;
-    class function GetPartyIndex(const AX, AY: Integer): Integer; static;
     class procedure AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
       IsFinal: Boolean = False); static;
     class procedure AddLoot(LootRes: TResEnum); static;
@@ -95,46 +92,19 @@ var
   LCreatureEnum: TCreatureEnum;
 begin
   LLevel := EnsureRange(GetTileLevel(AX, AY), 1, MaxLevel);
-  SetLength(Party, TSaga.GetPartyCount + 1);
-  Party[TSaga.GetPartyCount - 1] := TParty.Create(AX, AY);
+  SetLength(Party, Parties.Count + 1);
+  Party[Parties.Count - 1] := TParty.Create(AX, AY);
   repeat
     LPartyIndex := RandomRange(0, Length(PartyBase));
   until (PartyBase[LPartyIndex].Level = LLevel) and
     (PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
   if IsFinal then
     LPartyIndex := High(PartyBase);
-  with Party[TSaga.GetPartyCount - 1] do
+  with Party[Parties.Count - 1] do
   begin
     for LPosition := Low(TPosition) to High(TPosition) do
       AddCreature(PartyBase[LPartyIndex].Character[LPosition], LPosition);
   end;
-end;
-
-class procedure TSaga.PartyFree;
-var
-  I: Integer;
-begin
-  for I := 0 to TSaga.GetPartyCount - 1 do
-    FreeAndNil(Party[I]);
-  SetLength(Party, 0);
-end;
-
-class function TSaga.GetPartyCount: Integer;
-begin
-  Result := Length(Party);
-end;
-
-class function TSaga.GetPartyIndex(const AX, AY: Integer): Integer;
-var
-  I: Integer;
-begin
-  Result := -1;
-  for I := 0 to GetPartyCount - 1 do
-    if (Party[I].X = AX) and (Party[I].Y = AY) then
-    begin
-      Result := I;
-      Exit;
-    end;
 end;
 
 class procedure TSaga.AddPartyAt(const AX, AY: Integer; CanAttack: Boolean;
@@ -147,7 +117,7 @@ var
 begin
   Game.Map.SetTile(lrObj, AX, AY, reEnemy);
   TSaga.PartyInit(AX, AY, IsFinal);
-  LPartyIndex := GetPartyIndex(AX, AY);
+  LPartyIndex := Parties.GetPartyIndex(AX, AY);
   Party[LPartyIndex].Owner := faNeutrals;
   Party[LPartyIndex].CanAttack := CanAttack;
   if IsFinal then
@@ -235,7 +205,6 @@ class procedure TSaga.Clear;
 begin
   IsGame := True;
   NewItem := 0;
-  PartyFree;
   Game.Clear;
   TLeaderParty.Leader.Clear;
 end;

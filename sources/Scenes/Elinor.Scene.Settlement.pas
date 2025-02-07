@@ -251,7 +251,7 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CurrentCityIndex := TSaga.GetPartyIndex(TLeaderParty.Leader.X,
+        CurrentCityIndex := Parties.GetPartyIndex(TLeaderParty.Leader.X,
           TLeaderParty.Leader.Y);
         SettlementParty := Party[CurrentCityIndex];
         SettlementParty.Owner := Party[TLeaderParty.LeaderPartyIndex].Owner;
