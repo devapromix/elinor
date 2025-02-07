@@ -35,6 +35,7 @@ type
     function GetItemIndex(const AX, AY, AIndex: Integer): Integer; overload;
     function GetLootItem(const AItemIndex: Integer): TLootItem; overload;
     function GetLootItem(const AX, AY: Integer): TLootItem; overload;
+    procedure AddBag;
   end;
 
 var
@@ -46,7 +47,10 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Saga,
-  Elinor.Scenes, Elinor.Map;
+  Elinor.Scenes,
+  Elinor.Map,
+  Elinor.Party,
+  Elinor.Resources;
 
 { TLoot }
 
@@ -127,6 +131,17 @@ begin
     LootType := ltStoneTab;
     Amount := 1;
   end;
+end;
+
+procedure TLoot.AddBag;
+var
+  LItemIndex, LX, LY: Integer;
+begin
+  LX := TLeaderParty.Leader.X;
+  LY := TLeaderParty.Leader.Y;
+  LItemIndex := Loot.GetItemIndex(LX, LY);
+  if LItemIndex >= 0 then
+    Game.Map.SetTile(lrObj, LX, LY, reBag);
 end;
 
 procedure TLoot.Clear;

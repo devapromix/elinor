@@ -86,13 +86,12 @@ begin
           Loot.Clear(LItemIndex);
         end;
     end;
-
   end;
-
 end;
 
 class procedure TSceneLoot2.HideScene;
 begin
+  Loot.AddBag;
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmLoot);
