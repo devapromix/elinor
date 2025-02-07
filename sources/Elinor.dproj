@@ -114,7 +114,7 @@
         </DCCReference>
         <DCCReference Include="Third-Party\Bass\Bass.pas"/>
         <DCCReference Include="Game\Elinor.Map.pas"/>
-        <DCCReference Include="Elinor.Resources.pas"/>
+        <DCCReference Include="Game\Elinor.Resources.pas"/>
         <DCCReference Include="Game\Elinor.Creatures.pas"/>
         <DCCReference Include="Game\Elinor.Items.pas"/>
         <DCCReference Include="Game\Elinor.Party.pas"/>

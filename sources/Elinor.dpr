@@ -13,7 +13,7 @@ uses
   Elinor.MainForm in 'Forms\Elinor.MainForm.pas' {MainForm},
   Bass in 'Third-Party\Bass\Bass.pas',
   Elinor.Map in 'Game\Elinor.Map.pas',
-  Elinor.Resources in 'Elinor.Resources.pas',
+  Elinor.Resources in 'Game\Elinor.Resources.pas',
   Elinor.Creatures in 'Game\Elinor.Creatures.pas',
   Elinor.Items in 'Game\Elinor.Items.pas',
   Elinor.Party in 'Game\Elinor.Party.pas',
