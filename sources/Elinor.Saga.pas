@@ -11,20 +11,12 @@ uses
   Elinor.Creatures;
 
 type
-  TPartyBase = record
-    Level: Integer;
-    Faction: TFactionEnum;
-    Character: array [TPosition] of TCreatureEnum;
-  end;
-
-type
   TSaga = class(TObject)
   public
   class var
     NewItem: Integer;
     LeaderFaction: TFactionEnum;
     Difficulty: TDifficultyEnum;
-    PartyBase: array of TPartyBase;
     IsGame: Boolean;
   public const
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
@@ -63,7 +55,6 @@ type
   public
     class procedure Clear; static;
     class procedure AddLoot(LootRes: TResEnum); static;
-    class function GetTileLevel(const AX: Integer; const AY: Integer): Integer;
   end;
 
 implementation
@@ -105,7 +96,7 @@ begin
   Game.Gold.NewValue := 0;
   Game.Mana.NewValue := 0;
   NewItem := 0;
-  LLevel := TSaga.GetTileLevel(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  LLevel := TMap.GetTileLevel(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   case LootRes of
     reBag:
       begin
@@ -113,24 +104,6 @@ begin
       end;
   end;
   TSceneLoot.ShowScene(LootRes);
-end;
-
-class function TSaga.GetTileLevel(const AX: Integer; const AY: Integer)
-  : Integer;
-var
-  LChance: Integer;
-begin
-  Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1, TParty.MaxLevel);
-  case TSaga.Difficulty of
-    dfEasy:
-      LChance := 60;
-    dfNormal:
-      LChance := 30;
-    dfHard:
-      LChance := 10;
-  end;
-  if RandomRange(1, LChance) = 1 then
-    Result := EnsureRange(Result + 1, 1, TParty.MaxLevel);
 end;
 
 class procedure TSaga.Clear;

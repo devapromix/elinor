@@ -77,6 +77,7 @@ type
     function GetCityName(const I: Integer): string;
     function GetCityNameTitleRes(const I: TCityNum): TResEnum;
     procedure UnParalyzeAllParties;
+    class function GetTileLevel(const AX: Integer; const AY: Integer): Integer;
   end;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
@@ -129,6 +130,24 @@ begin
     Result := FMap[ALayerEnum][X, Y]
   else
     Result := reNone;
+end;
+
+class function TMap.GetTileLevel(const AX, AY: Integer): Integer;
+var
+  LChance: Integer;
+begin
+  Result := EnsureRange(Game.Map.GetDistToCapital(AX, AY) div 3, 1,
+    TParty.MaxLevel);
+  case TSaga.Difficulty of
+    dfEasy:
+      LChance := 60;
+    dfNormal:
+      LChance := 30;
+    dfHard:
+      LChance := 10;
+  end;
+  if RandomRange(1, LChance) = 1 then
+    Result := EnsureRange(Result + 1, 1, TParty.MaxLevel);
 end;
 
 function TMap.Height: Integer;

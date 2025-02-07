@@ -167,8 +167,16 @@ type
       IsFinal: Boolean = False);
   end;
 
+type
+  TPartyBase = record
+    Level: Integer;
+    Faction: TFactionEnum;
+    Character: array [TPosition] of TCreatureEnum;
+  end;
+
 var
   Party: array of TParty;
+  PartyBase: array of TPartyBase;
   Parties: TParties;
 
 implementation
@@ -1018,19 +1026,19 @@ var
   LPosition: TPosition;
   LCreatureEnum: TCreatureEnum;
 begin
-  LLevel := EnsureRange(TSaga.GetTileLevel(AX, AY), 1, TParty.MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, TParty.MaxLevel);
   SetLength(Party, Parties.Count + 1);
   Party[Parties.Count - 1] := TParty.Create(AX, AY);
   repeat
-    LPartyIndex := RandomRange(0, Length(TSaga.PartyBase));
-  until (TSaga.PartyBase[LPartyIndex].Level = LLevel) and
-    (TSaga.PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
+    LPartyIndex := RandomRange(0, Length(PartyBase));
+  until (PartyBase[LPartyIndex].Level = LLevel) and
+    (PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
   if IsFinal then
-    LPartyIndex := High(TSaga.PartyBase);
+    LPartyIndex := High(PartyBase);
   with Party[Parties.Count - 1] do
   begin
     for LPosition := Low(TPosition) to High(TPosition) do
-      AddCreature(TSaga.PartyBase[LPartyIndex].Character[LPosition], LPosition);
+      AddCreature(PartyBase[LPartyIndex].Character[LPosition], LPosition);
   end;
 end;
 

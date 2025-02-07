@@ -757,7 +757,7 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
-  Elinor.Creatures;
+  Elinor.Creatures, Elinor.Party;
 
 function GetPath(SubDir: string): string;
 begin
@@ -835,8 +835,8 @@ begin
           LLevel := LParty.GetValue('level').ToString.ToInteger;
           LFaction := LParty.GetValue('faction').Value;
           LCharacters := LParty.GetValue('characters').Value;
-          SetLength(TSaga.PartyBase, Length(TSaga.PartyBase) + 1);
-          with TSaga.PartyBase[Length(TSaga.PartyBase) - 1] do
+          SetLength(PartyBase, Length(PartyBase) + 1);
+          with PartyBase[Length(PartyBase) - 1] do
           begin
             Level := LLevel;
             Faction := TCreature.StrToFactionEnum(LFaction);

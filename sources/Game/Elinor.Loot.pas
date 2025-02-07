@@ -46,7 +46,7 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Saga,
-  Elinor.Scenes;
+  Elinor.Scenes, Elinor.Map;
 
 { TLoot }
 
@@ -59,7 +59,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TSaga.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
@@ -77,7 +77,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TSaga.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
@@ -99,7 +99,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TSaga.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
@@ -117,7 +117,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TSaga.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
