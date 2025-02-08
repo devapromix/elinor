@@ -844,7 +844,7 @@ var
   F: Boolean;
   LBGStat: TBGStat;
 begin
-  F := Party.Owner = TSaga.LeaderFaction;
+  F := Party.Owner = Game.Scenario.Faction;
   with Party.Creature[Position] do
   begin
     if Active then

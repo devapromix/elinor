@@ -1032,7 +1032,7 @@ begin
   repeat
     LPartyIndex := RandomRange(0, Length(PartyBase));
   until (PartyBase[LPartyIndex].Level = LLevel) and
-    (PartyBase[LPartyIndex].Faction <> TSaga.LeaderFaction);
+    (PartyBase[LPartyIndex].Faction <> Game.Scenario.Faction);
   if IsFinal then
     LPartyIndex := High(PartyBase);
   with Party[Parties.Count - 1] do

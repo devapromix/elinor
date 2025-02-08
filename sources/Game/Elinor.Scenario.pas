@@ -3,7 +3,8 @@
 interface
 
 uses
-  System.Types;
+  System.Types,
+  Elinor.Faction;
 
 {
   Сценарии:
@@ -37,11 +38,14 @@ type
     ScenarioObjective: array [TScenarioEnum] of string =
       ('Destroy the Dark Tower', 'Capture all cities',
       'Find all stone tablets');
+  private
+    FFaction: TFactionEnum;
   public
     StoneTab: Integer;
     CurrentScenario: TScenarioEnum;
     FStoneTab: array [1 .. ScenarioStoneTabMax] of TPoint;
     StoneCounter: Integer;
+    property Faction: TFactionEnum read FFaction write FFaction;
     procedure Clear;
     function IsStoneTab(const X, Y: Integer): Boolean;
     procedure AddStoneTab(const X, Y: Integer);

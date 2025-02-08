@@ -543,7 +543,8 @@ uses
   System.SysUtils,
   Elinor.Party,
   Elinor.Saga,
-  Elinor.Abilities;
+  Elinor.Abilities,
+  Elinor.Scenes;
 
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
@@ -1140,7 +1141,7 @@ begin
   until (Rating > 0) and (Rating >= (ALevel * 10) - 5) and
     (Rating <= (ALevel * 10) + 5) and
     (CreatureBase[TCreatureEnum(N)].ReachEnum = R) and
-    (TSaga.LeaderFaction <> CreatureBase[TCreatureEnum(N)].Faction);
+    (Game.Scenario.Faction <> CreatureBase[TCreatureEnum(N)].Faction);
   Result := TCreatureEnum(N);
 end;
 

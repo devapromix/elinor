@@ -202,8 +202,8 @@ begin
   TLeaderParty.CapitalPartyIndex := High(Party) + 1;
   SetLength(Party, Parties.Count + 1);
   Party[Parties.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
-    Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
-  Party[Parties.Count - 1].AddCreature(Characters[TSaga.LeaderFaction]
+    Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
+  Party[Parties.Count - 1].AddCreature(Characters[Game.Scenario.Faction]
     [cgGuardian][ckGuardian], 3);
 end;
 
@@ -214,7 +214,7 @@ begin
   TLeaderParty.SummonPartyIndex := High(Party) + 1;
   SetLength(Party, Parties.Count + 1);
   Party[Parties.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
-    Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
+    Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
   LCreatureEnum := crGoblin;
   Party[TLeaderParty.SummonPartyIndex].AddCreature(LCreatureEnum, 2);
 end;
@@ -226,8 +226,8 @@ begin
   TLeaderParty.LeaderPartyIndex := High(Party) + 1;
   SetLength(Party, Parties.Count + 1);
   Party[Parties.Count - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
-    Game.Map.MapPlace[0].Y, TSaga.LeaderFaction);
-  LCreatureEnum := Characters[TSaga.LeaderFaction][cgLeaders][RaceCharKind];
+    Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
+  LCreatureEnum := Characters[Game.Scenario.Faction][cgLeaders][RaceCharKind];
   case TCreature.Character(LCreatureEnum).ReachEnum of
     reAdj:
       begin
@@ -601,7 +601,7 @@ begin
     case I of
       0: // Capital
         begin
-          case TSaga.LeaderFaction of
+          case Game.Scenario.Faction of
             faTheEmpire:
               Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X,
                 Game.Map.MapPlace[I].Y] := reTheEmpireCapital;
@@ -687,11 +687,11 @@ class procedure TMapPlace.UpdateRadius(const AID: Integer);
 begin
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrTile],
-    FactionTerrain[TSaga.LeaderFaction], [reNeutralCity, reRuin, reTower] +
+    FactionTerrain[Game.Scenario.Faction], [reNeutralCity, reRuin, reTower] +
     Capitals + Cities);
   Game.Map.UpdateRadius(Game.Map.MapPlace[AID].X, Game.Map.MapPlace[AID].Y,
     Game.Map.MapPlace[AID].CurLevel, Game.Map.FMap[lrDark], reNone);
-  Game.Map.MapPlace[AID].Owner := TSaga.LeaderFaction;
+  Game.Map.MapPlace[AID].Owner := Game.Scenario.Faction;
 end;
 
 class function TMapPlace.GetCityCount: Integer;

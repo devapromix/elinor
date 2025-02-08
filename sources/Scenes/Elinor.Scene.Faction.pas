@@ -46,7 +46,7 @@ end;
 procedure TSceneRace.Continue;
 begin
   inherited;
-  TSaga.LeaderFaction := TFactionEnum(CurrentIndex);
+  Game.Scenario.Faction := TFactionEnum(CurrentIndex);
   TSceneLeader.Show;
 end;
 

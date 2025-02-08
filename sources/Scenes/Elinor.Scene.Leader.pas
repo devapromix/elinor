@@ -56,7 +56,7 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   TSceneHire.CurCrAbilityEnum := TCreature.Character(CurCrEnum).AbilityEnum;
   Game.Clear;
-  Party[TLeaderParty.LeaderPartyIndex].Owner := TSaga.LeaderFaction;
+  Party[TLeaderParty.LeaderPartyIndex].Owner := Game.Scenario.Faction;
   Game.MediaPlayer.PlayMusic(mmGame);
   Game.MediaPlayer.PlaySound(mmExit);
   TSceneSettlement.ShowScene(stCapital);
@@ -79,18 +79,18 @@ begin
     LLeft := IfThen(Ord(LRaceCharKind) > 2, TFrame.Col(1), TFrame.Col(0));
     LTop := IfThen(Ord(LRaceCharKind) > 2, TFrame.Row(Ord(LRaceCharKind) - 3),
       TFrame.Row(Ord(LRaceCharKind)));
-    with TCreature.Character(Characters[TSaga.LeaderFaction][cgLeaders]
+    with TCreature.Character(Characters[Game.Scenario.Faction][cgLeaders]
       [LRaceCharKind]) do
       if HitPoints > 0 then
       begin
         DrawUnit(ResEnum, LLeft, LTop, bsCharacter);
-        DrawUnitInfo(LLeft, LTop, Characters[TSaga.LeaderFaction][cgLeaders]
+        DrawUnitInfo(LLeft, LTop, Characters[Game.Scenario.Faction][cgLeaders]
           [LRaceCharKind], False);
       end;
   end;
 
   RaceCharKind := TFactionLeaderKind(CurrentIndex);
-  CurCrEnum := Characters[TSaga.LeaderFaction][cgLeaders][RaceCharKind];
+  CurCrEnum := Characters[Game.Scenario.Faction][cgLeaders][RaceCharKind];
 
   if CurCrEnum <> crNone then
   begin

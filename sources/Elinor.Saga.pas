@@ -14,7 +14,6 @@ type
   TSaga = class(TObject)
   public
   class var
-    LeaderFaction: TFactionEnum;
   public const
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
       'Вызвать на Дуэль', 'Отравить Колодцы');

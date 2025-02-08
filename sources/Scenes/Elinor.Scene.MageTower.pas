@@ -145,7 +145,7 @@ procedure TSceneMageTower.Render;
       LLeft := IfThen(LSpellIndex > 2, TFrame.Col(1), TFrame.Col(0));
       LTop := IfThen(LSpellIndex > 2, TFrame.Row(LSpellIndex - 3),
         TFrame.Row(LSpellIndex));
-      LSpellEnum := FactionSpellbookSpells[TSaga.LeaderFaction][LSpellIndex];
+      LSpellEnum := FactionSpellbookSpells[Game.Scenario.Faction][LSpellIndex];
       if (LSpellEnum <> spNone) then
       begin
         DrawSpell(LSpellEnum, LLeft, LTop, Spells.IsLearned(LSpellEnum));
