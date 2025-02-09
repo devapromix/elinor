@@ -139,6 +139,7 @@ var
 begin
   LX := TLeaderParty.Leader.X;
   LY := TLeaderParty.Leader.Y;
+  Game.Map.SetTile(lrObj, LX, LY, reNone);
   LItemIndex := Loot.GetItemIndex(LX, LY);
   if LItemIndex >= 0 then
     Game.Map.SetTile(lrObj, LX, LY, reBag);

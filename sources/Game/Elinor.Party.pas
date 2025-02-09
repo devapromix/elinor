@@ -1055,7 +1055,11 @@ begin
   Party[LPartyIndex].Owner := faNeutrals;
   Party[LPartyIndex].CanAttack := CanAttack;
   if IsFinal then
+  begin
     Party[LPartyIndex].CanAttack := False;
+    Loot.AddItemAt(AX, AY);
+    Loot.AddItemAt(AX, AY);
+  end;
   Loot.AddItemAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddGoldAt(AX, AY);
