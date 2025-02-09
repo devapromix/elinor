@@ -1057,11 +1057,10 @@ begin
   if IsFinal then
     Party[LPartyIndex].CanAttack := False;
   Loot.AddItemAt(AX, AY);
-
-  Loot.AddGoldAt(AX, AY);
-  Loot.AddManaAt(AX, AY);
-  Loot.AddGoldAt(AX, AY);
-  Loot.AddManaAt(AX, AY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddGoldAt(AX, AY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddManaAt(AX, AY);
 
   { if Game.Wizard then
     begin

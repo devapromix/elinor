@@ -246,18 +246,30 @@ procedure TMap.AddItemAt(LY: Integer; LX: Integer);
 begin
   FMap[lrObj][LX, LY] := reBag;
   Loot.AddItemAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddGoldAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddManaAt(LX, LY);
 end;
 
 procedure TMap.AddManaAt(LY: Integer; LX: Integer);
 begin
   FMap[lrObj][LX, LY] := reMana;
   Loot.AddManaAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddManaAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddManaAt(LX, LY);
 end;
 
 procedure TMap.AddGoldAt(LY: Integer; LX: Integer);
 begin
   FMap[lrObj][LX, LY] := reGold;
   Loot.AddGoldAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddGoldAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddGoldAt(LX, LY);
 end;
 
 procedure TMap.Gen;
