@@ -67,7 +67,7 @@ begin
       InformDialog('Not enough mana to learn this spell!');
       Exit;
     end;
-    Game.MediaPlayer.PlaySound(mmSpellbook);
+    Game.MediaPlayer.PlaySound(mmLearn);
     Game.Mana.Modify(-LMana);
     Spells.Learn(LSpellEnum);
     InformDialog('The spell has been added to the spellbook!');
@@ -76,9 +76,9 @@ end;
 
 class procedure TSceneMageTower.HideScene;
 begin
+  Game.MediaPlayer.PlayMusic(mmMap);
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSpellbook);
 end;
 
 constructor TSceneMageTower.Create;
@@ -207,7 +207,7 @@ end;
 
 class procedure TSceneMageTower.ShowScene;
 begin
-  Game.MediaPlayer.PlaySound(mmSpellbook);
+  Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scMageTower);
 end;
 

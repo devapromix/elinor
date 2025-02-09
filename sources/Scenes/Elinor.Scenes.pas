@@ -456,7 +456,7 @@ end;
 
 procedure TScene.InformDialog(const S: string);
 begin
-  Game.MediaPlayer.PlaySound(mmExit);
+  Game.MediaPlayer.PlaySound(mmClick);
   Game.InformMsg := S;
   Game.IsShowInform := True;
 end;

@@ -578,7 +578,7 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmStep, mmBattle, mmVictory, mmDefeat, mmWin,
+  TMusicEnum = (mmClick, mmStep, mmMagic, mmBattle, mmVictory, mmDefeat, mmWin,
     mmWinBattle, mmGame, mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel,
     mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
     mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
@@ -588,7 +588,7 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed);
+    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -600,6 +600,8 @@ const
     (FileName: 'click.wav'; ResType: teSound;),
     // Step
     (FileName: 'step.wav'; ResType: teSound;),
+    // Magic
+    (FileName: 'wasteland-theme.mp3'; ResType: teMusic;),
     // Battle
     (FileName: 'wasteland-showdown.mp3'; ResType: teMusic;),
     // Victory
@@ -723,7 +725,9 @@ const
     // Mana
     (FileName: 'mana.wav'; ResType: teSound;),
     // Speed
-    (FileName: 'speed.wav'; ResType: teSound;)
+    (FileName: 'speed.wav'; ResType: teSound;),
+    // Learn
+    (FileName: 'learn.wav'; ResType: teSound;)
     //
     );
 

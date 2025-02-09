@@ -339,8 +339,6 @@ begin
         TLeaderParty.Leader.Abilities.GenRandomList;
         TSceneNewAbility.ShowScene;
       end;
-    K_M:
-      TSceneMageTower.ShowScene;
     K_I:
       ShowInventoryScene;
     K_A:

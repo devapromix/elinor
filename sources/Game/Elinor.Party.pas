@@ -196,7 +196,7 @@ uses
   Elinor.Statistics,
   Elinor.Loot,
   Elinor.Scene.Loot2,
-  Elinor.Common;
+  Elinor.Common, Elinor.Scene.MageTower;
 
 { TParty }
 
@@ -892,7 +892,15 @@ begin
         end;
       reSTower:
         begin
+          Game.MediaPlayer.PlaySound(mmSettlement);
           Game.Map.UpdateRadius(Leader.X, Leader.Y, 3);
+          F := False;
+        end;
+      reMageTower:
+        begin
+          Game.MediaPlayer.PlayMusic(mmMagic);
+          Game.MediaPlayer.PlaySound(mmSettlement);
+          TSceneMageTower.ShowScene;
           F := False;
         end;
     end;
