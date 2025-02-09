@@ -51,6 +51,7 @@ type
     procedure AddItemAt(LY: Integer; LX: Integer);
     procedure AddManaAt(LY, LX: Integer);
     procedure AddGoldAt(LY, LX: Integer);
+    procedure AddMageTower;
   public
     MapPlace: array [0 .. MapPlacesCount - 1] of TMapPlace;
     constructor Create;
@@ -273,6 +274,18 @@ begin
     Loot.AddGoldAt(LX, LY);
 end;
 
+procedure TMap.AddMageTower;
+var
+  LX, LY: Integer;
+begin
+  repeat
+    LX := RandomRange(2, MapWidth - 2);
+    LY := RandomRange(2, MapHeight - 2);
+  until (FMap[lrTile][LX, LY] = reNeutralTerrain) and
+    (FMap[lrObj][LX, LY] = reNone) and (GetDistToCapital(LX, LY) < 7);
+  FMap[lrObj][LX, LY] := reMageTower;
+end;
+
 procedure TMap.Gen;
 var
   LX, LY, RX, RY, LMapPlaceIndex: Integer;
@@ -411,6 +424,7 @@ begin
       (GetDistToCapital(LX, LY) >= 5);
     AddObjectAt(LX, LY, LMapPlaceIndex);
   end;
+  AddMageTower;
   // Parties
   AddCapitalParty;
   AddSummonParty;

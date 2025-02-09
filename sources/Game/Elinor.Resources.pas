@@ -35,8 +35,8 @@ type
     reBGTransparent, reGold, reMana, reBag, reNeutralCity, reTheEmpireCity,
     reUndeadHordesCity, reLegionsOfTheDamnedCity, reTheEmpireCapital,
     reUndeadHordesCapital, reLegionsOfTheDamnedCapital, reRuin, reTower,
-    reSTower, reMineGold, reMineMana, reMountain1, reMountain2, reMountain3,
-    reMountain4,
+    reSTower, reMageTower, reMineGold, reMineMana, reMountain1, reMountain2,
+    reMountain3, reMountain4,
     // Trees
     reTree1, reTree2, reTree3, reTree4, reTree5, reUndeadHordesTree,
     reLegionsOfTheDamnedTree,
@@ -110,8 +110,8 @@ const
 
 type
   TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
-    teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMine, teMusic,
-    teSound, teItem, teBG, teIcon, teTheEmpireABC);
+    teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMageTower,
+    teMine, teMusic, teSound, teItem, teBG, teIcon, teTheEmpireABC);
 
 type
   TResBase = record
@@ -221,6 +221,8 @@ const
     (FileName: 'tile.tower.png'; ResType: teTower;),
     // STower
     (FileName: 'tile.stower.png'; ResType: teTower;),
+    // Mage Tower
+    (FileName: 'tile.mage_tower.png'; ResType: teMageTower;),
     // Gold Mine
     (FileName: 'tile.mine.gold.png'; ResType: teMine;),
     // Mana Mine

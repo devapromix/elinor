@@ -13,7 +13,7 @@ type
     X, Y: Integer;
     ItemEnum: TItemEnum;
     LootType: TLootType;
-    Amount: Cardinal;
+    Amount: Integer;
   end;
 
 type
@@ -55,7 +55,7 @@ uses
 { TLoot }
 
 const
-  MaxLevel = 8;
+  CMaxLevel = 8;
 
 procedure TLoot.AddGoldAt(const AX, AY: Integer);
 var
@@ -63,7 +63,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, CMaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
@@ -81,7 +81,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, CMaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
@@ -103,7 +103,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, CMaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
@@ -121,7 +121,7 @@ var
 begin
   if not Game.Map.InMap(AX, AY) then
     Exit;
-  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, MaxLevel);
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, CMaxLevel);
   SetLength(FLootItem, Count() + 1);
   with FLootItem[Count - 1] do
   begin
