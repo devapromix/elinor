@@ -43,6 +43,7 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
+  Elinor.Creature.Types,
   Elinor.Creatures;
 
 { TSceneDefeat }

@@ -92,6 +92,7 @@ uses
   Elinor.Scenario,
   Elinor.Party,
   Elinor.Scenes,
+  Elinor.Creature.Types,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Party,
   Elinor.PathFind,

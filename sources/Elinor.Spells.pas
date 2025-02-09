@@ -157,8 +157,10 @@ uses
   System.SysUtils, Dialogs,
   Elinor.Saga,
   Elinor.Party,
+  Elinor.Creature.Types,
   Elinor.Creatures,
-  Elinor.Scenes, Elinor.Scene.Battle2;
+  Elinor.Scenes,
+  Elinor.Scene.Battle2;
 
 type
   TSpellBaseArray = array [TSpellEnum] of TSpellBase;

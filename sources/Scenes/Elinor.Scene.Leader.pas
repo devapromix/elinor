@@ -37,7 +37,9 @@ uses
   Elinor.Scene.Faction,
   DisciplesRL.Scene.Hire,
   Elinor.Saga,
+  Elinor.Creature.Types,
   Elinor.Scene.Settlement,
+  Elinor.Ability,
   Elinor.Scene.Party,
   Elinor.Frame;
 

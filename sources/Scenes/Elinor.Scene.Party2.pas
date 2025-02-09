@@ -46,6 +46,7 @@ uses
   Elinor.Saga,
   Elinor.Scene.Party,
   Elinor.Frame,
+  Elinor.Creature.Types,
   Elinor.Creatures,
   Elinor.Statistics,
   DisciplesRL.Scene.Hire,

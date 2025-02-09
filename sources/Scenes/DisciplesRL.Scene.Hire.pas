@@ -11,7 +11,9 @@ uses
   System.Classes,
   Elinor.Saga,
   Elinor.Scenario,
+  Elinor.Creature.Types,
   Elinor.Creatures,
+  Elinor.Ability,
   Elinor.Scenes,
   Elinor.Resources,
   Elinor.Party;

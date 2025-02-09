@@ -1,4 +1,4 @@
-﻿unit Elinor.Abilities;
+﻿unit Elinor.Ability.Base;
 
 // https://gamefaqs.gamespot.com/pc/918958-disciples-ii-rise-of-the-elves/faqs
 // https://disciples.fandom.com/wiki/Skill_guide_for_Disciples_II:_Dark_Prophecy
@@ -7,7 +7,8 @@
 interface
 
 uses
-  Elinor.Creatures,
+  Elinor.Ability,
+  Elinor.Creature.Types,
   Elinor.Resources;
 
 const

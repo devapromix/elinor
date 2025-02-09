@@ -52,6 +52,7 @@ uses
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
+  Elinor.Creature.Types,
   Elinor.Creatures,
   Elinor.Common,
   Elinor.Difficulty;
@@ -256,8 +257,7 @@ procedure TSceneTemple.Revive;
       else
       begin
         ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue +
-          (Level * ((Ord(Difficulty.Level) + 1) *
-          CGoldForRevivePerLevel)));
+          (Level * ((Ord(Difficulty.Level) + 1) * CGoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin
           InformDialog(Format(CRevivalGoldNeededFormat, [ConfirmGold]));

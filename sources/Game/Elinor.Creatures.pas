@@ -11,6 +11,8 @@ interface
 
 uses
   Elinor.Faction,
+  Elinor.Ability,
+  Elinor.Creature.Types,
   Elinor.Attribute,
   Elinor.Resources;
 
@@ -18,111 +20,6 @@ type
   TSubRaceEnum = (reCustom, reAngel, reHuman, reUndead, reHeretic, reDwarf,
     reElf, reGreenSkin, reDarkElf, reVampire, reGargoyle, reAnimal, reBarbarian,
     reDragon, reUndeadDragon, reMarsh, reWater);
-
-  // CreatureEnum
-{$REGION CreatureEnum}
-
-type
-  TCreatureEnum = (crNone,
-    // The Empire Capital Guardian
-    crMyzrael,
-    // The Empire Warrior Leader
-    crPaladin,
-    // The Empire Scout Leader
-    crRanger,
-    // The Empire Mage Leader
-    crArchmage,
-    // The Empire Thief Leader
-    crThief,
-    // The Empire Lord Leader
-    crWarlord,
-    // The Empire Fighters
-    crSquire,
-    // The Empire Ranged Attack Units
-    crArcher,
-    // The Empire Mage Units
-    crApprentice,
-    // The Empire Support units
-    crAcolyte,
-
-    // Undead Hordes Capital Guardian
-    crAshgan,
-    // Undead Hordes Warrior Leader
-    crDeathKnight,
-    // Undead Hordes Scout Leader
-    crNosferatu,
-    // Undead Hordes Mage Leader
-    crLichQueen,
-    // Undead Hordes Thief Leader
-    crThug,
-    // Undead Hordes Lord Leader
-    crDominator,
-    // Undead Hordes Fighters
-    crFighter,
-    // Undead Hordes Ranged Attack Units
-    crGhost,
-    // Undead Hordes Mage Units
-    crInitiate,
-    // Undead Hordes Support units
-    crWyvern,
-
-    // Legions Of The Damned Capital Guardian
-    crAshkael,
-    // Legions Of The Damned Warrior Leader
-    crDuke,
-    // Legions Of The Damned Scout Leader
-    crCounselor,
-    // Legions Of The Damned Mage Leader
-    crArchDevil,
-    // Legions Of The Damned Thief Leader
-    crRipper,
-    // Legions Of The Damned Lord Leader
-    crChieftain,
-    // Legions Of The Damned Fighters
-    crPossessed,
-    // Legions Of The Damned Ranged Attack Units
-    crGargoyle,
-    // Legions Of The Damned Mage Units
-    crCultist,
-    // Legions Of The Damned Support units
-    crDevil,
-
-    // Goblins
-    crGoblin, crGoblin_Rider, crGoblin_Archer, crGoblin_Elder,
-    // Orcs
-    crOrc,
-    // Ogres
-    crOgre,
-
-    // Humans
-    crPeasant, crManAtArms, crRogue,
-
-    // Undeads
-    crGhoul, crDarkElfGast, crReaper,
-
-    // Heretics
-    crImp,
-
-    // Spiders
-    crGiantSpider,
-    // Wolves
-    crWolf,
-    // Bears
-    crPolarBear, crBrownBear, crBlackBear
-    //
-    );
-{$ENDREGION CreatureEnum}
-
-const
-  FighterLeaders = [crPaladin, crDeathKnight, crDuke];
-  ScoutingLeaders = [crRanger, crNosferatu, crCounselor];
-  MageLeaders = [crArchmage, crLichQueen, crArchDevil];
-  ThiefLeaders = [crThief, crThug, crRipper];
-  LordLeaders = [crWarlord, crDominator, crChieftain];
-  TemplarLeaders = [];
-  AllLeaders = FighterLeaders + ScoutingLeaders + MageLeaders + ThiefLeaders +
-    LordLeaders + TemplarLeaders;
-  FlyLeaders = [crDuke, crArchDevil, crChieftain];
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -422,50 +319,6 @@ type
   TCrSoundEnum = (csHit, csDeath, csAttack);
   TCreatureGender = (cgMale, cgFemale, cgNeuter, cgPlural);
 
-  // Abilities
-{$REGION Abilities}
-
-type
-  TAbilityEnum = (abNone, abFlying, abStrength, abMight, abStealth, abSharpEye,
-    abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
-    abLeadership1, abLeadership2, abLeadership3, abLeadership4,
-    abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
-    abDealmaker, abHaggler, abNaturalArmor, abArcanePower, abWeaponMaster,
-    abArcaneKnowledge, abArcaneLore, abSorcery, abTemplar, abMountaineering,
-    abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics);
-
-type
-  TAbility = record
-    Enum: TAbilityEnum;
-    Name: string;
-    Description: array [0 .. 1] of string;
-    Level: Byte;
-    Leaders: set of TCreatureEnum;
-    ResEnum: TResEnum;
-  end;
-
-const
-  MaxAbilities = 12;
-
-type
-  TAbilities = class(TObject)
-  private
-    FAbility: array [0 .. MaxAbilities - 1] of TAbility;
-  public
-    RandomAbilityEnum: array [0 .. 5] of TAbilityEnum;
-    constructor Create;
-    destructor Destroy; override;
-    function IsAbility(const AAbilityEnum: TAbilityEnum): Boolean;
-    procedure Add(const AAbilityEnum: TAbilityEnum);
-    function GetEnum(const I: Integer): TAbilityEnum;
-    procedure GenRandomList;
-    procedure Clear;
-    class function Ability(const A: TAbilityEnum): TAbility; static;
-    class function IsAbilityLeadership(const AAbilityEnum: TAbilityEnum)
-      : Boolean; static;
-  end;
-{$ENDREGION Abilities}
-
 type
   TCreatureBase = record
     Ident: string;
@@ -541,9 +394,9 @@ implementation
 uses
   System.Math, dialogs,
   System.SysUtils,
+  Elinor.Ability.Base,
   Elinor.Party,
   Elinor.Saga,
-  Elinor.Abilities,
   Elinor.Scenes;
 
 const
@@ -1215,121 +1068,5 @@ begin
 end;
 
 {$ENDREGION TCreature}
-// Abilities
-{$REGION Abilities}
-{ TAbilities }
-
-class function TAbilities.Ability(const A: TAbilityEnum): TAbility;
-begin
-  Result := AbilityBase[A];
-end;
-
-class function TAbilities.IsAbilityLeadership(const AAbilityEnum
-  : TAbilityEnum): Boolean;
-begin
-  Result := (AAbilityEnum = abLeadership1) or (AAbilityEnum = abLeadership2) or
-    (AAbilityEnum = abLeadership3) or (AAbilityEnum = abLeadership4);
-end;
-
-procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
-var
-  I: Integer;
-begin
-  for I := 0 to MaxAbilities - 1 do
-    if (FAbility[I].Enum = abNone) then
-    begin
-      FAbility[I] := AbilityBase[AAbilityEnum];
-      Exit;
-    end;
-end;
-
-procedure TAbilities.Clear;
-var
-  I: Integer;
-begin
-  for I := 0 to MaxAbilities - 1 do
-    FAbility[I] := AbilityBase[abNone];
-end;
-
-constructor TAbilities.Create;
-begin
-  Self.Clear;
-end;
-
-destructor TAbilities.Destroy;
-begin
-
-  inherited;
-end;
-
-procedure TAbilities.GenRandomList;
-var
-  I: Integer;
-  LAbilityEnum: TAbilityEnum;
-
-  procedure ClearRandomAbilities;
-  var
-    I: Integer;
-  begin
-    for I := 0 to 5 do
-      RandomAbilityEnum[I] := abNone;
-  end;
-
-  function GetRandomAbility: TAbilityEnum;
-  begin
-    Result := TAbilityEnum(RandomRange(Ord(Succ(Low(TAbilityEnum))),
-      Ord(High(TAbilityEnum))));
-  end;
-
-  function CheckAbilityLevel(const AAbilityEnum: TAbilityEnum): Boolean;
-  begin
-    Result := (AbilityBase[AAbilityEnum].Level <= TLeaderParty.Leader.Level);
-  end;
-
-  function IsRandomAbility(const AAbilityEnum: TAbilityEnum): Boolean;
-  var
-    I: Integer;
-  begin
-    Result := False;
-    for I := 0 to 5 do
-      if AAbilityEnum = RandomAbilityEnum[I] then
-      begin
-        Result := True;
-        Exit;
-      end;
-  end;
-
-begin
-  ClearRandomAbilities;
-  for I := 0 to 5 do
-  begin
-    repeat
-      LAbilityEnum := GetRandomAbility;
-    until not IsAbility(LAbilityEnum) and not IsRandomAbility(LAbilityEnum) and
-      CheckAbilityLevel(LAbilityEnum) and
-      (TLeaderParty.Leader.Enum in AbilityBase[LAbilityEnum].Leaders);
-    RandomAbilityEnum[I] := LAbilityEnum;
-  end;
-end;
-
-function TAbilities.GetEnum(const I: Integer): TAbilityEnum;
-begin
-  Result := FAbility[I].Enum;
-end;
-
-function TAbilities.IsAbility(const AAbilityEnum: TAbilityEnum): Boolean;
-var
-  I: Integer;
-begin
-  Result := False;
-  for I := 0 to MaxAbilities - 1 do
-    if FAbility[I].Enum = AAbilityEnum then
-    begin
-      Result := True;
-      Exit;
-    end;
-end;
-
-{$ENDREGION Abilities}
 
 end.

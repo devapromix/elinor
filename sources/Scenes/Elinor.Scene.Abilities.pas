@@ -39,6 +39,8 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Frame,
+  Elinor.Creature.Types,
+  Elinor.Ability,
   Elinor.Scene.Party,
   Elinor.Creatures;
 

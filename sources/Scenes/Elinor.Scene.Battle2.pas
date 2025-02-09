@@ -5,6 +5,7 @@ interface
 uses
   Vcl.Controls,
   System.Classes,
+  Elinor.Creature.Types,
   Elinor.Creatures,
   Elinor.Scenes,
   Elinor.Scene.Frames,
@@ -76,6 +77,7 @@ uses
   Elinor.Statistics,
   Elinor.Resources,
   Elinor.Button,
+  Elinor.Ability,
   Elinor.Scene.Party,
   Elinor.Scene.Defeat,
   Elinor.Scene.NewAbility,

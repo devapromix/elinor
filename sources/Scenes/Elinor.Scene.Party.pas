@@ -57,6 +57,8 @@ uses
   SysUtils, dialogs,
   Elinor.Saga,
   Elinor.Statistics,
+  Elinor.Creature.Types,
+  Elinor.Ability,
   DisciplesRL.Scene.Hire,
   Elinor.Button,
   Elinor.Items,

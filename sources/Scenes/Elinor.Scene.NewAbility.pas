@@ -46,6 +46,7 @@ uses
   Elinor.Scene.Faction,
   Elinor.Scene.Scenario,
   Elinor.Scene.Battle2,
+  Elinor.Ability,
   Elinor.Scenario,
   Elinor.Creatures,
   Elinor.Scene.Party;
