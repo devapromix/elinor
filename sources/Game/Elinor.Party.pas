@@ -192,7 +192,9 @@ uses
   Elinor.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   Elinor.Statistics,
-  Elinor.Loot, Elinor.Scene.Loot2;
+  Elinor.Loot,
+  Elinor.Scene.Loot2,
+  Elinor.Common;
 
 { TParty }
 
@@ -688,11 +690,11 @@ class function TLeaderParty.GetMovementPoints(const CrEnum
   : TCreatureEnum): Integer;
 begin
   if (CrEnum in ScoutingLeaders) then
-    Result := TSaga.LeaderScoutMaxSpeed
+    Result := CLeaderScoutMaxSpeed
   else if (CrEnum in LordLeaders) then
-    Result := TSaga.LeaderLordMaxSpeed
+    Result := CLeaderLordMaxSpeed
   else
-    Result := TSaga.LeaderDefaultMaxSpeed;
+    Result := CLeaderDefaultMaxSpeed;
 end;
 
 class function TLeaderParty.GetSpellCastingRange(const CrEnum
@@ -768,8 +770,8 @@ end;
 class function TLeaderParty.GetSightRadius(const ACreatureEnum
   : TCreatureEnum): Integer;
 begin
-  Result := IfThen(ACreatureEnum in ScoutingLeaders, TSaga.LeaderScoutMaxRadius,
-    TSaga.LeaderDefaultMaxRadius);
+  Result := IfThen(ACreatureEnum in ScoutingLeaders, CLeaderScoutMaxRadius,
+    CLeaderDefaultMaxRadius);
 end;
 
 function TLeaderParty.GetSightRadius: Integer;

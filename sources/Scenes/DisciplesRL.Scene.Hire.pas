@@ -165,7 +165,7 @@ end;
 
 function TSceneHire.ThiefPoisonDamage: Integer;
 begin
-  Result := TSaga.LeaderThiefPoisonDamageAllInPartyPerLevel;
+  Result := CLeaderThiefPoisonDamageAllInPartyPerLevel;
 end;
 
 procedure TSceneHire.Ok;

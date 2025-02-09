@@ -240,7 +240,8 @@ uses
   Elinor.Scene.Defeat,
   Elinor.Difficulty,
   Elinor.Loot,
-  Elinor.Scene.Loot2;
+  Elinor.Scene.Loot2,
+  Elinor.Common;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -331,7 +332,7 @@ begin
     Map.Clear(lrSee);
     Map.UnParalyzeAllParties;
     if (TLeaderParty.Leader.Enum in FighterLeaders) then
-      TLeaderParty.Leader.HealParty(TSaga.LeaderWarriorHealAllInPartyPerDay);
+      TLeaderParty.Leader.HealParty(CLeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.SpellsPerDay.SetToMaxValue;
     ShowNewDayMessageTime := 20;
     MediaPlayer.PlaySound(mmDay);

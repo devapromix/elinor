@@ -257,7 +257,7 @@ procedure TSceneTemple.Revive;
       begin
         ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue +
           (Level * ((Ord(Difficulty.Level) + 1) *
-          TSaga.GoldForRevivePerLevel)));
+          CGoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin
           InformDialog(Format(CRevivalGoldNeededFormat, [ConfirmGold]));

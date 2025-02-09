@@ -40,6 +40,17 @@ type
   // function IIF(Condition: Boolean; IfTrue: Variant; IfFalse: Variant): Variant;
 
 const
+  CGoldForRevivePerLevel = 25;
+  CLeaderWarriorHealAllInPartyPerDay = 10;
+  CLeaderScoutMaxRadius = 2;
+  CLeaderScoutMaxSpeed = 12;
+  CLeaderLordMaxSpeed = 9;
+  CLeaderThiefSpyAttemptCountPerDay = 3;
+  CLeaderThiefPoisonDamageAllInPartyPerLevel = 10;
+  CLeaderDefaultMaxSpeed = 7;
+  CLeaderDefaultMaxRadius = 1;
+
+const
   CNoFreeSpace = 'There is no free space!';
   CChooseEmptySlot = 'Choose an empty slot!';
   CChooseNonEmptySlot = 'Choose a non-empty slot!';

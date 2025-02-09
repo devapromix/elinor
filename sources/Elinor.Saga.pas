@@ -12,8 +12,6 @@ uses
 
 type
   TSaga = class(TObject)
-  public
-  class var
   public const
     SpyName: array [TLeaderThiefSpyVar] of string = ('Заслать Шпиона',
       'Вызвать на Дуэль', 'Отравить Колодцы');
@@ -39,28 +37,8 @@ type
       ('', '', '', '', '')
       //
       );
-    GoldForRevivePerLevel = 25;
-    LeaderWarriorHealAllInPartyPerDay = 10;
-    LeaderScoutMaxRadius = 2;
-    LeaderScoutMaxSpeed = 12;
-    LeaderLordMaxSpeed = 9;
-    LeaderThiefSpyAttemptCountPerDay = 3;
-    LeaderThiefPoisonDamageAllInPartyPerLevel = 10;
-    LeaderDefaultMaxSpeed = 7;
-    LeaderDefaultMaxRadius = 1;
-  public
   end;
 
 implementation
-
-uses
-  System.Math,
-  System.Classes,
-  System.SysUtils,
-  Elinor.Map,
-  Elinor.Scenes,
-  Elinor.Items,
-  Elinor.Statistics,
-  Elinor.Loot;
 
 end.
