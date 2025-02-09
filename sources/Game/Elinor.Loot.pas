@@ -218,12 +218,12 @@ end;
 
 function TLoot.GetItemIndex(const AX, AY: Integer): Integer;
 var
-  I: Integer;
+  LItemIndex: Integer;
 begin
   Result := -1;
-  for I := 0 to Count - 1 do
-    if (FLootItem[I].X = AX) and (FLootItem[I].Y = AY) then
-      Exit(I);
+  for LItemIndex := 0 to Count - 1 do
+    if (FLootItem[LItemIndex].X = AX) and (FLootItem[LItemIndex].Y = AY) then
+      Exit(LItemIndex);
 end;
 
 initialization

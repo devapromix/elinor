@@ -864,21 +864,18 @@ begin
       reGold:
         begin
           TLeaderParty.Leader.Invisibility := False;
-          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSceneLoot2.ShowScene;
           F := False;
         end;
       reMana:
         begin
           TLeaderParty.Leader.Invisibility := False;
-          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           TSceneLoot2.ShowScene;
           F := False;
         end;
       reBag:
         begin
           TLeaderParty.Leader.Invisibility := False;
-          Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
           Game.Statistics.IncValue(stChestsFound);
           TSceneLoot2.ShowScene;
           F := False;
