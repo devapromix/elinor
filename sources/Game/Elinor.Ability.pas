@@ -26,12 +26,12 @@ type
   end;
 
 const
-  MaxAbilities = 12;
+  CMaxAbilities = 12;
 
 type
   TAbilities = class(TObject)
   private
-    FAbility: array [0 .. MaxAbilities - 1] of TAbility;
+    FAbility: array [0 .. CMaxAbilities - 1] of TAbility;
   public
     RandomAbilityEnum: array [0 .. 5] of TAbilityEnum;
     constructor Create;
@@ -70,7 +70,7 @@ procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
 var
   I: Integer;
 begin
-  for I := 0 to MaxAbilities - 1 do
+  for I := 0 to CMaxAbilities - 1 do
     if (FAbility[I].Enum = abNone) then
     begin
       FAbility[I] := AbilityBase[AAbilityEnum];
@@ -82,7 +82,7 @@ procedure TAbilities.Clear;
 var
   I: Integer;
 begin
-  for I := 0 to MaxAbilities - 1 do
+  for I := 0 to CMaxAbilities - 1 do
     FAbility[I] := AbilityBase[abNone];
 end;
 
@@ -157,7 +157,7 @@ var
   I: Integer;
 begin
   Result := False;
-  for I := 0 to MaxAbilities - 1 do
+  for I := 0 to CMaxAbilities - 1 do
     if FAbility[I].Enum = AAbilityEnum then
     begin
       Result := True;

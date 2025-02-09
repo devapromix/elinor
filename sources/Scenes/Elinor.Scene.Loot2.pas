@@ -185,9 +185,12 @@ procedure TSceneLoot2.Render;
       LLootItem := Loot.GetLootItem(I);
       AddTextLine(TItemBase.Item(LLootItem.ItemEnum).Name, True);
       AddTextLine;
-      if LLootItem.Amount > 1 then
-        AddTextLine('Amount', LLootItem.Amount);
-      AddTextLine('Level', TItemBase.Item(LLootItem.ItemEnum).Level);
+      case LLootItem.LootType of
+        ltGold, ltMana:
+          AddTextLine('Amount', LLootItem.Amount);
+      else
+        AddTextLine('Level', TItemBase.Item(LLootItem.ItemEnum).Level);
+      end;
     end;
   end;
 

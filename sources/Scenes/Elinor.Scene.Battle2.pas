@@ -244,7 +244,7 @@ begin
           begin
             LeaderParty.UpdateLevel(LPosition);
             Battle.UpdateLevel(Name[0], GenderEnding, Level + 1);
-            IsNewAbility := (Leadership > 0) and (Level <= MaxAbilities);
+            IsNewAbility := (Leadership > 0) and (Level <= CMaxAbilities);
           end;
   end;
 end;

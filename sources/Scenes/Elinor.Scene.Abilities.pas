@@ -133,7 +133,7 @@ procedure TSceneAbilities.Render;
     AddTextLine(TAbilities.Ability(abLeadership1).Description[0]);
     AddTextLine(TAbilities.Ability(abLeadership1).Description[1]);
     J := 0;
-    for I := 0 to MaxAbilities - 1 do
+    for I := 0 to CMaxAbilities - 1 do
     begin
       LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
       if (LAbilityEnum <> abNone) and not TAbilities.IsAbilityLeadership

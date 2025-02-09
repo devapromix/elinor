@@ -294,7 +294,7 @@ var
     TextTop := TFrame.Row(0) + 6;
     AddTextLine('Умения Лидера', True);
     AddTextLine;
-    for I := 0 to MaxAbilities - 1 do
+    for I := 0 to CMaxAbilities - 1 do
     begin
       LSkillEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
       if LSkillEnum <> abNone then

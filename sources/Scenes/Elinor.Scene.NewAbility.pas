@@ -165,7 +165,7 @@ var
     AddTextLine('Leader Abilities', True);
     AddTextLine;
     AddTextLine('Leadership', TLeaderParty.Leader.Leadership);
-    for I := 0 to MaxAbilities - 1 do
+    for I := 0 to CMaxAbilities - 1 do
     begin
       LAbilityEnum := TLeaderParty.Leader.Abilities.GetEnum(I);
       if (LAbilityEnum <> abNone) and not TAbilities.IsAbilityLeadership
