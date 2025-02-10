@@ -23,8 +23,8 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    function Count: Integer; overload;
-    function Count(const AX, AY: Integer): Integer; overload;
+    function Count: Integer;
+    function CountAt(const AX, AY: Integer): Integer;
     procedure Clear; overload;
     procedure Clear(const AItemIndex: Integer); overload;
     procedure AddGoldAt(const AX, AY: Integer);
@@ -35,7 +35,7 @@ type
     function GetItemIndex(const AX, AY, AIndex: Integer): Integer; overload;
     function GetLootItem(const AItemIndex: Integer): TLootItem; overload;
     function GetLootItem(const AX, AY: Integer): TLootItem; overload;
-    procedure AttemptToPlaceAChest;
+    procedure AttemptToPlaceLootObject;
   end;
 
 var
@@ -133,7 +133,7 @@ begin
   end;
 end;
 
-procedure TLoot.AttemptToPlaceAChest;
+procedure TLoot.AttemptToPlaceLootObject;
 var
   LItemIndex, LX, LY: Integer;
 begin
@@ -142,7 +142,14 @@ begin
   Game.Map.SetTile(lrObj, LX, LY, reNone);
   LItemIndex := Loot.GetItemIndex(LX, LY);
   if LItemIndex >= 0 then
-    Game.Map.SetTile(lrObj, LX, LY, reBag);
+    case FLootItem[LItemIndex].LootType of
+      ltGold:
+        Game.Map.SetTile(lrObj, LX, LY, reGold);
+      ltMana:
+        Game.Map.SetTile(lrObj, LX, LY, reMana);
+    else
+      Game.Map.SetTile(lrObj, LX, LY, reBag);
+    end;
 end;
 
 procedure TLoot.Clear;
@@ -162,7 +169,7 @@ begin
   end;
 end;
 
-function TLoot.Count(const AX, AY: Integer): Integer;
+function TLoot.CountAt(const AX, AY: Integer): Integer;
 var
   I: Integer;
 begin

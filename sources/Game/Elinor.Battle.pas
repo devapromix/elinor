@@ -85,7 +85,7 @@ begin
     atMagic:
       begin
         LStr := TResources.RandomValue('battle.string',
-          SourceSecName[SourceEnum] + '_magic_attack');
+          LowerCase(SourceName[SourceEnum]) + '_magic_attack');
         if (Trim(LStr) = '') then
           LStr := TResources.RandomValue('battle.string',
             'default_magic_attack');
@@ -98,8 +98,8 @@ begin
         atDrainLife:
           LStr := TResources.RandomValue('battle.string', 'bites_attack');
       else
-        LStr := TResources.RandomValue('battle.string',
-          AtkSecName[AttackEnum] + '_attack');
+        LStr := TResources.RandomValue('battle.string', AtkSecName[AttackEnum] +
+          '_attack');
       end;
       if (Trim(LStr) = '') then
         LStr := TResources.RandomValue('battle.string', 'default_attack');

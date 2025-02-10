@@ -67,7 +67,7 @@ type
     function InRect(const X, Y, X1, Y1, X2, Y2: Integer): Boolean;
     function InMap(const X, Y: Integer): Boolean;
     function LeaderTile: TResEnum;
-    function IsLeaderMove(const X, Y: Integer): Boolean;
+    function IsLeaderMove(const AX, AY: Integer): Boolean;
     function Width: Integer;
     function Height: Integer;
     function GetLayer(const ALayerEnum: TLayerEnum): TMapLayer;
@@ -75,7 +75,7 @@ type
     procedure SetTile(const ALayerEnum: TLayerEnum; X, Y: Integer;
       Tile: TResEnum);
     procedure GenCityName;
-    function GetCityName(const I: Integer): string;
+    function GetCityName(const ACityIndex: Integer): string;
     function GetCityNameTitleRes(const I: TCityNum): TResEnum;
     procedure UnParalyzeAllParties;
     class function GetTileLevel(const AX: Integer; const AY: Integer): Integer;
@@ -526,9 +526,9 @@ begin
   end;
 end;
 
-function TMap.GetCityName(const I: Integer): string;
+function TMap.GetCityName(const ACityIndex: Integer): string;
 begin
-  Result := CityNameText[CityArr[I]];
+  Result := CityNameText[CityArr[ACityIndex]];
 end;
 
 function TMap.GetCityNameTitleRes(const I: TCityNum): TResEnum;
@@ -536,11 +536,11 @@ begin
   Result := CityNameTitle[CityArr[I]];
 end;
 
-function TMap.IsLeaderMove(const X, Y: Integer): Boolean;
+function TMap.IsLeaderMove(const AX, AY: Integer): Boolean;
 begin
-  Result := (InRect(X, Y, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y - 1,
-    TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1)) and
-    not(FMap[lrObj][X, Y] in StopTiles);
+  Result := (InRect(AX, AY, TLeaderParty.Leader.X - 1, TLeaderParty.Leader.Y -
+    1, TLeaderParty.Leader.X + 1, TLeaderParty.Leader.Y + 1)) and
+    not(FMap[lrObj][AX, AY] in StopTiles);
 end;
 
 function GetRadius(const N: Integer): Integer;

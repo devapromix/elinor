@@ -91,7 +91,7 @@ end;
 
 class procedure TSceneLoot2.HideScene;
 begin
-  Loot.AttemptToPlaceAChest;
+  Loot.AttemptToPlaceLootObject;
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmLoot);
@@ -158,7 +158,7 @@ procedure TSceneLoot2.Render;
   begin
     X := TLeaderParty.Leader.X;
     Y := TLeaderParty.Leader.Y;
-    LCount := Loot.Count(X, Y);
+    LCount := Loot.CountAt(X, Y);
     for I := 0 to LCount - 1 do
     begin
       LLeft := IfThen(I > 2, TFrame.Col(1), TFrame.Col(0));

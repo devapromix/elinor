@@ -3,9 +3,9 @@ unit Elinor.Scene.NewAbility;
 interface
 
 uses
-  Elinor.Scene.Base.Party,
   Vcl.Controls,
   System.Classes,
+  Elinor.Scene.Base.Party,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
@@ -38,8 +38,8 @@ implementation
 { TSceneNewAbility }
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Frames,
@@ -134,8 +134,8 @@ var
       begin
         DrawAbility(LAbilityEnum, LLeft, LTop);
         DrawText(LLeft + 74, LTop + 6, TAbilities.Ability(LAbilityEnum).Name);
-        DrawText(LLeft + 74, LTop + 27, Format('Level %d',
-          [TAbilities.Ability(LAbilityEnum).Level]));
+        DrawText(LLeft + 74, LTop + 27,
+          Format('Level %d', [TAbilities.Ability(LAbilityEnum).Level]));
       end;
     end;
   end;

@@ -29,13 +29,11 @@ type
     seFire, seWater);
 
 const
-  SourceName: array [TSourceEnum] of string = ('Оружие', 'Жизнь', 'Разум',
-    'Смерть', 'Воздух', 'Земля', 'Огонь', 'Вода');
+  SourceName: array [TSourceEnum] of string = ('Weapon', 'Life', 'Mind',
+    'Death', 'Air', 'Earth', 'Fire', 'Water');
   StaffName: array [TSourceEnum] of string = ('Боевой Посох', 'Рубиновый Посох',
     'Мифриловый Посох', 'Посох Могущества', 'Посох Молний', 'Эльфийский Посох',
     'Посох Колдуна', 'Посох Льда');
-  SourceSecName: array [TSourceEnum] of string = ('weapon', 'life', 'mind',
-    'death', 'air', 'earth', 'fire', 'water');
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -62,7 +60,7 @@ type
 
 const
   AttackName: array [TAttackEnum] of string = ('Меч Убийцы', 'Длинный Меч',
-    'Меч Паладина', 'Боевой Топор', 'Кинжал', 'Лук', 'Лук Охотника', 'Арбалет',
+    'Меч Паладина', 'Боевой Топор', 'Dagger', 'Bow', 'Hunter Bow', 'Арбалет',
     'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
     'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
     'Булава', 'Тлеющий Молот', 'Меч Феникса', 'Коса');
