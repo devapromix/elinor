@@ -209,7 +209,7 @@ var
   LPartyIndex: Integer;
 begin
   Result := False;
-  LPartyIndex := Parties.GetPartyIndex(AX, AY);
+  LPartyIndex := PartyList.GetPartyIndex(AX, AY);
   if IsValidTarget(AX, AY) then
   begin
     Result := True;
@@ -234,7 +234,7 @@ function TSpell.IsValidTarget(const AX, AY: Integer): Boolean;
 var
   LPartyIndex: Integer;
 begin
-  LPartyIndex := Parties.GetPartyIndex(AX, AY);
+  LPartyIndex := PartyList.GetPartyIndex(AX, AY);
   case SpellBase[FSpellEnum].SpellTarget of
     stLeader:
       Result := (LPartyIndex > 0) and
@@ -350,7 +350,7 @@ end;
 
 procedure TTrueHealingSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].HealParty(25);
+  PartyList.Party[APartyIndex].HealParty(25);
 end;
 
 constructor TTrueHealingSpell.Create;
@@ -386,7 +386,7 @@ end;
 
 procedure TPlagueSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].TakeDamageAll(35);
+  PartyList.Party[APartyIndex].TakeDamageAll(35);
 end;
 
 constructor TPlagueSpell.Create;
@@ -410,7 +410,7 @@ end;
 
 procedure TChainsOfDreadSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].ParalyzeParty;
+  PartyList.Party[APartyIndex].ParalyzeParty;
 end;
 
 constructor TChainsOfDreadSpell.Create;
@@ -422,7 +422,7 @@ end;
 
 procedure TCurseSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].ModifyPartyChancesToHit(-15);
+  PartyList.Party[APartyIndex].ModifyPartyChancesToHit(-15);
 end;
 
 constructor TCurseSpell.Create;
@@ -434,7 +434,7 @@ end;
 
 procedure TBlessSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].ModifyPartyChancesToHit(15);
+  PartyList.Party[APartyIndex].ModifyPartyChancesToHit(15);
 end;
 
 constructor TBlessSpell.Create;
@@ -446,7 +446,7 @@ end;
 
 procedure TWeakenSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  Party[APartyIndex].ModifyPartyDamage(10);
+  PartyList.Party[APartyIndex].ModifyPartyDamage(10);
 end;
 
 constructor TWeakenSpell.Create;

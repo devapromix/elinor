@@ -122,16 +122,16 @@ procedure TSceneBarracks.ShowRecruitScene;
         InformDialog(CChooseEmptySlot);
         Exit;
       end;
-      if (((AParty = Party[TLeaderParty.LeaderPartyIndex]) and
-        (Party[TLeaderParty.LeaderPartyIndex].Count <
+      if (((AParty = PartyList.Party[TLeaderParty.LeaderPartyIndex]) and
+        (PartyList.Party[TLeaderParty.LeaderPartyIndex].Count <
         TLeaderParty.Leader.Leadership)) or
-        (AParty <> Party[TLeaderParty.LeaderPartyIndex])) then
+        (AParty <> PartyList.Party[TLeaderParty.LeaderPartyIndex])) then
       begin
         TSceneRecruit.ShowScene(AParty, APosition);
       end
       else
       begin
-        if (Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
+        if (PartyList.Party[TLeaderParty.LeaderPartyIndex].Count = TLeaderParty.Leader.
           Leadership) then
           InformDialog(CNeedLeadership)
         else
@@ -188,8 +188,8 @@ procedure TSceneBarracks.Render;
     LCanHire: Boolean;
   begin
     LCanHire := True;
-    if CurrentParty = Party[TLeaderParty.LeaderPartyIndex] then
-      LCanHire := Party[TLeaderParty.LeaderPartyIndex].Count <
+    if CurrentParty = PartyList.Party[TLeaderParty.LeaderPartyIndex] then
+      LCanHire := PartyList.Party[TLeaderParty.LeaderPartyIndex].Count <
         TLeaderParty.Leader.Leadership;
     if (CurrentParty <> nil) then
       for LPosition := Low(TPosition) to High(TPosition) do
@@ -226,7 +226,7 @@ begin
 
   if CurrentParty = TLeaderParty.Leader then
     RenderLeaderInfo
-  else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
+  else if CurrentParty = PartyList.Party[TLeaderParty.CapitalPartyIndex] then
     RenderGuardianInfo;
 
   RenderButtons;

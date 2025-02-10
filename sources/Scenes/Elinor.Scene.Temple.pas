@@ -232,7 +232,7 @@ begin
 
   if CurrentParty = TLeaderParty.Leader then
     RenderLeaderInfo
-  else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
+  else if CurrentParty = PartyList.Party[TLeaderParty.CapitalPartyIndex] then
     RenderGuardianInfo;
 
   RenderButtons;

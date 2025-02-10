@@ -233,8 +233,8 @@ begin
   begin
     if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)
       = 0) or (CurrentSettlementType = stCity) then
-      RenderParty(psLeft, Party[TLeaderParty.LeaderPartyIndex],
-        Party[TLeaderParty.LeaderPartyIndex].Count <
+      RenderParty(psLeft, PartyList.Party[TLeaderParty.LeaderPartyIndex],
+        PartyList.Party[TLeaderParty.LeaderPartyIndex].Count <
         TLeaderParty.Leader.Leadership)
     else
       RenderParty(psLeft, nil);
@@ -251,13 +251,13 @@ begin
   case CurrentSettlementType of
     stCity:
       begin
-        CurrentCityIndex := Parties.GetPartyIndex(TLeaderParty.Leader.X,
+        CurrentCityIndex := PartyList.GetPartyIndex(TLeaderParty.Leader.X,
           TLeaderParty.Leader.Y);
-        SettlementParty := Party[CurrentCityIndex];
-        SettlementParty.Owner := Party[TLeaderParty.LeaderPartyIndex].Owner;
+        SettlementParty := PartyList.Party[CurrentCityIndex];
+        SettlementParty.Owner := PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner;
       end
   else
-    SettlementParty := Party[TLeaderParty.CapitalPartyIndex];
+    SettlementParty := PartyList.Party[TLeaderParty.CapitalPartyIndex];
   end;
   ActivePartyPosition := TLeaderParty.GetPosition;
   SelectPartyPosition := -1;
@@ -284,10 +284,10 @@ end;
 procedure TSceneSettlement.MoveUnit;
 begin
   if not((ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and
-    (CurrentPartyPosition >= 6) and (Party[TLeaderParty.LeaderPartyIndex].Count
+    (CurrentPartyPosition >= 6) and (PartyList.Party[TLeaderParty.LeaderPartyIndex].Count
     >= TLeaderParty.Leader.Leadership))) then
   begin
-    Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
+    PartyList.Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
       ActivePartyPosition, CurrentPartyPosition);
     Game.MediaPlayer.PlaySound(mmClick);
   end;
@@ -316,7 +316,7 @@ begin
   case ActivePartyPosition of
     0 .. 5:
       begin
-        TSceneParty2.ShowScene(Party[TLeaderParty.LeaderPartyIndex],
+        TSceneParty2.ShowScene(PartyList.Party[TLeaderParty.LeaderPartyIndex],
           scSettlement);
         Game.MediaPlayer.PlaySound(mmClick);
       end

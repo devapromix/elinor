@@ -201,11 +201,11 @@ end;
 
 procedure AddCapitalParty;
 begin
-  TLeaderParty.CapitalPartyIndex := High(Party) + 1;
-  SetLength(Party, Parties.Count + 1);
-  Party[Parties.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
+  TLeaderParty.CapitalPartyIndex := High(PartyList.Party) + 1;
+  SetLength(PartyList.Party, PartyList.Count + 1);
+  PartyList.Party[PartyList.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
-  Party[Parties.Count - 1].AddCreature(Characters[Game.Scenario.Faction]
+  PartyList.Party[PartyList.Count - 1].AddCreature(Characters[Game.Scenario.Faction]
     [cgGuardian][ckGuardian], 3);
 end;
 
@@ -213,32 +213,32 @@ procedure AddSummonParty;
 var
   LCreatureEnum: TCreatureEnum;
 begin
-  TLeaderParty.SummonPartyIndex := High(Party) + 1;
-  SetLength(Party, Parties.Count + 1);
-  Party[Parties.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
+  TLeaderParty.SummonPartyIndex := High(PartyList.Party) + 1;
+  SetLength(PartyList.Party, PartyList.Count + 1);
+  PartyList.Party[PartyList.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
   LCreatureEnum := crGoblin;
-  Party[TLeaderParty.SummonPartyIndex].AddCreature(LCreatureEnum, 2);
+  PartyList.Party[TLeaderParty.SummonPartyIndex].AddCreature(LCreatureEnum, 2);
 end;
 
 procedure AddLeaderParty;
 var
   LCreatureEnum: TCreatureEnum;
 begin
-  TLeaderParty.LeaderPartyIndex := High(Party) + 1;
-  SetLength(Party, Parties.Count + 1);
-  Party[Parties.Count - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
+  TLeaderParty.LeaderPartyIndex := High(PartyList.Party) + 1;
+  SetLength(PartyList.Party, PartyList.Count + 1);
+  PartyList.Party[PartyList.Count - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
   LCreatureEnum := Characters[Game.Scenario.Faction][cgLeaders][RaceCharKind];
   case TCreature.Character(LCreatureEnum).ReachEnum of
     reAdj:
       begin
-        Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 2);
+        PartyList.Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 2);
         ActivePartyPosition := 2;
       end
   else
     begin
-      Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 3);
+      PartyList.Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 3);
       ActivePartyPosition := 3;
     end;
   end;
@@ -408,7 +408,7 @@ begin
     until (FMap[lrObj][LX, LY] = reNone) and
       (FMap[lrTile][LX, LY] = reNeutralTerrain) and
       (GetDistToCapital(LX, LY) >= 3);
-    Parties.AddPartyAt(LX, LY, True);
+    PartyList.AddPartyAt(LX, LY, True);
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (LMapPlaceIndex < TScenario.ScenarioStoneTabMax) then
       Game.Scenario.AddStoneTab(LX, LY);
@@ -479,8 +479,8 @@ procedure TMap.UnParalyzeAllParties;
 var
   I: Integer;
 begin
-  for I := Low(Party) to High(Party) do
-    Party[I].UnParalyzeParty;
+  for I := Low(PartyList.Party) to High(PartyList.Party) do
+    PartyList.Party[I].UnParalyzeParty;
 end;
 
 procedure TMap.UpdateRadius(const AX, AY, ARadius: Integer);
@@ -648,7 +648,7 @@ begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
             := reNeutralCity;
           ClearObj(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y);
-          Parties.AddPartyAt(Game.Map.MapPlace[I].X,
+          PartyList.AddPartyAt(Game.Map.MapPlace[I].X,
             Game.Map.MapPlace[I].Y, False);
         end;
 
@@ -656,14 +656,14 @@ begin
         begin
           Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
             := reTower;
-          Parties.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y,
+          PartyList.AddPartyAt(Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y,
             False, True);
         end
     else // Ruin
       begin
         Game.Map.FMap[lrTile][Game.Map.MapPlace[I].X, Game.Map.MapPlace[I].Y]
           := reRuin;
-        Parties.AddPartyAt(Game.Map.MapPlace[I].X,
+        PartyList.AddPartyAt(Game.Map.MapPlace[I].X,
           Game.Map.MapPlace[I].Y, False);
       end;
     end;

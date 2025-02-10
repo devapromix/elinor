@@ -313,7 +313,7 @@ begin
     Mana.Clear(500)
   else
     Mana.Clear(10);
-  Parties.Clear;
+  PartyList.Clear;
   Statistics.Clear;
   Spells.Clear;
   Scenario.Clear;
@@ -578,7 +578,7 @@ begin
   LExp := '';
   if IsExp then
     LExp := Format(' Exp %d/%d',
-      [Experience, Party[TLeaderParty.LeaderPartyIndex]
+      [Experience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
   DrawText(AX + SceneLeft + 64, AY + 27, Format('Level %d', [Level]) + LExp);
   DrawText(AX + SceneLeft + 64, AY + 48, Format('Hit points %d/%d',
@@ -645,7 +645,7 @@ begin
     AddTextLine(Name[0], True);
     AddTextLine;
     LExp := Format(' Exp %d/%d',
-      [Experience, Party[TLeaderParty.LeaderPartyIndex]
+      [Experience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
     LStr := 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
@@ -934,7 +934,7 @@ begin
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
     FreeAndNil(Buttons[LButtonEnum]);
   FreeAndNil(Button);
-  Parties.Clear;
+  PartyList.Clear;
   inherited;
 end;
 

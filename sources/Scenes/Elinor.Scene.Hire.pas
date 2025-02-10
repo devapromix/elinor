@@ -88,7 +88,7 @@ procedure TSceneRecruit.Recruit;
 var
   LCreatureEnum: TCreatureEnum;
 begin
-  LCreatureEnum := Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+  LCreatureEnum := Characters[PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner]
     [cgCharacters][TFactionLeaderKind(CurrentIndex)];
   if (LCreatureEnum = crNone) then
     Exit;
@@ -159,7 +159,7 @@ procedure TSceneRecruit.Render;
   var
     LCreatureEnum: TCreatureEnum;
   begin
-    LCreatureEnum := Characters[Party[TLeaderParty.LeaderPartyIndex].Owner]
+    LCreatureEnum := Characters[PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner]
       [cgCharacters][TFactionLeaderKind(CurrentIndex)];
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;

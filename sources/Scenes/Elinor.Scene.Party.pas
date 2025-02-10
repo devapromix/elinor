@@ -152,7 +152,7 @@ end;
 
 procedure TSceneParty.Close;
 begin
-  if CurrentParty <> Party[TLeaderParty.LeaderPartyIndex] then
+  if CurrentParty <> PartyList.Party[TLeaderParty.LeaderPartyIndex] then
     ActivePartyPosition := ActivePartyPosition + 6;
   Game.Show(BackScene);
   Game.MediaPlayer.PlaySound(mmClick);

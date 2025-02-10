@@ -156,10 +156,11 @@ type
   end;
 
 type
-  TParties = class
+  TPartyList = class
   private
     procedure PartyInit(const AX, AY: Integer; IsFinal: Boolean);
   public
+    Party: array of TParty;
     constructor Create;
     destructor Destroy; override;
     function GetPartyIndex(const AX, AY: Integer): Integer;
@@ -177,9 +178,8 @@ type
   end;
 
 var
-  Party: array of TParty;
   PartyBase: array of TPartyBase;
-  Parties: TParties;
+  PartyList: TPartyList;
 
 implementation
 
@@ -596,7 +596,7 @@ end;
 
 procedure TLeaderParty.ChCityOwner;
 begin
-  case Party[LeaderPartyIndex].Owner of
+  case PartyList.Party[LeaderPartyIndex].Owner of
     faTheEmpire:
       Game.Map.SetTile(lrTile, X, Y, reTheEmpireCity);
     faUndeadHordes:
@@ -755,11 +755,11 @@ function TLeaderParty.IsPartyOwner(const AX, AY: Integer): Boolean;
 var
   CurrentPartyIndex: Integer;
 begin
-  CurrentPartyIndex := Parties.GetPartyIndex(AX, AY);
+  CurrentPartyIndex := PartyList.GetPartyIndex(AX, AY);
   if CurrentPartyIndex < 0 then
     Result := False
   else
-    Result := TLeaderParty.Leader.Owner = Party[CurrentPartyIndex].Owner;
+    Result := TLeaderParty.Leader.Owner = PartyList.Party[CurrentPartyIndex].Owner;
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
@@ -799,7 +799,7 @@ end;
 
 class function TLeaderParty.Leader: TLeaderParty;
 begin
-  Result := TLeaderParty(Party[LeaderPartyIndex]);
+  Result := TLeaderParty(PartyList.Party[LeaderPartyIndex]);
 end;
 
 class procedure TLeaderParty.Move(Dir: TDirectionEnum);
@@ -831,21 +831,21 @@ begin
   begin
     if Game.Map.GetTile(lrTile, AX, AY) in Capitals then
     begin
-      TSceneParty.Show(Party[CapitalPartyIndex], scMap);
+      TSceneParty.Show(PartyList.Party[CapitalPartyIndex], scMap);
       Exit;
     end;
     if Game.Map.GetTile(lrTile, AX, AY) in Cities then
     begin
-      I := Parties.GetPartyIndex(AX, AY);
-      if not Party[I].IsClear then
-        TSceneParty.Show(Party[I], scMap);
+      I := PartyList.GetPartyIndex(AX, AY);
+      if not PartyList.Party[I].IsClear then
+        TSceneParty.Show(PartyList.Party[I], scMap);
       Exit;
     end;
     case Game.Map.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
-          I := Parties.GetPartyIndex(AX, AY);
-          TSceneParty.Show(Party[I], scMap);
+          I := PartyList.GetPartyIndex(AX, AY);
+          TSceneParty.Show(PartyList.Party[I], scMap);
         end;
     end;
     Exit;
@@ -935,10 +935,10 @@ begin
           case Game.Map.GetTile(lrObj, JX, JY) of
             reEnemy:
               begin
-                I := Parties.GetPartyIndex(JX, JY);
+                I := PartyList.GetPartyIndex(JX, JY);
 
-                if not Party[I].IsClear and Party[I].CanAttack and
-                  not Party[I].IsParalyzeParty() then
+                if not PartyList.Party[I].IsClear and PartyList.Party[I].CanAttack and
+                  not PartyList.Party[I].IsParalyzeParty() then
                 begin
                   TLeaderParty.PutAt(JX, JY);
                   F := False;
@@ -963,7 +963,7 @@ end;
 
 class function TLeaderParty.Summoned: TLeaderParty;
 begin
-  Result := TLeaderParty(Party[SummonPartyIndex]);
+  Result := TLeaderParty(PartyList.Party[SummonPartyIndex]);
 end;
 
 class procedure TLeaderParty.Move(const AX, AY: ShortInt);
@@ -1000,23 +1000,23 @@ end;
 
 { TParties }
 
-constructor TParties.Create;
+constructor TPartyList.Create;
 begin
 
 end;
 
-destructor TParties.Destroy;
+destructor TPartyList.Destroy;
 begin
 
   inherited;
 end;
 
-function TParties.Count: Integer;
+function TPartyList.Count: Integer;
 begin
   Result := Length(Party);
 end;
 
-function TParties.GetPartyIndex(const AX, AY: Integer): Integer;
+function TPartyList.GetPartyIndex(const AX, AY: Integer): Integer;
 var
   I: Integer;
 begin
@@ -1029,29 +1029,29 @@ begin
     end;
 end;
 
-procedure TParties.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
+procedure TPartyList.PartyInit(const AX, AY: Integer; IsFinal: Boolean);
 var
   LLevel, LPartyIndex: Integer;
   LPosition: TPosition;
   LCreatureEnum: TCreatureEnum;
 begin
   LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, TParty.MaxLevel);
-  SetLength(Party, Parties.Count + 1);
-  Party[Parties.Count - 1] := TParty.Create(AX, AY);
+  SetLength(Party, PartyList.Count + 1);
+  Party[PartyList.Count - 1] := TParty.Create(AX, AY);
   repeat
     LPartyIndex := RandomRange(0, Length(PartyBase));
   until (PartyBase[LPartyIndex].Level = LLevel) and
     (PartyBase[LPartyIndex].Faction <> Game.Scenario.Faction);
   if IsFinal then
     LPartyIndex := High(PartyBase);
-  with Party[Parties.Count - 1] do
+  with Party[PartyList.Count - 1] do
   begin
     for LPosition := Low(TPosition) to High(TPosition) do
       AddCreature(PartyBase[LPartyIndex].Character[LPosition], LPosition);
   end;
 end;
 
-procedure TParties.AddPartyAt(const AX, AY: Integer;
+procedure TPartyList.AddPartyAt(const AX, AY: Integer;
   CanAttack, IsFinal: Boolean);
 var
   LPartyIndex: Integer;
@@ -1061,7 +1061,7 @@ var
 begin
   Game.Map.SetTile(lrObj, AX, AY, reEnemy);
   PartyInit(AX, AY, IsFinal);
-  LPartyIndex := Parties.GetPartyIndex(AX, AY);
+  LPartyIndex := PartyList.GetPartyIndex(AX, AY);
   Party[LPartyIndex].Owner := faNeutrals;
   Party[LPartyIndex].CanAttack := CanAttack;
   if IsFinal then
@@ -1096,21 +1096,21 @@ begin
     end; }
 end;
 
-procedure TParties.Clear;
+procedure TPartyList.Clear;
 var
   I: Integer;
 begin
-  for I := 0 to Parties.Count - 1 do
+  for I := 0 to PartyList.Count - 1 do
     FreeAndNil(Party[I]);
   SetLength(Party, 0);
 end;
 
 initialization
 
-Parties := TParties.Create;
+PartyList := TPartyList.Create;
 
 finalization
 
-FreeAndNil(Parties);
+FreeAndNil(PartyList);
 
 end.

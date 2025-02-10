@@ -135,7 +135,7 @@ procedure TSceneParty2.Render;
   var
     LPosition: TPosition;
   begin
-    if (Party <> nil) then
+    if (PartyList.Party <> nil) then
       for LPosition := Low(TPosition) to High(TPosition) do
         DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
           TFrame.Row(LPosition), False, True);
@@ -170,7 +170,7 @@ begin
 
   if CurrentParty = TLeaderParty.Leader then
     RenderLeaderInfo
-  else if CurrentParty = Party[TLeaderParty.CapitalPartyIndex] then
+  else if CurrentParty = PartyList.Party[TLeaderParty.CapitalPartyIndex] then
     RenderGuardianInfo;
 
   RenderButtons;

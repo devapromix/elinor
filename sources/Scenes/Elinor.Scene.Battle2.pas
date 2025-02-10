@@ -260,7 +260,7 @@ begin
     InformDialog('Вы победили на дуэли и воины вражеского отряда разбежались!');
   end;
   Game.MediaPlayer.PlayMusic(mmMap);
-  Party[Parties.GetPartyIndex(TLeaderParty.Leader.X,
+  PartyList.Party[PartyList.GetPartyIndex(TLeaderParty.Leader.X,
     TLeaderParty.Leader.Y)].Clear;
   if IsNewAbility then
   begin
@@ -291,16 +291,16 @@ var
 begin
   Battle.Clear;
   Enabled := True;
-  I := Parties.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  I := PartyList.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
   if IsDuel then
   begin
     DuelEnemyParty.Clear;
-    DuelEnemyPosition := Party[I].GetRandomPosition;
-    DuelEnemyParty.MoveCreature(Party[I], DuelEnemyPosition);
+    DuelEnemyPosition := PartyList.Party[I].GetRandomPosition;
+    DuelEnemyParty.MoveCreature(PartyList.Party[I], DuelEnemyPosition);
     EnemyParty := DuelEnemyParty;
     DuelLeaderParty.Clear;
     DuelLeaderPosition := TLeaderParty.GetPosition;
-    DuelLeaderParty.MoveCreature(Party[TLeaderParty.LeaderPartyIndex],
+    DuelLeaderParty.MoveCreature(PartyList.Party[TLeaderParty.LeaderPartyIndex],
       DuelLeaderPosition);
     LeaderParty := DuelLeaderParty;
   end
@@ -308,16 +308,16 @@ begin
   begin
     if IsSummon then
     begin
-      EnemyParty := Party[EnemyPartyIndex];
-      LeaderParty := Party[TLeaderParty.SummonPartyIndex]
+      EnemyParty := PartyList.Party[EnemyPartyIndex];
+      LeaderParty := PartyList.Party[TLeaderParty.SummonPartyIndex]
     end
     else
     begin
-      EnemyParty := Party[I];
-      LeaderParty := Party[TLeaderParty.LeaderPartyIndex];
+      EnemyParty := PartyList.Party[I];
+      LeaderParty := PartyList.Party[TLeaderParty.LeaderPartyIndex];
     end;
   end;
-  ActivePartyPosition := Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
+  ActivePartyPosition := PartyList.Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmWar);
   StartRound;
@@ -326,7 +326,7 @@ end;
 procedure TSceneBattle2.FinishBattle;
 begin
   if IsDuel then
-    Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty,
+    PartyList.Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty,
       DuelLeaderPosition);
   Battle.Clear;
   if EnemyParty.IsClear then
