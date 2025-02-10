@@ -44,7 +44,7 @@ type
 implementation
 
 uses
-  System.Math,
+  System.Math, dialogs,
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party,
@@ -260,7 +260,12 @@ end;
 procedure TSceneInventory.Equip;
 begin
   if (InventorySelItemIndex > -1) then
-    TLeaderParty.Leader.Equip(InventorySelItemIndex);
+  begin
+    if ActivePartyPosition = TLeaderParty.GetPosition then
+      TLeaderParty.Leader.Equip(InventorySelItemIndex)
+    else
+      InformDialog(COnlyLeaderCanEquipItem);
+  end;
 end;
 
 procedure TSceneInventory.UnEquip;
