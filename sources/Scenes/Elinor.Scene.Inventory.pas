@@ -228,7 +228,7 @@ procedure TSceneInventory.Render;
     end;
     AddTextLine('Inventory', True);
     AddTextLine;
-    for I := 0 to MaxInventoryItems - 1 do
+    for I := 0 to CMaxInventoryItems - 1 do
       AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
   end;
 

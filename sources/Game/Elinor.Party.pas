@@ -668,7 +668,7 @@ begin
   EqItemEnum := Equipment.Item(EquipmentItemIndex).Enum;
   if EqItemEnum = iNone then
     Exit;
-  if Inventory.Count = MaxInventoryItems then
+  if Inventory.Count >= CMaxInventoryItems then
     Exit(True);
   Equipment.Clear(EquipmentItemIndex);
   Inventory.Add(EqItemEnum);

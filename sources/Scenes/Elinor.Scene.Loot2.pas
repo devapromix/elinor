@@ -50,7 +50,8 @@ uses
   Elinor.Spells.Types,
   Elinor.Loot,
   Elinor.Items,
-  Elinor.Statistics;
+  Elinor.Statistics,
+  Elinor.Common;
 
 { TSceneLoot2 }
 
@@ -80,6 +81,11 @@ begin
         end;
       ltItem:
         begin
+          if TLeaderParty.Leader.Inventory.Count >= CMaxInventoryItems then
+          begin
+            InformDialog(CNoFreeSpace);
+            Exit;
+          end;
           Game.MediaPlayer.PlaySound(mmLoot);
           TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
           Game.Statistics.IncValue(stItemsFound);
@@ -202,7 +208,7 @@ procedure TSceneLoot2.Render;
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Inventory', True);
     AddTextLine;
-    for I := 0 to MaxInventoryItems - 1 do
+    for I := 0 to CMaxInventoryItems - 1 do
       AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
   end;
 

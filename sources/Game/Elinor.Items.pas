@@ -93,12 +93,12 @@ type
   end;
 
 const
-  MaxInventoryItems = 12;
+  CMaxInventoryItems = 12;
 
 type
   TInventory = class(TObject)
   private
-    FItem: array [0 .. MaxInventoryItems - 1] of TItem;
+    FItem: array [0 .. CMaxInventoryItems - 1] of TItem;
   public
     constructor Create;
     procedure Clear; overload;
@@ -264,7 +264,7 @@ procedure TInventory.Add(const AItem: TItem);
 var
   I: Integer;
 begin
-  for I := 0 to MaxInventoryItems - 1 do
+  for I := 0 to CMaxInventoryItems - 1 do
     if FItem[I].Enum = iNone then
     begin
       FItem[I] := AItem;
@@ -276,7 +276,7 @@ procedure TInventory.Add(const AItemEnum: TItemEnum);
 var
   I: Integer;
 begin
-  for I := 0 to MaxInventoryItems - 1 do
+  for I := 0 to CMaxInventoryItems - 1 do
     if FItem[I].Enum = iNone then
     begin
       FItem[I] := ItemBase[AItemEnum];
@@ -288,7 +288,7 @@ procedure TInventory.Clear;
 var
   I: Integer;
 begin
-  for I := 0 to MaxInventoryItems - 1 do
+  for I := 0 to CMaxInventoryItems - 1 do
     Clear(I);
 end;
 
@@ -302,7 +302,7 @@ var
   I: Integer;
 begin
   Result := 0;
-  for I := 0 to MaxInventoryItems - 1 do
+  for I := 0 to CMaxInventoryItems - 1 do
     if FItem[I].Enum <> iNone then
       Inc(Result);
 end;
