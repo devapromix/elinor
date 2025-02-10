@@ -867,27 +867,26 @@ begin
         begin
           TLeaderParty.Leader.Invisibility := False;
           TSceneLoot2.ShowScene;
-          F := False;
+          Exit;
         end;
       reMana:
         begin
           TLeaderParty.Leader.Invisibility := False;
           TSceneLoot2.ShowScene;
-          F := False;
+          Exit;
         end;
       reBag:
         begin
           TLeaderParty.Leader.Invisibility := False;
           Game.Statistics.IncValue(stChestsFound);
           TSceneLoot2.ShowScene;
-          F := False;
+          Exit;
         end;
       reEnemy:
         begin
           TLeaderParty.Leader.Invisibility := False;
           Game.Show(scBattle);
           Game.Map.SetTile(lrObj, Leader.X, Leader.Y, reNone);
-          F := False;
           Exit;
         end;
       reSTower:
