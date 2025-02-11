@@ -57,6 +57,11 @@ of their gods.
 * S - Open spellbook (show list of learned leader spells)
 * A - Show list of learned leader abilities
 
+### 8. In inventory scene:
+* Esc - Close scene
+* Space - Change active group
+* Enter - use item (read scroll/drink potion)
+
 ## II. Actions of leaders:
 
 ### 1. Warrior:
