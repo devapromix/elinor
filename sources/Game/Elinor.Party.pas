@@ -143,6 +143,7 @@ type
     class function GetSightRadius(const ACreatureEnum: TCreatureEnum)
       : Integer; overload;
     procedure Equip(const InventoryItemIndex: Integer);
+    procedure Quaff(const AItemIndex: Integer; const APosition: TPosition);
     function UnEquip(const EquipmentItemIndex: Integer): Boolean;
     function GetGold(const AGold: Integer): Integer;
     property Invisibility: Boolean read FInvisibility write FInvisibility;
@@ -658,6 +659,28 @@ begin
       end;
 end;
 
+procedure TLeaderParty.Quaff(const AItemIndex: Integer;
+  const APosition: TPosition);
+var
+  LItemEnum: TItemEnum;
+begin
+  LItemEnum := Inventory.ItemEnum(AItemIndex);
+  if LItemEnum = iNone then
+    Exit;
+  if (LItemEnum in QuaffItems) and Creature[APosition].Alive then
+  begin
+    case LItemEnum of
+      iPotionOfHealing:
+        begin
+          Game.MediaPlayer.PlaySound(mmDrink);
+          Game.MediaPlayer.PlaySound(mmHeal);
+          TLeaderParty.Leader.Heal(APosition, 50);
+          Inventory.Clear(AItemIndex);
+        end;
+    end;
+  end;
+end;
+
 function TLeaderParty.UnEquip(const EquipmentItemIndex: Integer): Boolean;
 var
   InvItemEnum: TItemEnum;
@@ -759,7 +782,8 @@ begin
   if CurrentPartyIndex < 0 then
     Result := False
   else
-    Result := TLeaderParty.Leader.Owner = PartyList.Party[CurrentPartyIndex].Owner;
+    Result := TLeaderParty.Leader.Owner = PartyList.Party
+      [CurrentPartyIndex].Owner;
 end;
 
 class function TLeaderParty.GetPosition: TPosition;
@@ -936,8 +960,8 @@ begin
               begin
                 I := PartyList.GetPartyIndex(JX, JY);
 
-                if not PartyList.Party[I].IsClear and PartyList.Party[I].CanAttack and
-                  not PartyList.Party[I].IsParalyzeParty() then
+                if not PartyList.Party[I].IsClear and PartyList.Party[I]
+                  .CanAttack and not PartyList.Party[I].IsParalyzeParty() then
                 begin
                   TLeaderParty.PutAt(JX, JY);
                   F := False;

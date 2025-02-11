@@ -588,7 +588,7 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn);
+    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -727,7 +727,9 @@ const
     // Speed
     (FileName: 'speed.wav'; ResType: teSound;),
     // Learn
-    (FileName: 'learn.wav'; ResType: teSound;)
+    (FileName: 'learn.wav'; ResType: teSound;),
+    // Drink
+    (FileName: 'useelixir.ogg'; ResType: teSound;)
     //
     );
 

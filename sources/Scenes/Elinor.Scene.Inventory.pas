@@ -258,10 +258,17 @@ begin
 end;
 
 procedure TSceneInventory.Equip;
+var
+  LItemEnum: TItemEnum;
 begin
   if (InventorySelItemIndex > -1) then
   begin
-    if ActivePartyPosition = TLeaderParty.GetPosition then
+    LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
+    if LItemEnum = iNone then
+      Exit;
+    if LItemEnum in QuaffItems then
+      TLeaderParty.Leader.Quaff(InventorySelItemIndex, ActivePartyPosition)
+    else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)
     else
       InformDialog(COnlyLeaderCanEquipItem);

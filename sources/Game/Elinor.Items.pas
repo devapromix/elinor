@@ -82,6 +82,9 @@ type
     // Helms
     iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
 
+const
+   QuaffItems = [iPotionOfHealing];
+
 type
   TItem = record
     Enum: TItemEnum;
