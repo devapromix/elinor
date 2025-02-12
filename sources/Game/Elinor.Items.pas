@@ -31,8 +31,8 @@ type
 
 const
   SlotName: array [TItemSlot] of string = ('', 'Шлем', 'Амулет', 'Знамя',
-    'Книга', 'Доспех', 'Правая рука', 'Левая рука', 'Кольцо',
-    'Артефакт', 'Обувь');
+    'Книга', 'Доспех', 'Правая рука', 'Левая рука', 'Ring', 'Артефакт',
+    'Обувь');
 
 type
   TItemProp = (ipEquipable, ipConsumable, ipReadable, ipUsable, ipPermanent,
@@ -83,7 +83,7 @@ type
     iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
 
 const
-   QuaffItems = [iPotionOfHealing];
+  QuaffItems = [iPotionOfHealing];
 
 type
   TItem = record
@@ -164,8 +164,8 @@ const
     (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItSlot: isNone;
     ItRes: reItemMana),
     // Stone Tablet
-    (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial; ItSlot: isNone;
-    ItRes: reNone),
+    (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial;
+    ItSlot: isNone; ItRes: reNone),
 
     // Valuables
     // Runic Key
@@ -227,7 +227,7 @@ const
     // Rings
     // Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone),
+    ItSlot: isRing; ItRes: reItemStoneRing),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Бронзовое Кольцо'; Level: 2; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
