@@ -21,18 +21,17 @@ type
     itBoots, itBanner, itTome);
 
 const
-  ItemTypeName: array [TItemType] of string = ('', 'ценность', 'эликсир',
-    'свиток', 'кольцо', 'доспех', 'артефакт', 'амулет', 'шлем', 'посох',
-    'сфера', 'талисман', 'обувь', 'знамя', 'книга');
+  ItemTypeName: array [TItemType] of string = ('', 'valuable', 'elixir',
+    'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'sphere',
+    'talisman', 'boots', 'banner', 'book');
 
 type
   TItemSlot = (isNone, isHelm, isAmulet, isBanner, isTome, isArmor, isRHand,
     isLHand, isRing, isArtifact, isBoots);
 
 const
-  SlotName: array [TItemSlot] of string = ('', 'Шлем', 'Амулет', 'Знамя',
-    'Книга', 'Доспех', 'Правая рука', 'Левая рука', 'Ring', 'Артефакт',
-    'Обувь');
+  SlotName: array [TItemSlot] of string = ('', 'Helm', 'Amulet', 'Banner',
+    'Tome', 'Armor', 'Right hand', 'Left hand', 'Ring', 'Artifact', 'Boots');
 
 type
   TItemProp = (ipEquipable, ipConsumable, ipReadable, ipUsable, ipPermanent,
