@@ -54,8 +54,7 @@ type
     iAncientRelic,
 
     // Potions
-    // iLifePotion,
-    iPotionOfHealing,
+    iLifePotion, iPotionOfHealing,
     // iPotionOfRestoration, iHealingOintment,
 
     // Artifacts
@@ -193,6 +192,9 @@ const
     ItSlot: isNone; ItRes: reNone),
 
     // Potions
+    // Life Potion
+    (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
+    ItSlot: isNone; ItRes: reItemLifePotion),
     // Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfHealing),
