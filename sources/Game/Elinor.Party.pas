@@ -670,6 +670,13 @@ begin
   if (LItemEnum in QuaffItems) and Creature[APosition].Alive then
   begin
     case LItemEnum of
+      iLifePotion:
+        begin
+          Game.MediaPlayer.PlaySound(mmDrink);
+          Game.MediaPlayer.PlaySound(mmRevive);
+          TLeaderParty.Leader.Revive(APosition);
+          Inventory.Clear(AItemIndex);
+        end;
       iPotionOfHealing:
         begin
           Game.MediaPlayer.PlaySound(mmDrink);
