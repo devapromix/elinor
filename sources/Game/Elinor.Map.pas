@@ -51,6 +51,7 @@ type
     procedure AddItemAt(LY: Integer; LX: Integer);
     procedure AddManaAt(LY, LX: Integer);
     procedure AddGoldAt(LY, LX: Integer);
+    procedure AddStoneTabAt(LY, LX: Integer);
     procedure AddMageTower;
   public
     MapPlace: array [0 .. MapPlacesCount - 1] of TMapPlace;
@@ -205,8 +206,8 @@ begin
   SetLength(PartyList.Party, PartyList.Count + 1);
   PartyList.Party[PartyList.Count - 1] := TParty.Create(Game.Map.MapPlace[0].X,
     Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
-  PartyList.Party[PartyList.Count - 1].AddCreature(Characters[Game.Scenario.Faction]
-    [cgGuardian][ckGuardian], 3);
+  PartyList.Party[PartyList.Count - 1].AddCreature
+    (Characters[Game.Scenario.Faction][cgGuardian][ckGuardian], 3);
 end;
 
 procedure AddSummonParty;
@@ -227,18 +228,21 @@ var
 begin
   TLeaderParty.LeaderPartyIndex := High(PartyList.Party) + 1;
   SetLength(PartyList.Party, PartyList.Count + 1);
-  PartyList.Party[PartyList.Count - 1] := TLeaderParty.Create(Game.Map.MapPlace[0].X,
-    Game.Map.MapPlace[0].Y, Game.Scenario.Faction);
+  PartyList.Party[PartyList.Count - 1] :=
+    TLeaderParty.Create(Game.Map.MapPlace[0].X, Game.Map.MapPlace[0].Y,
+    Game.Scenario.Faction);
   LCreatureEnum := Characters[Game.Scenario.Faction][cgLeaders][RaceCharKind];
   case TCreature.Character(LCreatureEnum).ReachEnum of
     reAdj:
       begin
-        PartyList.Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 2);
+        PartyList.Party[TLeaderParty.LeaderPartyIndex].AddCreature
+          (LCreatureEnum, 2);
         ActivePartyPosition := 2;
       end
   else
     begin
-      PartyList.Party[TLeaderParty.LeaderPartyIndex].AddCreature(LCreatureEnum, 3);
+      PartyList.Party[TLeaderParty.LeaderPartyIndex].AddCreature
+        (LCreatureEnum, 3);
       ActivePartyPosition := 3;
     end;
   end;
@@ -260,6 +264,16 @@ begin
   Loot.AddManaAt(LX, LY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddManaAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddManaAt(LX, LY);
+end;
+
+procedure TMap.AddStoneTabAt(LY, LX: Integer);
+begin
+  FMap[lrObj][LX, LY] := reBag;
+  Loot.AddStoneTabAt(LX, LY);
+  if (RandomRange(0, 2) = 0) then
+    Loot.AddGoldAt(LX, LY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddManaAt(LX, LY);
 end;
@@ -411,7 +425,10 @@ begin
     PartyList.AddPartyAt(LX, LY, True);
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (LMapPlaceIndex < TScenario.ScenarioStoneTabMax) then
+    begin
       Game.Scenario.AddStoneTab(LX, LY);
+      AddStoneTabAt(LY, LX);
+    end;
   end;
   // Objects
   for LMapPlaceIndex := 0 to 9 do

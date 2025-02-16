@@ -71,7 +71,7 @@ type
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
 
     // ITEMS //
-    reItemGold, reItemMana, reItemStoneTable, reItemLifePotion,
+    reItemGold, reItemMana, reItemStoneTablet, reItemLifePotion,
     reItemPotionOfHealing, reItemStoneRing, reItemRunicKey,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
@@ -481,8 +481,8 @@ const
     (FileName: 'item.gold.png'; ResType: teItem;),
     // Item Mana
     (FileName: 'item.mana.png'; ResType: teItem;),
-    // Item Stone Table
-    (FileName: 'item.stone_table.png'; ResType: teItem;),
+    // Item Stone Tablet
+    (FileName: 'item.stone_tablet.png'; ResType: teItem;),
     // Item Life Potion
     (FileName: 'item.potion.life.png'; ResType: teIcon;),
     // Item Potion Of Healing

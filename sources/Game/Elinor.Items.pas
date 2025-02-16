@@ -163,7 +163,7 @@ const
     ItRes: reItemMana),
     // Stone Tablet
     (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial;
-    ItSlot: isNone; ItRes: reNone),
+    ItSlot: isNone; ItRes: reItemStoneTablet),
 
     // Valuables
     // Runic Key

@@ -43,8 +43,7 @@ type
     procedure UpdEnum<N>(AKey: Word);
     procedure Basic(AKey: Word);
   public
-  class var
-    CurCrAbilityEnum: TAbilityEnum;
+    class var CurCrAbilityEnum: TAbilityEnum;
     constructor Create;
     destructor Destroy; override;
     procedure Render; override;
@@ -186,7 +185,7 @@ var
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
-      //TLeaderParty.Leader.PutAt(MPX, MPY);
+      // TLeaderParty.Leader.PutAt(MPX, MPY);
     end;
   end;
 
@@ -196,7 +195,7 @@ var
     if not Result then
     begin
       InformDialog('Вы потерпели неудачу и вступаете в схватку!');
-      //TLeaderParty.Leader.PutAt(MPX, MPY);
+      // TLeaderParty.Leader.PutAt(MPX, MPY);
     end;
   end;
 
@@ -485,7 +484,7 @@ begin
       begin
         DrawImage(reWallpaperLoot);
         DrawTitle(reTitleLoot);
-        //DrawItem([reItemStoneTable]);
+        // DrawItem([reItemStoneTable]);
         DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');
         DrawText(470, Game.Scenario.ScenarioAncientKnowledgeState);
       end;
