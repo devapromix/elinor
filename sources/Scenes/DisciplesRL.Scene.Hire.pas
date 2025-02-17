@@ -77,7 +77,9 @@ uses
   Elinor.Scene.Settlement,
   Elinor.Items,
   Elinor.Scene.Difficulty,
-  Elinor.Scene.Faction, Elinor.Difficulty, Elinor.Scene.HighScores,
+  Elinor.Scene.Faction,
+  Elinor.Difficulty,
+  Elinor.Scene.Records,
   Elinor.Scene.Victory;
 
 var

@@ -1,4 +1,4 @@
-﻿unit Elinor.Scene.HighScores;
+﻿unit Elinor.Scene.Records;
 
 interface
 

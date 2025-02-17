@@ -163,13 +163,14 @@
         <DCCReference Include="Game\Elinor.Ability.Base.pas"/>
         <DCCReference Include="Game\Elinor.Direction.pas"/>
         <DCCReference Include="Game\Elinor.Difficulty.pas"/>
-        <DCCReference Include="Scenes\Elinor.Scene.HighScores.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Records.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Victory.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Defeat.pas"/>
         <DCCReference Include="Game\Elinor.Loot.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Loot2.pas"/>
         <DCCReference Include="Game\Elinor.Ability.pas"/>
         <DCCReference Include="Game\Elinor.Creature.Types.pas"/>
+        <DCCReference Include="Game\Elinor.Records.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

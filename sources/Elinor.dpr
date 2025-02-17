@@ -62,13 +62,14 @@ uses
   Elinor.Ability.Base in 'Game\Elinor.Ability.Base.pas',
   Elinor.Direction in 'Game\Elinor.Direction.pas',
   Elinor.Difficulty in 'Game\Elinor.Difficulty.pas',
-  Elinor.Scene.HighScores in 'Scenes\Elinor.Scene.HighScores.pas',
+  Elinor.Scene.Records in 'Scenes\Elinor.Scene.Records.pas',
   Elinor.Scene.Victory in 'Scenes\Elinor.Scene.Victory.pas',
   Elinor.Scene.Defeat in 'Scenes\Elinor.Scene.Defeat.pas',
   Elinor.Loot in 'Game\Elinor.Loot.pas',
   Elinor.Scene.Loot2 in 'Scenes\Elinor.Scene.Loot2.pas',
   Elinor.Ability in 'Game\Elinor.Ability.pas',
-  Elinor.Creature.Types in 'Game\Elinor.Creature.Types.pas';
+  Elinor.Creature.Types in 'Game\Elinor.Creature.Types.pas',
+  Elinor.Records in 'Game\Elinor.Records.pas';
 
 {$R *.res}
 

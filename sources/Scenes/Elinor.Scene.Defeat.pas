@@ -38,7 +38,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Scene.HighScores,
+  Elinor.Scene.Records,
   Elinor.Scene.Party,
   Elinor.Scene.Party2,
   Elinor.Saga,

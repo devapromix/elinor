@@ -12,7 +12,8 @@ uses
 {$ELSE}
   Vcl.Controls,
 {$ENDIF}
-  Classes,
+  System.Classes,
+  Elinor.Scene.Menu.Simple,
   Elinor.Button,
   Elinor.Common,
   Elinor.Resources,
@@ -75,7 +76,7 @@ uses
   SysUtils,
   Elinor.Saga,
   DisciplesRL.Scene.Hire,
-  Elinor.Scene.HighScores;
+  Elinor.Scene.Records;
 
 procedure TSceneMenu3.Next;
 begin

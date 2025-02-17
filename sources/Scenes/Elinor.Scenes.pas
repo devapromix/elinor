@@ -236,7 +236,7 @@ uses
   Elinor.Scene.Abilities,
   Elinor.Scene.NewAbility,
   Elinor.Scene.MageTower,
-  Elinor.Scene.HighScores,
+  Elinor.Scene.Records,
   Elinor.Scene.Victory,
   Elinor.Scene.Defeat,
   Elinor.Difficulty,
