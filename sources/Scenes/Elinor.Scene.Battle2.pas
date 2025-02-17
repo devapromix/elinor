@@ -100,13 +100,6 @@ begin
   TLeaderParty.Summoned.UnParalyzeParty;
   TLeaderParty.Summoned.ClearTempValuesAll;
   TSceneLoot2.ShowScene;
-  Exit;
-  if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
-    Game.Scenario.IsStoneTab(TLeaderParty.Leader.X, TLeaderParty.Leader.Y) then
-  begin
-    Inc(Game.Scenario.StoneTab);
-    TSceneHire.Show(stStoneTab, scHire, reGold);
-  end;
 end;
 
 procedure TSceneBattle2.Kill(DefCrEnum: TCreatureEnum);

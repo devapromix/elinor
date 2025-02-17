@@ -79,6 +79,12 @@ begin
           Game.Mana.Modify(LLootItem.Amount);
           Loot.Clear(LItemIndex);
         end;
+      ltStoneTab:
+        begin
+          Game.MediaPlayer.PlaySound(mmLoot);
+          Inc(Game.Scenario.StoneTab);
+          Loot.Clear(LItemIndex);
+        end;
       ltItem:
         begin
           if TLeaderParty.Leader.Inventory.Count >= CMaxInventoryItems then
