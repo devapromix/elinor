@@ -127,7 +127,7 @@ begin
   begin
     X := AX;
     Y := AY;
-    ItemEnum := iNone;
+    ItemEnum := iStoneTab;
     LootType := ltStoneTab;
     Amount := 1;
   end;

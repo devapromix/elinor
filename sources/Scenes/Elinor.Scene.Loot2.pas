@@ -194,6 +194,8 @@ procedure TSceneLoot2.Render;
       case LLootItem.LootType of
         ltGold, ltMana:
           AddTextLine('Amount', LLootItem.Amount);
+        ltStoneTab:
+          ;
       else
         AddTextLine('Level', TItemBase.Item(LLootItem.ItemEnum).Level);
       end;
