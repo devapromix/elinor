@@ -19,7 +19,7 @@ uses
   Elinor.Party;
 
 type
-  THireSubSceneEnum = (stStoneTab, stSpy, stWar);
+  THireSubSceneEnum = (stSpy, stWar);
 
 type
 
@@ -88,8 +88,6 @@ type
 
 const
   ButtonText: array [THireSubSceneEnum] of array [TButtonEnum] of TResEnum = (
-    // StoneTab
-    (reTextClose, reTextClose),
     // Thief Spy
     (reTextContinue, reTextClose),
     // Warrior War
@@ -98,7 +96,7 @@ const
     );
 
 const
-  AddButtonScene = [stStoneTab];
+  AddButtonScene = [];
   CloseButtonScene = AddButtonScene;
   MainButtonsScene = [stSpy, stWar];
 
@@ -202,21 +200,6 @@ var
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   case SubScene of
-    stStoneTab:
-      begin
-        if (Game.Scenario.CurrentScenario = sgAncientKnowledge) then
-          if Game.Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
-          begin
-            TSceneVictory.ShowScene;
-            Exit;
-          end
-          else
-          begin
-            F := True;
-            Game.Show(scMap);
-            Exit;
-          end;
-      end;
     stSpy:
       begin
         case TLeaderThiefSpyVar(CurrentIndex) of
@@ -479,16 +462,6 @@ begin
   inherited;
   Y := 0;
   X := 0;
-  case SubScene of
-    stStoneTab:
-      begin
-        DrawImage(reWallpaperLoot);
-        DrawTitle(reTitleLoot);
-        // DrawItem([reItemStoneTable]);
-        DrawText(450, 'КАМЕННАЯ ТАБЛИЧКА');
-        DrawText(470, Game.Scenario.ScenarioAncientKnowledgeState);
-      end;
-  end;
   if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
     DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop,
       reInfoFrame);

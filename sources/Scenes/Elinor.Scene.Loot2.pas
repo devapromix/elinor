@@ -51,7 +51,9 @@ uses
   Elinor.Loot,
   Elinor.Items,
   Elinor.Statistics,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Scene.Victory,
+  Elinor.Scenario;
 
 { TSceneLoot2 }
 
@@ -84,6 +86,7 @@ begin
           Game.MediaPlayer.PlaySound(mmLoot);
           Inc(Game.Scenario.StoneTab);
           Loot.Clear(LItemIndex);
+          InformDialog(Game.Scenario.ScenarioAncientKnowledgeState);
         end;
       ltItem:
         begin
@@ -104,6 +107,14 @@ end;
 class procedure TSceneLoot2.HideScene;
 begin
   Loot.AttemptToPlaceLootObject;
+
+  if (Game.Scenario.CurrentScenario = sgAncientKnowledge) then
+    if Game.Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
+    begin
+      TSceneVictory.ShowScene;
+      Exit;
+    end;
+
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmLoot);

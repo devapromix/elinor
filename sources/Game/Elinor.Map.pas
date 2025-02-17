@@ -423,6 +423,7 @@ begin
       (FMap[lrTile][LX, LY] = reNeutralTerrain) and
       (GetDistToCapital(LX, LY) >= 3);
     PartyList.AddPartyAt(LX, LY, True);
+    // Stone Tablets
     if (Game.Scenario.CurrentScenario = sgAncientKnowledge) and
       (LMapPlaceIndex < TScenario.ScenarioStoneTabMax) then
     begin
