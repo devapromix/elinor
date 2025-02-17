@@ -190,7 +190,7 @@ class procedure TSceneRecruit.ShowScene(const AParty: TParty;
 begin
   HireParty := AParty;
   HirePosition := APosition;
-  Game.Show(scHire2);
+  Game.Show(scHire);
 end;
 
 procedure TSceneRecruit.Timer;

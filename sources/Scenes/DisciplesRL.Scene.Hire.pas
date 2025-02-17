@@ -104,7 +104,7 @@ var
   HireParty: TParty = nil;
   HirePosition: Integer = 0;
   SubScene: THireSubSceneEnum;
-  BackScene: TSceneEnum = scMenu;
+  BackScene: TSceneEnum;
   Button: array [THireSubSceneEnum] of array [TButtonEnum] of TButton;
   Lf, Lk: Integer;
 
@@ -386,20 +386,6 @@ begin
       Button[SubScene][I].Render;
 end;
 
-{ Malavien's Camp	My mercenaries will join your army ... for a price.
-  Guther's Camp	My soldiers are the finest in the region.
-  Turion's Camp	My soldiers are the most formidable in the land.
-  Uther's Camp	Are you in need of recruits?
-  Dennar's Camp	We will join your army, for a price.
-  Purthen's Camp	My mercenaries will join your army ... for a price.
-  Luther's Camp	My soldiers are the finest in the region.
-  Richard's Camp	My soldiers are the most formidable in the land.
-  Ebbon's Camp	Are you in need of recruits?
-  Righon's Camp	We will join your army, for a price.
-  Kigger's Camp	My mercenaries will join your army ... for a price.
-  Luggen's Camp	My soldiers are the finest in the region.
-  Werric's Camp	My soldiers are the most formidable in the land.
-  Xennon's Camp	Are you in need of recruits? }
 
 { TSceneHire }
 
