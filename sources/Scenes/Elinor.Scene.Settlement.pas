@@ -66,7 +66,7 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Temple,
   Elinor.Scene.Party2,
-  Elinor.Scene.Hire,
+  Elinor.Scene.Recruit,
   Elinor.Scene.Barracks, Elinor.Scene.Victory;
 
 const

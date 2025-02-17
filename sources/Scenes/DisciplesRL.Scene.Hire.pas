@@ -112,7 +112,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum);
 begin
   CurrentIndex := 0;
   SubScene := ASubScene;
-  Game.Show(scHire);
+  Game.Show(scRecruit);
 end;
 
 class procedure TSceneHire.Show(const Party: TParty; const Position: Integer);
@@ -125,7 +125,7 @@ class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;
 begin
   SubScene := ASubScene;
   BackScene := ABackScene;
-  Game.Show(scHire);
+  Game.Show(scRecruit);
 end;
 
 class procedure TSceneHire.Show(const ASubScene: THireSubSceneEnum;

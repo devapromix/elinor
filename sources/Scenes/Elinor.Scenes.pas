@@ -22,7 +22,7 @@ uses
   Elinor.Resources;
 
 type
-  TSceneEnum = (scHire, scMenu, scMap, scParty, scSettlement, scBattle,
+  TSceneEnum = (scRecruit, scMenu, scMap, scParty, scSettlement, scBattle,
     scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower,
     scHighScores, scVictory, scDefeat, scLoot);
@@ -230,7 +230,7 @@ uses
   Elinor.Scene.Barracks,
   Elinor.Spellbook,
   Elinor.Scene.Party2,
-  Elinor.Scene.Hire,
+  Elinor.Scene.Recruit,
   Elinor.Faction,
   Elinor.Scene.Inventory,
   Elinor.Scene.Abilities,
@@ -885,7 +885,7 @@ begin
   inherited;
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu3.Create;
-  FScene[scHire] := TSceneRecruit.Create;
+  FScene[scRecruit] := TSceneRecruit.Create;
   FScene[scParty] := TSceneParty2.Create;
   FScene[scInventory] := TSceneInventory.Create;
   FScene[scBattle] := TSceneBattle2.Create;

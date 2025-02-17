@@ -149,7 +149,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Temple.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Party2.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Base.Party.pas"/>
-        <DCCReference Include="Scenes\Elinor.Scene.Hire.pas"/>
+        <DCCReference Include="Scenes\Elinor.Scene.Recruit.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Barracks.pas"/>
         <DCCReference Include="Elinor.Spells.Types.pas"/>
         <DCCReference Include="Game\Elinor.Faction.pas"/>

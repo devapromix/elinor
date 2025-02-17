@@ -53,7 +53,7 @@ uses
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Creatures,
-  Elinor.Scene.Hire,
+  Elinor.Scene.Recruit,
   Elinor.Statistics,
   Elinor.Common;
 

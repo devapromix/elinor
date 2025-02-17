@@ -45,7 +45,6 @@ uses
   Elinor.Map,
   Elinor.Scene.Party,
   Elinor.Creatures,
-  DisciplesRL.Scene.Hire,
   Elinor.Frame,
   Elinor.Spells.Types,
   Elinor.Loot,

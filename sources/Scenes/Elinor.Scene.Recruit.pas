@@ -1,4 +1,4 @@
-﻿unit Elinor.Scene.Hire;
+﻿unit Elinor.Scene.Recruit;
 
 interface
 
@@ -190,7 +190,7 @@ class procedure TSceneRecruit.ShowScene(const AParty: TParty;
 begin
   HireParty := AParty;
   HirePosition := APosition;
-  Game.Show(scHire);
+  Game.Show(scRecruit);
 end;
 
 procedure TSceneRecruit.Timer;
