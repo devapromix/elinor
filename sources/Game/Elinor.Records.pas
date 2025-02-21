@@ -2,22 +2,27 @@
 
 interface
 
+uses
+  System.JSON,
+  Elinor.Creatures,
+  Elinor.Faction;
+
 type
-  TRecord = class
+  TLeaderRecord = class
   private
     FName: string;
-    FFaction: string;
-    FClass: string;
+    FFaction: TFactionEnum;
+    FClass: TFactionLeaderKind;
     FScore: Integer;
-    function ToJSONString: string;
-    function JSONEscape(const s: string): string;
-    function CompareRecordsByScore(Item1, Item2: Pointer): Integer;
   public
-    constructor Create(const AName, AFaction, AClass: string; AScore: Integer);
+    constructor Create(const AName: string; AFaction: TFactionEnum;
+      AClass: TFactionLeaderKind; AScore: Integer);
     property Name: string read FName write FName;
-    property Faction: string read FFaction write FFaction;
-    property PlayerClass: string read FClass write FClass;
+    property Faction: TFactionEnum read FFaction write FFaction;
+    property PlayerClass: TFactionLeaderKind read FClass write FClass;
     property Score: Integer read FScore write FScore;
+    function ToJSONObject: TJSONObject;
+    class function FromJSONObject(JSONObj: TJSONObject): TLeaderRecord;
   end;
 
 implementation
@@ -25,10 +30,10 @@ implementation
 uses
   System.SysUtils;
 
-{ TRecord }
+{ TLeaderRecord }
 
-constructor TRecord.Create(const AName, AFaction, AClass: string;
-  AScore: Integer);
+constructor TLeaderRecord.Create(const AName: string; AFaction: TFactionEnum;
+  AClass: TFactionLeaderKind; AScore: Integer);
 begin
   FName := AName;
   FFaction := AFaction;
@@ -36,44 +41,53 @@ begin
   FScore := AScore;
 end;
 
-function TRecord.JSONEscape(const s: string): string;
+class function TLeaderRecord.FromJSONObject(JSONObj: TJSONObject)
+  : TLeaderRecord;
 var
-  i: Integer;
+  LNamePair, LFactionPair, LClassPair, LScorePair: TJSONPair;
+  LName: string;
+  LFactionValue, LClassValue, LScore: Integer;
 begin
-  Result := '';
-  for i := 1 to Length(s) do
-  begin
-    case s[i] of
-      '"', '\':
-        Result := Result + '\' + s[i];
-      #8:
-        Result := Result + '\b';
-      #9:
-        Result := Result + '\t';
-      #10:
-        Result := Result + '\n';
-      #12:
-        Result := Result + '\f';
-      #13:
-        Result := Result + '\r';
-    else
-      if Ord(s[i]) < 32 then
-        Result := Result + '\u' + IntToHex(Ord(s[i]), 4)
-      else
-        Result := Result + s[i];
-    end;
+  LNamePair := JSONObj.Get('name');
+  LFactionPair := JSONObj.Get('faction');
+  LClassPair := JSONObj.Get('class');
+  LScorePair := JSONObj.Get('score');
+  if not(Assigned(LNamePair) and Assigned(LFactionPair) and Assigned(LClassPair)
+    and Assigned(LScorePair)) then
+    raise Exception.Create('JSON Error');
+  LName := LNamePair.JsonValue.Value;
+  if not TJSONNumber(LFactionPair.JsonValue).TryGetValue<Integer>(LFactionValue)
+  then
+    LFactionValue := Integer(faTheEmpire);
+  if not TJSONNumber(LClassPair.JsonValue).TryGetValue<Integer>(LClassValue)
+  then
+    LClassValue := Integer(ckWarrior);
+  if not TJSONNumber(LScorePair.JsonValue).TryGetValue<Integer>(LScore) then
+    LScore := 0;
+  if (LFactionValue < Integer(faTheEmpire)) or
+    (LFactionValue > Integer(faGreenskinTribes)) then
+    LFactionValue := Integer(faTheEmpire);
+  if (LClassValue < Integer(ckWarrior)) or (LClassValue > Integer(ckTemplar))
+  then
+    LClassValue := Integer(ckWarrior);
+  Result := TLeaderRecord.Create(LName, TFactionEnum(LFactionValue),
+    TFactionLeaderKind(LClassValue), LScore);
+end;
+
+function TLeaderRecord.ToJSONObject: TJSONObject;
+begin
+  Result := TJSONObject.Create;
+  try
+    Result.AddPair(TJSONPair.Create('name', TJSONString.Create(FName)));
+    Result.AddPair(TJSONPair.Create('faction',
+      TJSONNumber.Create(Integer(FFaction))));
+    Result.AddPair(TJSONPair.Create('class',
+      TJSONNumber.Create(Integer(FClass))));
+    Result.AddPair(TJSONPair.Create('score', TJSONNumber.Create(FScore)));
+  except
+    Result.Free;
+    raise;
   end;
-end;
-
-function TRecord.ToJSONString: string;
-begin
-  Result := Format('{"name":"%s","faction":"%s","class":"%s","score":%d}',
-    [JSONEscape(FName), JSONEscape(FFaction), JSONEscape(FClass), FScore]);
-end;
-
-function TRecord.CompareRecordsByScore(Item1, Item2: Pointer): Integer;
-begin
-  Result := TRecord(Item2).Score - TRecord(Item1).Score;
 end;
 
 end.
