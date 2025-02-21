@@ -41,6 +41,10 @@ type
 type
   TFactionLeaderKind = (ckWarrior, ckScout, ckMage, ckThief, ckLord, ckTemplar);
 
+const
+  FactionLeaderKindName: array [TFactionLeaderKind] of string = ('Warrior',
+    'Scout', 'Mage', 'Thief', 'Lord', 'Templar');
+
 type
   TLeaderWarriorActVar = (avRest, avRitual, avWar3);
   TLeaderThiefSpyVar = (svIntroduceSpy, svDuel, svPoison);
