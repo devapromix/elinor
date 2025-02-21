@@ -15,6 +15,7 @@ type
     FMaxRecords: Integer;
     FFileName: string;
     function FormatJSON(const AJSON: string): string;
+    procedure GenNewTable;
   public
     constructor Create(const AFileName: string; AMaxRecords: Integer = 11);
     destructor Destroy; override;
@@ -33,6 +34,7 @@ implementation
 { TLeaderRecordsTable }
 
 uses
+  System.Math,
   System.SysUtils,
   Elinor.Records;
 
@@ -149,14 +151,32 @@ begin
   end;
 end;
 
+procedure TLeaderRecordsTable.GenNewTable;
+var
+  I, LCount: Integer;
+begin
+  LCount := RandomRange(7, 12);
+  for I := 0 to LCount - 1 do
+  begin
+    // Need name gen
+    // AddRecord('Apromix', faGreenskinTribes, ckLord, 666);
+  end;
+  SaveToFile;
+end;
+
 procedure TLeaderRecordsTable.LoadFromFile;
 begin
-
+  if FileExists(FFileName) then
+  begin
+       // load from json
+  end;
+  if FRecords.Count = 0 then
+    GenNewTable;
 end;
 
 procedure TLeaderRecordsTable.SaveToFile;
 begin
-
+  // save to json
 end;
 
 procedure TLeaderRecordsTable.SortRecords;

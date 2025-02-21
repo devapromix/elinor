@@ -15,6 +15,7 @@ uses
   Elinor.Map,
   Elinor.Items,
   Elinor.Party,
+  Elinor.RecordsTable,
   Elinor.Scenario,
   Elinor.MediaPlayer,
   Elinor.Treasure,
@@ -197,6 +198,7 @@ type
     Scenario: TScenario;
     Map: TMap;
     MediaPlayer: TMediaPlayer;
+    LeaderRecordsTable: TLeaderRecordsTable;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -279,6 +281,9 @@ begin
   Gold := TTreasure.Create(100);
   Mana := TTreasure.Create(10);
   Map := TMap.Create;
+  LeaderRecordsTable := TLeaderRecordsTable.Create
+    (TResources.GetPath('resources') + 'highscores.json');
+  LeaderRecordsTable.LoadFromFile;
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
@@ -291,6 +296,7 @@ begin
   FreeAndNil(Statistics);
   FreeAndNil(Scenario);
   FreeAndNil(Map);
+  FreeAndNil(LeaderRecordsTable);
   FreeAndNil(MediaPlayer);
   FreeAndNil(Surface);
   FreeAndNil(Gold);

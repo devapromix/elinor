@@ -742,6 +742,7 @@ const
 type
   TResources = class(TObject)
   public
+    class function GetPath(SubDir: string): string;
     class procedure ReadSections(const FileName: string; Sections: TStrings;
       Section: string = '');
     class function LoadFromFile(const FileName, SectionName, KeyName,
@@ -773,7 +774,7 @@ uses
   Elinor.Saga,
   Elinor.Creatures, Elinor.Party;
 
-function GetPath(SubDir: string): string;
+class function TResources.GetPath(SubDir: string): string;
 begin
   Result := ExtractFilePath(ParamStr(0));
   Result := IncludeTrailingPathDelimiter(Result + SubDir);
@@ -970,15 +971,18 @@ begin
   begin
     ResImage[I] := TPNGImage.Create;
     if (ResBase[I].FileName <> '') then
-      ResImage[I].LoadFromFile(GetPath('resources') + ResBase[I].FileName);
+      ResImage[I].LoadFromFile(TResources.GetPath('resources') + ResBase[I]
+        .FileName);
   end;
   for J := Low(TMusicEnum) to High(TMusicEnum) do
   begin
     case MusicBase[J].ResType of
       teSound:
-        ResMusicPath[J] := GetPath('resources\sounds') + MusicBase[J].FileName;
+        ResMusicPath[J] := TResources.GetPath('resources\sounds') +
+          MusicBase[J].FileName;
       teMusic:
-        ResMusicPath[J] := GetPath('resources\music') + MusicBase[J].FileName;
+        ResMusicPath[J] := TResources.GetPath('resources\music') +
+          MusicBase[J].FileName;
     end;
   end;
   TResources.LoadParties('parties');
