@@ -22,7 +22,7 @@ type
     property PlayerClass: TFactionLeaderKind read FClass write FClass;
     property Score: Integer read FScore write FScore;
     function ToJSONObject: TJSONObject;
-    class function FromJSONObject(JSONObj: TJSONObject): TLeaderRecord;
+    class function FromJSONObject(AJSONObj: TJSONObject): TLeaderRecord;
   end;
 
 implementation
@@ -41,17 +41,17 @@ begin
   FScore := AScore;
 end;
 
-class function TLeaderRecord.FromJSONObject(JSONObj: TJSONObject)
+class function TLeaderRecord.FromJSONObject(AJSONObj: TJSONObject)
   : TLeaderRecord;
 var
   LNamePair, LFactionPair, LClassPair, LScorePair: TJSONPair;
   LName: string;
   LFactionValue, LClassValue, LScore: Integer;
 begin
-  LNamePair := JSONObj.Get('name');
-  LFactionPair := JSONObj.Get('faction');
-  LClassPair := JSONObj.Get('class');
-  LScorePair := JSONObj.Get('score');
+  LNamePair := AJSONObj.Get('name');
+  LFactionPair := AJSONObj.Get('faction');
+  LClassPair := AJSONObj.Get('class');
+  LScorePair := AJSONObj.Get('score');
   if not(Assigned(LNamePair) and Assigned(LFactionPair) and Assigned(LClassPair)
     and Assigned(LScorePair)) then
     raise Exception.Create('JSON Error');
