@@ -35,6 +35,7 @@ implementation
 
 uses
   System.Math,
+  System.JSON,
   System.SysUtils,
   Elinor.Records;
 
@@ -84,13 +85,67 @@ begin
 end;
 
 function TLeaderRecordsTable.FilterByClass(AClass: Integer): TObjectList;
+var
+  I: Integer;
+  LFilteredList: TObjectList;
+  LRecord: TLeaderRecord;
+  LClonedRecord: TLeaderRecord;
+  LCount: Integer;
 begin
-
+  LFilteredList := TObjectList.Create(True);
+  try
+    LCount := 0;
+    for I := 0 to FRecords.Count - 1 do
+    begin
+      LRecord := TLeaderRecord(FRecords[I]);
+      if (Integer(LRecord.PlayerClass) = AClass) then
+      begin
+        LClonedRecord := TLeaderRecord.Create(LRecord.Name, LRecord.Faction,
+          LRecord.PlayerClass, LRecord.Score);
+        LFilteredList.Add(LClonedRecord);
+        Inc(LCount);
+        if LCount >= 11 then
+          Break;
+      end;
+    end;
+    LFilteredList.Sort(CompareRecordsByScore);
+    Result := LFilteredList;
+  except
+    LFilteredList.Free;
+    raise;
+  end;
 end;
 
 function TLeaderRecordsTable.FilterByFaction(AFaction: Integer): TObjectList;
+var
+  I: Integer;
+  LFilteredList: TObjectList;
+  LRecord: TLeaderRecord;
+  LClonedRecord: TLeaderRecord;
+  LCount: Integer;
 begin
-
+  LFilteredList := TObjectList.Create(True);
+  try
+    LCount := 0;
+    for I := 0 to FRecords.Count - 1 do
+    begin
+      LRecord := TLeaderRecord(FRecords[I]);
+      if (Integer(LRecord.Faction) = AFaction) then
+      begin
+        LClonedRecord := TLeaderRecord.Create(LRecord.Name, LRecord.Faction,
+          LRecord.PlayerClass, LRecord.Score);
+        LFilteredList.Add(LClonedRecord);
+        Inc(LCount);
+        if LCount >= 11 then
+          Break;
+      end;
+    end;
+    LFilteredList.Sort(CompareRecordsByScore);
+    Result := LFilteredList;
+  except
+    LFilteredList.Free;
+    raise;
+  end;
 end;
 
 function TLeaderRecordsTable.FormatJSON(const AJSON: string): string;
@@ -165,18 +220,80 @@ begin
 end;
 
 procedure TLeaderRecordsTable.LoadFromFile;
+var
+  I: Integer;
+  LJSONStr: string;
+  LJSONValue: TJSONValue;
+  LJSONArray: TJSONArray;
+  LJSONObject: TJSONObject;
+  LLeaderRec: TLeaderRecord;
 begin
   if FileExists(FFileName) then
   begin
-       // load from json
+    try
+      with TStringList.Create do
+        try
+          LoadFromFile(FFileName);
+          LJSONStr := Text;
+        finally
+          Free;
+        end;
+      FRecords.Clear;
+      LJSONValue := TJSONObject.ParseJSONValue(LJSONStr);
+      if Assigned(LJSONValue) and (LJSONValue is TJSONArray) then
+      begin
+        try
+          LJSONArray := TJSONArray(LJSONValue);
+          for I := 0 to LJSONArray.Count - 1 do
+          begin
+            if LJSONArray.Items[I] is TJSONObject then
+            begin
+              LJSONObject := TJSONObject(LJSONArray.Items[I]);
+              try
+                LLeaderRec := TLeaderRecord.FromJSONObject(LJSONObject);
+                FRecords.Add(LLeaderRec);
+              except
+                on E: Exception do
+                  WriteLn('Error: ', E.Message);
+              end;
+            end;
+          end;
+        finally
+          LJSONValue.Free;
+        end;
+      end;
+      SortRecords;
+    except
+      on E: Exception do
+        WriteLn('Error: ', E.Message);
+    end;
   end;
   if FRecords.Count = 0 then
     GenNewTable;
 end;
 
 procedure TLeaderRecordsTable.SaveToFile;
+var
+  I: Integer;
+  LJSONArray: TJSONArray;
+  LJSONStr: string;
 begin
-  // save to json
+  LJSONArray := TJSONArray.Create;
+  try
+    for I := 0 to FRecords.Count - 1 do
+      LJSONArray.AddElement(TLeaderRecord(FRecords[I]).ToJSONObject);
+    LJSONStr := LJSONArray.ToString;
+    LJSONStr := FormatJSON(LJSONStr);
+    with TStringList.Create do
+      try
+        Text := LJSONStr;
+        SaveToFile(FFileName);
+      finally
+        Free;
+      end;
+  finally
+    LJSONArray.Free;
+  end;
 end;
 
 procedure TLeaderRecordsTable.SortRecords;
