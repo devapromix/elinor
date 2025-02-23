@@ -32,7 +32,7 @@ implementation
 { TSceneLeader }
 
 uses
-  Math, dialogs,
+  System.Math,
   System.SysUtils,
   Elinor.Scene.Faction,
   DisciplesRL.Scene.Hire,

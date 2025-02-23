@@ -59,7 +59,7 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlayMusic(mmMenu);
   Game.IsGame := False;
-  TSceneHighScores.ShowScene;
+  TSceneRecords.ShowScene;
 end;
 
 constructor TSceneDefeat.Create;

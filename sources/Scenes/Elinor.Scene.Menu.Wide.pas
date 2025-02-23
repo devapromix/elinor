@@ -21,8 +21,6 @@ type
     Button: array [TTwoButtonEnum] of TButton;
     FCurrentIndex: Integer;
   public
-  var
-  public
     constructor Create(const AResEnum: TResEnum);
     destructor Destroy; override;
     procedure Render; override;

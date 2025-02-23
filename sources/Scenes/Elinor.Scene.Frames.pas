@@ -4,13 +4,13 @@ interface
 
 uses
   Vcl.Graphics,
-  Classes,
+  System.Classes,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Scenes;
 
 type
-  TFrameGrid = (fgLS3, fgLS6, fgRS6, fgRM1, fgRM2);
+  TFrameGrid = (fgLS3, fgLS6, fgRS6, fgRM1, fgRM2, fgRB);
 
 type
   TSceneFrames = class(TScene)
@@ -28,8 +28,8 @@ type
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Frame;
 
 { TSceneFrames }
@@ -70,6 +70,8 @@ begin
         Inc(LLeft, LMid);
     end;
   end;
+  if ARightFrameGrid = fgRB then
+    FSurface.Canvas.Draw(TFrame.Col(2), LTop, ResImage[reBigFrame]);
   if ARightFrameGrid = fgRM1 then
     FSurface.Canvas.Draw(TFrame.Col(2), LTop, ResImage[reInfoFrame]);
   if ARightFrameGrid = fgRM2 then

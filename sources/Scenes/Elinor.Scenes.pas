@@ -906,7 +906,7 @@ begin
   FScene[scAbilities] := TSceneAbilities.Create;
   FScene[scNewAbility] := TSceneNewAbility.Create;
   FScene[scMageTower] := TSceneMageTower.Create;
-  FScene[scHighScores] := TSceneHighScores.Create;
+  FScene[scHighScores] := TSceneRecords.Create;
   FScene[scVictory] := TSceneVictory.Create;
   FScene[scDefeat] := TSceneDefeat.Create;
   FScene[scLoot] := TSceneLoot2.Create;

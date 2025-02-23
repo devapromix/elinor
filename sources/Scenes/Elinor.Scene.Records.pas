@@ -3,23 +3,33 @@
 interface
 
 uses
-  Elinor.Scene.Menu.Simple,
   Vcl.Controls,
   System.Classes,
+  Elinor.Scene.Frames,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
   Elinor.Scenes;
 
 type
-  TSceneHighScores = class(TSceneSimpleMenu)
+  TSceneRecords = class(TSceneFrames)
+  private type
+    TButtonEnum = (btFaction, btClass, btClose);
+  private const
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextFaction, reTextClass,
+      reTextClose);
   private
+    Button: array [TButtonEnum] of TButton;
+    procedure FilterByFaction;
+    procedure FilterByClass;
   public
     constructor Create;
+    destructor Destroy; override;
     procedure Render; override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
     procedure Update(var Key: Word); override;
-    procedure Cancel; override;
-    procedure Continue; override;
     class procedure ShowScene;
     class procedure HideScene;
   end;
@@ -27,66 +37,142 @@ type
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Scenario,
-  Elinor.Frame, Elinor.Statistics;
+  Elinor.Frame, Elinor.Creatures;
 
 { TSceneHighScores }
 
-procedure TSceneHighScores.Cancel;
+constructor TSceneRecords.Create;
+var
+  LButtonEnum: TButtonEnum;
+  LLeft, LWidth: Integer;
 begin
-  HideScene;
+  inherited Create(reWallpaperLeader, fgLS6, fgRB);
+  LWidth := ResImage[reButtonDef].Width + 4;
+  LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+  begin
+    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+      ButtonText[LButtonEnum]);
+    Inc(LLeft, LWidth);
+    if (LButtonEnum = btClose) then
+      Button[LButtonEnum].Sellected := True;
+  end;
 end;
 
-procedure TSceneHighScores.Continue;
+destructor TSceneRecords.Destroy;
+var
+  LButtonEnum: TButtonEnum;
 begin
-  HideScene;
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[LButtonEnum]);
+  inherited;
 end;
 
-constructor TSceneHighScores.Create;
+procedure TSceneRecords.FilterByClass;
 begin
-  inherited Create(reWallpaperDifficulty);
+
 end;
 
-class procedure TSceneHighScores.HideScene;
+procedure TSceneRecords.FilterByFaction;
+begin
+
+end;
+
+class procedure TSceneRecords.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scMenu);
 end;
 
-procedure TSceneHighScores.Render;
-var
-  LScenarioEnum: TScenarioEnum;
+procedure TSceneRecords.MouseDown(AButton: TMouseButton; Shift: TShiftState;
+  X, Y: Integer);
 begin
   inherited;
-  IsOneButton := True;
-  DrawTitle(reTitleHighScores);
+  case AButton of
+    mbLeft:
+      begin
+        if Button[btFaction].MouseDown then
+          FilterByFaction
+        else if Button[btClass].MouseDown then
+          FilterByClass
+        else if Button[btClose].MouseDown then
+          HideScene
+      end;
+  end;
 
-  DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
-    reFrameSlotPassive);
-  TextTop := TFrame.Row(0) + 6;
-  TextLeft := TFrame.Col(2) + 12;
-  AddTextLine('Statistics', True);
-  AddTextLine;
-  AddTextLine('Battles Won', Game.Statistics.GetValue(stBattlesWon));
-  AddTextLine('Killed Creatures', Game.Statistics.GetValue(stKilledCreatures));
-  AddTextLine('Tiles Moved', Game.Statistics.GetValue(stTilesMoved));
-  AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
-  AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
-  AddTextLine('Scores', Game.Statistics.GetValue(stScores));
 end;
 
-class procedure TSceneHighScores.ShowScene;
+procedure TSceneRecords.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  LButtonEnum: TButtonEnum;
+begin
+  inherited;
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[LButtonEnum].MouseMove(X, Y);
+end;
+
+procedure TSceneRecords.Render;
+var
+  LScenarioEnum: TScenarioEnum;
+
+  procedure RenderClass;
+  var
+    LRaceCharKind: TFactionLeaderKind;
+    LLeft, LTop: Integer;
+  begin
+    for LRaceCharKind := Low(TFactionLeaderKind) to High(TFactionLeaderKind) do
+    begin
+      LLeft := IfThen(Ord(LRaceCharKind) > 2, TFrame.Col(1), TFrame.Col(0));
+      LTop := IfThen(Ord(LRaceCharKind) > 2, TFrame.Row(Ord(LRaceCharKind) - 3),
+        TFrame.Row(Ord(LRaceCharKind)));
+      with TCreature.Character(Characters[Game.Scenario.Faction][cgLeaders]
+        [LRaceCharKind]) do
+        if HitPoints > 0 then
+        begin
+          DrawUnit(ResEnum, LLeft, LTop, bsCharacter);
+          DrawUnitInfo(LLeft, LTop, Characters[Game.Scenario.Faction][cgLeaders]
+            [LRaceCharKind], False);
+        end;
+    end;
+  end;
+
+  procedure RenderButtons;
+  var
+    LButtonEnum: TButtonEnum;
+  begin
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[LButtonEnum].Render;
+  end;
+
+begin
+  inherited;
+  DrawTitle(reTitleHighScores);
+
+  RenderClass;
+
+  RenderButtons;
+end;
+
+class procedure TSceneRecords.ShowScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scHighScores);
 end;
 
-procedure TSceneHighScores.Update(var Key: Word);
+procedure TSceneRecords.Update(var Key: Word);
 begin
   inherited;
-  UpdateEnum<TScenarioEnum>(Key);
+  case Key of
+    K_ESCAPE, K_ENTER:
+      HideScene;
+    K_F:
+      FilterByFaction;
+    K_C:
+      FilterByClass;
+  end;
 end;
 
 end.

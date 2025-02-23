@@ -116,7 +116,7 @@ end;
 
 procedure TSceneMenu3.ShowHighScores;
 begin
-  TSceneHighScores.ShowScene;
+  TSceneRecords.ShowScene;
 end;
 
 { TSceneMenu }
