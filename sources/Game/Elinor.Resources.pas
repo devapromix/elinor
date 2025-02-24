@@ -57,7 +57,7 @@ type
     reTextRecruit, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
-    reTextLearn,
+    reTextLearn, reTextFaction, reTextClass,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -404,6 +404,10 @@ const
     (FileName: 'text.cast.png'; ResType: teGUI;),
     // Text "Learn"
     (FileName: 'text.learn.png'; ResType: teGUI;),
+    // Text "Faction"
+    (FileName: 'text.faction.png'; ResType: teGUI;),
+    // Text "Class"
+    (FileName: 'text.class.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
