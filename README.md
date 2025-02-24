@@ -59,8 +59,15 @@ of their gods.
 
 ### 8. In inventory scene:
 * Esc - Close scene
+* Arrows, Numeric keypad - Select character's slot (if active character's group)
 * Space - Change active group
 * Enter - use item (read scroll/drink potion)
+
+### 8. In high scores scene:
+* Esc - Close scene
+* Arrows, Numeric keypad - Select faction/class
+* F - Filter by fraction
+* C - Filter by class
 
 ## II. Actions of leaders:
 
