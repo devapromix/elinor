@@ -49,6 +49,7 @@ type
   TItemEnum = (iNone,
     // Special
     iGold, iMana, iStoneTab,
+
     // Valuables
     iRunicKey, iWotansScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
     iAncientRelic,
@@ -168,7 +169,7 @@ const
     // Valuables
     // Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone),
+    ItSlot: isNone; ItRes: reItemRunicKey),
     // Wotan's Scroll
     (Enum: iWotansScroll; Name: 'Свиток Вотана'; Level: 2; ItType: itValuable;
     ItSlot: isNone; ItRes: reNone),
@@ -230,36 +231,36 @@ const
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
     ItSlot: isRing; ItRes: reItemStoneRing),
     // Bronze Ring
-    (Enum: iBronzeRing; Name: 'Бронзовое Кольцо'; Level: 2; ItType: itRing;
+    (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Silver Ring
-    (Enum: iSilverRing; Name: 'Серебрянное Кольцо'; Level: 3; ItType: itRing;
+    (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Gold Ring
-    (Enum: iGoldRing; Name: 'Золотое Кольцо'; Level: 4; ItType: itRing;
+    (Enum: iGoldRing; Name: 'Gold Ring'; Level: 4; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Ring Of Strength,
-    (Enum: iRingOfStrength; Name: 'Кольцо Силы'; Level: 5; ItType: itRing;
+    (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Ring Of The Ages,
-    (Enum: iRingOfTheAges; Name: 'Кольцо Веков'; Level: 6; ItType: itRing;
+    (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Hag's Ring,
-    (Enum: iRingOfHag; Name: 'Кольцо Ведьмы'; Level: 7; ItType: itRing;
+    (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
     // Thanatos Ring
-    (Enum: iThanatosRing; Name: 'Кольцо Танатоса'; Level: 8; ItType: itRing;
+    (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
     ItSlot: isRing; ItRes: reNone),
 
     // Helms
     // Tiara Of Purity
-    (Enum: iTiaraOfPurity; Name: 'Тиара Чистоты'; Level: 5; ItType: itHelm;
+    (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
     ItSlot: isHelm; ItRes: reNone),
     // Mjolnir's Crown
-    (Enum: iMjolnirsCrown; Name: 'Корона Мьельнира'; Level: 6; ItType: itHelm;
+    (Enum: iMjolnirsCrown; Name: 'Mjolnir''s Crown'; Level: 6; ItType: itHelm;
     ItSlot: isHelm; ItRes: reNone),
     // Imperial Crown
-    (Enum: iImperialCrown; Name: 'Корона Империи'; Level: 8; ItType: itHelm;
+    (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
     ItSlot: isHelm; ItRes: reNone));
 
   { TInventory }
