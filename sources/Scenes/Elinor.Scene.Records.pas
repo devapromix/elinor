@@ -19,6 +19,7 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextFaction, reTextClass,
       reTextClose);
   private
+    FFilterByFaction: Boolean;
     Button: array [TButtonEnum] of TButton;
     procedure FilterByFaction;
     procedure FilterByClass;
@@ -40,7 +41,9 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Scenario,
-  Elinor.Frame, Elinor.Creatures;
+  Elinor.Frame,
+  Elinor.Creatures,
+  Elinor.Faction;
 
 { TSceneHighScores }
 
@@ -60,6 +63,7 @@ begin
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
+  FFilterByFaction := True;
 end;
 
 destructor TSceneRecords.Destroy;
@@ -73,12 +77,12 @@ end;
 
 procedure TSceneRecords.FilterByClass;
 begin
-
+  FFilterByFaction := False;
 end;
 
 procedure TSceneRecords.FilterByFaction;
 begin
-
+  FFilterByFaction := True;
 end;
 
 class procedure TSceneRecords.HideScene;
@@ -118,6 +122,20 @@ procedure TSceneRecords.Render;
 var
   LScenarioEnum: TScenarioEnum;
 
+  procedure RenderFaction;
+  var
+    LPlayableRaces: TPlayableFactions;
+  const
+    LPlayableRacesImage: array [TPlayableFactions] of TResEnum =
+      (reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo);
+  begin
+    for LPlayableRaces := Low(TPlayableFactions) to High(TPlayableFactions) do
+    begin
+      DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
+        LPlayableRacesImage[LPlayableRaces]);
+    end;
+  end;
+
   procedure RenderClass;
   var
     LRaceCharKind: TFactionLeaderKind;
@@ -151,7 +169,10 @@ begin
   inherited;
   DrawTitle(reTitleHighScores);
 
-  RenderClass;
+  if FFilterByFaction then
+    RenderFaction
+  else
+    RenderClass;
 
   RenderButtons;
 end;
