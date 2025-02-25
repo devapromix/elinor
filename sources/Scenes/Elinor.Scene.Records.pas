@@ -179,6 +179,7 @@ end;
 
 class procedure TSceneRecords.ShowScene;
 begin
+
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scHighScores);
 end;

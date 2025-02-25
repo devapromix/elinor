@@ -59,6 +59,8 @@ begin
   TSceneHire.CurCrAbilityEnum := TCreature.Character(CurCrEnum).AbilityEnum;
   Game.Clear;
   PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner := Game.Scenario.Faction;
+  PartyList.Party[TLeaderParty.LeaderPartyIndex].LeaderClass :=
+    TFactionLeaderKind(CurrentIndex);
   Game.MediaPlayer.PlayMusic(mmGame);
   Game.MediaPlayer.PlaySound(mmExit);
   TSceneSettlement.ShowScene(stCapital);

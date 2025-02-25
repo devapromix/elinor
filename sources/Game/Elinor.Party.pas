@@ -35,6 +35,7 @@ type
     function GetCount: Integer;
   private
     FCanAttack: Boolean;
+    FLeaderClass: TFactionLeaderKind;
   public
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum); overload;
@@ -44,6 +45,7 @@ type
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
     property Owner: TFactionEnum read FOwner write FOwner;
+    property LeaderClass: TFactionLeaderKind read FLeaderClass write FLeaderClass;
     procedure UnParalyze(const APosition: TPosition);
     procedure UnParalyzeParty;
     procedure ParalyzeParty;
@@ -310,6 +312,7 @@ begin
   inherited Create(AX, AY);
   Self.Clear;
   Owner := faNeutrals;
+  LeaderClass := ckWarrior;
   CanAttack := True;
 end;
 
