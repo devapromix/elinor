@@ -44,7 +44,8 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creature.Types,
-  Elinor.Creatures;
+  Elinor.Creatures,
+  Elinor.Statistics;
 
 { TSceneDefeat }
 
@@ -59,6 +60,11 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlayMusic(mmMenu);
   Game.IsGame := False;
+  Game.LeaderRecordsTable.AddRecord
+    (TCreature.Character(TLeaderParty.Leader.Enum).Name[0],
+    TLeaderParty.Leader.Owner, TLeaderParty.Leader.LeaderClass,
+    Game.Statistics.GetValue(stScores));
+  Game.LeaderRecordsTable.SaveToFile;
   TSceneRecords.ShowScene;
 end;
 

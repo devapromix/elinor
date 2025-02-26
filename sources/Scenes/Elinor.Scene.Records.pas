@@ -19,6 +19,7 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextFaction, reTextClass,
       reTextClose);
   private
+    FCurrentIndex: Integer;
     FFilterByFaction: Boolean;
     Button: array [TButtonEnum] of TButton;
     procedure FilterByFaction;
@@ -26,6 +27,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    property CurrentIndex: Integer read FCurrentIndex write FCurrentIndex;
     procedure Render; override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
@@ -64,6 +66,7 @@ begin
       Button[LButtonEnum].Sellected := True;
   end;
   FFilterByFaction := True;
+  FCurrentIndex := 0;
 end;
 
 destructor TSceneRecords.Destroy;
@@ -93,11 +96,22 @@ end;
 
 procedure TSceneRecords.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPartyPosition: Integer;
 begin
   inherited;
   case AButton of
     mbLeft:
       begin
+        LPartyPosition := GetFramePosition(X, Y);
+        case LPartyPosition of
+          0 .. 5:
+            begin
+              CurrentIndex := LPartyPosition;
+              Game.MediaPlayer.PlaySound(mmClick);
+              Exit;
+            end;
+        end;
         if Button[btFaction].MouseDown then
           FilterByFaction
         else if Button[btClass].MouseDown then
@@ -125,20 +139,27 @@ var
   procedure RenderFaction;
   var
     LPlayableRaces: TPlayableFactions;
+    LFactionEnum: TFactionEnum;
   const
     LPlayableRacesImage: array [TPlayableFactions] of TResEnum =
       (reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo);
   begin
     for LPlayableRaces := Low(TPlayableFactions) to High(TPlayableFactions) do
     begin
-      DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
+      DrawImage(TFrame.Col(0) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
         LPlayableRacesImage[LPlayableRaces]);
     end;
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+    LFactionEnum := TFactionEnum(CurrentIndex);
+    AddTextLine(FactionName[LFactionEnum], True);
+    AddTextLine;
   end;
 
   procedure RenderClass;
   var
     LRaceCharKind: TFactionLeaderKind;
+    LFactionLeaderClass: TFactionLeaderKind;
     LLeft, LTop: Integer;
   begin
     for LRaceCharKind := Low(TFactionLeaderKind) to High(TFactionLeaderKind) do
@@ -155,6 +176,11 @@ var
             [LRaceCharKind], False);
         end;
     end;
+    TextTop := TFrame.Row(0) + 6;
+    TextLeft := TFrame.Col(2) + 12;
+    LFactionLeaderClass := TFactionLeaderKind(CurrentIndex);
+    AddTextLine(FactionLeaderKindName[LFactionLeaderClass], True);
+    AddTextLine;
   end;
 
   procedure RenderButtons;
