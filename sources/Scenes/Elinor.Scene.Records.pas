@@ -4,6 +4,7 @@ interface
 
 uses
   Vcl.Controls,
+  System.Contnrs,
   System.Classes,
   Elinor.Scene.Frames,
   Elinor.Button,
@@ -21,6 +22,7 @@ type
   private
     FCurrentIndex: Integer;
     FFilterByFaction: Boolean;
+    FFilteredList: TObjectList;
     Button: array [TButtonEnum] of TButton;
     procedure FilterByFaction;
     procedure FilterByClass;
@@ -45,7 +47,9 @@ uses
   Elinor.Scenario,
   Elinor.Frame,
   Elinor.Creatures,
-  Elinor.Faction;
+  Elinor.Faction,
+  Elinor.Records,
+  Elinor.RecordsTable;
 
 { TSceneHighScores }
 
@@ -136,6 +140,25 @@ procedure TSceneRecords.Render;
 var
   LScenarioEnum: TScenarioEnum;
 
+  procedure DrawRecClassTable;
+  var
+    I: Integer;
+    PlayerRec: TLeaderRecord;
+  begin
+    FFilteredList := Game.LeaderRecordsTable.FilterByFaction(CurrentIndex);
+    try
+      for I := 0 to FFilteredList.Count - 1 do
+      begin
+        PlayerRec := TLeaderRecord(FFilteredList[I]);
+        AddTableLine(IntToStr(I + 1), PlayerRec.Name,
+          FactionLeaderKindName[PlayerRec.PlayerClass],
+          PlayerRec.Score.ToString);
+      end;
+    finally
+      FFilteredList.Free;
+    end;
+  end;
+
   procedure RenderFaction;
   var
     LPlayableRaces: TPlayableFactions;
@@ -154,6 +177,8 @@ var
     LFactionEnum := TFactionEnum(CurrentIndex);
     AddTextLine(FactionName[LFactionEnum], True);
     AddTextLine;
+    AddTableLine('##', 'Name', 'Class', 'Scores');
+    DrawRecClassTable;
   end;
 
   procedure RenderClass;
@@ -181,6 +206,8 @@ var
     LFactionLeaderClass := TFactionLeaderKind(CurrentIndex);
     AddTextLine(FactionLeaderKindName[LFactionLeaderClass], True);
     AddTextLine;
+    AddTableLine('##', 'Name', 'Faction', 'Scores');
+    DrawRecClassTable(); // FactionName[PlayerRec.Faction]
   end;
 
   procedure RenderButtons;

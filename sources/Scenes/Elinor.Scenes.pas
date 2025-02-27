@@ -148,6 +148,7 @@ type
     procedure AddTextLine(const S, V: string); overload;
     procedure AddTextLine(const S: string; const V: Integer); overload;
     procedure AddTextLine(const S: string; const V, M: Integer); overload;
+    procedure AddTableLine(const N, A, B, C: string);
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
     procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
@@ -444,6 +445,15 @@ end;
 procedure TScene.AddTextLine(const S, V: string);
 begin
   AddTextLine(Format('%s: %s', [S, V]));
+end;
+
+procedure TScene.AddTableLine(const N, A, B, C: string);
+var
+  S: string;
+begin
+  S := N;
+  S := S + A + B + C;
+  AddTextLine(S);
 end;
 
 procedure TScene.AddTextLine(const S: string; const V, M: Integer);
