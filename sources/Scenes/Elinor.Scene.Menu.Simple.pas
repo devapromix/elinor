@@ -45,8 +45,8 @@ type
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.Frame,
   Elinor.Common,
   Elinor.Scenes;

@@ -10,6 +10,7 @@ uses
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
+  Elinor.Direction,
   Elinor.Scenes;
 
 type
@@ -26,6 +27,7 @@ type
     Button: array [TButtonEnum] of TButton;
     procedure FilterByFaction;
     procedure FilterByClass;
+    procedure MoveCursor(const AArrowKeyDirectionEnum: TArrowKeyDirectionEnum);
   public
     constructor Create;
     destructor Destroy; override;
@@ -51,7 +53,15 @@ uses
   Elinor.Records,
   Elinor.RecordsTable;
 
-{ TSceneHighScores }
+{ TSceneRecords }
+
+procedure TSceneRecords.MoveCursor(const AArrowKeyDirectionEnum
+  : TArrowKeyDirectionEnum);
+begin
+  CurrentIndex := PositionTransitions[AArrowKeyDirectionEnum, CurrentIndex];
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.Render;
+end;
 
 constructor TSceneRecords.Create;
 var
@@ -139,20 +149,39 @@ end;
 procedure TSceneRecords.Render;
 var
   LScenarioEnum: TScenarioEnum;
+  LX, LY: Integer;
 
-  procedure DrawRecClassTable;
+  procedure DrawRecFactionTable;
   var
     I: Integer;
-    PlayerRec: TLeaderRecord;
+    LLeaderRecord: TLeaderRecord;
   begin
     FFilteredList := Game.LeaderRecordsTable.FilterByFaction(CurrentIndex);
     try
       for I := 0 to FFilteredList.Count - 1 do
       begin
-        PlayerRec := TLeaderRecord(FFilteredList[I]);
-        AddTableLine(IntToStr(I + 1), PlayerRec.Name,
-          FactionLeaderKindName[PlayerRec.PlayerClass],
-          PlayerRec.Score.ToString);
+        LLeaderRecord := TLeaderRecord(FFilteredList[I]);
+        AddTableLine(IntToStr(I + 1), LLeaderRecord.Name,
+          FactionName[LLeaderRecord.Faction], LLeaderRecord.Score.ToString);
+      end;
+    finally
+      FFilteredList.Free;
+    end;
+  end;
+
+  procedure DrawRecClassTable;
+  var
+    I: Integer;
+    LLeaderRecord: TLeaderRecord;
+  begin
+    FFilteredList := Game.LeaderRecordsTable.FilterByClass(CurrentIndex);
+    try
+      for I := 0 to FFilteredList.Count - 1 do
+      begin
+        LLeaderRecord := TLeaderRecord(FFilteredList[I]);
+        AddTableLine(IntToStr(I + 1), LLeaderRecord.Name,
+          FactionLeaderKindName[LLeaderRecord.PlayerClass],
+          LLeaderRecord.Score.ToString);
       end;
     finally
       FFilteredList.Free;
@@ -207,7 +236,7 @@ var
     AddTextLine(FactionLeaderKindName[LFactionLeaderClass], True);
     AddTextLine;
     AddTableLine('##', 'Name', 'Faction', 'Scores');
-    DrawRecClassTable(); // FactionName[PlayerRec.Faction]
+    DrawRecFactionTable();
   end;
 
   procedure RenderButtons;
@@ -227,6 +256,20 @@ begin
   else
     RenderClass;
 
+  case CurrentIndex of
+    0 .. 2:
+      begin
+        LX := TFrame.Col(0);
+        LY := TFrame.Row(CurrentIndex);
+      end;
+    3 .. 5:
+      begin
+        LX := TFrame.Col(1);
+        LY := TFrame.Row(CurrentIndex - 3);
+      end;
+  end;
+  DrawImage(LX, LY, reFrameSlotActive);
+
   RenderButtons;
 end;
 
@@ -243,6 +286,14 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       HideScene;
+    K_LEFT, K_KP_4:
+      MoveCursor(kdLeft);
+    K_RIGHT, K_KP_6:
+      MoveCursor(kdRight);
+    K_UP, K_KP_8:
+      MoveCursor(kdUp);
+    K_DOWN, K_KP_2:
+      MoveCursor(kdDown);
     K_F:
       FilterByFaction;
     K_C:

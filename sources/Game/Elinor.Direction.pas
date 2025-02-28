@@ -17,6 +17,19 @@ const
 type
   TArrowKeyDirectionEnum = (kdLeft, kdRight, kdUp, kdDown);
 
+const
+  PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 5] of Integer = (
+    // Left
+    (3, 4, 5, 0, 1, 2),
+    // Right
+    (3, 4, 5, 0, 1, 2),
+    // Up
+    (2, 0, 1, 5, 3, 4),
+    // Down
+    (1, 2, 0, 4, 5, 3)
+    //
+    );
+
 implementation
 
 end.
