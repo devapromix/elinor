@@ -135,7 +135,8 @@ end;
 
 procedure TSceneMap.ShowInventoryScene;
 begin
-  TSceneInventory.ShowScene(PartyList.Party[TLeaderParty.LeaderPartyIndex], scMap);
+  TSceneInventory.ShowScene
+    (PartyList.Party[TLeaderParty.LeaderPartyIndex], scMap);
 end;
 
 procedure TSceneMap.ShowAbilitiesScene;

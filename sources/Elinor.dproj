@@ -172,6 +172,7 @@
         <DCCReference Include="Game\Elinor.Creature.Types.pas"/>
         <DCCReference Include="Game\Elinor.Records.pas"/>
         <DCCReference Include="Game\Elinor.RecordsTable.pas"/>
+        <DCCReference Include="Game\Elinor.Names.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

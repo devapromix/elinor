@@ -1,0 +1,82 @@
+{
+  "the-empire": {
+    "male": [
+      "Maximilian",
+      "Alexander",
+      "Wilhelm",
+      "Friedrich",
+      "Leopold",
+      "Ardobert",
+      "Winfried",
+      "Herbert",
+      "Gilbert",
+      "Conrad",
+      "Lothar"
+    ],
+    "female": [
+      "Sophia",
+      "Victoria",
+      "Elizabeth",
+      "Catherine",
+      "Anna",
+      "Alix",
+      "Paula",
+      "Tamira",
+      "Vera",
+      "Caesaria"
+    ]
+  },
+  "undead-hordes": {
+    "male": [
+      "Necron",
+      "Mortis",
+      "Karnan",
+      "Azriel",
+      "Mortimer",
+      "Verok",
+      "Zardomas",
+      "Rainon",
+      "Renar",
+      "Savery"
+    ],
+    "female": [
+      "Hecate",
+      "Morrigan",
+      "Lamia",
+      "Styx",
+      "Fanshee",
+      "Izuelle",
+      "Phadra",
+      "Tueranis",
+      "Mantia",
+      "Jutta"
+    ]
+  },
+  "legions-of-the-damned": {
+    "male": [
+      "Asmodeus",
+      "Belphegor",
+      "Mammon",
+      "Zychis",
+      "Abaddon",
+      "Moloch",
+      "Goar",
+      "Godfrey",
+      "Gunther",
+      "Othon",
+      "Tefas"
+    ],
+    "female": [
+      "Lilith",
+      "Astaroth",
+      "Persephone",
+      "Vaalia",
+      "Lucretia",
+      "Alcyma",
+      "Zolia",
+      "Crona",
+      "Linual",
+      "Fara"
+    ]
+  }
+}

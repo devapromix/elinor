@@ -70,7 +70,8 @@ uses
   Elinor.Ability in 'Game\Elinor.Ability.pas',
   Elinor.Creature.Types in 'Game\Elinor.Creature.Types.pas',
   Elinor.Records in 'Game\Elinor.Records.pas',
-  Elinor.RecordsTable in 'Game\Elinor.RecordsTable.pas';
+  Elinor.RecordsTable in 'Game\Elinor.RecordsTable.pas',
+  Elinor.Names in 'Game\Elinor.Names.pas';
 
 {$R *.res}
 

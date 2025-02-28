@@ -448,12 +448,12 @@ begin
 end;
 
 procedure TScene.AddTableLine(const N, A, B, C: string);
-var
-  S: string;
 begin
-  S := N;
-  S := S + A + B + C;
-  AddTextLine(S);
+  DrawText(TextLeft, TextTop, N, False);
+  DrawText(TextLeft + 40, TextTop, A, False);
+  DrawText(TextLeft + 250, TextTop, B, False);
+  DrawText(TextLeft + 500, TextTop, C, False);
+  Inc(TextTop, TextLineHeight);
 end;
 
 procedure TScene.AddTextLine(const S: string; const V, M: Integer);

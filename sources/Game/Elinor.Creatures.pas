@@ -103,57 +103,6 @@ const
     );
 {$REGION texts}
   {
-    Ардоберт
-    Верок
-    Винфрид
-    Виргилий
-    Вольфгар
-    Гелдвин
-    Герберт
-    Гильберт
-    Гоар
-    Годфруа
-    Гюнтер
-    Дагар
-    Зардомас
-    Кловис
-    Конрад
-    Лотар
-    Мерло
-    Нигель
-    Отон
-    Райнон
-    Ренар
-    Роллон
-    Сэйвери
-    Тефас
-    Туэдон
-    Урбан
-    Эдвин
-    Эмери
-    Юрон
-    Юстин
-  }
-
-  {
-    Аликс
-    Алкима
-    Вера
-    Золиан
-    Изуэль
-    Крона
-    Линуаль
-    Мантия
-    Паула
-    Тамара
-    Туэрас
-    Фара
-    Федра
-    Цезария
-    Ютта
-  }
-
-  {
     А? Чего изволите?
     В моей лавке вы можете купить лучший эль и лучшее оружие в округе!
     Взгляни на мой товар. Возможно, тебе что-то будет полезно.
@@ -319,7 +268,12 @@ const
 
 type
   TCrSoundEnum = (csHit, csDeath, csAttack);
-  TCreatureGender = (cgMale, cgFemale, cgNeuter, cgPlural);
+
+type
+  TCreatureGender = (cgMale, cgFemale);
+
+const
+  GenderIdent: array [TCreatureGender] of string = ('male', 'female');
 
 type
   TCreatureBase = record
@@ -583,7 +537,7 @@ const
     ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
     Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
-    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgNeuter;
+    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgMale;
     AttackEnum: atParalyze; AbilityEnum: abNone; Rating: 10;),
     // Initiate
     (Ident: 'initiate'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -965,9 +919,9 @@ function TCreature.GenderEnding(VerbForm: Byte = 0): string;
 const
   GenderEndings: array [0 .. 1, TCreatureGender] of string =
   // обычные глаголы
-    (('', 'а', 'о', 'и'),
+    (('', 'а'),
     // для глаголов типа "нанес"
-    ('', 'ла', 'ло', 'ли'));
+    ('', 'ла'));
 begin
   Assert(VerbForm < Length(GenderEndings));
   Result := GenderEndings[VerbForm, Character(Enum).Gender];
