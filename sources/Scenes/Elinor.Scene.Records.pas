@@ -23,7 +23,6 @@ type
   private
     FCurrentIndex: Integer;
     FFilterByFaction: Boolean;
-    FFilteredList: TObjectList;
     Button: array [TButtonEnum] of TButton;
     procedure FilterByFaction;
     procedure FilterByClass;
@@ -155,17 +154,18 @@ var
   var
     I: Integer;
     LLeaderRecord: TLeaderRecord;
+    LFilteredList: TObjectList;
   begin
-    FFilteredList := Game.LeaderRecordsTable.FilterByFaction(CurrentIndex);
+    LFilteredList := Game.LeaderRecordsTable.FilterByClass(CurrentIndex);
     try
-      for I := 0 to FFilteredList.Count - 1 do
+      for I := 0 to LFilteredList.Count - 1 do
       begin
-        LLeaderRecord := TLeaderRecord(FFilteredList[I]);
+        LLeaderRecord := TLeaderRecord(LFilteredList[I]);
         AddTableLine(IntToStr(I + 1), LLeaderRecord.Name,
           FactionName[LLeaderRecord.Faction], LLeaderRecord.Score.ToString);
       end;
     finally
-      FFilteredList.Free;
+      LFilteredList.Free;
     end;
   end;
 
@@ -173,18 +173,19 @@ var
   var
     I: Integer;
     LLeaderRecord: TLeaderRecord;
+    LFilteredList: TObjectList;
   begin
-    FFilteredList := Game.LeaderRecordsTable.FilterByClass(CurrentIndex);
+    LFilteredList := Game.LeaderRecordsTable.FilterByFaction(CurrentIndex);
     try
-      for I := 0 to FFilteredList.Count - 1 do
+      for I := 0 to LFilteredList.Count - 1 do
       begin
-        LLeaderRecord := TLeaderRecord(FFilteredList[I]);
+        LLeaderRecord := TLeaderRecord(LFilteredList[I]);
         AddTableLine(IntToStr(I + 1), LLeaderRecord.Name,
           FactionLeaderKindName[LLeaderRecord.PlayerClass],
           LLeaderRecord.Score.ToString);
       end;
     finally
-      FFilteredList.Free;
+      LFilteredList.Free;
     end;
   end;
 
@@ -201,6 +202,8 @@ var
       DrawImage(TFrame.Col(0) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
         LPlayableRacesImage[LPlayableRaces]);
     end;
+    if CurrentIndex > 2 then
+      Exit;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     LFactionEnum := TFactionEnum(CurrentIndex);
@@ -230,6 +233,8 @@ var
             [LRaceCharKind], False);
         end;
     end;
+    if CurrentIndex > 4 then
+      Exit;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     LFactionLeaderClass := TFactionLeaderKind(CurrentIndex);

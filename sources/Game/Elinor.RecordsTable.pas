@@ -12,12 +12,11 @@ type
   TLeaderRecordsTable = class(TObject)
   private
     FRecords: TObjectList;
-    FMaxRecords: Integer;
     FFileName: string;
     function FormatJSON(const AJSON: string): string;
     procedure GenNewTable;
   public
-    constructor Create(const AFileName: string; AMaxRecords: Integer = 11);
+    constructor Create(const AFileName: string);
     destructor Destroy; override;
     procedure SaveToFile;
     procedure LoadFromFile;
@@ -37,7 +36,9 @@ uses
   System.Math,
   System.JSON,
   System.SysUtils,
-  Elinor.Records;
+  Elinor.Records,
+  Elinor.Names,
+  Elinor.Resources;
 
 function CompareRecordsByScore(AItem1, AItem2: Pointer): Integer;
 begin
@@ -66,15 +67,11 @@ begin
   LLeaderRecord := TLeaderRecord.Create(AName, AFaction, AClass, AScore);
   FRecords.Add(LLeaderRecord);
   SortRecords;
-  while FRecords.Count > FMaxRecords do
-    FRecords.Delete(FRecords.Count - 1);
 end;
 
-constructor TLeaderRecordsTable.Create(const AFileName: string;
-  AMaxRecords: Integer);
+constructor TLeaderRecordsTable.Create(const AFileName: string);
 begin
   FRecords := TObjectList.Create(True);
-  FMaxRecords := AMaxRecords;
   FFileName := AFileName;
 end;
 
@@ -209,12 +206,20 @@ end;
 procedure TLeaderRecordsTable.GenNewTable;
 var
   I, LCount: Integer;
+  LNames: TAllFactionNames;
+  LName: string;
+  LFaction: TFactionEnum;
+  LClass: TFactionLeaderKind;
 begin
-  LCount := RandomRange(7, 12);
+  LCount := RandomRange(32, 48);
+  LNames := LoadNamesFromJSON(TResources.GetPath('resources') +
+    'faction.names.json');
   for I := 0 to LCount - 1 do
   begin
-    // Need name gen
-    // AddRecord('Apromix', faGreenskinTribes, ckLord, 666);
+    LFaction := TFactionEnum(RandomRange(0, 3));
+    LClass := TFactionLeaderKind(RandomRange(0, 5));
+    LName := GetRandomNameForFaction(LNames, LFaction, cgMale);
+    AddRecord(LName, LFaction, LClass, RandomRange(3000, 10000));
   end;
   SaveToFile;
 end;
