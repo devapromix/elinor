@@ -39,7 +39,6 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Scene.Records,
-  Elinor.Scene.Party,
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,

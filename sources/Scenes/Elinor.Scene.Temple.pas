@@ -48,7 +48,6 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Scene.Settlement,
-  Elinor.Scene.Party,
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,

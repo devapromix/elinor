@@ -43,7 +43,6 @@ uses
   System.SysUtils,
   Elinor.Saga,
   Elinor.Map,
-  Elinor.Scene.Party,
   Elinor.Creatures,
   Elinor.Frame,
   Elinor.Spells.Types,
