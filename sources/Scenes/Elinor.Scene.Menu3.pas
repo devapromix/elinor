@@ -13,54 +13,36 @@ uses
   Vcl.Controls,
 {$ENDIF}
   System.Classes,
-  Elinor.Scene.Menu.Simple,
+  Elinor.Scene.Menu.Wide,
   Elinor.Button,
   Elinor.Common,
   Elinor.Resources,
   Elinor.Scenes;
 
-{ Malavien's Camp	My mercenaries will join your army ... for a price.
-  Guther's Camp	My soldiers are the finest in the region.
-  Turion's Camp	My soldiers are the most formidable in the land.
-  Uther's Camp	Are you in need of recruits?
-  Dennar's Camp	We will join your army, for a price.
-  Purthen's Camp	My mercenaries will join your army ... for a price.
-  Luther's Camp	My soldiers are the finest in the region.
-  Richard's Camp	My soldiers are the most formidable in the land.
-  Ebbon's Camp	Are you in need of recruits?
-  Righon's Camp	We will join your army, for a price.
-  Kigger's Camp	My mercenaries will join your army ... for a price.
-  Luggen's Camp	My soldiers are the finest in the region.
-  Werric's Camp	My soldiers are the most formidable in the land.
-  Xennon's Camp	Are you in need of recruits? }
-
 type
 
   { TSceneMenu2 }
 
-  TSceneMenu3 = class(TScene)
-  private type
-    TButtonEnum = (btPlay, btContinue);
-    TIconEnum = (itHighScores, itQuit);
-  private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextPlay, reTextContinue);
-    IconDef: array [TIconEnum] of TResEnum = (reIconScores, reIconClosedGates);
-    IconOver: array [TIconEnum] of TResEnum = (reIconScoresOver,
-      reIconOpenedGates);
+  TSceneMenu3 = class(TSceneWideMenu)
   private
-    // ButtonCycler: specialize TEnumCycler<TButtonEnum>;
-    CursorPos: TButtonEnum;
-    Button: array [TButtonEnum] of TButton;
-    Icons: array [TIconEnum] of TIcon;
-    procedure Next;
     procedure Quit;
     procedure ConfirmQuit;
-    procedure PlayGame;
+    procedure StartNewGame;
     procedure ContinueGame;
     procedure ShowHighScores;
+    procedure Credits;
+    procedure SelectMenuItem;
+  private type
+    TButtonEnum = (btQuit, btContinue);
+  private const
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextQuit, reTextContinue);
+  private
+    Button: array [TButtonEnum] of TButton;
   public
     constructor Create;
     destructor Destroy; override;
+    procedure Cancel; override;
+    procedure Continue; override;
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
@@ -72,37 +54,70 @@ type
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math, dialogs,
+  System.SysUtils,
   Elinor.Saga,
-  DisciplesRL.Scene.Hire,
+  Elinor.Frame,
   Elinor.Scene.Records;
 
-procedure TSceneMenu3.Next;
-begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  case CursorPos of
-    btPlay:
-      PlayGame;
-    btContinue:
-      ContinueGame;
-  end;
-end;
+{ TSceneMenu }
 
 procedure TSceneMenu3.Quit;
 begin
   Halt;
 end;
 
-procedure TSceneMenu3.ConfirmQuit;
+procedure TSceneMenu3.Credits;
 begin
-  ConfirmDialog('Завершить игру?', {$IFDEF MODEOBJFPC}@{$ENDIF}Quit);
+  TextTop := TFrame.Row(0) + 6;
+  TextLeft := TFrame.Col(3) + 12;
+  AddTextLine('About', True);
+  AddTextLine;
+  AddTextLine('Set in the magical realm of the Sacred Lands,');
+  AddTextLine('three races - the Empire, the Legions of the Damned,');
+  AddTextLine('and the Undead Hordes - battle for the destiny of their gods.');
+  AddTextLine('Credits', True);
+  AddTextLine;
+  AddTextLine('Design and programming:');
+  AddTextLine('Apromix');
+  AddTextLine('Programming, testing and ideas:');
+  AddTextLine('Phomm');
+
 end;
 
-procedure TSceneMenu3.PlayGame;
+procedure TSceneMenu3.Cancel;
+begin
+  inherited;
+  ConfirmQuit;
+end;
+
+procedure TSceneMenu3.ConfirmQuit;
+begin
+  ConfirmDialog('Leave the game?', {$IFDEF MODEOBJFPC}@{$ENDIF}Quit);
+end;
+
+procedure TSceneMenu3.StartNewGame;
 begin
   Game.IsGame := False;
   Game.Show(scScenario);
+end;
+
+procedure TSceneMenu3.SelectMenuItem;
+begin
+  case CurrentIndex of
+    0:
+      StartNewGame;
+    1:
+      ContinueGame;
+    2:
+      ShowHighScores;
+  end;
+end;
+
+procedure TSceneMenu3.Continue;
+begin
+  inherited;
+  SelectMenuItem;
 end;
 
 procedure TSceneMenu3.ContinueGame;
@@ -119,111 +134,113 @@ begin
   TSceneRecords.ShowScene;
 end;
 
-{ TSceneMenu }
-
 constructor TSceneMenu3.Create;
 var
-  L, T, H: Integer;
-  I: TButtonEnum;
-  J: TIconEnum;
+  LButtonEnum: TButtonEnum;
+  LLeft, LWidth: Integer;
 begin
-  inherited;
-  L := ScrWidth - (ResImage[reButtonDef].Width div 2);
-  H := ResImage[reButtonDef].Height + 10;
-  T := 500 - ((H * (Ord(High(TButtonEnum)) + 1)) div 2);
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
+  inherited Create(reWallpaperMenu, False);
+  LWidth := ResImage[reButtonDef].Width + 4;
+  LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[I] := TButton.Create(L, T, ButtonText[I]);
-    if (I = btPlay) then
-      Button[I].Sellected := True;
-    Inc(T, H);
-  end;
-
-  L := 20;
-  T := 500;
-  for J := Low(TIconEnum) to High(TIconEnum) do
-  begin
-    Icons[J] := TIcon.Create(L, T, IconDef[J], IconOver[J]);
-    Inc(T, 84);
+    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+      ButtonText[LButtonEnum]);
+    Inc(LLeft, LWidth);
+    if (LButtonEnum = btContinue) then
+      Button[LButtonEnum].Sellected := True;
   end;
 end;
 
 destructor TSceneMenu3.Destroy;
 var
-  I: TButtonEnum;
-  J: TIconEnum;
+  LButtonEnum: TButtonEnum;
 begin
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[I]);
-  for J := Low(TIconEnum) to High(TIconEnum) do
-    FreeAndNil(Icons[J]);
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    FreeAndNil(Button[LButtonEnum]);
   inherited;
 end;
 
 procedure TSceneMenu3.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 var
-  I: TButtonEnum;
+  LPartyPosition: Integer;
 begin
-  inherited;
   case AButton of
     mbLeft:
       begin
-        for I := Low(TButtonEnum) to High(TButtonEnum) do
-          if Button[I].MouseDown then
-          begin
-            CursorPos := I;
-            Next;
-          end;
-        if Icons[itHighScores].MouseDown then
-          ShowHighScores;
-        if Icons[itQuit].MouseDown then
+        LPartyPosition := GetFramePosition(X, Y);
+        case LPartyPosition of
+          0 .. 5:
+            begin
+              CurrentIndex := LPartyPosition;
+              Game.MediaPlayer.PlaySound(mmClick);
+              Exit;
+            end;
+        end;
+        if Button[btQuit].MouseDown then
           ConfirmQuit;
+        if Button[btContinue].MouseDown then
+          SelectMenuItem;
       end;
   end;
 end;
 
 procedure TSceneMenu3.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
-  I: TButtonEnum;
-  J: TIconEnum;
+  LButtonEnum: TButtonEnum;
 begin
   inherited;
-  for I := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[I].MouseMove(X, Y);
-  for J := Low(TIconEnum) to High(TIconEnum) do
-    Icons[J].MouseMove(X, Y);
-  Game.Render;
+  for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+    Button[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneMenu3.Render;
 
-  procedure RenderButtons;
+  procedure RenderMenu;
   var
-    I: TButtonEnum;
+    I, LLeft, LTop, LX, LY: Integer;
+  const
+    MENU_SPRITE: array [0 .. 2] of TResEnum = (reMenuDragonLogo,
+      reMenuContinueLogo, reMenuRecordsLogo);
+    MENU_NAME: array [0 .. 2] of string = ('Play Game', 'Continue Game...',
+      'High Scores Table');
   begin
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
+    for I := 0 to High(MENU_SPRITE) do
     begin
-      Button[I].Sellected := (I = CursorPos);
-      Button[I].Render;
+      LX := IfThen(I > 2, 1, 0);
+      LY := IfThen(I > 2, I - 3, I);
+      LLeft := TFrame.Col(LX);
+      LTop := TFrame.Row(LY);
+      DrawImage(LLeft + 7, LTop + 7, MENU_SPRITE[I]);
+      if (I = CurrentIndex) then
+      begin
+        if ((CurrentIndex = 1) and not Game.IsGame) then
+          DrawImage(LLeft, LTop, reFrameSlotPassive);
+        TextTop := TFrame.Row(0) + 6;
+        TextLeft := TFrame.Col(2) + 12;
+        AddTextLine(MENU_NAME[I], True);
+        AddTextLine;
+      end;
     end;
   end;
 
-  procedure RenderIcons;
+  procedure RenderButtons;
   var
-    J: TIconEnum;
+    LButtonEnum: TButtonEnum;
   begin
-    for J := Low(TIconEnum) to High(TIconEnum) do
-      Icons[J].Render;
+    for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
+      Button[LButtonEnum].Render;
   end;
 
 begin
   inherited;
-  DrawImage(reWallpaperMenu);
   DrawTitle(reTitleLogo);
+
+  Credits;
+
+  RenderMenu;
   RenderButtons;
-  RenderIcons;
-  DrawText(650, '2018-2025 by Apromix');
 end;
 
 procedure TSceneMenu3.Timer;
@@ -233,27 +250,16 @@ begin
 end;
 
 procedure TSceneMenu3.Update(var Key: Word);
-var
-  LButtonCycler: TEnumCycler<TButtonEnum>;
 begin
   inherited;
-  LButtonCycler := TEnumCycler<TButtonEnum>.Create(Ord(CursorPos));
   case Key of
     K_ENTER:
-      Next;
+      SelectMenuItem;
     K_ESCAPE:
-      ConfirmQuit;
-    K_S:
-      ShowHighScores;
-    K_UP:
-      CursorPos := LButtonCycler.Prev;
-    // IIF(CursorPos = ButtonMin, ButtonMax, Pred(CursorPos));
-    // CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) - 1, 0,
-    // Ord(High(TButtonEnum))));
-    K_DOWN:
-      CursorPos := LButtonCycler.Next;
-    // CursorPos := TButtonEnum(EnsureRange(Ord(CursorPos) + 1, 0,
-    // Ord(High(TButtonEnum))));
+      if Game.IsGame then
+        ContinueGame
+      else
+        ConfirmQuit;
   end;
 end;
 
