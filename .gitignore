@@ -17,3 +17,5 @@ sources/Scenes/__history/
 /sources/*.dres
 /temp
 /sources/Game/__recovery
+/sources/*.local
+/sources/*.identcache
