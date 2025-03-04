@@ -73,6 +73,8 @@ constructor TLeaderRecordsTable.Create(const AFileName: string);
 begin
   FRecords := TObjectList.Create(True);
   FFileName := AFileName;
+  AllFactionNames := LoadNamesFromJSON(TResources.GetPath('resources') +
+    'faction.names.json');
 end;
 
 destructor TLeaderRecordsTable.Destroy;
@@ -206,19 +208,16 @@ end;
 procedure TLeaderRecordsTable.GenNewTable;
 var
   I, LCount: Integer;
-  LNames: TAllFactionNames;
   LName: string;
   LFaction: TFactionEnum;
   LClass: TFactionLeaderKind;
 begin
   LCount := RandomRange(32, 48);
-  LNames := LoadNamesFromJSON(TResources.GetPath('resources') +
-    'faction.names.json');
   for I := 0 to LCount - 1 do
   begin
     LFaction := TFactionEnum(RandomRange(0, 3));
     LClass := TFactionLeaderKind(RandomRange(0, 5));
-    LName := GetRandomNameForFaction(LNames, LFaction, cgMale);
+    LName := GetRandomNameForFaction(AllFactionNames, LFaction, cgMale);
     AddRecord(LName, LFaction, LClass, RandomRange(3000, 10000));
   end;
   SaveToFile;
