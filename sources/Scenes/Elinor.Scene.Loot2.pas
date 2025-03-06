@@ -18,7 +18,7 @@ type
   private type
     TButtonEnum = (btPickup, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextCast, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextPickup, reTextClose);
   private
     class var Button: array [TButtonEnum] of TButton;
   private
@@ -43,7 +43,6 @@ uses
   System.SysUtils,
   Elinor.Saga,
   Elinor.Map,
-  Elinor.Scene.Party,
   Elinor.Creatures,
   Elinor.Frame,
   Elinor.Spells.Types,
