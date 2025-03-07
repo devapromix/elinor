@@ -16,19 +16,23 @@ type
     Names: TArray<string>;
   end;
 
+type
   TFactionNames = record
     Faction: TFactionEnum;
     GenderNames: array [TCreatureGender] of TGenderNames;
   end;
 
+type
   TAllFactionNames = TArray<TFactionNames>;
 
-  // Основні функції для роботи з іменами
 function LoadNamesFromJSON(const FileName: string): TAllFactionNames;
 function GetRandomNameForFaction(const AllNames: TAllFactionNames;
   const Faction: TFactionEnum; const Gender: TCreatureGender): string;
 function FindFactionIndex(const AllNames: TAllFactionNames;
   const Faction: TFactionEnum): Integer;
+
+var
+  AllFactionNames: TAllFactionNames;
 
 implementation
 
@@ -65,15 +69,12 @@ var
   Gender: TCreatureGender;
   I, J, FactionCount: Integer;
 begin
-  // Визначаємо кількість TPlayableFactions
   FactionCount := 0;
   for FactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
     Inc(FactionCount);
 
-  // Ініціалізуємо масив тільки для TPlayableFactions
   SetLength(Result, FactionCount);
 
-  // Ініціалізуємо кожну фракцію та відповідну стать
   I := 0;
   for FactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
   begin
@@ -100,22 +101,18 @@ begin
     if JsonValue is TJSONObject then
     begin
       JsonObject := TJSONObject(JsonValue);
-
-      // Завантажуємо імена тільки для TPlayableFactions
       I := 0;
       for FactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
       begin
         if JsonObject.TryGetValue<TJSONObject>(FactionIdent[FactionEnum],
           FactionObject) then
         begin
-          // Завантажуємо імена для кожної статі
           for Gender := Low(TCreatureGender) to High(TCreatureGender) do
           begin
             if FactionObject.TryGetValue<TJSONArray>(GenderIdent[Gender],
               JsonArray) then
             begin
               SetLength(Result[I].GenderNames[Gender].Names, JsonArray.Count);
-
               for J := 0 to JsonArray.Count - 1 do
               begin
                 if JsonArray.Items[J] is TJSONString then
@@ -159,15 +156,11 @@ var
   RandomIndex, FactionIndex: Integer;
 begin
   Result := 'Unknown';
-
-  // Знаходимо індекс фракції в AllNames
   FactionIndex := FindFactionIndex(AllNames, Faction);
   if FactionIndex = -1 then
     Exit;
-
   Names := AllNames[FactionIndex].GenderNames[Gender].Names;
   NameCount := Length(Names);
-
   if NameCount > 0 then
   begin
     Randomize;
