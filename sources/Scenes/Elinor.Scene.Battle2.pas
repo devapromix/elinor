@@ -78,11 +78,10 @@ uses
   Elinor.Resources,
   Elinor.Button,
   Elinor.Ability,
-  Elinor.Scene.Party,
   Elinor.Scene.Defeat,
   Elinor.Scene.NewAbility,
   DisciplesRL.Scene.Hire,
-  Elinor.Map, Elinor.Scene.Loot2;
+  Elinor.Map, Elinor.Scene.Loot2, Elinor.Scene.Party2, Elinor.Battle.AI;
 
 var
   CloseButton: TButton;
@@ -109,83 +108,57 @@ begin
 end;
 
 procedure TSceneBattle2.AI;
-var
-  CurPosition: Integer;
-  MinHitPoints: Integer;
 
   procedure AtkAny;
   var
-    Position: TPosition;
+    LPosition: TPosition;
+    LCurPosition: Integer;
+    LMinHitPoints: Integer;
   begin
-    CurPosition := -1;
-    MinHitPoints := 99999;
-    if LeaderParty.IsClear then
-    begin
-      CurPosition := 0;
-      ClickOnPosition;
-      Exit;
-    end;
-    for Position := 0 to 5 do
-      if LeaderParty.Creature[Position].Alive then
+    LMinHitPoints := 99999;
+    LCurPosition := -1;
+    for LPosition := 0 to 5 do
+      if LeaderParty.Creature[LPosition].Alive then
       begin
-        if (LeaderParty.Creature[Position].HitPoints.GetCurrValue < MinHitPoints)
-        then
+        if (LeaderParty.Creature[LPosition].HitPoints.GetCurrValue <
+          LMinHitPoints) then
         begin
-          MinHitPoints := LeaderParty.Creature[Position].HitPoints.GetCurrValue;
-          CurPosition := Position;
+          LMinHitPoints := LeaderParty.Creature[LPosition]
+            .HitPoints.GetCurrValue;
+          LCurPosition := LPosition;
         end;
       end;
-    if (CurPosition > -1) then
+    if (LCurPosition > -1) then
     begin
-      CurrentPartyPosition := CurPosition;
+      CurrentPartyPosition := LCurPosition;
       ClickOnPosition;
     end;
   end;
 
   procedure AtkAll;
   var
-    Position: TPosition;
+    LPosition: TPosition;
   begin
-    if LeaderParty.IsClear then
-    begin
-      CurPosition := 0;
-      ClickOnPosition;
-      Exit;
-    end;
-    for Position := 0 to 5 do
-      if LeaderParty.Creature[Position].Alive then
+    for LPosition := 0 to 5 do
+      if LeaderParty.Creature[LPosition].Alive then
       begin
-        CurrentPartyPosition := Position;
+        CurrentPartyPosition := LPosition;
         ClickOnPosition;
-        Break;
       end;
-  end;
-
-  function HasWarriors: Boolean;
-  begin
-    Result := (LeaderParty.Creature[1].HitPoints.GetCurrValue > 0) or
-      (LeaderParty.Creature[3].HitPoints.GetCurrValue > 0) or
-      (LeaderParty.Creature[5].HitPoints.GetCurrValue > 0);
   end;
 
   procedure AtkAdj;
   var
-    Position: TPosition;
+    LPosition: TPosition;
   begin
     begin
-      if HasWarriors then
+      if TBattleAI.HasWarriors(LeaderParty) then
       begin
-        if LeaderParty.IsClear then
+        for LPosition := 0 to 5 do
         begin
-          CurPosition := 0;
-          ClickOnPosition;
-          Exit;
-        end;
-        for Position := 0 to 5 do
-        begin
-          if LeaderParty.Creature[Position].Alive then
+          if LeaderParty.Creature[LPosition].Alive then
           begin
-            CurrentPartyPosition := Position;
+            CurrentPartyPosition := LPosition;
             ClickOnPosition;
             Exit;
           end;
@@ -197,6 +170,12 @@ var
   end;
 
 begin
+  if LeaderParty.IsClear then
+  begin
+    CurrentPartyPosition := 0;
+    ClickOnPosition;
+    Exit;
+  end;
   case ActivePartyPosition of
     6 .. 11:
       case EnemyParty.Creature[ActivePartyPosition - 6].ReachEnum of
@@ -310,7 +289,8 @@ begin
       LeaderParty := PartyList.Party[TLeaderParty.LeaderPartyIndex];
     end;
   end;
-  ActivePartyPosition := PartyList.Party[TLeaderParty.LeaderPartyIndex].GetRandomPosition;
+  ActivePartyPosition := PartyList.Party[TLeaderParty.LeaderPartyIndex]
+    .GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmWar);
   StartRound;
@@ -678,8 +658,8 @@ var
 
 begin
   inherited;
-  TSceneParty.RenderParty(psLeft, LeaderParty);
-  TSceneParty.RenderParty(psRight, EnemyParty, False, False);
+  TSceneParty2.RenderParty(psLeft, LeaderParty);
+  TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
   // if not Enabled then
   // RenderWait;
   F := False;
