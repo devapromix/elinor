@@ -41,7 +41,6 @@ uses
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Ability,
-  Elinor.Scene.Party,
   Elinor.Creatures;
 
 var

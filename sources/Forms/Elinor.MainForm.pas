@@ -44,8 +44,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Elinor.Scenes,
-  Elinor.Saga;
+  Elinor.Scenes;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin

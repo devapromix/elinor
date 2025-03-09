@@ -72,7 +72,6 @@ uses
   Elinor.Common,
   Elinor.Map,
   Elinor.Button,
-  Elinor.Scene.Party,
   Elinor.Scene.Battle2,
   Elinor.Scene.Settlement,
   Elinor.Items,

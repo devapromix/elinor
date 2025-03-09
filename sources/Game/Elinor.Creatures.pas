@@ -274,6 +274,7 @@ type
 
 const
   GenderIdent: array [TCreatureGender] of string = ('male', 'female');
+  GenderName: array [TCreatureGender] of string = ('Male', 'Female');
 
 type
   TCreatureBase = record

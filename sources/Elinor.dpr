@@ -21,7 +21,6 @@ uses
   Elinor.Scenes in 'Scenes\Elinor.Scenes.pas',
   Elinor.Scene.Map in 'Scenes\Elinor.Scene.Map.pas',
   Elinor.Scene.Menu3 in 'Scenes\Elinor.Scene.Menu3.pas',
-  Elinor.Scene.Party in 'Scenes\Elinor.Scene.Party.pas',
   Elinor.Scene.Settlement in 'Scenes\Elinor.Scene.Settlement.pas',
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
   Elinor.Scene.Battle2 in 'Scenes\Elinor.Scene.Battle2.pas',
@@ -71,7 +70,10 @@ uses
   Elinor.Creature.Types in 'Game\Elinor.Creature.Types.pas',
   Elinor.Records in 'Game\Elinor.Records.pas',
   Elinor.RecordsTable in 'Game\Elinor.RecordsTable.pas',
-  Elinor.Names in 'Game\Elinor.Names.pas';
+  Elinor.Names in 'Game\Elinor.Names.pas',
+  Elinor.Scene.Name in 'Scenes\Elinor.Scene.Name.pas',
+  Elinor.Scene.Intro in 'Scenes\Elinor.Scene.Intro.pas',
+  Elinor.Battle.AI in 'Game\Elinor.Battle.AI.pas';
 
 {$R *.res}
 
