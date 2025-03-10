@@ -45,7 +45,8 @@ type
     procedure AddCreature(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition);
     property Owner: TFactionEnum read FOwner write FOwner;
-    property LeaderClass: TFactionLeaderKind read FLeaderClass write FLeaderClass;
+    property LeaderClass: TFactionLeaderKind read FLeaderClass
+      write FLeaderClass;
     procedure UnParalyze(const APosition: TPosition);
     procedure UnParalyzeParty;
     procedure ParalyzeParty;
@@ -109,6 +110,7 @@ type
     CreatureIndex: Byte;
     CapitalPartyIndex: Byte;
     SummonPartyIndex: Byte;
+    LeaderName: string;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -173,6 +175,11 @@ type
       IsFinal: Boolean = False);
   end;
 
+var
+  SelectPartyPosition: Integer = -1;
+  ActivePartyPosition: Integer = 2;
+  CurrentPartyPosition: Integer = 2;
+
 type
   TPartyBase = record
     Level: Integer;
@@ -193,13 +200,14 @@ uses
   Elinor.Saga,
   Elinor.Resources,
   Elinor.Scenes,
-  Elinor.Scene.Party,
   Elinor.Scene.Settlement,
   DisciplesRL.Scene.Hire,
   Elinor.Statistics,
   Elinor.Loot,
   Elinor.Scene.Loot2,
-  Elinor.Common, Elinor.Scene.MageTower;
+  Elinor.Common,
+  Elinor.Scene.MageTower,
+  Elinor.Scene.Party2;
 
 { TParty }
 
@@ -865,21 +873,21 @@ begin
   begin
     if Game.Map.GetTile(lrTile, AX, AY) in Capitals then
     begin
-      TSceneParty.Show(PartyList.Party[CapitalPartyIndex], scMap);
+      TSceneParty2.Show(PartyList.Party[CapitalPartyIndex], scMap);
       Exit;
     end;
     if Game.Map.GetTile(lrTile, AX, AY) in Cities then
     begin
       I := PartyList.GetPartyIndex(AX, AY);
       if not PartyList.Party[I].IsClear then
-        TSceneParty.Show(PartyList.Party[I], scMap);
+        TSceneParty2.Show(PartyList.Party[I], scMap);
       Exit;
     end;
     case Game.Map.GetTile(lrObj, AX, AY) of
       reEnemy:
         begin
           I := PartyList.GetPartyIndex(AX, AY);
-          TSceneParty.Show(PartyList.Party[I], scMap);
+          TSceneParty2.Show(PartyList.Party[I], scMap);
         end;
     end;
     Exit;

@@ -45,7 +45,6 @@ uses
   Elinor.Direction,
   Elinor.Saga,
   Elinor.Scenario,
-  Elinor.Scene.Party,
   DisciplesRL.Scene.Hire,
   Elinor.Party,
   Elinor.Creatures,
@@ -59,7 +58,7 @@ uses
   Elinor.Scene.NewAbility,
   Elinor.Scene.MageTower,
   Elinor.Scene.Defeat,
-  Elinor.Scene.Victory;
+  Elinor.Scene.Victory, Elinor.Scene.Menu3;
 
 { TSceneMap }
 
@@ -315,6 +314,7 @@ begin
         Game.MediaPlayer.PlayMusic(mmMenu);
         Game.MediaPlayer.PlaySound(mmClick);
         Game.MediaPlayer.PlaySound(mmSettlement);
+        TSceneMenu3(Game.GetScene(scMenu)).CurrentIndex := 1;
         Game.Show(scMenu);
       end;
     K_LEFT, K_KP_4:

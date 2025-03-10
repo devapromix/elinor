@@ -31,8 +31,7 @@ uses
   System.SysUtils,
   Elinor.Frame,
   Elinor.Scenes,
-  Elinor.Party,
-  Elinor.Scene.Party;
+  Elinor.Party;
 
 const
   PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 5] of Integer = (

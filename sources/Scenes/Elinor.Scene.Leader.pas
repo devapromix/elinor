@@ -38,10 +38,9 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Saga,
   Elinor.Creature.Types,
-  Elinor.Scene.Settlement,
   Elinor.Ability,
-  Elinor.Scene.Party,
-  Elinor.Frame;
+  Elinor.Frame,
+  Elinor.Scene.Name;
 
 var
   CurCrEnum: TCreatureEnum;
@@ -49,21 +48,21 @@ var
 procedure TSceneLeader.Cancel;
 begin
   inherited;
-  TSceneRace.Show;
+  TSceneRace.ShowScene;
 end;
 
 procedure TSceneLeader.Continue;
 begin
   inherited;
+  if CurrentIndex > 4 then
+    Exit;
   Game.MediaPlayer.PlaySound(mmClick);
   TSceneHire.CurCrAbilityEnum := TCreature.Character(CurCrEnum).AbilityEnum;
   Game.Clear;
   PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner := Game.Scenario.Faction;
   PartyList.Party[TLeaderParty.LeaderPartyIndex].LeaderClass :=
     TFactionLeaderKind(CurrentIndex);
-  Game.MediaPlayer.PlayMusic(mmGame);
-  Game.MediaPlayer.PlaySound(mmExit);
-  TSceneSettlement.ShowScene(stCapital);
+  TSceneName.ShowScene;
 end;
 
 constructor TSceneLeader.Create;
@@ -127,7 +126,6 @@ begin
     AddTextLine('Spell casting range',
       TLeaderParty.GetSpellCastingRange(CurCrEnum));
   end;
-
 end;
 
 class procedure TSceneLeader.Show;

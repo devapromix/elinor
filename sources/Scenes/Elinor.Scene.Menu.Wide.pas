@@ -20,8 +20,10 @@ type
   private
     Button: array [TTwoButtonEnum] of TButton;
     FCurrentIndex: Integer;
+    FShowButtons: Boolean;
   public
-    constructor Create(const AResEnum: TResEnum);
+    constructor Create(const AResEnum: TResEnum;
+      const AShowButtons: Boolean = True);
     destructor Destroy; override;
     procedure Render; override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
@@ -34,6 +36,7 @@ type
     procedure Update(var Key: Word); override;
     procedure Basic(AKey: Word);
     procedure RenderButtons;
+    property ShowButtons: Boolean read FShowButtons write FShowButtons;
   end;
 
 implementation
@@ -75,13 +78,17 @@ begin
 
 end;
 
-constructor TSceneWideMenu.Create(const AResEnum: TResEnum);
+constructor TSceneWideMenu.Create(const AResEnum: TResEnum;
+  const AShowButtons: Boolean = True);
 var
   LTwoButtonEnum: TTwoButtonEnum;
   LLeft, LWidth: Integer;
 begin
   inherited Create(AResEnum, fgLS6, fgRM2);
+  FShowButtons := AShowButtons;
   CurrentIndex := 0;
+  if not FShowButtons then
+    Exit;
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TTwoButtonEnum)) + 1)) div 2);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
@@ -98,8 +105,9 @@ destructor TSceneWideMenu.Destroy;
 var
   LTwoButtonEnum: TTwoButtonEnum;
 begin
-  for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    FreeAndNil(Button[LTwoButtonEnum]);
+  if FShowButtons then
+    for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
+      FreeAndNil(Button[LTwoButtonEnum]);
   inherited;
 end;
 
@@ -109,24 +117,25 @@ var
   LPartyPosition: Integer;
 begin
   inherited;
-  case AButton of
-    mbLeft:
-      begin
-        LPartyPosition := GetFramePosition(X, Y);
-        case LPartyPosition of
-          0 .. 5:
-            begin
-              CurrentIndex := LPartyPosition;
-              Game.MediaPlayer.PlaySound(mmClick);
-              Exit;
-            end;
+  if FShowButtons then
+    case AButton of
+      mbLeft:
+        begin
+          LPartyPosition := GetFramePosition(X, Y);
+          case LPartyPosition of
+            0 .. 5:
+              begin
+                CurrentIndex := LPartyPosition;
+                Game.MediaPlayer.PlaySound(mmClick);
+                Exit;
+              end;
+          end;
+          if Button[btCancel].MouseDown then
+            Cancel;
+          if Button[btContinue].MouseDown then
+            Continue;
         end;
-        if Button[btCancel].MouseDown then
-          Cancel;
-        if Button[btContinue].MouseDown then
-          Continue;
-      end;
-  end;
+    end;
 end;
 
 procedure TSceneWideMenu.MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -134,8 +143,9 @@ var
   LTwoButtonEnum: TTwoButtonEnum;
 begin
   inherited;
-  for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    Button[LTwoButtonEnum].MouseMove(X, Y);
+  if FShowButtons then
+    for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
+      Button[LTwoButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneWideMenu.Render;
@@ -165,8 +175,9 @@ procedure TSceneWideMenu.RenderButtons;
 var
   LTwoButtonEnum: TTwoButtonEnum;
 begin
-  for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    Button[LTwoButtonEnum].Render;
+  if FShowButtons then
+    for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
+      Button[LTwoButtonEnum].Render;
 end;
 
 procedure TSceneWideMenu.Update(var Key: Word);
@@ -177,9 +188,10 @@ begin
   FF := CurrentIndex in [0 .. 4];
   case Key of
     K_ESCAPE:
-      Cancel;
+      if FShowButtons then
+        Cancel;
     K_ENTER:
-      if FF then
+      if FF and FShowButtons then
         Continue;
     K_LEFT, K_KP_4:
       MoveCursor(kdLeft);

@@ -20,7 +20,7 @@ type
     procedure Update(var Key: Word); override;
     procedure Cancel; override;
     procedure Continue; override;
-    class procedure Show;
+    class procedure ShowScene;
   end;
 
 implementation
@@ -85,7 +85,7 @@ begin
   end;
 end;
 
-class procedure TSceneRace.Show;
+class procedure TSceneRace.ShowScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scRace);

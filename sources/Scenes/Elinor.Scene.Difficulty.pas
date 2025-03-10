@@ -47,7 +47,7 @@ procedure TSceneDifficulty.Continue;
 begin
   inherited;
   Difficulty.Level := TDifficultyEnum(CurrentIndex);
-  TSceneRace.Show;
+  TSceneRace.ShowScene;
 end;
 
 constructor TSceneDifficulty.Create;

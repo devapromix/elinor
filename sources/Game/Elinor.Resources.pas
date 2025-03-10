@@ -21,9 +21,15 @@ type
 type
   TResEnum = (reNone,
     //
-    reAMark, reASell,
+    reAMark, reASell, rePlus, reElinorIntro,
     //
-    rePlus, reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
+    reTheEmpireLogo, reUndeadHordesLogo, reLegionsOfTheDamnedLogo,
+    //
+    reMenuRecordsLogo, reMenuContinueLogo, reMenuDragonLogo,
+    //
+    reWarriorLogo, reScoutLogo, reMageLogo, reThiefLogo, reLordLogo,
+    reTemplarLogo,
+    //
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
     reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reSmallFrame,
@@ -57,7 +63,8 @@ type
     reTextRecruit, reTextClose, reTextOk, reTextCancel, reTextLeadParty,
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
-    reTextLearn, reTextFaction, reTextClass,
+    reTextLearn, reTextFaction, reTextClass, reTextRandom, reTextDarkogStudio,
+    reTextPresents, reTextPickup,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -66,6 +73,7 @@ type
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
     reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
     reTitleSpellbook, reTitleJournal, reTitleMageTower, reTitleBarracks,
+    reTitleEnterName,
 
     // SCENARIO //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
@@ -82,9 +90,10 @@ type
     //
     reWarriorRitual,
     //
-    reWarriorWar3, reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot,
-    reWallpaperDefeat, reWallpaperDifficulty, reWallpaperLeader,
-    reWallpaperScenario,
+    reWarriorWar3,
+    //
+    reWallpaperSettlement, reWallpaperMenu, reWallpaperLoot, reWallpaperDefeat,
+    reWallpaperDifficulty, reWallpaperLeader, reWallpaperScenario,
     //
     reIconScores, reIconScoresOver, reIconClosedGates, reIconOpenedGates,
     // BG
@@ -129,15 +138,38 @@ const
     (FileName: 'path.amark.png'; ResType: tePath;),
     // ASell
     (FileName: 'path.asell.png'; ResType: tePath;),
-
     // Plus
     (FileName: 'plus.png'; ResType: teGUI;),
+    // Intro,
+    (FileName: 'elinor.intro.png'; ResType: teGUI;),
+
     // The Empire Logo
     (FileName: 'logo.the_empire.png'; ResType: teGUI;),
     // Undead Hordes Logo
     (FileName: 'logo.undead_hordes.png'; ResType: teGUI;),
     // Legions Of The Damned Logo
     (FileName: 'logo.legions_of_the_damned.png'; ResType: teGUI;),
+
+    // Menu High Scores
+    (FileName: 'logo.menu.records.png'; ResType: teGUI;),
+    // Menu Quit
+    (FileName: 'logo.menu.gate.png'; ResType: teGUI;),
+    // Menu Dragon
+    (FileName: 'logo.menu.dragon.png'; ResType: teGUI;),
+
+    // Warrior Logo
+    (FileName: 'logo.warrior.png'; ResType: teGUI;),
+    // Scout Logo
+    (FileName: 'logo.scout.png'; ResType: teGUI;),
+    // Mage Logo
+    (FileName: 'logo.mage.png'; ResType: teGUI;),
+    // Thief Logo
+    (FileName: 'logo.thief.png'; ResType: teGUI;),
+    // Lord Logo
+    (FileName: 'logo.lord.png'; ResType: teGUI;),
+    // Templar Logo
+    (FileName: 'logo.templar.png'; ResType: teGUI;),
+
     // Char
     (FileName: 'bg.character.png'; ResType: teGUI;),
     // Enemy
@@ -408,6 +440,14 @@ const
     (FileName: 'text.faction.png'; ResType: teGUI;),
     // Text "Class"
     (FileName: 'text.class.png'; ResType: teGUI;),
+    // Text "Random"
+    (FileName: 'text.random.png'; ResType: teGUI;),
+    // Text "Darkog Studio"
+    (FileName: 'text.darkog_studio.png'; ResType: teGUI;),
+    // Text "Presents"
+    (FileName: 'text.presents.png'; ResType: teGUI;),
+    // Text "Pickup"
+    (FileName: 'text.pickup.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
@@ -473,6 +513,8 @@ const
     (FileName: 'title.mage_tower.png'; ResType: teGUI;),
     // Title "Barracks"
     (FileName: 'title.barracks.png'; ResType: teGUI;),
+    // Title "Enter Name"
+    (FileName: 'title.enter_name.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
