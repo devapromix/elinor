@@ -48,8 +48,7 @@ uses
   Elinor.Scene.Battle2,
   Elinor.Ability,
   Elinor.Scenario,
-  Elinor.Creatures,
-  Elinor.Scene.Party;
+  Elinor.Creatures;
 
 constructor TSceneNewAbility.Create;
 var

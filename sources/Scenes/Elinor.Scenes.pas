@@ -23,10 +23,10 @@ uses
   Elinor.Resources;
 
 type
-  TSceneEnum = (scRecruit, scMenu, scMap, scParty, scSettlement, scBattle,
-    scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
-    scBarracks, scInventory, scAbilities, scNewAbility, scMageTower,
-    scHighScores, scVictory, scDefeat, scLoot);
+  TSceneEnum = (scIntro, scRecruit, scMenu, scMap, scParty, scSettlement,
+    scBattle, scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
+    scBarracks, scInventory, scAbilities, scNewAbility, scMageTower, scRecords,
+    scVictory, scDefeat, scLoot, scName);
 
 const
   ScreenWidth = 1344;
@@ -37,9 +37,13 @@ var
 
 const
   K_ESCAPE = 27;
+  K_BACKSPACE = 8;
   K_ENTER = 13;
   K_SPACE = 32;
   K_TAB = 9;
+  K_HOME = 36;
+  K_END = 35;
+  K_DELETE = 46;
 
   K_A = ord('A');
   K_B = ord('B');
@@ -212,19 +216,17 @@ var
 implementation
 
 uses
-  Math,
-  SysUtils,
+  System.Math,
+  System.SysUtils,
   Elinor.MainForm,
   Elinor.Button,
+  Elinor.Frame,
   Elinor.Scene.Map,
   Elinor.Scene.Menu3,
   Elinor.Scene.Settlement,
-  Elinor.Scene.Party,
-  DisciplesRL.Scene.Hire,
   Elinor.Scene.Battle2,
   Elinor.Scene.Battle3,
   Elinor.Scene.Spellbook,
-  Elinor.Frame,
   Elinor.Scene.Difficulty,
   Elinor.Scene.Faction,
   Elinor.Scene.Leader,
@@ -245,7 +247,9 @@ uses
   Elinor.Difficulty,
   Elinor.Loot,
   Elinor.Scene.Loot2,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Scene.Name,
+  Elinor.Scene.Intro;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -289,7 +293,7 @@ begin
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
   MediaPlayer.PlayMusic(mmMenu);
-  SceneEnum := scMenu;
+  SceneEnum := scIntro;
 end;
 
 destructor TGame.Destroy;
@@ -691,11 +695,13 @@ end;
 procedure TScene.DrawText(const AX, AY: Integer; AText: string);
 var
   LBrushStyle: TBrushStyle;
+  LFontSize: Integer;
 begin
   LBrushStyle := Game.Surface.Canvas.Brush.Style;
   Game.Surface.Canvas.Brush.Style := bsClear;
   Game.Surface.Canvas.TextOut(AX, AY, AText);
   Game.Surface.Canvas.Brush.Style := LBrushStyle;
+  LFontSize := Game.Surface.Canvas.Font.Size;
 end;
 
 procedure TScene.DrawText(const AX, AY: Integer; Value: Integer);
@@ -899,6 +905,7 @@ var
   LButtonEnum: TButtonEnum;
 begin
   inherited;
+  FScene[scIntro] := TSceneIntro.Create;
   FScene[scMap] := TSceneMap.Create;
   FScene[scMenu] := TSceneMenu3.Create;
   FScene[scRecruit] := TSceneRecruit.Create;
@@ -916,10 +923,11 @@ begin
   FScene[scAbilities] := TSceneAbilities.Create;
   FScene[scNewAbility] := TSceneNewAbility.Create;
   FScene[scMageTower] := TSceneMageTower.Create;
-  FScene[scHighScores] := TSceneRecords.Create;
+  FScene[scRecords] := TSceneRecords.Create;
   FScene[scVictory] := TSceneVictory.Create;
   FScene[scDefeat] := TSceneDefeat.Create;
   FScene[scLoot] := TSceneLoot2.Create;
+  FScene[scName] := TSceneName.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

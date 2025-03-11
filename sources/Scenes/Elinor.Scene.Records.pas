@@ -6,12 +6,12 @@ uses
   Vcl.Controls,
   System.Contnrs,
   System.Classes,
-  Elinor.Scene.Frames,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,
   Elinor.Direction,
-  Elinor.Scenes;
+  Elinor.Scenes,
+  Elinor.Scene.Frames;
 
 type
   TSceneRecords = class(TSceneFrames)
@@ -218,20 +218,19 @@ var
     LRaceCharKind: TFactionLeaderKind;
     LFactionLeaderClass: TFactionLeaderKind;
     LLeft, LTop: Integer;
+  const
+    LPlayableRacesImage: array [TFactionLeaderKind] of TResEnum =
+      (reWarriorLogo, reScoutLogo, reMageLogo, reThiefLogo, reLordLogo,
+      reTemplarLogo);
   begin
     for LRaceCharKind := Low(TFactionLeaderKind) to High(TFactionLeaderKind) do
     begin
       LLeft := IfThen(Ord(LRaceCharKind) > 2, TFrame.Col(1), TFrame.Col(0));
       LTop := IfThen(Ord(LRaceCharKind) > 2, TFrame.Row(Ord(LRaceCharKind) - 3),
         TFrame.Row(Ord(LRaceCharKind)));
-      with TCreature.Character(Characters[Game.Scenario.Faction][cgLeaders]
-        [LRaceCharKind]) do
-        if HitPoints > 0 then
-        begin
-          DrawUnit(ResEnum, LLeft, LTop, bsCharacter);
-          DrawUnitInfo(LLeft, LTop, Characters[Game.Scenario.Faction][cgLeaders]
-            [LRaceCharKind], False);
-        end;
+      if (Ord(LRaceCharKind) > 4) then
+        Break;
+      DrawImage(LLeft + 7, LTop + 7, LPlayableRacesImage[LRaceCharKind]);
     end;
     if CurrentIndex > 4 then
       Exit;
@@ -280,9 +279,8 @@ end;
 
 class procedure TSceneRecords.ShowScene;
 begin
-
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.Show(scHighScores);
+  Game.Show(scRecords);
 end;
 
 procedure TSceneRecords.Update(var Key: Word);

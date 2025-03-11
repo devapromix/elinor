@@ -61,7 +61,6 @@ uses
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Map,
-  Elinor.Scene.Party,
   Elinor.Creatures,
   DisciplesRL.Scene.Hire,
   Elinor.Scene.Temple,
@@ -229,7 +228,7 @@ begin
         DrawImage(ScrWidth + 20, 160, reTextCapitalDef);
       end;
   end;
-  with TSceneParty do
+  with TSceneParty2 do
   begin
     if (Game.Map.GetDistToCapital(TLeaderParty.Leader.X, TLeaderParty.Leader.Y)
       = 0) or (CurrentSettlementType = stCity) then
