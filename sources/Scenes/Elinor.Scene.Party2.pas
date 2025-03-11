@@ -35,6 +35,9 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure ShowScene(AParty: TParty; const ACloseScene: TSceneEnum);
+    class procedure RenderParty(const PartySide: TPartySide;
+      const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
+    class procedure Show(Party: TParty; CloseScene: TSceneEnum);
     class procedure HideScene;
   end;
 
@@ -44,7 +47,6 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Saga,
-  Elinor.Scene.Party,
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Creatures,
@@ -58,9 +60,19 @@ uses
 var
   ShowResources: Boolean;
   CloseScene: TSceneEnum;
+  BackScene: TSceneEnum;
   CurrentParty: TParty;
 
   { TSceneParty }
+
+class procedure TSceneParty2.Show(Party: TParty; CloseScene: TSceneEnum);
+begin
+  CurrentParty := Party;
+  BackScene := CloseScene;
+  ActivePartyPosition := Party.GetRandomPosition;
+  Game.Show(scParty);
+  Game.MediaPlayer.PlaySound(mmSettlement);
+end;
 
 procedure TSceneParty2.ShowAbilitiesScene;
 begin
@@ -174,6 +186,22 @@ begin
     RenderGuardianInfo;
 
   RenderButtons;
+end;
+
+class procedure TSceneParty2.RenderParty(const PartySide: TPartySide;
+  const Party: TParty; CanHire, ShowExp: Boolean);
+var
+  Position: TPosition;
+begin
+  for Position := Low(TPosition) to High(TPosition) do
+  begin
+    Game.GetScene(scParty).RenderFrame(PartySide, Position,
+      TFrame.Col(Position, PartySide), TFrame.Row(Position), False);
+    if (Party <> nil) then
+      TSceneParty2(Game.GetScene(scParty)).DrawUnit(Position, Party,
+        TFrame.Col(Position, PartySide), TFrame.Row(Position), CanHire,
+        ShowExp);
+  end;
 end;
 
 class procedure TSceneParty2.ShowScene(AParty: TParty;
