@@ -3,10 +3,10 @@
 interface
 
 uses
-  Elinor.Scene.Menu.Wide,
   Vcl.Controls,
   System.Classes,
   Elinor.Creatures,
+  Elinor.Scene.Menu.Wide,
   Elinor.Button,
   Elinor.Resources,
   Elinor.Party,

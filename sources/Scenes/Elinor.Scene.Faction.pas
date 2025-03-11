@@ -6,13 +6,13 @@ uses
   Vcl.Controls,
   System.Classes,
   Elinor.Button,
-  Elinor.Scene.Menu.Simple,
+  Elinor.Scene.Menu.Wide,
   Elinor.Resources,
   Elinor.Party,
   Elinor.Scenes;
 
 type
-  TSceneRace = class(TSceneSimpleMenu)
+  TSceneRace = class(TSceneWideMenu)
   private
   public
     constructor Create;
@@ -46,6 +46,8 @@ end;
 procedure TSceneRace.Continue;
 begin
   inherited;
+  if CurrentIndex > 2 then
+    Exit;
   Game.Scenario.Faction := TFactionEnum(CurrentIndex);
   TSceneLeader.Show;
 end;
@@ -68,12 +70,10 @@ begin
   DrawTitle(reTitleRace);
   for LPlayableRaces := Low(TPlayableFactions) to High(TPlayableFactions) do
   begin
-    DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
+    DrawImage(TFrame.Col(0) + 7, TFrame.Row(Ord(LPlayableRaces)) + 7,
       LPlayableRacesImage[LPlayableRaces]);
     if Ord(LPlayableRaces) = CurrentIndex then
     begin
-      DrawImage(TFrame.Col(1), SceneTop + (Ord(LPlayableRaces) * 120),
-        reFrameSlotActive);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
       LFactionEnum := TFactionEnum(CurrentIndex);
@@ -94,7 +94,6 @@ end;
 procedure TSceneRace.Update(var Key: Word);
 begin
   inherited;
-  UpdateEnum<TPlayableFactions>(Key);
 end;
 
 end.

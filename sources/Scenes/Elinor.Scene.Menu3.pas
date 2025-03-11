@@ -21,7 +21,7 @@ uses
 
 type
 
-  { TSceneMenu2 }
+  { TSceneMenu3 }
 
   TSceneMenu3 = class(TSceneWideMenu)
   private
@@ -54,13 +54,13 @@ type
 implementation
 
 uses
-  System.Math, dialogs,
+  System.Math,
   System.SysUtils,
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Records;
 
-{ TSceneMenu }
+{ TSceneMenu3 }
 
 procedure TSceneMenu3.Quit;
 begin
