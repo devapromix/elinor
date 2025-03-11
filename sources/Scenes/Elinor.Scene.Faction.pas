@@ -35,7 +35,8 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
-  Elinor.Scene.Leader;
+  Elinor.Scene.Leader,
+  Elinor.Scene.Frames;
 
 procedure TSceneRace.Cancel;
 begin
@@ -54,7 +55,7 @@ end;
 
 constructor TSceneRace.Create;
 begin
-  inherited Create(reWallpaperDifficulty);
+  inherited Create(reWallpaperDifficulty, True, fgRB);
 end;
 
 procedure TSceneRace.Render;

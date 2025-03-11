@@ -23,7 +23,8 @@ type
     FShowButtons: Boolean;
   public
     constructor Create(const AResEnum: TResEnum;
-      const AShowButtons: Boolean = True);
+      const AShowButtons: Boolean = True;
+      const ARightFrameGrid: TFrameGrid = fgRM2);
     destructor Destroy; override;
     procedure Render; override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
@@ -79,12 +80,13 @@ begin
 end;
 
 constructor TSceneWideMenu.Create(const AResEnum: TResEnum;
-  const AShowButtons: Boolean = True);
+  const AShowButtons: Boolean = True;
+  const ARightFrameGrid: TFrameGrid = fgRM2);
 var
   LTwoButtonEnum: TTwoButtonEnum;
   LLeft, LWidth: Integer;
 begin
-  inherited Create(AResEnum, fgLS6, fgRM2);
+  inherited Create(AResEnum, fgLS6, ARightFrameGrid);
   FShowButtons := AShowButtons;
   CurrentIndex := 0;
   if not FShowButtons then
