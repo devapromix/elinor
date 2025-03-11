@@ -2,6 +2,57 @@
 	"parties":[
 		{
 			"level": 1,
+			"faction": "the-empire",
+			"characters":"none,none,squire,archer,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "the-empire",
+			"characters":"none,none,squire,apprentice,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,initiate,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,ghost,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,possessed,gargoyle,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,possessed,cultist,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"goblin,none,none,none,goblin,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"none,none,goblin,goblin-archer,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"none,none,goblin,goblin-elder,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"imp,none,none,none,imp,none"
+		},
+		
+		{
+			"level": 2,
 			"faction": "neutrals",
 			"characters":"imp,none,imp,none,imp,none"
 		},
@@ -9,6 +60,26 @@
 			"level": 2,
 			"faction": "neutrals",
 			"characters":"none,none,rogue,none,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
+			"characters":"goblin,none,none,goblin-archer,goblin,none"
+		},
+		{
+			"level": 2,
+			"faction": "the-empire",
+			"characters":"none,none,squire,archer,none,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"rogue,none,none,none,rogue,none"
 		},
 		{
 			"level": 3,
@@ -40,12 +111,6 @@
 			"faction": "neutrals",
 			"characters":"none,none,ogre,none,none,none"
 		},
-		
-		{
-			"level": 9,
-			"faction": "neutrals",
-			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
-		},
 		{
 			"level": 9,
 			"faction": "neutrals",
@@ -55,11 +120,6 @@
 			"level": 9,
 			"faction": "neutrals",
 			"characters":"goblin,none,none,goblin-elder,goblin,none"
-		},
-		{
-			"level": 9,
-			"faction": "the-empire",
-			"characters":"none,none,squire,archer,none,none"
 		},
 		{
 			"level": 9,
@@ -107,7 +167,7 @@
 			"characters":"goblin,goblin-archer,none,none,goblin,goblin-archer"
 		},
 		{
-			"level": 9,
+			"level": 10,
 			"faction": "neutrals",
 			"characters":"goblin,goblin-elder,wolf,none,goblin,goblin-elder"
 		}
