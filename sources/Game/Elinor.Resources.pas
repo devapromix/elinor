@@ -64,7 +64,7 @@ type
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
     reTextLearn, reTextFaction, reTextClass, reTextRandom, reTextDarkogStudio,
-    reTextPresents, reTextPickup,
+    reTextPresents, reTextPickup, reTextMerchant,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -73,7 +73,7 @@ type
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
     reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
     reTitleSpellbook, reTitleJournal, reTitleMageTower, reTitleBarracks,
-    reTitleEnterName,
+    reTitleEnterName, reTitleMerchant,
 
     // SCENARIO //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
@@ -448,6 +448,8 @@ const
     (FileName: 'text.presents.png'; ResType: teGUI;),
     // Text "Pickup"
     (FileName: 'text.pickup.png'; ResType: teGUI;),
+    // Text "Merchant"
+    (FileName: 'text.merchant.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
@@ -515,6 +517,8 @@ const
     (FileName: 'title.barracks.png'; ResType: teGUI;),
     // Title "Enter Name"
     (FileName: 'title.enter_name.png'; ResType: teGUI;),
+    // Title "Merchant"
+    (FileName: 'title.merchant.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),

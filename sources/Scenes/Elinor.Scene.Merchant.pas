@@ -174,7 +174,7 @@ procedure TSceneMerchant.Render;
         + 42, reFrameItem);
     end;
 
-    AddTextLine('Merchant', True);
+    AddTextLine('Inventory', True);
     AddTextLine('');
 
     for I := 0 to 5 do
@@ -261,7 +261,10 @@ procedure TSceneMerchant.Render;
 begin
   inherited;
 
-  DrawTitle(reTitleMageTower);
+  DrawTitle(reTitleMerchant);
+  DrawImage(20, 160, reTextMerchant);
+  DrawImage(ScrWidth + 20, 160, reTextLeadParty);
+
   RenderMerchant;
   RenderInventory;
   RenderMerchantItemDetails;
