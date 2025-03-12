@@ -26,7 +26,7 @@ type
   TSceneEnum = (scIntro, scRecruit, scMenu, scMap, scParty, scSettlement,
     scBattle, scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower, scRecords,
-    scVictory, scDefeat, scLoot, scName);
+    scVictory, scDefeat, scLoot, scName, scMerchant);
 
 const
   ScreenWidth = 1344;
@@ -249,7 +249,8 @@ uses
   Elinor.Scene.Loot2,
   Elinor.Common,
   Elinor.Scene.Name,
-  Elinor.Scene.Intro;
+  Elinor.Scene.Intro,
+  Elinor.Scene.Merchant;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -928,6 +929,7 @@ begin
   FScene[scDefeat] := TSceneDefeat.Create;
   FScene[scLoot] := TSceneLoot2.Create;
   FScene[scName] := TSceneName.Create;
+  FScene[scMerchant] := TSceneMerchant.Create;
   // Inform
   InformMsg := '';
   IsShowInform := False;

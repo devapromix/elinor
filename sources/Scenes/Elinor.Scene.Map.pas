@@ -58,7 +58,7 @@ uses
   Elinor.Scene.NewAbility,
   Elinor.Scene.MageTower,
   Elinor.Scene.Defeat,
-  Elinor.Scene.Victory, Elinor.Scene.Menu3;
+  Elinor.Scene.Victory, Elinor.Scene.Menu3, Elinor.Scene.Merchant;
 
 { TSceneMap }
 
@@ -354,6 +354,8 @@ begin
       TSceneVictory.ShowScene;
     K_D:
       TSceneDefeat.ShowScene;
+    K_M:
+      TSceneMerchant.ShowScene(TLeaderParty.Leader, scMap);
   end;
 end;
 
