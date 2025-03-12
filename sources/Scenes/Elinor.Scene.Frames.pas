@@ -10,7 +10,7 @@ uses
   Elinor.Scenes;
 
 type
-  TFrameGrid = (fgLS3, fgLS6, fgRS6, fgRM1, fgRM2, fgRB);
+  TFrameGrid = (fgLS3, fgLS6, fgRS6, fgRM1, fgLM2, fgRM2, fgRB);
 
 type
   TSceneFrames = class(TScene)
@@ -51,6 +51,7 @@ begin
   LMid := ScreenWidth - ((320 * 4) + 26);
   MinFrameCount := 1;
   MaxFrameCount := 12;
+
   if ARightFrameGrid <> fgRS6 then
     MaxFrameCount := 6;
   if ALeftFrameGrid = fgLS3 then
@@ -58,18 +59,24 @@ begin
     MinFrameCount := 4;
     LLeft := TFrame.Col(1);
   end;
-  for I := MinFrameCount to MaxFrameCount do
+  if ALeftFrameGrid = fgLM2 then
   begin
-    FSurface.Canvas.Draw(LLeft, LTop, ResImage[reFrameSlot]);
-    Inc(LTop, 120);
-    if LTop > TScene.SceneTop + 240 then
+    FSurface.Canvas.Draw(TFrame.Col(0), LTop, ResImage[reInfoFrame]);
+    FSurface.Canvas.Draw(TFrame.Col(1), LTop, ResImage[reInfoFrame]);
+  end
+  else
+    for I := MinFrameCount to MaxFrameCount do
     begin
-      LTop := TScene.SceneTop;
-      Inc(LLeft, 322);
-      if (I = 6) then
-        Inc(LLeft, LMid);
+      FSurface.Canvas.Draw(LLeft, LTop, ResImage[reFrameSlot]);
+      Inc(LTop, 120);
+      if LTop > TScene.SceneTop + 240 then
+      begin
+        LTop := TScene.SceneTop;
+        Inc(LLeft, 322);
+        if (I = 6) then
+          Inc(LLeft, LMid);
+      end;
     end;
-  end;
   if ARightFrameGrid = fgRB then
     FSurface.Canvas.Draw(TFrame.Col(2), LTop, ResImage[reBigFrame]);
   if ARightFrameGrid = fgRM1 then
