@@ -63,42 +63,32 @@ of their gods.
 * Space - Change active group
 * Enter - use item (read scroll/drink potion)
 
-### 8. In high scores scene:
+### 9. In high scores scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select faction/class
 * F - Filter by fraction
 * C - Filter by class
 
-## II. Actions of leaders:
+### 10. In merchant scene:
+* Esc - Close scene
+* Arrows, Numeric keypad - Select an item
+* Space - Change active group
+* Enter - buy/sell item
 
-### 1. Warrior:
+## II. Current State
+* The game is currently playable and even winnable, but is still in active development with a great deal more content planned.
 
-### 2. Scout:
-
-### 3. Mage:
-
-### 4. Thief:
-* Send Spy - the leader can see the composition and condition of the enemy party's warriors
-* Challenge to Duel - the leader challenges the enemy leader to a duel
-* Poison Wells - the leader poisons all warriors in the enemy party
-
-### 5. Lord:
-
-### 6. Templar:
-
-## III. Current State
-The game is currently in demo stage with very limited contents and lots of issues to solve and improve.
-
-## IV. Contributing
+## III. Contributing
 Contributions are welcome! Please fork this repository and then once you have made and tested your changes, submit a pull request.
 
-## V. Credits
-2018-2025 by Sergiy Tkach (Apromix)
+## IV. Credits
+* Apromix
+* Phomm
 
 ### Art:
 * Gilgaphoenixignis - https://opengameart.org/users/gilgaphoenixignis
 * Master484 - https://opengameart.org/users/master484
 * The RLTiles - https://rltiles.sourceforge.net/
 
-Elinor is open source, written in pascal, the full source is available at:
+Elinor is open source, written in delphi/pascal, the full source is available at:
 https://github.com/devapromix/elinor
