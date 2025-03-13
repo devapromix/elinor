@@ -24,7 +24,9 @@ type
     MerchantGold: Integer;
     SelectedItemPrice: Integer;
     procedure SellItem;
+    procedure BuyItem;
     procedure GetItemPrice;
+    procedure UpdateSelectionIndex(const IsUp: Boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -79,6 +81,11 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
   Game.Show(CloseSceneEnum);
+end;
+
+procedure TSceneMerchant.BuyItem;
+begin
+
 end;
 
 constructor TSceneMerchant.Create;
@@ -328,63 +335,59 @@ begin
   end;
 end;
 
+procedure TSceneMerchant.UpdateSelectionIndex(const IsUp: Boolean);
+begin
+  case ActiveSection of
+    isInventory:
+      begin
+        if IsUp then
+        begin
+          Dec(InventorySelItemIndex);
+          if InventorySelItemIndex < 0 then
+            InventorySelItemIndex := CMaxInventoryItems - 1;
+        end
+        else
+        begin
+          Inc(InventorySelItemIndex);
+          if InventorySelItemIndex > CMaxInventoryItems - 1 then
+            InventorySelItemIndex := 0;
+        end;
+        GetItemPrice;
+      end;
+    isMerchant:
+      begin
+        if IsUp then
+        begin
+          Dec(MerchantSelItemIndex);
+          if MerchantSelItemIndex < 0 then
+            MerchantSelItemIndex := 12;
+        end
+        else
+        begin
+          Inc(MerchantSelItemIndex);
+          if MerchantSelItemIndex > 12 then
+            MerchantSelItemIndex := 0;
+        end;
+      end;
+  end;
+end;
+
 procedure TSceneMerchant.Update(var Key: Word);
 begin
   case Key of
-    K_UP:
-      begin
-        case ActiveSection of
-          isInventory:
-            begin
-              Dec(InventorySelItemIndex);
-              if InventorySelItemIndex < 0 then
-                InventorySelItemIndex := CMaxInventoryItems - 1;
-              GetItemPrice;
-              Exit;
-            end;
-          isMerchant:
-            begin
-              Dec(MerchantSelItemIndex);
-              if MerchantSelItemIndex < 0 then
-                MerchantSelItemIndex := 12;
-              Exit;
-            end;
-        end;
-      end;
-    K_DOWN:
-      begin
-        case ActiveSection of
-          isInventory:
-            begin
-              Inc(InventorySelItemIndex);
-              if InventorySelItemIndex > CMaxInventoryItems - 1 then
-                InventorySelItemIndex := 0;
-              GetItemPrice;
-              Exit;
-            end;
-          isMerchant:
-            begin
-              Inc(MerchantSelItemIndex);
-              if MerchantSelItemIndex > 12 then
-                MerchantSelItemIndex := 0;
-              Exit;
-            end;
-        end;
-      end;
-    K_LEFT, K_RIGHT:
-      begin
-
-      end;
-  end;
-
-  case Key of
     K_ESCAPE:
       HideScene;
+    K_UP:
+      UpdateSelectionIndex(True);
+    K_DOWN:
+      UpdateSelectionIndex(False);
     K_ENTER:
       begin
         case ActiveSection of
           isInventory:
             SellItem;
+          isMerchant:
+            BuyItem;
         end;
       end;
     K_SPACE:
