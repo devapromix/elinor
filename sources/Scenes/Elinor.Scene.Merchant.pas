@@ -17,6 +17,7 @@ type
     TButtonEnum = (btClose);
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
+    procedure ChSection;
   private
     InventorySelItemIndex: Integer;
     MerchantSelItemIndex: Integer;
@@ -81,6 +82,11 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
   Game.Show(CloseSceneEnum);
+end;
+
+procedure TSceneMerchant.ChSection;
+begin
+  ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 2);
 end;
 
 procedure TSceneMerchant.BuyItem;
@@ -312,21 +318,21 @@ end;
 procedure TSceneMerchant.SellItem;
 var
   LItemEnum: TItemEnum;
-  SellPrice: Integer;
+  LSellPrice: Integer;
 begin
   if (InventorySelItemIndex > -1) and (ActiveSection = isInventory) then
   begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
     if LItemEnum = iNone then
       Exit;
-    SellPrice := SelectedItemPrice;
-    if MerchantGold < SellPrice then
+    LSellPrice := SelectedItemPrice;
+    if MerchantGold < LSellPrice then
     begin
       InformDialog('The merchant does not have enough gold!');
       Exit;
     end;
-    Game.Gold.Modify(SellPrice);
-    MerchantGold := MerchantGold - SellPrice;
+    Game.Gold.Modify(LSellPrice);
+    MerchantGold := MerchantGold - LSellPrice;
 
     // Удаляем предмет из инвентаря игрока
     // TLeaderParty.Leader.Inventory.SetItem(InventorySelItemIndex, iNone);
@@ -382,16 +388,14 @@ begin
     K_DOWN:
       UpdateSelectionIndex(False);
     K_ENTER:
-      begin
-        case ActiveSection of
-          isInventory:
-            SellItem;
-          isMerchant:
-            BuyItem;
-        end;
+      case ActiveSection of
+        isInventory:
+          SellItem;
+        isMerchant:
+          BuyItem;
       end;
     K_SPACE:
-      ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 2);
+      ChSection;
   end;
 end;
 
