@@ -250,7 +250,8 @@ uses
   Elinor.Common,
   Elinor.Scene.Name,
   Elinor.Scene.Intro,
-  Elinor.Scene.Merchant;
+  Elinor.Scene.Merchant,
+  Elinor.Merchant;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -324,6 +325,7 @@ begin
     Mana.Clear(500)
   else
     Mana.Clear(10);
+  Merchant.Clear;
   PartyList.Clear;
   Statistics.Clear;
   Spells.Clear;

@@ -8,6 +8,7 @@ uses
   Elinor.Scene.Frames,
   Elinor.Button,
   Elinor.Resources,
+  Elinor.Merchant,
   Elinor.Party,
   Elinor.Scenes;
 
@@ -22,12 +23,11 @@ type
     InventorySelItemIndex: Integer;
     MerchantSelItemIndex: Integer;
     Button: array [TButtonEnum] of TButton;
-    MerchantGold: Integer;
     SelectedItemPrice: Integer;
     procedure SellItem;
     procedure BuyItem;
     procedure GetItemPrice;
-    procedure UpdateSelectionIndex(const IsUp: Boolean);
+    procedure UpdateSelectionIndex(const AIsUp: Boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -45,7 +45,7 @@ type
 implementation
 
 uses
-  System.Math, dialogs,
+  System.Math,
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party2,
@@ -112,7 +112,7 @@ begin
   end;
   InventorySelItemIndex := 0;
   MerchantSelItemIndex := 0;
-  MerchantGold := 1000;
+  Merchant.Gold := 1000;
   SelectedItemPrice := 0;
 end;
 
@@ -149,15 +149,16 @@ var
   LButtonEnum: TButtonEnum;
 begin
   inherited;
+
   if MouseOver(X, Y, TFrame.Col(0) + 8, TFrame.Row(0) + 48, 320,
-    TextLineHeight * 12) then
+    TextLineHeight * CMaxInventoryItems) then
   begin
     ActiveSection := isMerchant;
     MerchantSelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight;
   end;
 
   if MouseOver(X, Y, TFrame.Col(2) + 8, TFrame.Row(1) + 48, 320,
-    TextLineHeight * 12) then
+    TextLineHeight * CMaxInventoryItems) then
   begin
     ActiveSection := isInventory;
     InventorySelItemIndex := (Y - (TFrame.Row(1) + 48)) div TextLineHeight;
@@ -170,7 +171,7 @@ end;
 
 procedure TSceneMerchant.Render;
 
-  procedure RenderMerchant;
+  procedure RenderMerchantInventory;
   var
     I: Integer;
   begin
@@ -190,11 +191,11 @@ procedure TSceneMerchant.Render;
     AddTextLine('Inventory', True);
     AddTextLine('');
 
-    for I := 0 to 5 do
-      AddTextLine('Item ' + IntToStr(I + 1));
+    for I := 0 to CMaxInventoryItems - 1 do
+      AddTextLine(Merchant.Inventory.ItemName(I));
   end;
 
-  procedure RenderInventory;
+  procedure RenderLeaderInventory;
   var
     I: Integer;
   begin
@@ -225,7 +226,7 @@ procedure TSceneMerchant.Render;
 
     AddTextLine('Gold', True);
     AddTextLine('');
-    AddTextLine(IntToStr(MerchantGold));
+    AddTextLine(IntToStr(Merchant.Gold));
     AddTextLine('Item Details', True);
     AddTextLine('');
 
@@ -250,17 +251,15 @@ procedure TSceneMerchant.Render;
     end;
   end;
 
-  procedure RenderInventoryItemDetails;
+  procedure RenderLeaderItemDetails;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-
     AddTextLine('Gold', True);
     AddTextLine('');
     AddTextLine(IntToStr(Game.Gold.Value));
     AddTextLine('Item Details', True);
     AddTextLine('');
-
   end;
 
   procedure RenderButtons;
@@ -278,10 +277,11 @@ begin
   DrawImage(20, 160, reTextMerchant);
   DrawImage(ScrWidth + 20, 160, reTextLeadParty);
 
-  RenderMerchant;
-  RenderInventory;
+  RenderMerchantInventory;
   RenderMerchantItemDetails;
-  RenderInventoryItemDetails;
+
+  RenderLeaderInventory;
+  RenderLeaderItemDetails;
 
   RenderButtons;
 end;
@@ -326,13 +326,13 @@ begin
     if LItemEnum = iNone then
       Exit;
     LSellPrice := SelectedItemPrice;
-    if MerchantGold < LSellPrice then
+    if Merchant.Gold < LSellPrice then
     begin
       InformDialog('The merchant does not have enough gold!');
       Exit;
     end;
     Game.Gold.Modify(LSellPrice);
-    MerchantGold := MerchantGold - LSellPrice;
+    Merchant.Gold := Merchant.Gold - LSellPrice;
 
     // Удаляем предмет из инвентаря игрока
     // TLeaderParty.Leader.Inventory.SetItem(InventorySelItemIndex, iNone);
@@ -341,12 +341,12 @@ begin
   end;
 end;
 
-procedure TSceneMerchant.UpdateSelectionIndex(const IsUp: Boolean);
+procedure TSceneMerchant.UpdateSelectionIndex(const AIsUp: Boolean);
 begin
   case ActiveSection of
     isInventory:
       begin
-        if IsUp then
+        if AIsUp then
         begin
           Dec(InventorySelItemIndex);
           if InventorySelItemIndex < 0 then
@@ -362,16 +362,16 @@ begin
       end;
     isMerchant:
       begin
-        if IsUp then
+        if AIsUp then
         begin
           Dec(MerchantSelItemIndex);
           if MerchantSelItemIndex < 0 then
-            MerchantSelItemIndex := 12;
+            MerchantSelItemIndex := CMaxInventoryItems;
         end
         else
         begin
           Inc(MerchantSelItemIndex);
-          if MerchantSelItemIndex > 12 then
+          if MerchantSelItemIndex > CMaxInventoryItems then
             MerchantSelItemIndex := 0;
         end;
       end;
