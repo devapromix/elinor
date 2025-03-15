@@ -97,12 +97,14 @@ begin
   CurrentChannel := SoundChannel;
 end;
 
-function TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
+function TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum;
+  F: Boolean): Boolean;
 begin
   PlayMusic(ResMusicPath[MusicEnum], F);
 end;
 
-function TMediaPlayer.PlaySound(const MusicEnum: TMusicEnum; F: Boolean): Boolean;
+function TMediaPlayer.PlaySound(const MusicEnum: TMusicEnum;
+  F: Boolean): Boolean;
 begin
   PlaySound(ResMusicPath[MusicEnum], F);
 end;

@@ -49,6 +49,7 @@ end;
 procedure TMerchant.GenNewItems;
 begin
   FGold := RandomRange(9, 12) * 100;
+
 end;
 
 initialization

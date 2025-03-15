@@ -25,7 +25,7 @@ type
 type
   TAllFactionNames = TArray<TFactionNames>;
 
-function LoadNamesFromJSON(const FileName: string): TAllFactionNames;
+function LoadNamesFromJSON(const AFileName: string): TAllFactionNames;
 function GetRandomNameForFaction(const AllNames: TAllFactionNames;
   const Faction: TFactionEnum; const Gender: TCreatureGender): string;
 function FindFactionIndex(const AllNames: TAllFactionNames;
@@ -38,62 +38,62 @@ implementation
 
 function ReadFileToString(const FileName: string): string;
 var
-  FileStream: TFileStream;
-  StringStream: TStringStream;
+  LFileStream: TFileStream;
+  LStringStream: TStringStream;
 begin
   Result := '';
   if not FileExists(FileName) then
     Exit;
 
-  FileStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
+  LFileStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
   try
-    StringStream := TStringStream.Create('', TEncoding.UTF8);
+    LStringStream := TStringStream.Create('', TEncoding.UTF8);
     try
-      StringStream.CopyFrom(FileStream, 0);
-      Result := StringStream.DataString;
+      LStringStream.CopyFrom(LFileStream, 0);
+      Result := LStringStream.DataString;
     finally
-      StringStream.Free;
+      LStringStream.Free;
     end;
   finally
-    FileStream.Free;
+    LFileStream.Free;
   end;
 end;
 
-function LoadNamesFromJSON(const FileName: string): TAllFactionNames;
+function LoadNamesFromJSON(const AFileName: string): TAllFactionNames;
 var
-  JsonText: string;
+  LJSONText: string;
   JsonValue, GenderValue: TJSONValue;
   JsonObject, FactionObject: TJSONObject;
   JsonArray: TJSONArray;
-  FactionEnum: TFactionEnum;
-  Gender: TCreatureGender;
-  I, J, FactionCount: Integer;
+  LFactionEnum: TFactionEnum;
+  LGender: TCreatureGender;
+  I, J, LFactionCount: Integer;
 begin
-  FactionCount := 0;
-  for FactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
-    Inc(FactionCount);
+  LFactionCount := 0;
+  for LFactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
+    Inc(LFactionCount);
 
-  SetLength(Result, FactionCount);
+  SetLength(Result, LFactionCount);
 
   I := 0;
-  for FactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
+  for LFactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
   begin
-    Result[I].Faction := FactionEnum;
+    Result[I].Faction := LFactionEnum;
 
-    for Gender := Low(TCreatureGender) to High(TCreatureGender) do
+    for LGender := Low(TCreatureGender) to High(TCreatureGender) do
     begin
-      Result[I].GenderNames[Gender].Gender := Gender;
-      SetLength(Result[I].GenderNames[Gender].Names, 0);
+      Result[I].GenderNames[LGender].Gender := LGender;
+      SetLength(Result[I].GenderNames[LGender].Names, 0);
     end;
 
     Inc(I);
   end;
 
-  JsonText := ReadFileToString(FileName);
-  if JsonText = '' then
+  LJSONText := ReadFileToString(AFileName);
+  if LJSONText = '' then
     Exit;
 
-  JsonValue := TJSONObject.ParseJSONValue(JsonText);
+  JsonValue := TJSONObject.ParseJSONValue(LJSONText);
   if not Assigned(JsonValue) then
     Exit;
 
@@ -102,21 +102,21 @@ begin
     begin
       JsonObject := TJSONObject(JsonValue);
       I := 0;
-      for FactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
+      for LFactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
       begin
-        if JsonObject.TryGetValue<TJSONObject>(FactionIdent[FactionEnum],
+        if JsonObject.TryGetValue<TJSONObject>(FactionIdent[LFactionEnum],
           FactionObject) then
         begin
-          for Gender := Low(TCreatureGender) to High(TCreatureGender) do
+          for LGender := Low(TCreatureGender) to High(TCreatureGender) do
           begin
-            if FactionObject.TryGetValue<TJSONArray>(GenderIdent[Gender],
+            if FactionObject.TryGetValue<TJSONArray>(GenderIdent[LGender],
               JsonArray) then
             begin
-              SetLength(Result[I].GenderNames[Gender].Names, JsonArray.Count);
+              SetLength(Result[I].GenderNames[LGender].Names, JsonArray.Count);
               for J := 0 to JsonArray.Count - 1 do
               begin
                 if JsonArray.Items[J] is TJSONString then
-                  Result[I].GenderNames[Gender].Names[J] :=
+                  Result[I].GenderNames[LGender].Names[J] :=
                     JsonArray.Items[J].Value;
               end;
             end;
@@ -137,7 +137,6 @@ var
   I: Integer;
 begin
   Result := -1;
-
   for I := 0 to Length(AllNames) - 1 do
   begin
     if AllNames[I].Faction = Faction then
@@ -151,21 +150,22 @@ end;
 function GetRandomNameForFaction(const AllNames: TAllFactionNames;
   const Faction: TFactionEnum; const Gender: TCreatureGender): string;
 var
-  Names: TArray<string>;
-  NameCount: Integer;
-  RandomIndex, FactionIndex: Integer;
+  LNames: TArray<string>;
+  LNameCount: Integer;
+  LRandomIndex: Integer;
+  LFactionIndex: Integer;
 begin
   Result := 'Unknown';
-  FactionIndex := FindFactionIndex(AllNames, Faction);
-  if FactionIndex = -1 then
+  LFactionIndex := FindFactionIndex(AllNames, Faction);
+  if LFactionIndex = -1 then
     Exit;
-  Names := AllNames[FactionIndex].GenderNames[Gender].Names;
-  NameCount := Length(Names);
-  if NameCount > 0 then
+  LNames := AllNames[LFactionIndex].GenderNames[Gender].Names;
+  LNameCount := Length(LNames);
+  if LNameCount > 0 then
   begin
     Randomize;
-    RandomIndex := Random(NameCount);
-    Result := Names[RandomIndex];
+    LRandomIndex := Random(LNameCount);
+    Result := LNames[LRandomIndex];
   end;
 end;
 
