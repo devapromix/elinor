@@ -27,9 +27,10 @@ type
     SelectedItemPrice: Integer;
     procedure SellItem;
     procedure BuyItem;
-    procedure GetItemPrice;
     procedure UpdateSelectionIndex(const AIsUp: Boolean);
-    function GetLeaderItemPrice(const AItemEnum: TItemEnum): Integer;
+    procedure GetLeaderItemPrice; overload;
+    function GetLeaderItemPrice(const AItemEnum: TItemEnum): Integer; overload;
+    procedure GetMerchantItemPrice;
   public
     constructor Create;
     destructor Destroy; override;
@@ -177,9 +178,9 @@ begin
       begin
         case ActiveSection of
           isInventory:
-            GetItemPrice;
+            GetLeaderItemPrice;
           isMerchant:
-            GetItemPrice;
+            GetMerchantItemPrice;
         end;
         if Button[btClose].MouseDown then
           HideScene;
@@ -198,6 +199,7 @@ begin
   begin
     ActiveSection := isMerchant;
     MerchantSelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight;
+    GetMerchantItemPrice;
   end;
 
   if MouseOver(X, Y, TFrame.Col(2) + 8, TFrame.Row(1) + 48, 320,
@@ -205,7 +207,7 @@ begin
   begin
     ActiveSection := isInventory;
     InventorySelItemIndex := (Y - (TFrame.Row(1) + 48)) div TextLineHeight;
-    GetItemPrice;
+    GetLeaderItemPrice;
   end;
 
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
@@ -335,7 +337,30 @@ begin
   Result := (TItemBase.Item(AItemEnum).Price div 30) * 10;
 end;
 
-procedure TSceneMerchant.GetItemPrice;
+procedure TSceneMerchant.GetMerchantItemPrice;
+var
+  LItemEnum: TItemEnum;
+begin
+  if (MerchantSelItemIndex > -1) and
+    (MerchantSelItemIndex < Merchants.GetMerchant(mtPotions).Inventory.Count)
+  then
+  begin
+    LItemEnum := Merchants.GetMerchant(mtPotions)
+      .Inventory.ItemEnum(MerchantSelItemIndex);
+    if LItemEnum = iNone then
+    begin
+      SelectedItemPrice := 0;
+      Exit;
+    end;
+    SelectedItemPrice := TItemBase.Item(LItemEnum).Price;
+    if SelectedItemPrice < 1 then
+      SelectedItemPrice := 1;
+  end
+  else
+    SelectedItemPrice := 0;
+end;
+
+procedure TSceneMerchant.GetLeaderItemPrice;
 var
   LItemEnum: TItemEnum;
 begin
@@ -373,7 +398,7 @@ begin
           if InventorySelItemIndex > CMaxInventoryItems - 1 then
             InventorySelItemIndex := 0;
         end;
-        GetItemPrice;
+        GetLeaderItemPrice;
       end;
     isMerchant:
       begin
@@ -389,7 +414,7 @@ begin
           if MerchantSelItemIndex > CMaxInventoryItems then
             MerchantSelItemIndex := 0;
         end;
-        GetItemPrice;
+        GetMerchantItemPrice;
       end;
   end;
 end;
