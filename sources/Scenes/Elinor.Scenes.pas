@@ -325,7 +325,7 @@ begin
     Mana.Clear(500)
   else
     Mana.Clear(10);
-  Merchant.Clear;
+  Merchants.Clear;
   PartyList.Clear;
   Statistics.Clear;
   Spells.Clear;

@@ -21,7 +21,6 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextPickup, reTextClose);
   private
     class var Button: array [TButtonEnum] of TButton;
-  private
     procedure PickupItem;
   public
     constructor Create;

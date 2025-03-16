@@ -91,7 +91,13 @@ end;
 
 procedure TSceneMerchant.BuyItem;
 begin
-
+  if TLeaderParty.Leader.Inventory.Count >= CMaxInventoryItems then
+  begin
+    InformDialog(CNoFreeSpace);
+    Exit;
+  end;
+  Game.MediaPlayer.PlaySound(mmLoot);
+  // TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
 end;
 
 constructor TSceneMerchant.Create;
@@ -112,7 +118,7 @@ begin
   end;
   InventorySelItemIndex := 0;
   MerchantSelItemIndex := 0;
-  Merchant.Gold := 1000;
+  Merchants.GetMerchant(mtPotions).Gold := 1000;
   SelectedItemPrice := 0;
 end;
 
@@ -192,7 +198,7 @@ procedure TSceneMerchant.Render;
     AddTextLine('');
 
     for I := 0 to CMaxInventoryItems - 1 do
-      AddTextLine(Merchant.Inventory.ItemName(I));
+      AddTextLine(Merchants.GetMerchant(mtPotions).Inventory.ItemName(I));
   end;
 
   procedure RenderLeaderInventory;
@@ -226,7 +232,7 @@ procedure TSceneMerchant.Render;
 
     AddTextLine('Gold', True);
     AddTextLine('');
-    AddTextLine(IntToStr(Merchant.Gold));
+    AddTextLine(IntToStr(Merchants.GetMerchant(mtPotions).Gold));
     AddTextLine('Item Details', True);
     AddTextLine('');
 
@@ -326,13 +332,14 @@ begin
     if LItemEnum = iNone then
       Exit;
     LSellPrice := SelectedItemPrice;
-    if Merchant.Gold < LSellPrice then
+    if Merchants.GetMerchant(mtPotions).Gold < LSellPrice then
     begin
       InformDialog('The merchant does not have enough gold!');
       Exit;
     end;
     Game.Gold.Modify(LSellPrice);
-    Merchant.Gold := Merchant.Gold - LSellPrice;
+    Merchants.GetMerchant(mtPotions).Gold := Merchants.GetMerchant(mtPotions)
+      .Gold - LSellPrice;
 
     // Удаляем предмет из инвентаря игрока
     // TLeaderParty.Leader.Inventory.SetItem(InventorySelItemIndex, iNone);
