@@ -20,10 +20,11 @@ type
     constructor Create; virtual;
     destructor Destroy; override;
     property Inventory: TInventory read FInventory write FInventory;
-    property Gold: Integer read FGold write FGold;
+    property Gold: Integer read FGold;
     property MerchantType: TMerchantType read FMerchantType;
     procedure GenNewItems; virtual; abstract;
     procedure Clear; virtual;
+    procedure ModifyGold(AAmount: Integer);
   end;
 
   TPotionMerchant = class(TMerchant)
@@ -82,6 +83,11 @@ begin
   GenNewItems;
 end;
 
+procedure TMerchant.ModifyGold(AAmount: Integer);
+begin
+  FGold := FGold + AAmount;
+end;
+
 { TPotionMerchant }
 
 constructor TPotionMerchant.Create;
@@ -92,7 +98,8 @@ end;
 
 procedure TPotionMerchant.GenerateGold;
 begin
-  FGold := RandomRange(9, 12) * 100;
+  FGold := 0;
+  ModifyGold(RandomRange(9, 12) * 100);
 end;
 
 procedure TPotionMerchant.GenNewItems;
@@ -113,13 +120,16 @@ end;
 
 procedure TArtifactMerchant.GenerateGold;
 begin
-  FGold := RandomRange(20, 30) * 100;
+  FGold := 0;
+  ModifyGold(RandomRange(20, 30) * 100);
 end;
 
 procedure TArtifactMerchant.GenNewItems;
 begin
   FInventory.Clear;
-
+  //FInventory.Add(TItemBase.Item(iAmuletOfPower));
+  //FInventory.Add(TItemBase.Item(iRingOfProtection));
+  //FInventory.Add(TItemBase.Item(iMagicWand));
 end;
 
 { TMerchants }
@@ -159,7 +169,11 @@ begin
 end;
 
 initialization
-  Merchants := TMerchants.Create;
+
+Merchants := TMerchants.Create;
+
 finalization
-  FreeAndNil(Merchants);
+
+FreeAndNil(Merchants);
+
 end.

@@ -350,6 +350,8 @@ begin
       TLeaderParty.Leader.HealParty(CLeaderWarriorHealAllInPartyPerDay);
     TLeaderParty.Leader.SpellsPerDay.SetToMaxValue;
     ShowNewDayMessageTime := 20;
+    if (RandomRange(0, 100) <= 5) then
+      Merchants.Clear;
     MediaPlayer.PlaySound(mmDay);
     IsNewDay := False;
   end;

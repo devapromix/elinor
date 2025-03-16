@@ -118,7 +118,6 @@ begin
   end;
   InventorySelItemIndex := 0;
   MerchantSelItemIndex := 0;
-  Merchants.GetMerchant(mtPotions).Gold := 1000;
   SelectedItemPrice := 0;
 end;
 
@@ -338,10 +337,8 @@ begin
       Exit;
     end;
     Game.Gold.Modify(LSellPrice);
-    Merchants.GetMerchant(mtPotions).Gold := Merchants.GetMerchant(mtPotions)
-      .Gold - LSellPrice;
+    Merchants.GetMerchant(mtPotions).ModifyGold(-LSellPrice);
 
-    // Удаляем предмет из инвентаря игрока
     // TLeaderParty.Leader.Inventory.SetItem(InventorySelItemIndex, iNone);
     SelectedItemPrice := 0;
     Game.MediaPlayer.PlaySound(mmGold);
