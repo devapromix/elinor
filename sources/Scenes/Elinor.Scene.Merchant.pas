@@ -5,6 +5,7 @@ interface
 uses
   Vcl.Controls,
   System.Classes,
+  Elinor.Items,
   Elinor.Scene.Frames,
   Elinor.Button,
   Elinor.Resources,
@@ -28,6 +29,7 @@ type
     procedure BuyItem;
     procedure GetItemPrice;
     procedure UpdateSelectionIndex(const AIsUp: Boolean);
+    function GetLeaderItemPrice(const AItemEnum: TItemEnum): Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -52,7 +54,6 @@ uses
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
-  Elinor.Items,
   Elinor.Common;
 
 type
@@ -84,20 +85,57 @@ begin
   Game.Show(CloseSceneEnum);
 end;
 
-procedure TSceneMerchant.ChSection;
-begin
-  ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 2);
-end;
-
 procedure TSceneMerchant.BuyItem;
+var
+  LItem: TItemEnum;
+  LPrice: Integer;
 begin
   if TLeaderParty.Leader.Inventory.Count >= CMaxInventoryItems then
   begin
     InformDialog(CNoFreeSpace);
     Exit;
   end;
-  Game.MediaPlayer.PlaySound(mmLoot);
-  // TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
+  LItem := Merchants.GetMerchant(mtPotions).Inventory.ItemEnum
+    (MerchantSelItemIndex);
+  if LItem = iNone then
+    Exit;
+  LPrice := TItemBase.Item(LItem).Price;
+  if Game.Gold.Value < LPrice then
+  begin
+    InformDialog(CNotEnoughGold);
+    Exit;
+  end;
+  Game.Gold.Modify(-LPrice);
+  TLeaderParty.Leader.Inventory.Add(LItem);
+  Merchants.GetMerchant(mtPotions).Inventory.Clear(MerchantSelItemIndex);
+  Game.MediaPlayer.PlaySound(mmGold);
+  Render;
+end;
+
+procedure TSceneMerchant.ChSection;
+begin
+  ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 2);
+end;
+
+procedure TSceneMerchant.SellItem;
+var
+  LItem: TItemEnum;
+  LPrice: Integer;
+begin
+  LItem := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
+  if LItem = iNone then
+    Exit;
+  LPrice := GetLeaderItemPrice(LItem);
+  if Merchants.GetMerchant(mtPotions).Gold < LPrice then
+  begin
+    InformDialog(CNotEnoughGold);
+    Exit;
+  end;
+  Game.Gold.Modify(LPrice);
+  Merchants.GetMerchant(mtPotions).ModifyGold(-LPrice);
+  TLeaderParty.Leader.Inventory.Clear(InventorySelItemIndex);
+  Game.MediaPlayer.PlaySound(mmGold);
+  Render;
 end;
 
 constructor TSceneMerchant.Create;
@@ -141,7 +179,7 @@ begin
           isInventory:
             GetItemPrice;
           isMerchant:
-            ;
+            GetItemPrice;
         end;
         if Button[btClose].MouseDown then
           HideScene;
@@ -228,31 +266,18 @@ procedure TSceneMerchant.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(1) + 12;
-
     AddTextLine('Gold', True);
     AddTextLine('');
     AddTextLine(IntToStr(Merchants.GetMerchant(mtPotions).Gold));
-    AddTextLine('Item Details', True);
-    AddTextLine('');
-
     if SelectedItemPrice > 0 then
     begin
-      case ActiveSection of
-        isInventory:
-          begin
-            AddTextLine('Selected Item:');
-            AddTextLine(TLeaderParty.Leader.Inventory.ItemName
-              (InventorySelItemIndex));
-            AddTextLine('Price: ' + IntToStr(SelectedItemPrice));
-            AddTextLine('');
-            AddTextLine('Press ENTER to sell');
-          end;
-        isMerchant:
-          begin
-            AddTextLine('Selected Merchant Item:');
-            AddTextLine('Item ' + IntToStr(MerchantSelItemIndex + 1));
-          end;
-      end;
+      AddTextLine('Item Details', True);
+      AddTextLine('');
+      AddTextLine(TLeaderParty.Leader.Inventory.ItemName
+        (InventorySelItemIndex));
+      AddTextLine('Price: ' + IntToStr(SelectedItemPrice));
+      AddTextLine('');
+      AddTextLine('Press ENTER to sell');
     end;
   end;
 
@@ -263,8 +288,16 @@ procedure TSceneMerchant.Render;
     AddTextLine('Gold', True);
     AddTextLine('');
     AddTextLine(IntToStr(Game.Gold.Value));
-    AddTextLine('Item Details', True);
-    AddTextLine('');
+    if SelectedItemPrice > 0 then
+    begin
+      AddTextLine('Item Details', True);
+      AddTextLine('');
+      AddTextLine(TLeaderParty.Leader.Inventory.ItemName
+        (InventorySelItemIndex));
+      AddTextLine('Price: ' + IntToStr(SelectedItemPrice));
+      AddTextLine('');
+      AddTextLine('Press ENTER to sell');
+    end;
   end;
 
   procedure RenderButtons;
@@ -297,11 +330,17 @@ begin
 
 end;
 
+function TSceneMerchant.GetLeaderItemPrice(const AItemEnum: TItemEnum): Integer;
+begin
+  Result := (TItemBase.Item(AItemEnum).Price div 30) * 10;
+end;
+
 procedure TSceneMerchant.GetItemPrice;
 var
   LItemEnum: TItemEnum;
 begin
-  if (InventorySelItemIndex > -1) then
+  if (InventorySelItemIndex > -1) and
+    (InventorySelItemIndex < TLeaderParty.Leader.Inventory.Count) then
   begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
     if LItemEnum = iNone then
@@ -309,40 +348,12 @@ begin
       SelectedItemPrice := 0;
       Exit;
     end;
-
-    // Получаем базовую цену предмета и применяем коэффициент для продажи
-    // (обычно цена продажи ниже цены покупки)
-    // SelectedItemPrice := TItems.GetItemPrice(LItemEnum) div 2;
-    SelectedItemPrice := 10; // Временное значение для демонстрации
-
+    SelectedItemPrice := GetLeaderItemPrice(LItemEnum);
     if SelectedItemPrice < 1 then
       SelectedItemPrice := 1;
-  end;
-end;
-
-procedure TSceneMerchant.SellItem;
-var
-  LItemEnum: TItemEnum;
-  LSellPrice: Integer;
-begin
-  if (InventorySelItemIndex > -1) and (ActiveSection = isInventory) then
-  begin
-    LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
-    if LItemEnum = iNone then
-      Exit;
-    LSellPrice := SelectedItemPrice;
-    if Merchants.GetMerchant(mtPotions).Gold < LSellPrice then
-    begin
-      InformDialog('The merchant does not have enough gold!');
-      Exit;
-    end;
-    Game.Gold.Modify(LSellPrice);
-    Merchants.GetMerchant(mtPotions).ModifyGold(-LSellPrice);
-
-    // TLeaderParty.Leader.Inventory.SetItem(InventorySelItemIndex, iNone);
+  end
+  else
     SelectedItemPrice := 0;
-    Game.MediaPlayer.PlaySound(mmGold);
-  end;
 end;
 
 procedure TSceneMerchant.UpdateSelectionIndex(const AIsUp: Boolean);
@@ -378,6 +389,7 @@ begin
           if MerchantSelItemIndex > CMaxInventoryItems then
             MerchantSelItemIndex := 0;
         end;
+        GetItemPrice;
       end;
   end;
 end;

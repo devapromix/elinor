@@ -66,6 +66,7 @@ const
   CRevivalGoldNeededFormat = 'Need %d gold for revival!';
   CRevivalConfirmFormat = 'Revive for %d gold?';
   COnlyLeaderCanEquipItem = 'Only the Leader can equip this item!';
+  CNotEnoughGold = 'Not enough gold!';
 
 implementation
 

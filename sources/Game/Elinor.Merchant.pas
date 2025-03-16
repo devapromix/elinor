@@ -127,9 +127,9 @@ end;
 procedure TArtifactMerchant.GenNewItems;
 begin
   FInventory.Clear;
-  //FInventory.Add(TItemBase.Item(iAmuletOfPower));
-  //FInventory.Add(TItemBase.Item(iRingOfProtection));
-  //FInventory.Add(TItemBase.Item(iMagicWand));
+  // FInventory.Add(TItemBase.Item(iAmuletOfPower));
+  // FInventory.Add(TItemBase.Item(iRingOfProtection));
+  // FInventory.Add(TItemBase.Item(iMagicWand));
 end;
 
 { TMerchants }
