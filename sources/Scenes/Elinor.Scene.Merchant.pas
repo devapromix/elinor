@@ -114,11 +114,6 @@ begin
   Render;
 end;
 
-procedure TSceneMerchant.ChSection;
-begin
-  ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 2);
-end;
-
 procedure TSceneMerchant.SellItem;
 var
   LItem: TItemEnum;
@@ -138,6 +133,17 @@ begin
   TLeaderParty.Leader.Inventory.Clear(InventorySelItemIndex);
   Game.MediaPlayer.PlaySound(mmGold);
   Render;
+end;
+
+procedure TSceneMerchant.ChSection;
+begin
+  ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 2);
+  case ActiveSection of
+    isInventory:
+      GetLeaderItemPrice;
+    isMerchant:
+      GetMerchantItemPrice;
+  end;
 end;
 
 constructor TSceneMerchant.Create;
@@ -277,8 +283,8 @@ procedure TSceneMerchant.Render;
     begin
       AddTextLine('Item Details', True);
       AddTextLine('');
-      AddTextLine(TLeaderParty.Leader.Inventory.ItemName
-        (MerchantSelItemIndex));
+      AddTextLine(Merchants.GetMerchant(mtPotions)
+        .Inventory.ItemName(MerchantSelItemIndex));
       AddTextLine('Price: ' + IntToStr(MerchantSelectedItemPrice));
       AddTextLine('');
       AddTextLine('Press ENTER to sell');
