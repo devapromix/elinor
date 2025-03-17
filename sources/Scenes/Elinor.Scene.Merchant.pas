@@ -21,17 +21,13 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
     procedure ChSection;
   private
-    InventorySelItemIndex: Integer;
-    MerchantSelItemIndex: Integer;
-    LeaderSelectedItemPrice: Integer;
-    MerchantSelectedItemPrice: Integer;
     Button: array [TButtonEnum] of TButton;
     procedure SellItem;
     procedure BuyItem;
     procedure UpdateSelectionIndex(const AIsUp: Boolean);
     procedure GetLeaderItemPrice; overload;
     function GetLeaderItemPrice(const AItemEnum: TItemEnum): Integer; overload;
-    procedure GetMerchantItemPrice;
+    class procedure GetMerchantItemPrice;
   public
     constructor Create;
     destructor Destroy; override;
@@ -66,6 +62,10 @@ var
   CurrentParty: TParty;
   CloseSceneEnum: TSceneEnum;
   ActiveSection: TItemSectionEnum;
+  InventorySelItemIndex: Integer;
+  MerchantSelItemIndex: Integer;
+  LeaderSelectedItemPrice: Integer;
+  MerchantSelectedItemPrice: Integer;
 
   { TSceneMerchant }
 
@@ -76,6 +76,7 @@ begin
   CloseSceneEnum := ACloseSceneEnum;
   ShowResources := AParty = TLeaderParty.Leader;
   ActiveSection := isMerchant;
+  GetMerchantItemPrice;
   Game.Show(scMerchant);
   Game.MediaPlayer.PlaySound(mmSettlement);
 end;
@@ -184,14 +185,17 @@ begin
   case AButton of
     mbLeft:
       begin
+        if Button[btClose].MouseDown then
+        begin
+          HideScene;
+          Exit;
+        end;
         case ActiveSection of
           isInventory:
-            GetLeaderItemPrice;
+            SellItem;
           isMerchant:
-            GetMerchantItemPrice;
+            BuyItem;
         end;
-        if Button[btClose].MouseDown then
-          HideScene;
       end;
   end;
 end;
@@ -287,7 +291,8 @@ procedure TSceneMerchant.Render;
         .Inventory.ItemName(MerchantSelItemIndex));
       AddTextLine('Price: ' + IntToStr(MerchantSelectedItemPrice));
       AddTextLine('');
-      AddTextLine('Press ENTER or CLICK item to buy');
+      if ActiveSection = isMerchant then
+        AddTextLine('Press ENTER or CLICK item to buy');
     end;
   end;
 
@@ -306,7 +311,8 @@ procedure TSceneMerchant.Render;
         (InventorySelItemIndex));
       AddTextLine('Price: ' + IntToStr(LeaderSelectedItemPrice));
       AddTextLine('');
-      AddTextLine('Press ENTER or CLICK item to sell');
+      if ActiveSection = isInventory then
+        AddTextLine('Press ENTER or CLICK item to sell');
     end;
   end;
 
@@ -345,12 +351,11 @@ begin
   Result := (TItemBase.Item(AItemEnum).Price div 30) * 10;
 end;
 
-procedure TSceneMerchant.GetMerchantItemPrice;
+class procedure TSceneMerchant.GetMerchantItemPrice;
 var
   LItemEnum: TItemEnum;
 begin
-  if (MerchantSelItemIndex > -1) and
-    (MerchantSelItemIndex < Merchants.GetMerchant(mtPotions).Inventory.Count)
+  if (MerchantSelItemIndex >= 0) and (MerchantSelItemIndex < CMaxInventoryItems)
   then
   begin
     LItemEnum := Merchants.GetMerchant(mtPotions)
@@ -443,7 +448,7 @@ begin
         isMerchant:
           BuyItem;
       end;
-    K_SPACE:
+    K_LEFT, K_RIGHT, K_SPACE:
       ChSection;
   end;
 end;
