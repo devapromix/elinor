@@ -108,6 +108,8 @@ begin
   FInventory.Add(TItemBase.Item(iPotionOfHealing));
   FInventory.Add(TItemBase.Item(iPotionOfHealing));
   FInventory.Add(TItemBase.Item(iPotionOfHealing));
+  FInventory.Add(TItemBase.Item(iLifePotion));
+  FInventory.Add(TItemBase.Item(iLifePotion));
 end;
 
 { TArtifactMerchant }

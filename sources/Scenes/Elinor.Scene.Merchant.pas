@@ -23,8 +23,9 @@ type
   private
     InventorySelItemIndex: Integer;
     MerchantSelItemIndex: Integer;
+    LeaderSelectedItemPrice: Integer;
+    MerchantSelectedItemPrice: Integer;
     Button: array [TButtonEnum] of TButton;
-    SelectedItemPrice: Integer;
     procedure SellItem;
     procedure BuyItem;
     procedure UpdateSelectionIndex(const AIsUp: Boolean);
@@ -157,7 +158,8 @@ begin
   end;
   InventorySelItemIndex := 0;
   MerchantSelItemIndex := 0;
-  SelectedItemPrice := 0;
+  LeaderSelectedItemPrice := 0;
+  MerchantSelectedItemPrice := 0;
 end;
 
 destructor TSceneMerchant.Destroy;
@@ -271,13 +273,13 @@ procedure TSceneMerchant.Render;
     AddTextLine('Gold', True);
     AddTextLine('');
     AddTextLine(IntToStr(Merchants.GetMerchant(mtPotions).Gold));
-    if SelectedItemPrice > 0 then
+    if MerchantSelectedItemPrice > 0 then
     begin
       AddTextLine('Item Details', True);
       AddTextLine('');
       AddTextLine(TLeaderParty.Leader.Inventory.ItemName
-        (InventorySelItemIndex));
-      AddTextLine('Price: ' + IntToStr(SelectedItemPrice));
+        (MerchantSelItemIndex));
+      AddTextLine('Price: ' + IntToStr(MerchantSelectedItemPrice));
       AddTextLine('');
       AddTextLine('Press ENTER to sell');
     end;
@@ -290,13 +292,13 @@ procedure TSceneMerchant.Render;
     AddTextLine('Gold', True);
     AddTextLine('');
     AddTextLine(IntToStr(Game.Gold.Value));
-    if SelectedItemPrice > 0 then
+    if LeaderSelectedItemPrice > 0 then
     begin
       AddTextLine('Item Details', True);
       AddTextLine('');
       AddTextLine(TLeaderParty.Leader.Inventory.ItemName
         (InventorySelItemIndex));
-      AddTextLine('Price: ' + IntToStr(SelectedItemPrice));
+      AddTextLine('Price: ' + IntToStr(LeaderSelectedItemPrice));
       AddTextLine('');
       AddTextLine('Press ENTER to sell');
     end;
@@ -349,15 +351,15 @@ begin
       .Inventory.ItemEnum(MerchantSelItemIndex);
     if LItemEnum = iNone then
     begin
-      SelectedItemPrice := 0;
+      MerchantSelectedItemPrice := 0;
       Exit;
     end;
-    SelectedItemPrice := TItemBase.Item(LItemEnum).Price;
-    if SelectedItemPrice < 1 then
-      SelectedItemPrice := 1;
+    MerchantSelectedItemPrice := TItemBase.Item(LItemEnum).Price;
+    if MerchantSelectedItemPrice < 1 then
+      MerchantSelectedItemPrice := 1;
   end
   else
-    SelectedItemPrice := 0;
+    MerchantSelectedItemPrice := 0;
 end;
 
 procedure TSceneMerchant.GetLeaderItemPrice;
@@ -370,15 +372,15 @@ begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
     if LItemEnum = iNone then
     begin
-      SelectedItemPrice := 0;
+      LeaderSelectedItemPrice := 0;
       Exit;
     end;
-    SelectedItemPrice := GetLeaderItemPrice(LItemEnum);
-    if SelectedItemPrice < 1 then
-      SelectedItemPrice := 1;
+    LeaderSelectedItemPrice := GetLeaderItemPrice(LItemEnum);
+    if LeaderSelectedItemPrice < 1 then
+      LeaderSelectedItemPrice := 1;
   end
   else
-    SelectedItemPrice := 0;
+    LeaderSelectedItemPrice := 0;
 end;
 
 procedure TSceneMerchant.UpdateSelectionIndex(const AIsUp: Boolean);

@@ -196,7 +196,7 @@ const
     // Potions
     // Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItSlot: isNone; ItRes: reItemLifePotion; Price: 100;),
+    ItSlot: isNone; ItRes: reItemLifePotion; Price: 200;),
     // Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfHealing; Price: 100;),
