@@ -287,7 +287,7 @@ procedure TSceneMerchant.Render;
         .Inventory.ItemName(MerchantSelItemIndex));
       AddTextLine('Price: ' + IntToStr(MerchantSelectedItemPrice));
       AddTextLine('');
-      AddTextLine('Press ENTER to sell');
+      AddTextLine('Press ENTER or CLICK item to buy');
     end;
   end;
 
@@ -306,7 +306,7 @@ procedure TSceneMerchant.Render;
         (InventorySelItemIndex));
       AddTextLine('Price: ' + IntToStr(LeaderSelectedItemPrice));
       AddTextLine('');
-      AddTextLine('Press ENTER to sell');
+      AddTextLine('Press ENTER or CLICK item to sell');
     end;
   end;
 
