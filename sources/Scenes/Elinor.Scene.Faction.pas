@@ -60,7 +60,6 @@ end;
 
 procedure TSceneRace.Render;
 var
-  I: Integer;
   LPlayableRaces: TPlayableFactions;
   LFactionEnum: TFactionEnum;
 const
@@ -80,8 +79,8 @@ begin
       LFactionEnum := TFactionEnum(CurrentIndex);
       AddTextLine(FactionName[LFactionEnum], True);
       AddTextLine;
-      for I := 0 to 10 do
-        AddTextLine(TFaction.GetDescription(LFactionEnum, I));
+      Self.DrawText(TextLeft, TextTop, 600,
+        TFaction.GetDescription(LFactionEnum));
     end;
   end;
 end;

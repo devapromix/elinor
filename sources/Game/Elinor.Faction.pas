@@ -33,19 +33,52 @@ const
 type
   TFaction = class(TObject)
   public
-    class function GetDescription(const AFactionEnum: TFactionEnum;
-      const AIndex: Integer): string;
+    class function GetDescription(const AFactionEnum: TFactionEnum): string;
   end;
 
 implementation
 
-{ TFaction }
+uses
+  System.SysUtils,
+  System.Classes,
+  System.JSON,
+  System.IOUtils;
 
-class function TFaction.GetDescription(const AFactionEnum: TFactionEnum;
-  const AIndex: Integer): string;
+var
+  JSONData: TJSONObject;
+
+procedure LoadFactionDescriptions(const FileName: string);
+var
+  JSONString: string;
 begin
-  Result := TResources.IndexValue('faction.description',
-    FactionIdent[AFactionEnum], AIndex);
+  try
+    JSONString := TFile.ReadAllText(TResources.GetPath('resources') + FileName,
+      TEncoding.UTF8);
+    if Assigned(JSONData) then
+      JSONData.Free;
+    JSONData := TJSONObject.ParseJSONValue(JSONString) as TJSONObject;
+  except
+    on E: Exception do
+      raise;
+  end;
 end;
+
+class function TFaction.GetDescription(const AFactionEnum
+  : TFactionEnum): string;
+begin
+  if Assigned(JSONData) and (JSONData.Values[FactionIdent[AFactionEnum]] <> nil)
+  then
+    Result := JSONData.GetValue<string>(FactionIdent[AFactionEnum])
+  else
+    Result := 'Description not available...';
+end;
+
+initialization
+
+LoadFactionDescriptions('faction.description.json');
+
+finalization
+
+FreeAndNil(JSONData);
 
 end.

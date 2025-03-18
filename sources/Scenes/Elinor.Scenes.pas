@@ -146,6 +146,8 @@ type
     procedure DrawText(const AX, AY: Integer; Value: Integer); overload;
     procedure DrawText(const AX, AY: Integer; AText: string;
       AFlag: Boolean); overload;
+    procedure DrawText(const AX, AY, AWidth: Integer;
+      const AText: string); overload;
     procedure AddTextLine; overload;
     procedure AddTextLine(const S: string); overload;
     procedure AddTextLine(const S: string; const F: Boolean); overload;
@@ -198,7 +200,7 @@ type
     Gold: TTreasure;
     Mana: TTreasure;
     Wizard: Boolean;
-    Surface: TBitmap;
+    Surface: Vcl.Graphics.TBitmap;
     Statistics: TStatistics;
     Scenario: TScenario;
     Map: TMap;
@@ -218,6 +220,8 @@ implementation
 uses
   System.Math,
   System.SysUtils,
+  System.Types,
+  Winapi.Windows,
   Elinor.MainForm,
   Elinor.Button,
   Elinor.Frame,
@@ -272,7 +276,7 @@ var
   I: Integer;
 begin
   inherited;
-  Surface := TBitmap.Create;
+  Surface := Vcl.Graphics.TBitmap.Create;
   Surface.Width := ScreenWidth;
   Surface.Height := ScreenHeight;
   Surface.Canvas.Font.Size := 12;
@@ -734,6 +738,54 @@ begin
   DrawText(AX, AY, AText);
   if AFlag then
     Game.Surface.Canvas.Font.Size := LFontSize;
+end;
+
+procedure TScene.DrawText(const AX, AY, AWidth: Integer; const AText: string);
+var
+  S: string;
+  LineY: Integer;
+  Words: TArray<string>;
+  CurrentLine: string;
+  I: Integer;
+  LineHeight: Integer;
+  TextWidth: Integer;
+  Canvas: TCanvas;
+begin
+  Canvas := Game.Surface.Canvas;
+  Canvas.Brush.Style := bsClear;
+  LineHeight := Canvas.TextHeight('Tg');
+  LineY := AY;
+  Words := AText.Split([' ']);
+  CurrentLine := '';
+  for I := 0 to Length(Words) - 1 do
+  begin
+    if CurrentLine = '' then
+      S := Words[I]
+    else
+      S := CurrentLine + ' ' + Words[I];
+    TextWidth := Canvas.TextWidth(S);
+    if TextWidth > AWidth then
+    begin
+      if CurrentLine <> '' then
+      begin
+        Canvas.TextOut(AX, LineY, CurrentLine);
+        LineY := LineY + LineHeight;
+        CurrentLine := Words[I];
+      end
+      else
+      begin
+        Canvas.TextOut(AX, LineY, Words[I]);
+        LineY := LineY + LineHeight;
+        CurrentLine := '';
+      end;
+    end
+    else
+    begin
+      CurrentLine := S;
+    end;
+  end;
+  if CurrentLine <> '' then
+    Canvas.TextOut(AX, LineY, CurrentLine);
 end;
 
 procedure TScene.RenderFrame(const PartySide: TPartySide;
