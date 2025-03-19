@@ -11,7 +11,12 @@
       "Herbert",
       "Gilbert",
       "Conrad",
-      "Lothar"
+      "Lothar",
+      "Rudolf",      
+      "Heinrich",    
+      "Otto",        
+      "Bernhard",    
+      "Siegfried"    
     ],
     "female": [
       "Sophia",
@@ -23,7 +28,12 @@
       "Paula",
       "Tamira",
       "Vera",
-      "Caesaria"
+      "Caesaria",
+      "Isabella",    
+      "Matilda",     
+      "Clara",       
+      "Eleanor",     
+      "Gisela"       
     ]
   },
   "undead-hordes": {
@@ -37,7 +47,12 @@
       "Zardomas",
       "Rainon",
       "Renar",
-      "Savery"
+      "Savery",
+      "Dracul",      
+      "Gorzod",      
+      "Thanatos",    
+      "Valthor",     
+      "Skolax"       
     ],
     "female": [
       "Hecate",
@@ -49,7 +64,12 @@
       "Phadra",
       "Tueranis",
       "Mantia",
-      "Jutta"
+      "Jutta",
+      "Nyxa",        
+      "Selene",      
+      "Vexana",      
+      "Drusilla",    
+      "Zombra"       
     ]
   },
   "legions-of-the-damned": {
@@ -64,7 +84,12 @@
       "Godfrey",
       "Gunther",
       "Othon",
-      "Tefas"
+      "Tefas",
+      "Lucifer",     
+      "Baal",        
+      "Samael",      
+      "Dagon",       
+      "Xerath"       
     ],
     "female": [
       "Lilith",
@@ -76,7 +101,12 @@
       "Zolia",
       "Crona",
       "Linual",
-      "Fara"
+      "Fara",
+      "Naamah",      
+      "Eris",        
+      "Hela",        
+      "Malice",      
+      "Zyra"         
     ]
   }
 }
