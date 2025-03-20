@@ -1104,6 +1104,7 @@ end;
 procedure TScenes.Render;
 var
   LButtonEnum: TButtonEnum;
+  LLeft, LTop: Integer;
 begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
@@ -1114,9 +1115,11 @@ begin
     FScene[SceneEnum].Render;
     if IsShowInform or IsShowConfirm then
     begin
-      DrawImage(ScrWidth - (ResImage[reBigFrame].Width div 2), 150,
-        ResImage[reBigFrame]);
-      DrawText(250, InformMsg);
+      LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
+      LTop := 150;
+      DrawImage(LLeft, LTop, reFrameBigBackground);
+      DrawImage(LLeft, LTop, ResImage[reBigFrame]);
+      DrawText(LTop + 100, InformMsg);
       if IsShowInform then
         Button.Render;
       if IsShowConfirm then
