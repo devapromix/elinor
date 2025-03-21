@@ -25,6 +25,8 @@ type
     procedure GenNewItems; virtual; abstract;
     procedure Clear; virtual;
     procedure ModifyGold(AAmount: Integer);
+    procedure AddRandomItems(const AItemEnum: TItemEnum;
+      const AMin, AMax: Integer);
   end;
 
   TPotionMerchant = class(TMerchant)
@@ -77,6 +79,16 @@ begin
   inherited;
 end;
 
+procedure TMerchant.AddRandomItems(const AItemEnum: TItemEnum;
+  const AMin, AMax: Integer);
+var
+  I, LAmount: Integer;
+begin
+  LAmount := RandomRange(AMin, AMax + 1);
+  for I := 1 to LAmount do
+    FInventory.Add(TItemBase.Item(AItemEnum));
+end;
+
 procedure TMerchant.Clear;
 begin
   GenerateGold;
@@ -103,13 +115,13 @@ begin
 end;
 
 procedure TPotionMerchant.GenNewItems;
+var
+  I, LAmount: Integer;
 begin
   FInventory.Clear;
-  FInventory.Add(TItemBase.Item(iPotionOfHealing));
-  FInventory.Add(TItemBase.Item(iPotionOfHealing));
-  FInventory.Add(TItemBase.Item(iPotionOfHealing));
-  FInventory.Add(TItemBase.Item(iLifePotion));
-  FInventory.Add(TItemBase.Item(iLifePotion));
+  AddRandomItems(iLifePotion, 1, 2);
+  AddRandomItems(iPotionOfHealing, 2, 4);
+  AddRandomItems(iPotionOfRestoration, 1, 2);
 end;
 
 { TArtifactMerchant }
@@ -129,9 +141,7 @@ end;
 procedure TArtifactMerchant.GenNewItems;
 begin
   FInventory.Clear;
-  // FInventory.Add(TItemBase.Item(iAmuletOfPower));
-  // FInventory.Add(TItemBase.Item(iRingOfProtection));
-  // FInventory.Add(TItemBase.Item(iMagicWand));
+
 end;
 
 { TMerchants }
