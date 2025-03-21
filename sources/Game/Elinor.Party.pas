@@ -674,56 +674,57 @@ procedure TLeaderParty.Quaff(const AItemIndex: Integer;
   const APosition: TPosition);
 var
   LItemEnum: TItemEnum;
+
+  function CanUseHealingItem: Boolean;
+  begin
+    Result := Creature[APosition].Alive;
+    if not Result then
+      Game.InformDialog(CNeedResurrection);
+  end;
+
+  function NeedsHealing: Boolean;
+  begin
+    Result := Creature[APosition].Alive and not TLeaderParty.Leader.Creature
+      [APosition].HitPoints.IsMaxCurrValue;
+    if Creature[APosition].Alive and not Result then
+      Game.InformDialog(CNoHealingNeeded);
+  end;
+
+  procedure HealCreature(const Amount: Integer);
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmHeal);
+    TLeaderParty.Leader.Heal(APosition, Amount);
+    Inventory.Clear(AItemIndex);
+  end;
+
+  procedure ReviveCreature;
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmRevive);
+    TLeaderParty.Leader.Revive(APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
 begin
   LItemEnum := Inventory.ItemEnum(AItemIndex);
-  if LItemEnum = iNone then
+  if (LItemEnum = iNone) or not(LItemEnum in QuaffItems) then
     Exit;
-  if (LItemEnum in QuaffItems) then
-  begin
-    case LItemEnum of
-      iLifePotion:
-        if not Creature[APosition].Alive then
-        begin
-          Game.MediaPlayer.PlaySound(mmDrink);
-          Game.MediaPlayer.PlaySound(mmRevive);
-          TLeaderParty.Leader.Revive(APosition);
-          Inventory.Clear(AItemIndex);
-        end
-        else
-          Game.InformDialog(CNoRevivalNeeded);
-      iPotionOfHealing:
-        if Creature[APosition].Alive then
-        begin
-          if not TLeaderParty.Leader.Creature[APosition].HitPoints.IsMaxCurrValue
-          then
-          begin
-            Game.MediaPlayer.PlaySound(mmDrink);
-            Game.MediaPlayer.PlaySound(mmHeal);
-            TLeaderParty.Leader.Heal(APosition, 50);
-            Inventory.Clear(AItemIndex);
-          end
-          else
-            Game.InformDialog(CNoHealingNeeded);
-        end
-        else
-          Game.InformDialog(CNeedResurrection);
-      iPotionOfRestoration:
-        if Creature[APosition].Alive then
-        begin
-          if not TLeaderParty.Leader.Creature[APosition].HitPoints.IsMaxCurrValue
-          then
-          begin
-            Game.MediaPlayer.PlaySound(mmDrink);
-            Game.MediaPlayer.PlaySound(mmHeal);
-            TLeaderParty.Leader.Heal(APosition, 100);
-            Inventory.Clear(AItemIndex);
-          end
-          else
-            Game.InformDialog(CNoHealingNeeded);
-        end
-        else
-          Game.InformDialog(CNeedResurrection);
-    end;
+
+  case LItemEnum of
+    iLifePotion:
+      if not Creature[APosition].Alive then
+        ReviveCreature
+      else
+        Game.InformDialog(CNoRevivalNeeded);
+
+    iPotionOfHealing:
+      if CanUseHealingItem and NeedsHealing then
+        HealCreature(50);
+
+    iPotionOfRestoration:
+      if CanUseHealingItem and NeedsHealing then
+        HealCreature(100);
   end;
 end;
 
