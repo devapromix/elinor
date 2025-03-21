@@ -29,6 +29,7 @@ type
     procedure SetCurrValue(const AValue: Integer);
     procedure ModifyCurrValue(const AValue: Integer);
     function IsMinCurrValue: Boolean;
+    function IsMaxCurrValue: Boolean;
   end;
 
 implementation
@@ -89,6 +90,11 @@ end;
 function TCurrMaxAttribute.GetMaxValue: Integer;
 begin
   Result := FMax;
+end;
+
+function TCurrMaxAttribute.IsMaxCurrValue: Boolean;
+begin
+  Result := FCurr = GetMaxValue;
 end;
 
 function TCurrMaxAttribute.IsMinCurrValue: Boolean;

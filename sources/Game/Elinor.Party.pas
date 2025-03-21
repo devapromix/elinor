@@ -678,30 +678,51 @@ begin
   LItemEnum := Inventory.ItemEnum(AItemIndex);
   if LItemEnum = iNone then
     Exit;
-  if (LItemEnum in QuaffItems) and Creature[APosition].Alive then
+  if (LItemEnum in QuaffItems) then
   begin
     case LItemEnum of
       iLifePotion:
+        if not Creature[APosition].Alive then
         begin
           Game.MediaPlayer.PlaySound(mmDrink);
           Game.MediaPlayer.PlaySound(mmRevive);
           TLeaderParty.Leader.Revive(APosition);
           Inventory.Clear(AItemIndex);
-        end;
+        end
+        else
+          Game.InformDialog(CNoRevivalNeeded);
       iPotionOfHealing:
+        if Creature[APosition].Alive then
         begin
-          Game.MediaPlayer.PlaySound(mmDrink);
-          Game.MediaPlayer.PlaySound(mmHeal);
-          TLeaderParty.Leader.Heal(APosition, 50);
-          Inventory.Clear(AItemIndex);
-        end;
+          if not TLeaderParty.Leader.Creature[APosition].HitPoints.IsMaxCurrValue
+          then
+          begin
+            Game.MediaPlayer.PlaySound(mmDrink);
+            Game.MediaPlayer.PlaySound(mmHeal);
+            TLeaderParty.Leader.Heal(APosition, 50);
+            Inventory.Clear(AItemIndex);
+          end
+          else
+            Game.InformDialog(CNoHealingNeeded);
+        end
+        else
+          Game.InformDialog(CNeedResurrection);
       iPotionOfRestoration:
+        if Creature[APosition].Alive then
         begin
-          Game.MediaPlayer.PlaySound(mmDrink);
-          Game.MediaPlayer.PlaySound(mmHeal);
-          TLeaderParty.Leader.Heal(APosition, 100);
-          Inventory.Clear(AItemIndex);
-        end;
+          if not TLeaderParty.Leader.Creature[APosition].HitPoints.IsMaxCurrValue
+          then
+          begin
+            Game.MediaPlayer.PlaySound(mmDrink);
+            Game.MediaPlayer.PlaySound(mmHeal);
+            TLeaderParty.Leader.Heal(APosition, 100);
+            Inventory.Clear(AItemIndex);
+          end
+          else
+            Game.InformDialog(CNoHealingNeeded);
+        end
+        else
+          Game.InformDialog(CNeedResurrection);
     end;
   end;
 end;
