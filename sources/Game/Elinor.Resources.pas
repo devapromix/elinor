@@ -80,7 +80,7 @@ type
 
     // ITEMS //
     reItemGold, reItemMana, reItemStoneTablet, reItemLifePotion,
-    reItemPotionOfHealing, reItemStoneRing, reItemRunicKey,
+    reItemPotionOfHealing, reItemPotionOfRestoration,reItemStoneRing, reItemRunicKey,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -539,6 +539,8 @@ const
     (FileName: 'item.potion.life.png'; ResType: teIcon;),
     // Item Potion Of Healing
     (FileName: 'item.potion.healing.png'; ResType: teIcon;),
+    // Item Potion Of Restoration
+    (FileName: 'item.potion.restoration.png'; ResType: teIcon;),
     // Item Stone Ring
     (FileName: 'item.ring.stone.png'; ResType: teIcon;),
     // Item Runic Key

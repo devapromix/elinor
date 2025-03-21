@@ -695,6 +695,13 @@ begin
           TLeaderParty.Leader.Heal(APosition, 50);
           Inventory.Clear(AItemIndex);
         end;
+      iPotionOfRestoration:
+        begin
+          Game.MediaPlayer.PlaySound(mmDrink);
+          Game.MediaPlayer.PlaySound(mmHeal);
+          TLeaderParty.Leader.Heal(APosition, 100);
+          Inventory.Clear(AItemIndex);
+        end;
     end;
   end;
 end;

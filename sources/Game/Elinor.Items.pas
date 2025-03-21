@@ -55,8 +55,8 @@ type
     iAncientRelic,
 
     // Potions
-    iLifePotion, iPotionOfHealing,
-    // iPotionOfRestoration, iHealingOintment,
+    iLifePotion, iPotionOfHealing, iPotionOfRestoration,
+    // iHealingOintment,
 
     // Artifacts
     iDwarvenBracer, iRunestone, iHornOfAwareness, iSoulCrystal, iSkullBracers,
@@ -82,7 +82,7 @@ type
     iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
 
 const
-  QuaffItems = [iPotionOfHealing];
+  QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration];
 
 type
   TItem = record
@@ -199,7 +199,12 @@ const
     ItSlot: isNone; ItRes: reItemLifePotion; Price: 200;),
     // Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
-    ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfHealing; Price: 100;),
+    ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfHealing;
+    Price: 100;),
+    // Potion of Restoration
+    (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
+    ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfRestoration;
+    Price: 200;),
 
     // Artifacts
     // Dwarven Bracer
