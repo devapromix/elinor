@@ -33,7 +33,7 @@ type
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
     reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reSmallFrame,
-    reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive, reFrameBigBackground,
+    reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive, reBigFrameBackground,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,

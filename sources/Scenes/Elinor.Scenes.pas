@@ -1117,7 +1117,7 @@ begin
     begin
       LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
       LTop := 150;
-      DrawImage(LLeft, LTop, reFrameBigBackground);
+      DrawImage(LLeft - 10, LTop - 10, reBigFrameBackground);
       DrawImage(LLeft, LTop, ResImage[reBigFrame]);
       DrawText(LTop + 100, InformMsg);
       if IsShowInform then
