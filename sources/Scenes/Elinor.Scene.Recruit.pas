@@ -42,7 +42,8 @@ uses
   Elinor.Scenes,
   Elinor.Creature.Types,
   Elinor.Creatures,
-  Elinor.Frame;
+  Elinor.Frame,
+  Elinor.Common;
 
 var
   HireParty: TParty = nil;
@@ -98,7 +99,7 @@ begin
     Game.Show(scBarracks);
   end
   else
-    InformDialog('Не хватает денег!');
+    InformDialog(CNeedMoreGold);
 end;
 
 class function TSceneRecruit.HireIndex: Integer;

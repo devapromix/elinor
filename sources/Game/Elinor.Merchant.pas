@@ -115,8 +115,6 @@ begin
 end;
 
 procedure TPotionMerchant.GenNewItems;
-var
-  I, LAmount: Integer;
 begin
   FInventory.Clear;
   AddRandomItems(iLifePotion, 1, 2);
