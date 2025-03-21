@@ -191,16 +191,16 @@ end;
 class procedure TSceneParty2.RenderParty(const PartySide: TPartySide;
   const Party: TParty; CanHire, ShowExp: Boolean);
 var
-  Position: TPosition;
+  LPosition: TPosition;
 begin
-  for Position := Low(TPosition) to High(TPosition) do
+  for LPosition := Low(TPosition) to High(TPosition) do
   begin
-    Game.GetScene(scParty).RenderFrame(PartySide, Position,
-      TFrame.Col(Position, PartySide), TFrame.Row(Position), False);
+    Game.GetScene(scParty).RenderFrame(PartySide, LPosition,
+      TFrame.Col(LPosition, PartySide), TFrame.Row(LPosition), False);
     if (Party <> nil) then
-      TSceneParty2(Game.GetScene(scParty)).DrawUnit(Position, Party,
-        TFrame.Col(Position, PartySide), TFrame.Row(Position), CanHire,
-        ShowExp);
+      TSceneParty2(Game.GetScene(scParty)).DrawUnit(LPosition, Party,
+        TFrame.Col(LPosition, PartySide), TFrame.Row(LPosition),
+        CanHire, ShowExp);
   end;
 end;
 

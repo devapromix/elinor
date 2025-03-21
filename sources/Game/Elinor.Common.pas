@@ -58,6 +58,7 @@ const
   CCannotHire = 'Cannot hire!';
   CCannotDismiss = 'Cannot dismiss!';
   CConfirmDismiss = 'Dismiss the warrior?';
+  CQuaffThisElixir = 'Quaff this elixir?';
   CNeedResurrection = 'Must resurrect first!';
   CNoHealingNeeded = 'Does not need healing!';
   CNeedMoreGold = 'Need more gold!';

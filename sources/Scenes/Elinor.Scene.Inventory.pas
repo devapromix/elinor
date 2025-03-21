@@ -20,13 +20,13 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
   private
     EquipmentSelItemIndex: Integer;
-    InventorySelItemIndex: Integer;
     Button: array [TButtonEnum] of TButton;
     ConfirmGold: Integer;
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
     procedure UnEquip;
     procedure Equip;
+    procedure QuaffElixir;
   public
     constructor Create;
     destructor Destroy; override;
@@ -44,7 +44,7 @@ type
 implementation
 
 uses
-  System.Math, dialogs,
+  System.Math,
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party2,
@@ -62,8 +62,14 @@ var
   CurrentParty: TParty;
   CloseSceneEnum: TSceneEnum;
   ActiveSection: TItemSectionEnum;
+  InventorySelItemIndex: Integer;
 
-  { TSceneInventory }
+procedure TSceneInventory.QuaffElixir;
+begin
+  TLeaderParty.Leader.Quaff(InventorySelItemIndex, ActivePartyPosition);
+end;
+
+{ TSceneInventory }
 
 class procedure TSceneInventory.ShowScene(AParty: TParty;
   const ACloseSceneEnum: TSceneEnum);
@@ -266,7 +272,7 @@ begin
     if LItemEnum = iNone then
       Exit;
     if LItemEnum in QuaffItems then
-      TLeaderParty.Leader.Quaff(InventorySelItemIndex, ActivePartyPosition)
+      ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)
     else
