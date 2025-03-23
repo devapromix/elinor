@@ -377,8 +377,8 @@ procedure TSceneMerchant.GetLeaderItemPrice;
 var
   LItemEnum: TItemEnum;
 begin
-  if (InventorySelItemIndex > -1) and
-    (InventorySelItemIndex < TLeaderParty.Leader.Inventory.Count) then
+  if (InventorySelItemIndex >=0) and
+    (InventorySelItemIndex < CMaxInventoryItems) then
   begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
     if LItemEnum = iNone then
