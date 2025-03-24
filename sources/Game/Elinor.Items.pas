@@ -59,7 +59,7 @@ type
     // iHealingOintment,
 
     // Artifacts
-    iDwarvenBracer, iRunestone, iHornOfAwareness, iSoulCrystal, iSkullBracers,
+    iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
     iLuteOfCharming, iSkullOfThanatos, iBethrezensClaw,
 
     // iRunicBlade,
@@ -218,9 +218,9 @@ const
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 500;),
-    // Soul Crystal
-    (Enum: iSoulCrystal; Name: 'Soul Crystal'; Level: 4; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 650;),
+    // Ice Crystal
+    (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reIceCrystal; Price: 650;),
     // Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
     ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 750;),
@@ -233,7 +233,7 @@ const
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 1250;),
     // Bethrezen's Claw
-    (Enum: iBethrezensClaw; Name: 'Коготь Бетрезена'; Level: 8;
+    (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 1500;),
 

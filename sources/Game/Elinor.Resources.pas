@@ -33,7 +33,8 @@ type
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
     reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reSmallFrame,
-    reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive, reBigFrameBackground,
+    reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
+    reBigFrameBackground,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -80,7 +81,8 @@ type
 
     // ITEMS //
     reItemGold, reItemMana, reItemStoneTablet, reItemLifePotion,
-    reItemPotionOfHealing, reItemPotionOfRestoration,reItemStoneRing, reItemRunicKey,
+    reItemPotionOfHealing, reItemPotionOfRestoration, reItemStoneRing,
+    reItemRunicKey, reIceCrystal,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -536,15 +538,17 @@ const
     // Item Stone Tablet
     (FileName: 'item.stone_tablet.png'; ResType: teItem;),
     // Item Life Potion
-    (FileName: 'item.potion.life.png'; ResType: teIcon;),
+    (FileName: 'item.potion.life.png'; ResType: teItem;),
     // Item Potion Of Healing
-    (FileName: 'item.potion.healing.png'; ResType: teIcon;),
+    (FileName: 'item.potion.healing.png'; ResType: teItem;),
     // Item Potion Of Restoration
-    (FileName: 'item.potion.restoration.png'; ResType: teIcon;),
+    (FileName: 'item.potion.restoration.png'; ResType: teItem;),
     // Item Stone Ring
-    (FileName: 'item.ring.stone.png'; ResType: teIcon;),
+    (FileName: 'item.ring.stone.png'; ResType: teItem;),
     // Item Runic Key
-    (FileName: 'item.runic_key.png'; ResType: teIcon;),
+    (FileName: 'item.runic_key.png'; ResType: teItem;),
+    // Item Ice Crystal
+    (FileName: 'item.ice_crystal.png'; ResType: teItem;),
 
     // Difficulty Easy
     (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),
