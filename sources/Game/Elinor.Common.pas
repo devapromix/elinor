@@ -38,6 +38,7 @@ type
   end;
 
   // function IIF(Condition: Boolean; IfTrue: Variant; IfFalse: Variant): Variant;
+function Percent(const AValue: Integer; APercent: Integer): Integer;
 
 const
   CGoldForRevivePerLevel = 25;
@@ -146,6 +147,11 @@ end;
 function TEnumCycler<T>.PrevAsInt(): Integer;
 begin
   Result := Cycle(FMinValue, FMaxValue, Pred(FValue));
+end;
+
+function Percent(const AValue: Integer; APercent: Integer): Integer;
+begin
+  Result := (AValue * APercent) div 100;
 end;
 
 end.

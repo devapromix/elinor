@@ -880,9 +880,12 @@ end;
 procedure TLeaderParty.LeaderRegeneration;
 var
   LPosition: TPosition;
+  LHitPoints: Integer;
 begin
   LPosition := Leader.GetPosition;
-  Heal(LPosition, LeaderRegenerationValue);
+  LHitPoints := Leader.Creature[LPosition].HitPoints.GetMaxValue;
+  Heal(LPosition, Percent(LHitPoints,
+    EnsureRange(LeaderRegenerationValue, 0, 90)));
   ShowMessage(IntToStr(LeaderRegenerationValue));
 end;
 
