@@ -90,6 +90,7 @@ type
     Name: string;
     Level: Integer;
     ItType: TItemType;
+    ItEffect: TItemEffect;
     ItSlot: TItemSlot;
     ItRes: TResEnum;
     Price: Integer;
@@ -153,121 +154,125 @@ uses
 const
   ItemBase: array [TItemEnum] of TItem = (
     // None
-    (Enum: iNone; Name: ''; Level: 0; ItType: itSpecial; ItSlot: isNone;
-    ItRes: reNone; Price: 0;),
+    (Enum: iNone; Name: ''; Level: 0; ItType: itSpecial; ItEffect: ieNone;
+    ItSlot: isNone; ItRes: reNone; Price: 0;),
 
     // Special
     // Gold
-    (Enum: iGold; Name: 'Gold'; Level: 1; ItType: itSpecial; ItSlot: isNone;
-    ItRes: reItemGold; Price: 0;),
+    (Enum: iGold; Name: 'Gold'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
+    ItSlot: isNone; ItRes: reItemGold; Price: 0;),
     // Mana
-    (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItSlot: isNone;
-    ItRes: reItemMana; Price: 0;),
+    (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
+    ItSlot: isNone; ItRes: reItemMana; Price: 0;),
     // Stone Tablet
     (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial;
-    ItSlot: isNone; ItRes: reItemStoneTablet; Price: 0;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemStoneTablet; Price: 0;),
 
     // Valuables
     // Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
-    ItSlot: isNone; ItRes: reItemRunicKey; Price: 100;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemRunicKey; Price: 100;),
     // Wotan's Scroll
-    (Enum: iWotansScroll; Name: 'Свиток Вотана'; Level: 2; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone; Price: 200;),
+    (Enum: iWotansScroll; Name: 'Wotan''s Scroll'; Level: 2; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 200;),
     // Ember Salts
     (Enum: iEmberSalts; Name: 'Ember Salts'; Level: 3; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone; Price: 300;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 300;),
     // Emerald
     (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone; Price: 400;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 400;),
     // Ruby
-    (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItSlot: isNone;
-    ItRes: reNone; Price: 550;),
+    (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItEffect: ieNone;
+    ItSlot: isNone; ItRes: reNone; Price: 550;),
     // Sapphire
     (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone; Price: 750;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 750;),
     // Diamond
     (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone; Price: 850;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 850;),
     // Ancient Relic
     (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
-    ItSlot: isNone; ItRes: reNone; Price: 1000;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 1000;),
 
     // Potions
     // Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItSlot: isNone; ItRes: reItemLifePotion; Price: 200;),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemLifePotion; Price: 200;),
     // Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
-    ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfHealing;
-    Price: 100;),
+    ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: reItemPotionOfHealing; Price: 100;),
     // Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
-    ItType: itPotion; ItSlot: isNone; ItRes: reItemPotionOfRestoration;
-    Price: 200;),
+    ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: reItemPotionOfRestoration; Price: 200;),
 
     // Artifacts
     // Dwarven Bracer
     (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
-    ItSlot: isArtifact; ItRes: reNone; Price: 250;),
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 250;),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItSlot: isArtifact; ItRes: reNone; Price: 400;),
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 400;),
     // Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
-    ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone; Price: 500;),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
+    Price: 500;),
     // Soul Crystal
     (Enum: iSoulCrystal; Name: 'Soul Crystal'; Level: 4; ItType: itArtifact;
-    ItSlot: isArtifact; ItRes: reNone; Price: 650;),
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 650;),
     // Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
-    ItSlot: isArtifact; ItRes: reNone; Price: 750;),
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 750;),
     // Lute Of Charming
     (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
-    ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone; Price: 1000;),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
+    Price: 1000;),
     // Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
-    ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone; Price: 1250;),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
+    Price: 1250;),
     // Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Коготь Бетрезена'; Level: 8;
-    ItType: itArtifact; ItSlot: isArtifact; ItRes: reNone; Price: 1500;),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
+    Price: 1500;),
 
     // Rings
     // Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
-    ItSlot: isRing; ItRes: reItemStoneRing; Price: 300;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reItemStoneRing; Price: 300;),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 400;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 400;),
     // Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 500;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 500;),
     // Gold Ring
     (Enum: iGoldRing; Name: 'Gold Ring'; Level: 4; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 700;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 700;),
     // Ring Of Strength,
     (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 900;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 900;),
     // Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 1000;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 1000;),
     // Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 1200;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 1200;),
     // Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
-    ItSlot: isRing; ItRes: reNone; Price: 1500;),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 1500;),
 
     // Helms
     // Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
-    ItSlot: isHelm; ItRes: reNone; Price: 1000;),
+    ItEffect: ieNone; ItSlot: isHelm; ItRes: reNone; Price: 1000;),
     // Mjolnir's Crown
     (Enum: iMjolnirsCrown; Name: 'Mjolnir''s Crown'; Level: 6; ItType: itHelm;
-    ItSlot: isHelm; ItRes: reNone; Price: 1500;),
+    ItEffect: ieNone; ItSlot: isHelm; ItRes: reNone; Price: 1500;),
     // Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
-    ItSlot: isHelm; ItRes: reNone; Price: 2000;));
+    ItEffect: ieNone; ItSlot: isHelm; ItRes: reNone; Price: 2000;));
 
   { TInventory }
 
