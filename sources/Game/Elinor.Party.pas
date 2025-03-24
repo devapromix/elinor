@@ -111,6 +111,7 @@ type
     CapitalPartyIndex: Byte;
     SummonPartyIndex: Byte;
     LeaderName: string;
+    LeaderRegenerationValue: Byte;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -158,6 +159,8 @@ type
       : Integer; overload;
     function GetSpellCastingRange: Integer; overload;
     function InSpellCastingRange(const AX, AY: Integer): Boolean;
+    procedure LeaderRegeneration;
+    class procedure ModifyLeaderRegeneration(const AValue: Integer);
   end;
 
 type
@@ -194,7 +197,7 @@ var
 implementation
 
 uses
-  System.Math,
+  System.Math, dialogs,
   System.Classes,
   System.SysUtils,
   Elinor.Saga,
@@ -627,6 +630,7 @@ begin
   SetMaxMovementPoints;
   SetMaxSpellsPerDay;
   Self.UpdateSightRadius;
+  LeaderRegenerationValue := 0;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
@@ -871,6 +875,20 @@ end;
 class function TLeaderParty.Leader: TLeaderParty;
 begin
   Result := TLeaderParty(PartyList.Party[LeaderPartyIndex]);
+end;
+
+procedure TLeaderParty.LeaderRegeneration;
+var
+  LPosition: TPosition;
+begin
+  LPosition := Leader.GetPosition;
+  Heal(LPosition, LeaderRegenerationValue);
+  ShowMessage(IntToStr(LeaderRegenerationValue));
+end;
+
+class procedure TLeaderParty.ModifyLeaderRegeneration(const AValue: Integer);
+begin
+  LeaderRegenerationValue := LeaderRegenerationValue + AValue;
 end;
 
 class procedure TLeaderParty.Move(Dir: TDirectionEnum);

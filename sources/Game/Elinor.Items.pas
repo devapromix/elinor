@@ -38,7 +38,7 @@ type
     ipTemporary);
 
 type
-  TItemEffect = (ieNone);
+  TItemEffect = (ieNone, ieRegen5);
 
 type
   TJewlery = (jwNone, jwSteel, jwBronze, jwCopper, jwBrass, jwSilver, jwGold,
@@ -127,6 +127,7 @@ type
   TEquipment = class(TObject)
   private
     FItem: array [0 .. MaxEquipmentItems - 1] of TItem;
+    procedure Update;
   public
     constructor Create;
     procedure Clear; overload;
@@ -149,7 +150,8 @@ type
 implementation
 
 uses
-  SysUtils;
+  SysUtils,
+  Elinor.Party;
 
 const
   ItemBase: array [TItemEnum] of TItem = (
@@ -210,10 +212,10 @@ const
     // Artifacts
     // Dwarven Bracer
     (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 250;),
+    ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: reNone; Price: 250;),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 400;),
+    ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: reNone; Price: 400;),
     // Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
@@ -240,10 +242,10 @@ const
     // Rings
     // Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reItemStoneRing; Price: 300;),
+    ItEffect: ieRegen5; ItSlot: isRing; ItRes: reItemStoneRing; Price: 300;),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 400;),
+    ItEffect: ieRegen5; ItSlot: isRing; ItRes: reNone; Price: 400;),
     // Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
     ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 500;),
@@ -368,6 +370,7 @@ end;
 procedure TEquipment.Add(const SlotIndex: Integer; const AItemEnum: TItemEnum);
 begin
   FItem[SlotIndex] := ItemBase[AItemEnum];
+  Update;
 end;
 
 procedure TEquipment.Clear;
@@ -381,6 +384,7 @@ end;
 procedure TEquipment.Clear(const I: Integer);
 begin
   FItem[I] := ItemBase[iNone];
+  Update;
 end;
 
 constructor TEquipment.Create;
@@ -406,6 +410,22 @@ end;
 function TEquipment.ItemSlotName(const I: Integer): string;
 begin
   Result := SlotName[DollSlot[I]];
+end;
+
+procedure TEquipment.Update;
+var
+  I: Integer;
+begin
+  TLeaderParty.LeaderRegenerationValue := 0;
+  for I := 0 to MaxEquipmentItems - 1 do
+  begin
+    if FItem[I].Enum = iNone then
+      Continue;
+    // Regeneration
+    if FItem[I].ItEffect = ieRegen5 then
+      TLeaderParty.ModifyLeaderRegeneration(5);
+
+  end;
 end;
 
 end.

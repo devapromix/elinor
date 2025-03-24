@@ -352,6 +352,7 @@ begin
     Map.UnParalyzeAllParties;
     if (TLeaderParty.Leader.Enum in FighterLeaders) then
       TLeaderParty.Leader.HealParty(CLeaderWarriorHealAllInPartyPerDay);
+    TLeaderParty.Leader.LeaderRegeneration;
     TLeaderParty.Leader.SpellsPerDay.SetToMaxValue;
     ShowNewDayMessageTime := 20;
     if (RandomRange(0, 100) <= 5) then
