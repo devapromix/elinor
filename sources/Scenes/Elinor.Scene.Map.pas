@@ -335,11 +335,6 @@ begin
       TLeaderParty.Leader.Move(drSouthEast);
     K_ENTER, K_W, K_KP_5:
       TLeaderParty.Leader.Move(drOrigin);
-    K_N:
-      begin
-        TLeaderParty.Leader.Abilities.GenRandomList;
-        TSceneNewAbility.ShowScene;
-      end;
     K_I:
       ShowInventoryScene;
     K_A:
@@ -350,12 +345,22 @@ begin
       ShowScenarioScene;
     K_S:
       ShowSpellbookScene;
+    // Wizard
     K_V:
-      TSceneVictory.ShowScene;
+      if Game.Wizard then
+        TSceneVictory.ShowScene;
     K_D:
-      TSceneDefeat.ShowScene;
+      if Game.Wizard then
+        TSceneDefeat.ShowScene;
+    K_N:
+      if Game.Wizard then
+      begin
+        TLeaderParty.Leader.Abilities.GenRandomList;
+        TSceneNewAbility.ShowScene;
+      end;
     K_M:
-      TSceneMerchant.ShowScene(TLeaderParty.Leader, scMap);
+      if Game.Wizard then
+        TSceneMerchant.ShowScene(TLeaderParty.Leader, scMap);
   end;
 end;
 
