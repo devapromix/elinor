@@ -52,7 +52,7 @@ uses
   Elinor.Scene.Victory,
   Elinor.Scenario;
 
-{ TSceneLoot2 }
+{ TSceneLoot }
 
 procedure TSceneLoot2.PickupItem;
 var
@@ -193,6 +193,7 @@ procedure TSceneLoot2.Render;
   procedure RenderItemInfo;
   var
     LLootItem: TLootItem;
+    LItemEnum: TItemEnum;
     X, Y, I: Integer;
   begin
     TextTop := TFrame.Row(0) + 6;
@@ -203,16 +204,38 @@ procedure TSceneLoot2.Render;
     if I >= 0 then
     begin
       LLootItem := Loot.GetLootItem(I);
-      AddTextLine(TItemBase.Item(LLootItem.ItemEnum).Name, True);
+      LItemEnum := LLootItem.ItemEnum;
+      AddTextLine(TItemBase.Item(LItemEnum).Name, True);
       AddTextLine;
       case LLootItem.LootType of
         ltGold, ltMana:
           AddTextLine('Amount', LLootItem.Amount);
         ltStoneTab:
-          ;
+          AddTextLine('Quest item');
       else
-        AddTextLine('Level', TItemBase.Item(LLootItem.ItemEnum).Level);
+        AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
       end;
+      case LItemEnum of
+        iLifePotion:
+          AddTextLine('Revives dead units');
+        iPotionOfHealing:
+          AddTextLine('Restores 50 hit points');
+        iPotionOfRestoration:
+          AddTextLine('Restores 100 hit points');
+      end;
+      case TItemBase.Item(LItemEnum).ItEffect of
+        ieRegen5:
+          AddTextLine('Regeneration: +5');
+        ieRegen10:
+          AddTextLine('Regeneration: +10');
+        ieRegen15:
+          AddTextLine('Regeneration: +15');
+        ieRegen20:
+          AddTextLine('Regeneration: +20');
+        ieRegen25:
+          AddTextLine('Regeneration: +25');
+      end;
+      DrawText(TextLeft, TextTop, 300, TItemBase.Item(LItemEnum).Description);
     end;
   end;
 

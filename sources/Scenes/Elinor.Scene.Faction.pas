@@ -31,11 +31,11 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Faction,
-  Elinor.Scene.Difficulty,
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
   Elinor.Scene.Leader,
+  Elinor.Scene.Difficulty,
   Elinor.Scene.Frames;
 
 procedure TSceneRace.Cancel;
