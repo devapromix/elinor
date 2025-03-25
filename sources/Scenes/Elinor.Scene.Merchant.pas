@@ -277,6 +277,8 @@ procedure TSceneMerchant.Render;
   end;
 
   procedure RenderMerchantItemDetails;
+  var
+    LItemEnum: TItemEnum;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(1) + 12;
@@ -285,18 +287,28 @@ procedure TSceneMerchant.Render;
     AddTextLine(IntToStr(Merchants.GetMerchant(mtPotions).Gold));
     if MerchantSelectedItemPrice > 0 then
     begin
-      AddTextLine('Item Details', True);
+      LItemEnum := Merchants.GetMerchant(mtPotions)
+        .Inventory.ItemEnum(MerchantSelItemIndex);
+      AddTextLine(TItemBase.Item(LItemEnum).Name, True);
       AddTextLine('');
-      AddTextLine(Merchants.GetMerchant(mtPotions)
-        .Inventory.ItemName(MerchantSelItemIndex));
+      AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
       AddTextLine('Price: ' + IntToStr(MerchantSelectedItemPrice));
+      DrawItemDescription(LItemEnum);
+      DrawText(TextLeft, TextTop, 300, TItemBase.Item(LItemEnum).Description);
       AddTextLine('');
+      AddTextLine('');
+      AddTextLine('');
+      AddTextLine('');
+      AddTextLine('');
+
       if ActiveSection = isMerchant then
         AddTextLine('Press ENTER or CLICK item to buy');
     end;
   end;
 
   procedure RenderLeaderItemDetails;
+  var
+    LItemEnum: TItemEnum;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
@@ -305,11 +317,18 @@ procedure TSceneMerchant.Render;
     AddTextLine(IntToStr(Game.Gold.Value));
     if LeaderSelectedItemPrice > 0 then
     begin
-      AddTextLine('Item Details', True);
+      LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum
+        (InventorySelItemIndex);
+      AddTextLine(TItemBase.Item(LItemEnum).Name, True);
       AddTextLine('');
-      AddTextLine(TLeaderParty.Leader.Inventory.ItemName
-        (InventorySelItemIndex));
+      AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
       AddTextLine('Price: ' + IntToStr(LeaderSelectedItemPrice));
+      DrawItemDescription(LItemEnum);
+      DrawText(TextLeft, TextTop, 300, TItemBase.Item(LItemEnum).Description);
+      AddTextLine('');
+      AddTextLine('');
+      AddTextLine('');
+      AddTextLine('');
       AddTextLine('');
       if ActiveSection = isInventory then
         AddTextLine('Press ENTER or CLICK item to sell');
@@ -377,7 +396,7 @@ procedure TSceneMerchant.GetLeaderItemPrice;
 var
   LItemEnum: TItemEnum;
 begin
-  if (InventorySelItemIndex >=0) and
+  if (InventorySelItemIndex >= 0) and
     (InventorySelItemIndex < CMaxInventoryItems) then
   begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);

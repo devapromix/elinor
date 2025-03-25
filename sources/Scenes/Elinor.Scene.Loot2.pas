@@ -213,28 +213,12 @@ procedure TSceneLoot2.Render;
         ltStoneTab:
           AddTextLine('Quest item');
       else
-        AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
+        begin
+          AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
+          AddTextLine('Price', TItemBase.Item(LItemEnum).Price);
+        end;
       end;
-      case LItemEnum of
-        iLifePotion:
-          AddTextLine('Revives dead units');
-        iPotionOfHealing:
-          AddTextLine('Restores 50 hit points');
-        iPotionOfRestoration:
-          AddTextLine('Restores 100 hit points');
-      end;
-      case TItemBase.Item(LItemEnum).ItEffect of
-        ieRegen5:
-          AddTextLine('Regeneration: +5');
-        ieRegen10:
-          AddTextLine('Regeneration: +10');
-        ieRegen15:
-          AddTextLine('Regeneration: +15');
-        ieRegen20:
-          AddTextLine('Regeneration: +20');
-        ieRegen25:
-          AddTextLine('Regeneration: +25');
-      end;
+      DrawItemDescription(LItemEnum);
       DrawText(TextLeft, TextTop, 300, TItemBase.Item(LItemEnum).Description);
     end;
   end;

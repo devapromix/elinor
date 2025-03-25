@@ -164,6 +164,7 @@ type
     procedure DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
     procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
     procedure RenderGuardianInfo;
+    procedure DrawItemDescription(const AItemEnum: TItemEnum);
 
   end;
 
@@ -700,6 +701,31 @@ procedure TScene.DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
 begin
   DrawImage(AX + 7, AY + 7, reBGCharacter);
   DrawImage(AX + 7, AY + 29, TItemBase.Item(AItemEnum).ItRes);
+end;
+
+procedure TScene.DrawItemDescription(const AItemEnum: TItemEnum);
+begin
+  case AItemEnum of
+    iLifePotion:
+      AddTextLine('Revives dead units');
+    iPotionOfHealing:
+      AddTextLine('Restores 50 hit points');
+    iPotionOfRestoration:
+      AddTextLine('Restores 100 hit points');
+  end;
+  case TItemBase.Item(AItemEnum).ItEffect of
+    ieRegen5:
+      AddTextLine('Regeneration +5');
+    ieRegen10:
+      AddTextLine('Regeneration +10');
+    ieRegen15:
+      AddTextLine('Regeneration +15');
+    ieRegen20:
+      AddTextLine('Regeneration +20');
+    ieRegen25:
+      AddTextLine('Regeneration +25');
+  end;
+
 end;
 
 procedure TScene.DrawText(const AX, AY: Integer; AText: string);
