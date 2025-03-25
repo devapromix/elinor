@@ -38,7 +38,7 @@ type
     ipTemporary);
 
 type
-  TItemEffect = (ieNone, ieRegen5);
+  TItemEffect = (ieNone, ieRegen5, ieRegen10, ieRegen15, ieRegen20, ieRegen25);
 
 type
   TJewlery = (jwNone, jwSteel, jwBronze, jwCopper, jwBrass, jwSilver, jwGold,
@@ -275,11 +275,11 @@ const
     ' holding dormant magical energy'),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
-    ItEffect: ieRegen5; ItSlot: isRing; ItRes: reNone; Price: 400;
+    ItEffect: ieRegen10; ItSlot: isRing; ItRes: reNone; Price: 400;
     Description: 'A simple bronze ring,' + ' sturdy and unassuming'),
     // Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 500;
+    ItEffect: ieRegen15; ItSlot: isRing; ItRes: reNone; Price: 500;
     Description: 'A sleek silver ring,' +
     ' reflecting a subtle, elegant shine'),
     // Gold Ring
@@ -315,7 +315,7 @@ const
     Description: ''),
     // Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
-    ItEffect: ieNone; ItSlot: isHelm; ItRes: reNone; Price: 2000;
+    ItEffect: ieRegen25; ItSlot: isHelm; ItRes: reNone; Price: 2000;
     Description: ''));
 
   { TInventory }
@@ -466,6 +466,14 @@ begin
     // Regeneration
     if FItem[I].ItEffect = ieRegen5 then
       TLeaderParty.ModifyLeaderRegeneration(5);
+    if FItem[I].ItEffect = ieRegen10 then
+      TLeaderParty.ModifyLeaderRegeneration(10);
+    if FItem[I].ItEffect = ieRegen15 then
+      TLeaderParty.ModifyLeaderRegeneration(15);
+    if FItem[I].ItEffect = ieRegen20 then
+      TLeaderParty.ModifyLeaderRegeneration(20);
+    if FItem[I].ItEffect = ieRegen25 then
+      TLeaderParty.ModifyLeaderRegeneration(25);
 
   end;
 end;
