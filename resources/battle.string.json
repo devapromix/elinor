@@ -146,6 +146,9 @@
 			"%s жутко воет и парализует %s.",
 			"%s парализует %s страхом."
 		],
+"paral_passed":[
+			"The paralysis has passed."
+		],
 "default_attack":[
 			"%s атакует %s и наносит %d урона."
 		],

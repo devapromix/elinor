@@ -18,6 +18,7 @@ type
     procedure Kill(const CrName: string);
     procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
     procedure Paralyze(const AtkCrName, DefCrName: string);
+    procedure ParalPassed;
     procedure Miss(const AtkCrName, DefCrName: string);
     procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
     procedure UpdateLevel(const CrName, GenderEnding: string;
@@ -130,6 +131,11 @@ begin
     Log.Add(Format(TResources.RandomValue('battle.string', 'miss2'),
       [AtkCrName, DefCrName]));
   end;
+end;
+
+procedure TBattle.ParalPassed;
+begin
+  Log.Add(TResources.RandomValue('battle.string', 'paral_passed'));
 end;
 
 procedure TBattle.Paralyze(const AtkCrName, DefCrName: string);

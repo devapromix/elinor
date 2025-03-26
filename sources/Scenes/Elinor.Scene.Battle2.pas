@@ -337,7 +337,7 @@ begin
       end;
       if AtkParty.Creature[AtkPos].Paralyze then
       begin
-        Battle.Log.Add('Паралич прошел.');
+        Battle.Log.Add(Battle.ParalPassed);
         AtkParty.UnParalyze(AtkPos);
         NextTurn;
         Exit;
