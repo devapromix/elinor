@@ -46,6 +46,7 @@ type
     function GetHitPoints(Position: Integer): Integer;
     procedure AI;
     procedure Kill(DefCrEnum: TCreatureEnum);
+    procedure DrawGlowTargets;
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -312,10 +313,18 @@ end;
 
 procedure TSceneBattle2.Turn(const TurnType: TTurnType;
   AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+var
+  LHasWarriors: Boolean;
 begin
   if AtkParty.Creature[AtkPos].Alive and DefParty.Creature[DefPos].Alive then
   begin
     begin
+      LHasWarriors := TBattleAI.HasWarriors(DefParty);
+      case AtkParty.Creature[AtkPos].ReachEnum of
+        reAdj:
+          if LHasWarriors and Odd(DefPos) then
+            Exit;
+      end;
       if AtkParty.Creature[AtkPos].ChancesToHit.GetFullValue() <
         RandomRange(0, 100) + 1 then
       begin
@@ -575,9 +584,9 @@ end;
 
 procedure TSceneBattle2.ClickOnPosition;
 begin
-  case CurrentPartyPosition of
+  case CurrentPartyPosition of // ціль по якій клікнули
     0 .. 5:
-      case ActivePartyPosition of
+      case ActivePartyPosition of // хто зараз активний
         0 .. 5:
           Turn(ttHeal, LeaderParty, LeaderParty, ActivePartyPosition,
             CurrentPartyPosition);
@@ -619,6 +628,31 @@ begin
   inherited;
 end;
 
+procedure TSceneBattle2.DrawGlowTargets;
+var
+  LHasWarriors, F: Boolean;
+  LPosition: TPosition;
+begin
+  case ActivePartyPosition of
+    0 .. 5:
+      begin
+        LHasWarriors := TBattleAI.HasWarriors(EnemyParty);
+        for LPosition := Low(TPosition) to High(TPosition) do
+        begin
+          if not EnemyParty.Creature[LPosition].Alive then
+            Continue;
+          case LeaderParty.Creature[ActivePartyPosition].ReachEnum of
+            reAdj:
+              if LHasWarriors and Odd(LPosition) then
+                Continue;
+          end;
+          DrawImage(TFrame.Col(LPosition, psRight), TFrame.Row(LPosition),
+            reFrameSlotGlow);
+        end;
+      end;
+  end;
+end;
+
 procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
@@ -650,8 +684,7 @@ end;
 
 procedure TSceneBattle2.Render;
 var
-  LHasWarriors, F: Boolean;
-  LPosition: TPosition;
+  F: Boolean;
 
   procedure RenderWait;
   begin
@@ -663,26 +696,7 @@ begin
   inherited;
   TSceneParty2.RenderParty(psLeft, LeaderParty);
   TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
-
-  case ActivePartyPosition of
-    0 .. 5:
-      begin
-        LHasWarriors := TBattleAI.HasWarriors(EnemyParty);
-        for LPosition := Low(TPosition) to High(TPosition) do
-        begin
-          if not EnemyParty.Creature[LPosition].Alive then
-            Continue;
-          case LeaderParty.Creature[ActivePartyPosition].ReachEnum of
-            reAdj:
-              if LHasWarriors and Odd(LPosition) then
-                Continue;
-          end;
-          DrawImage(TFrame.Col(LPosition, psRight), TFrame.Row(LPosition),
-            reFrameSlotGlow);
-        end;
-      end;
-  end;
-
+  DrawGlowTargets;
   // if not Enabled then
   // RenderWait;
   F := False;
