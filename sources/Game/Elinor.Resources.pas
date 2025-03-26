@@ -32,8 +32,8 @@ type
     //
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
-    reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reSmallFrame,
-    reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
+    reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reFrameSlotGlow,
+    reSmallFrame, reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
     reBigFrameBackground,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
@@ -188,6 +188,8 @@ const
     (FileName: 'frame.slot.active.png'; ResType: teGUI;),
     // Frame Slot Passive
     (FileName: 'frame.slot.passive.png'; ResType: teGUI;),
+    // Frame Slot Glow
+    (FileName: 'frame.slot.glow.png'; ResType: teGUI;),
     // Small Frame
     (FileName: 'frame.small.png'; ResType: teGUI;),
     // Big Frame

@@ -72,16 +72,18 @@ implementation
 uses
   System.Math, Dialogs,
   System.SysUtils,
+  Elinor.Map,
   Elinor.Saga,
   Elinor.Scenario,
   Elinor.Statistics,
   Elinor.Resources,
   Elinor.Button,
   Elinor.Ability,
+  Elinor.Battle.AI,
   Elinor.Scene.Defeat,
   Elinor.Scene.NewAbility,
-  DisciplesRL.Scene.Hire,
-  Elinor.Map, Elinor.Scene.Loot2, Elinor.Scene.Party2, Elinor.Battle.AI;
+  Elinor.Scene.Loot2,
+  Elinor.Scene.Party2, Elinor.Frame;
 
 var
   CloseButton: TButton;
@@ -648,7 +650,8 @@ end;
 
 procedure TSceneBattle2.Render;
 var
-  F: Boolean;
+  LHasWarriors, F: Boolean;
+  LPosition: TPosition;
 
   procedure RenderWait;
   begin
@@ -660,6 +663,26 @@ begin
   inherited;
   TSceneParty2.RenderParty(psLeft, LeaderParty);
   TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
+
+  case ActivePartyPosition of
+    0 .. 5:
+      begin
+        LHasWarriors := TBattleAI.HasWarriors(EnemyParty);
+        for LPosition := Low(TPosition) to High(TPosition) do
+        begin
+          if not EnemyParty.Creature[LPosition].Alive then
+            Continue;
+          case LeaderParty.Creature[ActivePartyPosition].ReachEnum of
+            reAdj:
+              if LHasWarriors and Odd(LPosition) then
+                Continue;
+          end;
+          DrawImage(TFrame.Col(LPosition, psRight), TFrame.Row(LPosition),
+            reFrameSlotGlow);
+        end;
+      end;
+  end;
+
   // if not Enabled then
   // RenderWait;
   F := False;
