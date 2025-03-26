@@ -10,6 +10,7 @@ uses
   Elinor.Scenes,
   Elinor.Scene.Frames,
   Elinor.Party,
+  Elinor.Battle,
   Elinor.Battle.Log;
 
 type
@@ -18,9 +19,9 @@ type
 type
   TSceneBattle2 = class(TSceneFrames)
   private
+    FBattle: TBattle;
     DuelEnemyParty: TParty;
     DuelLeaderParty: TParty;
-    InitiativeList: TStringList;
     CurrentPosition: Integer;
     ttt: Integer;
     IsNewAbility: Boolean;
@@ -29,7 +30,6 @@ type
     FEnabled: Boolean;
     BattleLog: TBattleLog;
     DuelLeaderPosition: TPosition;
-    procedure SetInitiative;
     procedure ClickOnPosition;
     procedure ChExperience;
     procedure Turn(const TurnType: TTurnType; AtkParty, DefParty: TParty;
@@ -43,7 +43,7 @@ type
     procedure StartBattle;
     procedure Victory;
     procedure StartRound;
-    function GetHitPoints(Position: Integer): Integer;
+    function GetHitPoints(const APosition: Integer): Integer;
     procedure AI;
     procedure Kill(DefCrEnum: TCreatureEnum);
     procedure DrawGlowTargets;
@@ -613,25 +613,25 @@ begin
   CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
     SceneLeft), DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
-  InitiativeList := TStringList.Create;
   DuelEnemyParty := TParty.Create;
   DuelLeaderParty := TParty.Create;
   BattleLog := TBattleLog.Create;
+  FBattle := TBattle.Create;
 end;
 
 destructor TSceneBattle2.Destroy;
 begin
+  FreeAndNil(FBattle);
   FreeAndNil(BattleLog);
   FreeAndNil(DuelLeaderParty);
   FreeAndNil(DuelEnemyParty);
-  FreeAndNil(InitiativeList);
   FreeAndNil(CloseButton);
   inherited;
 end;
 
 procedure TSceneBattle2.DrawGlowTargets;
 var
-  LHasWarriors, F: Boolean;
+  LHasWarriors: Boolean;
   LPosition: TPosition;
 begin
   case ActivePartyPosition of
@@ -723,7 +723,8 @@ end;
 
 procedure TSceneBattle2.StartRound;
 begin
-  SetInitiative;
+  CurrentPosition := 11;
+  FBattle.SetInitiative(LeaderParty, EnemyParty);
   NextTurn;
 end;
 
@@ -740,33 +741,6 @@ begin
   Game.Show(scBattle);
 end;
 
-procedure TSceneBattle2.SetInitiative;
-var
-  I: Integer;
-begin
-  InitiativeList.Clear;
-  CurrentPosition := 11;
-  for I := 0 to 11 do
-  begin
-    InitiativeList.Add('');
-    case I of
-      0 .. 5:
-        if LeaderParty.Creature[I].Alive then
-          InitiativeList[I] :=
-            Format('%d:%d', [LeaderParty.GetInitiative(I), I]);
-    else
-      begin
-        if EnemyParty.Creature[I - 6].Alive then
-          InitiativeList[I] :=
-            Format('%d:%d', [EnemyParty.GetInitiative(I - 6), I]);
-      end;
-    end;
-  end;
-  for I := 0 to 11 do
-    InitiativeList.Exchange(Random(I), Random(I));
-  InitiativeList.Sort;
-end;
-
 procedure TSceneBattle2.NextTurn;
 var
   Position: Integer;
@@ -775,14 +749,14 @@ var
 begin
   Position := -1;
   repeat
-    S := InitiativeList[CurrentPosition];
+    S := FBattle.InitiativeList[CurrentPosition];
     if S <> '' then
     begin
       A := S.Split([':']);
       Position := A[1].ToInteger;
     end;
     Enabled := Position <= 5;
-    InitiativeList[CurrentPosition] := '';
+    FBattle.InitiativeList[CurrentPosition] := '';
     Dec(CurrentPosition);
     if CurrentPosition < 0 then
     begin
@@ -796,19 +770,12 @@ begin
   Render;
 end;
 
-function TSceneBattle2.GetHitPoints(Position: Integer): Integer;
+function TSceneBattle2.GetHitPoints(const APosition: Integer): Integer;
 begin
   Result := 0;
-  if Position < 0 then
+  if APosition < 0 then
     Exit;
-  case Position of
-    0 .. 5:
-      if LeaderParty.Creature[Position].Active then
-        Result := LeaderParty.GetHitPoints(Position);
-    6 .. 11:
-      if EnemyParty.Creature[Position - 6].Active then
-        Result := EnemyParty.GetHitPoints(Position - 6);
-  end;
+  Result := FBattle.GetHitPoints(APosition, LeaderParty, EnemyParty);
 end;
 
 procedure TSceneBattle2.Show(const S: TSceneEnum);
