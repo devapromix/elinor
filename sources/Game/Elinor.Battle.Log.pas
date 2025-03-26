@@ -1,4 +1,4 @@
-﻿unit Elinor.Battle;
+﻿unit Elinor.Battle.Log;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Elinor.Button;
 
 type
-  TBattle = class(TObject)
+  TBattleLog = class(TObject)
   public
     Log: TLog;
     constructor Create;
@@ -32,51 +32,51 @@ type
 implementation
 
 uses
-  Classes,
-  SysUtils,
-  Math,
+  System.Classes,
+  System.SysUtils,
+  System.Math,
   Elinor.Resources,
   Elinor.Scenes;
 
-{ TBattle }
+{ TBattleLog }
 
-constructor TBattle.Create;
+constructor TBattleLog.Create;
 begin
   inherited;
   Log := TLog.Create(TScene.SceneLeft, TScene.DefaultButtonTop - 20);
 end;
 
-destructor TBattle.Destroy;
+destructor TBattleLog.Destroy;
 begin
   inherited;
   FreeAndNil(Log);
 end;
 
-procedure TBattle.UpdateExp(const CrName, GenderEnding: string;
+procedure TBattleLog.UpdateExp(const CrName, GenderEnding: string;
   const Exp: Integer);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'update_exp'),
     [CrName, GenderEnding, Exp]));
 end;
 
-procedure TBattle.UpdateLevel(const CrName, GenderEnding: string;
+procedure TBattleLog.UpdateLevel(const CrName, GenderEnding: string;
   const Level: Integer);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'update_level'),
     [CrName, GenderEnding, Level]));
 end;
 
-procedure TBattle.WinInBattle;
+procedure TBattleLog.WinInBattle;
 begin
   Log.Add(TResources.RandomValue('battle.string', 'win_in_battle'));
 end;
 
-procedure TBattle.LoseInBattle;
+procedure TBattleLog.LoseInBattle;
 begin
   Log.Add(TResources.RandomValue('battle.string', 'lose_in_battle'));
 end;
 
-procedure TBattle.Attack(const AttackEnum: TAttackEnum;
+procedure TBattleLog.Attack(const AttackEnum: TAttackEnum;
   const SourceEnum: TSourceEnum; const AtkCrName, DefCrName: string;
   const Value: Integer);
 var
@@ -116,12 +116,12 @@ begin
   end;
 end;
 
-procedure TBattle.Clear;
+procedure TBattleLog.Clear;
 begin
   Log.Clear;
 end;
 
-procedure TBattle.Miss(const AtkCrName, DefCrName: string);
+procedure TBattleLog.Miss(const AtkCrName, DefCrName: string);
 begin
   case RandomRange(0, 2) of
     0:
@@ -133,24 +133,24 @@ begin
   end;
 end;
 
-procedure TBattle.ParalPassed;
+procedure TBattleLog.ParalPassed;
 begin
   Log.Add(TResources.RandomValue('battle.string', 'paral_passed'));
 end;
 
-procedure TBattle.Paralyze(const AtkCrName, DefCrName: string);
+procedure TBattleLog.Paralyze(const AtkCrName, DefCrName: string);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'paralyze_attack'),
     [AtkCrName, DefCrName]));
 end;
 
-procedure TBattle.StartCastSpell(const CrName, SourceName: string);
+procedure TBattleLog.StartCastSpell(const CrName, SourceName: string);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'start_cast'),
     [CrName, SourceName]));
 end;
 
-procedure TBattle.Heal(const AtkCrName, DefCrName: string;
+procedure TBattleLog.Heal(const AtkCrName, DefCrName: string;
   const Value: Integer);
 begin
   case RandomRange(0, 2) of
@@ -163,7 +163,7 @@ begin
   end;
 end;
 
-procedure TBattle.Kill(const CrName: string);
+procedure TBattleLog.Kill(const CrName: string);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'kill_creature'),
     [CrName]));
