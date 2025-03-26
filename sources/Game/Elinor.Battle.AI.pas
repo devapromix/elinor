@@ -17,9 +17,9 @@ implementation
 
 class function TBattleAI.HasWarriors(AParty: TParty): Boolean;
 begin
-  Result := (AParty.Creature[1].HitPoints.GetCurrValue > 0) or
-    (AParty.Creature[3].HitPoints.GetCurrValue > 0) or
-    (AParty.Creature[5].HitPoints.GetCurrValue > 0);
+  Result := (AParty.Creature[0].HitPoints.GetCurrValue > 0) or
+    (AParty.Creature[2].HitPoints.GetCurrValue > 0) or
+    (AParty.Creature[4].HitPoints.GetCurrValue > 0);
 end;
 
 end.
