@@ -210,7 +210,9 @@ uses
   Elinor.Scene.Loot2,
   Elinor.Common,
   Elinor.Scene.MageTower,
-  Elinor.Scene.Party2;
+  Elinor.Scene.Party2,
+  Elinor.Scene.Merchant,
+  Elinor.Merchant;
 
 { TParty }
 
@@ -884,9 +886,8 @@ var
 begin
   LPosition := Leader.GetPosition;
   LHitPoints := Leader.Creature[LPosition].HitPoints.GetMaxValue;
-  Heal(LPosition, Percent(LHitPoints,
-    EnsureRange(LeaderRegenerationValue, 0, 100)));
-  ShowMessage(IntToStr(LeaderRegenerationValue));
+  Heal(LPosition, Percent(LHitPoints, EnsureRange(LeaderRegenerationValue,
+    0, 100)));
 end;
 
 class procedure TLeaderParty.ModifyLeaderRegeneration(const AValue: Integer);
@@ -992,6 +993,18 @@ begin
           Game.MediaPlayer.PlayMusic(mmMagic);
           Game.MediaPlayer.PlaySound(mmSettlement);
           TSceneMageTower.ShowScene;
+          F := False;
+        end;
+      reMerchantPotions:
+        begin
+          Game.MediaPlayer.PlaySound(mmSettlement);
+          TSceneMerchant.ShowScene(TLeaderParty.Leader, mtPotions, scMap);
+          F := False;
+        end;
+      reMerchantArtifacts:
+        begin
+          Game.MediaPlayer.PlaySound(mmSettlement);
+          TSceneMerchant.ShowScene(TLeaderParty.Leader, mtArtifacts, scMap);
           F := False;
         end;
     end;

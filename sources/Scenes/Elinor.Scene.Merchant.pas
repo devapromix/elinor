@@ -38,7 +38,7 @@ type
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure ShowScene(AParty: TParty;
-      const ACloseSceneEnum: TSceneEnum);
+      const AMerchantType: TMerchantType; const ACloseSceneEnum: TSceneEnum);
     class procedure HideScene;
   end;
 
@@ -60,6 +60,7 @@ type
 var
   ShowResources: Boolean;
   CurrentParty: TParty;
+  CurrentMerchantType: TMerchantType;
   CloseSceneEnum: TSceneEnum;
   ActiveSection: TItemSectionEnum;
   InventorySelItemIndex: Integer;
@@ -70,9 +71,10 @@ var
   { TSceneMerchant }
 
 class procedure TSceneMerchant.ShowScene(AParty: TParty;
-  const ACloseSceneEnum: TSceneEnum);
+  const AMerchantType: TMerchantType; const ACloseSceneEnum: TSceneEnum);
 begin
   CurrentParty := AParty;
+  CurrentMerchantType := AMerchantType;
   CloseSceneEnum := ACloseSceneEnum;
   ShowResources := AParty = TLeaderParty.Leader;
   ActiveSection := isMerchant;
@@ -98,8 +100,8 @@ begin
     InformDialog(CNoFreeSpace);
     Exit;
   end;
-  LItem := Merchants.GetMerchant(mtPotions).Inventory.ItemEnum
-    (MerchantSelItemIndex);
+  LItem := Merchants.GetMerchant(CurrentMerchantType)
+    .Inventory.ItemEnum(MerchantSelItemIndex);
   if LItem = iNone then
     Exit;
   LPrice := TItemBase.Item(LItem).Price;
@@ -110,7 +112,8 @@ begin
   end;
   Game.Gold.Modify(-LPrice);
   TLeaderParty.Leader.Inventory.Add(LItem);
-  Merchants.GetMerchant(mtPotions).Inventory.Clear(MerchantSelItemIndex);
+  Merchants.GetMerchant(CurrentMerchantType)
+    .Inventory.Clear(MerchantSelItemIndex);
   Game.MediaPlayer.PlaySound(mmGold);
   Render;
 end;
@@ -124,13 +127,13 @@ begin
   if LItem = iNone then
     Exit;
   LPrice := GetLeaderItemPrice(LItem);
-  if Merchants.GetMerchant(mtPotions).Gold < LPrice then
+  if Merchants.GetMerchant(CurrentMerchantType).Gold < LPrice then
   begin
     InformDialog(CNotEnoughGold);
     Exit;
   end;
   Game.Gold.Modify(LPrice);
-  Merchants.GetMerchant(mtPotions).ModifyGold(-LPrice);
+  Merchants.GetMerchant(CurrentMerchantType).ModifyGold(-LPrice);
   TLeaderParty.Leader.Inventory.Clear(InventorySelItemIndex);
   Game.MediaPlayer.PlaySound(mmGold);
   Render;
@@ -249,7 +252,8 @@ procedure TSceneMerchant.Render;
     AddTextLine('');
 
     for I := 0 to CMaxInventoryItems - 1 do
-      AddTextLine(Merchants.GetMerchant(mtPotions).Inventory.ItemName(I));
+      AddTextLine(Merchants.GetMerchant(CurrentMerchantType)
+        .Inventory.ItemName(I));
   end;
 
   procedure RenderLeaderInventory;
@@ -284,10 +288,10 @@ procedure TSceneMerchant.Render;
     TextLeft := TFrame.Col(1) + 12;
     AddTextLine('Gold', True);
     AddTextLine('');
-    AddTextLine(IntToStr(Merchants.GetMerchant(mtPotions).Gold));
+    AddTextLine(IntToStr(Merchants.GetMerchant(CurrentMerchantType).Gold));
     if MerchantSelectedItemPrice > 0 then
     begin
-      LItemEnum := Merchants.GetMerchant(mtPotions)
+      LItemEnum := Merchants.GetMerchant(CurrentMerchantType)
         .Inventory.ItemEnum(MerchantSelItemIndex);
       AddTextLine(TItemBase.Item(LItemEnum).Name, True);
       AddTextLine('');
@@ -377,7 +381,7 @@ begin
   if (MerchantSelItemIndex >= 0) and (MerchantSelItemIndex < CMaxInventoryItems)
   then
   begin
-    LItemEnum := Merchants.GetMerchant(mtPotions)
+    LItemEnum := Merchants.GetMerchant(CurrentMerchantType)
       .Inventory.ItemEnum(MerchantSelItemIndex);
     if LItemEnum = iNone then
     begin

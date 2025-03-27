@@ -58,7 +58,8 @@ uses
   Elinor.Scene.NewAbility,
   Elinor.Scene.MageTower,
   Elinor.Scene.Defeat,
-  Elinor.Scene.Victory, Elinor.Scene.Menu3, Elinor.Scene.Merchant;
+  Elinor.Scene.Victory, Elinor.Scene.Menu3, Elinor.Scene.Merchant,
+  Elinor.Merchant;
 
 { TSceneMap }
 
@@ -360,7 +361,7 @@ begin
       end;
     K_M:
       if Game.Wizard then
-        TSceneMerchant.ShowScene(TLeaderParty.Leader, scMap);
+        TSceneMerchant.ShowScene(TLeaderParty.Leader, mtArtifacts, scMap);
   end;
 end;
 

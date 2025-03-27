@@ -53,6 +53,7 @@ type
     procedure AddGoldAt(LY, LX: Integer);
     procedure AddStoneTabAt(LY, LX: Integer);
     procedure AddMageTower;
+    procedure AddMerchants;
   public
     MapPlace: array [0 .. MapPlacesCount - 1] of TMapPlace;
     constructor Create;
@@ -99,7 +100,7 @@ uses
   Elinor.PathFind,
   Elinor.Scene.Leader,
   Elinor.Difficulty,
-  Elinor.Loot;
+  Elinor.Loot, Elinor.Merchant;
 
 function ChTile(AX, AY: Integer): Boolean; stdcall;
 begin
@@ -299,6 +300,26 @@ begin
   FMap[lrObj][LX, LY] := reMageTower;
 end;
 
+procedure TMap.AddMerchants;
+var
+  LX, LY: Integer;
+  LMerchantType: TMerchantType;
+const
+  CMerchantResEnum: array [TMerchantType] of TResEnum = (reMerchantPotions,
+    reMerchantArtifacts);
+begin
+  for LMerchantType := Low(TMerchantType) to High(TMerchantType) do
+  begin
+    repeat
+      LX := RandomRange(2, MapWidth - 2);
+      LY := RandomRange(2, MapHeight - 2);
+    until (FMap[lrTile][LX, LY] = reNeutralTerrain) and
+      (FMap[lrObj][LX, LY] = reNone) and (GetDistToCapital(LX, LY) > 4) and
+      (GetDistToCapital(LX, LY) < 12);
+    FMap[lrObj][LX, LY] := CMerchantResEnum[LMerchantType];
+  end;
+end;
+
 procedure TMap.Gen;
 var
   LX, LY, RX, RY, LMapPlaceIndex: Integer;
@@ -442,6 +463,7 @@ begin
     AddObjectAt(LX, LY, LMapPlaceIndex);
   end;
   AddMageTower;
+  AddMerchants;
   // Parties
   AddCapitalParty;
   AddSummonParty;
