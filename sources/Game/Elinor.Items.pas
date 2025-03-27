@@ -184,7 +184,7 @@ const
     ' Unlocks hidden paths and sealed doors'),
     // Arcane Scroll
     (Enum: iArcaneScroll; Name: 'Arcane Scroll'; Level: 2; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 200;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemArcaneScroll; Price: 200;
     Description: 'A used magical scroll, its words faded,' +
     ' yet a trace of its power still lingers'),
     // Ember Salts
