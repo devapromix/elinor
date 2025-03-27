@@ -195,18 +195,25 @@ const
     // Emerald
     (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 400;
-    Description: ''),
+    Description: 'A brilliant green gemstone, cut with precision and clarity.' +
+    ' Prized by jewelers and collectors for its deep, vibrant color'),
     // Ruby
     (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: reNone; Price: 550; Description: ''),
+    ItSlot: isNone; ItRes: reNone; Price: 550;
+    Description: 'A fiery red gemstone that blazes with inner light.' +
+    ' Symbolizes passion and power in many cultures'),
     // Sapphire
     (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 750;
-    Description: ''),
+    Description
+    : 'A deep blue stone that captures the essence of the sea and sky.' +
+    ' Revered for its royal beauty and mystical properties'),
     // Diamond
     (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 850;
-    Description: ''),
+    Description
+    : 'The most precious of stones, a crystalline marvel of pure light.' +
+    ' Rare, unyielding, and incredibly valuable'),
     // Ancient Relic
     (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 1000;
@@ -239,7 +246,7 @@ const
     Description: ''),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reNone; Price: 400;
+    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reArtifactRunestone; Price: 400;
     Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // Horn Of Awareness
