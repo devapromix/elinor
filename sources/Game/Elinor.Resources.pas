@@ -33,8 +33,8 @@ type
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
     reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reFrameSlotGlow,
-    reSmallFrame, reBigFrame, reInfoFrame, reFrameItem, reFrameItemActive,
-    reBigFrameBackground,
+    reFrameSlotTarget, reSmallFrame, reBigFrame, reInfoFrame, reFrameItem,
+    reFrameItemActive, reBigFrameBackground,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -82,7 +82,7 @@ type
     // ITEMS //
     reItemGold, reItemMana, reItemStoneTablet, reItemLifePotion,
     reItemPotionOfHealing, reItemPotionOfRestoration, reItemStoneRing,
-    reItemRunicKey, reIceCrystal,  reItemArcaneScroll, reArtifactRunestone,
+    reItemRunicKey, reIceCrystal, reItemArcaneScroll, reArtifactRunestone,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -190,6 +190,8 @@ const
     (FileName: 'frame.slot.passive.png'; ResType: teGUI;),
     // Frame Slot Glow
     (FileName: 'frame.slot.glow.png'; ResType: teGUI;),
+    // Frame Slot Target
+    (FileName: 'frame.slot.target.png'; ResType: teGUI;),
     // Small Frame
     (FileName: 'frame.small.png'; ResType: teGUI;),
     // Big Frame

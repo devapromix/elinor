@@ -30,6 +30,7 @@ type
     FEnabled: Boolean;
     BattleLog: TBattleLog;
     DuelLeaderPosition: TPosition;
+    FCurrentTargetPosition: TPosition;
     procedure ClickOnPosition;
     procedure ChExperience;
     procedure Turn(const TurnType: TTurnType; AtkParty, DefParty: TParty;
@@ -47,6 +48,9 @@ type
     procedure AI;
     procedure Kill(DefCrEnum: TCreatureEnum);
     procedure DrawGlowTargets;
+    procedure SelectNextTarget;
+    procedure SelectPreviousTarget;
+    procedure AttackCurrentTarget;
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -91,7 +95,7 @@ var
   CloseButton: TButton;
 
 const
-  Speed = 2;
+  CSpeed = 2;
 
   { TSceneBattle2 }
 
@@ -190,6 +194,18 @@ begin
         reAll:
           AtkAll;
       end;
+  end;
+end;
+
+procedure TSceneBattle2.AttackCurrentTarget;
+begin
+  if ActivePartyPosition < 0 then
+    Exit;
+  if (FCurrentTargetPosition >= 0) and (FCurrentTargetPosition <= 5) and
+    (EnemyParty.Creature[FCurrentTargetPosition].Alive) then
+  begin
+    CurrentPartyPosition := FCurrentTargetPosition + 6;
+    ClickOnPosition;
   end;
 end;
 
@@ -650,6 +666,13 @@ begin
           DrawImage(TFrame.Col(LPosition, psRight), TFrame.Row(LPosition),
             reFrameSlotGlow);
         end;
+        if (FCurrentTargetPosition >= 0) and
+          (FCurrentTargetPosition <= 5) and
+          (EnemyParty.Creature[FCurrentTargetPosition].Alive) then
+        begin
+          DrawImage(TFrame.Col(FCurrentTargetPosition, psRight),
+            TFrame.Row(FCurrentTargetPosition), reFrameSlotTarget);
+        end;
       end;
   end;
 end;
@@ -724,8 +747,10 @@ end;
 procedure TSceneBattle2.StartRound;
 begin
   CurrentPosition := 11;
+  FCurrentTargetPosition := 0;
   FBattle.SetInitiative(LeaderParty, EnemyParty);
   NextTurn;
+  SelectNextTarget;
 end;
 
 class procedure TSceneBattle2.SummonCreature(const APartyIndex: Integer;
@@ -766,7 +791,7 @@ begin
   until (Position <> -1) and (GetHitPoints(Position) > 0);
   ActivePartyPosition := Position;
   if Position > 5 then
-    ttt := Speed;
+    ttt := CSpeed;
   Render;
 end;
 
@@ -776,6 +801,41 @@ begin
   if APosition < 0 then
     Exit;
   Result := FBattle.GetHitPoints(APosition, LeaderParty, EnemyParty);
+end;
+
+procedure TSceneBattle2.SelectNextTarget;
+var
+  LPosition: Integer;
+  LHasWarriors: Boolean;
+begin
+  if ActivePartyPosition < 0 then
+    Exit;
+  LHasWarriors := TBattleAI.HasWarriors(EnemyParty);
+  repeat
+    Inc(FCurrentTargetPosition);
+    if FCurrentTargetPosition > 5 then
+      FCurrentTargetPosition := 0;
+  until (FCurrentTargetPosition >= 0) and (FCurrentTargetPosition <= 5) and
+    (EnemyParty.Creature[FCurrentTargetPosition].Alive) and
+    not(LHasWarriors and Odd(FCurrentTargetPosition));
+  Game.Render;
+end;
+
+procedure TSceneBattle2.SelectPreviousTarget;
+var
+  LHasWarriors: Boolean;
+begin
+  if ActivePartyPosition < 0 then
+    Exit;
+  LHasWarriors := TBattleAI.HasWarriors(EnemyParty);
+  repeat
+    Dec(FCurrentTargetPosition);
+    if FCurrentTargetPosition < 0 then
+      FCurrentTargetPosition := 5;
+  until (FCurrentTargetPosition >= 0) and (FCurrentTargetPosition <= 5) and
+    (EnemyParty.Creature[FCurrentTargetPosition].Alive) and
+    not(LHasWarriors and Odd(FCurrentTargetPosition));
+  Game.Render;
 end;
 
 procedure TSceneBattle2.Show(const S: TSceneEnum);
@@ -813,6 +873,12 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       FinishBattle;
+    K_RIGHT, K_DOWN:
+      SelectNextTarget;
+    K_LEFT, K_UP:
+      SelectPreviousTarget;
+    K_SPACE:
+      AttackCurrentTarget;
     K_N:
       if Game.Wizard then
         NextTurn;
