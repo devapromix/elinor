@@ -175,16 +175,7 @@ begin
           HideScene;
       end;
     mbRight:
-      begin
-        LPosition := GetPartyPosition(X, Y);
-        case LPosition of
-          0 .. 5:
-            begin
-              ActivePartyPosition := LPosition;
-              TLeaderParty.MoveUnit(CurrentParty);
-            end;
-        end;
-      end;
+      TLeaderParty.UpdateMoveUnit(CurrentParty, X, Y);
   end;
 end;
 

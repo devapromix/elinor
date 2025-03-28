@@ -164,7 +164,9 @@ type
     procedure LeaderRegeneration;
     class procedure ModifyLeaderRegeneration(const AValue: Integer);
     class procedure MoveUnit(AParty: TParty);
-    class procedure UpdateMoveUnit(AParty: TParty);
+    class procedure UpdateMoveUnit(AParty: TParty); overload;
+    class procedure UpdateMoveUnit(AParty: TParty;
+      const AX, AY: Integer); overload;
   end;
 
 type
@@ -1130,6 +1132,22 @@ begin
     CurrentPartyPosition := ActivePartyPosition;
   end;
 
+end;
+
+class procedure TLeaderParty.UpdateMoveUnit(AParty: TParty;
+  const AX, AY: Integer);
+var
+  LPosition: TPosition;
+begin
+  IsUnitSelected := False;
+  LPosition := Game.GetPartyPosition(AX, AY);
+  case LPosition of
+    0 .. 5:
+      begin
+        ActivePartyPosition := LPosition;
+        TLeaderParty.MoveUnit(AParty);
+      end;
+  end;
 end;
 
 procedure TLeaderParty.UpdateSightRadius;
