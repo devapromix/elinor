@@ -99,6 +99,7 @@ type
     FWidth: Integer;
     FScrWidth: Integer;
     procedure DrawCreatureReach(const AReachEnum: TReachEnum);
+    function GetItemDescription(const AItemEnum: TItemEnum): string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -134,6 +135,7 @@ type
       IsAdv: Boolean = True); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
+    procedure ItemInformDialog(const AItemEnum: TItemEnum);
     procedure DrawResources;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
     function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
@@ -169,6 +171,9 @@ type
   end;
 
 type
+  TInfoDialogType = (idtNone, idtMessage, idtItemInfo);
+
+type
   TScenes = class(TScene)
   private
     FSceneEnum: TSceneEnum;
@@ -176,7 +181,8 @@ type
     procedure SetScene(const ASceneEnum: TSceneEnum);
   public
     InformMsg: string;
-    IsShowInform: Boolean;
+    InformSL: TStringList;
+    IsShowInform: TInfoDialogType;
     IsShowConfirm: Boolean;
     constructor Create;
     destructor Destroy; override;
@@ -488,7 +494,20 @@ procedure TScene.InformDialog(const S: string);
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.InformMsg := S;
-  Game.IsShowInform := True;
+  Game.IsShowInform := idtMessage;
+end;
+
+procedure TScene.ItemInformDialog(const AItemEnum: TItemEnum);
+begin
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.InformSL.Clear;
+  Game.InformSL.Append(TItemBase.Item(AItemEnum).Name);
+  Game.InformSL.Append('');
+  Game.InformSL.Append('Level ' + TItemBase.Item(AItemEnum).Level.ToString);
+  Game.InformSL.Append('Price ' + TItemBase.Item(AItemEnum).Price.ToString);
+  Game.InformSL.Append(GetItemDescription(AItemEnum));
+  Game.InformSL.Append(TItemBase.Item(AItemEnum).Description);
+  Game.IsShowInform := idtItemInfo;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
@@ -705,27 +724,32 @@ end;
 
 procedure TScene.DrawItemDescription(const AItemEnum: TItemEnum);
 begin
+  AddTextLine(GetItemDescription(AItemEnum));
+end;
+
+function TScene.GetItemDescription(const AItemEnum: TItemEnum): string;
+begin
   case AItemEnum of
     iLifePotion:
-      AddTextLine('Revives dead units');
+      Result := 'Revives dead units';
     iPotionOfHealing:
-      AddTextLine('Restores 50 hit points');
+      Result := 'Restores 50 hit points';
     iPotionOfRestoration:
-      AddTextLine('Restores 100 hit points');
+      Result := 'Restores 100 hit points';
     iHealingOintment:
-      AddTextLine('Restores 200 hit points');
+      Result := 'Restores 200 hit points';
   end;
   case TItemBase.Item(AItemEnum).ItEffect of
     ieRegen5:
-      AddTextLine('Regeneration +5');
+      Result := 'Regeneration +5';
     ieRegen10:
-      AddTextLine('Regeneration +10');
+      Result := 'Regeneration +10';
     ieRegen15:
-      AddTextLine('Regeneration +15');
+      Result := 'Regeneration +15';
     ieRegen20:
-      AddTextLine('Regeneration +20');
+      Result := 'Regeneration +20';
     ieRegen25:
-      AddTextLine('Regeneration +25');
+      Result := 'Regeneration +25';
   end;
 
 end;
@@ -1017,7 +1041,7 @@ begin
   FScene[scMerchant] := TSceneMerchant.Create;
   // Inform
   InformMsg := '';
-  IsShowInform := False;
+  IsShowInform := idtNone;
   L := ScrWidth - (ResImage[reButtonDef].Width div 2);
   Button := TButton.Create(L, 400, reTextOk);
   Button.Sellected := True;
@@ -1031,6 +1055,8 @@ begin
     if (LButtonEnum = btOk) then
       Buttons[LButtonEnum].Sellected := True;
   end;
+  // Item
+  InformSL := TStringList.Create;
 end;
 
 destructor TScenes.Destroy;
@@ -1038,6 +1064,7 @@ var
   LButtonEnum: TButtonEnum;
   LSceneEnum: TSceneEnum;
 begin
+  FreeAndNil(InformSL);
   for LSceneEnum := Low(TSceneEnum) to High(TSceneEnum) do
     FreeAndNil(FScene[LSceneEnum]);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
@@ -1057,14 +1084,14 @@ procedure TScenes.MouseDown(AButton: TMouseButton; Shift: TShiftState;
 begin
   if (FScene[SceneEnum] <> nil) then
   begin
-    if IsShowInform then
+    if (IsShowInform <> idtNone) then
     begin
       case AButton of
         mbLeft:
           begin
             if Button.MouseDown then
             begin
-              IsShowInform := False;
+              IsShowInform := idtNone;
               Self.Render;
               Exit;
             end
@@ -1114,7 +1141,7 @@ begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
   begin
-    if IsShowInform then
+    if IsShowInform <> idtNone then
     begin
       Button.MouseMove(X, Y);
       Exit;
@@ -1134,6 +1161,7 @@ procedure TScenes.Render;
 var
   LButtonEnum: TButtonEnum;
   LLeft, LTop: Integer;
+  I: Integer;
 begin
   inherited;
   if (FScene[SceneEnum] <> nil) then
@@ -1142,14 +1170,22 @@ begin
     Game.Surface.Canvas.FillRect(Rect(0, 0, Game.Surface.Width,
       Game.Surface.Height));
     FScene[SceneEnum].Render;
-    if IsShowInform or IsShowConfirm then
+    if (IsShowInform <> idtNone) or IsShowConfirm then
     begin
       LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
       LTop := 150;
       DrawImage(LLeft - 10, LTop - 10, reBigFrameBackground);
       DrawImage(LLeft, LTop, ResImage[reBigFrame]);
-      DrawText(LTop + 100, InformMsg);
-      if IsShowInform then
+      if (IsShowInform = idtMessage) then
+        DrawText(LTop + 100, InformMsg)
+      else
+      begin
+        TextLeft := 400;
+        TextTop := LTop + 40;
+        for I := 0 to Game.InformSL.Count - 1 do
+          AddTextLine(Game.InformSL[I], I = 0);
+      end;
+      if (IsShowInform <> idtNone) then
         Button.Render;
       if IsShowConfirm then
         for LButtonEnum := Low(Buttons) to High(Buttons) do
@@ -1186,12 +1222,12 @@ procedure TScenes.Update(var Key: Word);
 begin
   if (FScene[SceneEnum] <> nil) then
   begin
-    if IsShowInform then
+    if (IsShowInform <> idtNone) then
     begin
       case Key of
         K_ESCAPE, K_ENTER:
           begin
-            IsShowInform := False;
+            IsShowInform := idtNone;
             Self.Render;
             Exit;
           end

@@ -27,6 +27,7 @@ type
     procedure UnEquip;
     procedure Equip;
     procedure QuaffElixir;
+    procedure ShowItemInfo;
   public
     constructor Create;
     destructor Destroy; override;
@@ -70,6 +71,15 @@ begin
 end;
 
 { TSceneInventory }
+
+procedure TSceneInventory.ShowItemInfo;
+var
+LItemEnum: TItemEnum;
+begin
+  LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
+  if LItemEnum <> iNone then
+  Game.ItemInformDialog(LItemEnum);
+end;
 
 class procedure TSceneInventory.ShowScene(AParty: TParty;
   const ACloseSceneEnum: TSceneEnum);
@@ -139,9 +149,7 @@ begin
           HideScene;
       end;
     mbRight:
-      begin
-
-      end;
+      ShowItemInfo;
   end;
 end;
 
@@ -347,6 +355,8 @@ begin
       end;
     K_SPACE:
       ActiveSection := TItemSectionEnum((Ord(ActiveSection) + 1) mod 3);
+    K_I:
+      ShowItemInfo;
   end;
 end;
 
