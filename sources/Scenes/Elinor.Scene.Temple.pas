@@ -158,6 +158,8 @@ end;
 
 procedure TSceneTemple.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPosition: TPosition;
 begin
   inherited;
   case AButton of
@@ -171,6 +173,17 @@ begin
           ShowPartyScene
         else if Button[btClose].MouseDown then
           HideScene;
+      end;
+    mbRight:
+      begin
+        LPosition := GetPartyPosition(X, Y);
+        case LPosition of
+          0 .. 5:
+            begin
+              ActivePartyPosition := LPosition;
+              TLeaderParty.MoveUnit(CurrentParty);
+            end;
+        end;
       end;
   end;
 end;
@@ -191,16 +204,6 @@ begin
 end;
 
 procedure TSceneTemple.Render;
-
-  procedure RenderParty;
-  var
-    LPosition: TPosition;
-  begin
-    if (CurrentParty <> nil) then
-      for LPosition := Low(TPosition) to High(TPosition) do
-        DrawUnit(LPosition, CurrentParty, TFrame.Col(LPosition, psLeft),
-          TFrame.Row(LPosition), False, True);
-  end;
 
   procedure RenderCharacterInfo;
   var
@@ -226,7 +229,8 @@ begin
 
   DrawTitle(reTitleTemple);
 
-  RenderParty;
+  TSceneParty2.RenderParty(psLeft, CurrentParty, CurrentParty.Count <
+    TLeaderParty.Leader.Leadership);
   RenderCharacterInfo;
 
   if CurrentParty = TLeaderParty.Leader then
@@ -294,6 +298,8 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       HideScene;
+    K_SPACE:
+      TLeaderParty.UpdateMoveUnit(CurrentParty);
     K_H:
       Heal;
     K_P:

@@ -47,7 +47,7 @@ type
     function GetHitPoints(const APosition: Integer): Integer;
     procedure AI;
     procedure Kill(DefCrEnum: TCreatureEnum);
-    procedure DrawGlowTargets;
+    procedure DrawTargetFrames;
     procedure SelectNextTarget;
     procedure SelectPreviousTarget;
     procedure AttackCurrentTarget;
@@ -645,7 +645,7 @@ begin
   inherited;
 end;
 
-procedure TSceneBattle2.DrawGlowTargets;
+procedure TSceneBattle2.DrawTargetFrames;
 var
   LHasWarriors: Boolean;
   LPosition: TPosition;
@@ -720,7 +720,7 @@ begin
   inherited;
   TSceneParty2.RenderParty(psLeft, LeaderParty);
   TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
-  DrawGlowTargets;
+  DrawTargetFrames;
   // if not Enabled then
   // RenderWait;
   F := False;

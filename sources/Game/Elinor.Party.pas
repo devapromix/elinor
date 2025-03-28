@@ -104,6 +104,8 @@ type
     FSpellsPerDay: TCurrMaxAttribute;
     FMovementPoints: TCurrMaxAttribute;
     function GetLeadership: Integer;
+  private
+    class var IsUnitSelected: Boolean;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -161,6 +163,8 @@ type
     function InSpellCastingRange(const AX, AY: Integer): Boolean;
     procedure LeaderRegeneration;
     class procedure ModifyLeaderRegeneration(const AValue: Integer);
+    class procedure MoveUnit(AParty: TParty);
+    class procedure UpdateMoveUnit(AParty: TParty);
   end;
 
 type
@@ -632,6 +636,7 @@ begin
   SetMaxMovementPoints;
   SetMaxSpellsPerDay;
   Self.UpdateSightRadius;
+  IsUnitSelected := False;
   LeaderRegenerationValue := 0;
 end;
 
@@ -642,6 +647,7 @@ begin
   FInventory := TInventory.Create;
   FEquipment := TEquipment.Create;
   FInvisibility := False;
+  IsUnitSelected := False;
 end;
 
 destructor TLeaderParty.Destroy;
@@ -900,6 +906,19 @@ begin
   PutAt(Leader.X + Direction[Dir].X, Leader.Y + Direction[Dir].Y);
 end;
 
+class procedure TLeaderParty.MoveUnit(AParty: TParty);
+begin
+  if not((ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and
+    (CurrentPartyPosition >= 6) and
+    (PartyList.Party[TLeaderParty.LeaderPartyIndex].Count >=
+    TLeaderParty.Leader.Leadership))) then
+  begin
+    PartyList.Party[TLeaderParty.LeaderPartyIndex].ChPosition(AParty,
+      ActivePartyPosition, CurrentPartyPosition);
+    Game.MediaPlayer.PlaySound(mmClick);
+  end;
+end;
+
 class procedure TLeaderParty.PutAt(const AX, AY: ShortInt;
   const IsInfo: Boolean);
 var
@@ -1094,6 +1113,23 @@ begin
     Inc(LCount);
   until (LCount >= ACount);
   Game.ShowNewDayMessageTime := 0;
+end;
+
+class procedure TLeaderParty.UpdateMoveUnit(AParty: TParty);
+begin
+  if IsUnitSelected then
+  begin
+    IsUnitSelected := False;
+    SelectPartyPosition := -1;
+    MoveUnit(AParty);
+  end
+  else
+  begin
+    IsUnitSelected := True;
+    SelectPartyPosition := ActivePartyPosition;
+    CurrentPartyPosition := ActivePartyPosition;
+  end;
+
 end;
 
 procedure TLeaderParty.UpdateSightRadius;

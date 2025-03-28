@@ -115,6 +115,8 @@ end;
 
 procedure TSceneParty2.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPosition: TPosition;
 begin
   inherited;
   case AButton of
@@ -128,6 +130,17 @@ begin
           ShowSpellbookScene
         else if Button[btClose].MouseDown then
           HideScene
+      end;
+    mbRight:
+      begin
+        LPosition := GetPartyPosition(X, Y);
+        case LPosition of
+          0 .. 5:
+            begin
+              ActivePartyPosition := LPosition;
+              TLeaderParty.MoveUnit(CurrentParty);
+            end;
+        end;
       end;
   end;
 end;
@@ -177,9 +190,10 @@ begin
 
   DrawTitle(reTitleParty);
 
-  RenderParty;
-  RenderCreatureInfo;
+  TSceneParty2.RenderParty(psLeft, CurrentParty, CurrentParty.Count <
+    TLeaderParty.Leader.Leadership);
 
+  RenderCreatureInfo;
   if CurrentParty = TLeaderParty.Leader then
     RenderLeaderInfo
   else if CurrentParty = PartyList.Party[TLeaderParty.CapitalPartyIndex] then
@@ -244,6 +258,8 @@ begin
   case Key of
     K_ESCAPE, K_ENTER:
       HideScene;
+    K_SPACE:
+      TLeaderParty.UpdateMoveUnit(CurrentParty);
     K_A:
       ShowAbilitiesScene;
     K_I:

@@ -19,3 +19,4 @@ sources/Scenes/__history/
 /sources/Game/__recovery
 /sources/*.local
 /sources/*.identcache
+/resources/highscores.json

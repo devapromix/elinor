@@ -37,7 +37,6 @@ type
     ConfirmParty: TParty;
     ConfirmPartyPosition: TPosition;
     procedure MoveCursor(const AArrowKeyDirectionEnum: TArrowKeyDirectionEnum);
-    procedure MoveUnit;
     procedure ShowPartyScene;
     procedure ShowBarracksScene;
   public
@@ -153,7 +152,6 @@ begin
     0) and (CurrentSettlementType = stCapital) and (AButton = mbRight) and
     (GetPartyPosition(X, Y) < 6) then
     Exit;
-  // Move party
   case AButton of
     mbRight:
       begin
@@ -162,7 +160,7 @@ begin
           0 .. 11:
             begin
               ActivePartyPosition := LPartyPosition;
-              Self.MoveUnit;
+              TLeaderParty.MoveUnit(SettlementParty);
             end;
         end;
       end;
@@ -253,7 +251,8 @@ begin
         CurrentCityIndex := PartyList.GetPartyIndex(TLeaderParty.Leader.X,
           TLeaderParty.Leader.Y);
         SettlementParty := PartyList.Party[CurrentCityIndex];
-        SettlementParty.Owner := PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner;
+        SettlementParty.Owner := PartyList.Party
+          [TLeaderParty.LeaderPartyIndex].Owner;
       end
   else
     SettlementParty := PartyList.Party[TLeaderParty.CapitalPartyIndex];
@@ -277,18 +276,6 @@ begin
       TSceneTemple.ShowScene(SettlementParty);
       Game.MediaPlayer.PlaySound(mmClick);
     end;
-  end;
-end;
-
-procedure TSceneSettlement.MoveUnit;
-begin
-  if not((ActivePartyPosition < 0) or ((ActivePartyPosition < 6) and
-    (CurrentPartyPosition >= 6) and (PartyList.Party[TLeaderParty.LeaderPartyIndex].Count
-    >= TLeaderParty.Leader.Leadership))) then
-  begin
-    PartyList.Party[TLeaderParty.LeaderPartyIndex].ChPosition(SettlementParty,
-      ActivePartyPosition, CurrentPartyPosition);
-    Game.MediaPlayer.PlaySound(mmClick);
   end;
 end;
 
@@ -339,20 +326,7 @@ begin
   inherited;
   case Key of
     K_SPACE:
-      begin
-        if IsUnitSelected then
-        begin
-          IsUnitSelected := False;
-          SelectPartyPosition := -1;
-          Self.MoveUnit;
-        end
-        else
-        begin
-          IsUnitSelected := True;
-          SelectPartyPosition := ActivePartyPosition;
-          CurrentPartyPosition := ActivePartyPosition;
-        end;
-      end;
+      TLeaderParty.UpdateMoveUnit(SettlementParty);
     K_ESCAPE, K_ENTER:
       HideScene;
     K_B:
