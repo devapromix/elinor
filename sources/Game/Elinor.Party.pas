@@ -731,14 +731,15 @@ begin
         ReviveCreature
       else
         Game.InformDialog(CNoRevivalNeeded);
-
     iPotionOfHealing:
       if CanUseHealingItem and NeedsHealing then
         HealCreature(50);
-
     iPotionOfRestoration:
       if CanUseHealingItem and NeedsHealing then
         HealCreature(100);
+    iHealingOintment:
+      if CanUseHealingItem and NeedsHealing then
+        HealCreature(200);
   end;
 end;
 

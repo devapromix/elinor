@@ -55,8 +55,7 @@ type
     iAncientRelic,
 
     // Potions
-    iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    // iHealingOintment,
+    iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
 
     // Artifacts
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
@@ -238,6 +237,11 @@ const
     ItRes: reItemPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
+    // Healing Ointment
+    (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
+    ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: reItemHealingOintment; Price: 400;
+    Description: ''),
 
     // Artifacts
     // Dwarven Bracer
@@ -246,8 +250,8 @@ const
     Description: ''),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reArtifactRunestone; Price: 400;
-    Description: 'A mystical runestone that enhances' +
+    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reArtifactRunestone;
+    Price: 400; Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;

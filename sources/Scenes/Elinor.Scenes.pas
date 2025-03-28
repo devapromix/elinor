@@ -712,6 +712,8 @@ begin
       AddTextLine('Restores 50 hit points');
     iPotionOfRestoration:
       AddTextLine('Restores 100 hit points');
+    iHealingOintment:
+      AddTextLine('Restores 200 hit points');
   end;
   case TItemBase.Item(AItemEnum).ItEffect of
     ieRegen5:

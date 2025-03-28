@@ -120,6 +120,7 @@ begin
   AddRandomItems(iLifePotion, 1, 2);
   AddRandomItems(iPotionOfHealing, 2, 4);
   AddRandomItems(iPotionOfRestoration, 1, 2);
+  AddRandomItems(iHealingOintment, 1, 1);
 end;
 
 { TArtifactMerchant }
