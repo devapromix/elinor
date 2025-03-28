@@ -57,11 +57,16 @@ uses
 procedure TSceneLoot2.PickupItem;
 var
   LLootItem: TLootItem;
-  X, Y, LItemIndex: Integer;
+  LX, LY, LItemIndex: Integer;
 begin
-  X := TLeaderParty.Leader.X;
-  Y := TLeaderParty.Leader.Y;
-  LItemIndex := Loot.GetItemIndex(X, Y, CurrentIndex);
+  LX := TLeaderParty.Leader.X;
+  LY := TLeaderParty.Leader.Y;
+  if Loot.CountAt(LX, LY) = 0 then
+  begin
+    HideScene;
+    Exit;
+  end;
+  LItemIndex := Loot.GetItemIndex(LX, LY, CurrentIndex);
   if LItemIndex >= 0 then
   begin
     LLootItem := Loot.GetLootItem(LItemIndex);
