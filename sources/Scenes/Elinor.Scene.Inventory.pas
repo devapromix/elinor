@@ -15,9 +15,9 @@ uses
 type
   TSceneInventory = class(TSceneBaseParty)
   private type
-    TButtonEnum = (btClose);
+    TButtonEnum = (btInfo, btClose);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextInform, reTextClose);
   private
     EquipmentSelItemIndex: Integer;
     Button: array [TButtonEnum] of TButton;
@@ -74,11 +74,24 @@ end;
 
 procedure TSceneInventory.ShowItemInfo;
 var
-LItemEnum: TItemEnum;
+  LItemEnum: TItemEnum;
 begin
-  LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
-  if LItemEnum <> iNone then
-  Game.ItemInformDialog(LItemEnum);
+  case ActiveSection of
+    isEquipment:
+      begin
+        LItemEnum := TLeaderParty.Leader.Equipment.Item
+          (EquipmentSelItemIndex).Enum;
+        if (LItemEnum <> iNone) then
+          Game.ItemInformDialog(LItemEnum);
+      end;
+    isInventory:
+      begin
+        LItemEnum := TLeaderParty.Leader.Inventory.Item
+          (InventorySelItemIndex).Enum;
+        if (LItemEnum <> iNone) then
+          Game.ItemInformDialog(LItemEnum);
+      end;
+  end;
 end;
 
 class procedure TSceneInventory.ShowScene(AParty: TParty;
@@ -145,7 +158,9 @@ begin
           isInventory:
             Equip;
         end;
-        if Button[btClose].MouseDown then
+        if Button[btInfo].MouseDown then
+          ShowItemInfo
+        else if Button[btClose].MouseDown then
           HideScene;
       end;
     mbRight:

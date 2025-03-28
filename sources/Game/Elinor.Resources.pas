@@ -65,7 +65,7 @@ type
     reTextHeal, reTextRevive, reTextInventory, reTextAbilities, reTextParty,
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
     reTextLearn, reTextFaction, reTextClass, reTextRandom, reTextDarkogStudio,
-    reTextPresents, reTextPickup, reTextMerchant,
+    reTextPresents, reTextPickup, reTextMerchant, reTextInform,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -463,6 +463,8 @@ const
     (FileName: 'text.pickup.png'; ResType: teGUI;),
     // Text "Merchant"
     (FileName: 'text.merchant.png'; ResType: teGUI;),
+    // Text "Inform"
+    (FileName: 'text.inform.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
