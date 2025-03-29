@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes,
+  System.Types,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Imaging.PNGImage,
@@ -167,7 +168,7 @@ type
     procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
     procedure RenderGuardianInfo;
     procedure DrawItemDescription(const AItemEnum: TItemEnum);
-
+    function GetCurrentIndexPos(const ACurrentIndex: Integer): TPoint;
   end;
 
 type
@@ -930,6 +931,24 @@ function TScene.MouseOver(AX, AY, MX, MY: Integer): Boolean;
 begin
   Result := (MX > AX) and (MX < AX + ResImage[reFrameSlot].Width) and (MY > AY)
     and (MY < AY + ResImage[reFrameSlot].Height);
+end;
+
+function TScene.GetCurrentIndexPos(const ACurrentIndex: Integer): TPoint;
+begin
+  Result.X := 0;
+  Result.Y := 0;
+  case ACurrentIndex of
+    0 .. 2:
+      begin
+        Result.X := TFrame.Col(0);
+        Result.Y := TFrame.Row(ACurrentIndex);
+      end;
+    3 .. 5:
+      begin
+        Result.X := TFrame.Col(1);
+        Result.Y := TFrame.Row(ACurrentIndex - 3);
+      end;
+  end;
 end;
 
 function TScene.GetFramePosition(const AX, AY: Integer): Integer;

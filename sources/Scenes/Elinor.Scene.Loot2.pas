@@ -45,6 +45,7 @@ implementation
 
 uses
   System.Math,
+  System.Types,
   System.SysUtils,
   Elinor.Saga,
   Elinor.Map,
@@ -221,7 +222,7 @@ end;
 
 procedure TSceneLoot2.Render;
 var
-  LX, LY: Integer;
+  LPos: TPoint;
 
   procedure RenderItems;
   var
@@ -312,19 +313,8 @@ begin
   case ActiveSection of
     lsInventory:
       begin
-        case CurrentIndex of
-          0 .. 2:
-            begin
-              LX := TFrame.Col(0);
-              LY := TFrame.Row(CurrentIndex);
-            end;
-          3 .. 5:
-            begin
-              LX := TFrame.Col(1);
-              LY := TFrame.Row(CurrentIndex - 3);
-            end;
-        end;
-        DrawImage(LX, LY, reFrameSlotPassive);
+        LPos := GetCurrentIndexPos(CurrentIndex);
+        DrawImage(LPos.X, LPos.Y, reFrameSlotPassive);
       end;
   end;
 end;

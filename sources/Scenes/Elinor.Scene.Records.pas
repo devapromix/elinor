@@ -44,6 +44,7 @@ implementation
 
 uses
   System.Math,
+  System.Types,
   System.SysUtils,
   Elinor.Scenario,
   Elinor.Frame,
@@ -148,6 +149,7 @@ end;
 procedure TSceneRecords.Render;
 var
   LScenarioEnum: TScenarioEnum;
+  LPos: TPoint;
   LX, LY: Integer;
 
   procedure DrawRecFactionTable;
@@ -260,19 +262,8 @@ begin
   else
     RenderClass;
 
-  case CurrentIndex of
-    0 .. 2:
-      begin
-        LX := TFrame.Col(0);
-        LY := TFrame.Row(CurrentIndex);
-      end;
-    3 .. 5:
-      begin
-        LX := TFrame.Col(1);
-        LY := TFrame.Row(CurrentIndex - 3);
-      end;
-  end;
-  DrawImage(LX, LY, reFrameSlotActive);
+  LPos := GetCurrentIndexPos(CurrentIndex);
+  DrawImage(LPos.X, LPos.Y, reFrameSlotActive);
 
   RenderButtons;
 end;
