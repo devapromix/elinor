@@ -666,8 +666,7 @@ begin
           DrawImage(TFrame.Col(LPosition, psRight), TFrame.Row(LPosition),
             reFrameSlotGlow);
         end;
-        if (FCurrentTargetPosition >= 0) and
-          (FCurrentTargetPosition <= 5) and
+        if (FCurrentTargetPosition >= 0) and (FCurrentTargetPosition <= 5) and
           (EnemyParty.Creature[FCurrentTargetPosition].Alive) then
         begin
           DrawImage(TFrame.Col(FCurrentTargetPosition, psRight),
@@ -698,12 +697,30 @@ begin
 end;
 
 procedure TSceneBattle2.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  LPosition: Integer;
 begin
   inherited;
   if not Enabled then
     Exit;
   CloseButton.MouseMove(X, Y);
-  // Scenes.Render;
+  LPosition := GetPartyPosition(X, Y);
+  if (LPosition >= 6) and (LPosition <= 11) and
+    (EnemyParty.Creature[LPosition - 6].Alive) then
+  begin
+    if (ActivePartyPosition >= 0) and (ActivePartyPosition <= 5) then
+    begin
+      if LeaderParty.Creature[ActivePartyPosition].ReachEnum = reAdj then
+      begin
+        if not TBattleAI.HasWarriors(EnemyParty) or not Odd(LPosition - 6)
+        then
+          FCurrentTargetPosition := LPosition - 6;
+      end
+      else
+        FCurrentTargetPosition := LPosition - 6;
+      Game.Render;
+    end;
+  end;
 end;
 
 procedure TSceneBattle2.Render;
