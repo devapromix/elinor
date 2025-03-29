@@ -321,6 +321,7 @@ end;
 
 class procedure TSceneLoot2.ShowScene;
 begin
+  ActiveSection := lsLoot;
   Game.MediaPlayer.PlaySound(mmLoot);
   Game.Show(scLoot);
 end;
