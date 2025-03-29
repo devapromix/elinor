@@ -16,12 +16,18 @@ uses
 type
   TSceneLoot2 = class(TSceneWideMenu)
   private type
-    TButtonEnum = (btPickup, btClose);
+    TButtonEnum = (btInfo, btPickup, btClose);
+    TLootSectionEnum = (lsLoot, lsInventory);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextPickup, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextInform, reTextPickup,
+      reTextClose);
   private
-    class var Button: array [TButtonEnum] of TButton;
+  class var
+    Button: array [TButtonEnum] of TButton;
+    InventorySelItemIndex: Integer;
+    ActiveSection: TLootSectionEnum;
     procedure PickupItem;
+    procedure ShowItemInfo;
   public
     constructor Create;
     destructor Destroy; override;
@@ -53,6 +59,26 @@ uses
   Elinor.Scenario;
 
 { TSceneLoot }
+
+procedure TSceneLoot2.ShowItemInfo;
+var
+  LItemEnum: TItemEnum;
+  LLootItem: TLootItem;
+  LX, LY, LItemIndex: Integer;
+begin
+  case ActiveSection of
+    lsInventory:
+      begin
+        if InventorySelItemIndex >= 0 then
+        begin
+          LItemEnum := TLeaderParty.Leader.Inventory.Item
+            (InventorySelItemIndex).Enum;
+          if (LItemEnum <> iNone) then
+            Game.ItemInformDialog(LItemEnum);
+        end;
+      end;
+  end;
+end;
 
 procedure TSceneLoot2.PickupItem;
 var
@@ -138,6 +164,8 @@ begin
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
+  InventorySelItemIndex := 0;
+  ActiveSection := lsLoot;
 end;
 
 destructor TSceneLoot2.Destroy;
@@ -156,11 +184,15 @@ begin
   case AButton of
     mbLeft:
       begin
-        if Button[btPickup].MouseDown then
+        if Button[btInfo].MouseDown then
+          ShowItemInfo
+        else if Button[btPickup].MouseDown then
           PickupItem
         else if Button[btClose].MouseDown then
           HideScene;
       end;
+    mbRight:
+      ShowItemInfo;
   end;
 end;
 
@@ -169,11 +201,27 @@ var
   LButtonEnum: TButtonEnum;
 begin
   inherited;
+
+  if MouseOver(X, Y, TFrame.Col(0), TFrame.Row(0) + 48,
+    TFrame.Col(1) + 320 - TFrame.Col(0), TextLineHeight * 12) then
+  begin
+    ActiveSection := lsLoot;
+  end;
+
+  if MouseOver(X, Y, TFrame.Col(3) + 8, TFrame.Row(0) + 48, 320,
+    TextLineHeight * 12) then
+  begin
+    ActiveSection := lsInventory;
+    InventorySelItemIndex := (Y - (TFrame.Row(0) + 48)) div TextLineHeight;
+  end;
+
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneLoot2.Render;
+var
+  LX, LY: Integer;
 
   procedure RenderItems;
   var
@@ -234,6 +282,12 @@ procedure TSceneLoot2.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
+    if (ActiveSection = lsInventory) then
+      DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
+        + 42, reFrameItemActive)
+    else
+      DrawImage(TextLeft - 4, TextTop + (InventorySelItemIndex * TextLineHeight)
+        + 42, reFrameItem);
     AddTextLine('Inventory', True);
     AddTextLine;
     for I := 0 to CMaxInventoryItems - 1 do
@@ -255,6 +309,24 @@ begin
   RenderItemInfo;
   RenderInventory;
   RenderButtons;
+  case ActiveSection of
+    lsInventory:
+      begin
+        case CurrentIndex of
+          0 .. 2:
+            begin
+              LX := TFrame.Col(0);
+              LY := TFrame.Row(CurrentIndex);
+            end;
+          3 .. 5:
+            begin
+              LX := TFrame.Col(1);
+              LY := TFrame.Row(CurrentIndex - 3);
+            end;
+        end;
+        DrawImage(LX, LY, reFrameSlotPassive);
+      end;
+  end;
 end;
 
 class procedure TSceneLoot2.ShowScene;
@@ -271,12 +343,53 @@ end;
 
 procedure TSceneLoot2.Update(var Key: Word);
 begin
+  case Key of
+    K_UP:
+      case ActiveSection of
+        lsInventory:
+          begin
+            Dec(InventorySelItemIndex);
+            if InventorySelItemIndex < 0 then
+              InventorySelItemIndex := CMaxInventoryItems - 1;
+            Exit;
+          end;
+      end;
+    K_DOWN:
+      case ActiveSection of
+        lsInventory:
+          begin
+            Inc(InventorySelItemIndex);
+            if InventorySelItemIndex > CMaxInventoryItems - 1 then
+              InventorySelItemIndex := 0;
+            Exit;
+          end;
+      end;
+    K_LEFT, K_RIGHT:
+      case ActiveSection of
+        lsInventory:
+          Exit;
+      end;
+  end;
   inherited;
   case Key of
     K_ESCAPE:
       HideScene;
     K_ENTER:
-      PickupItem;
+      case ActiveSection of
+        lsLoot:
+          PickupItem;
+        lsInventory:
+          ShowItemInfo;
+      end;
+    K_I:
+      ShowItemInfo;
+    K_SPACE:
+      case ActiveSection of
+        lsLoot:
+          ActiveSection := lsInventory;
+        lsInventory:
+          ActiveSection := lsLoot;
+      end;
   end;
 end;
 
