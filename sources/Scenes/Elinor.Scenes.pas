@@ -1176,7 +1176,7 @@ begin
       LTop := 150;
       DrawImage(LLeft - 10, LTop - 10, reBigFrameBackground);
       DrawImage(LLeft, LTop, ResImage[reBigFrame]);
-      if (IsShowInform = idtMessage) then
+      if (IsShowInform = idtMessage) or IsShowConfirm then
         DrawText(LTop + 100, InformMsg)
       else
       begin
