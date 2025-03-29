@@ -183,6 +183,7 @@ type
   public
     InformMsg: string;
     InformSL: TStringList;
+    InformImage: TResEnum;
     IsShowInform: TInfoDialogType;
     IsShowConfirm: Boolean;
     constructor Create;
@@ -228,7 +229,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  System.Types,
   Winapi.Windows,
   Elinor.MainForm,
   Elinor.Button,
@@ -502,12 +502,14 @@ procedure TScene.ItemInformDialog(const AItemEnum: TItemEnum);
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.InformSL.Clear;
+  Game.InformImage := TItemBase.Item(AItemEnum).ItRes;
   Game.InformSL.Append(TItemBase.Item(AItemEnum).Name);
   Game.InformSL.Append('');
   Game.InformSL.Append('Level ' + TItemBase.Item(AItemEnum).Level.ToString);
   Game.InformSL.Append('Price ' + TItemBase.Item(AItemEnum).Price.ToString);
   Game.InformSL.Append(GetItemDescription(AItemEnum));
-  Game.InformSL.Append(TItemBase.Item(AItemEnum).Description);
+  Game.InformSL.Append(TruncateString(TItemBase.Item(AItemEnum)
+    .Description, 70));
   Game.IsShowInform := idtItemInfo;
 end;
 
@@ -1201,6 +1203,11 @@ begin
       begin
         TextLeft := 400;
         TextTop := LTop + 40;
+        if (Game.InformImage <> reNone) then
+        begin
+          DrawImage(850, LTop + 25, reSmallFrame);
+          DrawImage(880, LTop + 50, Game.InformImage);
+        end;
         for I := 0 to Game.InformSL.Count - 1 do
           AddTextLine(Game.InformSL[I], I = 0);
       end;

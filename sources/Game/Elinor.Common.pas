@@ -39,6 +39,7 @@ type
 
   // function IIF(Condition: Boolean; IfTrue: Variant; IfFalse: Variant): Variant;
 function Percent(const AValue: Integer; APercent: Integer): Integer;
+function TruncateString(const AStr: string; const AMaxLength: Integer): string;
 
 const
   CGoldForRevivePerLevel = 25;
@@ -152,6 +153,28 @@ end;
 function Percent(const AValue: Integer; APercent: Integer): Integer;
 begin
   Result := (AValue * APercent) div 100;
+end;
+
+function TruncateString(const AStr: string; const AMaxLength: Integer): string;
+var
+  I: Integer;
+begin
+  if Length(AStr) <= AMaxLength then
+  begin
+    Result := AStr;
+    Exit;
+  end;
+
+  for I := AMaxLength downto 1 do
+  begin
+    if AStr[I] = ' ' then
+    begin
+      Result := Copy(AStr, 1, I - 1) + '...';
+      Exit;
+    end;
+  end;
+
+  Result := Copy(AStr, 1, AMaxLength) + '...';
 end;
 
 end.
