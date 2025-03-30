@@ -82,8 +82,8 @@ type
     // ITEMS //
     reItemGold, reItemMana, reItemStoneTablet, reItemLifePotion,
     reItemPotionOfHealing, reItemPotionOfRestoration, reItemHealingOintment,
-    reItemStoneRing, reItemRunicKey, reIceCrystal, reItemArcaneScroll,
-    reArtifactRunestone,
+    reItemStoneRing, reItemRunicKey, reItemIceCrystal, reItemArcaneScroll,
+    reItemRunestone, reItemSaphire,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -566,6 +566,8 @@ const
     (FileName: 'item.scroll.arcane.png'; ResType: teItem;),
     // Item Runestone
     (FileName: 'item.runestone.png'; ResType: teItem;),
+    // Item Saphire
+    (FileName: 'item.saphire.png'; ResType: teItem;),
 
     // Difficulty Easy
     (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),

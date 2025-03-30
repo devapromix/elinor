@@ -194,8 +194,8 @@ const
     // Emerald
     (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 400;
-    Description: 'A brilliant green gemstone, cut with precision and clarity.' +
-    ' Prized by jewelers and collectors for its deep, vibrant color'),
+    Description: 'A vibrant green gem, expertly cut' +
+    ' and highly prized for its rich color'),
     // Ruby
     (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItEffect: ieNone;
     ItSlot: isNone; ItRes: reNone; Price: 550;
@@ -203,10 +203,9 @@ const
     ' Symbolizes passion and power in many cultures'),
     // Sapphire
     (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 750;
-    Description
-    : 'A deep blue stone that captures the essence of the sea and sky.' +
-    ' Revered for its royal beauty and mystical properties'),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemSaphire; Price: 750;
+    Description: 'Deep blue stone embodying the sea and sky,' +
+    ' prized for its royal beauty and mystique'),
     // Diamond
     (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reNone; Price: 850;
@@ -240,8 +239,7 @@ const
     // Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemHealingOintment; Price: 400;
-    Description: ''),
+    ItRes: reItemHealingOintment; Price: 400; Description: ''),
 
     // Artifacts
     // Dwarven Bracer
@@ -250,7 +248,7 @@ const
     Description: ''),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reArtifactRunestone;
+    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reItemRunestone;
     Price: 400; Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // Horn Of Awareness
@@ -259,7 +257,7 @@ const
     Price: 500; Description: ''),
     // Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reIceCrystal; Price: 650;
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reItemIceCrystal; Price: 650;
     Description: ''),
     // Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
