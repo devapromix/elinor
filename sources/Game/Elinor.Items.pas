@@ -239,7 +239,9 @@ const
     // Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemHealingOintment; Price: 400; Description: ''),
+    ItRes: reItemHealingOintment; Price: 400;
+    Description: 'A crimson nectar that fills the body with energy,' +
+    ' healing wounds and restoring strength.'),
 
     // Artifacts
     // Dwarven Bracer
@@ -248,8 +250,8 @@ const
     Description: ''),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reItemRunestone;
-    Price: 400; Description: 'A mystical runestone that enhances' +
+    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reItemRunestone; Price: 400;
+    Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
@@ -284,7 +286,7 @@ const
     ' holding dormant magical energy'),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
-    ItEffect: ieRegen10; ItSlot: isRing; ItRes: reNone; Price: 400;
+    ItEffect: ieRegen10; ItSlot: isRing; ItRes: reItemBronzeRing; Price: 400;
     Description: 'A simple bronze ring,' + ' sturdy and unassuming'),
     // Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
