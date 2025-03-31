@@ -62,6 +62,7 @@ of their gods.
 * Arrows, Numeric keypad - Select character's slot (if active character's group)
 * Space - Change active group
 * Enter - use item (read scroll/drink potion)
+* I, RBM - information about item
 
 ### 9. In high scores scene:
 * Esc - Close scene
