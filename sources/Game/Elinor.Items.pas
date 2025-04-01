@@ -255,7 +255,7 @@ const
     ' natural health regeneration'),
     // Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
-    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reItemHorn;
     Price: 500; Description: ''),
     // Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
