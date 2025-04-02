@@ -82,8 +82,9 @@ type
     // ITEMS //
     reItemGold, reItemMana, reItemStoneTablet, reItemLifePotion,
     reItemPotionOfHealing, reItemPotionOfRestoration, reItemHealingOintment,
-    reItemStoneRing, reItemBronzeRing, reItemRunicKey, reItemIceCrystal,
-    reItemArcaneScroll, reItemRunestone, reItemSaphire, reItemHorn,
+    reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRunicKey,
+    reItemIceCrystal, reItemArcaneScroll, reItemRunestone, reItemSaphire,
+    reItemHorn,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -560,6 +561,8 @@ const
     (FileName: 'item.ring.stone.png'; ResType: teItem;),
     // Item Bronze Ring
     (FileName: 'item.ring.bronze.png'; ResType: teItem;),
+    // Item Silver Ring
+    (FileName: 'item.ring.silver.png'; ResType: teItem;),
     // Item Runic Key
     (FileName: 'item.runic_key.png'; ResType: teItem;),
     // Item Ice Crystal

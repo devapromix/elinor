@@ -290,7 +290,7 @@ const
     Description: 'A simple bronze ring,' + ' sturdy and unassuming'),
     // Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
-    ItEffect: ieRegen15; ItSlot: isRing; ItRes: reNone; Price: 500;
+    ItEffect: ieRegen15; ItSlot: isRing; ItRes: reItemSilverRing; Price: 500;
     Description: 'A sleek silver ring,' +
     ' reflecting a subtle, elegant shine'),
     // Gold Ring
