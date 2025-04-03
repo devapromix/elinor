@@ -392,6 +392,11 @@ var
 begin
   AtkCrEnum := AtkParty.Creature[AtkPos].Enum;
   DefCrEnum := DefParty.Creature[DefPos].Enum;
+
+  if FBattle.CheckArtifactParalyze(AtkParty, DefParty, AtkCrEnum, DefCrEnum)
+  then
+    Exit;
+
   case TCreature.Character(AtkCrEnum).AttackEnum of
     atParalyze:
       begin
@@ -712,8 +717,7 @@ begin
     begin
       if LeaderParty.Creature[ActivePartyPosition].ReachEnum = reAdj then
       begin
-        if not TBattleAI.HasWarriors(EnemyParty) or not Odd(LPosition - 6)
-        then
+        if not TBattleAI.HasWarriors(EnemyParty) or not Odd(LPosition - 6) then
           FCurrentTargetPosition := LPosition - 6;
       end
       else

@@ -5,7 +5,8 @@ interface
 uses
   System.Classes,
   Elinor.Party,
-  Elinor.Creatures;
+  Elinor.Creatures,
+  Elinor.Creature.Types;
 
 type
   TBattle = class(TObject)
@@ -16,6 +17,8 @@ type
     destructor Destroy; override;
     property InitiativeList: TStringList read FInitiativeList;
     procedure SetInitiative(const ALeaderParty, AEnemyParty: TParty);
+    function CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
+      AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
     function GetHitPoints(const APosition: Integer;
       const ALeaderParty, AEnemyParty: TParty): Integer;
   end;
@@ -23,10 +26,20 @@ type
 implementation
 
 uses
-  System.SysUtils,
+  System.SysUtils, dialogs,
   System.Math;
 
 { TBattle }
+
+function TBattle.CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
+  AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
+begin
+  Result := False;
+  if AAtkCrEnum = AAtkParty.Creature[TLeaderParty.GetPosition].Enum then
+  begin
+    showmessage('');
+  end;
+end;
 
 constructor TBattle.Create;
 begin

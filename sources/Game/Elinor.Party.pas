@@ -114,6 +114,7 @@ type
     SummonPartyIndex: Byte;
     LeaderName: string;
     LeaderRegenerationValue: Byte;
+    LeaderChanceToParalyzeValue: Byte;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -167,6 +168,7 @@ type
     class procedure UpdateMoveUnit(AParty: TParty); overload;
     class procedure UpdateMoveUnit(AParty: TParty;
       const AX, AY: Integer); overload;
+    class procedure ModifyLeaderChanceToParalyze(const AValue: Integer);
   end;
 
 type
@@ -640,6 +642,7 @@ begin
   Self.UpdateSightRadius;
   IsUnitSelected := False;
   LeaderRegenerationValue := 0;
+  LeaderChanceToParalyzeValue := 0;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
@@ -897,6 +900,12 @@ begin
   LHitPoints := Leader.Creature[LPosition].HitPoints.GetMaxValue;
   Heal(LPosition, Percent(LHitPoints, EnsureRange(LeaderRegenerationValue,
     0, 100)));
+end;
+
+class procedure TLeaderParty.ModifyLeaderChanceToParalyze
+  (const AValue: Integer);
+begin
+  LeaderChanceToParalyzeValue := LeaderChanceToParalyzeValue + AValue;
 end;
 
 class procedure TLeaderParty.ModifyLeaderRegeneration(const AValue: Integer);
