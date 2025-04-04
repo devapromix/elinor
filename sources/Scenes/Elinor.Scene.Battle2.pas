@@ -37,7 +37,7 @@ type
       AtkPos, DefPos: TPosition);
     procedure Damage(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
     procedure Paralyze(AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
-    procedure Heal(Party: TParty; AtkPos, DefPos: TPosition);
+    procedure Heal(AParty: TParty; AtkPos, DefPos: TPosition);
     procedure Defeat;
     procedure FinishBattle;
     procedure NextTurn;
@@ -537,33 +537,33 @@ begin
   end;
 end;
 
-procedure TSceneBattle2.Heal(Party: TParty; AtkPos, DefPos: TPosition);
+procedure TSceneBattle2.Heal(AParty: TParty; AtkPos, DefPos: TPosition);
 var
   Position: TPosition;
 begin
-  if (Party.Creature[AtkPos].Heal > 0) then
+  if (AParty.Creature[AtkPos].Heal > 0) then
   begin
-    case Party.Creature[AtkPos].ReachEnum of
+    case AParty.Creature[AtkPos].ReachEnum of
       reAll:
         begin
           for Position := Low(TPosition) to High(TPosition) do
-            with Party.Creature[Position] do
+            with AParty.Creature[Position] do
               if Alive and (HitPoints.GetCurrValue < HitPoints.GetMaxValue) then
               begin
                 Game.MediaPlayer.PlaySound(mmHeal);
-                Party.Heal(Position, Party.Creature[AtkPos].Heal);
-                BattleLog.Heal(Party.Creature[AtkPos].Name[0],
-                  Party.Creature[Position].Name[1],
-                  Party.Creature[AtkPos].Heal);
+                AParty.Heal(Position, AParty.Creature[AtkPos].Heal);
+                BattleLog.Heal(AParty.Creature[AtkPos].Name[0],
+                  AParty.Creature[Position].Name[1],
+                  AParty.Creature[AtkPos].Heal);
               end;
         end
     else
-      with Party.Creature[DefPos] do
+      with AParty.Creature[DefPos] do
         if Alive and (HitPoints.GetCurrValue < HitPoints.GetMaxValue) then
         begin
-          Party.Heal(DefPos, Party.Creature[AtkPos].Heal);
-          BattleLog.Heal(Party.Creature[AtkPos].Name[0],
-            Party.Creature[DefPos].Name[1], Party.Creature[AtkPos].Heal);
+          AParty.Heal(DefPos, AParty.Creature[AtkPos].Heal);
+          BattleLog.Heal(AParty.Creature[AtkPos].Name[0],
+            AParty.Creature[DefPos].Name[1], AParty.Creature[AtkPos].Heal);
         end;
     end;
     NextTurn;

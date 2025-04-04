@@ -12,6 +12,40 @@ interface
 uses
   Elinor.Resources;
 
+// Effects:
+
+// Tome:
+// All the units in the party gain 25% more experience in battle
+// Leader can use Orbs
+// Leader can use Talismans
+
+// Causes an enemy unit to flee from battle
+// Polymorphs enemy unit
+// Paralyzes enemy unit
+// Revives dead units
+// Units inflict 25% more damage
+// Increases the initiative by 10%
+// Transforms enemy unit into imps
+// Increases the damage inflicted by 10%
+// 10% greater chance to hit
+// Adds 15% hit points
+// Receive 10% less damage from attacks
+// 15% greater chance to hit
+// Inflict 30% more damage
+// Gives an extra attack
+// Leader gains a vampiric attack: his attacks heal him
+// Petrifies enemy unit
+// Leader inflicts 10% more damage
+// Leader receives 25% less damage from attacks
+
+// Boots:
+// No move penalty when walking in forests
+// No move penalty when sailing on water
+// Leader gains 40% more move points
+
+// Leader is unaffected by thieves
+// 10% lower prices from merchants and mercenaries
+
 type
   TItemType = (itSpecial, itValuable,
     // Potions and Scrolls
@@ -38,7 +72,8 @@ type
     ipTemporary);
 
 type
-  TItemEffect = (ieNone, ieRegen5, ieRegen10, ieRegen15, ieRegen20, ieRegen25);
+  TItemEffect = (ieNone, ieRegen5, ieRegen10, ieRegen15, ieRegen20, ieRegen25,
+    ieChanceToParalyze25);
 
 type
   TJewlery = (jwNone, jwSteel, jwBronze, jwCopper, jwBrass, jwSilver, jwGold,
@@ -68,10 +103,23 @@ type
     // iHornOfIncubus,
     // iRoyalScepter
 
+    // Amulets
+
+    // Armors
+
+    // Boots
+
+    // Talismans
+    // iTalismanOfLife,
+
+    // Banners
+
+    // Tomes
+
     // Orbs
     // iGoblinOrb, iImpOrb, iZombieOrb, iVampireOrb,
     // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
-    // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing, iOrbOfLife,
+    // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
 
     // Rings
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
@@ -259,8 +307,8 @@ const
     Price: 500; Description: ''),
     // Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: reItemIceCrystal; Price: 650;
-    Description: ''),
+    ItEffect: ieChanceToParalyze25; ItSlot: isArtifact; ItRes: reItemIceCrystal;
+    Price: 650; Description: ''),
     // Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
     ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone; Price: 750;
@@ -485,7 +533,8 @@ begin
       TLeaderParty.ModifyLeaderRegeneration(20);
     if FItem[I].ItEffect = ieRegen25 then
       TLeaderParty.ModifyLeaderRegeneration(25);
-
+    if FItem[I].ItEffect = ieChanceToParalyze25 then
+      TLeaderParty.ModifyLeaderChanceToParalyze(25);
   end;
 end;
 
