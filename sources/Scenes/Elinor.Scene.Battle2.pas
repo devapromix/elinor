@@ -63,7 +63,7 @@ type
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    procedure Show(const S: TSceneEnum); override;
+    procedure Show(const ASceneEnum: TSceneEnum); override;
     property Enabled: Boolean read FEnabled write FEnabled;
     class procedure AfterVictory;
     class procedure ShowScene();
@@ -859,7 +859,7 @@ begin
   Game.Render;
 end;
 
-procedure TSceneBattle2.Show(const S: TSceneEnum);
+procedure TSceneBattle2.Show(const ASceneEnum: TSceneEnum);
 begin
   inherited;
   IsNewAbility := False;
