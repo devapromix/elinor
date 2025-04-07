@@ -35,10 +35,14 @@ function TBattle.CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
   AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
 begin
   Result := False;
-  if AAtkCrEnum = AAtkParty.Creature[TLeaderParty.GetPosition].Enum then
-  begin
-    showmessage('');
-  end;
+  if AAtkCrEnum <> AAtkParty.Creature[TLeaderParty.GetPosition].Enum then
+    Exit;
+  if TLeaderParty.LeaderChanceToParalyzeValue = 0 then
+    Exit;
+  if RandomRange(0, 100) > TLeaderParty.LeaderChanceToParalyzeValue then
+    Exit;
+  Result := True;
+  showmessage('Paral');
 end;
 
 constructor TBattle.Create;
