@@ -33,8 +33,8 @@ type
     FCurrentTargetPosition: TPosition;
     procedure ClickOnPosition;
     procedure ChExperience;
-    procedure Turn(const TurnType: TTurnType; AtkParty, DefParty: TParty;
-      AtkPos, DefPos: TPosition);
+    procedure Turn(const ATurnType: TTurnType; AAtkParty, ADefParty: TParty;
+      AAtkPos, ADefPos: TPosition);
     procedure Damage(AAtkParty, ADefParty: TParty; AAtkPos, ADefPos: TPosition);
     procedure Paralyze(AAtkParty, ADefParty: TParty;
       AAtkPos, ADefPos: TPosition);
@@ -329,42 +329,42 @@ begin
     Defeat;
 end;
 
-procedure TSceneBattle2.Turn(const TurnType: TTurnType;
-  AtkParty, DefParty: TParty; AtkPos, DefPos: TPosition);
+procedure TSceneBattle2.Turn(const ATurnType: TTurnType;
+  AAtkParty, ADefParty: TParty; AAtkPos, ADefPos: TPosition);
 var
   LHasWarriors: Boolean;
 begin
-  if AtkParty.Creature[AtkPos].Alive and DefParty.Creature[DefPos].Alive then
+  if AAtkParty.Creature[AAtkPos].Alive and ADefParty.Creature[ADefPos].Alive then
   begin
     begin
-      LHasWarriors := TBattleAI.HasWarriors(DefParty);
-      case AtkParty.Creature[AtkPos].ReachEnum of
+      LHasWarriors := TBattleAI.HasWarriors(ADefParty);
+      case AAtkParty.Creature[AAtkPos].ReachEnum of
         reAdj:
-          if LHasWarriors and Odd(DefPos) then
+          if LHasWarriors and Odd(ADefPos) then
             Exit;
       end;
-      if AtkParty.Creature[AtkPos].ChancesToHit.GetFullValue() <
+      if AAtkParty.Creature[AAtkPos].ChancesToHit.GetFullValue() <
         RandomRange(0, 100) + 1 then
       begin
-        BattleLog.Miss(AtkParty.Creature[AtkPos].Name[0],
-          DefParty.Creature[DefPos].Name[1]);
+        BattleLog.Miss(AAtkParty.Creature[AAtkPos].Name[0],
+          ADefParty.Creature[ADefPos].Name[1]);
         Game.MediaPlayer.PlaySound(mmMiss);
         Sleep(200);
         NextTurn;
         Exit;
       end;
-      if AtkParty.Creature[AtkPos].Paralyze then
+      if AAtkParty.Creature[AAtkPos].Paralyze then
       begin
         BattleLog.ParalPassed;
-        AtkParty.UnParalyze(AtkPos);
+        AAtkParty.UnParalyze(AAtkPos);
         NextTurn;
         Exit;
       end;
-      case TurnType of
+      case ATurnType of
         ttDamage:
-          Damage(AtkParty, DefParty, AtkPos, DefPos);
+          Damage(AAtkParty, ADefParty, AAtkPos, ADefPos);
         ttHeal:
-          Heal(AtkParty, AtkPos, DefPos);
+          Heal(AAtkParty, AAtkPos, ADefPos);
       end;
     end;
   end;
