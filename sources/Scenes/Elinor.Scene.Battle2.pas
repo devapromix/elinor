@@ -334,7 +334,8 @@ procedure TSceneBattle2.Turn(const ATurnType: TTurnType;
 var
   LHasWarriors: Boolean;
 begin
-  if AAtkParty.Creature[AAtkPos].Alive and ADefParty.Creature[ADefPos].Alive then
+  if AAtkParty.Creature[AAtkPos].Alive and ADefParty.Creature[ADefPos].Alive
+  then
   begin
     begin
       LHasWarriors := TBattleAI.HasWarriors(ADefParty);
@@ -387,15 +388,15 @@ procedure TSceneBattle2.Damage(AAtkParty, ADefParty: TParty;
   AAtkPos, ADefPos: TPosition);
 var
   LPosition: TPosition;
-  F, B: Boolean;
   LAtkCrEnum, LDefCrEnum: TCreatureEnum;
   LDamage: Integer;
+  F, B: Boolean;
 begin
   LAtkCrEnum := AAtkParty.Creature[AAtkPos].Enum;
   LDefCrEnum := ADefParty.Creature[ADefPos].Enum;
 
-  if FBattle.CheckArtifactParalyze(AAtkParty, ADefParty, LAtkCrEnum, LDefCrEnum)
-  then
+  if FBattle.CheckArtifactParalyze(AAtkParty, ADefParty, AAtkPos, ADefPos,
+    LAtkCrEnum, LDefCrEnum) then
     Exit;
 
   case TCreature.Character(LAtkCrEnum).AttackEnum of

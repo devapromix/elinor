@@ -6,21 +6,25 @@ uses
   System.Classes,
   Elinor.Party,
   Elinor.Creatures,
+  Elinor.Battle.Log,
   Elinor.Creature.Types;
 
 type
   TBattle = class(TObject)
   private
     FInitiativeList: TStringList;
+    FBattleLog: TBattleLog;
   public
     constructor Create;
     destructor Destroy; override;
     property InitiativeList: TStringList read FInitiativeList;
     procedure SetInitiative(const ALeaderParty, AEnemyParty: TParty);
     function CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
+      AAtkPos, ADefPos: TPosition;
       AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
     function GetHitPoints(const APosition: Integer;
       const ALeaderParty, AEnemyParty: TParty): Integer;
+    property BattleLog: TBattleLog read FBattleLog;
   end;
 
 implementation
@@ -32,7 +36,7 @@ uses
 { TBattle }
 
 function TBattle.CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
-  AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
+  AAtkPos, ADefPos: TPosition; AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
 begin
   Result := False;
   if AAtkCrEnum <> AAtkParty.Creature[TLeaderParty.GetPosition].Enum then
@@ -42,18 +46,27 @@ begin
   if RandomRange(0, 100) > TLeaderParty.LeaderChanceToParalyzeValue then
     Exit;
   Result := True;
-  showmessage('Paral');
+  with ADefParty.Creature[ADefPos] do
+    if Alive then
+    begin
+      showmessage('Paral');
+      ADefParty.Paralyze(ADefPos);
+      BattleLog.Paralyze(AAtkParty.Creature[AAtkPos].Name[0],
+        ADefParty.Creature[ADefPos].Name[1]);
+    end;
 end;
 
 constructor TBattle.Create;
 begin
   inherited;
   FInitiativeList := TStringList.Create;
+  FBattleLog := TBattleLog.Create;
 end;
 
 destructor TBattle.Destroy;
 begin
   inherited;
+  FreeAndNil(FBattleLog);
   FreeAndNil(FInitiativeList);
 end;
 
