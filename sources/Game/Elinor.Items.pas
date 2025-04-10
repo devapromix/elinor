@@ -73,7 +73,7 @@ type
 
 type
   TItemEffect = (ieNone, ieRegen5, ieRegen10, ieRegen15, ieRegen20, ieRegen25,
-    ieChanceToParalyze25);
+    ieChanceToParalyze5, ieChanceToParalyze10, ieChanceToParalyze15);
 
 type
   TJewlery = (jwNone, jwSteel, jwBronze, jwCopper, jwBrass, jwSilver, jwGold,
@@ -307,7 +307,7 @@ const
     Price: 500; Description: ''),
     // Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
-    ItEffect: ieChanceToParalyze25; ItSlot: isArtifact; ItRes: reItemIceCrystal;
+    ItEffect: ieChanceToParalyze10; ItSlot: isArtifact; ItRes: reItemIceCrystal;
     Price: 650; Description: ''),
     // Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
@@ -319,8 +319,8 @@ const
     Price: 1000; Description: ''),
     // Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
-    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
-    Price: 1250; Description: ''),
+    ItType: itArtifact; ItEffect: ieChanceToParalyze15; ItSlot: isArtifact;
+    ItRes: reNone; Price: 1250; Description: ''),
     // Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
@@ -360,7 +360,7 @@ const
     Description: ''),
     // Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 1500;
+    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: reNone; Price: 1500;
     Description: ''),
 
     // Helms
@@ -533,8 +533,12 @@ begin
       TLeaderParty.ModifyLeaderRegeneration(20);
     if FItem[I].ItEffect = ieRegen25 then
       TLeaderParty.ModifyLeaderRegeneration(25);
-    if FItem[I].ItEffect = ieChanceToParalyze25 then
-      TLeaderParty.ModifyLeaderChanceToParalyze(25);
+    if FItem[I].ItEffect = ieChanceToParalyze5 then
+      TLeaderParty.ModifyLeaderChanceToParalyze(5);
+    if FItem[I].ItEffect = ieChanceToParalyze10 then
+      TLeaderParty.ModifyLeaderChanceToParalyze(10);
+    if FItem[I].ItEffect = ieChanceToParalyze15 then
+      TLeaderParty.ModifyLeaderChanceToParalyze(15);
   end;
 end;
 

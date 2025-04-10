@@ -753,8 +753,12 @@ begin
       Result := 'Regeneration +20';
     ieRegen25:
       Result := 'Regeneration +25';
-    ieChanceToParalyze25:
-      Result := 'Has a 25% chance to paralyze the unit';
+    ieChanceToParalyze5:
+      Result := 'Has a 5% chance to paralyze the unit';
+    ieChanceToParalyze10:
+      Result := 'Has a 10% chance to paralyze the unit';
+    ieChanceToParalyze15:
+      Result := 'Has a 15% chance to paralyze the unit';
   end;
 
 end;
