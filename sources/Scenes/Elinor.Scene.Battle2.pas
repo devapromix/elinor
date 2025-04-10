@@ -225,7 +225,8 @@ begin
           if AliveAndNeedExp then
           begin
             LeaderParty.UpdateXP(LCharacterExperience, LPosition);
-            FBattle.BattleLog.UpdateExp(Name[0], GenderEnding, LCharacterExperience);
+            FBattle.BattleLog.UpdateExp(Name[0], GenderEnding,
+              LCharacterExperience);
           end;
     end;
     for LPosition := Low(TPosition) to High(TPosition) do
@@ -395,7 +396,9 @@ begin
 
   if FBattle.CheckArtifactParalyze(AAtkParty, ADefParty, AAtkPos, ADefPos,
     LAtkCrEnum, LDefCrEnum) then
-    Exit;
+  begin
+    Sleep(200);
+  end;
 
   case TCreature.Character(LAtkCrEnum).AttackEnum of
     atParalyze:
@@ -459,8 +462,8 @@ begin
                   Sleep(200);
                   ADefParty.TakeDamage(AAtkParty.Creature[AAtkPos]
                     .Damage.GetFullValue, ADefPos);
-                  FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
-                    TCreature.Character(LAtkCrEnum).SourceEnum,
+                  FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum)
+                    .AttackEnum, TCreature.Character(LAtkCrEnum).SourceEnum,
                     AAtkParty.Creature[AAtkPos].Name[0],
                     ADefParty.Creature[ADefPos].Name[1],
                     AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
@@ -484,8 +487,8 @@ begin
                     Sleep(200);
                     ADefParty.TakeDamage(AAtkParty.Creature[AAtkPos]
                       .Damage.GetFullValue, ADefPos);
-                    FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
-                      TCreature.Character(LAtkCrEnum).SourceEnum,
+                    FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum)
+                      .AttackEnum, TCreature.Character(LAtkCrEnum).SourceEnum,
                       AAtkParty.Creature[AAtkPos].Name[0],
                       ADefParty.Creature[ADefPos].Name[1],
                       AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
@@ -506,8 +509,8 @@ begin
             crWyvern:
               ;
           else
-            FBattle.BattleLog.StartCastSpell(TCreature.Character(LAtkCrEnum).Name[0],
-              SourceName[TCreature.Character(LAtkCrEnum).SourceEnum]);
+            FBattle.BattleLog.StartCastSpell(TCreature.Character(LAtkCrEnum)
+              .Name[0], SourceName[TCreature.Character(LAtkCrEnum).SourceEnum]);
           end;
           Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
             .Sound[csAttack]);
@@ -517,8 +520,8 @@ begin
             begin
               ADefParty.TakeDamage(AAtkParty.Creature[AAtkPos]
                 .Damage.GetFullValue, LPosition);
-              FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
-                TCreature.Character(LAtkCrEnum).SourceEnum,
+              FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum)
+                .AttackEnum, TCreature.Character(LAtkCrEnum).SourceEnum,
                 AAtkParty.Creature[AAtkPos].Name[0],
                 ADefParty.Creature[LPosition].Name[1],
                 AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
