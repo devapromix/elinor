@@ -53,7 +53,7 @@ begin
     begin
       ADefParty.Paralyze(ADefPos);
       BattleLog.Paralyze(AAtkParty.Creature[AAtkPos].Name[0],
-        ADefParty.Creature[ADefPos].Name[1]);
+        ADefParty.Creature[ADefPos].Name[1], True);
     end;
 end;
 

@@ -17,7 +17,8 @@ type
     procedure LoseInBattle;
     procedure Kill(const CrName: string);
     procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
-    procedure Paralyze(const AtkCrName, DefCrName: string);
+    procedure Paralyze(const AtkCrName, DefCrName: string;
+      const IsArtifact: Boolean = False);
     procedure ParalPassed;
     procedure Miss(const AtkCrName, DefCrName: string);
     procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
@@ -138,10 +139,15 @@ begin
   Log.Add(TResources.RandomValue('battle.string', 'paral_passed'));
 end;
 
-procedure TBattleLog.Paralyze(const AtkCrName, DefCrName: string);
+procedure TBattleLog.Paralyze(const AtkCrName, DefCrName: string;
+  const IsArtifact: Boolean = False);
 begin
-  Log.Add(Format(TResources.RandomValue('battle.string', 'paralyze_attack'),
-    [AtkCrName, DefCrName]));
+  if IsArtifact then
+    Log.Add(Format(TResources.RandomValue('battle.string',
+      'paralyze_artifact_attack'), [AtkCrName, DefCrName]))
+  else
+    Log.Add(Format(TResources.RandomValue('battle.string',
+      'paralyze_ghost_attack'), [AtkCrName, DefCrName]));
 end;
 
 procedure TBattleLog.StartCastSpell(const CrName, SourceName: string);

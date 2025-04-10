@@ -140,11 +140,14 @@
 "spear_attack":[
 			"%s атакует копьем %s и наносит %d урона."
 		],
-"paralyze_attack":[
-			"%s парализует %s.",
-			"%s истошно кричит и парализует %s.",
-			"%s жутко воет и парализует %s.",
-			"%s парализует %s страхом."
+"paralyze_ghost_attack":[
+			"%s paralyzes %s.",
+			"%s lets out a piercing scream and paralyzes %s.",
+			"%s howls eerily and paralyzes %s.",
+			"%s paralyzes %s with fear."
+		],
+"paralyze_artifact_attack":[
+			"%s paralyzes %s.",
 		],
 "paral_passed":[
 			"The paralysis has passed."
