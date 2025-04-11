@@ -30,6 +30,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -56,6 +57,11 @@ end;
 procedure TMainForm.FormPaint(Sender: TObject);
 begin
   Game.Render;
+end;
+
+procedure TMainForm.FormResize(Sender: TObject);
+begin
+ //
 end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);

@@ -20,18 +20,19 @@ object MainForm: TMainForm
   OnMouseDown = FormMouseDown
   OnMouseMove = FormMouseMove
   OnPaint = FormPaint
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object Timer1: TTimer
     Interval = 500
     OnTimer = Timer1Timer
-    Left = 24
-    Top = 24
+    Left = 8
+    Top = 8
   end
   object AutoTimer: TTimer
     Enabled = False
     Interval = 1500
-    Left = 24
-    Top = 72
+    Left = 40
+    Top = 8
   end
 end
