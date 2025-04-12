@@ -46,7 +46,8 @@ uses
   Elinor.Creatures,
   Elinor.Frame,
   Elinor.Spells.Types,
-  Elinor.Spellbook;
+  Elinor.Spellbook,
+  Elinor.Common;
 
 { TSceneMageTower }
 
@@ -62,13 +63,13 @@ begin
     if LMana > Game.Mana.Value then
     begin
       Game.MediaPlayer.PlaySound(mmSpellbook);
-      InformDialog('Not enough mana to learn this spell!');
+      InformDialog(CNotEnoughMana);
       Exit;
     end;
     Game.MediaPlayer.PlaySound(mmLearn);
     Game.Mana.Modify(-LMana);
     Spells.Learn(LSpellEnum);
-    InformDialog('The spell has been added to the spellbook!');
+    InformDialog(CAddSpellToSpellbook);
   end;
 end;
 

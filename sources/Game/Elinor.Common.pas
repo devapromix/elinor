@@ -70,6 +70,8 @@ const
   CRevivalConfirmFormat = 'Revive for %d gold?';
   COnlyLeaderCanEquipItem = 'Only the Leader can equip this item!';
   CNotEnoughGold = 'Not enough gold!';
+  CAddSpellToSpellbook = 'The spell has been added to the spellbook!';
+  CNotEnoughMana='Not enough mana to learn this spell!';
 
 implementation
 
