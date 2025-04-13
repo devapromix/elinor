@@ -22,7 +22,7 @@ type
     DuelEnemyParty: TParty;
     DuelLeaderParty: TParty;
     CurrentPosition: Integer;
-    ttt: Integer;
+    FTimer: Integer;
     IsNewAbility: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
@@ -279,7 +279,7 @@ end;
 procedure TSceneBattle2.StartBattle;
 var
   I: Integer;
-  DuelEnemyPosition: TPosition;
+  LDuelEnemyPosition: TPosition;
 begin
   FBattle.BattleLog.Clear;
   Enabled := True;
@@ -287,8 +287,8 @@ begin
   if IsDuel then
   begin
     DuelEnemyParty.Clear;
-    DuelEnemyPosition := PartyList.Party[I].GetRandomPosition;
-    DuelEnemyParty.MoveCreature(PartyList.Party[I], DuelEnemyPosition);
+    LDuelEnemyPosition := PartyList.Party[I].GetRandomPosition;
+    DuelEnemyParty.MoveCreature(PartyList.Party[I], LDuelEnemyPosition);
     EnemyParty := DuelEnemyParty;
     DuelLeaderParty.Clear;
     DuelLeaderPosition := TLeaderParty.GetPosition;
@@ -791,19 +791,19 @@ end;
 
 procedure TSceneBattle2.NextTurn;
 var
-  Position: Integer;
+  LPosition: Integer;
   S: string;
   A: TArray<string>;
 begin
-  Position := -1;
+  LPosition := -1;
   repeat
     S := FBattle.InitiativeList[CurrentPosition];
     if S <> '' then
     begin
       A := S.Split([':']);
-      Position := A[1].ToInteger;
+      LPosition := A[1].ToInteger;
     end;
-    Enabled := Position <= 5;
+    Enabled := LPosition <= 5;
     FBattle.InitiativeList[CurrentPosition] := '';
     Dec(CurrentPosition);
     if CurrentPosition < 0 then
@@ -811,10 +811,10 @@ begin
       StartRound;
       Exit;
     end;
-  until (Position <> -1) and (GetHitPoints(Position) > 0);
-  ActivePartyPosition := Position;
-  if Position > 5 then
-    ttt := CSpeed;
+  until (LPosition <> -1) and (GetHitPoints(LPosition) > 0);
+  ActivePartyPosition := LPosition;
+  if LPosition > 5 then
+    FTimer := CSpeed;
   Render;
 end;
 
@@ -877,10 +877,10 @@ end;
 procedure TSceneBattle2.Timer;
 begin
   inherited;
-  if ttt > 0 then
+  if FTimer > 0 then
   begin
-    Dec(ttt);
-    if ttt = 0 then
+    Dec(FTimer);
+    if FTimer = 0 then
     begin
       AI;
       Game.Render;
