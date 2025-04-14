@@ -63,7 +63,7 @@ begin
     if LMana > Game.Mana.Value then
     begin
       Game.MediaPlayer.PlaySound(mmSpellbook);
-      InformDialog(CNotEnoughMana);
+      InformDialog(CNotEnoughManaToLearn);
       Exit;
     end;
     Game.MediaPlayer.PlaySound(mmLearn);
