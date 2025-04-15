@@ -21,7 +21,7 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
     procedure ChSection;
   private
-    Button: array [TButtonEnum] of TButton;
+    FButton: array [TButtonEnum] of TButton;
     procedure SellItem;
     procedure BuyItem;
     procedure UpdateSelectionIndex(const AIsUp: Boolean);
@@ -160,11 +160,11 @@ begin
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+    FButton[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-      Button[LButtonEnum].Sellected := True;
+      FButton[LButtonEnum].Sellected := True;
   end;
   InventorySelItemIndex := 0;
   MerchantSelItemIndex := 0;
@@ -177,7 +177,7 @@ var
   LButtonEnum: TButtonEnum;
 begin
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[LButtonEnum]);
+    FreeAndNil(FButton[LButtonEnum]);
   inherited;
 end;
 
@@ -188,7 +188,7 @@ begin
   case AButton of
     mbLeft:
       begin
-        if Button[btClose].MouseDown then
+        if FButton[btClose].MouseDown then
         begin
           HideScene;
           Exit;
@@ -226,7 +226,7 @@ begin
   end;
 
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[LButtonEnum].MouseMove(X, Y);
+    FButton[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneMerchant.Render;
@@ -344,7 +344,7 @@ procedure TSceneMerchant.Render;
     LButtonEnum: TButtonEnum;
   begin
     for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[LButtonEnum].Render;
+      FButton[LButtonEnum].Render;
   end;
 
 begin

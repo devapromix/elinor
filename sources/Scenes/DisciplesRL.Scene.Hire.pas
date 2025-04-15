@@ -97,8 +97,6 @@ const
     );
 
 const
-  AddButtonScene = [];
-  CloseButtonScene = AddButtonScene;
   MainButtonsScene = [stSpy, stWar];
 
 var
@@ -377,44 +375,15 @@ begin
 end;
 
 procedure TSceneHire.RenderButtons;
-var
-  I: TButtonEnum;
 begin
-  if (SubScene in CloseButtonScene) then
-    Button[SubScene][btOk].Render
-  else
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[SubScene][I].Render;
 end;
 
 
 { TSceneHire }
 
 constructor TSceneHire.Create;
-var
-  I: TButtonEnum;
-  J: THireSubSceneEnum;
-  Lc, W: Integer;
 begin
   inherited;
-  for J := Low(THireSubSceneEnum) to High(THireSubSceneEnum) do
-  begin
-    W := ResImage[reButtonDef].Width + 4;
-    if (J in CloseButtonScene) then
-      Lc := ScrWidth - (ResImage[reButtonDef].Width div 2)
-    else
-      Lc := ScrWidth - ((W * (Ord(High(TButtonEnum)) + 1)) div 2);
-    for I := Low(TButtonEnum) to High(TButtonEnum) do
-    begin
-      Button[J][I] := TButton.Create(Lc, 600, ButtonText[J][I]);
-      if not(J in CloseButtonScene) then
-        Inc(Lc, W);
-      if (I = btOk) then
-        Button[J][I].Sellected := True;
-    end;
-  end;
-  Lf := ScrWidth - (ResImage[reFrameSlot].Width) - 2;
-  Lk := ScrWidth - (((ResImage[reFrameSlot].Width) * 2) + 2);
 end;
 
 destructor TSceneHire.Destroy;
@@ -449,7 +418,7 @@ begin
   inherited;
   Y := 0;
   X := 0;
-  if SubScene in MainButtonsScene + CloseButtonScene - AddButtonScene then
+  if SubScene in MainButtonsScene then
     DrawImage(Lf + ResImage[reFrameSlotActive].Width + 2, SceneTop,
       reInfoFrame);
   RenderButtons;
