@@ -47,7 +47,8 @@ uses
   DisciplesRL.Scene.Hire,
   Elinor.Frame,
   Elinor.Spells.Types,
-  Elinor.Spellbook;
+  Elinor.Spellbook,
+  Elinor.Common;
 
 var
   CloseSceneEnum: TSceneEnum;
@@ -66,7 +67,7 @@ begin
     LMana := Spells.Spell(LSpellEnum).Mana;
     if LMana > Game.Mana.Value then
     begin
-      InformDialog('Not enough mana to cast this spell!');
+      InformDialog(CNotEnoughManaToCast);
       Exit;
     end;
     Spells.ActiveSpell.SetActiveSpell(LSpellEnum);

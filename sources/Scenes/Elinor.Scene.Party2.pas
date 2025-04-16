@@ -19,9 +19,9 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextAbilities,
       reTextInventory, reTextSpellbook, reTextClose);
   private
-    ConfirmParty: TParty;
-    ConfirmPartyPosition: TPosition;
-    Button: array [TButtonEnum] of TButton;
+    FConfirmParty: TParty;
+    FConfirmPartyPosition: TPosition;
+    FButton: array [TButtonEnum] of TButton;
     procedure ShowAbilitiesScene;
     procedure ShowInventoryScene;
     procedure ShowSpellbookScene;
@@ -90,11 +90,11 @@ begin
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+    FButton[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-      Button[LButtonEnum].Sellected := True;
+      FButton[LButtonEnum].Sellected := True;
   end;
 end;
 
@@ -103,7 +103,7 @@ var
   LButtonEnum: TButtonEnum;
 begin
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[LButtonEnum]);
+    FreeAndNil(FButton[LButtonEnum]);
   inherited;
 end;
 
@@ -122,13 +122,13 @@ begin
   case AButton of
     mbLeft:
       begin
-        if Button[btAbilities].MouseDown then
+        if FButton[btAbilities].MouseDown then
           ShowAbilitiesScene
-        else if Button[btInventory].MouseDown then
+        else if FButton[btInventory].MouseDown then
           ShowInventoryScene
-        else if Button[btSpellbook].MouseDown then
+        else if FButton[btSpellbook].MouseDown then
           ShowSpellbookScene
-        else if Button[btClose].MouseDown then
+        else if FButton[btClose].MouseDown then
           HideScene
       end;
     mbRight:
@@ -142,7 +142,7 @@ var
 begin
   inherited;
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[LButtonEnum].MouseMove(X, Y);
+    FButton[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneParty2.Render;
@@ -173,7 +173,7 @@ procedure TSceneParty2.Render;
     LButtonEnum: TButtonEnum;
   begin
     for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[LButtonEnum].Render;
+      FButton[LButtonEnum].Render;
   end;
 
 begin
