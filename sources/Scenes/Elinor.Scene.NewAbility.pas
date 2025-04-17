@@ -18,7 +18,7 @@ type
   private const
     ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
   private
-    Button: array [TButtonEnum] of TButton;
+    FButton: array [TButtonEnum] of TButton;
     procedure CloseScene;
   public
     constructor Create;
@@ -60,11 +60,11 @@ begin
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+    FButton[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-      Button[LButtonEnum].Sellected := True;
+      FButton[LButtonEnum].Sellected := True;
   end;
 end;
 
@@ -73,7 +73,7 @@ var
   LButtonEnum: TButtonEnum;
 begin
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    FreeAndNil(Button[LButtonEnum]);
+    FreeAndNil(FButton[LButtonEnum]);
   inherited;
 end;
 
@@ -90,7 +90,7 @@ begin
   case AButton of
     mbLeft:
       begin
-        if Button[btClose].MouseDown then
+        if FButton[btClose].MouseDown then
           CloseScene;
       end;
   end;
@@ -103,7 +103,7 @@ var
 begin
   inherited;
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-    Button[LButtonEnum].MouseMove(X, Y);
+    FButton[LButtonEnum].MouseMove(X, Y);
 end;
 
 procedure TSceneNewAbility.CloseScene;
@@ -178,7 +178,7 @@ var
     LButtonEnum: TButtonEnum;
   begin
     for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
-      Button[LButtonEnum].Render;
+      FButton[LButtonEnum].Render;
   end;
 
 begin
