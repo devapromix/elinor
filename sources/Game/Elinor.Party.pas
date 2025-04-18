@@ -89,6 +89,7 @@ type
     class procedure Gen(const AX, AY: Integer; IsFinal: Boolean); static;
     procedure ModifyPartyChancesToHit(const AValue: Integer);
     procedure ModifyPartyDamage(const AValue: Integer);
+    function GetAllHitpointsSum: Integer;
   end;
 
 type
@@ -440,6 +441,17 @@ begin
     with FCreature[LPosition] do
       if Alive then
         Inc(Result);
+end;
+
+function TParty.GetAllHitpointsSum: Integer;
+var
+  LPosition: TPosition;
+begin
+  Result := 0;
+  for LPosition := Low(TPosition) to High(TPosition) do
+    with FCreature[LPosition] do
+      if Alive then
+        Inc(Result, HitPoints.GetMaxValue);
 end;
 
 function TParty.GetAliveAndNeedExpCreatures: Integer;

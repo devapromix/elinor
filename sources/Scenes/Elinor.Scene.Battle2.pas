@@ -92,6 +92,7 @@ uses
 
 var
   CloseButton: TButton;
+  DebugString: string;
 
 const
   CSpeed = 2;
@@ -309,6 +310,8 @@ begin
       LeaderParty := PartyList.Party[TLeaderParty.LeaderPartyIndex];
     end;
   end;
+  DebugString := Format('%d vs %d', [LeaderParty.GetAllHitpointsSum,
+    EnemyParty.GetAllHitpointsSum]);
   ActivePartyPosition := PartyList.Party[TLeaderParty.LeaderPartyIndex]
     .GetRandomPosition;
   CurrentPartyPosition := ActivePartyPosition;
@@ -765,6 +768,7 @@ begin
     CloseButton.Render;
   end;
   FBattle.BattleLog.Log.Render;
+  Self.DrawText(10, 10, DebugString);
 end;
 
 procedure TSceneBattle2.StartRound;
