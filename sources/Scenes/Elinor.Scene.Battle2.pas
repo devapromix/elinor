@@ -88,7 +88,8 @@ uses
   Elinor.Scene.NewAbility,
   Elinor.Scene.Loot2,
   Elinor.Scene.Party2,
-  Elinor.Frame;
+  Elinor.Frame,
+  Elinor.Error;
 
 var
   CloseButton: TButton;
@@ -199,13 +200,18 @@ end;
 
 procedure TSceneBattle2.AttackCurrentTarget;
 begin
-  if ActivePartyPosition < 0 then
-    Exit;
-  if (FCurrentTargetPosition >= 0) and (FCurrentTargetPosition <= 5) and
-    (EnemyParty.Creature[FCurrentTargetPosition].Alive) then
-  begin
-    CurrentPartyPosition := FCurrentTargetPosition + 6;
-    ClickOnPosition;
+  try
+    if ActivePartyPosition < 0 then
+      Exit;
+    if (FCurrentTargetPosition >= 0) and (FCurrentTargetPosition <= 5) and
+      (EnemyParty.Creature[FCurrentTargetPosition].Alive) then
+    begin
+      CurrentPartyPosition := FCurrentTargetPosition + 6;
+      ClickOnPosition;
+    end;
+  except
+    on E: Exception do
+      Error.Add('TSceneBattle2.AttackCurrentTarget', E.Message);
   end;
 end;
 
