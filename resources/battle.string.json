@@ -147,7 +147,7 @@
 			"%s paralyzes %s with fear."
 		],
 "paralyze_artifact_attack":[
-			"%s paralyzes %s.",
+			"%s paralyzes %s."
 		],
 "paral_passed":[
 			"The paralysis has passed."
