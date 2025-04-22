@@ -45,7 +45,7 @@ type
     procedure StartRound;
     function GetHitPoints(const APosition: Integer): Integer;
     procedure AI;
-    procedure Kill(DefCrEnum: TCreatureEnum);
+    procedure Kill(ADefCrEnum: TCreatureEnum);
     procedure DrawTargetFrames;
     procedure SelectNextTarget;
     procedure SelectPreviousTarget;
@@ -110,10 +110,10 @@ begin
   TSceneLoot2.ShowScene;
 end;
 
-procedure TSceneBattle2.Kill(DefCrEnum: TCreatureEnum);
+procedure TSceneBattle2.Kill(ADefCrEnum: TCreatureEnum);
 begin
-  FBattle.BattleLog.Kill(TCreature.Character(DefCrEnum).Name[0]);
-  Game.MediaPlayer.PlaySound(TCreature.Character(DefCrEnum).Sound[csDeath]);
+  FBattle.BattleLog.Kill(TCreature.Character(ADefCrEnum).Name[0]);
+  Game.MediaPlayer.PlaySound(TCreature.Character(ADefCrEnum).Sound[csDeath]);
 end;
 
 procedure TSceneBattle2.AI;
