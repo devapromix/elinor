@@ -115,6 +115,7 @@ type
     // Banners
 
     // Tomes
+    iTomeOfWar,
 
     // Orbs
     // iGoblinOrb, iImpOrb, iZombieOrb, iVampireOrb,
@@ -325,6 +326,12 @@ const
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 1500; Description: ''),
+
+    // Tomes
+    (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
+    ItEffect: ieNone; ItSlot: isTome; ItRes: reNone; Price: 2000;
+    Description: 'All the units in the party ' +
+    'gain 20% more experience in battle'),
 
     // Rings
     // Stone Ring
