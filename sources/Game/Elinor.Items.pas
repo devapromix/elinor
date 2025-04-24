@@ -118,7 +118,8 @@ type
     iTomeOfWar,
 
     // Orbs
-    // iGoblinOrb, iImpOrb, iZombieOrb, iVampireOrb,
+     iGoblinOrb,
+    //iImpOrb, iZombieOrb, iVampireOrb,
     // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
     // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
 
@@ -333,6 +334,11 @@ const
     Description: 'All the units in the party ' +
     'gain 20% more experience in battle'),
 
+    // Orbs
+    (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isOrb; ItRes: reNone; Price: 400;
+    Description: 'Summon a golin'),
+
     // Rings
     // Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
@@ -540,6 +546,7 @@ begin
       TLeaderParty.ModifyLeaderRegeneration(20);
     if FItem[I].ItEffect = ieRegen25 then
       TLeaderParty.ModifyLeaderRegeneration(25);
+    // Chance to paralyze
     if FItem[I].ItEffect = ieChanceToParalyze5 then
       TLeaderParty.ModifyLeaderChanceToParalyze(5);
     if FItem[I].ItEffect = ieChanceToParalyze10 then
