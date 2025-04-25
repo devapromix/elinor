@@ -110,7 +110,7 @@ type
     // Boots
 
     // Talismans
-    // iTalismanOfLife,
+    iTalismanOfLife,
 
     // Banners
 
@@ -327,6 +327,11 @@ const
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 1500; Description: ''),
+
+    // Talismans
+    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2; ItType: itTalisman;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 350;
+    Description: ''),
 
     // Tomes
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
