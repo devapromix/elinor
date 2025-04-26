@@ -853,14 +853,19 @@ end;
 class procedure TSceneBattle2.SummonCreature(const APartyIndex: Integer;
   const ACreatureEnum: TCreatureEnum);
 begin
-  TLeaderParty.Leader.Invisibility := False;
-  EnemyPartyIndex := APartyIndex;
-  IsSummon := True;
-  TLeaderParty.Summoned.ReviveParty;
-  TLeaderParty.Summoned.HealParty(9999);
-  TLeaderParty.Summoned.UnParalyzeParty;
-  TLeaderParty.Summoned.ClearTempValuesAll;
-  Game.Show(scBattle);
+  try
+    TLeaderParty.Leader.Invisibility := False;
+    EnemyPartyIndex := APartyIndex;
+    IsSummon := True;
+    TLeaderParty.Summoned.ReviveParty;
+    TLeaderParty.Summoned.HealParty(9999);
+    TLeaderParty.Summoned.UnParalyzeParty;
+    TLeaderParty.Summoned.ClearTempValuesAll;
+    Game.Show(scBattle);
+  except
+    on E: Exception do
+      Error.Add('TSceneBattle2.SummonCreature', E.Message);
+  end;
 end;
 
 procedure TSceneBattle2.NextTurn;

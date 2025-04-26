@@ -336,8 +336,8 @@ const
     // Tomes
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
     ItEffect: ieNone; ItSlot: isTome; ItRes: reNone; Price: 2000;
-    Description: 'All the units in the party ' +
-    'gain 20% more experience in battle'),
+    Description: 'All the units in the party gain 20% ' +
+    'more experience in battle'),
 
     // Orbs
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
