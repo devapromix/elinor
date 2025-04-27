@@ -260,6 +260,8 @@ begin
         ContinueGame
       else
         ConfirmQuit;
+    K_Q:
+      ConfirmQuit;
   end;
 end;
 
