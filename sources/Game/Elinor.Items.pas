@@ -341,7 +341,7 @@ const
 
     // Orbs
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isOrb; ItRes: reNone; Price: 400;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 400;
     Description: 'Summon a golin'),
 
     // Rings
