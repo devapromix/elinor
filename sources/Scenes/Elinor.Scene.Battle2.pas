@@ -333,8 +333,9 @@ begin
         LeaderParty := PartyList.Party[TLeaderParty.LeaderPartyIndex];
       end;
     end;
-    DebugString := Format('%d vs %d', [LeaderParty.GetAllHitpointsSum,
-      EnemyParty.GetAllHitpointsSum]);
+    DebugString := Format('%d:%d vs %d:%d', [LeaderParty.GetAllHitpointsSum,
+      LeaderParty.GetAllDamageSum, EnemyParty.GetAllHitpointsSum,
+      EnemyParty.GetAllDamageSum]);
     ActivePartyPosition := PartyList.Party[TLeaderParty.LeaderPartyIndex]
       .GetRandomPosition;
     CurrentPartyPosition := ActivePartyPosition;

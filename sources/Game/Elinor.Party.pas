@@ -90,6 +90,7 @@ type
     procedure ModifyPartyChancesToHit(const AValue: Integer);
     procedure ModifyPartyDamage(const AValue: Integer);
     function GetAllHitpointsSum: Integer;
+    function GetAllDamageSum: Integer;
   end;
 
 type
@@ -452,6 +453,17 @@ begin
     with FCreature[LPosition] do
       if Alive then
         Inc(Result, HitPoints.GetMaxValue);
+end;
+
+function TParty.GetAllDamageSum: Integer;
+var
+  LPosition: TPosition;
+begin
+  Result := 0;
+  for LPosition := Low(TPosition) to High(TPosition) do
+    with FCreature[LPosition] do
+      if Alive then
+        Inc(Result, Damage.GetFullValue);
 end;
 
 function TParty.GetAliveAndNeedExpCreatures: Integer;
