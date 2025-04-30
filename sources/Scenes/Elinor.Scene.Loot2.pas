@@ -16,11 +16,11 @@ uses
 type
   TSceneLoot2 = class(TSceneWideMenu)
   private type
-    TButtonEnum = (btInfo, btPickup, btClose);
+    TButtonEnum = (btPickup, btClose, btInfo);
     TLootSectionEnum = (lsLoot, lsInventory);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextInform, reTextPickup,
-      reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextPickup, reTextClose,
+      reTextInform);
   private
   class var
     Button: array [TButtonEnum] of TButton;
@@ -143,7 +143,6 @@ begin
       TSceneVictory.ShowScene;
       Exit;
     end;
-
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmLoot);
