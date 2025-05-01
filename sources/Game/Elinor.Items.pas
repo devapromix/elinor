@@ -118,8 +118,8 @@ type
     iTomeOfWar,
 
     // Orbs
-     iGoblinOrb,
-    //iImpOrb, iZombieOrb, iVampireOrb,
+    iGoblinOrb, iImpOrb,
+    // iZombieOrb, iVampireOrb,
     // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
     // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
 
@@ -329,9 +329,9 @@ const
     Price: 1500; Description: ''),
 
     // Talismans
-    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2; ItType: itTalisman;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 350;
-    Description: ''),
+    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone;
+    Price: 350; Description: ''),
 
     // Tomes
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
@@ -340,9 +340,14 @@ const
     'more experience in battle'),
 
     // Orbs
+    // Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 400;
-    Description: 'Summon a golin'),
+    Description: 'Summon a Golin'),
+    // Imp Orb
+    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 1; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 450;
+    Description: 'Summon an Imp'),
 
     // Rings
     // Stone Ring
