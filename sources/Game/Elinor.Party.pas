@@ -666,7 +666,7 @@ begin
   Self.UpdateSightRadius;
   IsUnitSelected := False;
   LeaderRegenerationValue := 0;
-  LeaderChanceToParalyzeValue := 90; { !!! }
+  LeaderChanceToParalyzeValue := 0;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);

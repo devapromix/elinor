@@ -90,8 +90,6 @@ begin
   inherited Create(AResEnum, fgLS6, ARightFrameGrid);
   FShowButtons := AShowButtons;
   CurrentIndex := 0;
-  if not FShowButtons then
-    Exit;
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TTwoButtonEnum)) + 1)) div 2);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
@@ -108,9 +106,8 @@ destructor TSceneWideMenu.Destroy;
 var
   LTwoButtonEnum: TTwoButtonEnum;
 begin
-  if FShowButtons then
-    for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-      FreeAndNil(Button[LTwoButtonEnum]);
+  for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
+    FreeAndNil(Button[LTwoButtonEnum]);
   inherited;
 end;
 
@@ -120,25 +117,27 @@ var
   LPartyPosition: Integer;
 begin
   inherited;
-  if FShowButtons then
-    case AButton of
-      mbLeft:
+  case AButton of
+    mbLeft:
+      begin
+        LPartyPosition := GetFramePosition(X, Y);
+        case LPartyPosition of
+          0 .. 5:
+            begin
+              CurrentIndex := LPartyPosition;
+              Game.MediaPlayer.PlaySound(mmClick);
+              Exit;
+            end;
+        end;
+        if FShowButtons then
         begin
-          LPartyPosition := GetFramePosition(X, Y);
-          case LPartyPosition of
-            0 .. 5:
-              begin
-                CurrentIndex := LPartyPosition;
-                Game.MediaPlayer.PlaySound(mmClick);
-                Exit;
-              end;
-          end;
           if Button[btCancel].MouseDown then
             Cancel;
           if Button[btContinue].MouseDown then
             Continue;
         end;
-    end;
+      end;
+  end;
 end;
 
 procedure TSceneWideMenu.MouseMove(Shift: TShiftState; X, Y: Integer);

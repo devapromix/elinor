@@ -164,6 +164,7 @@ begin
     if (LButtonEnum = btClose) then
       Button[LButtonEnum].Sellected := True;
   end;
+  ShowButtons := False;
   InventorySelItemIndex := 0;
   ActiveSection := lsLoot;
 end;
