@@ -59,6 +59,7 @@ type
   public
     constructor Create(const ALeft, ATop: Integer);
     procedure Render;
+    procedure RenderAll;
     destructor Destroy; override;
     procedure Append(const S: string);
     property Msg: string read FMsg write FMsg;
@@ -348,6 +349,21 @@ begin
   for I := D to Count - 1 do
   begin
     DrawText(FLeft, FTop + Y, Get(I));
+    Inc(Y, 16);
+  end;
+end;
+
+procedure TLog.RenderAll;
+var
+  I, Y, D: Integer;
+begin
+  if Count <= 0 then
+    Exit;
+  Y := 0;
+  D := EnsureRange(Count - 35, 0, Count - 1);
+  for I := D to Count - 1 do
+  begin
+    DrawText(FLeft, FLeft + Y, Get(I));
     Inc(Y, 16);
   end;
 end;

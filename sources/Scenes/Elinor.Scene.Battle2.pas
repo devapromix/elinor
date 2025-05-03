@@ -27,6 +27,7 @@ type
     EnemyParty: TParty;
     LeaderParty: TParty;
     FEnabled: Boolean;
+    FIsShowBattleLog: Boolean;
     DuelLeaderPosition: TPosition;
     FCurrentTargetPosition: TPosition;
     procedure ClickOnPosition;
@@ -50,6 +51,8 @@ type
     procedure SelectNextTarget;
     procedure SelectPreviousTarget;
     procedure AttackCurrentTarget;
+    procedure ShowBattleLog;
+    procedure HideBattleLog;
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -92,7 +95,7 @@ uses
   Elinor.Error;
 
 var
-  CloseButton: TButton;
+  CloseButton, BackButton, LogButton: TButton;
   DebugString: string;
 
 const
@@ -353,11 +356,16 @@ begin
     if IsDuel then
       PartyList.Party[TLeaderParty.LeaderPartyIndex].MoveCreature(LeaderParty,
         DuelLeaderPosition);
-    FBattle.BattleLog.Clear;
     if EnemyParty.IsClear then
+    begin
+      FBattle.BattleLog.Clear;
       Victory;
+    end;
     if LeaderParty.IsClear then
+    begin
+      FBattle.BattleLog.Clear;
       Defeat;
+    end;
   except
     on E: Exception do
       Error.Add('TSceneBattle2.FinishBattle', E.Message);
@@ -628,6 +636,12 @@ begin
   end;
 end;
 
+procedure TSceneBattle2.HideBattleLog;
+begin
+  FIsShowBattleLog := False;
+  Game.MediaPlayer.PlaySound(mmClick);
+end;
+
 class procedure TSceneBattle2.HideScene;
 begin
 
@@ -699,12 +713,18 @@ end;
 constructor TSceneBattle2.Create;
 begin
   inherited Create(reWallpaperScenario, fgLS6, fgRS6);
-  CloseButton := TButton.Create(1100 - (ResImage[reButtonDef].Width +
+  CloseButton := TButton.Create(1010 - (ResImage[reButtonDef].Width +
     SceneLeft), DefaultButtonTop, reTextClose);
+  LogButton := TButton.Create(1300 - (ResImage[reButtonDef].Width + SceneLeft),
+    DefaultButtonTop, reTextLog);
+  BackButton := TButton.Create(1300 - (ResImage[reButtonDef].Width + SceneLeft),
+    DefaultButtonTop, reTextClose);
   CloseButton.Sellected := True;
+  BackButton.Sellected := True;
   DuelEnemyParty := TParty.Create;
   DuelLeaderParty := TParty.Create;
   FBattle := TBattle.Create;
+  FIsShowBattleLog := False;
 end;
 
 destructor TSceneBattle2.Destroy;
@@ -712,6 +732,8 @@ begin
   FreeAndNil(FBattle);
   FreeAndNil(DuelLeaderParty);
   FreeAndNil(DuelEnemyParty);
+  FreeAndNil(LogButton);
+  FreeAndNil(BackButton);
   FreeAndNil(CloseButton);
   inherited;
 end;
@@ -755,12 +777,18 @@ begin
     Exit;
   if CloseButton.MouseDown then
     FinishBattle
+  else if BackButton.MouseDown and FIsShowBattleLog then
+    HideBattleLog
+  else if LogButton.MouseDown then
+    ShowBattleLog
   else
   begin
     CurrentPartyPosition := GetPartyPosition(X, Y);
     if CurrentPartyPosition < 0 then
       Exit;
     if LeaderParty.IsClear or EnemyParty.IsClear then
+      Exit;
+    if FIsShowBattleLog then
       Exit;
     ClickOnPosition;
     Game.Render;
@@ -775,6 +803,10 @@ begin
   if not Enabled then
     Exit;
   CloseButton.MouseMove(X, Y);
+  BackButton.MouseMove(X, Y);
+  LogButton.MouseMove(X, Y);
+  if FIsShowBattleLog then
+    Exit;
   LPosition := GetPartyPosition(X, Y);
   if (LPosition >= 6) and (LPosition <= 11) and
     (EnemyParty.Creature[LPosition - 6].Alive) then
@@ -803,34 +835,61 @@ var
     DrawImage(reTime);
   end;
 
-begin
-  inherited;
-  try
-    TSceneParty2.RenderParty(psLeft, LeaderParty);
-    TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
-    DrawTargetFrames;
-    // if not Enabled then
-    // RenderWait;
-    F := False;
-    if LeaderParty.IsClear then
-    begin
-      DrawTitle(reTitleDefeat);
-      F := True;
-    end
-    else if EnemyParty.IsClear then
-    begin
-      DrawTitle(reTitleVictory);
-      F := True;
-    end
-    else
-      DrawTitle(reTitleBattle);
-    if F then
-    begin
-      ActivePartyPosition := -1;
-      CloseButton.Render;
+  procedure RenderBattleLog;
+  begin
+    try
+      Game.Surface.Canvas.StretchDraw(Rect(0, 0, ScreenWidth, ScreenHeight),
+        ResImage[reWallpaperScenario]);
+      FBattle.BattleLog.Log.RenderAll;
+      BackButton.Render;
+    except
+      on E: Exception do
+        Error.Add('TSceneBattle2.RenderBattleLog', E.Message);
     end;
-    FBattle.BattleLog.Log.Render;
-    Self.DrawText(10, 10, DebugString);
+  end;
+
+  procedure RenderBattle;
+  begin
+    try
+      inherited;
+      TSceneParty2.RenderParty(psLeft, LeaderParty);
+      TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
+      DrawTargetFrames;
+      // if not Enabled then
+      // RenderWait;
+      F := False;
+      if LeaderParty.IsClear then
+      begin
+        DrawTitle(reTitleDefeat);
+        F := True;
+      end
+      else if EnemyParty.IsClear then
+      begin
+        DrawTitle(reTitleVictory);
+        F := True;
+      end
+      else
+        DrawTitle(reTitleBattle);
+      if F then
+      begin
+        ActivePartyPosition := -1;
+        CloseButton.Render;
+      end;
+      FBattle.BattleLog.Log.Render;
+      Self.DrawText(10, 10, DebugString);
+      LogButton.Render;
+    except
+      on E: Exception do
+        Error.Add('TSceneBattle2.RenderBattle', E.Message);
+    end;
+  end;
+
+begin
+  try
+    if FIsShowBattleLog then
+      RenderBattleLog
+    else
+      RenderBattle;
   except
     on E: Exception do
       Error.Add('TSceneBattle2.Render', E.Message);
@@ -960,8 +1019,15 @@ procedure TSceneBattle2.Show(const ASceneEnum: TSceneEnum);
 begin
   inherited;
   IsNewAbility := False;
+  FIsShowBattleLog := False;
   StartBattle;
   Game.MediaPlayer.PlayMusic(mmBattle);
+end;
+
+procedure TSceneBattle2.ShowBattleLog;
+begin
+  FIsShowBattleLog := True;
+  Game.MediaPlayer.PlaySound(mmClick);
 end;
 
 class procedure TSceneBattle2.ShowScene;
@@ -990,28 +1056,44 @@ begin
   inherited;
   case Key of
     K_ESCAPE, K_ENTER:
-      FinishBattle;
+      if FIsShowBattleLog then
+        HideBattleLog
+      else
+        FinishBattle;
     K_RIGHT, K_DOWN:
-      SelectNextTarget;
+      if not FIsShowBattleLog then
+        SelectNextTarget;
     K_LEFT, K_UP:
-      SelectPreviousTarget;
+      if not FIsShowBattleLog then
+        SelectPreviousTarget;
     K_SPACE:
-      AttackCurrentTarget;
+      if not FIsShowBattleLog then
+        AttackCurrentTarget;
     K_N:
-      if Game.Wizard then
-        NextTurn;
+      if not FIsShowBattleLog then
+        if Game.Wizard then
+          NextTurn;
     K_E:
-      if Game.Wizard then
-        TLeaderParty.Leader.UpdateXP(100, TLeaderParty.Leader.GetPosition);
+      if not FIsShowBattleLog then
+        if Game.Wizard then
+          TLeaderParty.Leader.UpdateXP(100, TLeaderParty.Leader.GetPosition);
     K_H:
-      if Game.Wizard then
-        TLeaderParty.Leader.HealParty(100);
+      if not FIsShowBattleLog then
+        if Game.Wizard then
+          TLeaderParty.Leader.HealParty(100);
     K_D:
-      if Game.Wizard then
-        Defeat;
+      if not FIsShowBattleLog then
+        if Game.Wizard then
+          Defeat;
     K_V:
-      if Game.Wizard then
-        Victory;
+      if not FIsShowBattleLog then
+        if Game.Wizard then
+          Victory;
+    K_L:
+      if FIsShowBattleLog then
+        HideBattleLog
+      else
+        ShowBattleLog;
   end;
 end;
 
