@@ -1,0 +1,49 @@
+{
+	"parties":[
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"goblin,goblin-archer,goblin,none,goblin,goblin-archer"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"goblin,goblin-elder,wolf,none,goblin,goblin-elder"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"rogue,none,none,none,rogue,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"rogue,none,none,archer,rogue,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"wolf,none,none,none,wolf,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"wolf,none,none,goblin-elder,wolf,none"
+		},
+		{
+			"level": 3,
+			"faction": "the-empire",
+			"characters":"squire,none,squire,archer,squire,none"
+		},
+		{
+			"level": 2,
+			"faction": "legion-of-the-damned",
+			"characters":"devil,none,devil,gargoyle,devil,none"
+		},
+		{
+			"level": 3,
+			"faction": "undead-hordes",
+			"characters":"fighter,none,fighter,initiate,fighter,none"
+		}
+	]
+}

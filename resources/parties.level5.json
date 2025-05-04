@@ -1,0 +1,9 @@
+{
+	"parties":[
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,none,ghoul,none,none,none"
+		}
+	]
+}

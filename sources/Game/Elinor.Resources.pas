@@ -1052,6 +1052,7 @@ procedure Init;
 var
   I: TResEnum;
   J: TMusicEnum;
+  K: Integer;
 begin
   for I := Low(TResEnum) to High(TResEnum) do
   begin
@@ -1071,7 +1072,8 @@ begin
           MusicBase[J].FileName;
     end;
   end;
-  TResources.LoadParties('parties');
+  for K := 1 to 9 do
+    TResources.LoadParties(Format('parties.level%d', [K]));
 end;
 
 procedure Free;

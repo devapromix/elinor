@@ -1,0 +1,59 @@
+{
+	"parties":[
+		{
+			"level": 1,
+			"faction": "the-empire",
+			"characters":"squire,none,none,none,squire,none"
+		},
+		{
+			"level": 1,
+			"faction": "the-empire",
+			"characters":"none,none,squire,archer,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "the-empire",
+			"characters":"none,none,squire,apprentice,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,initiate,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,ghost,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,possessed,gargoyle,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,possessed,cultist,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"goblin,none,none,none,goblin,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"none,none,goblin,goblin-archer,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"none,none,goblin,goblin-elder,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"imp,none,none,none,imp,none"
+		}
+	]
+}

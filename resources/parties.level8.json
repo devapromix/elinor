@@ -1,0 +1,9 @@
+{
+	"parties":[
+		{
+			"level": 8,
+			"faction": "neutrals",
+			"characters":"none,none,ogre,none,none,none"
+		}
+	]
+}
