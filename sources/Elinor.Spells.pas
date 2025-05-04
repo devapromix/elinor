@@ -169,36 +169,39 @@ const
   SpellBase: TSpellBaseArray = (
     // None
     (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;
-    Faction: faNeutrals; SpellTarget: stNone;),
+    Faction: faNeutrals; SpellTarget: stNone; Description: '';),
     // True Healing
     (Name: 'True Healing'; Level: 1; Mana: 15; SoundEnum: mmHeal;
-    ResEnum: reTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;),
+    ResEnum: reTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;
+    Description: 'Replenishes lost HP';),
     // Speed
     (Name: 'Speed'; Level: 1; Mana: 25; SoundEnum: mmHeal; ResEnum: reSpeed;
-    Faction: faTheEmpire; SpellTarget: stLeader;),
+    Faction: faTheEmpire; SpellTarget: stLeader; Description: '';),
     // Bless
     (Name: 'Bless'; Level: 1; Mana: 5; SoundEnum: mmHeal; ResEnum: reBless;
-    Faction: faTheEmpire; SpellTarget: stLeader;),
+    Faction: faTheEmpire; SpellTarget: stLeader; Description: '';),
     // Living Armor
     (Name: 'Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
-    ResEnum: reLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;),
+    ResEnum: reLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;
+    Description: '';),
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
-    Faction: faUndeadHordes; SpellTarget: stEnemy;),
+    Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
     // Curse
     (Name: 'Curse'; Level: 1; Mana: 5; SoundEnum: mmPlague; ResEnum: reCurse;
-    Faction: faUndeadHordes; SpellTarget: stEnemy;),
+    Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
     // Concealment
     (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
     ResEnum: reConcealment; Faction: faLegionsOfTheDamned;
-    SpellTarget: stLeader;),
+    SpellTarget: stLeader; Description: '';),
     // Chains Of Dread
     (Name: 'Chains Of Dread'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
     ResEnum: reChainsOfDread; Faction: faLegionsOfTheDamned;
-    SpellTarget: stEnemy;),
+    SpellTarget: stEnemy; Description: '';),
     // Weaken
     (Name: 'Weaken'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
-    ResEnum: reWeaken; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;)
+    ResEnum: reWeaken; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;
+    Description: '';)
     //
     );
 

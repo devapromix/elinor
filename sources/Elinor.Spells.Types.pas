@@ -17,7 +17,8 @@ type
     SoundEnum: TMusicEnum;
     ResEnum: TResEnum;
     Faction: TFactionEnum;
-    SpellTarget: TSpellTarget
+    SpellTarget: TSpellTarget;
+    Description: string;
   end;
 
 implementation
