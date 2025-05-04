@@ -140,7 +140,9 @@ end;
 procedure TArtifactMerchant.GenNewItems;
 begin
   FInventory.Clear;
-
+  AddRandomItems(iDwarvenBracer, 1, 1);
+  AddRandomItems(iRunestone, 1, 1);
+  AddRandomItems(iHornOfAwareness, 1, 1);
 end;
 
 { TMerchants }
