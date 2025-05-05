@@ -2,6 +2,21 @@
 	"parties":[
 		{
 			"level": 3,
+			"faction": "the-empire",
+			"characters":"squire,archer,squire,apprentice,squire,archer"
+		},
+		{
+			"level": 3,
+			"faction": "the-empire",
+			"characters":"squire,apprentice,none,none,squire,apprentice"
+		},
+		{
+			"level": 3,
+			"faction": "the-empire",
+			"characters":"squire,none,squire,archer,squire,none"
+		},
+		{
+			"level": 3,
 			"faction": "neutrals",
 			"characters":"goblin,goblin-archer,goblin,none,goblin,goblin-archer"
 		},
@@ -32,18 +47,33 @@
 		},
 		{
 			"level": 3,
-			"faction": "the-empire",
-			"characters":"squire,none,squire,archer,squire,none"
-		},
-		{
-			"level": 2,
 			"faction": "legion-of-the-damned",
 			"characters":"devil,none,devil,gargoyle,devil,none"
 		},
 		{
 			"level": 3,
+			"faction": "legion-of-the-damned",
+			"characters":"possessed,none,none,cultist,possessed,none"
+		},
+		{
+			"level": 3,
+			"faction": "legion-of-the-damned",
+			"characters":"possessed,cultist,none,gargoyle,possessed,cultist"
+		},
+		{
+			"level": 3,
 			"faction": "undead-hordes",
 			"characters":"fighter,none,fighter,initiate,fighter,none"
+		},
+		{
+			"level": 3,
+			"faction": "undead-hordes",
+			"characters":"fighter,none,none,ghost,fighter,none"
+		},
+		{
+			"level": 3,
+			"faction": "undead-hordes",
+			"characters":"none,none,wyvern,initiate,none,none"
 		}
 	]
 }

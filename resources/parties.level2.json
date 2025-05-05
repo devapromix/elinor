@@ -2,13 +2,28 @@
 	"parties":[
 		{
 			"level": 2,
-			"faction": "neutrals",
-			"characters":"imp,none,imp,none,imp,none"
+			"faction": "the-empire",
+			"characters":"squire,none,none,archer,squire,none"
 		},
 		{
 			"level": 2,
-			"faction": "neutrals",
-			"characters":"none,none,rogue,none,none,none"
+			"faction": "the-empire",
+			"characters":"squire,none,none,apprentice,squire,none"
+		},
+		{
+			"level": 2,
+			"faction": "undead-hordes",
+			"characters":"fighter,none,none,initiate,fighter,none"
+		},
+		{
+			"level": 2,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,ghost,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "undead-hordes",
+			"characters":"none,none,fighter,initiate,none,none"
 		},
 		{
 			"level": 2,
@@ -27,8 +42,13 @@
 		},
 		{
 			"level": 2,
-			"faction": "neutrals",
-			"characters":"none,none,devil,none,none,none"
+			"faction": "legion-of-the-damned",
+			"characters":"none,none,devil,cultist,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "legion-of-the-damned",
+			"characters":"none,cultist,possessed,none,none,cultist"
 		},
 		{
 			"level": 2,
@@ -47,18 +67,13 @@
 		},
 		{
 			"level": 2,
-			"faction": "the-empire",
-			"characters":"squire,none,none,archer,squire,none"
+			"faction": "neutrals",
+			"characters":"imp,none,imp,none,imp,none"
 		},
 		{
 			"level": 2,
-			"faction": "undead-hordes",
-			"characters":"none,none,fighter,ghost,none,none"
-		},
-		{
-			"level": 2,
-			"faction": "undead-hordes",
-			"characters":"fighter,none,none,initiate,fighter,none"
+			"faction": "neutrals",
+			"characters":"none,none,rogue,none,none,none"
 		}
 	]
 }
