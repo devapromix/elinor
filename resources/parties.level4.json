@@ -2,8 +2,83 @@
 	"parties":[
 		{
 			"level": 4,
+			"faction": "the-empire",
+			"characters":"squire,apprentice,squire,archer,squire,apprentice"
+		},
+		{
+			"level": 4,
+			"faction": "the-empire",
+			"characters":"squire,archer,squire,archer,squire,archer"
+		},
+		{
+			"level": 4,
+			"faction": "the-empire",
+			"characters":"squire,apprentice,squire,none,squire,apprentice"
+		},
+		{
+			"level": 4,
+			"faction": "the-empire",
+			"characters":"squire,apprentice,squire,apprentice,squire,apprentice"
+		},
+		{
+			"level": 4,
+			"faction": "undead-hordes",
+			"characters":"fighter,initiate,fighter,ghost,fighter,initiate"
+		},
+		{
+			"level": 4,
+			"faction": "undead-hordes",
+			"characters":"fighter,initiate,fighter,initiate,fighter,initiate"
+		},
+		{
+			"level": 4,
+			"faction": "undead-hordes",
+			"characters":"fighter,ghost,fighter,initiate,fighter,ghost"
+		},
+		{
+			"level": 4,
+			"faction": "legion-of-the-damned",
+			"characters":"devil,gargoyle,devil,none,devil,gargoyle"
+		},
+		{
+			"level": 4,
+			"faction": "legion-of-the-damned",
+			"characters":"possessed,gargoyle,devil,none,possessed,gargoyle"
+		},
+		{
+			"level": 4,
+			"faction": "legion-of-the-damned",
+			"characters":"possessed,cultist,possessed,none,possessed,cultist"
+		},
+		{
+			"level": 4,
+			"faction": "neutrals",
+			"characters":"goblin,goblin-archer,goblin,goblin-elder,goblin,goblin-archer"
+		},
+		{
+			"level": 4,
+			"faction": "neutrals",
+			"characters":"wolf,goblin-elder,goblin,goblin-archer,wolf,goblin-elder"
+		},
+		{
+			"level": 4,
+			"faction": "neutrals",
+			"characters":"rogue,none,rogue,archer,rogue,none"
+		},
+		{
+			"level": 4,
 			"faction": "neutrals",
 			"characters":"none,none,orc,none,none,none"
+		},
+		{
+			"level": 4,
+			"faction": "neutrals",
+			"characters":"man-at-arms,archer,man-at-arms,archer,man-at-arms,archer"
+		},
+		{
+			"level": 4,
+			"faction": "neutrals",
+			"characters":"none,none,orc,goblin-archer,none,none"
 		}
 	]
 }

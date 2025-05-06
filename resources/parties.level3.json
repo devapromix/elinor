@@ -17,33 +17,18 @@
 		},
 		{
 			"level": 3,
-			"faction": "neutrals",
-			"characters":"goblin,goblin-archer,goblin,none,goblin,goblin-archer"
+			"faction": "undead-hordes",
+			"characters":"fighter,none,fighter,initiate,fighter,none"
 		},
 		{
 			"level": 3,
-			"faction": "neutrals",
-			"characters":"goblin,goblin-elder,wolf,none,goblin,goblin-elder"
+			"faction": "undead-hordes",
+			"characters":"fighter,none,none,ghost,fighter,none"
 		},
 		{
 			"level": 3,
-			"faction": "neutrals",
-			"characters":"rogue,none,none,none,rogue,none"
-		},
-		{
-			"level": 3,
-			"faction": "neutrals",
-			"characters":"rogue,none,none,archer,rogue,none"
-		},
-		{
-			"level": 3,
-			"faction": "neutrals",
-			"characters":"wolf,none,none,none,wolf,none"
-		},
-		{
-			"level": 3,
-			"faction": "neutrals",
-			"characters":"wolf,none,none,goblin-elder,wolf,none"
+			"faction": "undead-hordes",
+			"characters":"none,none,wyvern,initiate,none,none"
 		},
 		{
 			"level": 3,
@@ -62,18 +47,38 @@
 		},
 		{
 			"level": 3,
-			"faction": "undead-hordes",
-			"characters":"fighter,none,fighter,initiate,fighter,none"
+			"faction": "neutrals",
+			"characters":"goblin,goblin-archer,goblin,none,goblin,goblin-archer"
 		},
 		{
 			"level": 3,
-			"faction": "undead-hordes",
-			"characters":"fighter,none,none,ghost,fighter,none"
+			"faction": "neutrals",
+			"characters":"goblin,goblin-elder,wolf,none,goblin,goblin-elder"
 		},
 		{
 			"level": 3,
-			"faction": "undead-hordes",
-			"characters":"none,none,wyvern,initiate,none,none"
+			"faction": "neutrals",
+			"characters":"rogue,none,none,archer,rogue,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"wolf,none,none,none,wolf,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"wolf,none,none,goblin-elder,wolf,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"rogue,none,none,none,rogue,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"man-at-arms,archer,rogue,none,man-at-arms,archer"
 		}
 	]
 }

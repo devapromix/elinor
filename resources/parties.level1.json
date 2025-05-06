@@ -38,6 +38,16 @@
 		{
 			"level": 1,
 			"faction": "neutrals",
+			"characters":"peasant,none,none,none,peasant,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
+			"characters":"peasant,none,peasant,none,peasant,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
 			"characters":"goblin,none,none,none,goblin,none"
 		},
 		{
