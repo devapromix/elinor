@@ -78,6 +78,11 @@
 		{
 			"level": 3,
 			"faction": "neutrals",
+			"characters":"rogue,none,man-at-arms,none,rogue,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
 			"characters":"man-at-arms,archer,rogue,none,man-at-arms,archer"
 		}
 	]

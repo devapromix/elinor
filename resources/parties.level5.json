@@ -2,8 +2,68 @@
 	"parties":[
 		{
 			"level": 5,
+			"faction": "the-empire",
+			"characters":"squire,apprentice,squire,apprentice,squire,apprentice"
+		},
+		{
+			"level": 5,
+			"faction": "undead-hordes",
+			"characters":"fighter,initiate,wyvern,none,fighter,initiate"
+		},
+		{
+			"level": 5,
+			"faction": "undead-hordes",
+			"characters":"fighter,initiate,fighter,ghost,fighter,initiate"
+		},
+		{
+			"level": 5,
+			"faction": "legion-of-the-damned",
+			"characters":"devil,gargoyle,devil,cultist,devil,gargoyle"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"wolf,goblin-archer,none,goblin-archer,wolf,goblin-archer"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,goblin-archer,orc,goblin-archer,none,goblin-archer"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,goblin-archer,orc,none,none,goblin-archer"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,goblin-elder,orc,none,none,goblin-elder"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,none,polar-bear,none,none,none"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,none,brown-bear,none,none,none"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,none,black-bear,none,none,none"
+		},
+		{
+			"level": 5,
 			"faction": "neutrals",
 			"characters":"none,none,ghoul,none,none,none"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"dark-elf-gast,none,none,none,dark-elf-gast,none"
 		}
 	]
 }

@@ -38,6 +38,11 @@
 		{
 			"level": 1,
 			"faction": "neutrals",
+			"characters":"none,none,peasant,archer,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "neutrals",
 			"characters":"peasant,none,none,none,peasant,none"
 		},
 		{

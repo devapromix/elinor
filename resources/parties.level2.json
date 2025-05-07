@@ -58,6 +58,16 @@
 		{
 			"level": 2,
 			"faction": "neutrals",
+			"characters":"peasant,none,man-at-arms,none,peasant,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
+			"characters":"peasant,none,none,archer,peasant,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
 			"characters":"none,none,wolf,none,none,none"
 		},
 		{

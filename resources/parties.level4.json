@@ -17,16 +17,6 @@
 		},
 		{
 			"level": 4,
-			"faction": "the-empire",
-			"characters":"squire,apprentice,squire,apprentice,squire,apprentice"
-		},
-		{
-			"level": 4,
-			"faction": "undead-hordes",
-			"characters":"fighter,initiate,fighter,ghost,fighter,initiate"
-		},
-		{
-			"level": 4,
 			"faction": "undead-hordes",
 			"characters":"fighter,initiate,fighter,initiate,fighter,initiate"
 		},
@@ -79,6 +69,11 @@
 			"level": 4,
 			"faction": "neutrals",
 			"characters":"none,none,orc,goblin-archer,none,none"
+		}
+		{
+			"level": 4,
+			"faction": "neutrals",
+			"characters":"none,none,orc,goblin-elder,none,none"
 		}
 	]
 }
