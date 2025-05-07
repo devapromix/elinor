@@ -112,6 +112,7 @@ type
     // iRoyalScepter
 
     // Amulets
+    iNecklaceOfBloodbind,
 
     // Armors
 
@@ -335,6 +336,12 @@ const
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 1500; Description: ''),
+
+    // Amulets
+    (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
+    ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
+    ItRes: reNone; Price: 800; Description: 'This amulet grants its' +
+    ' wearer the power ' + 'to drink the life of ' + 'their enemies'),
 
     // Talismans
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
