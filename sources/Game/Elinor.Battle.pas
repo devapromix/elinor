@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes,
+  Elinor.Scenes,
   Elinor.Party,
   Elinor.Creatures,
   Elinor.Battle.Log,
@@ -22,6 +23,9 @@ type
     function CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
       AAtkPos, ADefPos: TPosition;
       AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
+    procedure CheckArtifactVampiricAttack(AGame: TGame;
+      const AAtkParty, ADefParty: TParty; AAtkPos, ADefPos: TPosition;
+      AAtkCrEnum, ADefCrEnum: TCreatureEnum);
     function GetHitPoints(const APosition: Integer;
       const ALeaderParty, AEnemyParty: TParty): Integer;
     property BattleLog: TBattleLog read FBattleLog;
@@ -31,7 +35,9 @@ implementation
 
 uses
   System.SysUtils, dialogs,
-  System.Math;
+  System.Math,
+  Elinor.Common,
+  Elinor.Resources;
 
 { TBattle }
 
@@ -55,6 +61,30 @@ begin
       BattleLog.Paralyze(AAtkParty.Creature[AAtkPos].Name[0],
         ADefParty.Creature[ADefPos].Name[1], True);
     end;
+end;
+
+procedure TBattle.CheckArtifactVampiricAttack(AGame: TGame;
+  const AAtkParty, ADefParty: TParty; AAtkPos, ADefPos: TPosition;
+  AAtkCrEnum, ADefCrEnum: TCreatureEnum);
+var
+  LDamage, LValue: Integer;
+  LStr: string;
+begin
+  if (AAtkParty = TLeaderParty.Leader) and
+    (TLeaderParty.LeaderVampiricAttackValue > 0) then
+  begin
+    if not ADefParty.Creature[ADefPos].Alive then
+      Exit;
+    LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
+    LValue := Percent(LDamage, TLeaderParty.LeaderVampiricAttackValue);
+    Sleep(50);
+    AGame.MediaPlayer.PlaySound(mmHeal);
+    AAtkParty.Heal(AAtkPos, EnsureRange(LValue, 5, 50));
+    LStr := TResources.RandomValue('battle.string', 'drain_life');
+    FBattleLog.Log.Add(Format(LStr, [TCreature.Character(AAtkCrEnum).Name[0],
+      TCreature.Character(ADefCrEnum).Name[0], LValue]));
+  end;
+
 end;
 
 constructor TBattle.Create;

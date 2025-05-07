@@ -72,8 +72,16 @@ type
     ipTemporary);
 
 type
-  TItemEffect = (ieNone, ieRegen5, ieRegen10, ieRegen15, ieRegen20, ieRegen25,
-    ieChanceToParalyze5, ieChanceToParalyze10, ieChanceToParalyze15);
+  TItemEffect = (ieNone,
+    // Regeneration
+    ieRegen5, ieRegen10, ieRegen15, ieRegen20, ieRegen25,
+    // Chance to paralyze
+    ieChanceToParalyze5, ieChanceToParalyze10, ieChanceToParalyze15,
+    // Vampiric attack
+    ieVampiricAttack10, ieVampiricAttack15, ieVampiricAttack20,
+    ieVampiricAttack25
+    //
+    );
 
 type
   TJewlery = (jwNone, jwSteel, jwBronze, jwCopper, jwBrass, jwSilver, jwGold,
@@ -345,9 +353,8 @@ const
     ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 400;
     Description: 'Summon a Golin'),
     // Imp Orb
-    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 450;
-    Description: 'Summon an Imp'),
+    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 1; ItType: itOrb; ItEffect: ieNone;
+    ItSlot: isLHand; ItRes: reNone; Price: 450; Description: 'Summon an Imp'),
 
     // Rings
     // Stone Ring
@@ -541,6 +548,8 @@ var
   I: Integer;
 begin
   TLeaderParty.LeaderRegenerationValue := 0;
+  TLeaderParty.LeaderChanceToParalyzeValue := 0;
+  TLeaderParty.LeaderVampiricAttackValue := 50;
   for I := 0 to MaxEquipmentItems - 1 do
   begin
     if FItem[I].Enum = iNone then
@@ -563,6 +572,15 @@ begin
       TLeaderParty.ModifyLeaderChanceToParalyze(10);
     if FItem[I].ItEffect = ieChanceToParalyze15 then
       TLeaderParty.ModifyLeaderChanceToParalyze(15);
+    // Vampiric attack
+    if FItem[I].ItEffect = ieVampiricAttack10 then
+      TLeaderParty.ModifyLeaderVampiricAttack(10);
+    if FItem[I].ItEffect = ieVampiricAttack15 then
+      TLeaderParty.ModifyLeaderVampiricAttack(15);
+    if FItem[I].ItEffect = ieVampiricAttack20 then
+      TLeaderParty.ModifyLeaderVampiricAttack(20);
+    if FItem[I].ItEffect = ieVampiricAttack25 then
+      TLeaderParty.ModifyLeaderVampiricAttack(25);
   end;
 end;
 

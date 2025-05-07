@@ -92,7 +92,7 @@ uses
   Elinor.Scene.Loot2,
   Elinor.Scene.Party2,
   Elinor.Frame,
-  Elinor.Error;
+  Elinor.Error, Elinor.Common;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -473,7 +473,11 @@ begin
             ADefParty.TakeDamage(LDamage, ADefPos);
             case TCreature.Character(LAtkCrEnum).AttackEnum of
               atDrainLife:
-                AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
+                begin
+                  Sleep(50);
+                  Game.MediaPlayer.PlaySound(mmHeal);
+                  AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
+                end;
             end;
             FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
               TCreature.Character(LAtkCrEnum).SourceEnum,
@@ -586,6 +590,10 @@ begin
             B := True;
           end;
       end;
+
+      FBattle.CheckArtifactVampiricAttack(Game, AAtkParty, ADefParty, AAtkPos,
+        ADefPos, LAtkCrEnum, LDefCrEnum);
+
       if B then
       begin
         NextTurn;
@@ -876,7 +884,8 @@ var
         CloseButton.Render;
       end;
       FBattle.BattleLog.Log.Render;
-      Self.DrawText(10, 10, DebugString);
+      Self.DrawText(10, 10, DebugString +
+        TLeaderParty.LeaderVampiricAttackValue.ToString);
       LogButton.Render;
     except
       on E: Exception do

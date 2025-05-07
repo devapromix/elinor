@@ -117,6 +117,7 @@ type
     LeaderName: string;
     LeaderRegenerationValue: Byte;
     LeaderChanceToParalyzeValue: Byte;
+    LeaderVampiricAttackValue: Byte;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -165,12 +166,13 @@ type
     function GetSpellCastingRange: Integer; overload;
     function InSpellCastingRange(const AX, AY: Integer): Boolean;
     procedure LeaderRegeneration;
-    class procedure ModifyLeaderRegeneration(const AValue: Integer);
     class procedure MoveUnit(AParty: TParty);
     class procedure UpdateMoveUnit(AParty: TParty); overload;
     class procedure UpdateMoveUnit(AParty: TParty;
       const AX, AY: Integer); overload;
+    class procedure ModifyLeaderRegeneration(const AValue: Integer);
     class procedure ModifyLeaderChanceToParalyze(const AValue: Integer);
+    class procedure ModifyLeaderVampiricAttack(const AValue: Integer);
   end;
 
 type
@@ -667,6 +669,7 @@ begin
   IsUnitSelected := False;
   LeaderRegenerationValue := 0;
   LeaderChanceToParalyzeValue := 0;
+  LeaderVampiricAttackValue := 0;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
@@ -935,6 +938,11 @@ end;
 class procedure TLeaderParty.ModifyLeaderRegeneration(const AValue: Integer);
 begin
   LeaderRegenerationValue := LeaderRegenerationValue + AValue;
+end;
+
+class procedure TLeaderParty.ModifyLeaderVampiricAttack(const AValue: Integer);
+begin
+  LeaderVampiricAttackValue := LeaderVampiricAttackValue + AValue;
 end;
 
 class procedure TLeaderParty.Move(Dir: TDirectionEnum);
