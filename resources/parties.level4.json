@@ -3,32 +3,32 @@
 		{
 			"level": 4,
 			"faction": "the-empire",
-			"characters":"squire,apprentice,squire,archer,squire,apprentice"
+			"characters":"squire,apprentice,none,archer,squire,apprentice"
 		},
 		{
 			"level": 4,
 			"faction": "the-empire",
-			"characters":"squire,archer,squire,archer,squire,archer"
+			"characters":"squire,archer,none,archer,squire,archer"
 		},
 		{
 			"level": 4,
 			"faction": "the-empire",
-			"characters":"squire,apprentice,squire,none,squire,apprentice"
+			"characters":"squire,apprentice,none,none,squire,apprentice"
 		},
 		{
 			"level": 4,
 			"faction": "undead-hordes",
-			"characters":"fighter,initiate,fighter,initiate,fighter,initiate"
+			"characters":"fighter,initiate,none,initiate,fighter,initiate"
 		},
 		{
 			"level": 4,
 			"faction": "undead-hordes",
-			"characters":"fighter,ghost,fighter,initiate,fighter,ghost"
+			"characters":"fighter,ghost,none,initiate,fighter,ghost"
 		},
 		{
 			"level": 4,
 			"faction": "legion-of-the-damned",
-			"characters":"devil,gargoyle,devil,none,devil,gargoyle"
+			"characters":"devil,gargoyle,none,none,devil,gargoyle"
 		},
 		{
 			"level": 4,
@@ -38,7 +38,7 @@
 		{
 			"level": 4,
 			"faction": "legion-of-the-damned",
-			"characters":"possessed,cultist,possessed,none,possessed,cultist"
+			"characters":"possessed,cultist,none,none,possessed,cultist"
 		},
 		{
 			"level": 4,

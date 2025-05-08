@@ -2,6 +2,21 @@
 	"parties":[
 		{
 			"level": 6,
+			"faction": "the-empire",
+			"characters":"squire,apprentice,squire,apprentice,squire,apprentice"
+		},
+		{
+			"level": 6,
+			"faction": "undead-hordes",
+			"characters":"wyvern,initiate,fighter,ghost,wyvern,initiate"
+		},
+		{
+			"level": 6,
+			"faction": "legion-of-the-damned",
+			"characters":"devil,gargoyle,devil,cultist,devil,gargoyle"
+		},
+		{
+			"level": 6,
 			"faction": "neutrals",
 			"characters":"none,none,spider,none,none,none"
 		}
