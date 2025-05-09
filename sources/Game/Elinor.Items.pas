@@ -137,7 +137,7 @@ type
     iRingOfTheAges, iRingOfHag, iThanatosRing,
 
     // Helms
-    iTiaraOfPurity, iMjolnirsCrown, { ... } iImperialCrown);
+    iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem, iImperialCrown);
 
 const
   QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration];
@@ -409,9 +409,13 @@ const
     (Enum: iMjolnirsCrown; Name: 'Mjolnir''s Crown'; Level: 6; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: reNone; Price: 1500;
     Description: ''),
+    // Thirstborn Diadem
+    (Enum: iMjolnirsCrown; Name: 'Thirstborn Diadem'; Level: 7; ItType: itHelm;
+    ItEffect: ieVampiricAttack25; ItSlot: isHelm; ItRes: reNone; Price: 1800;
+    Description: ''),
     // Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
-    ItEffect: ieRegen25; ItSlot: isHelm; ItRes: reNone; Price: 2000;
+    ItEffect: ieRegen25; ItSlot: isHelm; ItRes: reNone; Price: 2500;
     Description: ''));
 
   { TInventory }
