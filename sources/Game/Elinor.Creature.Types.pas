@@ -86,7 +86,7 @@ type
     // Spiders
     crGiantSpider,
     // Wolves
-    crWolf,
+    crWolf, crDireWolf,
     // Bears
     crPolarBear, crBrownBear, crBlackBear
     //

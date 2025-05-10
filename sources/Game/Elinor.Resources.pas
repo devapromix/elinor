@@ -56,7 +56,7 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reGiantSpider, reWolf, reBear, reOrc, reGhost, reImp, reGhoul,
+    reGiantSpider, reWolf, reDireWolf, reBear, reOrc, reGhost, reImp, reGhoul,
     reStoneGargoyle, reReaper, reRogue,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
@@ -382,7 +382,9 @@ const
     // Giant Spider
     (FileName: 'character.giant_spider.png'; ResType: teGUI;),
     // Wolf
-    (FileName: 'character.wolf.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
+    // Dire Wolf
+    (FileName: 'character.neutrals.dire_wolf.png'; ResType: teGUI;),
     // Bear
     (FileName: 'character.bear.png'; ResType: teGUI;),
     // Orc

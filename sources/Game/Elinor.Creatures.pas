@@ -802,7 +802,7 @@ const
 
     // Wolf
     (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: reWolf;
-    Size: szSmall; Name: ('Волк', 'Волка');
+    Size: szSmall; Name: ('Wolf', 'Wolf');
     Description: ('Волки испокон веков бродят по этим',
     'землям в поисках добычи. Смерть ждет',
     'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
@@ -810,6 +810,14 @@ const
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 70;),
+    // Dire Wolf
+    (Ident: 'dire-wolf'; Faction: faNeutrals; SubRace: reAnimal;
+    ResEnum: reDireWolf; Size: szSmall; Name: ('Dire Wolf', 'Dire Wolf');
+    Description: ('', '', ''); HitPoints: 200; Initiative: 50; ChancesToHit: 80;
+    Leadership: 0; Level: 1; Damage: 60; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 220;
+    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
 
     // Polar Bear
     (Ident: 'polar-bear'; Faction: faNeutrals; SubRace: reAnimal;
