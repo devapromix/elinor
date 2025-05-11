@@ -19,6 +19,11 @@
 			"level": 6,
 			"faction": "neutrals",
 			"characters":"none,none,spider,none,none,none"
+		},
+		{
+			"level": 6,
+			"faction": "neutrals",
+			"characters":"dire-wolf,goblin-elder,none,goblin-archer,dire-wolf,goblin-elder"
 		}
 	]
 }

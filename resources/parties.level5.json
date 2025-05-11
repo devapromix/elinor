@@ -38,7 +38,17 @@
 		{
 			"level": 5,
 			"faction": "neutrals",
+			"characters":"none,goblin-archer,dire-wolf,none,none,goblin-archer"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
 			"characters":"none,goblin-elder,orc,none,none,goblin-elder"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"dire-wolf,goblin-elder,orc,none,dire-wolf,goblin-elder"
 		},
 		{
 			"level": 5,
@@ -64,6 +74,11 @@
 			"level": 5,
 			"faction": "neutrals",
 			"characters":"dark-elf-gast,none,none,none,dark-elf-gast,none"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
+			"characters":"none,goblin-elder,dire-wolf,none,none,goblin-elder"
 		}
 	]
 }
