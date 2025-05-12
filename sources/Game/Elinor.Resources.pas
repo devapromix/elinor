@@ -388,13 +388,13 @@ const
     // Bear
     (FileName: 'character.bear.png'; ResType: teGUI;),
     // Orc
-    (FileName: 'character.orc.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.orc.png'; ResType: teGUI;),
     // Ghost
     (FileName: 'character.undead_hordes.ghost.png'; ResType: teGUI;),
     // Imp
     (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
     // Ghoul
-    (FileName: 'character.ghoul.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.ghoul.png'; ResType: teGUI;),
     // Stone Gargoyle
     (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
     // Reaper
