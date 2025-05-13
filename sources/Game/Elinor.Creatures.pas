@@ -792,7 +792,7 @@ const
     // Spider
     (Ident: 'spider'; Faction: faNeutrals; SubRace: reAnimal;
     ResEnum: reGiantSpider; Size: szBig;
-    Name: ('Гигантский Паук', 'Гигантского Паука');
+    Name: ('Giant Spider', 'Giant Spider');
     Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
@@ -821,7 +821,7 @@ const
 
     // Polar Bear
     (Ident: 'polar-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBear; Size: szBig; Name: ('Белый Медведь', 'Белого Медведя');
+    ResEnum: reBear; Size: szBig; Name: ('Polar Bear', 'Polar Bear');
     Description: ('', '', ''); HitPoints: 320; Initiative: 70; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 85; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
@@ -829,7 +829,7 @@ const
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Brown Bear
     (Ident: 'brown-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBear; Size: szBig; Name: ('Бурый Медведь', 'Бурого Медведя');
+    ResEnum: reBear; Size: szBig; Name: ('Brown Bear', 'Brown Bear');
     Description: ('', '', ''); HitPoints: 300; Initiative: 70; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 80; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 600;
@@ -837,7 +837,7 @@ const
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 55;),
     // Black Bear
     (Ident: 'black-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBear; Size: szBig; Name: ('Черный Медведь', 'Черного Медведя');
+    ResEnum: reBear; Size: szBig; Name: ('Black Bear', 'Black Bear');
     Description: ('', '', ''); HitPoints: 280; Initiative: 70; ChancesToHit: 80;
     Leadership: 0; Level: 1; Damage: 75; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 500;
