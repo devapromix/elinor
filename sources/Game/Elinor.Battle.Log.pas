@@ -15,7 +15,7 @@ type
     procedure Clear;
     procedure WinInBattle;
     procedure LoseInBattle;
-    procedure Kill(const CrName: string);
+    procedure Kill(const ACreatureName: string);
     procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
     procedure Paralyze(const AtkCrName, DefCrName: string;
       const IsArtifact: Boolean = False);
@@ -169,10 +169,10 @@ begin
   end;
 end;
 
-procedure TBattleLog.Kill(const CrName: string);
+procedure TBattleLog.Kill(const ACreatureName: string);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'kill_creature'),
-    [CrName]));
+    [ACreatureName]));
 end;
 
 end.
