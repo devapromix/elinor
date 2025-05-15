@@ -695,6 +695,14 @@ const
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);
     Gender: cgMale; AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
+    // Goblin
+    (Ident: 'black-goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
+    ResEnum: reBlackGoblin; Size: szSmall;
+    Name: ('Black Goblin', 'Black Goblin'); Description: ('', '', '');
+    HitPoints: 60; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
+    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
+    Gender: cgMale; AttackEnum: atSword; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
     (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
@@ -791,8 +799,7 @@ const
 {$REGION Animals}
     // Spider
     (Ident: 'spider'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reGiantSpider; Size: szBig;
-    Name: ('Giant Spider', 'Giant Spider');
+    ResEnum: reGiantSpider; Size: szBig; Name: ('Giant Spider', 'Giant Spider');
     Description: ('Сильный яд гигантского паука',
     'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
     Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;

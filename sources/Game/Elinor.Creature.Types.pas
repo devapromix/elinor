@@ -68,7 +68,7 @@ type
     crDevil,
 
     // Goblins
-    crGoblin, crGoblin_Rider, crGoblin_Archer, crGoblin_Elder,
+    crGoblin, crGoblin_Rider, crGoblin_Archer, crGoblin_Elder, crBlackGoblin,
     // Orcs
     crOrc,
     // Ogres

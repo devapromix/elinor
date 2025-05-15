@@ -379,6 +379,8 @@ const
     (FileName: 'character.goblin.archer.png'; ResType: teGUI;),
     // Goblin Elder
     (FileName: 'character.goblin.elder.png'; ResType: teGUI;),
+    // Black Goblin
+    (FileName: 'character.neutrals.black_goblin.png'; ResType: teGUI;),
     // Giant Spider
     (FileName: 'character.giant_spider.png'; ResType: teGUI;),
     // Wolf
