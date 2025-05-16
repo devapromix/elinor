@@ -78,6 +78,21 @@
 		{
 			"level": 2,
 			"faction": "neutrals",
+			"characters":"none,none,black-goblin,goblin-elder,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
+			"characters":"none,none,black-goblin,goblin-archer,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
+			"characters":"black-goblin,none,none,none,black-goblin,none"
+		},
+		{
+			"level": 2,
+			"faction": "neutrals",
 			"characters":"goblin,none,none,goblin-elder,goblin,none"
 		},
 		{

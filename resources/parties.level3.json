@@ -58,6 +58,11 @@
 		{
 			"level": 3,
 			"faction": "neutrals",
+			"characters":"goblin,none,black-goblin,goblin-elder,goblin,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
 			"characters":"rogue,none,none,archer,rogue,none"
 		},
 		{
@@ -69,6 +74,11 @@
 			"level": 3,
 			"faction": "neutrals",
 			"characters":"wolf,none,none,goblin-elder,wolf,none"
+		},
+		{
+			"level": 3,
+			"faction": "neutrals",
+			"characters":"black-goblin,none,none,goblin-elder,black-goblin,none"
 		},
 		{
 			"level": 3,

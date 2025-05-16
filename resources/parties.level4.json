@@ -48,6 +48,11 @@
 		{
 			"level": 4,
 			"faction": "neutrals",
+			"characters":"black-goblin,goblin-archer,goblin,goblin-elder,black-goblin,goblin-archer"
+		},
+		{
+			"level": 4,
+			"faction": "neutrals",
 			"characters":"wolf,goblin-elder,goblin,goblin-archer,wolf,goblin-elder"
 		},
 		{
