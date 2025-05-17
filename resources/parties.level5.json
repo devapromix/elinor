@@ -28,6 +28,11 @@
 		{
 			"level": 5,
 			"faction": "neutrals",
+			"characters":"none,goblin-archer,dire-wolf,goblin-archer,none,goblin-archer"
+		},
+		{
+			"level": 5,
+			"faction": "neutrals",
 			"characters":"none,goblin-archer,orc,goblin-archer,none,goblin-archer"
 		},
 		{

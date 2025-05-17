@@ -24,6 +24,11 @@
 			"level": 6,
 			"faction": "neutrals",
 			"characters":"dire-wolf,goblin-elder,none,goblin-archer,dire-wolf,goblin-elder"
+		},
+		{
+			"level": 6,
+			"faction": "neutrals",
+			"characters":"dire-wolf,goblin-elder,dire-wolf,goblin-archer,dire-wolf,goblin-elder"
 		}
 	]
 }
