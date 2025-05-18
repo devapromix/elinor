@@ -12,11 +12,16 @@
       "Gilbert",
       "Conrad",
       "Lothar",
-      "Rudolf",      
-      "Heinrich",    
-      "Otto",        
-      "Bernhard",    
-      "Siegfried"    
+      "Rudolf",
+      "Heinrich",
+      "Otto",
+      "Bernhard",
+      "Siegfried",
+      "Dietrich",
+      "Engelbert",
+      "Hartwig",
+      "Niklas",
+      "Alaric"
     ],
     "female": [
       "Sophia",
@@ -29,11 +34,16 @@
       "Tamira",
       "Vera",
       "Caesaria",
-      "Isabella",    
-      "Matilda",     
-      "Clara",       
-      "Eleanor",     
-      "Gisela"       
+      "Isabella",
+      "Matilda",
+      "Clara",
+      "Eleanor",
+      "Gisela",
+      "Irmgard",
+      "Helena",
+      "Brunhilda",
+      "Liselotte",
+      "Adelheid"
     ]
   },
   "undead-hordes": {
@@ -48,11 +58,16 @@
       "Rainon",
       "Renar",
       "Savery",
-      "Dracul",      
-      "Gorzod",      
-      "Thanatos",    
-      "Valthor",     
-      "Skolax"       
+      "Dracul",
+      "Gorzod",
+      "Thanatos",
+      "Valthor",
+      "Skolax",
+      "Morvain",
+      "Xalveron",
+      "Dekarion",
+      "Tharzul",
+      "Noctar"
     ],
     "female": [
       "Hecate",
@@ -65,11 +80,16 @@
       "Tueranis",
       "Mantia",
       "Jutta",
-      "Nyxa",        
-      "Selene",      
-      "Vexana",      
-      "Drusilla",    
-      "Zombra"       
+      "Nyxa",
+      "Selene",
+      "Vexana",
+      "Drusilla",
+      "Zombra",
+      "Velistra",
+      "Nemeria",
+      "Duska",
+      "Erelith",
+      "Crosera"
     ]
   },
   "legions-of-the-damned": {
@@ -85,11 +105,16 @@
       "Gunther",
       "Othon",
       "Tefas",
-      "Lucifer",     
-      "Baal",        
-      "Samael",      
-      "Dagon",       
-      "Xerath"       
+      "Lucifer",
+      "Baal",
+      "Samael",
+      "Dagon",
+      "Xerath",
+      "Varkhul",
+      "Zanreth",
+      "Ignarok",
+      "Kharzun",
+      "Drazh"
     ],
     "female": [
       "Lilith",
@@ -102,11 +127,16 @@
       "Crona",
       "Linual",
       "Fara",
-      "Naamah",      
-      "Eris",        
-      "Hela",        
-      "Malice",      
-      "Zyra"         
+      "Naamah",
+      "Eris",
+      "Hela",
+      "Malice",
+      "Zyra",
+      "Vezzura",
+      "Dravena",
+      "Nyssira",
+      "Lazaria",
+      "Molthia"
     ]
   }
 }
