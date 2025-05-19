@@ -56,8 +56,8 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reGiantSpider, reWolf, reDireWolf, reBear, reOrc, reGhost, reImp, reGhoul,
-    reStoneGargoyle, reReaper, reRogue,
+    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reBear, reOrc, reGhost,
+    reImp, reGhoul, reStoneGargoyle, reReaper, reRogue,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,

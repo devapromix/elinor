@@ -140,6 +140,9 @@
 "spear_attack":[
 			"%s атакует копьем %s и наносит %d урона."
 		],
+"short_sword_attack":[
+			"%s атакует коротким мечом %s и наносит %d урона."
+		],
 "paralyze_ghost_attack":[
 			"%s paralyzes %s.",
 			"%s lets out a piercing scream and paralyzes %s.",

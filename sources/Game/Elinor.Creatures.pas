@@ -57,7 +57,7 @@ type
     atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
     atPoisonousBreath, atDaggerOfShadows, atFireDagger, atClub, atFireHammer,
-    atPhoenixSword, atScythe);
+    atPhoenixSword, atScythe, atShortSword);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -67,14 +67,14 @@ const
     'Меч Паладина', 'Боевой Топор', 'Dagger', 'Bow', 'Hunter Bow', 'Арбалет',
     'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
     'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
-    'Булава', 'Тлеющий Молот', 'Меч Феникса', 'Коса');
+    'Булава', 'Тлеющий Молот', 'Меч Феникса', 'Коса', 'Short Sword');
 
 const
   AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
     'paladin_sword', 'battle_axe', 'dagger', 'bow', 'hunter_bow', 'crossbow',
     'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
     'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'fire_dagger',
-    'club', 'fire_hammer', 'phoenix_sword', 'scythe');
+    'club', 'fire_hammer', 'phoenix_sword', 'scythe', 'short_sword');
 
 const
   Characters: array [faTheEmpire .. faLegionsOfTheDamned] of array
@@ -702,7 +702,7 @@ const
     HitPoints: 60; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
-    Gender: cgMale; AttackEnum: atSword; AbilityEnum: abNone; Rating: 30;),
+    Gender: cgMale; AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
     (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
