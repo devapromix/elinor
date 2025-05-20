@@ -31,9 +31,9 @@ type
 const
   SourceName: array [TSourceEnum] of string = ('Weapon', 'Life', 'Mind',
     'Death', 'Air', 'Earth', 'Fire', 'Water');
-  StaffName: array [TSourceEnum] of string = ('Боевой Посох', 'Рубиновый Посох',
-    'Мифриловый Посох', 'Посох Могущества', 'Посох Молний', 'Эльфийский Посох',
-    'Посох Колдуна', 'Посох Льда');
+  StaffName: array [TSourceEnum] of string = ('Battle Staff', 'Ruby Staff',
+    'Mithril Staff', 'Staff of Power', 'Staff of Lightning', 'Elven Staff',
+    'Wizard Staff', 'Staff of Ice');
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -56,24 +56,24 @@ type
   TAttackEnum = (atSlayerSword, atLongSword, atPaladinSword, atBattleAxe,
     atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
-    atPoisonousBreath, atDaggerOfShadows, atFireDagger, atClub, atFireHammer,
+    atPoisonousBreath, atDaggerOfShadows, atFlameDagger, atClub, atFireHammer,
     atPhoenixSword, atScythe, atShortSword);
 
 type
   TCreatureSize = (szSmall, szBig);
 
 const
-  AttackName: array [TAttackEnum] of string = ('Меч Убийцы', 'Длинный Меч',
-    'Меч Паладина', 'Боевой Топор', 'Dagger', 'Bow', 'Hunter Bow', 'Арбалет',
-    'Выпить Жизнь', 'Исцеление', 'Паралич', 'Яд', 'Магия', 'Когти', 'Укус',
-    'Копье', 'Камни', 'Ядовитое Дыхание', 'Кинжал Теней', 'Кинжал Пламени',
-    'Булава', 'Тлеющий Молот', 'Меч Феникса', 'Коса', 'Short Sword');
+  AttackName: array [TAttackEnum] of string = ('Slayer Sword', 'Long Sword',
+    'Paladin Sword', 'Battle Axe', 'Dagger', 'Bow', 'Hunter Bow', 'Crossbow',
+    'Drain Life', 'Healing', 'Paralysis', 'Poison', 'Magic', 'Claws', 'Bite',
+    'Spear', 'Stones', 'Poisonous Breath', 'Dagger of Shadows', 'Flame Dagger',
+    'Club', 'Fire Hammer', 'Phoenix Sword', 'Scythe', 'Short Sword');
 
 const
   AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
     'paladin_sword', 'battle_axe', 'dagger', 'bow', 'hunter_bow', 'crossbow',
     'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
-    'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'fire_dagger',
+    'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'flame_dagger',
     'club', 'fire_hammer', 'phoenix_sword', 'scythe', 'short_sword');
 
 const
@@ -606,7 +606,7 @@ const
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atFireDagger; AbilityEnum: abStealth; Rating: 0;),
+    AttackEnum: atFlameDagger; AbilityEnum: abStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
     ResEnum: reChieftain; Size: szSmall; Name: ('Атаман', 'Атамана');
