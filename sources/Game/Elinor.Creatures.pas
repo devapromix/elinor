@@ -369,93 +369,94 @@ const
 {$REGION The Empire}
     // Myzrael
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reAngel; ResEnum: reMyzrael;
-    Size: szSmall; Name: ('Мизраэль', 'Мизраэля');
-    Description: ('Мизраэль был послан, чтобы помочь',
-    'Империи людей в их священной мис-', 'сии. Он охраняет столицу от врагов.');
-    HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
-    Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
-    AttackEnum: atMagic; AbilityEnum: abNone; Rating: 0;),
+    Size: szSmall; Name: ('Myzrael', 'Myzrael');
+    Description: ('Mizrael was sent to aid the',
+    'Human Empire in their holy mission.',
+    'He protects the capital from enemies.'); HitPoints: 900; Initiative: 90;
+    ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
+    SourceEnum: seLife; ReachEnum: reAll; Gold: 0;
+    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
+    AbilityEnum: abNone; Rating: 0;),
     // Paladin
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: rePaladin;
-    Size: szSmall; Name: ('Паладин', 'Паладина');
-    Description: ('Оседлавший пегаса рыцарь - это бла-',
-    'городный воин, чей крылатый скакун', 'возносит его над полями и лесами.');
-    HitPoints: 150; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
-    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Paladin', 'Paladin');
+    Description: ('The knight who rides a pegasus is a',
+    'noble warrior, whose winged steed',
+    'carries him over fields and forests.'); HitPoints: 150; Initiative: 50;
+    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atPaladinSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Ranger
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reRanger;
-    Size: szSmall; Name: ('Следопыт', 'Следопыта');
-    Description: ('Следопыты путешествуют быстро и хо-',
-    'рошо знают королевство, поэтому ко-',
-    'роль часто посылает их в разведку.'); HitPoints: 90; Initiative: 60;
+    Size: szSmall; Name: ('Ranger', 'Ranger');
+    Description: ('Rangers travel swiftly and are well-',
+    'versed in the kingdom, so the king of-',
+    'ten sends them on scouting missions.'); HitPoints: 90; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atHunterBow; AbilityEnum: abTravelLore; Rating: 0;),
     // Archmage
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
-    Size: szSmall; Name: ('Архимаг', 'Архимага');
-    Description: ('Мастер магии, архимаг - единственный',
-    'в Империи полководец, который уме-', 'ет использовать свитки и посохи.');
+    Size: szSmall; Name: ('Archmage', 'Archmage');
+    Description: ('A master of magic, the Archmage is the',
+    'only commander in the Empire who can', 'use scrolls and staves.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thief
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reThief;
-    Size: szSmall; Name: ('Вор', 'Вора');
-    Description: ('Опытные обманщики и воры, легко',
-    'пробираются в тыл врага, и служат', 'Империи, добывая важные сведения.');
-    HitPoints: 100; Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1;
-    Damage: 30; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Thief', 'Thief');
+    Description: ('Experienced tricksters and thieves, they',
+    'easily sneak behind enemy lines and',
+    'serve the Empire by gathering vital intel.'); HitPoints: 100;
+    Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDagger; AbilityEnum: abStealth; Rating: 0;),
     // Warlord
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reWarlord;
-    Size: szSmall; Name: ('Полководец', 'Полководца');
-    Description: ('Полевой полководец короля служит',
-    'Империи верой и правдой и беспощад-', 'но расправляется с ее врагами.');
+    Size: szSmall; Name: ('Warlord', 'Warlord');
+    Description: ('The king’s field commander serves the',
+    'Empire with loyalty and ruthlessly', 'deals with its enemies.');
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Squire
     (Ident: 'squire'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reSquire;
-    Size: szSmall; Name: ('Сквайр', 'Сквайра');
-    Description: ('Сквайр доблестно защищает в бою',
-    'своих более слабых соотечественников,',
-    'держа противников на расстоянии меча.'); HitPoints: 100; Initiative: 50;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Squire', 'Squire');
+    Description: ('The squire bravely defends in battle',
+    'his weaker compatriots, keeping', 'foes at sword’s length.');
+    HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 25;),
     // Archer
     (Ident: 'archer'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArcher;
-    Size: szSmall; Name: ('Лучник', 'Лучника');
-    Description: ('Стрелы лучника успешно поражают',
-    'врагов, которые укрываются за спи-',
-    'нами своих более сильных соратников.'); HitPoints: 45; Initiative: 60;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 40;
-    Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Archer', 'Archer');
+    Description: ('The archer’s arrows successfully hit',
+    'enemies hiding behind the backs', 'of their stronger comrades.');
+    HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 40; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 10;),
     // Apprentice
     (Ident: 'apprentice'; Faction: faTheEmpire; SubRace: reHuman;
-    ResEnum: reApprentice; Size: szSmall; Name: ('Ученик', 'Ученика');
-    Description: ('Ученик мага атакует противников',
-    'с большого расстояния, обрушивая', 'на них молнии.'); HitPoints: 35;
+    ResEnum: reApprentice; Size: szSmall; Name: ('Apprentice', 'Apprentice');
+    Description: ('The mage’s apprentice attacks foes',
+    'from afar, unleashing lightning', 'upon them.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 5;),
     // Acolyte
     (Ident: 'acolyte'; Faction: faTheEmpire; SubRace: reHuman;
-    ResEnum: reAcolyte; Size: szSmall; Name: ('Служка', 'Служку');
-    Description: ('Обученная искусству исцеления служка',
-    'может лечить раненых соратников,', 'по очереди перевязывая раны каждого.');
+    ResEnum: reAcolyte; Size: szSmall; Name: ('Acolyte', 'Acolyte');
+    Description: ('Trained in the art of healing, the Acolyte',
+    'can tend to wounded allies, treating', 'their injuries one by one.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
     Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
