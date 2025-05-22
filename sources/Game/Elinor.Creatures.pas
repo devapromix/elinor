@@ -811,9 +811,9 @@ const
     // Wolf
     (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: reWolf;
     Size: szSmall; Name: ('Wolf', 'Wolf');
-    Description: ('Волки испокон веков бродят по этим',
-    'землям в поисках добычи. Смерть ждет',
-    'воинов, которые столкнутся с ними.'); HitPoints: 180; Initiative: 50;
+    Description: ('Wolves have roamed these lands since ancient times,',
+    'always in search of prey. Death awaits',
+    'the warriors who cross their path.'); HitPoints: 180; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
@@ -821,34 +821,42 @@ const
     // Dire Wolf
     (Ident: 'dire-wolf'; Faction: faNeutrals; SubRace: reAnimal;
     ResEnum: reDireWolf; Size: szSmall; Name: ('Dire Wolf', 'Dire Wolf');
-    Description: ('', '', ''); HitPoints: 200; Initiative: 50; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 60; Armor: 0; Heal: 0;
+    Description: ('Dire wolves are larger and fiercer than common',
+    'wolves. They hunt in silence and strike swiftly.',
+    'Few survive an encounter with one.'); HitPoints: 200; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 60; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 220;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
 
     // Polar Bear
     (Ident: 'polar-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBear; Size: szBig; Name: ('Polar Bear', 'Polar Bear');
-    Description: ('', '', ''); HitPoints: 320; Initiative: 70; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 85; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
+    ResEnum: rePolarBear; Size: szBig; Name: ('Polar Bear', 'Polar Bear');
+    Description: ('Polar bears are deadly beasts of the north.',
+    'Thick fur and huge claws protect them.',
+    'They strike without warning when threatened.'); HitPoints: 320;
+    Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 85;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Brown Bear
     (Ident: 'brown-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBear; Size: szBig; Name: ('Brown Bear', 'Brown Bear');
-    Description: ('', '', ''); HitPoints: 300; Initiative: 70; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 80; Armor: 0; Heal: 0;
+    ResEnum: reBrownBear; Size: szBig; Name: ('Brown Bear', 'Brown Bear');
+    Description: ('Brown bears are strong and territorial creatures.',
+    'They roam forests and mountains in search of food.',
+    'Disturbing one is often fatal.'); HitPoints: 300; Initiative: 70;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 80; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 600;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 55;),
     // Black Bear
     (Ident: 'black-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBear; Size: szBig; Name: ('Black Bear', 'Black Bear');
-    Description: ('', '', ''); HitPoints: 280; Initiative: 70; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 75; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 500;
+    ResEnum: reBlackBear; Size: szBig; Name: ('Black Bear', 'Black Bear');
+    Description: ('Black bears are smaller but unpredictable.',
+    'They can climb trees and move quickly.',
+    'A cornered black bear is a fierce opponent.'); HitPoints: 280;
+    Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 75;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 500;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;)
 {$ENDREGION Animals}

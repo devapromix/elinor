@@ -56,8 +56,9 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reBear, reOrc, reGhost,
-    reImp, reGhoul, reStoneGargoyle, reReaper, reRogue,
+    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, rePolarBear, reBrownBear,
+    reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
+    reReaper, reRogue,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -387,8 +388,12 @@ const
     (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
     // Dire Wolf
     (FileName: 'character.neutrals.dire_wolf.png'; ResType: teGUI;),
-    // Bear
-    (FileName: 'character.bear.png'; ResType: teGUI;),
+    // Polar Bear
+    (FileName: 'character.neutrals.polar_bear.png'; ResType: teGUI;),
+    // Brown Bear
+    (FileName: 'character.neutrals.brown_bear.png'; ResType: teGUI;),
+    // Black Bear
+    (FileName: 'character.neutrals.black_bear.png'; ResType: teGUI;),
     // Orc
     (FileName: 'character.neutrals.orc.png'; ResType: teGUI;),
     // Ghost
