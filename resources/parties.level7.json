@@ -3,6 +3,26 @@
 		{
 			"level": 7,
 			"faction": "neutrals",
+			"characters":"spider,none,none,none,spider,none"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
+			"characters":"polar-bear,none,polar-bear,none,polar-bear,none"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
+			"characters":"brown-bear,none,brown-bear,none,brown-bear,none"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
+			"characters":"black-bear,none,black-bear,none,black-bear,none"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
 			"characters":"none,none,reaper,none,none,none"
 		}
 	]

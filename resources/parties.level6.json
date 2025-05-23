@@ -23,6 +23,21 @@
 		{
 			"level": 6,
 			"faction": "neutrals",
+			"characters":"polar-bear,none,none,none,polar-bear,none"
+		},
+		{
+			"level": 6,
+			"faction": "neutrals",
+			"characters":"brown-bear,none,none,none,brown-bear,none"
+		},
+		{
+			"level": 6,
+			"faction": "neutrals",
+			"characters":"black-bear,none,none,none,black-bear,none"
+		},
+		{
+			"level": 6,
+			"faction": "neutrals",
 			"characters":"dire-wolf,goblin-elder,none,goblin-archer,dire-wolf,goblin-elder"
 		},
 		{

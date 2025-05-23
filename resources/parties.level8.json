@@ -3,6 +3,11 @@
 		{
 			"level": 8,
 			"faction": "neutrals",
+			"characters":"spider,none,spider,none,spider,none"
+		},
+		{
+			"level": 8,
+			"faction": "neutrals",
 			"characters":"none,none,ogre,none,none,none"
 		}
 	]
