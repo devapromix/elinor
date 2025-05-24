@@ -828,6 +828,16 @@ const
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 220;
     Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
+    // Spirit Wolf
+    (Ident: 'spirit-wolf'; Faction: faNeutrals; SubRace: reAnimal;
+    ResEnum: reSpiritWolf; Size: szSmall; Name: ('Spirit Wolf', 'Spirit Wolf');
+    Description: ('Dire wolves are larger and fiercer than common',
+    'wolves. They hunt in silence and strike swiftly.',
+    'Few survive an encounter with one.'); HitPoints: 250; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 65; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 250;
+    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 90;),
 
     // Polar Bear
     (Ident: 'polar-bear'; Faction: faNeutrals; SubRace: reAnimal;

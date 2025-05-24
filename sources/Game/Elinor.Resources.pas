@@ -56,7 +56,7 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, rePolarBear, reBrownBear,
+    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear, reBrownBear,
     reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
     reReaper, reRogue,
     // Text
@@ -388,6 +388,8 @@ const
     (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
     // Dire Wolf
     (FileName: 'character.neutrals.dire_wolf.png'; ResType: teGUI;),
+    // Spirit Wolf
+    (FileName: 'character.neutrals.spirit_wolf.png'; ResType: teGUI;),
     // Polar Bear
     (FileName: 'character.neutrals.polar_bear.png'; ResType: teGUI;),
     // Brown Bear
