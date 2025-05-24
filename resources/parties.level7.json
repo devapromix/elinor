@@ -8,6 +8,16 @@
 		{
 			"level": 7,
 			"faction": "neutrals",
+			"characters":"spirit-wolf,goblin-elder,none,goblin-archer,spirit-wolf,goblin-elder"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
+			"characters":"spirit-wolf,goblin-elder,spirit-wolf,goblin-elder,spirit-wolf,goblin-elder"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
 			"characters":"polar-bear,none,polar-bear,none,polar-bear,none"
 		},
 		{
