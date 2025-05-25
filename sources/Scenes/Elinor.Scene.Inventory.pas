@@ -152,16 +152,22 @@ begin
   case AButton of
     mbLeft:
       begin
+        if Button[btInfo].MouseDown then
+        begin
+          ShowItemInfo;
+          Exit;
+        end
+        else if Button[btClose].MouseDown then
+        begin
+          HideScene;
+          Exit;
+        end;
         case ActiveSection of
           isEquipment:
             UnEquip;
           isInventory:
             Equip;
         end;
-        if Button[btInfo].MouseDown then
-          ShowItemInfo
-        else if Button[btClose].MouseDown then
-          HideScene;
       end;
     mbRight:
       ShowItemInfo;
