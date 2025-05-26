@@ -134,9 +134,21 @@ begin
 end;
 
 class procedure TSceneLoot2.HideScene;
+var
+  LX, LY: Integer;
 begin
   Loot.AttemptToPlaceLootObject;
 
+  if (Game.Scenario.CurrentScenario = sgDarkTower) then
+  begin
+    LX := TLeaderParty.Leader.X;
+    LY := TLeaderParty.Leader.Y;
+    if (ResBase[Game.Map.GetTile(lrTile, LX, LY)].ResType = teTower) then
+    begin
+      TSceneVictory.ShowScene;
+      Exit;
+    end;
+  end;
   if (Game.Scenario.CurrentScenario = sgAncientKnowledge) then
     if Game.Scenario.StoneTab >= TScenario.ScenarioStoneTabMax then
     begin
