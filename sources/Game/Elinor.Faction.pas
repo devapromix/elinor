@@ -34,6 +34,7 @@ type
   TFaction = class(TObject)
   public
     class function GetDescription(const AFactionEnum: TFactionEnum): string;
+    class function GetTraits(const AFactionEnum: TFactionEnum): string;
   end;
 
 implementation
@@ -71,6 +72,15 @@ begin
     Result := JSONData.GetValue<string>(FactionIdent[AFactionEnum])
   else
     Result := 'Description not available...';
+end;
+
+class function TFaction.GetTraits(const AFactionEnum: TFactionEnum): string;
+begin
+  if Assigned(JSONData) and (JSONData.Values[FactionIdent[AFactionEnum]] <> nil)
+  then
+    Result := JSONData.GetValue<string>(FactionIdent[AFactionEnum] + '-traits')
+  else
+    Result := 'Traits not available...';
 end;
 
 initialization

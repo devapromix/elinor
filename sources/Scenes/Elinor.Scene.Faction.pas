@@ -81,6 +81,11 @@ begin
       AddTextLine;
       Self.DrawText(TextLeft, TextTop, 600,
         TFaction.GetDescription(LFactionEnum));
+      TextTop := TFrame.Row(0) + 200;
+      AddTextLine('Faction Traits', True);
+      AddTextLine;
+      Self.DrawText(TextLeft, TextTop, 600,
+        TFaction.GetTraits(LFactionEnum));
     end;
   end;
 end;
