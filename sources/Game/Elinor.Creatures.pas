@@ -466,9 +466,9 @@ const
 {$REGION Undead Hordes}
     // Ashgan
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reAshgan; Size: szSmall; Name: ('Ашган', 'Ашгана');
-    Description: ('Ашган, несущий чуму, был некогда',
-    'верховным священником Алкмаара.', 'Он не оставляет столицу без охраны.');
+    ResEnum: reAshgan; Size: szSmall; Name: ('Ashgan', 'Ashgan');
+    Description: ('Ashgan, the Plaguebearer, was once',
+    'the high priest of Alkmaar.', 'He never leaves the capital unguarded.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
     Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
@@ -476,88 +476,89 @@ const
     // Death Knight
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
     ResEnum: reDeathKnight; Size: szSmall;
-    Name: ('Рыцарь Смерти', 'Рыцаря Смерти');
-    Description: ('Сильнейшие и благороднейшие воины',
-    'королевства Алкмаар были возвращены',
-    'Мортис из небытия Рыцарями Смерти.'); HitPoints: 150; Initiative: 50;
-    ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
+    Name: ('Death Knight', 'Death Knight');
+    Description: ('The strongest and noblest warriors',
+    'of the kingdom of Alkmaar were brought back',
+    'from oblivion by Mortis through the Death Knights.'); HitPoints: 150;
+    Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atSlayerSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Nosferat
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reVampire;
-    ResEnum: reNosferat; Size: szSmall; Name: ('Носферату', 'Носферату');
-    Description: ('Первые вампиры Алкмаара, отринувшие',
-    'Всеотца и поклявшиеся в верности Мор-',
-    'тис в обмен на власть над смертью.'); HitPoints: 90; Initiative: 50;
+    ResEnum: reNosferat; Size: szSmall; Name: ('Nosferat', 'Nosferat');
+    Description: ('The first vampires of Alkmaar, who renounced',
+    'the All-Father and swore loyalty to',
+    'Mortis in exchange for power over death.'); HitPoints: 90; Initiative: 50;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
     AttackEnum: atDrainLife; AbilityEnum: abVampirism; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reLichQueen; Size: szSmall;
-    Name: ('Королева Личей', 'Королеву Личей');
-    Description: ('Жрицы культа смерти, процветавшего в',
-    'Алкмааре, вернулись по воле Мортис', 'безжалостными Королевами личей.');
+    ResEnum: reLichQueen; Size: szSmall; Name: ('Lich Queen', 'Lich Queen');
+    Description: ('Priestesses of the death cult that once thrived in',
+    'Alkmaar, returned by the will of Mortis', 'as merciless Lich Queens.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thug
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead; ResEnum: reThug;
-    Size: szSmall; Name: ('Головорез', 'Головореза');
-    Description: ('Мортис вернула лучших из лучших в',
-    'мир живых, чтобы те действовали хит-',
-    'ростью там, где недостаточно силы.'); HitPoints: 100; Initiative: 60;
+    Size: szSmall; Name: ('Thug', 'Thug');
+    Description: ('Mortis brought back the best of the best to',
+    'the world of the living, to act with cun-',
+    'ning where strength is not enough.'); HitPoints: 100; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; AbilityEnum: abStealth; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reDominator; Size: szSmall; Name: ('Доминатор', 'Доминатора');
-    Description: ('Погибшие полководцы Империи возвра-',
-    'щены Мортис к жизни для того, чтобы', 'сеять вокруг смерть и разрушения.');
+    ResEnum: reDominator; Size: szSmall; Name: ('Dominator', 'Dominator');
+    Description: ('Fallen generals of the Empire were re-',
+    'turned to life by Mortis to sow death', 'and destruction all around.');
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reFighter; Size: szSmall; Name: ('Воин', 'Воина');
-    Description: ('Услышав зов Мортис, безропотно',
-    'встают в строй мертвые воины.', 'Они не знают ни страха, ни жалости.');
-    HitPoints: 120; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    ResEnum: reFighter; Size: szSmall; Name: ('Fighter', 'Fighter');
+    Description: ('Hearing Mortis’s call, the dead warriors',
+    'rise without question to join the ranks.',
+    'They know neither fear nor mercy.'); HitPoints: 120; Initiative: 50;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
+    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Ghost
     (Ident: 'ghost'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reGhost; Size: szSmall; Name: ('Призрак', 'Призрака');
-    Description: ('Призраки - это темные души,',
-    ' чье зло навсегда приковало их', 'к миру живых.'); HitPoints: 45;
-    Initiative: 20; ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0;
-    Armor: 0; Heal: 0; SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
+    ResEnum: reGhost; Size: szSmall; Name: ('Ghost', 'Ghost');
+    Description: ('Ghosts are dark souls,', 'whose evil has forever bound them',
+    'to the world of the living.'); HitPoints: 45; Initiative: 20;
+    ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 0;
+    SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
     Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgMale;
     AttackEnum: atParalyze; AbilityEnum: abNone; Rating: 10;),
     // Initiate
     (Ident: 'initiate'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reInitiate; Size: szSmall; Name: ('Адепт', 'Адепта');
-    Description: ('Адепты обучены нести чуму и', 'смерть армиям живых во славу',
-    'своей богини Мортис.'); HitPoints: 45; Initiative: 40; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0; SourceEnum: seDeath;
-    ReachEnum: reAll; Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack);
-    Gender: cgMale; AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
+    ResEnum: reInitiate; Size: szSmall; Name: ('Initiate', 'Initiate');
+    Description: ('Initiates are trained to bring plague and',
+    'death to the armies of the living in the name',
+    'of their goddess Mortis.'); HitPoints: 45; Initiative: 40;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    SourceEnum: seDeath; ReachEnum: reAll; Gold: 60;
+    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
     // Wyvern
     (Ident: 'wyvern'; Faction: faUndeadHordes; SubRace: reUndeadDragon;
-    ResEnum: reWyvern; Size: szBig; Name: ('Виверна', 'Виверну');
-    Description: ('Чародеи воскрешают мертвых драко-',
-    'нов, тем самым создавая виверн, кото-',
-    'рые сражаются в рядах армии мертвых.'); HitPoints: 225; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seDeath; ReachEnum: reAll; Gold: 100;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    ResEnum: reWyvern; Size: szBig; Name: ('Wyvern', 'Wyvern');
+    Description: ('Sorcerers resurrect dead dragons,',
+    'thus creating wyverns that fight', 'in the ranks of the undead army.');
+    HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
+    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
     AttackEnum: atPoisonousBreath; AbilityEnum: abNone; Rating: 40;),
 {$ENDREGION UndeadHordes}
     // Legions Of The Damned
