@@ -10,7 +10,7 @@ uses
 type
   TSpellEnum = (spNone,
     // The Empire Spellbook
-    spTrueHealing, spSpeed, spBless, spLivingArmor,
+    spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye,
     // Undead Hordes Spellbook
     spPlague, spCurse,
     // Legions of the Damned Spellbook
@@ -148,6 +148,14 @@ type
     procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
+type
+  TEagleEyeSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
 var
   Spells: TSpells;
 
@@ -183,6 +191,10 @@ const
     // Living Armor
     (Name: 'Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
     ResEnum: reLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;
+    Description: '';),
+    // Eagle Eye
+    (Name: 'Eagle Eye'; Level: 1; Mana: 5; SoundEnum: mmHeal;
+    ResEnum: reEagleEye; Faction: faTheEmpire; SpellTarget: stLeader;
     Description: '';),
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
@@ -347,6 +359,7 @@ begin
   FSpell[spConcealment] := TConcealmentSpell.Create;
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
   FSpell[spWeaken] := TWeakenSpell.Create;
+  FSpell[spEagleEye] := TEagleEyeSpell.Create;
 end;
 
 { TTrueHealingSpell }
@@ -455,6 +468,18 @@ end;
 constructor TWeakenSpell.Create;
 begin
   inherited Create(spWeaken);
+end;
+
+{ TEagleEyeSpell }
+
+procedure TEagleEyeSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+
+end;
+
+constructor TEagleEyeSpell.Create;
+begin
+  inherited Create(spEagleEye);
 end;
 
 initialization

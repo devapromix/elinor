@@ -105,7 +105,7 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Spells
-    reTrueHealing, reSpeed, reBless, reLivingArmor, rePlague, reConcealment,
+    reTrueHealing, reSpeed, reBless, reLivingArmor, reEagleEye, rePlague, reConcealment,
     reChainsOfDread, reCurse, reWeaken,
     // Abilities
     reSharpEye,
@@ -659,6 +659,8 @@ const
     (FileName: 'spell.bless.png'; ResType: teGUI;),
     // Living Armor
     (FileName: 'spell.living_armor.png'; ResType: teGUI;),
+    // Eagle Eye
+    (FileName: 'spell.eagle_eye.png'; ResType: teGUI;),
     // Plague
     (FileName: 'spell.plague.png'; ResType: teGUI;),
     // Concealment
