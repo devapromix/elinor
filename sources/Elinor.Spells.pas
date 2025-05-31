@@ -10,7 +10,7 @@ uses
 type
   TSpellEnum = (spNone,
     // The Empire Spellbook
-    spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye,
+    spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye, spStrength,
     // Undead Hordes Spellbook
     spPlague, spCurse,
     // Legions of the Damned Spellbook
@@ -156,6 +156,15 @@ type
     procedure ApplySpellEffect(const APartyIndex: Integer); override;
   end;
 
+type
+
+  TStrengthSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
 var
   Spells: TSpells;
 
@@ -178,6 +187,8 @@ const
     // None
     (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: reNone;
     Faction: faNeutrals; SpellTarget: stNone; Description: '';),
+
+    // The Empire
     // True Healing
     (Name: 'True Healing'; Level: 1; Mana: 15; SoundEnum: mmHeal;
     ResEnum: reTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;
@@ -196,12 +207,20 @@ const
     (Name: 'Eagle Eye'; Level: 1; Mana: 5; SoundEnum: mmHeal;
     ResEnum: reEagleEye; Faction: faTheEmpire; SpellTarget: stLeader;
     Description: '';),
+    // Strength
+    (Name: 'Strength'; Level: 1; Mana: 5; SoundEnum: mmHeal;
+    ResEnum: reStrength; Faction: faTheEmpire; SpellTarget: stLeader;
+    Description: 'Increases damage by 20%';),
+
+    // Undead Hordes
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: rePlague;
     Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
     // Curse
     (Name: 'Curse'; Level: 1; Mana: 5; SoundEnum: mmPlague; ResEnum: reCurse;
     Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
+
+    // Legions of the Damned
     // Concealment
     (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
     ResEnum: reConcealment; Faction: faLegionsOfTheDamned;
@@ -360,6 +379,7 @@ begin
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
   FSpell[spWeaken] := TWeakenSpell.Create;
   FSpell[spEagleEye] := TEagleEyeSpell.Create;
+  FSpell[spStrength] := TStrengthSpell.Create;
 end;
 
 { TTrueHealingSpell }
@@ -480,6 +500,18 @@ end;
 constructor TEagleEyeSpell.Create;
 begin
   inherited Create(spEagleEye);
+end;
+
+{ TStrengthSpell }
+
+procedure TStrengthSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+
+end;
+
+constructor TStrengthSpell.Create;
+begin
+  inherited Create(spStrength);
 end;
 
 initialization

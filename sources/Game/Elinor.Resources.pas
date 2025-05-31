@@ -56,8 +56,8 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear, reBrownBear,
-    reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
+    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
+    reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
     reReaper, reRogue,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
@@ -105,8 +105,8 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Spells
-    reTrueHealing, reSpeed, reBless, reLivingArmor, reEagleEye, rePlague, reConcealment,
-    reChainsOfDread, reCurse, reWeaken,
+    reTrueHealing, reSpeed, reBless, reLivingArmor, reEagleEye, reStrength,
+    rePlague, reConcealment, reChainsOfDread, reCurse, reWeaken,
     // Abilities
     reSharpEye,
     // Races
@@ -661,6 +661,8 @@ const
     (FileName: 'spell.living_armor.png'; ResType: teGUI;),
     // Eagle Eye
     (FileName: 'spell.eagle_eye.png'; ResType: teGUI;),
+    // Strength
+    (FileName: 'spell.strength.png'; ResType: teGUI;),
     // Plague
     (FileName: 'spell.plague.png'; ResType: teGUI;),
     // Concealment
