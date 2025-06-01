@@ -12,10 +12,11 @@ type
 type
   TSpellBase = record
     Name: string;
+    FileName: string;
     Level: Integer;
     Mana: Byte;
     SoundEnum: TMusicEnum;
-    ResEnum: TResEnum;
+    ResEnum: TSpellResEnum;
     Faction: TFactionEnum;
     SpellTarget: TSpellTarget;
     Description: string;
