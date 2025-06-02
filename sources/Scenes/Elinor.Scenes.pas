@@ -160,8 +160,9 @@ type
     procedure AddTableLine(const N, A, B, C: string);
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
+    procedure DrawSpell(X, Y: Integer; Res: TSpellResEnum);overload;
     procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
-      IsDrawTransparent: Boolean = False);
+      IsDrawTransparent: Boolean = False);overload;
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer);
     procedure DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
@@ -524,10 +525,15 @@ begin
     Game.Surface.Height), ResImage[Res]);
 end;
 
+procedure TScene.DrawSpell(X, Y: Integer; Res: TSpellResEnum);
+begin
+  DrawImage(X, Y, SpellResImage[Res]);
+end;
+
 procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
   IsDrawTransparent: Boolean = False);
 begin
-  DrawImage(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
+  DrawSpell(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
   DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
   if IsDrawTransparent then
     DrawImage(AX + 7, AY + 7, reBGTransparent);

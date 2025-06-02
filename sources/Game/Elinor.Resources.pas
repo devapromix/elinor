@@ -104,13 +104,15 @@ type
     // BG
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
-    // Spells
-    reTrueHealing, reSpeed, reBless, reLivingArmor, reEagleEye, reStrength,
-    rePlague, reConcealment, reChainsOfDread, reCurse, reWeaken,
     // Abilities
     reSharpEye,
     // Races
     reHumanMale);
+
+type
+  TSpellResEnum = (srNone, srTrueHealing, srSpeed, srBless, reLivingArmor,
+    reEagleEye, reStrength, rePlague, reConcealment, reChainsOfDread, reCurse,
+    reWeaken);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -123,9 +125,10 @@ const
   TreesTiles = [reTree1, reTree2, reTree3, reTree4, reTree5];
 
 type
-  TResTypeEnum = (teNone, teTree, teTile, teGUI, tePath, teObject, tePlayer,
-    teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower, teMageTower,
-    teMerchant, teMine, teMusic, teSound, teItem, teBG, teIcon, teTheEmpireABC);
+  TResTypeEnum = (teNone, teTree, teTile, teGUI, teSpell, tePath, teObject,
+    tePlayer, teEnemy, teBag, teRes, teCapital, teCity, teRuin, teTower,
+    teMageTower, teMerchant, teMine, teMusic, teSound, teItem, teBG, teIcon,
+    teTheEmpireABC);
 
 type
   TResBase = record
@@ -650,30 +653,6 @@ const
     // Abilities
     (FileName: 'bg.abilities.png'; ResType: teGUI;),
 
-    // SPELLS //
-    // True Healing
-    (FileName: 'spell.true_healing.png'; ResType: teGUI;),
-    // Speed
-    (FileName: 'spell.speed.png'; ResType: teGUI;),
-    // Bless
-    (FileName: 'spell.bless.png'; ResType: teGUI;),
-    // Living Armor
-    (FileName: 'spell.living_armor.png'; ResType: teGUI;),
-    // Eagle Eye
-    (FileName: 'spell.eagle_eye.png'; ResType: teGUI;),
-    // Strength
-    (FileName: 'spell.strength.png'; ResType: teGUI;),
-    // Plague
-    (FileName: 'spell.plague.png'; ResType: teGUI;),
-    // Concealment
-    (FileName: 'spell.concealment.png'; ResType: teGUI;),
-    // Chains Of Dread
-    (FileName: 'spell.chains_of_dread.png'; ResType: teGUI;),
-    // Curse
-    (FileName: 'spell.curse.png'; ResType: teGUI;),
-    // Weaken
-    (FileName: 'spell.weaken.png'; ResType: teGUI;),
-
     // ABILITIES //
     // Sharp Eye
     (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
@@ -681,6 +660,35 @@ const
     // RACES //
     // Human male
     (FileName: 'race.human.male.png'; ResType: teGUI;)
+    //
+    );
+
+const
+  SpellResBase: array [TSpellResEnum] of TResBase = (
+    // None
+    (FileName: ''; ResType: teSpell;),
+    // TrueHealing
+    (FileName: 'spell.true_healing.png'; ResType: teSpell;),
+    // Speed
+    (FileName: 'spell.speed.png'; ResType: teSpell;),
+    // Bless
+    (FileName: 'spell.bless.png'; ResType: teSpell;),
+    // LivingArmor
+    (FileName: 'spell.living_armor.png'; ResType: teSpell;),
+    // EagleEye
+    (FileName: 'spell.eagle_eye.png'; ResType: teSpell;),
+    // Strength
+    (FileName: 'spell.strength.png'; ResType: teSpell;),
+    // Plague
+    (FileName: 'spell.plague.png'; ResType: teSpell;),
+    // Concealment
+    (FileName: 'spell.concealment.png'; ResType: teSpell;),
+    // ChainsOfDread
+    (FileName: 'spell.chains_of_dread.png'; ResType: teSpell;),
+    // Curse
+    (FileName: 'spell.curse.png'; ResType: teSpell;),
+    // Weaken
+    (FileName: 'spell.weaken.png'; ResType: teSpell;)
     //
     );
 
@@ -699,6 +707,7 @@ type
 
 var
   ResImage: array [TResEnum] of TPNGImage;
+  SpellResImage: array [TSpellResEnum] of TPNGImage;
   ResMusicPath: array [TMusicEnum] of string;
 
 const
@@ -873,7 +882,8 @@ uses
   Math,
   SysUtils,
   Elinor.Saga,
-  Elinor.Creatures, Elinor.Party;
+  Elinor.Creatures,
+  Elinor.Party;
 
 class function TResources.GetPath(SubDir: string): string;
 begin
@@ -1068,6 +1078,7 @@ var
   I: TResEnum;
   J: TMusicEnum;
   K: Integer;
+  S: TSpellResEnum;
 begin
   for I := Low(TResEnum) to High(TResEnum) do
   begin
@@ -1089,6 +1100,13 @@ begin
   end;
   for K := 1 to 9 do
     TResources.LoadParties(Format('parties.level%d', [K]));
+  for S := Low(TSpellResEnum) to High(TSpellResEnum) do
+  begin
+    SpellResImage[S] := TPNGImage.Create;
+    if (SpellResBase[S].FileName <> '') then
+      SpellResImage[S].LoadFromFile(TResources.GetPath('resources') +
+        SpellResBase[S].FileName);
+  end;
 end;
 
 procedure Free;
