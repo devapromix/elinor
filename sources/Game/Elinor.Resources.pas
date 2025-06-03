@@ -110,9 +110,13 @@ type
     reHumanMale);
 
 type
-  TSpellResEnum = (srNone, srTrueHealing, srSpeed, srBless, reLivingArmor,
-    reEagleEye, reStrength, rePlague, reConcealment, reChainsOfDread, reCurse,
-    reWeaken);
+  TSpellResEnum = (srNone,
+    // The Empire
+    srTrueHealing, srSpeed, srBless, srLivingArmor, srEagleEye, srStrength,
+    // Undead Hordes
+    srPlague, srConcealment, srChainsOfDread,
+    // Legions of the Damned
+    srCurse, srWeaken);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -1075,46 +1079,49 @@ end;
 
 procedure Init;
 var
-  I: TResEnum;
-  J: TMusicEnum;
-  K: Integer;
-  S: TSpellResEnum;
+  LResEnum: TResEnum;
+  LMusicEnum: TMusicEnum;
+  LPartyLevel: Integer;
+  LSpellResEnum: TSpellResEnum;
 begin
-  for I := Low(TResEnum) to High(TResEnum) do
+  for LResEnum := Low(TResEnum) to High(TResEnum) do
   begin
-    ResImage[I] := TPNGImage.Create;
-    if (ResBase[I].FileName <> '') then
-      ResImage[I].LoadFromFile(TResources.GetPath('resources') + ResBase[I]
-        .FileName);
+    ResImage[LResEnum] := TPNGImage.Create;
+    if (ResBase[LResEnum].FileName <> '') then
+      ResImage[LResEnum].LoadFromFile(TResources.GetPath('resources') +
+        ResBase[LResEnum].FileName);
   end;
-  for J := Low(TMusicEnum) to High(TMusicEnum) do
+  for LMusicEnum := Low(TMusicEnum) to High(TMusicEnum) do
   begin
-    case MusicBase[J].ResType of
+    case MusicBase[LMusicEnum].ResType of
       teSound:
-        ResMusicPath[J] := TResources.GetPath('resources\sounds') +
-          MusicBase[J].FileName;
+        ResMusicPath[LMusicEnum] := TResources.GetPath('resources\sounds') +
+          MusicBase[LMusicEnum].FileName;
       teMusic:
-        ResMusicPath[J] := TResources.GetPath('resources\music') +
-          MusicBase[J].FileName;
+        ResMusicPath[LMusicEnum] := TResources.GetPath('resources\music') +
+          MusicBase[LMusicEnum].FileName;
     end;
   end;
-  for K := 1 to 9 do
-    TResources.LoadParties(Format('parties.level%d', [K]));
-  for S := Low(TSpellResEnum) to High(TSpellResEnum) do
+  for LPartyLevel := 1 to 9 do
+    TResources.LoadParties(Format('parties.level%d', [LPartyLevel]));
+  for LSpellResEnum := Low(TSpellResEnum) to High(TSpellResEnum) do
   begin
-    SpellResImage[S] := TPNGImage.Create;
-    if (SpellResBase[S].FileName <> '') then
-      SpellResImage[S].LoadFromFile(TResources.GetPath('resources') +
-        SpellResBase[S].FileName);
+    SpellResImage[LSpellResEnum] := TPNGImage.Create;
+    if (SpellResBase[LSpellResEnum].FileName <> '') then
+      SpellResImage[LSpellResEnum].LoadFromFile(TResources.GetPath('resources')
+        + SpellResBase[LSpellResEnum].FileName);
   end;
 end;
 
 procedure Free;
 var
-  I: TResEnum;
+  LResEnum: TResEnum;
+  LSpellResEnum: TSpellResEnum;
 begin
-  for I := Low(TResEnum) to High(TResEnum) do
-    FreeAndNil(ResImage[I]);
+  for LResEnum := Low(TResEnum) to High(TResEnum) do
+    FreeAndNil(ResImage[LResEnum]);
+  for LSpellResEnum := Low(TSpellResEnum) to High(TSpellResEnum) do
+    FreeAndNil(SpellResImage[LSpellResEnum]);
 end;
 
 initialization

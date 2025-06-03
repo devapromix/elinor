@@ -204,39 +204,39 @@ const
     Description: '';),
     // Living Armor
     (Name: 'Living Armor'; FileName: 'living_armor'; Level: 1; Mana: 25;
-    SoundEnum: mmAttack; ResEnum: reLivingArmor; Faction: faTheEmpire;
+    SoundEnum: mmAttack; ResEnum: srLivingArmor; Faction: faTheEmpire;
     SpellTarget: stEnemy; Description: '';),
     // Eagle Eye
     (Name: 'Eagle Eye'; FileName: 'eagle_eye'; Level: 1; Mana: 5;
-    SoundEnum: mmHeal; ResEnum: reEagleEye; Faction: faTheEmpire;
+    SoundEnum: mmHeal; ResEnum: srEagleEye; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: '';),
     // Strength
     (Name: 'Strength'; FileName: 'strength'; Level: 1; Mana: 5;
-    SoundEnum: mmHeal; ResEnum: reStrength; Faction: faTheEmpire;
+    SoundEnum: mmHeal; ResEnum: srStrength; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: 'Increases damage by 20%';),
 
     // Undead Hordes
     // Plague
     (Name: 'Plague'; FileName: 'plague'; Level: 1; Mana: 25;
-    SoundEnum: mmPlague; ResEnum: rePlague; Faction: faUndeadHordes;
+    SoundEnum: mmPlague; ResEnum: srPlague; Faction: faUndeadHordes;
     SpellTarget: stEnemy; Description: '';),
     // Curse
     (Name: 'Curse'; FileName: 'curse'; Level: 1; Mana: 5; SoundEnum: mmPlague;
-    ResEnum: reCurse; Faction: faUndeadHordes; SpellTarget: stEnemy;
+    ResEnum: srCurse; Faction: faUndeadHordes; SpellTarget: stEnemy;
     Description: '';),
 
     // Legions of the Damned
     // Concealment
     (Name: 'Concealment'; FileName: 'concealment'; Level: 1; Mana: 20;
-    SoundEnum: mmInvisibility; ResEnum: reConcealment;
+    SoundEnum: mmInvisibility; ResEnum: srConcealment;
     Faction: faLegionsOfTheDamned; SpellTarget: stLeader; Description: '';),
     // Chains Of Dread
     (Name: 'Chains Of Dread'; FileName: 'chains_of_dread'; Level: 1; Mana: 2;
-    SoundEnum: mmInvisibility; ResEnum: reChainsOfDread;
+    SoundEnum: mmInvisibility; ResEnum: srChainsOfDread;
     Faction: faLegionsOfTheDamned; SpellTarget: stEnemy; Description: '';),
     // Weaken
     (Name: 'Weaken'; FileName: 'weaken'; Level: 1; Mana: 2;
-    SoundEnum: mmInvisibility; ResEnum: reWeaken; Faction: faLegionsOfTheDamned;
+    SoundEnum: mmInvisibility; ResEnum: srWeaken; Faction: faLegionsOfTheDamned;
     SpellTarget: stEnemy; Description: '';)
     //
     );
