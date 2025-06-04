@@ -385,7 +385,7 @@ const
     ' gleaming with wealth and prestige'),
     // Ring Of Strength,
     (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 900;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reItemRingOfStrength; Price: 900;
     Description: ''),
     // Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
