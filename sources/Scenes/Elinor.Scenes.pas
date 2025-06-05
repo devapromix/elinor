@@ -160,11 +160,12 @@ type
     procedure AddTableLine(const N, A, B, C: string);
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
-    procedure DrawSpell(X, Y: Integer; Res: TSpellResEnum);overload;
+    procedure DrawSpell(X, Y: Integer; Res: TSpellResEnum); overload;
     procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
-      IsDrawTransparent: Boolean = False);overload;
+      IsDrawTransparent: Boolean = False); overload;
+    procedure DrawAbility(X, Y: Integer; Res: TAbilityResEnum); overload;
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
-      const AX, AY: Integer);
+      const AX, AY: Integer); overload;
     procedure DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
     procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
     procedure RenderGuardianInfo;
@@ -542,7 +543,7 @@ end;
 procedure TScene.DrawAbility(const AAbilityEnum: TAbilityEnum;
   const AX, AY: Integer);
 begin
-  DrawImage(AX + 7, AY + 29, TAbilities.Ability(AAbilityEnum).ResEnum);
+  DrawAbility(AX + 7, AY + 29, TAbilities.Ability(AAbilityEnum).ResEnum);
   DrawImage(AX + 7, AY + 7, reBGAbility);
 end;
 
@@ -691,6 +692,11 @@ begin
     for I := 0 to 2 do
       AddTextLine(Description[I]);
   end;
+end;
+
+procedure TScene.DrawAbility(X, Y: Integer; Res: TAbilityResEnum);
+begin
+  DrawImage(X, Y, AbilityResImage[Res]);
 end;
 
 procedure TScene.DrawCreatureInfo(const ACreature: TCreature);

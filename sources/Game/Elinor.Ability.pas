@@ -22,7 +22,7 @@ type
     Description: array [0 .. 1] of string;
     Level: Byte;
     Leaders: set of TCreatureEnum;
-    ResEnum: TResEnum;
+    ResEnum: TAbilityResEnum;
   end;
 
 const

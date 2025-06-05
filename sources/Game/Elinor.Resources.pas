@@ -104,8 +104,6 @@ type
     // BG
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
-    // Abilities
-    reSharpEye,
     // Races
     reHumanMale);
 
@@ -117,6 +115,9 @@ type
     srPlague, srConcealment, srChainsOfDread,
     // Legions of the Damned
     srCurse, srWeaken);
+
+type
+  TAbilityResEnum = (arNone, arSharpEye);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -659,10 +660,6 @@ const
     // Abilities
     (FileName: 'bg.abilities.png'; ResType: teGUI;),
 
-    // ABILITIES //
-    // Sharp Eye
-    (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
-
     // RACES //
     // Human male
     (FileName: 'race.human.male.png'; ResType: teGUI;)
@@ -698,6 +695,17 @@ const
     //
     );
 
+const
+  AbilityResBase: array [TAbilityResEnum] of TResBase = (
+    // None
+    (FileName: ''; ResType: teSpell;),
+
+    // Sharp Eye
+    (FileName: 'ability.sharp_eye.png'; ResType: teGUI;)
+
+    //
+    );
+
 type
   TMusicEnum = (mmClick, mmStep, mmMagic, mmBattle, mmVictory, mmDefeat, mmWin,
     mmWinBattle, mmGame, mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel,
@@ -714,6 +722,7 @@ type
 var
   ResImage: array [TResEnum] of TPNGImage;
   SpellResImage: array [TSpellResEnum] of TPNGImage;
+  AbilityResImage: array [TAbilityResEnum] of TPNGImage;
   ResMusicPath: array [TMusicEnum] of string;
 
 const
@@ -1085,6 +1094,7 @@ var
   LMusicEnum: TMusicEnum;
   LPartyLevel: Integer;
   LSpellResEnum: TSpellResEnum;
+  LAbilityResEnum: TAbilityResEnum;
 begin
   for LResEnum := Low(TResEnum) to High(TResEnum) do
   begin
@@ -1113,17 +1123,28 @@ begin
       SpellResImage[LSpellResEnum].LoadFromFile(TResources.GetPath('resources')
         + SpellResBase[LSpellResEnum].FileName);
   end;
+  for LAbilityResEnum := Low(TAbilityResEnum) to High(TAbilityResEnum) do
+  begin
+    AbilityResImage[LAbilityResEnum] := TPNGImage.Create;
+    if (AbilityResBase[LAbilityResEnum].FileName <> '') then
+      AbilityResImage[LAbilityResEnum].LoadFromFile
+        (TResources.GetPath('resources') + AbilityResBase[LAbilityResEnum]
+        .FileName);
+  end;
 end;
 
 procedure Free;
 var
   LResEnum: TResEnum;
   LSpellResEnum: TSpellResEnum;
+  LAbilityResEnum: TAbilityResEnum;
 begin
   for LResEnum := Low(TResEnum) to High(TResEnum) do
     FreeAndNil(ResImage[LResEnum]);
   for LSpellResEnum := Low(TSpellResEnum) to High(TSpellResEnum) do
     FreeAndNil(SpellResImage[LSpellResEnum]);
+  for LAbilityResEnum := Low(TAbilityResEnum) to High(TAbilityResEnum) do
+    FreeAndNil(AbilityResImage[LAbilityResEnum]);
 end;
 
 initialization
