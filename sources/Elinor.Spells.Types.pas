@@ -12,7 +12,6 @@ type
 type
   TSpellBase = record
     Name: string;
-    FileName: string;
     Level: Integer;
     Mana: Byte;
     SoundEnum: TMusicEnum;
