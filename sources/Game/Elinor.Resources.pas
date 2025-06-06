@@ -117,7 +117,7 @@ type
     srCurse, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSharpEye);
+  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -699,10 +699,10 @@ const
   AbilityResBase: array [TAbilityResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teSpell;),
-
     // Sharp Eye
-    (FileName: 'ability.sharp_eye.png'; ResType: teGUI;)
-
+    (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
+    // Use Staffs and Scrolls
+    (FileName: 'ability.use_staffs_and_scrolls.png'; ResType: teGUI;)
     //
     );
 

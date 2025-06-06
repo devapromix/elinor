@@ -77,7 +77,7 @@ const
     // Use Staffs And Scrolls
     (Enum: abUseStaffsAndScrolls; Name: 'Use Staffs And Scrolls';
     Description: ('Allows the leader to use ', 'magic staffs and scrolls');
-    Level: 1; Leaders: MageLeaders; ResEnum: arNone;),
+    Level: 1; Leaders: MageLeaders; ResEnum: arUseStaffsAndScrolls;),
     // Accuracy
     (Enum: abAccuracy; Name: 'Accuracy';
     Description: ('Increases the leader''s chance to', 'hit the enemy');
