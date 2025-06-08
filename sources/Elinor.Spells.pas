@@ -482,7 +482,7 @@ end;
 
 procedure TWeakenSpell.ApplySpellEffect(const APartyIndex: Integer);
 begin
-  PartyList.Party[APartyIndex].ModifyPartyDamage(10);
+  PartyList.Party[APartyIndex].ModifyPartyDamage(-10);
 end;
 
 constructor TWeakenSpell.Create;

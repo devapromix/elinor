@@ -123,7 +123,7 @@ const
     (Enum: abArcaneLore; Name: 'Arcane Lore';
     Description: ('Allows the leader to take in hand',
     'spheres and use them in battle'); Level: 1; Leaders: AllLeaders;
-    ResEnum: arNone;),
+    ResEnum: arArcaneLore;),
     // Sorcery
     (Enum: abSorcery; Name: 'Sorcery';
     Description: ('Allows the leader to cast spells', 'twice a day'); Level: 1;

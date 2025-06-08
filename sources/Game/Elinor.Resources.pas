@@ -117,7 +117,7 @@ type
     srCurse, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls);
+  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcane Lore);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -702,7 +702,9 @@ const
     // Sharp Eye
     (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
     // Use Staffs and Scrolls
-    (FileName: 'ability.use_staffs_and_scrolls.png'; ResType: teGUI;)
+    (FileName: 'ability.use_staffs_and_scrolls.png'; ResType: teGUI;),
+    // Arcane Lore
+    (FileName: 'ability.arcane_lore.png'; ResType: teGUI;)
     //
     );
 
