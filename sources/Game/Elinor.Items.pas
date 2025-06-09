@@ -411,12 +411,12 @@ const
     Description: ''),
     // Thirstborn Diadem
     (Enum: iMjolnirsCrown; Name: 'Thirstborn Diadem'; Level: 7; ItType: itHelm;
-    ItEffect: ieVampiricAttack25; ItSlot: isHelm; ItRes: reNone; Price: 1800;
-    Description: ''),
+    ItEffect: ieVampiricAttack25; ItSlot: isHelm; ItRes: reNone; Price: 2000;
+    Description: 'Drains enemy life with ' + 'every blow you strike'),
     // Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
     ItEffect: ieRegen25; ItSlot: isHelm; ItRes: reNone; Price: 2500;
-    Description: ''));
+    Description: 'Gradually restores your ' + 'health during every day.'));
 
   { TInventory }
 
