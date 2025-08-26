@@ -73,9 +73,10 @@ begin
   TextLeft := TFrame.Col(3) + 12;
   AddTextLine('About', True);
   AddTextLine;
-  AddTextLine('Set in the magical realm of the Sacred Lands,');
-  AddTextLine('three races - the Empire, the Legions of the Damned,');
-  AddTextLine('and the Undead Hordes - battle for the destiny of their gods.');
+  AddTextLine('Set in the magical realm of the Sacred');
+  AddTextLine('Lands, three races - the Empire, the Legi-');
+  AddTextLine('ons of the Damned, and the Undead Hor-');
+  AddTextLine('des - battle for the destiny of their gods.');
   AddTextLine('Credits', True);
   AddTextLine;
   AddTextLine('Design and programming:');

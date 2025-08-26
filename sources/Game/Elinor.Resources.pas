@@ -117,7 +117,7 @@ type
     srCurse, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcane Lore);
+  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
