@@ -22,7 +22,8 @@ type
   private type
     TButtonEnum = (btRandom, btConfirm);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextRandom, reTextContinue);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextRandom,
+      reTextContinue);
     MAX_NAME_LENGTH = 20;
   private
     Button: array [TButtonEnum] of TButton;
@@ -34,6 +35,8 @@ type
     procedure GenerateRandomName;
     procedure ValidateKey(var Key: Word);
     procedure UpdateCursor;
+    function GetLeaderFaction: TFactionEnum;
+    function GetLeaderGender: TCreatureGender;
   public
     constructor Create;
     destructor Destroy; override;
@@ -111,9 +114,8 @@ begin
   DrawText(430, 300 + 6, 'Enter Leader''s name');
   DrawImage(600, 300, reFrameItem);
   DrawText(600 + 10, 300 + 6, FNewName);
-  DrawText(550, 350, 'Faction: ' + FactionName
-    [PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner]);
-  DrawText(550, 380, 'Gender: ' + GenderName[cgMale]);
+  DrawText(550, 350, 'Faction: ' + FactionName[GetLeaderFaction]);
+  DrawText(550, 380, 'Gender: ' + GenderName[GetLeaderGender]);
 
   RenderButtons;
 end;
@@ -223,10 +225,20 @@ end;
 
 procedure TSceneName.GenerateRandomName;
 begin
-  FNewName := GetRandomNameForFaction(AllFactionNames,
-    PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner, cgMale);
+  FNewName := GetRandomNameForFaction(AllFactionNames, GetLeaderFaction,
+    GetLeaderGender);
   CursorPosition := Length(FNewName);
   Game.MediaPlayer.PlaySound(mmClick);
+end;
+
+function TSceneName.GetLeaderFaction: TFactionEnum;
+begin
+  Result := PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner;
+end;
+
+function TSceneName.GetLeaderGender: TCreatureGender;
+begin
+  Result := PartyList.Party[TLeaderParty.LeaderPartyIndex].LeaderGender;
 end;
 
 class procedure TSceneName.ShowScene;

@@ -24,9 +24,13 @@
       "Alaric"
     ],
     "female": [
+      "Alexa",
+      "Alexis",
       "Sophia",
       "Victoria",
       "Elizabeth",
+      "Eleanor",
+      "Emilia",
       "Catherine",
       "Anna",
       "Alix",
@@ -37,12 +41,12 @@
       "Isabella",
       "Matilda",
       "Clara",
-      "Eleanor",
       "Gisela",
       "Irmgard",
       "Helena",
       "Brunhilda",
       "Liselotte",
+      "Violetta",
       "Adelheid"
     ]
   },
@@ -89,7 +93,8 @@
       "Nemeria",
       "Duska",
       "Erelith",
-      "Crosera"
+      "Crosera",
+      "Mossa"
     ]
   },
   "legions-of-the-damned": {
@@ -136,6 +141,7 @@
       "Dravena",
       "Nyssira",
       "Lazaria",
+      "Zena",
       "Molthia"
     ]
   }

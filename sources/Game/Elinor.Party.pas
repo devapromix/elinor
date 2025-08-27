@@ -36,6 +36,7 @@ type
   private
     FCanAttack: Boolean;
     FLeaderClass: TFactionLeaderKind;
+    function GetLeaderGender: TCreatureGender;
   public
     constructor Create(const AX, AY: Integer); overload;
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum); overload;
@@ -47,6 +48,7 @@ type
     property Owner: TFactionEnum read FOwner write FOwner;
     property LeaderClass: TFactionLeaderKind read FLeaderClass
       write FLeaderClass;
+    property LeaderGender: TCreatureGender read GetLeaderGender;
     procedure UnParalyze(const APosition: TPosition);
     procedure UnParalyzeParty;
     procedure ParalyzeParty;
@@ -405,6 +407,20 @@ begin
   if not FCreature[APosition].Active then
     Exit(0);
   Result := FCreature[APosition].Initiative.GetFullValue();
+end;
+
+function TParty.GetLeaderGender: TCreatureGender;
+var
+  LPosition: TPosition;
+  LCreature: TCreatureBase;
+begin
+  Result := cgFeMale;
+  for LPosition := Low(TPosition) to High(TPosition) do
+    if FCreature[LPosition].IsLeader then
+    begin
+      LCreature := TCreature.Character(FCreature[LPosition].Enum);
+      Exit(LCreature.Gender);
+    end;
 end;
 
 function TParty.GetMaxExperiencePerLevel(const Level: Integer): Integer;
