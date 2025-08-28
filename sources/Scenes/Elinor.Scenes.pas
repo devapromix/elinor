@@ -130,6 +130,9 @@ type
     procedure DrawCreatureInfo(Name: string; AX, AY, Level, Experience,
       HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
       ChToHit: Integer; IsExp: Boolean); overload;
+    procedure DrawCreatureInfo(AEnum: TCreatureEnum; Name: string;
+      AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
+      Initiative, ChToHit: Integer; IsExp: Boolean); overload;
     procedure DrawCreatureInfo(Position: TPosition; Party: TParty;
       AX, AY: Integer; ShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
@@ -620,7 +623,7 @@ begin
   with Party.Creature[Position] do
   begin
     if Active then
-      DrawCreatureInfo(Name[0], AX, AY, Level, Experience,
+      DrawCreatureInfo(Enum, Name[0], AX, AY, Level, Experience,
         HitPoints.GetCurrValue, HitPoints.GetMaxValue, Damage.GetFullValue(),
         Heal, Armor.GetFullValue(), Initiative.GetFullValue(),
         ChancesToHit.GetFullValue(), ShowExp);
@@ -633,6 +636,7 @@ procedure TScene.DrawCreatureInfo(Name: string;
 var
   LExp: string;
 begin
+
   DrawText(AX + SceneLeft + 64, AY + 6, Name);
   LExp := '';
   if IsExp then
@@ -650,6 +654,19 @@ begin
       [Heal, Armor]));
   DrawText(AX + SceneLeft + 64, AY + 90,
     Format('Initiative %d Chances to hit %d', [Initiative, ChToHit]) + '%');
+end;
+
+procedure TScene.DrawCreatureInfo(AEnum: TCreatureEnum; Name: string;
+  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
+  Initiative, ChToHit: Integer; IsExp: Boolean);
+var
+  LName: string;
+begin
+  LName := Name;
+  if AEnum in AllLeaders then
+    LName := TLeaderParty.LeaderName;
+  DrawCreatureInfo(LName, AX, AY, Level, Experience, HitPoints, MaxHitPoints,
+    Damage, Heal, Armor, Initiative, ChToHit, IsExp);
 end;
 
 procedure TScene.DrawCreatureReach(const AReachEnum: TReachEnum);
