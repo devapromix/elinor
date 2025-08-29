@@ -101,6 +101,7 @@ type
     FScrWidth: Integer;
     procedure DrawCreatureReach(const AReachEnum: TReachEnum);
     function GetItemDescription(const AItemEnum: TItemEnum): string;
+    function AddName(const ACreature: TCreature): string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -119,14 +120,14 @@ type
     procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
-    procedure RenderFrame(const PartySide: TPartySide;
+    procedure RenderFrame(const APartySide: TPartySide;
       const APartyPosition, AX, AY: Integer; const F: Boolean = False);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       ABGStat: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       ABGStat: TBGStat; HP, MaxHP: Integer); overload;
-    procedure DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
-      CanHire: Boolean = False; ShowExp: Boolean = True); overload;
+    procedure DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
+      ACanHire: Boolean = False; AShowExp: Boolean = True); overload;
     procedure DrawCreatureInfo(Name: string; AX, AY, Level, Experience,
       HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
       ChToHit: Integer; IsExp: Boolean); overload;
@@ -136,7 +137,7 @@ type
     procedure DrawCreatureInfo(Position: TPosition; Party: TParty;
       AX, AY: Integer; ShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
-      IsAdv: Boolean = True); overload;
+      AIsAdv: Boolean = True); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
     procedure InformDialog(const S: string);
     procedure ItemInformDialog(const AItemEnum: TItemEnum);
@@ -716,6 +717,19 @@ begin
   DrawImage(X, Y, AbilityResImage[Res]);
 end;
 
+function TScene.AddName(const ACreature: TCreature): string;
+var
+  LName: string;
+begin
+  LName := '';
+  with ACreature do
+    if Leadership > 0 then
+      LName := TLeaderParty.LeaderName + ' (' + Name[0] + ')'
+    else
+      LName := Name[0];
+  AddTextLine(LName, True);
+end;
+
 procedure TScene.DrawCreatureInfo(const ACreature: TCreature);
 var
   I: Integer;
@@ -723,7 +737,7 @@ var
 begin
   with ACreature do
   begin
-    AddTextLine(Name[0], True);
+    AddName(ACreature);
     AddTextLine;
     LExp := Format(' Exp %d/%d',
       [Experience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
@@ -879,12 +893,12 @@ begin
     Canvas.TextOut(AX, LineY, CurrentLine);
 end;
 
-procedure TScene.RenderFrame(const PartySide: TPartySide;
+procedure TScene.RenderFrame(const APartySide: TPartySide;
   const APartyPosition, AX, AY: Integer; const F: Boolean);
 var
   LPartyPosition: Integer;
 begin
-  case PartySide of
+  case APartySide of
     psLeft:
       LPartyPosition := APartyPosition;
   else
@@ -1021,21 +1035,21 @@ begin
 end;
 
 procedure TScene.DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
-  IsAdv: Boolean);
+  AIsAdv: Boolean);
 begin
   with TCreature.Character(ACreature) do
     DrawCreatureInfo(Name[0], AX, AY, Level, 0, HitPoints, HitPoints, Damage,
-      Heal, Armor, Initiative, ChancesToHit, IsAdv);
+      Heal, Armor, Initiative, ChancesToHit, AIsAdv);
 end;
 
-procedure TScene.DrawUnit(Position: TPosition; Party: TParty; AX, AY: Integer;
-  CanHire, ShowExp: Boolean);
+procedure TScene.DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
+  ACanHire, AShowExp: Boolean);
 var
   F: Boolean;
   LBGStat: TBGStat;
 begin
-  F := Party.Owner = Game.Scenario.Faction;
-  with Party.Creature[Position] do
+  F := AParty.Owner = Game.Scenario.Faction;
+  with AParty.Creature[APosition] do
   begin
     if Active then
       with Game.GetScene(scParty) do
@@ -1051,9 +1065,9 @@ begin
         else
           DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints.GetCurrValue,
             HitPoints.GetMaxValue);
-        DrawCreatureInfo(Position, Party, AX, AY, ShowExp);
+        DrawCreatureInfo(APosition, AParty, AX, AY, AShowExp);
       end
-    else if CanHire then
+    else if ACanHire then
     begin
       DrawImage(((ResImage[reFrameSlot].Width div 2) -
         (ResImage[rePlus].Width div 2)) + AX,
@@ -1067,7 +1081,7 @@ end;
 
 constructor TScenes.Create;
 var
-  L: Integer;
+  LLeft: Integer;
   LButtonEnum: TButtonEnum;
 begin
   inherited;
@@ -1098,16 +1112,17 @@ begin
   // Inform
   InformMsg := '';
   IsShowInform := idtNone;
-  L := ScrWidth - (ResImage[reButtonDef].Width div 2);
-  Button := TButton.Create(L, 400, reTextOk);
+  LLeft := ScrWidth - (ResImage[reButtonDef].Width div 2);
+  Button := TButton.Create(LLeft, 400, reTextOk);
   Button.Sellected := True;
   // Confirm
   IsShowConfirm := False;
-  L := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
+  LLeft := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
   begin
-    Buttons[LButtonEnum] := TButton.Create(L, 400, ButtonsText[LButtonEnum]);
-    Inc(L, ResImage[reButtonDef].Width);
+    Buttons[LButtonEnum] := TButton.Create(LLeft, 400,
+      ButtonsText[LButtonEnum]);
+    Inc(LLeft, ResImage[reButtonDef].Width);
     if (LButtonEnum = btOk) then
       Buttons[LButtonEnum].Sellected := True;
   end;
