@@ -344,6 +344,7 @@ type
       : TFactionEnum; static;
     class function FactionEnumToStr(const AFactionEnum: TFactionEnum)
       : string; static;
+    class function GetName(): string; static;
   end;
 
 implementation
@@ -961,6 +962,16 @@ const
 begin
   Assert(VerbForm < Length(GenderEndings));
   Result := GenderEndings[VerbForm, Character(Enum).Gender];
+end;
+
+class function TCreature.GetName: string;
+begin
+  Result := '';
+  with TCreature.Character(TLeaderParty.Leader.Enum) do
+    if Leadership > 0 then
+      Result := TLeaderParty.LeaderName
+    else
+      Result := Name[0];
 end;
 
 class function TCreature.GetRandomEnum(const ALevel, Position: Integer)

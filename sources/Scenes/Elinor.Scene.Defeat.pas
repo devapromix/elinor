@@ -59,8 +59,7 @@ begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlayMusic(mmMenu);
   Game.IsGame := False;
-  Game.LeaderRecordsTable.AddRecord
-    (TCreature.Character(TLeaderParty.Leader.Enum).Name[0],
+  Game.LeaderRecordsTable.AddRecord(TCreature.GetName,
     TLeaderParty.Leader.Owner, TLeaderParty.Leader.LeaderClass,
     Game.Statistics.GetValue(stScores));
   Game.LeaderRecordsTable.SaveToFile;

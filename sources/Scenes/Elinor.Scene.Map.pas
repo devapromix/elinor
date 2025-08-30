@@ -58,7 +58,9 @@ uses
   Elinor.Scene.NewAbility,
   Elinor.Scene.MageTower,
   Elinor.Scene.Defeat,
-  Elinor.Scene.Victory, Elinor.Scene.Menu3, Elinor.Scene.Merchant,
+  Elinor.Scene.Victory,
+  Elinor.Scene.Menu3,
+  Elinor.Scene.Merchant,
   Elinor.Merchant;
 
 { TSceneMap }
