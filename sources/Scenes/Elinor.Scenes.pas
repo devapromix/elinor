@@ -128,14 +128,14 @@ type
       ABGStat: TBGStat; HP, MaxHP: Integer); overload;
     procedure DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
       ACanHire: Boolean = False; AShowExp: Boolean = True); overload;
-    procedure DrawCreatureInfo(Name: string; AX, AY, Level, Experience,
-      HitPoints, MaxHitPoints, Damage, Heal, Armor, Initiative,
-      ChToHit: Integer; IsExp: Boolean); overload;
-    procedure DrawCreatureInfo(AEnum: TCreatureEnum; Name: string;
-      AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
-      Initiative, ChToHit: Integer; IsExp: Boolean); overload;
-    procedure DrawCreatureInfo(Position: TPosition; Party: TParty;
-      AX, AY: Integer; ShowExp: Boolean = True); overload;
+    procedure DrawCreatureInfo(AName: string; AX, AY, ALevel, AExperience,
+      AHitPoints, AMaxHitPoints, ADamage, AHeal, AArmor, AInitiative,
+      AChanceToHit: Integer; AIsShowExp: Boolean); overload;
+    procedure DrawCreatureInfo(AEnum: TCreatureEnum; AName: string;
+      AX, AY, ALevel, Experience, HitPoints, MaxHitPoints, Damage, Heal, AArmor,
+      AInitiative, AChanceToHit: Integer; AIsShowExp: Boolean); overload;
+    procedure DrawCreatureInfo(APosition: TPosition; AParty: TParty;
+      AX, AY: Integer; AIsShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
       AIsAdv: Boolean = True); overload;
     procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
@@ -618,56 +618,56 @@ begin
   end;
 end;
 
-procedure TScene.DrawCreatureInfo(Position: TPosition; Party: TParty;
-  AX, AY: Integer; ShowExp: Boolean);
+procedure TScene.DrawCreatureInfo(APosition: TPosition; AParty: TParty;
+  AX, AY: Integer; AIsShowExp: Boolean);
 begin
-  with Party.Creature[Position] do
+  with AParty.Creature[APosition] do
   begin
     if Active then
       DrawCreatureInfo(Enum, Name[0], AX, AY, Level, Experience,
         HitPoints.GetCurrValue, HitPoints.GetMaxValue, Damage.GetFullValue(),
         Heal, Armor.GetFullValue(), Initiative.GetFullValue(),
-        ChancesToHit.GetFullValue(), ShowExp);
+        ChancesToHit.GetFullValue(), AIsShowExp);
   end;
 end;
 
-procedure TScene.DrawCreatureInfo(Name: string;
-  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
-  Initiative, ChToHit: Integer; IsExp: Boolean);
+procedure TScene.DrawCreatureInfo(AName: string; AX, AY, ALevel, AExperience,
+  AHitPoints, AMaxHitPoints, ADamage, AHeal, AArmor, AInitiative,
+  AChanceToHit: Integer; AIsShowExp: Boolean);
 var
   LExp: string;
 begin
-
-  DrawText(AX + SceneLeft + 64, AY + 6, Name);
+  DrawText(AX + SceneLeft + 64, AY + 6, AName);
   LExp := '';
-  if IsExp then
+  if AIsShowExp then
     LExp := Format(' Exp %d/%d',
-      [Experience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
-      .GetMaxExperiencePerLevel(Level)]);
-  DrawText(AX + SceneLeft + 64, AY + 27, Format('Level %d', [Level]) + LExp);
+      [AExperience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
+      .GetMaxExperiencePerLevel(ALevel)]);
+  DrawText(AX + SceneLeft + 64, AY + 27, Format('Level %d', [ALevel]) + LExp);
   DrawText(AX + SceneLeft + 64, AY + 48, Format('Hit points %d/%d',
-    [HitPoints, MaxHitPoints]));
-  if Damage > 0 then
+    [AHitPoints, AMaxHitPoints]));
+  if ADamage > 0 then
     DrawText(AX + SceneLeft + 64, AY + 69, Format('Damage %d Armor %d',
-      [Damage, Armor]))
+      [ADamage, AArmor]))
   else
     DrawText(AX + SceneLeft + 64, AY + 69, Format('Heal %d Armor %d',
-      [Heal, Armor]));
+      [AHeal, AArmor]));
   DrawText(AX + SceneLeft + 64, AY + 90,
-    Format('Initiative %d Chances to hit %d', [Initiative, ChToHit]) + '%');
+    Format('Initiative %d Chances to hit %d',
+    [AInitiative, AChanceToHit]) + '%');
 end;
 
-procedure TScene.DrawCreatureInfo(AEnum: TCreatureEnum; Name: string;
-  AX, AY, Level, Experience, HitPoints, MaxHitPoints, Damage, Heal, Armor,
-  Initiative, ChToHit: Integer; IsExp: Boolean);
+procedure TScene.DrawCreatureInfo(AEnum: TCreatureEnum; AName: string;
+  AX, AY, ALevel, Experience, HitPoints, MaxHitPoints, Damage, Heal, AArmor,
+  AInitiative, AChanceToHit: Integer; AIsShowExp: Boolean);
 var
   LName: string;
 begin
-  LName := Name;
+  LName := AName;
   if AEnum in AllLeaders then
     LName := TLeaderParty.LeaderName;
-  DrawCreatureInfo(LName, AX, AY, Level, Experience, HitPoints, MaxHitPoints,
-    Damage, Heal, Armor, Initiative, ChToHit, IsExp);
+  DrawCreatureInfo(LName, AX, AY, ALevel, Experience, HitPoints, MaxHitPoints,
+    Damage, Heal, AArmor, AInitiative, AChanceToHit, AIsShowExp);
 end;
 
 procedure TScene.DrawCreatureReach(const AReachEnum: TReachEnum);
