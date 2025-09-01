@@ -25,6 +25,17 @@ type
   TReachEnum = (reAny, reAdj, reAll);
 
 type
+  TReachInfo = record
+    Distance: string;
+    Targets: Integer;
+  end;
+
+const
+  ReachInfo: array [TReachEnum] of TReachInfo = ((Distance: 'Any unit';
+    Targets: 1), (Distance: 'Adjacent units'; Targets: 1),
+    (Distance: 'All units'; Targets: 6));
+
+type
   TSourceEnum = (seWeapon, seLife, seMind, seDeath, seAir, seEarth,
     seFire, seWater);
 

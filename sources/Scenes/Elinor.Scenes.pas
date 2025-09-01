@@ -132,8 +132,9 @@ type
       AHitPoints, AMaxHitPoints, ADamage, AHeal, AArmor, AInitiative,
       AChanceToHit: Integer; AIsShowExp: Boolean); overload;
     procedure DrawCreatureInfo(AEnum: TCreatureEnum; AName: string;
-      AX, AY, ALevel, Experience, HitPoints, MaxHitPoints, Damage, Heal, AArmor,
-      AInitiative, AChanceToHit: Integer; AIsShowExp: Boolean); overload;
+      AX, AY, ALevel, AExperience, AHitPoints, AMaxHitPoints, ADamage, AHeal,
+      AArmor, AInitiative, AChanceToHit: Integer; AIsShowExp: Boolean);
+      overload;
     procedure DrawCreatureInfo(APosition: TPosition; AParty: TParty;
       AX, AY: Integer; AIsShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
@@ -658,37 +659,23 @@ begin
 end;
 
 procedure TScene.DrawCreatureInfo(AEnum: TCreatureEnum; AName: string;
-  AX, AY, ALevel, Experience, HitPoints, MaxHitPoints, Damage, Heal, AArmor,
-  AInitiative, AChanceToHit: Integer; AIsShowExp: Boolean);
+  AX, AY, ALevel, AExperience, AHitPoints, AMaxHitPoints, ADamage, AHeal,
+  AArmor, AInitiative, AChanceToHit: Integer; AIsShowExp: Boolean);
 var
   LName: string;
 begin
   LName := AName;
   if AEnum in AllLeaders then
     LName := TLeaderParty.LeaderName;
-  DrawCreatureInfo(LName, AX, AY, ALevel, Experience, HitPoints, MaxHitPoints,
-    Damage, Heal, AArmor, AInitiative, AChanceToHit, AIsShowExp);
+  DrawCreatureInfo(LName, AX, AY, ALevel, AExperience, AHitPoints,
+    AMaxHitPoints, ADamage, AHeal, AArmor, AInitiative, AChanceToHit,
+    AIsShowExp);
 end;
 
 procedure TScene.DrawCreatureReach(const AReachEnum: TReachEnum);
 begin
-  case AReachEnum of
-    reAny:
-      begin
-        AddTextLine('Distance', 'Any unit');
-        AddTextLine('Targets', 1);
-      end;
-    reAdj:
-      begin
-        AddTextLine('Distance', 'Adjacent units');
-        AddTextLine('Targets', 1);
-      end;
-    reAll:
-      begin
-        AddTextLine('Distance', 'All units');
-        AddTextLine('Targets', 6);
-      end;
-  end;
+  AddTextLine('Distance', ReachInfo[AReachEnum].Distance);
+  AddTextLine('Targets', ReachInfo[AReachEnum].Targets);
 end;
 
 procedure TScene.DrawCreatureInfo(const ACreature: TCreatureBase);
