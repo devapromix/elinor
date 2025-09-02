@@ -711,7 +711,7 @@ begin
   LName := '';
   with ACreature do
     if Leadership > 0 then
-      LName := TLeaderParty.LeaderName + ' (' + Name[0] + ')'
+      LName := TLeaderParty.LeaderName
     else
       LName := Name[0];
   AddTextLine(LName, True);
@@ -720,7 +720,7 @@ end;
 procedure TScene.DrawCreatureInfo(const ACreature: TCreature);
 var
   I: Integer;
-  LStr, LExp: string;
+  LClassName, LStr, LExp: string;
 begin
   with ACreature do
   begin
@@ -729,7 +729,10 @@ begin
     LExp := Format(' Exp %d/%d',
       [Experience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
-    LStr := 'Level ' + Level.ToString + LExp;
+    LClassName := '';
+    if Enum in AllLeaders then
+      LClassName := Name[0] + ' ';
+    LStr := LClassName + 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
     AddTextLine('Chances to hit', ChancesToHit.GetFullValue());
     AddTextLine('Initiative', Initiative.GetFullValue());
