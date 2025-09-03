@@ -102,6 +102,7 @@ type
     procedure DrawCreatureReach(const AReachEnum: TReachEnum);
     function GetItemDescription(const AItemEnum: TItemEnum): string;
     function AddName(const ACreature: TCreature): string;
+    function GetClassName(const ACreature: TCreature): string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -710,11 +711,25 @@ var
 begin
   LName := '';
   with ACreature do
-    if Leadership > 0 then
+    if Enum in AllLeaders then
       LName := TLeaderParty.LeaderName
     else
       LName := Name[0];
   AddTextLine(LName, True);
+end;
+
+function TScene.GetClassName(const ACreature: TCreature): string;
+begin
+  Result := '';
+  with ACreature do
+  begin
+    if Enum in MageUnits then
+       Result := 'Mage ';
+    if Enum in AllLeaders then
+      Result := Name[0] + ' ';
+    if Enum in CapitalGuardians then
+      Result := 'Capital Guardian ';
+  end;
 end;
 
 procedure TScene.DrawCreatureInfo(const ACreature: TCreature);
@@ -729,9 +744,7 @@ begin
     LExp := Format(' Exp %d/%d',
       [Experience, PartyList.Party[TLeaderParty.LeaderPartyIndex]
       .GetMaxExperiencePerLevel(Level)]);
-    LClassName := '';
-    if Enum in AllLeaders then
-      LClassName := Name[0] + ' ';
+    LClassName := GetClassName(ACreature);
     LStr := LClassName + 'Level ' + Level.ToString + LExp;
     AddTextLine(LStr);
     AddTextLine('Chances to hit', ChancesToHit.GetFullValue());

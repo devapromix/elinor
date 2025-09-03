@@ -93,6 +93,8 @@ type
     );
 
 const
+  MageUnits = [crApprentice, crInitiate, crCultist];
+  CapitalGuardians = [crMyzrael, crAshgan, crAshkael];
   FighterLeaders = [crPaladin, crDeathKnight, crDuke];
   ScoutingLeaders = [crRanger, crNosferatu, crCounselor];
   MageLeaders = [crArchmage, crLichQueen, crArchDevil];
