@@ -77,7 +77,8 @@ uses
   Elinor.Scene.Merchant in 'Scenes\Elinor.Scene.Merchant.pas',
   Elinor.Merchant in 'Game\Elinor.Merchant.pas',
   Elinor.Battle.Log in 'Game\Elinor.Battle.Log.pas',
-  Elinor.Error in 'Game\Elinor.Error.pas';
+  Elinor.Error in 'Game\Elinor.Error.pas',
+  Elinor.Log in 'Game\Elinor.Log.pas';
 
 {$R *.res}
 

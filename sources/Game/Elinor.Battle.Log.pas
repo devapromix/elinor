@@ -4,12 +4,15 @@ interface
 
 uses
   Elinor.Creatures,
-  Elinor.Button;
+  Elinor.Button,
+  Elinor.Log;
 
 type
   TBattleLog = class(TObject)
+  private
+    FLog: TLog;
   public
-    Log: TLog;
+    property Log: TLog read FLog write FLog;
     constructor Create;
     destructor Destroy; override;
     procedure Clear;
@@ -44,13 +47,13 @@ uses
 constructor TBattleLog.Create;
 begin
   inherited;
-  Log := TLog.Create(TScene.SceneLeft, TScene.DefaultButtonTop - 20);
+  FLog := TLog.Create(TScene.SceneLeft, TScene.DefaultButtonTop - 20);
 end;
 
 destructor TBattleLog.Destroy;
 begin
   inherited;
-  FreeAndNil(Log);
+  FreeAndNil(FLog);
 end;
 
 procedure TBattleLog.UpdateExp(const CrName, GenderEnding: string;
