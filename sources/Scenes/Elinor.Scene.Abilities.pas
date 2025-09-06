@@ -172,6 +172,7 @@ end;
 class procedure TSceneAbilities.ShowScene(const ACloseSceneEnum: TSceneEnum);
 begin
   CloseSceneEnum := ACloseSceneEnum;
+    Game.MediaPlayer.PlaySound(mmSettlement);
   Game.Show(scAbilities);
   ActivePartyPosition := TLeaderParty.GetPosition;
 end;
