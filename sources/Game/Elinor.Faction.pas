@@ -48,16 +48,16 @@ uses
 var
   JSONData: TJSONObject;
 
-procedure LoadFactionDescriptions(const FileName: string);
+procedure LoadFactionDescriptions(const AFileName: string);
 var
-  JSONString: string;
+  LJSONString: string;
 begin
   try
-    JSONString := TFile.ReadAllText(TResources.GetPath('resources') + FileName,
-      TEncoding.UTF8);
+    LJSONString := TFile.ReadAllText(TResources.GetPath('resources') +
+      AFileName, TEncoding.UTF8);
     if Assigned(JSONData) then
       JSONData.Free;
-    JSONData := TJSONObject.ParseJSONValue(JSONString) as TJSONObject;
+    JSONData := TJSONObject.ParseJSONValue(LJSONString) as TJSONObject;
   except
     on E: Exception do
       raise;
