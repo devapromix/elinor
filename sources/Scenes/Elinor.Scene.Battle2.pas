@@ -221,7 +221,7 @@ end;
 procedure TSceneBattle2.ChExperience;
 var
   LPosition: TPosition;
-  LCharacterExperience: Integer;
+  LCharacterExperience, LGainMoreExperience: Integer;
 begin
   try
     if (EnemyParty.GetExperience > 0) then
@@ -231,6 +231,11 @@ begin
         LCharacterExperience :=
           EnsureRange(EnemyParty.GetExperience div LeaderParty.
           GetAliveAndNeedExpCreatures, 1, 9999);
+        LGainMoreExperience := 0;
+        if (TLeaderParty.PartyGainMoreExpValue > 0) and
+          (LCharacterExperience >= 5) then
+          LGainMoreExperience := LCharacterExperience div 5;
+        LCharacterExperience := LCharacterExperience + LGainMoreExperience;
         for LPosition := Low(TPosition) to High(TPosition) do
           with LeaderParty.Creature[LPosition] do
             if AliveAndNeedExp then
@@ -885,7 +890,7 @@ var
       end;
       FBattle.BattleLog.Log.Render;
       Self.DrawText(10, 10, DebugString +
-        TLeaderParty.LeaderVampiricAttackValue.ToString);
+        TLeaderParty.PartyGainMoreExpValue.ToString);
       LogButton.Render;
     except
       on E: Exception do

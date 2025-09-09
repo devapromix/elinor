@@ -79,7 +79,9 @@ type
     ieChanceToParalyze5, ieChanceToParalyze10, ieChanceToParalyze15,
     // Vampiric attack
     ieVampiricAttack10, ieVampiricAttack15, ieVampiricAttack20,
-    ieVampiricAttack25
+    ieVampiricAttack25,
+    //
+    ieGain20MoreExp
     //
     );
 
@@ -350,7 +352,7 @@ const
 
     // Tomes
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
-    ItEffect: ieNone; ItSlot: isTome; ItRes: reNone; Price: 2000;
+    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reTomeOfWar; Price: 2500;
     Description: 'All the units in the party gain 20% ' +
     'more experience in battle'),
 
@@ -560,7 +562,8 @@ var
 begin
   TLeaderParty.LeaderRegenerationValue := 0;
   TLeaderParty.LeaderChanceToParalyzeValue := 0;
-  TLeaderParty.LeaderVampiricAttackValue := 50;
+  TLeaderParty.LeaderVampiricAttackValue := 0;
+  TLeaderParty.PartyGainMoreExpValue := 0;
   for I := 0 to MaxEquipmentItems - 1 do
   begin
     if FItem[I].Enum = iNone then
@@ -592,6 +595,9 @@ begin
       TLeaderParty.ModifyLeaderVampiricAttack(20);
     if FItem[I].ItEffect = ieVampiricAttack25 then
       TLeaderParty.ModifyLeaderVampiricAttack(25);
+    // Gain 20% more experience
+    if FItem[I].ItEffect = ieGain20MoreExp then
+      TLeaderParty.ModifyPartyGainMoreExp(20);
   end;
 end;
 

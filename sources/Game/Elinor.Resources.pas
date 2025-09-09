@@ -85,7 +85,7 @@ type
     reItemPotionOfHealing, reItemPotionOfRestoration, reItemHealingOintment,
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
-    reItemSaphire, reItemHorn,
+    reItemSaphire, reItemHorn, reTomeOfWar,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -598,6 +598,8 @@ const
     (FileName: 'item.saphire.png'; ResType: teItem;),
     // Item Horn
     (FileName: 'item.horn.png'; ResType: teItem;),
+    // Item Tome OfWar
+    (FileName: 'item.tome_of_war.png'; ResType: teItem;),
 
     // Difficulty Easy
     (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),

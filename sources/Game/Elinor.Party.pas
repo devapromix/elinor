@@ -120,6 +120,7 @@ type
     LeaderRegenerationValue: Byte;
     LeaderChanceToParalyzeValue: Byte;
     LeaderVampiricAttackValue: Byte;
+    PartyGainMoreExpValue: Byte;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -175,6 +176,7 @@ type
     class procedure ModifyLeaderRegeneration(const AValue: Integer);
     class procedure ModifyLeaderChanceToParalyze(const AValue: Integer);
     class procedure ModifyLeaderVampiricAttack(const AValue: Integer);
+    class procedure ModifyPartyGainMoreExp(const AValue: Integer);
   end;
 
 type
@@ -686,6 +688,7 @@ begin
   LeaderRegenerationValue := 0;
   LeaderChanceToParalyzeValue := 0;
   LeaderVampiricAttackValue := 0;
+  PartyGainMoreExpValue := 0;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
@@ -959,6 +962,11 @@ end;
 class procedure TLeaderParty.ModifyLeaderVampiricAttack(const AValue: Integer);
 begin
   LeaderVampiricAttackValue := LeaderVampiricAttackValue + AValue;
+end;
+
+class procedure TLeaderParty.ModifyPartyGainMoreExp(const AValue: Integer);
+begin
+  PartyGainMoreExpValue := AValue;
 end;
 
 class procedure TLeaderParty.Move(Dir: TDirectionEnum);
