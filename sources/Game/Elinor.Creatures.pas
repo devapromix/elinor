@@ -720,23 +720,32 @@ const
 
     // Orc
     (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
-    Size: szSmall; Name: ('Орк', 'Орка');
-    Description: ('Орки в битвах всегда на передних',
-    'рядах, так как они обладают крепким', 'телосложением.'); HitPoints: 200;
-    Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
-    Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Orc', 'Orc');
+    Description: ('Orcs are always in the',
+    'front lines in battles, because they', 'have a sturdy build.');
+    HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 55; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 200; Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abNone; Rating: 40;),
+
+    // Trog
+    (Ident: 'trog'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTrog;
+    Size: szBig; Name: ('Trog', 'Trog');
+    Description: ('Trogs are savage creatures,', ' driven only by brute ',
+    'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 80; Leadership: 0;
+    Level: 1; Damage: 110; Armor: 0; Heal: 0; SourceEnum: seWeapon;
+    ReachEnum: reAdj; Gold: 270; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack);
+    Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
 
     // Ogre
     (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
-    Size: szBig; Name: ('Огр', 'Огра');
-    Description: ('Огры нападают на всех проходящих',
-    'мимо, не обращая внимание на', 'тактику и стратегию.'); HitPoints: 300;
-    Initiative: 20; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
+    Size: szBig; Name: ('Ogre', 'Ogre');
+    Description: ('Ogres attack anyone passing', 'by, paying no attention to',
+    'tactics or strategy.'); HitPoints: 300; Initiative: 20; ChancesToHit: 80;
+    Leadership: 0; Level: 1; Damage: 130; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
     Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
-    AttackEnum: atClub; AbilityEnum: abNone; Rating: 50;),
+    AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
 {$ENDREGION Green Skins}
     // Neutral Humans
 {$REGION Humans}

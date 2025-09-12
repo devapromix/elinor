@@ -33,6 +33,11 @@
 		{
 			"level": 7,
 			"faction": "neutrals",
+			"characters":"none,none,trog,none,none,none"
+		},
+		{
+			"level": 7,
+			"faction": "neutrals",
 			"characters":"none,none,reaper,none,none,none"
 		}
 	]

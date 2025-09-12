@@ -2,6 +2,11 @@
 	"parties":[
 		{
 			"level": 9,
+			"faction": "neutrals",
+			"characters":"trog,none,trog,none,trog,none"
+		},
+		{
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,imp,none,none,none"
 		}

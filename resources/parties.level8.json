@@ -3,7 +3,17 @@
 		{
 			"level": 8,
 			"faction": "neutrals",
+			"characters":"reaper,none,none,none,reaper,none"
+		},
+		{
+			"level": 8,
+			"faction": "neutrals",
 			"characters":"spider,none,spider,none,spider,none"
+		},
+		{
+			"level": 8,
+			"faction": "neutrals",
+			"characters":"trog,none,none,none,trog,none"
 		},
 		{
 			"level": 8,

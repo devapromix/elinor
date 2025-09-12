@@ -72,7 +72,7 @@ type
     // Orcs
     crOrc,
     // Ogres
-    crOgre,
+    crTrog, crOgre,
 
     // Humans
     crPeasant, crManAtArms, crRogue,
