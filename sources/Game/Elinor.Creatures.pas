@@ -68,7 +68,7 @@ type
     atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
     atPoisonousBreath, atDaggerOfShadows, atFlameDagger, atClub, atFireHammer,
-    atPhoenixSword, atScythe, atShortSword);
+    atPhoenixSword, atScythe, atShortSword, atFireBreath);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -78,14 +78,16 @@ const
     'Paladin Sword', 'Battle Axe', 'Dagger', 'Bow', 'Hunter Bow', 'Crossbow',
     'Drain Life', 'Healing', 'Paralysis', 'Poison', 'Magic', 'Claws', 'Bite',
     'Spear', 'Stones', 'Poisonous Breath', 'Dagger of Shadows', 'Flame Dagger',
-    'Club', 'Fire Hammer', 'Phoenix Sword', 'Scythe', 'Short Sword');
+    'Club', 'Fire Hammer', 'Phoenix Sword', 'Scythe', 'Short Sword',
+    'Fire Breath');
 
 const
   AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
     'paladin_sword', 'battle_axe', 'dagger', 'bow', 'hunter_bow', 'crossbow',
     'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
     'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'flame_dagger',
-    'club', 'fire_hammer', 'phoenix_sword', 'scythe', 'short_sword');
+    'club', 'fire_hammer', 'phoenix_sword', 'scythe', 'short_sword',
+    'fire_breath');
 
 const
   Characters: array [faTheEmpire .. faLegionsOfTheDamned] of array
@@ -890,8 +892,19 @@ const
     Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 75;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 500;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
-    AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;)
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;),
 {$ENDREGION Animals}
+    // Dragons
+{$REGION Dragons}
+    // Black Dragon
+    (Ident: 'black-dragon'; Faction: faNeutrals; SubRace: reDragon;
+    ResEnum: reBlackDragon; Size: szBig; Name: ('Black Dragon', 'Black Dragon');
+    Description: ('', '', ''); HitPoints: 800; Initiative: 40; ChancesToHit: 75;
+    Leadership: 0; Level: 1; Damage: 125; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAll; Gold: 2000;
+    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
+    AttackEnum: atFireBreath; AbilityEnum: abNone; Rating: 350;)
+{$ENDREGION Dragons}
     //
     );
   // TCreature

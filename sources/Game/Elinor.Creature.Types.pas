@@ -88,7 +88,9 @@ type
     // Wolves
     crWolf, crDireWolf, crSpiritWolf,
     // Bears
-    crPolarBear, crBrownBear, crBlackBear
+    crPolarBear, crBrownBear, crBlackBear,
+    // Dragons
+    crBlackDragon
     //
     );
 

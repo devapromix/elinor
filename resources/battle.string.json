@@ -155,6 +155,9 @@
   "paral_passed": [
     "The paralysis has worn off."
   ],
+  "": [
+	"%s attacks %s with fire breath, dealing %d damage."
+  ],
   "default_attack": [
     "%s attacks %s and deals %d damage."
   ],
