@@ -373,7 +373,7 @@ const
     // Devil
     (FileName: 'character.legions_of_the_damned.devil.png'; ResType: teGUI;),
     // Black Dragon
-    (FileName: 'character.black_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.black_dragon.png'; ResType: teGUI;),
     // White Dragon
     (FileName: 'character.white_dragon.png'; ResType: teGUI;),
     // Red Dragon

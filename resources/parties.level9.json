@@ -7,6 +7,11 @@
 		},
 		{
 			"level": 9,
+			"faction": "neutrals",
+			"characters":"none,none,black-dragon,none,none,none"
+		},
+		{
+			"level": 9,
 			"faction": "legion-of-the-damned",
 			"characters":"none,none,imp,none,none,none"
 		}
