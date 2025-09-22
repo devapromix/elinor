@@ -61,7 +61,7 @@ end;
 
 procedure TMainForm.FormResize(Sender: TObject);
 begin
- //
+  //
 end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);
