@@ -85,7 +85,7 @@ type
     reItemPotionOfHealing, reItemPotionOfRestoration, reItemHealingOintment,
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
-    reItemSaphire, reItemHornOfAwareness, reTomeOfWar,
+    reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reTomeOfWar,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -379,7 +379,7 @@ const
     // Red Dragon
     (FileName: 'character.red_dragon.png'; ResType: teGUI;),
     // Green Dragon
-    (FileName: 'character.green_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.green_dragon.png'; ResType: teGUI;),
     // Blue Dragon
     (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
     // Goblin
@@ -600,6 +600,8 @@ const
     (FileName: 'item.saphire.png'; ResType: teItem;),
     // Item Horn Of Awareness
     (FileName: 'item.horn_of_awareness.png'; ResType: teItem;),
+    // Item Horn Of Incubus
+    (FileName: 'item.horn_of_incubus.png'; ResType: teItem;),
     // Item Tome Of War
     (FileName: 'item.tome_of_war.png'; ResType: teItem;),
 

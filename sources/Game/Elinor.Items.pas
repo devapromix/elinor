@@ -110,7 +110,7 @@ type
     // iWightBlade,
     // iUnholyDagger,
     // iThanatosBlade,
-    // iHornOfIncubus,
+    iHornOfIncubus,
     // iRoyalScepter
 
     // Amulets
@@ -338,6 +338,10 @@ const
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: reNone;
     Price: 1500; Description: ''),
+    // Horn Of Incubus
+    (Enum: iHornOfIncubus; Name: 'Horn Of Incubus'; Level: 8;
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
+    ItRes: reItemHornOfIncubus; Price: 1700; Description: ''),
 
     // Amulets
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
