@@ -85,7 +85,8 @@ type
     reItemPotionOfHealing, reItemPotionOfRestoration, reItemHealingOintment,
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
-    reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reTomeOfWar,
+    reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reItemGoblinOrb,
+    reTomeOfWar,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -602,6 +603,8 @@ const
     (FileName: 'item.horn_of_awareness.png'; ResType: teItem;),
     // Item Horn Of Incubus
     (FileName: 'item.horn_of_incubus.png'; ResType: teItem;),
+    // Item Goblin Orb
+    (FileName: 'item.orbs.goblin_orb.png'; ResType: teItem;),
     // Item Tome Of War
     (FileName: 'item.tome_of_war.png'; ResType: teItem;),
 

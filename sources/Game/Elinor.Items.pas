@@ -363,8 +363,8 @@ const
     // Orbs
     // Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: reNone; Price: 400;
-    Description: 'Summon a Golin'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: reItemGoblinOrb; Price: 400;
+    Description: 'Summon a Goblin'),
     // Imp Orb
     (Enum: iImpOrb; Name: 'Imp Orb'; Level: 1; ItType: itOrb; ItEffect: ieNone;
     ItSlot: isLHand; ItRes: reNone; Price: 450; Description: 'Summon an Imp'),
