@@ -86,7 +86,7 @@ type
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
     reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reItemGoblinOrb,
-    reTomeOfWar,
+    reTomeOfWar, reItemAmuletOfBloodbind,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -606,7 +606,9 @@ const
     // Item Goblin Orb
     (FileName: 'item.orbs.goblin_orb.png'; ResType: teItem;),
     // Item Tome Of War
-    (FileName: 'item.tome_of_war.png'; ResType: teItem;),
+    (FileName: 'item.tomes.tome_of_war.png'; ResType: teItem;),
+    // Item Amulet Of Bloodbind
+    (FileName: 'item.amulets.necklace_of_bloodbind.png'; ResType: teItem;),
 
     // Difficulty Easy
     (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),

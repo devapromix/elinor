@@ -344,10 +344,12 @@ const
     ItRes: reItemHornOfIncubus; Price: 1700; Description: ''),
 
     // Amulets
+    // Necklace of Bloodbind
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
     ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
-    ItRes: reNone; Price: 800; Description: 'This amulet grants its' +
-    ' wearer the power ' + 'to drink the life of ' + 'their enemies'),
+    ItRes: reItemAmuletOfBloodbind; Price: 900;
+    Description: 'This amulet grants its' + ' wearer the power ' +
+    'to drink the life of ' + 'their enemies'),
 
     // Talismans
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
