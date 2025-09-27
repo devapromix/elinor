@@ -358,8 +358,8 @@ const
 
     // Tomes
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
-    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reTomeOfWar; Price: 2500;
-    Description: 'All the units in the party gain 20% ' +
+    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reItemTomeOfWar;
+    Price: 2500; Description: 'All the units in the party gain 20% ' +
     'more experience in battle'),
 
     // Orbs
@@ -401,7 +401,7 @@ const
     Description: ''),
     // Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reNone; Price: 1200;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: reItemHagsRing; Price: 1200;
     Description: ''),
     // Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;

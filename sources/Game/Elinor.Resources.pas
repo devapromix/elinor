@@ -86,7 +86,7 @@ type
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
     reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reItemGoblinOrb,
-    reTomeOfWar, reItemAmuletOfBloodbind,
+    reItemTomeOfWar, reItemAmuletOfBloodbind, reItemHagsRing,
     //
     reDifficultyEasyLogo, reDifficultyNormalLogo, reDifficultyHardLogo,
     //
@@ -582,13 +582,13 @@ const
     // Item Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
     // Item Stone Ring
-    (FileName: 'item.ring.stone.png'; ResType: teItem;),
+    (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Item Bronze Ring
-    (FileName: 'item.ring.bronze.png'; ResType: teItem;),
+    (FileName: 'item.ring.bronze_ring.png'; ResType: teItem;),
     // Item Ring Of Strength
     (FileName: 'item.ring_of_strength.png'; ResType: teItem;),
     // Item Silver Ring
-    (FileName: 'item.ring.silver.png'; ResType: teItem;),
+    (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
     // Item Runic Key
     (FileName: 'item.runic_key.png'; ResType: teItem;),
     // Item Ice Crystal
@@ -604,11 +604,13 @@ const
     // Item Horn Of Incubus
     (FileName: 'item.horn_of_incubus.png'; ResType: teItem;),
     // Item Goblin Orb
-    (FileName: 'item.orbs.goblin_orb.png'; ResType: teItem;),
+    (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
     // Item Tome Of War
-    (FileName: 'item.tomes.tome_of_war.png'; ResType: teItem;),
+    (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
     // Item Amulet Of Bloodbind
-    (FileName: 'item.amulets.necklace_of_bloodbind.png'; ResType: teItem;),
+    (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
+    // Item Hag's Ring
+    (FileName: 'item.ring.hags_ring.png'; ResType: teItem;),
 
     // Difficulty Easy
     (FileName: 'logo.difficulty.easy.png'; ResType: teGUI;),
