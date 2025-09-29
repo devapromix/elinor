@@ -568,11 +568,11 @@ const
     (FileName: 'logo.scenario.ancientknowledge.png'; ResType: teGUI;),
 
     // Item Gold
-    (FileName: 'item.gold.png'; ResType: teItem;),
+    (FileName: 'item.special.gold.png'; ResType: teItem;),
     // Item Mana
-    (FileName: 'item.mana.png'; ResType: teItem;),
+    (FileName: 'item.special.mana.png'; ResType: teItem;),
     // Item Stone Tablet
-    (FileName: 'item.stone_tablet.png'; ResType: teItem;),
+    (FileName: 'item.scenario.stone_tablet.png'; ResType: teItem;),
     // Item Life Potion
     (FileName: 'item.potion.life.png'; ResType: teItem;),
     // Item Potion Of Healing
@@ -594,7 +594,7 @@ const
     // Item Ice Crystal
     (FileName: 'item.ice_crystal.png'; ResType: teItem;),
     // Item Arcane Scroll
-    (FileName: 'item.scroll.arcane.png'; ResType: teItem;),
+    (FileName: 'item.scroll.arcane_scroll.png'; ResType: teItem;),
     // Item Runestone
     (FileName: 'item.runestone.png'; ResType: teItem;),
     // Item Saphire

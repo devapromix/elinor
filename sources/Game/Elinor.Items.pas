@@ -230,6 +230,8 @@ const
     (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
     ItSlot: isNone; ItRes: reItemMana; Price: 0;
     Description: 'A shimmering crystal pulsating with magical energy'),
+
+    // Scenario
     // Stone Tablet
     (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reItemStoneTablet; Price: 0;
