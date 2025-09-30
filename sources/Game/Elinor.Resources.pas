@@ -586,7 +586,7 @@ const
     // Item Bronze Ring
     (FileName: 'item.ring.bronze_ring.png'; ResType: teItem;),
     // Item Ring Of Strength
-    (FileName: 'item.ring_of_strength.png'; ResType: teItem;),
+    (FileName: 'item.ring.ring_of_strength.png'; ResType: teItem;),
     // Item Silver Ring
     (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
     // Item Runic Key
