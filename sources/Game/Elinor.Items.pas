@@ -371,7 +371,8 @@ const
     Description: 'Summon a Goblin'),
     // Imp Orb
     (Enum: iImpOrb; Name: 'Imp Orb'; Level: 1; ItType: itOrb; ItEffect: ieNone;
-    ItSlot: isLHand; ItRes: reNone; Price: 450; Description: 'Summon an Imp'),
+    ItSlot: isLHand; ItRes: reItemImpOrb; Price: 450;
+    Description: 'Summon an Imp'),
 
     // Rings
     // Stone Ring
