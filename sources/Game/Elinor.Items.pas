@@ -152,7 +152,7 @@ type
     ItType: TItemType;
     ItEffect: TItemEffect;
     ItSlot: TItemSlot;
-    ItRes: TResEnum;
+    ItRes: TItemResEnum;
     Price: Integer;
     Description: string;
   end;
@@ -223,7 +223,7 @@ const
     // Special
     // Gold
     (Enum: iGold; Name: 'Gold'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: reItemGold; Price: 0;
+    ItSlot: isNone; ItRes: irItemGold; Price: 0;
     Description: 'A shiny gold coin, valued' +
     ' by merchants and traders across the land'),
     // Mana
