@@ -121,6 +121,7 @@ type
     procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
     procedure DrawImage(Res: TResEnum); overload;
     procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
+    procedure DrawImage(X, Y: Integer; Res: TItemResEnum); overload;
     procedure RenderFrame(const APartySide: TPartySide;
       const APartyPosition, AX, AY: Integer; const F: Boolean = False);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
@@ -192,6 +193,7 @@ type
     InformMsg: string;
     InformSL: TStringList;
     InformImage: TResEnum;
+    InformItemImage: TItemResEnum;
     IsShowInform: TInfoDialogType;
     IsShowConfirm: Boolean;
     constructor Create;
@@ -510,7 +512,8 @@ procedure TScene.ItemInformDialog(const AItemEnum: TItemEnum);
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.InformSL.Clear;
-  Game.InformImage := TItemBase.Item(AItemEnum).ItRes;
+  Game.InformImage := reNone;
+  Game.InformItemImage := TItemBase.Item(AItemEnum).ItRes;
   Game.InformSL.Append(TItemBase.Item(AItemEnum).Name);
   Game.InformSL.Append('');
   Game.InformSL.Append('Level ' + TItemBase.Item(AItemEnum).Level.ToString);
@@ -1078,6 +1081,11 @@ begin
         + AY, rePlus);
     end;
   end;
+end;
+
+procedure TScene.DrawImage(X, Y: Integer; Res: TItemResEnum);
+begin
+
 end;
 
 { TScenes }

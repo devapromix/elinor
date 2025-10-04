@@ -114,13 +114,21 @@ type
   TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore);
 
 type
-  TItemResEnum = (irNone, irItemGold, reItemMana, reItemStoneTablet,
+  TItemResEnum = (irNone,
+    // Special
+    irItemGold, irItemMana, irItemStoneTablet,
+    // Elixirs
     reItemLifePotion, reItemPotionOfHealing, reItemPotionOfRestoration,
-    reItemHealingOintment, reItemStoneRing, reItemBronzeRing, reItemSilverRing,
-    reItemRingOfStrength, reItemRunicKey, reItemIceCrystal, reItemArcaneScroll,
-    reItemRunestone, reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus,
-    reItemGoblinOrb, reItemImpOrb, reItemTomeOfWar, reItemAmuletOfBloodbind,
-    reItemHagsRing);
+    reItemHealingOintment,
+    // Artifacts
+    reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
+    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
+    reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reItemGoblinOrb,
+    reItemImpOrb,
+    // Tomes
+    reItemTomeOfWar,
+    // Jew
+    reItemAmuletOfBloodbind, reItemHagsRing);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -747,6 +755,7 @@ type
 var
   ResImage: array [TResEnum] of TPNGImage;
   SpellResImage: array [TSpellResEnum] of TPNGImage;
+  ItemResImage: array [TItemResEnum] of TPNGImage;
   AbilityResImage: array [TAbilityResEnum] of TPNGImage;
   ResMusicPath: array [TMusicEnum] of string;
 
