@@ -1127,6 +1127,7 @@ var
   LResEnum: TResEnum;
   LMusicEnum: TMusicEnum;
   LPartyLevel: Integer;
+  LItemResEnum: TItemResEnum;
   LSpellResEnum: TSpellResEnum;
   LAbilityResEnum: TAbilityResEnum;
 begin
@@ -1157,6 +1158,13 @@ begin
       SpellResImage[LSpellResEnum].LoadFromFile(TResources.GetPath('resources')
         + SpellResBase[LSpellResEnum].FileName);
   end;
+  for LItemResEnum := Low(TItemResEnum) to High(TItemResEnum) do
+  begin
+    ItemResImage[LItemResEnum] := TPNGImage.Create;
+    if (ItemResBase[LItemResEnum].FileName <> '') then
+      ItemResImage[LItemResEnum].LoadFromFile(TResources.GetPath('resources') +
+        ItemResBase[LItemResEnum].FileName);
+  end;
   for LAbilityResEnum := Low(TAbilityResEnum) to High(TAbilityResEnum) do
   begin
     AbilityResImage[LAbilityResEnum] := TPNGImage.Create;
@@ -1170,11 +1178,14 @@ end;
 procedure Free;
 var
   LResEnum: TResEnum;
+  LItemResEnum: TItemResEnum;
   LSpellResEnum: TSpellResEnum;
   LAbilityResEnum: TAbilityResEnum;
 begin
   for LResEnum := Low(TResEnum) to High(TResEnum) do
     FreeAndNil(ResImage[LResEnum]);
+  for LItemResEnum := Low(TItemResEnum) to High(TItemResEnum) do
+    FreeAndNil(ItemResImage[LItemResEnum]);
   for LSpellResEnum := Low(TSpellResEnum) to High(TSpellResEnum) do
     FreeAndNil(SpellResImage[LSpellResEnum]);
   for LAbilityResEnum := Low(TAbilityResEnum) to High(TAbilityResEnum) do

@@ -1085,7 +1085,7 @@ end;
 
 procedure TScene.DrawImage(X, Y: Integer; Res: TItemResEnum);
 begin
-
+  DrawImage(X, Y, ItemResImage[Res]);
 end;
 
 { TScenes }
@@ -1268,6 +1268,11 @@ begin
         begin
           DrawImage(850, LTop + 25, reSmallFrame);
           DrawImage(880, LTop + 50, Game.InformImage);
+        end;
+        if (Game.InformItemImage <> irNone) then
+        begin
+          DrawImage(850, LTop + 25, reSmallFrame);
+          DrawImage(880, LTop + 50, Game.InformItemImage);
         end;
         for I := 0 to Game.InformSL.Count - 1 do
           AddTextLine(Game.InformSL[I], I = 0);
