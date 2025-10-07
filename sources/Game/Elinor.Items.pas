@@ -338,8 +338,8 @@ const
     ItRes: irNone; Price: 1250; Description: ''),
     // Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
-    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone;
-    Price: 1500; Description: ''),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
+    ItRes: irBethrezensClaw; Price: 1500; Description: ''),
     // Horn Of Incubus
     (Enum: iHornOfIncubus; Name: 'Horn Of Incubus'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;

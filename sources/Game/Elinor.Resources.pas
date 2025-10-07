@@ -116,15 +116,18 @@ type
 type
   TItemResEnum = (irNone,
     // Special
-    irItemGold, irItemMana, irItemStoneTablet,
+    irItemGold, irItemMana,
+    // Scenario
+    irItemStoneTablet,
     // Elixirs
     reItemLifePotion, reItemPotionOfHealing, reItemPotionOfRestoration,
     reItemHealingOintment,
     // Artifacts
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
-    reItemSaphire, reItemHornOfAwareness, reItemHornOfIncubus, reItemGoblinOrb,
-    reItemImpOrb,
+    reItemSaphire, reItemHornOfAwareness, irBethrezensClaw, reItemHornOfIncubus,
+    // Orbs
+    reItemGoblinOrb, reItemImpOrb,
     // Tomes
     reItemTomeOfWar,
     // Jew
@@ -682,6 +685,8 @@ const
     (FileName: 'item.saphire.png'; ResType: teItem;),
     // Item Horn Of Awareness
     (FileName: 'item.horn_of_awareness.png'; ResType: teItem;),
+    // Bethrezen's Claw
+    (FileName: 'item.artifact.bethrezens_claw.png'; ResType: teItem;),
     // Item Horn Of Incubus
     (FileName: 'item.horn_of_incubus.png'; ResType: teItem;),
     // Item Goblin Orb
