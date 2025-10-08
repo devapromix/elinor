@@ -124,8 +124,8 @@ type
     reItemHealingOintment,
     // Artifacts
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
-    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, reItemRunestone,
-    reItemSaphire, reItemHornOfAwareness, irBethrezensClaw, reItemHornOfIncubus,
+    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irRunestone,
+    reItemSaphire, irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
     reItemGoblinOrb, reItemImpOrb,
     // Tomes
@@ -651,53 +651,53 @@ const
   ItemResBase: array [TItemResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teItem;),
-    // Item Gold
+    // Gold
     (FileName: 'item.special.gold.png'; ResType: teItem;),
-    // Item Mana
+    // Mana
     (FileName: 'item.special.mana.png'; ResType: teItem;),
-    // Item Stone Tablet
+    // Stone Tablet
     (FileName: 'item.scenario.stone_tablet.png'; ResType: teItem;),
-    // Item Life Potion
+    // Life Potion
     (FileName: 'item.potion.life.png'; ResType: teItem;),
-    // Item Potion Of Healing
+    // Potion Of Healing
     (FileName: 'item.potion.healing.png'; ResType: teItem;),
-    // Item Potion Of Restoration
+    // Potion Of Restoration
     (FileName: 'item.potion.restoration.png'; ResType: teItem;),
-    // Item Healing Ointment
+    // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
-    // Item Stone Ring
+    // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
-    // Item Bronze Ring
+    // Bronze Ring
     (FileName: 'item.ring.bronze_ring.png'; ResType: teItem;),
-    // Item Ring Of Strength
+    // Ring Of Strength
     (FileName: 'item.ring.ring_of_strength.png'; ResType: teItem;),
-    // Item Silver Ring
+    // Silver Ring
     (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
-    // Item Runic Key
+    // Runic Key
     (FileName: 'item.runic_key.png'; ResType: teItem;),
-    // Item Ice Crystal
+    // Ice Crystal
     (FileName: 'item.ice_crystal.png'; ResType: teItem;),
     // Item Arcane Scroll
     (FileName: 'item.scroll.arcane_scroll.png'; ResType: teItem;),
-    // Item Runestone
-    (FileName: 'item.runestone.png'; ResType: teItem;),
-    // Item Saphire
+    // Runestone
+    (FileName: 'item.artifact.runestone.png'; ResType: teItem;),
+    // Saphire
     (FileName: 'item.saphire.png'; ResType: teItem;),
-    // Item Horn Of Awareness
-    (FileName: 'item.horn_of_awareness.png'; ResType: teItem;),
+    // Horn Of Awareness
+    (FileName: 'item.artifact.horn_of_awareness.png'; ResType: teItem;),
     // Bethrezen's Claw
     (FileName: 'item.artifact.bethrezens_claw.png'; ResType: teItem;),
-    // Item Horn Of Incubus
-    (FileName: 'item.horn_of_incubus.png'; ResType: teItem;),
-    // Item Goblin Orb
+    // Horn Of Incubus
+    (FileName: 'item.artifact.horn_of_incubus.png'; ResType: teItem;),
+    // Goblin Orb
     (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
-    // Item Imp Orb
+    // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
-    // Item Tome Of War
+    // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
-    // Item Amulet Of Bloodbind
+    // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
-    // Item Hag's Ring
+    // Hag's Ring
     (FileName: 'item.ring.hags_ring.png'; ResType: teItem;)
     //
     );

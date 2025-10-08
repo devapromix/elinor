@@ -313,13 +313,13 @@ const
     Description: ''),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: reItemRunestone; Price: 400;
+    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: irRunestone; Price: 400;
     Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
-    ItRes: reItemHornOfAwareness; Price: 500; Description: ''),
+    ItRes: irHornOfAwareness; Price: 500; Description: ''),
     // Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
     ItEffect: ieChanceToParalyze10; ItSlot: isArtifact; ItRes: reItemIceCrystal;
@@ -343,7 +343,7 @@ const
     // Horn Of Incubus
     (Enum: iHornOfIncubus; Name: 'Horn Of Incubus'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
-    ItRes: reItemHornOfIncubus; Price: 1700; Description: ''),
+    ItRes: irHornOfIncubus; Price: 1700; Description: ''),
 
     // Amulets
     // Necklace of Bloodbind
