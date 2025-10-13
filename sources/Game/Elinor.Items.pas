@@ -309,7 +309,7 @@ const
     // Artifacts
     // Dwarven Bracer
     (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
-    ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: irNone; Price: 250;
+    ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: irDwarvenBracer; Price: 250;
     Description: ''),
     // Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;

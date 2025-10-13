@@ -124,8 +124,9 @@ type
     reItemHealingOintment,
     // Artifacts
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
-    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irRunestone,
-    reItemSaphire, irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
+    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irDwarvenBracer,
+    irRunestone, reItemSaphire, irHornOfAwareness, irBethrezensClaw,
+    irHornOfIncubus,
     // Orbs
     reItemGoblinOrb, reItemImpOrb,
     // Tomes
@@ -679,6 +680,8 @@ const
     (FileName: 'item.ice_crystal.png'; ResType: teItem;),
     // Item Arcane Scroll
     (FileName: 'item.scroll.arcane_scroll.png'; ResType: teItem;),
+    // Dwarven Bracer
+    (FileName: 'item.artifact.dwarven_bracer.png'; ResType: teItem;),
     // Runestone
     (FileName: 'item.artifact.runestone.png'; ResType: teItem;),
     // Saphire
