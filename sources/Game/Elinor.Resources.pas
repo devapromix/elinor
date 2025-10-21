@@ -125,7 +125,7 @@ type
     // Artifacts
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irDwarvenBracer,
-    irRunestone, reItemSaphire, irHornOfAwareness, irBethrezensClaw,
+    irRunestone, irSaphire, irHornOfAwareness, irBethrezensClaw,
     irHornOfIncubus,
     // Orbs
     reItemGoblinOrb, reItemImpOrb,
@@ -675,17 +675,17 @@ const
     // Silver Ring
     (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
     // Runic Key
-    (FileName: 'item.runic_key.png'; ResType: teItem;),
+    (FileName: 'item.valuable.runic_key.png'; ResType: teItem;),
     // Ice Crystal
-    (FileName: 'item.ice_crystal.png'; ResType: teItem;),
-    // Item Arcane Scroll
-    (FileName: 'item.scroll.arcane_scroll.png'; ResType: teItem;),
+    (FileName: 'item.artifact.ice_crystal.png'; ResType: teItem;),
+    // Arcane Scroll
+    (FileName: 'item.valuable.arcane_scroll.png'; ResType: teItem;),
     // Dwarven Bracer
     (FileName: 'item.artifact.dwarven_bracer.png'; ResType: teItem;),
     // Runestone
     (FileName: 'item.artifact.runestone.png'; ResType: teItem;),
     // Saphire
-    (FileName: 'item.saphire.png'; ResType: teItem;),
+    (FileName: 'item.valuable.saphire.png'; ResType: teItem;),
     // Horn Of Awareness
     (FileName: 'item.artifact.horn_of_awareness.png'; ResType: teItem;),
     // Bethrezen's Claw

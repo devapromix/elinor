@@ -266,7 +266,7 @@ const
     ' Symbolizes passion and power in many cultures'),
     // Sapphire
     (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemSaphire; Price: 750;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irSaphire; Price: 750;
     Description: 'Deep blue stone embodying the sea and sky,' +
     ' prized for its royal beauty and mystique'),
     // Diamond
