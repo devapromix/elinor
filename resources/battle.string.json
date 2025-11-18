@@ -53,8 +53,8 @@
     "%s is defeated."
   ],
   "update_exp": [
-    "%s gained%s experience +%d.",
-    "%s became%s more experienced (XP +%d)."
+    "%s gained experience +%d.",
+    "%s became more experienced (XP +%d)."
   ],
   "update_level": [
     "%s leveled up to %d!",

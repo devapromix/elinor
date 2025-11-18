@@ -24,8 +24,8 @@ type
       const IsArtifact: Boolean = False);
     procedure ParalPassed;
     procedure Miss(const AtkCrName, DefCrName: string);
-    procedure UpdateExp(const CrName, GenderEnding: string; const Exp: Integer);
-    procedure UpdateLevel(const CrName, GenderEnding: string;
+    procedure UpdateExp(const CrName: string; const Exp: Integer);
+    procedure UpdateLevel(const CrName: string;
       const Level: Integer);
     procedure StartCastSpell(const CrName, SourceName: string);
     procedure Attack(const AttackEnum: TAttackEnum;
@@ -56,18 +56,18 @@ begin
   FreeAndNil(FLog);
 end;
 
-procedure TBattleLog.UpdateExp(const CrName, GenderEnding: string;
+procedure TBattleLog.UpdateExp(const CrName: string;
   const Exp: Integer);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'update_exp'),
-    [CrName, GenderEnding, Exp]));
+    [CrName, Exp]));
 end;
 
-procedure TBattleLog.UpdateLevel(const CrName, GenderEnding: string;
+procedure TBattleLog.UpdateLevel(const CrName: string;
   const Level: Integer);
 begin
   Log.Add(Format(TResources.RandomValue('battle.string', 'update_level'),
-    [CrName, GenderEnding, Level]));
+    [CrName, Level]));
 end;
 
 procedure TBattleLog.WinInBattle;

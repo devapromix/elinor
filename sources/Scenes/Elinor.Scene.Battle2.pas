@@ -241,7 +241,7 @@ begin
             if AliveAndNeedExp then
             begin
               LeaderParty.UpdateXP(LCharacterExperience, LPosition);
-              FBattle.BattleLog.UpdateExp(Name[0], GenderEnding,
+              FBattle.BattleLog.UpdateExp(Name[0],
                 LCharacterExperience);
             end;
       end;
@@ -251,7 +251,7 @@ begin
             if Experience >= LeaderParty.GetMaxExperiencePerLevel(Level) then
             begin
               LeaderParty.UpdateLevel(LPosition);
-              FBattle.BattleLog.UpdateLevel(Name[0], GenderEnding, Level + 1);
+              FBattle.BattleLog.UpdateLevel(Name[0], Level + 1);
               IsNewAbility := (Leadership > 0) and (Level <= CMaxAbilities);
             end;
     end;
