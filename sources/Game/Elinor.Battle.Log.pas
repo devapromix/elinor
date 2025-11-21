@@ -19,17 +19,17 @@ type
     procedure WinInBattle;
     procedure LoseInBattle;
     procedure Kill(const ACreatureName: string);
-    procedure Heal(const AtkCrName, DefCrName: string; const Value: Integer);
-    procedure Paralyze(const AtkCrName, DefCrName: string;
+    procedure Heal(const AAtkCrName, ADefCrName: string; const AValue: Integer);
+    procedure Paralyze(const AAtkCrName, ADefCrName: string;
       const IsArtifact: Boolean = False);
     procedure ParalPassed;
-    procedure Miss(const AtkCrName, DefCrName: string);
+    procedure Miss(const AAtkCrName, ADefCrName: string);
     procedure UpdateExp(const CrName: string; const Exp: Integer);
     procedure UpdateLevel(const CrName: string;
       const Level: Integer);
     procedure StartCastSpell(const CrName, SourceName: string);
     procedure Attack(const AttackEnum: TAttackEnum;
-      const SourceEnum: TSourceEnum; const AtkCrName, DefCrName: string;
+      const SourceEnum: TSourceEnum; const AAtkCrName, ADefCrName: string;
       const Value: Integer);
   end;
 
@@ -81,7 +81,7 @@ begin
 end;
 
 procedure TBattleLog.Attack(const AttackEnum: TAttackEnum;
-  const SourceEnum: TSourceEnum; const AtkCrName, DefCrName: string;
+  const SourceEnum: TSourceEnum; const AAtkCrName, ADefCrName: string;
   const Value: Integer);
 var
   LStr: string;
@@ -110,12 +110,12 @@ begin
         LStr := TResources.RandomValue('battle.string', 'default_attack');
     end;
   end;
-  Log.Add(Format(LStr, [AtkCrName, DefCrName, Value]));
+  Log.Add(Format(LStr, [AAtkCrName, ADefCrName, Value]));
   case AttackEnum of
     atDrainLife:
       begin
         LStr := TResources.RandomValue('battle.string', 'drain_life');
-        Log.Add(Format(LStr, [AtkCrName, DefCrName, Value div 2]));
+        Log.Add(Format(LStr, [AAtkCrName, ADefCrName, Value div 2]));
       end
   end;
 end;
@@ -125,15 +125,15 @@ begin
   Log.Clear;
 end;
 
-procedure TBattleLog.Miss(const AtkCrName, DefCrName: string);
+procedure TBattleLog.Miss(const AAtkCrName, ADefCrName: string);
 begin
   case RandomRange(0, 2) of
     0:
       Log.Add(Format(TResources.RandomValue('battle.string', 'miss1'),
-        [AtkCrName]));
+        [AAtkCrName]));
   else
     Log.Add(Format(TResources.RandomValue('battle.string', 'miss2'),
-      [AtkCrName, DefCrName]));
+      [AAtkCrName, ADefCrName]));
   end;
 end;
 
@@ -142,15 +142,15 @@ begin
   Log.Add(TResources.RandomValue('battle.string', 'paral_passed'));
 end;
 
-procedure TBattleLog.Paralyze(const AtkCrName, DefCrName: string;
+procedure TBattleLog.Paralyze(const AAtkCrName, ADefCrName: string;
   const IsArtifact: Boolean = False);
 begin
   if IsArtifact then
     Log.Add(Format(TResources.RandomValue('battle.string',
-      'paralyze_artifact_attack'), [AtkCrName, DefCrName]))
+      'paralyze_artifact_attack'), [AAtkCrName, ADefCrName]))
   else
     Log.Add(Format(TResources.RandomValue('battle.string',
-      'paralyze_ghost_attack'), [AtkCrName, DefCrName]));
+      'paralyze_ghost_attack'), [AAtkCrName, ADefCrName]));
 end;
 
 procedure TBattleLog.StartCastSpell(const CrName, SourceName: string);
@@ -159,16 +159,16 @@ begin
     [CrName, SourceName]));
 end;
 
-procedure TBattleLog.Heal(const AtkCrName, DefCrName: string;
-  const Value: Integer);
+procedure TBattleLog.Heal(const AAtkCrName, ADefCrName: string;
+  const AValue: Integer);
 begin
   case RandomRange(0, 2) of
     0:
       Log.Add(Format(TResources.RandomValue('battle.string', 'heal1'),
-        [AtkCrName, DefCrName]));
+        [AAtkCrName, ADefCrName]));
   else
     Log.Add(Format(TResources.RandomValue('battle.string', 'heal2'),
-      [AtkCrName, DefCrName, Value]));
+      [AAtkCrName, ADefCrName, AValue]));
   end;
 end;
 
