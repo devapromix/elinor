@@ -261,7 +261,7 @@ const
     ' and highly prized for its rich color'),
     // Ruby
     (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: irNone; Price: 550;
+    ItSlot: isNone; ItRes: irRuby; Price: 550;
     Description: 'A fiery red gemstone that blazes with inner light.' +
     ' Symbolizes passion and power in many cultures'),
     // Sapphire

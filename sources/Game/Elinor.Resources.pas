@@ -125,7 +125,7 @@ type
     // Artifacts
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
     reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irDwarvenBracer,
-    irRunestone, irSaphire, irHornOfAwareness, irBethrezensClaw,
+    irRunestone, irRuby, irSaphire, irHornOfAwareness, irBethrezensClaw,
     irHornOfIncubus,
     // Orbs
     reItemGoblinOrb, reItemImpOrb,
@@ -684,6 +684,8 @@ const
     (FileName: 'item.artifact.dwarven_bracer.png'; ResType: teItem;),
     // Runestone
     (FileName: 'item.artifact.runestone.png'; ResType: teItem;),
+    // Ruby
+    (FileName: 'item.valuable.ruby.png'; ResType: teItem;),
     // Saphire
     (FileName: 'item.valuable.saphire.png'; ResType: teItem;),
     // Horn Of Awareness
