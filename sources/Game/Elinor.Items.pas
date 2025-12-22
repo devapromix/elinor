@@ -251,7 +251,7 @@ const
     ' yet a trace of its power still lingers'),
     // Ember Salts
     (Enum: iEmberSalts; Name: 'Ember Salts'; Level: 3; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irNone; Price: 300;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmberSalts; Price: 300;
     Description: 'Glowing embers crystallized into fine salts.' +
     ' Used in powerful alchemical rituals'),
     // Emerald

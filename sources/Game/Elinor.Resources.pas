@@ -124,7 +124,7 @@ type
     reItemHealingOintment,
     // Artifacts
     reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
-    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irDwarvenBracer,
+    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irEmberSalts ,irDwarvenBracer,
     irRunestone, irEmerald, irRuby, irSaphire, irDiamond, irHornOfAwareness,
     irBethrezensClaw, irHornOfIncubus,
     // Orbs
@@ -680,6 +680,8 @@ const
     (FileName: 'item.artifact.ice_crystal.png'; ResType: teItem;),
     // Arcane Scroll
     (FileName: 'item.valuable.arcane_scroll.png'; ResType: teItem;),
+    // Ember Salts
+    (FileName: 'item.valuable.ember_salts.png'; ResType: teItem;),
     // Dwarven Bracer
     (FileName: 'item.artifact.dwarven_bracer.png'; ResType: teItem;),
     // Runestone
