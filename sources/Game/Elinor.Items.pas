@@ -256,7 +256,7 @@ const
     ' Used in powerful alchemical rituals'),
     // Emerald
     (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irNone; Price: 400;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; Price: 400;
     Description: 'A vibrant green gem, expertly cut' +
     ' and highly prized for its rich color'),
     // Ruby
@@ -271,7 +271,7 @@ const
     ' prized for its royal beauty and mystique'),
     // Diamond
     (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irNone; Price: 850;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; Price: 850;
     Description
     : 'The most precious of stones, a crystalline marvel of pure light.' +
     ' Rare, unyielding, and incredibly valuable'),
