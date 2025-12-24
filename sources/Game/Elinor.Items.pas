@@ -241,12 +241,12 @@ const
     // Valuables
     // Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemRunicKey; Price: 100;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irRunicKey; Price: 100;
     Description: 'An ancient key engraved with glowing runes.' +
     ' Unlocks hidden paths and sealed doors'),
     // Arcane Scroll
     (Enum: iArcaneScroll; Name: 'Arcane Scroll'; Level: 2; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemArcaneScroll; Price: 200;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemArcaneScroll; Price: 200;
     Description: 'A used magical scroll, its words faded,' +
     ' yet a trace of its power still lingers'),
     // Ember Salts
@@ -377,26 +377,26 @@ const
     // Rings
     // Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
-    ItEffect: ieRegen5; ItSlot: isRing; ItRes: reItemStoneRing; Price: 300;
+    ItEffect: ieRegen5; ItSlot: isRing; ItRes: irStoneRing; Price: 300;
     Description: 'A stone ring with a faint glow,' +
     ' holding dormant magical energy'),
     // Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
-    ItEffect: ieRegen10; ItSlot: isRing; ItRes: reItemBronzeRing; Price: 400;
+    ItEffect: ieRegen10; ItSlot: isRing; ItRes: irBronzeRing; Price: 400;
     Description: 'A simple bronze ring,' + ' sturdy and unassuming'),
     // Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
-    ItEffect: ieRegen15; ItSlot: isRing; ItRes: reItemSilverRing; Price: 500;
+    ItEffect: ieRegen15; ItSlot: isRing; ItRes: irSilverRing; Price: 500;
     Description: 'A sleek silver ring,' +
     ' reflecting a subtle, elegant shine'),
     // Gold Ring
     (Enum: iGoldRing; Name: 'Gold Ring'; Level: 4; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irNone; Price: 700;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irGoldRing; Price: 700;
     Description: 'A luxurious gold ring,' +
     ' gleaming with wealth and prestige'),
     // Ring Of Strength,
     (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reItemRingOfStrength; Price: 900;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfStrength; Price: 900;
     Description: 'A massive ring pulses ' + 'with hidden energy'),
     // Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
@@ -404,7 +404,7 @@ const
     Description: ''),
     // Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: reItemHagsRing; Price: 1200;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irHagsRing; Price: 1200;
     Description: ''),
     // Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;

@@ -123,16 +123,16 @@ type
     reItemLifePotion, reItemPotionOfHealing, reItemPotionOfRestoration,
     reItemHealingOintment,
     // Artifacts
-    reItemStoneRing, reItemBronzeRing, reItemSilverRing, reItemRingOfStrength,
-    reItemRunicKey, reItemIceCrystal, reItemArcaneScroll, irEmberSalts ,irDwarvenBracer,
-    irRunestone, irEmerald, irRuby, irSaphire, irDiamond, irHornOfAwareness,
-    irBethrezensClaw, irHornOfIncubus,
+    irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
+    irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
+    irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
+    irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
     reItemGoblinOrb, reItemImpOrb,
     // Tomes
     reItemTomeOfWar,
     // Jew
-    reItemAmuletOfBloodbind, reItemHagsRing);
+    reItemAmuletOfBloodbind, irHagsRing);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -670,6 +670,8 @@ const
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Bronze Ring
     (FileName: 'item.ring.bronze_ring.png'; ResType: teItem;),
+    // Gold Ring
+    (FileName: 'item.ring.gold_ring.png'; ResType: teItem;),
     // Ring Of Strength
     (FileName: 'item.ring.ring_of_strength.png'; ResType: teItem;),
     // Silver Ring
