@@ -128,7 +128,7 @@ type
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
-    reItemGoblinOrb, reItemImpOrb,
+    reItemGoblinOrb, reItemImpOrb, irZombieOrb,
     // Tomes
     reItemTomeOfWar,
     // Jew
@@ -706,6 +706,8 @@ const
     (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
+    // Zombie Orb
+    (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
     // Amulet Of Bloodbind

@@ -80,7 +80,7 @@ type
     // Vampiric attack
     ieVampiricAttack10, ieVampiricAttack15, ieVampiricAttack20,
     ieVampiricAttack25,
-    //
+    // Gain more exp
     ieGain20MoreExp
     //
     );
@@ -129,8 +129,8 @@ type
     iTomeOfWar,
 
     // Orbs
-    iGoblinOrb, iImpOrb,
-    // iZombieOrb, iVampireOrb,
+    iGoblinOrb, iImpOrb, iZombieOrb,
+    // iVampireOrb,
     // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
     // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
 
@@ -239,67 +239,67 @@ const
     ' Its inscriptions hold the wisdom of past civilizations'),
 
     // Valuables
-    // Runic Key
+    // (1) Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irRunicKey; Price: 100;
     Description: 'An ancient key engraved with glowing runes.' +
     ' Unlocks hidden paths and sealed doors'),
-    // Arcane Scroll
+    // (2) Arcane Scroll
     (Enum: iArcaneScroll; Name: 'Arcane Scroll'; Level: 2; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irItemArcaneScroll; Price: 200;
     Description: 'A used magical scroll, its words faded,' +
     ' yet a trace of its power still lingers'),
-    // Ember Salts
+    // (3) Ember Salts
     (Enum: iEmberSalts; Name: 'Ember Salts'; Level: 3; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irEmberSalts; Price: 300;
     Description: 'Glowing embers crystallized into fine salts.' +
     ' Used in powerful alchemical rituals'),
-    // Emerald
+    // (4) Emerald
     (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; Price: 400;
     Description: 'A vibrant green gem, expertly cut' +
     ' and highly prized for its rich color'),
-    // Ruby
+    // (5) Ruby
     (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItEffect: ieNone;
     ItSlot: isNone; ItRes: irRuby; Price: 550;
     Description: 'A fiery red gemstone that blazes with inner light.' +
     ' Symbolizes passion and power in many cultures'),
-    // Sapphire
+    // (6) Sapphire
     (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irSaphire; Price: 750;
     Description: 'Deep blue stone embodying the sea and sky,' +
     ' prized for its royal beauty and mystique'),
-    // Diamond
+    // (7) Diamond
     (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; Price: 850;
     Description
     : 'The most precious of stones, a crystalline marvel of pure light.' +
     ' Rare, unyielding, and incredibly valuable'),
-    // Ancient Relic
+    // (8) Ancient Relic
     (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irNone; Price: 1000;
     Description: 'An old and weathered object from a bygone age,' +
     ' holding secrets of the past'),
 
     // Potions
-    // Life Potion
+    // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reItemLifePotion; Price: 250;
     Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
-    // Potion of Healing
+    // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
     ItRes: reItemPotionOfHealing; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
-    // Potion of Restoration
+    // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
     ItRes: reItemPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
-    // Healing Ointment
+    // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
     ItRes: reItemHealingOintment; Price: 400;
@@ -307,46 +307,46 @@ const
     ' healing wounds and restoring strength.'),
 
     // Artifacts
-    // Dwarven Bracer
+    // (1) Dwarven Bracer
     (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
     ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: irDwarvenBracer; Price: 250;
     Description: ''),
-    // Runestone
+    // (2) Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
     ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: irRunestone; Price: 400;
     Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
-    // Horn Of Awareness
+    // (3) Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irHornOfAwareness; Price: 500; Description: ''),
-    // Ice Crystal
+    // (4) Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
     ItEffect: ieChanceToParalyze10; ItSlot: isArtifact; ItRes: reItemIceCrystal;
     Price: 650; Description: ''),
-    // Skull Bracers
+    // (5) Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
     ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone; Price: 750;
     Description: ''),
-    // Lute Of Charming
+    // (6) Lute Of Charming
     (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone;
     Price: 1000; Description: ''),
-    // Skull Of Thanatos
+    // (7) Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
     ItType: itArtifact; ItEffect: ieChanceToParalyze15; ItSlot: isArtifact;
     ItRes: irNone; Price: 1250; Description: ''),
-    // Bethrezen's Claw
+    // (8) Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irBethrezensClaw; Price: 1500; Description: ''),
-    // Horn Of Incubus
+    // (8) Horn Of Incubus
     (Enum: iHornOfIncubus; Name: 'Horn Of Incubus'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irHornOfIncubus; Price: 1700; Description: ''),
 
     // Amulets
-    // Necklace of Bloodbind
+    // (3) Necklace of Bloodbind
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
     ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
     ItRes: reItemAmuletOfBloodbind; Price: 900;
@@ -354,77 +354,83 @@ const
     'to drink the life of ' + 'their enemies'),
 
     // Talismans
+    // (2) Talisman of Life
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
     Price: 350; Description: ''),
 
     // Tomes
+    // (3) Tome of War
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
     ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reItemTomeOfWar;
     Price: 2500; Description: 'All the units in the party gain 20% ' +
     'more experience in battle'),
 
-    // Orbs
-    // Goblin Orb
+    // ORBS
+    // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: reItemGoblinOrb; Price: 400;
     Description: 'Summon a Goblin'),
-    // Imp Orb
-    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 1; ItType: itOrb; ItEffect: ieNone;
+    // (2) Imp Orb
+    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 2; ItType: itOrb; ItEffect: ieNone;
     ItSlot: isLHand; ItRes: reItemImpOrb; Price: 450;
     Description: 'Summon an Imp'),
+    // (3) Zombie Orb
+    (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 3; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irZombieOrb; Price: 600;
+    Description: 'Summon a Zombie'),
 
-    // Rings
-    // Stone Ring
+    // RINGS
+    // (1) Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
     ItEffect: ieRegen5; ItSlot: isRing; ItRes: irStoneRing; Price: 300;
     Description: 'A stone ring with a faint glow,' +
     ' holding dormant magical energy'),
-    // Bronze Ring
+    // (2) Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
     ItEffect: ieRegen10; ItSlot: isRing; ItRes: irBronzeRing; Price: 400;
     Description: 'A simple bronze ring,' + ' sturdy and unassuming'),
-    // Silver Ring
+    // (3) Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
     ItEffect: ieRegen15; ItSlot: isRing; ItRes: irSilverRing; Price: 500;
     Description: 'A sleek silver ring,' +
     ' reflecting a subtle, elegant shine'),
-    // Gold Ring
+    // (4) Gold Ring
     (Enum: iGoldRing; Name: 'Gold Ring'; Level: 4; ItType: itRing;
     ItEffect: ieNone; ItSlot: isRing; ItRes: irGoldRing; Price: 700;
     Description: 'A luxurious gold ring,' +
     ' gleaming with wealth and prestige'),
-    // Ring Of Strength,
+    // (5) Ring Of Strength,
     (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
     ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfStrength; Price: 900;
     Description: 'A massive ring pulses ' + 'with hidden energy'),
-    // Ring Of The Ages,
+    // (6) Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
     ItEffect: ieNone; ItSlot: isRing; ItRes: irNone; Price: 1000;
     Description: ''),
-    // Hag's Ring,
+    // (7) Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
     ItEffect: ieNone; ItSlot: isRing; ItRes: irHagsRing; Price: 1200;
     Description: ''),
-    // Thanatos Ring
+    // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
     ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irNone; Price: 1500;
     Description: ''),
 
     // Helms
-    // Tiara Of Purity
+    // (5) Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1000;
     Description: ''),
-    // Mjolnir's Crown
+    // (6) Mjolnir's Crown
     (Enum: iMjolnirsCrown; Name: 'Mjolnir''s Crown'; Level: 6; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1500;
     Description: ''),
-    // Thirstborn Diadem
+    // (7) Thirstborn Diadem
     (Enum: iMjolnirsCrown; Name: 'Thirstborn Diadem'; Level: 7; ItType: itHelm;
     ItEffect: ieVampiricAttack25; ItSlot: isHelm; ItRes: irNone; Price: 2000;
     Description: 'Drains enemy life with ' + 'every blow you strike'),
-    // Imperial Crown
+    // (8) Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
     ItEffect: ieRegen25; ItSlot: isHelm; ItRes: irNone; Price: 2500;
     Description: 'Gradually restores your ' + 'health during every day.'));
