@@ -121,7 +121,7 @@ type
     // Boots
 
     // Talismans
-    iTalismanOfLife,
+    iTalismanOfLife, iTalismanOfProtection,
 
     // Banners
 
@@ -220,7 +220,7 @@ const
     (Enum: iNone; Name: ''; Level: 0; ItType: itSpecial; ItEffect: ieNone;
     ItSlot: isNone; ItRes: irNone; Price: 0; Description: ''),
 
-    // Special
+    // SPECIAL
     // Gold
     (Enum: iGold; Name: 'Gold'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
     ItSlot: isNone; ItRes: irItemGold; Price: 0;
@@ -231,14 +231,14 @@ const
     ItSlot: isNone; ItRes: irItemMana; Price: 0;
     Description: 'A shimmering crystal pulsating with magical energy'),
 
-    // Scenario
+    // SCENARIO
     // Stone Tablet
     (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irItemStoneTablet; Price: 0;
     Description: 'An ancient stone tablet etched with forgotten knowledge.' +
     ' Its inscriptions hold the wisdom of past civilizations'),
 
-    // Valuables
+    // VALUABLES
     // (1) Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irRunicKey; Price: 100;
@@ -281,7 +281,7 @@ const
     Description: 'An old and weathered object from a bygone age,' +
     ' holding secrets of the past'),
 
-    // Potions
+    // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
     ItEffect: ieNone; ItSlot: isNone; ItRes: reItemLifePotion; Price: 250;
@@ -306,7 +306,7 @@ const
     Description: 'A crimson nectar that fills the body with energy,' +
     ' healing wounds and restoring strength.'),
 
-    // Artifacts
+    // ARTIFACTS
     // (1) Dwarven Bracer
     (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
     ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: irDwarvenBracer; Price: 250;
@@ -345,7 +345,7 @@ const
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irHornOfIncubus; Price: 1700; Description: ''),
 
-    // Amulets
+    // AMULETS
     // (3) Necklace of Bloodbind
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
     ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
@@ -353,13 +353,17 @@ const
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
 
-    // Talismans
+    // TALISMANS
     // (2) Talisman of Life
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
     Price: 350; Description: ''),
+    // (4) Talisman of Protection
+    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 4;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 450; Description: ''),
 
-    // Tomes
+    // TOMES
     // (3) Tome of War
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
     ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reItemTomeOfWar;
@@ -417,7 +421,7 @@ const
     ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irNone; Price: 1500;
     Description: ''),
 
-    // Helms
+    // HELMS
     // (5) Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1000;
