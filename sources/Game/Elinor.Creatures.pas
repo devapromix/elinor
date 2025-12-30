@@ -579,17 +579,17 @@ const
 {$REGION Legions Of The Damned}
     // Ashkael
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reAshkael; Size: szSmall; Name: ('Ашкаэль', 'Ашкаэля');
-    Description: ('Командир 80 адских когорт, Ашкаэль был',
-    'избран Бетрезеном для защиты столицы Легионов,',
-    'никогда не оставляя её без защиты.'); HitPoints: 900; Initiative: 90;
+    ResEnum: reAshkael; Size: szSmall; Name: ('Ashkael', 'Ashkael');
+    Description: ('Commander of the 80 Infernal Cohorts, Ashkael was',
+    'chosen by Bethrezen to defend the Legion capital,',
+    'never leaving it undefended.'); HitPoints: 900; Initiative: 90;
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll; Gold: 0;
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
     AbilityEnum: abNone; Rating: 0;),
     // Duke
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reDuke; Size: szSmall; Name: ('Герцог', 'Герцога');
+    ResEnum: reDuke; Size: szSmall; Name: ('Duke', 'Duke');
     Description: ('Воинственный герцог ведет демонов',
     'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
@@ -598,7 +598,7 @@ const
     AttackEnum: atPhoenixSword; AbilityEnum: abFlying; Rating: 0;),
     // Counselor
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reCounselor; Size: szSmall; Name: ('Советник', 'Советника');
+    ResEnum: reCounselor; Size: szSmall; Name: ('Counselor', 'Counselor');
     Description: ('Советник ведёт авангард сил Легионов.',
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -607,7 +607,7 @@ const
     AttackEnum: atCrossbow; AbilityEnum: abTravelLore; Rating: 0;),
     // Arch-Devil
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reArchdevil; Size: szSmall; Name: ('Архидьявол', 'Архидьявола');
+    ResEnum: reArchdevil; Size: szSmall; Name: ('Arch-Devil', 'Arch-Devil');
     Description: ('Архидьявол является владыкой магии;',
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
@@ -616,7 +616,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Ripper
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reRipper; Size: szSmall; Name: ('Потрошитель', 'Потрошителя');
+    ResEnum: reRipper; Size: szSmall; Name: ('Ripper', 'Ripper');
     Description: ('Талант потрошителя заключается в',
     'медленном и мастерском извлечении', 'правды из его жертв.'); HitPoints: 90;
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
@@ -625,7 +625,7 @@ const
     AttackEnum: atFlameDagger; AbilityEnum: abStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reChieftain; Size: szSmall; Name: ('Атаман', 'Атамана');
+    ResEnum: reChieftain; Size: szSmall; Name: ('Chieftain', 'Chieftain');
     Description: ('Яростные Атаманы всегда идут впереди',
     'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
@@ -634,7 +634,7 @@ const
     AttackEnum: atFireHammer; AbilityEnum: abTemplar; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: rePossessed; Size: szSmall; Name: ('Одержимый', 'Одержимого');
+    ResEnum: rePossessed; Size: szSmall; Name: ('Possessed', 'Possessed');
     Description: ('Повелитель демонов поработил этих',
     'сильных телом крестьян для того, что-',
     'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
@@ -644,7 +644,7 @@ const
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Gargoyle
     (Ident: 'gargoyle'; Faction: faLegionsOfTheDamned; SubRace: reGargoyle;
-    ResEnum: reStoneGargoyle; Size: szBig; Name: ('Горгулья', 'Горгулью');
+    ResEnum: reStoneGargoyle; Size: szBig; Name: ('Gargoyle', 'Gargoyle');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 75; Initiative: 60; ChancesToHit: 70; Leadership: 0; Level: 1;
@@ -653,7 +653,7 @@ const
     AttackEnum: atStones; AbilityEnum: abNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reCultist; Size: szSmall; Name: ('Культист', 'Культиста');
+    ResEnum: reCultist; Size: szSmall; Name: ('Cultist', 'Cultist');
     Description: ('Еретики Империи, они взывают к',
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -662,7 +662,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 20;),
     // Devil
     (Ident: 'devil'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reDevil; Size: szBig; Name: ('Чёрт', 'Чёрта');
+    ResEnum: reDevil; Size: szBig; Name: ('Devil', 'Devil');
     Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
     'Тёмного Повелителя Бетрезена.'); HitPoints: 120; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
