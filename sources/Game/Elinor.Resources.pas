@@ -656,13 +656,13 @@ const
     (FileName: 'panel.button.party.png'; ResType: teGUI;),
     // Button Cancel
     (FileName: 'panel.button.cancel.png'; ResType: teGUI;),
-    // Button Menu
+    // Button Spellbook
     (FileName: 'panel.button.spellbook.png'; ResType: teGUI;),
-    // Button Menu
+    // Button Inv
     (FileName: 'panel.button.inventory.png'; ResType: teGUI;),
-    // Button Menu
-    (FileName: 'panel.button.ability.png'; ResType: teGUI;),
-    // Button Menu
+    // Button Abilities
+    (FileName: 'panel.button.abilities.png'; ResType: teGUI;),
+    // Button Scenarion (Journal)
     (FileName: 'panel.button.scenario.png'; ResType: teGUI;)
     //
     );
