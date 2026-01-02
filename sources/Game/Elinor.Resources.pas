@@ -99,7 +99,10 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Races
-    reHumanMale);
+    reHumanMale,
+    // Panel buttons
+    reButtonMenu, reButtonParty, reButtonCancel, reButtonSpellbook, reButtonInv,
+    reButtonAbility, reButtonScenario);
 
 type
   TSpellResEnum = (srNone,
@@ -128,7 +131,7 @@ type
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
-    reItemGoblinOrb, reItemImpOrb,
+    reItemGoblinOrb, reItemImpOrb, irZombieOrb,
     // Tomes
     reItemTomeOfWar,
     // Jew
@@ -644,7 +647,23 @@ const
 
     // RACES //
     // Human male
-    (FileName: 'race.human.male.png'; ResType: teGUI;)
+    (FileName: 'race.human.male.png'; ResType: teGUI;),
+
+    // PANEL //
+    // Button Menu
+    (FileName: 'panel.button.menu.png'; ResType: teGUI;),
+    // Button Party
+    (FileName: 'panel.button.party.png'; ResType: teGUI;),
+    // Button Cancel
+    (FileName: 'panel.button.cancel.png'; ResType: teGUI;),
+    // Button Spellbook
+    (FileName: 'panel.button.spellbook.png'; ResType: teGUI;),
+    // Button Inv
+    (FileName: 'panel.button.inventory.png'; ResType: teGUI;),
+    // Button Abilities
+    (FileName: 'panel.button.abilities.png'; ResType: teGUI;),
+    // Button Scenarion (Journal)
+    (FileName: 'panel.button.scenario.png'; ResType: teGUI;)
     //
     );
 
@@ -706,6 +725,8 @@ const
     (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
+    // Zombie Orb
+    (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
     // Amulet Of Bloodbind
