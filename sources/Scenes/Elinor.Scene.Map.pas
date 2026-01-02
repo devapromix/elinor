@@ -26,6 +26,7 @@ type
     procedure ShowSpellbookScene;
     procedure ShowAbilitiesScene;
     procedure ShowInventoryScene;
+    procedure Escape;
   public
     procedure Show(const S: TSceneEnum); override;
     procedure Render; override;
@@ -41,6 +42,7 @@ implementation
 uses
   SysUtils,
   Elinor.Map,
+  Elinor.Panel,
   Elinor.Resources,
   Elinor.Direction,
   Elinor.Saga,
@@ -65,6 +67,20 @@ uses
 
 { TSceneMap }
 
+procedure TSceneMap.Escape;
+begin
+  if Spells.ActiveSpell.IsSpell() then
+  begin
+    Spells.ActiveSpell.Clear();
+    Exit;
+  end;
+  Game.MediaPlayer.PlayMusic(mmMenu);
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound(mmSettlement);
+  TSceneMenu3(Game.GetScene(scMenu)).CurrentIndex := 1;
+  Game.Show(scMenu);
+end;
+
 procedure TSceneMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 var
@@ -75,6 +91,24 @@ begin
   case Button of
     mbLeft:
       begin
+        if MousePos.Y = 0 then
+        begin
+          case MousePos.X of
+            0:
+              ShowPartyScene;
+            1:
+              ShowAbilitiesScene;
+            2:
+              ShowInventoryScene;
+            3:
+              ShowSpellbookScene;
+            4:
+              ShowScenarioScene;
+            5:
+              Escape;
+          end;
+          Exit;
+        end;
         if (Game.Map.GetTile(lrDark, MousePos.X, MousePos.Y) = reDark) then
           Exit;
         if Spells.CastAt(MousePos.X, MousePos.Y) or BB then
@@ -271,6 +305,7 @@ begin
   // New Day Message
   if Game.ShowNewDayMessageTime > 0 then
     RenderNewDayMessage;
+  Panel.Draw();
 end;
 
 procedure TSceneMap.Show(const S: TSceneEnum);
@@ -308,18 +343,7 @@ begin
   inherited;
   case Key of
     K_ESCAPE:
-      begin
-        if Spells.ActiveSpell.IsSpell() then
-        begin
-          Spells.ActiveSpell.Clear();
-          Exit;
-        end;
-        Game.MediaPlayer.PlayMusic(mmMenu);
-        Game.MediaPlayer.PlaySound(mmClick);
-        Game.MediaPlayer.PlaySound(mmSettlement);
-        TSceneMenu3(Game.GetScene(scMenu)).CurrentIndex := 1;
-        Game.Show(scMenu);
-      end;
+      Escape;
     K_LEFT, K_KP_4:
       TLeaderParty.Leader.Move(drWest);
     K_RIGHT, K_KP_6:

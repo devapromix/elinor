@@ -99,7 +99,10 @@ type
     reBGTheEmpire, reBGUndeadHordes, reBGLegionsOfTheDamned, reBGMountainClans,
     reBGElvenAlliance, reBGGreenskinTribes, reBGNeutrals, reBGAbility,
     // Races
-    reHumanMale);
+    reHumanMale,
+    // Panel buttons
+    reButtonMenu, reButtonParty, reButtonCancel, reButtonSpellbook, reButtonInv,
+    reButtonAbility, reButtonScenario);
 
 type
   TSpellResEnum = (srNone,
@@ -644,7 +647,23 @@ const
 
     // RACES //
     // Human male
-    (FileName: 'race.human.male.png'; ResType: teGUI;)
+    (FileName: 'race.human.male.png'; ResType: teGUI;),
+
+    // PANEL //
+    // Button Menu
+    (FileName: 'panel.button.menu.png'; ResType: teGUI;),
+    // Button Party
+    (FileName: 'panel.button.party.png'; ResType: teGUI;),
+    // Button Cancel
+    (FileName: 'panel.button.cancel.png'; ResType: teGUI;),
+    // Button Menu
+    (FileName: 'panel.button.spellbook.png'; ResType: teGUI;),
+    // Button Menu
+    (FileName: 'panel.button.inventory.png'; ResType: teGUI;),
+    // Button Menu
+    (FileName: 'panel.button.ability.png'; ResType: teGUI;),
+    // Button Menu
+    (FileName: 'panel.button.scenario.png'; ResType: teGUI;)
     //
     );
 
