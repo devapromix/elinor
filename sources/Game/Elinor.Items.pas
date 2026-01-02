@@ -92,17 +92,20 @@ type
 
 type
   TItemEnum = (iNone,
-    // Special
-    iGold, iMana, iStoneTab,
+    // SPECIAL
+    iGold, iMana,
 
-    // Valuables
+    // SCENARIO
+    iStoneTab,
+
+    // VALUABLES
     iRunicKey, iArcaneScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
     iAncientRelic,
 
-    // Potions
+    // POTIONS
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
 
-    // Artifacts
+    // ARTIFACTS
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
     iLuteOfCharming, iSkullOfThanatos, iBethrezensClaw,
 
@@ -113,32 +116,35 @@ type
     iHornOfIncubus,
     // iRoyalScepter
 
-    // Amulets
+    // AMULETS
     iNecklaceOfBloodbind,
 
-    // Armors
+    // ARMORS
 
-    // Boots
+    // BOOTS
+    iBootsOfSpeed,
+    // iElven Boots, iBootsOfHaste, iBootsOfTravelling,
+    // iBoots of the Cheetah, iBoots of Seven Leagues,
 
-    // Talismans
+    // TALISMANS
     iTalismanOfLife, iTalismanOfProtection,
 
-    // Banners
+    // BANNERS
 
-    // Tomes
+    // TOMES
     iTomeOfWar,
 
-    // Orbs
+    // ORBS
     iGoblinOrb, iImpOrb, iZombieOrb,
     // iVampireOrb,
     // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
     // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
 
-    // Rings
+    // RINGS
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
     iRingOfTheAges, iRingOfHag, iThanatosRing,
 
-    // Helms
+    // HELMS
     iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem, iImperialCrown);
 
 const
@@ -177,17 +183,17 @@ type
   end;
 
 const
-  MaxEquipmentItems = 12;
+  CMaxEquipmentItems = 12;
 
 const
-  DollSlot: array [0 .. MaxEquipmentItems - 1] of TItemSlot = (isHelm, isAmulet,
-    isBanner, isTome, isArmor, isRHand, isLHand, isRing, isRing, isArtifact,
-    isArtifact, isBoots);
+  DollSlot: array [0 .. CMaxEquipmentItems - 1] of TItemSlot = (isHelm,
+    isAmulet, isBanner, isTome, isArmor, isRHand, isLHand, isRing, isRing,
+    isArtifact, isArtifact, isBoots);
 
 type
   TEquipment = class(TObject)
   private
-    FItem: array [0 .. MaxEquipmentItems - 1] of TItem;
+    FItem: array [0 .. CMaxEquipmentItems - 1] of TItem;
     procedure Update;
   public
     constructor Create;
@@ -352,6 +358,12 @@ const
     ItRes: reItemAmuletOfBloodbind; Price: 900;
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
+
+    // BOOTS
+    // (2) Boots of Speed
+    (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 2; ItType: itBoots;
+    ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfSpeed; Price: 400;
+    Description: 'Leader gains 20% more move points'),
 
     // TALISMANS
     // (2) Talisman of Life
@@ -540,7 +552,7 @@ procedure TEquipment.Clear;
 var
   I: Integer;
 begin
-  for I := 0 to MaxEquipmentItems - 1 do
+  for I := 0 to CMaxEquipmentItems - 1 do
     Clear(I);
 end;
 
@@ -583,7 +595,7 @@ begin
   TLeaderParty.LeaderChanceToParalyzeValue := 0;
   TLeaderParty.LeaderVampiricAttackValue := 0;
   TLeaderParty.PartyGainMoreExpValue := 0;
-  for I := 0 to MaxEquipmentItems - 1 do
+  for I := 0 to CMaxEquipmentItems - 1 do
   begin
     if FItem[I].Enum = iNone then
       Continue;

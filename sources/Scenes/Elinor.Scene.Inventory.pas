@@ -233,7 +233,7 @@ procedure TSceneInventory.Render;
     end;
     AddTextLine('Equipment', True);
     AddTextLine;
-    for I := 0 to MaxEquipmentItems - 1 do
+    for I := 0 to CMaxEquipmentItems - 1 do
       case I of
         5:
           AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I,
@@ -326,14 +326,14 @@ begin
             begin
               Dec(EquipmentSelItemIndex);
               if EquipmentSelItemIndex < 0 then
-                EquipmentSelItemIndex := MaxEquipmentItems - 1;
+                EquipmentSelItemIndex := CMaxEquipmentItems - 1;
               Exit;
             end;
           isInventory:
             begin
               Dec(InventorySelItemIndex);
               if InventorySelItemIndex < 0 then
-                InventorySelItemIndex := MaxEquipmentItems - 1;
+                InventorySelItemIndex := CMaxEquipmentItems - 1;
               Exit;
             end;
         end;
@@ -344,14 +344,14 @@ begin
           isEquipment:
             begin
               Inc(EquipmentSelItemIndex);
-              if EquipmentSelItemIndex > MaxEquipmentItems - 1 then
+              if EquipmentSelItemIndex > CMaxEquipmentItems - 1 then
                 EquipmentSelItemIndex := 0;
               Exit;
             end;
           isInventory:
             begin
               Inc(InventorySelItemIndex);
-              if InventorySelItemIndex > MaxEquipmentItems - 1 then
+              if InventorySelItemIndex > CMaxEquipmentItems - 1 then
                 InventorySelItemIndex := 0;
               Exit;
             end;

@@ -134,6 +134,8 @@ type
     reItemGoblinOrb, reItemImpOrb, irZombieOrb,
     // Tomes
     reItemTomeOfWar,
+    // Boots
+    irBootsOfSpeed,
     // Jew
     reItemAmuletOfBloodbind, irHagsRing);
 
@@ -729,6 +731,8 @@ const
     (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
+    // Boots of Speed
+    (FileName: 'item.boots.boots_of_speed.png'; ResType: teItem;),
     // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Hag's Ring
