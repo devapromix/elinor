@@ -61,7 +61,7 @@ begin
           ResImage[reButtonCancel]);
         Continue;
       end;
-    Game.Surface.Canvas.Draw((ord(LPanelButtonEnum) * 32) + 1, 1,
+    Game.Surface.Canvas.Draw((ord(LPanelButtonEnum) * 32) + (18 * 32), 1,
       ResImage[PanelButtonRes[LPanelButtonEnum]]);
   end;
 end;

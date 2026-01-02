@@ -94,17 +94,17 @@ begin
         if MousePos.Y = 0 then
         begin
           case MousePos.X of
-            0:
+            18:
               ShowPartyScene;
-            1:
+            19:
               ShowAbilitiesScene;
-            2:
+            20:
               ShowInventoryScene;
-            3:
+            21:
               ShowSpellbookScene;
-            4:
+            22:
               ShowScenarioScene;
-            5:
+            23:
               Escape;
           end;
           Exit;
