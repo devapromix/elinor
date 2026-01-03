@@ -46,6 +46,12 @@ uses
 // Leader is unaffected by thieves
 // 10% lower prices from merchants and mercenaries
 
+// Orbs
+// Orb of Regeneration (Heals units 75 hp)
+// Orb of Healing (Heals a unit 100 hp)
+// Orb of Life (Revives dead units)
+// Orb of Rage (Gives an extra attack)
+
 type
   TItemType = (itSpecial, itValuable,
     // Potions and Scrolls
@@ -123,8 +129,7 @@ type
 
     // BOOTS
     iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
-    iBootsOfTravelling, iBootsOfTheElements,
-    iBootsOfSevenLeagues,
+    iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
     iTalismanOfLife, iTalismanOfProtection,
@@ -148,7 +153,8 @@ type
     iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem, iImperialCrown);
 
 const
-  QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration];
+  QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
+    iHealingOintment];
 
 type
   TItem = record
