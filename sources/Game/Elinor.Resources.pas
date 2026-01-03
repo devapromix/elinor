@@ -135,7 +135,7 @@ type
     // Tomes
     irItemTomeOfWar,
     // Boots
-    irBootsOfSpeed, irElvenBoots, irBootsOfHaste,
+    irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfTravelling,
     // Jew
     irItemAmuletOfBloodbind, irHagsRing);
 
@@ -731,12 +731,18 @@ const
     (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
+
+    // BOOTS
     // Boots of Speed
     (FileName: 'item.boots.boots_of_speed.png'; ResType: teItem;),
     // Elven Boots
     (FileName: 'item.boots.elven_boots.png'; ResType: teItem;),
     // Boots Of Haste
     (FileName: 'item.boots.boots_of_haste.png'; ResType: teItem;),
+    // Boots Of Travelling
+    (FileName: 'item.boots.boots_of_travelling.png'; ResType: teItem;),
+
+    //
     // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Hag's Ring
