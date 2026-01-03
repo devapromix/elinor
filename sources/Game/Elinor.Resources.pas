@@ -123,21 +123,22 @@ type
     // Scenario
     irItemStoneTablet,
     // Elixirs
-    reItemLifePotion, reItemPotionOfHealing, reItemPotionOfRestoration,
-    reItemHealingOintment,
+    irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
+    irItemHealingOintment,
     // Artifacts
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
-    reItemGoblinOrb, reItemImpOrb, irZombieOrb,
+    irItemGoblinOrb, irItemImpOrb, irZombieOrb,
     // Tomes
-    reItemTomeOfWar,
+    irItemTomeOfWar,
     // Boots
-    irBootsOfSpeed,
+    irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfDarkness,
+    irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
     // Jew
-    reItemAmuletOfBloodbind, irHagsRing);
+    irItemAmuletOfBloodbind, irHagsRing);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -731,8 +732,24 @@ const
     (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
+
+    // BOOTS
     // Boots of Speed
     (FileName: 'item.boots.boots_of_speed.png'; ResType: teItem;),
+    // Elven Boots
+    (FileName: 'item.boots.elven_boots.png'; ResType: teItem;),
+    // Boots Of Haste
+    (FileName: 'item.boots.boots_of_haste.png'; ResType: teItem;),
+    // Boots Of Darkness
+    (FileName: 'item.boots.boots_of_darkness.png'; ResType: teItem;),
+    // Boots Of Travelling
+    (FileName: 'item.boots.boots_of_travelling.png'; ResType: teItem;),
+    // Boots Of The Elements
+    (FileName: 'item.boots.boots_of_the_elements.png'; ResType: teItem;),
+    // Boots Of Seven Leagues
+    (FileName: 'item.boots.boots_of_seven_leagues.png'; ResType: teItem;),
+
+    //
     // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Hag's Ring

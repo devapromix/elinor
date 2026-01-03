@@ -46,6 +46,12 @@ uses
 // Leader is unaffected by thieves
 // 10% lower prices from merchants and mercenaries
 
+// Orbs
+// Orb of Regeneration (Heals units 75 hp)
+// Orb of Healing (Heals a unit 100 hp)
+// Orb of Life (Revives dead units)
+// Orb of Rage (Gives an extra attack)
+
 type
   TItemType = (itSpecial, itValuable,
     // Potions and Scrolls
@@ -80,8 +86,13 @@ type
     // Vampiric attack
     ieVampiricAttack10, ieVampiricAttack15, ieVampiricAttack20,
     ieVampiricAttack25,
-    // Gain more exp
-    ieGain20MoreExp
+    // Gain more experience
+    ieGain20MoreExp,
+    // Leader gains more move points
+    ieGains20MoreMovePoints, ieGains40MoreMovePoints, ieGains60MoreMovePoints,
+    ieGains80MoreMovePoints, ieGains100MoreMovePoints,
+    // Invisible
+    ieInvisible
     //
     );
 
@@ -122,9 +133,8 @@ type
     // ARMORS
 
     // BOOTS
-    iBootsOfSpeed,
-    // iElven Boots, iBootsOfHaste, iBootsOfTravelling,
-    // iBoots of the Cheetah, iBoots of Seven Leagues,
+    iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
+    iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
     iTalismanOfLife, iTalismanOfProtection,
@@ -148,7 +158,8 @@ type
     iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem, iImperialCrown);
 
 const
-  QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration];
+  QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
+    iHealingOintment];
 
 type
   TItem = record
@@ -290,25 +301,25 @@ const
     // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemLifePotion; Price: 250;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemLifePotion; Price: 250;
     Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
     // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemPotionOfHealing; Price: 100;
+    ItRes: irItemPotionOfHealing; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
     // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemPotionOfRestoration; Price: 200;
+    ItRes: irItemPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
     // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemHealingOintment; Price: 400;
+    ItRes: irItemHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
     ' healing wounds and restoring strength.'),
 
@@ -355,15 +366,44 @@ const
     // (3) Necklace of Bloodbind
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
     ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
-    ItRes: reItemAmuletOfBloodbind; Price: 900;
+    ItRes: irItemAmuletOfBloodbind; Price: 900;
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
 
     // BOOTS
-    // (2) Boots of Speed
-    (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 2; ItType: itBoots;
-    ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfSpeed; Price: 400;
-    Description: 'Leader gains 20% more move points'),
+    // (1) Boots of Speed
+    (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 1; ItType: itBoots;
+    ItEffect: ieGains20MoreMovePoints; ItSlot: isBoots; ItRes: irBootsOfSpeed;
+    Price: 400; Description: 'Leader gains 20% more move points'),
+    // (2) Elven Boots
+    (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 2; ItType: itBoots;
+    ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; Price: 500;
+    Description: 'No move penalty when ' + 'walking in forests'),
+    // (3) Boots Of Haste
+    (Enum: iBootsOfHaste; Name: 'Boots of Haste'; Level: 3; ItType: itBoots;
+    ItEffect: ieGains40MoreMovePoints; ItSlot: isBoots; ItRes: irBootsOfHaste;
+    Price: 600; Description: 'Leader gains 40% more move points'),
+    // (4) Boots Of Darkness
+    (Enum: iBootsOfDarkness; Name: 'Boots of Darkness'; Level: 4;
+    ItType: itBoots; ItEffect: ieInvisible; ItSlot: isBoots;
+    ItRes: irBootsOfDarkness; Price: 700;
+    Description: 'The leader who wears ' + 'these shoes becomes ' +
+    'invisible to enemies.'),
+    // (5) Boots Of Travelling
+    (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 5;
+    ItType: itBoots; ItEffect: ieGains60MoreMovePoints; ItSlot: isBoots;
+    ItRes: irBootsOfTravelling; Price: 800;
+    Description: 'Leader gains 60% more move points'),
+    // (6) Boots Of The Elements
+    (Enum: iBootsOfTheElements; Name: 'Boots of the Elements'; Level: 6;
+    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItRes: irBootsOfTheElements; Price: 900;
+    Description: 'No move penalty when sailing on water'),
+    // (7) Boots Of Seven Leagues
+    (Enum: iBootsOfSevenLeagues; Name: 'Boots of Seven Leagues'; Level: 7;
+    ItType: itBoots; ItEffect: ieGains80MoreMovePoints; ItSlot: isBoots;
+    ItRes: irBootsOfSevenLeagues; Price: 1000;
+    Description: 'Leader gains 80% more move points'),
 
     // TALISMANS
     // (2) Talisman of Life
@@ -378,18 +418,18 @@ const
     // TOMES
     // (3) Tome of War
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
-    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reItemTomeOfWar;
+    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: irItemTomeOfWar;
     Price: 2500; Description: 'All the units in the party gain 20% ' +
     'more experience in battle'),
 
     // ORBS
     // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: reItemGoblinOrb; Price: 400;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 400;
     Description: 'Summon a Goblin'),
     // (2) Imp Orb
     (Enum: iImpOrb; Name: 'Imp Orb'; Level: 2; ItType: itOrb; ItEffect: ieNone;
-    ItSlot: isLHand; ItRes: reItemImpOrb; Price: 450;
+    ItSlot: isLHand; ItRes: irItemImpOrb; Price: 450;
     Description: 'Summon an Imp'),
     // (3) Zombie Orb
     (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 3; ItType: itOrb;
@@ -595,6 +635,8 @@ begin
   TLeaderParty.LeaderChanceToParalyzeValue := 0;
   TLeaderParty.LeaderVampiricAttackValue := 0;
   TLeaderParty.PartyGainMoreExpValue := 0;
+  TLeaderParty.LeaderGainsMoreMovePointsValue := 0;
+  TLeaderParty.LeaderInvisibleValue := 0;
   for I := 0 to CMaxEquipmentItems - 1 do
   begin
     if FItem[I].Enum = iNone then
@@ -626,9 +668,24 @@ begin
       TLeaderParty.ModifyLeaderVampiricAttack(20);
     if FItem[I].ItEffect = ieVampiricAttack25 then
       TLeaderParty.ModifyLeaderVampiricAttack(25);
-    // Gain 20% more experience
+    // Gain more experience
     if FItem[I].ItEffect = ieGain20MoreExp then
       TLeaderParty.ModifyPartyGainMoreExp(20);
+    // Leader gains more move points
+    if FItem[I].ItEffect = ieGains20MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(20);
+    if FItem[I].ItEffect = ieGains40MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(40);
+    if FItem[I].ItEffect = ieGains60MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(60);
+    if FItem[I].ItEffect = ieGains80MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(80);
+    if FItem[I].ItEffect = ieGains100MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(100);
+    // Invisible
+    if FItem[I].ItEffect = ieInvisible then
+      TLeaderParty.ModifyLeaderInvisible(1);
+
   end;
 end;
 
