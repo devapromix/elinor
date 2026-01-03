@@ -90,7 +90,9 @@ type
     ieGain20MoreExp,
     // Leader gains more move points
     ieGains20MoreMovePoints, ieGains40MoreMovePoints, ieGains60MoreMovePoints,
-    ieGains80MoreMovePoints, ieGains100MoreMovePoints
+    ieGains80MoreMovePoints, ieGains100MoreMovePoints,
+    // Invisible
+    ieInvisible
     //
     );
 
@@ -383,7 +385,7 @@ const
     Price: 600; Description: 'Leader gains 40% more move points'),
     // (4) Boots Of Darkness
     (Enum: iBootsOfDarkness; Name: 'Boots of Darkness'; Level: 4;
-    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItType: itBoots; ItEffect: ieInvisible; ItSlot: isBoots;
     ItRes: irBootsOfDarkness; Price: 700;
     Description: 'The leader who wears ' + 'these shoes becomes ' +
     'invisible to enemies.'),
@@ -634,6 +636,7 @@ begin
   TLeaderParty.LeaderVampiricAttackValue := 0;
   TLeaderParty.PartyGainMoreExpValue := 0;
   TLeaderParty.LeaderGainsMoreMovePointsValue := 0;
+  TLeaderParty.LeaderInvisibleValue := 0;
   for I := 0 to CMaxEquipmentItems - 1 do
   begin
     if FItem[I].Enum = iNone then
@@ -679,6 +682,10 @@ begin
       TLeaderParty.ModifyLeaderMovePoints(80);
     if FItem[I].ItEffect = ieGains100MoreMovePoints then
       TLeaderParty.ModifyLeaderMovePoints(100);
+    // Invisible
+    if FItem[I].ItEffect = ieInvisible then
+      TLeaderParty.ModifyLeaderInvisible(1);
+
   end;
 end;
 
