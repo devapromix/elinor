@@ -155,7 +155,8 @@ type
     iRingOfTheAges, iRingOfHag, iThanatosRing,
 
     // HELMS
-    iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem, iImperialCrown);
+    iHoodOfDarkness, iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem,
+    iImperialCrown);
 
 const
   QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
@@ -388,7 +389,7 @@ const
     ItType: itBoots; ItEffect: ieInvisible; ItSlot: isBoots;
     ItRes: irBootsOfDarkness; Price: 700;
     Description: 'The leader who wears ' + 'these shoes becomes ' +
-    'invisible to enemies.'),
+    'invisible to enemies'),
     // (5) Boots Of Travelling
     (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 5;
     ItType: itBoots; ItEffect: ieGains60MoreMovePoints; ItSlot: isBoots;
@@ -474,6 +475,11 @@ const
     Description: ''),
 
     // HELMS
+    // (4) Hood Of Darkness
+    (Enum: iTiaraOfPurity; Name: 'Hood Of Darkness'; Level: 4; ItType: itHelm;
+    ItEffect: ieInvisible; ItSlot: isHelm; ItRes: irHoodOfDarkness; Price: 800;
+    Description: 'This headgear renders' + ' the leader entirely ' +
+    'invisible to enemies'),
     // (5) Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1000;
