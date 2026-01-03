@@ -86,8 +86,11 @@ type
     // Vampiric attack
     ieVampiricAttack10, ieVampiricAttack15, ieVampiricAttack20,
     ieVampiricAttack25,
-    // Gain more exp
-    ieGain20MoreExp
+    // Gain more experience
+    ieGain20MoreExp,
+    // Leader gains more move points
+    ieGains20MoreMovePoints, ieGains40MoreMovePoints, ieGains60MoreMovePoints,
+    ieGains80MoreMovePoints, ieGains100MoreMovePoints
     //
     );
 
@@ -368,16 +371,16 @@ const
     // BOOTS
     // (1) Boots of Speed
     (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 1; ItType: itBoots;
-    ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfSpeed; Price: 400;
-    Description: 'Leader gains 20% more move points'),
+    ItEffect: ieGains20MoreMovePoints; ItSlot: isBoots; ItRes: irBootsOfSpeed;
+    Price: 400; Description: 'Leader gains 20% more move points'),
     // (2) Elven Boots
     (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 2; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; Price: 500;
     Description: 'No move penalty when ' + 'walking in forests'),
     // (3) Boots Of Haste
     (Enum: iBootsOfHaste; Name: 'Boots of Haste'; Level: 3; ItType: itBoots;
-    ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfHaste; Price: 600;
-    Description: 'Leader gains 40% more move points'),
+    ItEffect: ieGains40MoreMovePoints; ItSlot: isBoots; ItRes: irBootsOfHaste;
+    Price: 600; Description: 'Leader gains 40% more move points'),
     // (4) Boots Of Darkness
     (Enum: iBootsOfDarkness; Name: 'Boots of Darkness'; Level: 4;
     ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
@@ -386,7 +389,7 @@ const
     'invisible to enemies.'),
     // (5) Boots Of Travelling
     (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 5;
-    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItType: itBoots; ItEffect: ieGains60MoreMovePoints; ItSlot: isBoots;
     ItRes: irBootsOfTravelling; Price: 800;
     Description: 'Leader gains 60% more move points'),
     // (6) Boots Of The Elements
@@ -396,7 +399,7 @@ const
     Description: 'No move penalty when sailing on water'),
     // (7) Boots Of Seven Leagues
     (Enum: iBootsOfSevenLeagues; Name: 'Boots of Seven Leagues'; Level: 7;
-    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItType: itBoots; ItEffect: ieGains80MoreMovePoints; ItSlot: isBoots;
     ItRes: irBootsOfSevenLeagues; Price: 1000;
     Description: 'Leader gains 80% more move points'),
 
@@ -630,6 +633,7 @@ begin
   TLeaderParty.LeaderChanceToParalyzeValue := 0;
   TLeaderParty.LeaderVampiricAttackValue := 0;
   TLeaderParty.PartyGainMoreExpValue := 0;
+  TLeaderParty.LeaderGainsMoreMovePointsValue := 0;
   for I := 0 to CMaxEquipmentItems - 1 do
   begin
     if FItem[I].Enum = iNone then
@@ -661,9 +665,20 @@ begin
       TLeaderParty.ModifyLeaderVampiricAttack(20);
     if FItem[I].ItEffect = ieVampiricAttack25 then
       TLeaderParty.ModifyLeaderVampiricAttack(25);
-    // Gain 20% more experience
+    // Gain more experience
     if FItem[I].ItEffect = ieGain20MoreExp then
       TLeaderParty.ModifyPartyGainMoreExp(20);
+    // Leader gains more move points
+    if FItem[I].ItEffect = ieGains20MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(20);
+    if FItem[I].ItEffect = ieGains40MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(40);
+    if FItem[I].ItEffect = ieGains60MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(60);
+    if FItem[I].ItEffect = ieGains80MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(80);
+    if FItem[I].ItEffect = ieGains100MoreMovePoints then
+      TLeaderParty.ModifyLeaderMovePoints(100);
   end;
 end;
 

@@ -121,6 +121,7 @@ type
     LeaderChanceToParalyzeValue: Byte;
     LeaderVampiricAttackValue: Byte;
     PartyGainMoreExpValue: Byte;
+    LeaderGainsMoreMovePointsValue: Byte;
   public
     constructor Create(const AX, AY: Integer; AOwner: TFactionEnum);
     destructor Destroy; override;
@@ -177,6 +178,7 @@ type
     class procedure ModifyLeaderChanceToParalyze(const AValue: Integer);
     class procedure ModifyLeaderVampiricAttack(const AValue: Integer);
     class procedure ModifyPartyGainMoreExp(const AValue: Integer);
+    class procedure ModifyLeaderMovePoints(const AValue: Integer);
   end;
 
 type
@@ -689,6 +691,7 @@ begin
   LeaderChanceToParalyzeValue := 0;
   LeaderVampiricAttackValue := 0;
   PartyGainMoreExpValue := 0;
+  LeaderGainsMoreMovePointsValue := 0;
 end;
 
 constructor TLeaderParty.Create(const AX, AY: Integer; AOwner: TFactionEnum);
@@ -814,12 +817,20 @@ begin
 end;
 
 function TLeaderParty.GetMaxMovementPoints: Integer;
+var
+  LBonusMovePoints: Integer;
 begin
   Result := TLeaderParty.GetMovementPoints(TLeaderParty.Leader.Enum);
   if Abilities.IsAbility(abPathfinding) then
     Result := Result + 5;
   if Abilities.IsAbility(abAdvancedPathfinding) then
     Result := Result + 7;
+  if LeaderGainsMoreMovePointsValue > 0 then
+  begin
+    LBonusMovePoints := (Result * LeaderGainsMoreMovePointsValue) div 10;
+    if LBonusMovePoints > 0 then
+      Result := Result + LBonusMovePoints;
+  end;
 end;
 
 class function TLeaderParty.GetMovementPoints(const CrEnum
@@ -952,6 +963,11 @@ class procedure TLeaderParty.ModifyLeaderChanceToParalyze
   (const AValue: Integer);
 begin
   LeaderChanceToParalyzeValue := LeaderChanceToParalyzeValue + AValue;
+end;
+
+class procedure TLeaderParty.ModifyLeaderMovePoints(const AValue: Integer);
+begin
+  LeaderGainsMoreMovePointsValue := AValue;
 end;
 
 class procedure TLeaderParty.ModifyLeaderRegeneration(const AValue: Integer);
