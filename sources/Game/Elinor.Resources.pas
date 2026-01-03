@@ -136,7 +136,7 @@ type
     irItemTomeOfWar,
     // Boots
     irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfDarkness,
-    irBootsOfTravelling, irBootsOfTheElements,
+    irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
     // Jew
     irItemAmuletOfBloodbind, irHagsRing);
 
@@ -746,6 +746,8 @@ const
     (FileName: 'item.boots.boots_of_travelling.png'; ResType: teItem;),
     // Boots Of The Elements
     (FileName: 'item.boots.boots_of_the_elements.png'; ResType: teItem;),
+    // Boots Of Seven Leagues
+    (FileName: 'item.boots.boots_of_seven_leagues.png'; ResType: teItem;),
 
     //
     // Amulet Of Bloodbind

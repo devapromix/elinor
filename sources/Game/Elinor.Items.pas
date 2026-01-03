@@ -124,7 +124,7 @@ type
     // BOOTS
     iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
     iBootsOfTravelling, iBootsOfTheElements,
-    // iBoots of the Cheetah, iBoots of Seven Leagues,
+    iBootsOfSevenLeagues,
 
     // TALISMANS
     iTalismanOfLife, iTalismanOfProtection,
@@ -388,6 +388,11 @@ const
     ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
     ItRes: irBootsOfTheElements; Price: 900;
     Description: 'No move penalty when sailing on water'),
+    // (7) Boots Of Seven Leagues
+    (Enum: iBootsOfSevenLeagues; Name: 'Boots of Seven Leagues'; Level: 7;
+    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItRes: irBootsOfSevenLeagues; Price: 1000;
+    Description: 'Leader gains 80% more move points'),
 
     // TALISMANS
     // (2) Talisman of Life
