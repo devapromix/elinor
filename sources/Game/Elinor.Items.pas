@@ -122,8 +122,9 @@ type
     // ARMORS
 
     // BOOTS
-    iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfTravelling,
-    // iBootsOfDarkness, iBoots of the Cheetah, iBoots of Seven Leagues,
+    iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
+    iBootsOfTravelling, iBootsOfTheElements,
+    // iBoots of the Cheetah, iBoots of Seven Leagues,
 
     // TALISMANS
     iTalismanOfLife, iTalismanOfProtection,
@@ -363,19 +364,30 @@ const
     (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 1; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfSpeed; Price: 400;
     Description: 'Leader gains 20% more move points'),
-    // (3) Elven Boots
-    (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 3; ItType: itBoots;
+    // (2) Elven Boots
+    (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 2; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; Price: 500;
     Description: 'No move penalty when ' + 'walking in forests'),
-    // (5) Boots Of Haste
-    (Enum: iBootsOfHaste; Name: 'Boots of Haste'; Level: 5; ItType: itBoots;
+    // (3) Boots Of Haste
+    (Enum: iBootsOfHaste; Name: 'Boots of Haste'; Level: 3; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfHaste; Price: 600;
     Description: 'Leader gains 40% more move points'),
-    // (7) Boots Of Travelling
-    (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 7;
+    // (4) Boots Of Darkness
+    (Enum: iBootsOfDarkness; Name: 'Boots of Darkness'; Level: 4;
     ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
-    ItRes: irBootsOfTravelling; Price: 700;
+    ItRes: irBootsOfDarkness; Price: 700;
+    Description: 'The leader who wears ' + 'these shoes becomes ' +
+    'invisible to enemies.'),
+    // (5) Boots Of Travelling
+    (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 5;
+    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItRes: irBootsOfTravelling; Price: 800;
     Description: 'Leader gains 60% more move points'),
+    // (6) Boots Of The Elements
+    (Enum: iBootsOfTheElements; Name: 'Boots of the Elements'; Level: 6;
+    ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
+    ItRes: irBootsOfTheElements; Price: 900;
+    Description: 'No move penalty when sailing on water'),
 
     // TALISMANS
     // (2) Talisman of Life
