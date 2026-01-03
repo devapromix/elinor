@@ -122,8 +122,8 @@ type
     // ARMORS
 
     // BOOTS
-    iBootsOfSpeed, iElvenBoots,
-    // iBootsOfHaste, iBootsOfTravelling,
+    iBootsOfSpeed, iElvenBoots, iBootsOfHaste,
+    // iBootsOfTravelling,
     // iBoots of the Cheetah, iBoots of Seven Leagues,
 
     // TALISMANS
@@ -360,14 +360,18 @@ const
     'to drink the life of ' + 'their enemies'),
 
     // BOOTS
-    // (2) Boots of Speed
-    (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 2; ItType: itBoots;
+    // (1) Boots of Speed
+    (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 1; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfSpeed; Price: 400;
     Description: 'Leader gains 20% more move points'),
-    // (4) Elven Boots
-    (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 4; ItType: itBoots;
+    // (3) Elven Boots
+    (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 3; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; Price: 500;
     Description: 'No move penalty when ' + 'walking in forests'),
+    // (5) Boots Of Haste
+    (Enum: iBootsOfHaste; Name: 'Boots of Haste'; Level: 5; ItType: itBoots;
+    ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfHaste; Price: 600;
+    Description: 'Leader gains 40% more move points'),
 
     // TALISMANS
     // (2) Talisman of Life

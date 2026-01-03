@@ -135,7 +135,7 @@ type
     // Tomes
     irItemTomeOfWar,
     // Boots
-    irBootsOfSpeed, irElvenBoots,
+    irBootsOfSpeed, irElvenBoots, irBootsOfHaste,
     // Jew
     irItemAmuletOfBloodbind, irHagsRing);
 
@@ -735,6 +735,8 @@ const
     (FileName: 'item.boots.boots_of_speed.png'; ResType: teItem;),
     // Elven Boots
     (FileName: 'item.boots.elven_boots.png'; ResType: teItem;),
+    // Boots Of Haste
+    (FileName: 'item.boots.boots_of_haste.png'; ResType: teItem;),
     // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Hag's Ring
