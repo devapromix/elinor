@@ -122,8 +122,8 @@ type
     // ARMORS
 
     // BOOTS
-    iBootsOfSpeed,
-    // iElven Boots, iBootsOfHaste, iBootsOfTravelling,
+    iBootsOfSpeed, iElvenBoots,
+    // iBootsOfHaste, iBootsOfTravelling,
     // iBoots of the Cheetah, iBoots of Seven Leagues,
 
     // TALISMANS
@@ -290,25 +290,25 @@ const
     // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: reItemLifePotion; Price: 250;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemLifePotion; Price: 250;
     Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
     // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemPotionOfHealing; Price: 100;
+    ItRes: irItemPotionOfHealing; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
     // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemPotionOfRestoration; Price: 200;
+    ItRes: irItemPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
     // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: reItemHealingOintment; Price: 400;
+    ItRes: irItemHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
     ' healing wounds and restoring strength.'),
 
@@ -355,7 +355,7 @@ const
     // (3) Necklace of Bloodbind
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
     ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
-    ItRes: reItemAmuletOfBloodbind; Price: 900;
+    ItRes: irItemAmuletOfBloodbind; Price: 900;
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
 
@@ -364,6 +364,10 @@ const
     (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 2; ItType: itBoots;
     ItEffect: ieNone; ItSlot: isBoots; ItRes: irBootsOfSpeed; Price: 400;
     Description: 'Leader gains 20% more move points'),
+    // (4) Elven Boots
+    (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 4; ItType: itBoots;
+    ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; Price: 500;
+    Description: 'No move penalty when ' + 'walking in forests'),
 
     // TALISMANS
     // (2) Talisman of Life
@@ -378,18 +382,18 @@ const
     // TOMES
     // (3) Tome of War
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
-    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: reItemTomeOfWar;
+    ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: irItemTomeOfWar;
     Price: 2500; Description: 'All the units in the party gain 20% ' +
     'more experience in battle'),
 
     // ORBS
     // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: reItemGoblinOrb; Price: 400;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 400;
     Description: 'Summon a Goblin'),
     // (2) Imp Orb
     (Enum: iImpOrb; Name: 'Imp Orb'; Level: 2; ItType: itOrb; ItEffect: ieNone;
-    ItSlot: isLHand; ItRes: reItemImpOrb; Price: 450;
+    ItSlot: isLHand; ItRes: irItemImpOrb; Price: 450;
     Description: 'Summon an Imp'),
     // (3) Zombie Orb
     (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 3; ItType: itOrb;

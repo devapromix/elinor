@@ -123,21 +123,21 @@ type
     // Scenario
     irItemStoneTablet,
     // Elixirs
-    reItemLifePotion, reItemPotionOfHealing, reItemPotionOfRestoration,
-    reItemHealingOintment,
+    irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
+    irItemHealingOintment,
     // Artifacts
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
-    reItemGoblinOrb, reItemImpOrb, irZombieOrb,
+    irItemGoblinOrb, irItemImpOrb, irZombieOrb,
     // Tomes
-    reItemTomeOfWar,
+    irItemTomeOfWar,
     // Boots
-    irBootsOfSpeed,
+    irBootsOfSpeed, irElvenBoots,
     // Jew
-    reItemAmuletOfBloodbind, irHagsRing);
+    irItemAmuletOfBloodbind, irHagsRing);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -733,6 +733,8 @@ const
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
     // Boots of Speed
     (FileName: 'item.boots.boots_of_speed.png'; ResType: teItem;),
+    // Elven Boots
+    (FileName: 'item.boots.elven_boots.png'; ResType: teItem;),
     // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Hag's Ring
