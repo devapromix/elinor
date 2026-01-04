@@ -693,7 +693,7 @@ const
     // Life Potion
     (FileName: 'item.potion.life.png'; ResType: teItem;),
     // Potion Of Healing
-    (FileName: 'item.potion.healing.png'; ResType: teItem;),
+    (FileName: 'item.potion.potion_of_healing.png'; ResType: teItem;),
     // Potion Of Restoration
     (FileName: 'item.potion.restoration.png'; ResType: teItem;),
     // Healing Ointment
