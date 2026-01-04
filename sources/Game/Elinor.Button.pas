@@ -30,13 +30,14 @@ type
     FTextTop: Integer;
     FSurface: array [TButtonState] of TPNGImage;
     procedure Refresh;
+    procedure SetTop(const Value: Integer);
   public
     constructor Create(ALeft, ATop: Integer; ARes: TResEnum); overload;
     constructor Create(ALeft, ATop: Integer; ACanvas: TCanvas;
       ARes: TResEnum); overload;
     destructor Destroy; override;
     procedure Render;
-    property Top: Integer read FTop;
+    property Top: Integer read FTop write SetTop;
     property Left: Integer read FLeft;
     property Sellected: Boolean read FSellected write FSellected;
     property State: TButtonState read FState write FState;
@@ -302,6 +303,12 @@ begin
   Game.Surface.Canvas.Draw(FTextLeft, FTextTop, ResImage[FText]);
   if (State = bsDown) and not MouseOver then
     State := bsNone;
+end;
+
+procedure TButton.SetTop(const Value: Integer);
+begin
+  FTop := Value;
+  FTextTop := FTop + 10;
 end;
 
 end.

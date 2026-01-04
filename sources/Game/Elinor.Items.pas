@@ -546,6 +546,7 @@ begin
   Add(iHeartOfDarkness);
   Add(iShroudOfDarkness);
   Add(iBootsOfDarkness);
+  Add(iPotionOfHealing);
 end;
 
 procedure TInventory.Clear(const I: Integer);

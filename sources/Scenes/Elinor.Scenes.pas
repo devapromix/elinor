@@ -538,9 +538,11 @@ begin
     ieInvisible:
       begin
         LCount := TLeaderParty.LeaderInvisibleValue;
+        Game.InformSL.Append('');
         Game.InformSL.Append('COVER OF DARKNESS:');
         Game.InformSL.Append('Hood of Darkness, ' + 'Shroud of Darkness, ' +
           'Heart of Darkness, ' + 'Boots of Darkness');
+        Game.InformSL.Append('');
         if LCount > 0 then
           Game.InformSL.Append('Invisibility');
         if LCount > 1 then
@@ -837,7 +839,7 @@ begin
       Result := 'Has a 10% chance to paralyze the unit';
     ieChanceToParalyze15:
       Result := 'Has a 15% chance to paralyze the unit';
-      ieInvisible:
+    ieInvisible:
       Result := 'Invisibility';
   end;
 
@@ -1284,14 +1286,14 @@ begin
     Game.Surface.Canvas.FillRect(Rect(0, 0, Game.Surface.Width,
       Game.Surface.Height));
     FScene[SceneEnum].Render;
+    Button.Top := 400;
     LShowSetItemDialog := False;
     if (IsShowInform = idtSetItemInfo) then
     begin
       LShowSetItemDialog := True;
       LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
-      LTop := 150;
-      DrawImage(LLeft - 10, LTop - 10, reBigFrameBackground);
-      DrawImage(LLeft, LTop, ResImage[reBigFrame]);
+      LTop := 70;
+      DrawImage(LLeft - 10, LTop - 10, reHugeFrameBackground);
       TextLeft := 400;
       TextTop := LTop + 40;
       if (Game.InformImage <> reNone) then
@@ -1306,6 +1308,7 @@ begin
       end;
       for I := 0 to Game.InformSL.Count - 1 do
         AddTextLine(Game.InformSL[I], I = 0);
+      Button.Top := 500;
       Button.Render;
     end;
     if not LShowSetItemDialog then
