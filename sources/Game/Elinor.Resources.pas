@@ -33,8 +33,8 @@ type
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
     reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reFrameSlotGlow,
-    reFrameSlotTarget, reSmallFrame, reBigFrame, reInfoFrame, reFrameItem,
-    reFrameItemActive, reBigFrameBackground, reHugeFrameBackground,
+    reFrameSlotTarget, reSmallFrame, reBigFrame, reHugeFrame, reInfoFrame,
+    reFrameItem, reFrameItemActive, reBigFrameBackground, reHugeFrameBackground,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -234,6 +234,8 @@ const
     (FileName: 'frame.small.png'; ResType: teGUI;),
     // Big Frame
     (FileName: 'frame.big.png'; ResType: teGUI;),
+    // Huge Frame
+    (FileName: 'frame.huge.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'frame.info.png'; ResType: teGUI;),
     // Frame Item

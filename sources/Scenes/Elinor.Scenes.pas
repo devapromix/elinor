@@ -539,12 +539,15 @@ begin
       begin
         LCount := TLeaderParty.LeaderInvisibleValue;
         Game.InformSL.Append('');
-        Game.InformSL.Append('COVER OF DARKNESS:');
+        Game.InformSL.Append('Rare Set COVER OF DARKNESS:');
         Game.InformSL.Append('Hood of Darkness, ' + 'Shroud of Darkness, ' +
           'Heart of Darkness, ' + 'Boots of Darkness');
         Game.InformSL.Append('');
         if LCount > 0 then
+        begin
+          Game.InformSL.Append('Bonuses:');
           Game.InformSL.Append('Invisibility');
+        end;
         if LCount > 1 then
           Game.InformSL.Append('Sight radius: +' + IntToStr(LCount - 1));
         if LCount > 2 then
@@ -1294,6 +1297,7 @@ begin
       LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
       LTop := 70;
       DrawImage(LLeft - 10, LTop - 10, reHugeFrameBackground);
+      DrawImage(LLeft, LTop, ResImage[reHugeFrame]);
       TextLeft := 400;
       TextTop := LTop + 40;
       if (Game.InformImage <> reNone) then
