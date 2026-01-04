@@ -532,19 +532,53 @@ end;
 
 procedure TScene.SetItemsInformDialog(const AItemEnum: TItemEnum);
 var
-  LCount: Integer;
-  LStr: string;
+  I, LCount: Integer;
+  LStr, LName: string;
 const
   CPref = '    - ';
+
+  function GetSetItem(const N: Integer): string;
+  var
+    I: Integer;
+    LDiv, LPref, LSuff, LName: string;
+  begin
+    Result := '';
+    if N < Length(CSetItems[siCoverOfDarkness].Items) - 1 then
+      LDiv := ', '
+    else
+      LDiv := '';
+    LName := TItemBase.Item(CSetItems[siCoverOfDarkness].Items[N]).Name;
+    LPref := '';
+    LSuff := '';
+    for I := 0 to CMaxEquipmentItems - 1 do
+      if (DollSlot[I] = TItemBase.Item(CSetItems[siCoverOfDarkness].Items[N])
+        .ItSlot) then
+        if TLeaderParty.Leader.Equipment.Item(I).Enum = CSetItems
+          [siCoverOfDarkness].Items[N] then
+        begin
+          LPref := '[';
+          LSuff := ']';
+        end
+        else
+        begin
+          LPref := '';
+          LSuff := '';
+        end;
+    Result := LPref + LName + LSuff + LDiv;
+  end;
+
 begin
   case TItemBase.Item(AItemEnum).ItEffect of
     ieInvisible:
       begin
         LCount := TLeaderParty.LeaderInvisibleValue;
         Game.InformSL.Append('');
-        Game.InformSL.Append('Set COVER OF DARKNESS:');
-        Game.InformSL.Append('Hood of Darkness, ' + 'Shroud of Darkness, ' +
-          'Heart of Darkness, ' + 'Boots of Darkness');
+        Game.InformSL.Append('Set ' + UpperCase(CSetItems[siCoverOfDarkness]
+          .Name) + ': ' + GetSetItem(0) + GetSetItem(1));
+        LStr := '';
+        for I := 2 to Length(CSetItems[siCoverOfDarkness].Items) - 1 do
+          LStr := LStr + GetSetItem(I);
+        Game.InformSL.Append(LStr);
         LStr := '';
         if LCount = 1 then
           LStr := ' (Equipped 1 item)'

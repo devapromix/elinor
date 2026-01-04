@@ -164,6 +164,15 @@ const
     iHealingOintment];
 
 type
+  TSetItemsEnum = (siCoverOfDarkness);
+
+type
+  TSetItems = record
+    Name: string;
+    Items: array of TItemEnum;
+  end;
+
+type
   TItem = record
     Enum: TItemEnum;
     Name: string;
@@ -226,6 +235,14 @@ type
     class function Item(const ItemIndex: Integer): TItem; overload;
     class function Count: Integer;
   end;
+
+const
+  CSetItems: array [TSetItemsEnum] of TSetItems = (
+    // Cover Of Darkness
+    (Name: 'Cover Of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
+    iShroudOfDarkness, iBootsOfDarkness])
+    //
+    );
 
 implementation
 
