@@ -142,7 +142,7 @@ type
     // ARMORS
     irShroudOfDarkness,
     // AMULETS
-    irItemAmuletOfBloodbind,
+    irItemAmuletOfBloodbind, irHeartOfDarkness,
     // RINGS
     irHagsRing);
 
@@ -695,7 +695,6 @@ const
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
 
-
     // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Bronze Ring
@@ -766,8 +765,10 @@ const
     (FileName: 'item.armor.shroud_of_darkness.png'; ResType: teItem;),
 
     // AMULETS
-    // Amulet Of Bloodbind
+    // Amulet of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
+    // Heart of Darkness
+    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;),
 
     // RINGS
     // Hag's Ring

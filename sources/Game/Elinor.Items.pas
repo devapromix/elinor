@@ -128,7 +128,7 @@ type
     // iRoyalScepter
 
     // AMULETS
-    iNecklaceOfBloodbind,
+    iNecklaceOfBloodbind, iHeartOfDarkness,
 
     // ARMORS
     iShroudOfDarkness,
@@ -371,6 +371,11 @@ const
     ItRes: irItemAmuletOfBloodbind; Price: 900;
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
+    // (4) Heart of Darkness
+    (Enum: iHeartOfDarkness; Name: 'Heart of Darkness'; Level: 4;
+    ItType: itAmulet; ItEffect: ieInvisible; ItSlot: isAmulet;
+    ItRes: irHeartOfDarkness; Price: 1200;
+    Description: 'A beating heart of endless darkness'),
 
     // ARMORS
     // (4) Shroud of Darkness
