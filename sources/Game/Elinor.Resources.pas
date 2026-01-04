@@ -139,8 +139,12 @@ type
     irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
     // HELMS
     irHoodOfDarkness,
-    // Jew
-    irItemAmuletOfBloodbind, irHagsRing);
+    // ARMORS
+    irShroudOfDarkness,
+    // AMULETS
+    irItemAmuletOfBloodbind,
+    // RINGS
+    irHagsRing);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -690,6 +694,8 @@ const
     (FileName: 'item.potion.restoration.png'; ResType: teItem;),
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
+
+
     // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Bronze Ring
@@ -755,9 +761,15 @@ const
     // Hood Of Darkness
     (FileName: 'item.helm.hood_of_darkness.png'; ResType: teItem;),
 
-    //
+    // ARMORS
+    // Shroud of Darkness
+    (FileName: 'item.armor.shroud_of_darkness.png'; ResType: teItem;),
+
+    // AMULETS
     // Amulet Of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
+
+    // RINGS
     // Hag's Ring
     (FileName: 'item.ring.hags_ring.png'; ResType: teItem;)
     //

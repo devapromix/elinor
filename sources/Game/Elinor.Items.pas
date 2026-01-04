@@ -131,6 +131,7 @@ type
     iNecklaceOfBloodbind,
 
     // ARMORS
+    iShroudOfDarkness,
 
     // BOOTS
     iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
@@ -371,6 +372,13 @@ const
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
 
+    // ARMORS
+    // (4) Shroud of Darkness
+    (Enum: iShroudOfDarkness; Name: 'Shroud of Darkness'; Level: 4;
+    ItType: itArmor; ItEffect: ieInvisible; ItSlot: isArmor;
+    ItRes: irShroudOfDarkness; Price: 800;
+    Description: 'A living shadow wrapped' + ' around its bearer'),
+
     // BOOTS
     // (1) Boots of Speed
     (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 1; ItType: itBoots;
@@ -495,7 +503,7 @@ const
     // (8) Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
     ItEffect: ieRegen25; ItSlot: isHelm; ItRes: irNone; Price: 2500;
-    Description: 'Gradually restores your ' + 'health during every day.'));
+    Description: 'Gradually restores your ' + 'health during every day'));
 
   { TInventory }
 
