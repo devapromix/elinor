@@ -489,7 +489,7 @@ const
 
     // HELMS
     // (4) Hood Of Darkness
-    (Enum: iTiaraOfPurity; Name: 'Hood Of Darkness'; Level: 4; ItType: itHelm;
+    (Enum: iHoodOfDarkness; Name: 'Hood Of Darkness'; Level: 4; ItType: itHelm;
     ItEffect: ieInvisible; ItSlot: isHelm; ItRes: irHoodOfDarkness; Price: 800;
     Description: 'This headgear renders' + ' the leader entirely ' +
     'invisible to enemies'),
@@ -542,6 +542,10 @@ var
 begin
   for I := 0 to CMaxInventoryItems - 1 do
     Clear(I);
+  Add(iHoodOfDarkness);
+  Add(iHeartOfDarkness);
+  Add(iShroudOfDarkness);
+  Add(iBootsOfDarkness);
 end;
 
 procedure TInventory.Clear(const I: Integer);

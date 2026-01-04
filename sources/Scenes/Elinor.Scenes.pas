@@ -182,7 +182,7 @@ type
   end;
 
 type
-  TInfoDialogType = (idtNone, idtMessage, idtItemInfo);
+  TInfoDialogType = (idtNone, idtMessage, idtItemInfo, idtSetItemInfo);
 
 type
   TScenes = class(TScene)
@@ -524,6 +524,10 @@ begin
     .Description, 70));
   SetItemsInformDialog(AItemEnum);
   Game.IsShowInform := idtItemInfo;
+  case TItemBase.Item(AItemEnum).ItEffect of
+    ieInvisible:
+      Game.IsShowInform := idtSetItemInfo;
+  end;
 end;
 
 procedure TScene.SetItemsInformDialog(const AItemEnum: TItemEnum);
@@ -534,12 +538,11 @@ begin
     ieInvisible:
       begin
         LCount := TLeaderParty.LeaderInvisibleValue;
-        Game.InformSL.Append('');
-        Game.InformSL.Append('(' + LCount.ToString + ') COVER OF DARKNESS: ' +
-          'Hood of Darkness, ' + 'Shroud of Darkness, ' + 'Heart of Darkness, '
-          + 'Boots of Darkness');
-        Game.InformSL.Append('');
-        Game.InformSL.Append('Invisibility');
+        Game.InformSL.Append('COVER OF DARKNESS:');
+        Game.InformSL.Append('Hood of Darkness, ' + 'Shroud of Darkness, ' +
+          'Heart of Darkness, ' + 'Boots of Darkness');
+        if LCount > 0 then
+          Game.InformSL.Append('Invisibility');
         if LCount > 1 then
           Game.InformSL.Append('Sight radius: +' + IntToStr(LCount - 1));
         if LCount > 2 then
@@ -834,6 +837,8 @@ begin
       Result := 'Has a 10% chance to paralyze the unit';
     ieChanceToParalyze15:
       Result := 'Has a 15% chance to paralyze the unit';
+      ieInvisible:
+      Result := 'Invisibility';
   end;
 
 end;
@@ -1269,6 +1274,7 @@ procedure TScenes.Render;
 var
   LButtonEnum: TButtonEnum;
   LLeft, LTop: Integer;
+  LShowSetItemDialog: Boolean;
   I: Integer;
 begin
   inherited;
@@ -1278,37 +1284,62 @@ begin
     Game.Surface.Canvas.FillRect(Rect(0, 0, Game.Surface.Width,
       Game.Surface.Height));
     FScene[SceneEnum].Render;
-    if (IsShowInform <> idtNone) or IsShowConfirm then
+    LShowSetItemDialog := False;
+    if (IsShowInform = idtSetItemInfo) then
     begin
+      LShowSetItemDialog := True;
       LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
       LTop := 150;
       DrawImage(LLeft - 10, LTop - 10, reBigFrameBackground);
       DrawImage(LLeft, LTop, ResImage[reBigFrame]);
-      if (IsShowInform = idtMessage) or IsShowConfirm then
-        DrawText(LTop + 100, InformMsg)
-      else
+      TextLeft := 400;
+      TextTop := LTop + 40;
+      if (Game.InformImage <> reNone) then
       begin
-        TextLeft := 400;
-        TextTop := LTop + 40;
-        if (Game.InformImage <> reNone) then
-        begin
-          DrawImage(850, LTop + 25, reSmallFrame);
-          DrawImage(880, LTop + 50, Game.InformImage);
-        end;
-        if (Game.InformItemImage <> irNone) then
-        begin
-          DrawImage(850, LTop + 25, reSmallFrame);
-          DrawImage(880, LTop + 50, Game.InformItemImage);
-        end;
-        for I := 0 to Game.InformSL.Count - 1 do
-          AddTextLine(Game.InformSL[I], I = 0);
+        DrawImage(850, LTop + 25, reSmallFrame);
+        DrawImage(880, LTop + 50, Game.InformImage);
       end;
-      if (IsShowInform <> idtNone) then
-        Button.Render;
-      if IsShowConfirm then
-        for LButtonEnum := Low(Buttons) to High(Buttons) do
-          Buttons[LButtonEnum].Render;
+      if (Game.InformItemImage <> irNone) then
+      begin
+        DrawImage(850, LTop + 25, reSmallFrame);
+        DrawImage(880, LTop + 50, Game.InformItemImage);
+      end;
+      for I := 0 to Game.InformSL.Count - 1 do
+        AddTextLine(Game.InformSL[I], I = 0);
+      Button.Render;
     end;
+    if not LShowSetItemDialog then
+      if (IsShowInform <> idtNone) or IsShowConfirm then
+      begin
+        LLeft := ScrWidth - (ResImage[reBigFrame].Width div 2);
+        LTop := 150;
+        DrawImage(LLeft - 10, LTop - 10, reBigFrameBackground);
+        DrawImage(LLeft, LTop, ResImage[reBigFrame]);
+        if (IsShowInform = idtMessage) or IsShowConfirm then
+          DrawText(LTop + 100, InformMsg)
+        else
+        begin
+          TextLeft := 400;
+          TextTop := LTop + 40;
+          if (Game.InformImage <> reNone) then
+          begin
+            DrawImage(850, LTop + 25, reSmallFrame);
+            DrawImage(880, LTop + 50, Game.InformImage);
+          end;
+          if (Game.InformItemImage <> irNone) then
+          begin
+            DrawImage(850, LTop + 25, reSmallFrame);
+            DrawImage(880, LTop + 50, Game.InformItemImage);
+          end;
+          for I := 0 to Game.InformSL.Count - 1 do
+            AddTextLine(Game.InformSL[I], I = 0);
+        end;
+        if (IsShowInform <> idtNone) then
+          Button.Render;
+        if IsShowConfirm then
+          for LButtonEnum := Low(Buttons) to High(Buttons) do
+            Buttons[LButtonEnum].Render;
+      end;
     MainForm.Canvas.Draw(0, 0, Game.Surface);
   end;
 end;
