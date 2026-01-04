@@ -778,7 +778,7 @@ var
 
 begin
   LItemEnum := Inventory.ItemEnum(AItemIndex);
-  if (LItemEnum = iNone) or not(LItemEnum in QuaffItems) then
+  if (LItemEnum = iNone) or not(LItemEnum in CQuaffItems) then
     Exit;
 
   case LItemEnum of

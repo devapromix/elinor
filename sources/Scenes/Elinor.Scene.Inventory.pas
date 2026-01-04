@@ -300,7 +300,7 @@ begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
     if LItemEnum = iNone then
       Exit;
-    if LItemEnum in QuaffItems then
+    if LItemEnum in CQuaffItems then
       ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)

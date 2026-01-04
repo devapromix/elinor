@@ -160,8 +160,10 @@ type
     iImperialCrown);
 
 const
-  QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
+  CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
+  CTestItems = [iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
+    iBootsOfDarkness, iPotionOfHealing];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -192,6 +194,7 @@ type
   TInventory = class(TObject)
   private
     FItem: array [0 .. CMaxInventoryItems - 1] of TItem;
+    procedure AddTestItems;
   public
     constructor Create;
     procedure Clear; overload;
@@ -559,11 +562,7 @@ var
 begin
   for I := 0 to CMaxInventoryItems - 1 do
     Clear(I);
-  Add(iHoodOfDarkness);
-  Add(iHeartOfDarkness);
-  Add(iShroudOfDarkness);
-  Add(iBootsOfDarkness);
-  Add(iPotionOfHealing);
+  AddTestItems;
 end;
 
 procedure TInventory.Clear(const I: Integer);
@@ -602,6 +601,14 @@ begin
     Result := Format(' %s (%s)', [FItem[I].Name, ItemTypeName[FItem[I].ItType]])
   else
     Result := '';
+end;
+
+procedure TInventory.AddTestItems;
+var
+  LItem: TItemEnum;
+begin
+  for LItem in CTestItems do
+    Add(LItem);
 end;
 
 { TItemBase }
