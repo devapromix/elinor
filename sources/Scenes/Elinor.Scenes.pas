@@ -103,6 +103,7 @@ type
     function GetItemDescription(const AItemEnum: TItemEnum): string;
     function AddName(const ACreature: TCreature): string;
     function GetClassName(const ACreature: TCreature): string;
+    procedure SetItemsInformDialog(const AItemEnum: TItemEnum);
   public
     constructor Create;
     destructor Destroy; override;
@@ -521,7 +522,32 @@ begin
   Game.InformSL.Append(GetItemDescription(AItemEnum));
   Game.InformSL.Append(TruncateString(TItemBase.Item(AItemEnum)
     .Description, 70));
+  SetItemsInformDialog(AItemEnum);
   Game.IsShowInform := idtItemInfo;
+end;
+
+procedure TScene.SetItemsInformDialog(const AItemEnum: TItemEnum);
+var
+  LCount: Integer;
+begin
+  case TItemBase.Item(AItemEnum).ItEffect of
+    ieInvisible:
+      begin
+        LCount := TLeaderParty.LeaderInvisibleValue;
+        Game.InformSL.Append('');
+        Game.InformSL.Append('(' + LCount.ToString + ') COVER OF DARKNESS: ' +
+          'Hood of Darkness, ' + 'Shroud of Darkness, ' + 'Heart of Darkness, '
+          + 'Boots of Darkness');
+        Game.InformSL.Append('');
+        Game.InformSL.Append('Invisibility');
+        if LCount > 1 then
+          Game.InformSL.Append('Sight radius: +' + IntToStr(LCount - 1));
+        if LCount > 2 then
+          Game.InformSL.Append('Regeneration: +' + IntToStr((LCount - 2) * 10));
+        if LCount > 3 then
+          Game.InformSL.Append('Spell casting range: +1');
+      end;
+  end;
 end;
 
 procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
@@ -727,7 +753,7 @@ begin
   with ACreature do
   begin
     if Enum in MageUnits then
-       Result := 'Mage ';
+      Result := 'Mage ';
     if Enum in AllLeaders then
       Result := Name[0] + ' ';
     if Enum in CapitalGuardians then

@@ -704,7 +704,6 @@ begin
     // Invisible
     if FItem[I].ItEffect = ieInvisible then
       TLeaderParty.ModifyLeaderInvisible(1);
-
   end;
 end;
 
