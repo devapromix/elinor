@@ -128,9 +128,10 @@ type
     // iRoyalScepter
 
     // AMULETS
-    iNecklaceOfBloodbind,
+    iNecklaceOfBloodbind, iHeartOfDarkness,
 
     // ARMORS
+    iShroudOfDarkness,
 
     // BOOTS
     iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
@@ -155,11 +156,21 @@ type
     iRingOfTheAges, iRingOfHag, iThanatosRing,
 
     // HELMS
-    iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem, iImperialCrown);
+    iHoodOfDarkness, iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem,
+    iImperialCrown);
 
 const
   QuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
+
+type
+  TSetItemsEnum = (siCoverOfDarkness);
+
+type
+  TSetItems = record
+    Name: string;
+    Items: array of TItemEnum;
+  end;
 
 type
   TItem = record
@@ -224,6 +235,14 @@ type
     class function Item(const ItemIndex: Integer): TItem; overload;
     class function Count: Integer;
   end;
+
+const
+  CSetItems: array [TSetItemsEnum] of TSetItems = (
+    // Cover Of Darkness
+    (Name: 'Cover Of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
+    iShroudOfDarkness, iBootsOfDarkness])
+    //
+    );
 
 implementation
 
@@ -369,6 +388,18 @@ const
     ItRes: irItemAmuletOfBloodbind; Price: 900;
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
+    // (4) Heart of Darkness
+    (Enum: iHeartOfDarkness; Name: 'Heart of Darkness'; Level: 4;
+    ItType: itAmulet; ItEffect: ieInvisible; ItSlot: isAmulet;
+    ItRes: irHeartOfDarkness; Price: 1200;
+    Description: 'A beating heart of endless darkness'),
+
+    // ARMORS
+    // (4) Shroud of Darkness
+    (Enum: iShroudOfDarkness; Name: 'Shroud of Darkness'; Level: 4;
+    ItType: itArmor; ItEffect: ieInvisible; ItSlot: isArmor;
+    ItRes: irShroudOfDarkness; Price: 800;
+    Description: 'A living shadow wrapped' + ' around its bearer'),
 
     // BOOTS
     // (1) Boots of Speed
@@ -388,7 +419,7 @@ const
     ItType: itBoots; ItEffect: ieInvisible; ItSlot: isBoots;
     ItRes: irBootsOfDarkness; Price: 700;
     Description: 'The leader who wears ' + 'these shoes becomes ' +
-    'invisible to enemies.'),
+    'invisible to enemies'),
     // (5) Boots Of Travelling
     (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 5;
     ItType: itBoots; ItEffect: ieGains60MoreMovePoints; ItSlot: isBoots;
@@ -474,6 +505,11 @@ const
     Description: ''),
 
     // HELMS
+    // (4) Hood Of Darkness
+    (Enum: iHoodOfDarkness; Name: 'Hood Of Darkness'; Level: 4; ItType: itHelm;
+    ItEffect: ieInvisible; ItSlot: isHelm; ItRes: irHoodOfDarkness; Price: 800;
+    Description: 'This headgear renders' + ' the leader entirely ' +
+    'invisible to enemies'),
     // (5) Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1000;
@@ -489,7 +525,7 @@ const
     // (8) Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
     ItEffect: ieRegen25; ItSlot: isHelm; ItRes: irNone; Price: 2500;
-    Description: 'Gradually restores your ' + 'health during every day.'));
+    Description: 'Gradually restores your ' + 'health during every day'));
 
   { TInventory }
 
@@ -523,6 +559,11 @@ var
 begin
   for I := 0 to CMaxInventoryItems - 1 do
     Clear(I);
+  Add(iHoodOfDarkness);
+  Add(iHeartOfDarkness);
+  Add(iShroudOfDarkness);
+  Add(iBootsOfDarkness);
+  Add(iPotionOfHealing);
 end;
 
 procedure TInventory.Clear(const I: Integer);
@@ -685,7 +726,6 @@ begin
     // Invisible
     if FItem[I].ItEffect = ieInvisible then
       TLeaderParty.ModifyLeaderInvisible(1);
-
   end;
 end;
 

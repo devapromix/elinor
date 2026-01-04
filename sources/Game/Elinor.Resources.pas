@@ -33,8 +33,8 @@ type
     reBGCharacter, reBGEnemy, reBGParalyze, reDead,
     // Frames
     reFrameSlot, reFrameSlotActive, reFrameSlotPassive, reFrameSlotGlow,
-    reFrameSlotTarget, reSmallFrame, reBigFrame, reInfoFrame, reFrameItem,
-    reFrameItemActive, reBigFrameBackground,
+    reFrameSlotTarget, reSmallFrame, reBigFrame, reHugeFrame, reInfoFrame,
+    reFrameItem, reFrameItemActive, reBigFrameBackground, reHugeFrameBackground,
     //
     reTime, reNeutralTerrain, reTheEmpireTerrain, reUndeadHordesTerrain,
     reLegionsOfTheDamnedTerrain, reUnk, reEnemy, reCursorSpecial, reCursor,
@@ -137,8 +137,14 @@ type
     // Boots
     irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfDarkness,
     irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
-    // Jew
-    irItemAmuletOfBloodbind, irHagsRing);
+    // HELMS
+    irHoodOfDarkness,
+    // ARMORS
+    irShroudOfDarkness,
+    // AMULETS
+    irItemAmuletOfBloodbind, irHeartOfDarkness,
+    // RINGS
+    irHagsRing);
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -228,6 +234,8 @@ const
     (FileName: 'frame.small.png'; ResType: teGUI;),
     // Big Frame
     (FileName: 'frame.big.png'; ResType: teGUI;),
+    // Huge Frame
+    (FileName: 'frame.huge.png'; ResType: teGUI;),
     // Info Frame
     (FileName: 'frame.info.png'; ResType: teGUI;),
     // Frame Item
@@ -236,6 +244,8 @@ const
     (FileName: 'frame.item.active.png'; ResType: teGUI;),
     // Frame Big Background,
     (FileName: 'frame.background.png'; ResType: teGUI;),
+    // Frame Huge Background,
+    (FileName: 'frame.huge.background.png'; ResType: teGUI;),
 
     // Time
     (FileName: 'time.png'; ResType: teGUI;),
@@ -688,6 +698,7 @@ const
     (FileName: 'item.potion.restoration.png'; ResType: teItem;),
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
+
     // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Bronze Ring
@@ -749,9 +760,21 @@ const
     // Boots Of Seven Leagues
     (FileName: 'item.boots.boots_of_seven_leagues.png'; ResType: teItem;),
 
-    //
-    // Amulet Of Bloodbind
+    // HELMS
+    // Hood Of Darkness
+    (FileName: 'item.helm.hood_of_darkness.png'; ResType: teItem;),
+
+    // ARMORS
+    // Shroud of Darkness
+    (FileName: 'item.armor.shroud_of_darkness.png'; ResType: teItem;),
+
+    // AMULETS
+    // Amulet of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
+    // Heart of Darkness
+    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;),
+
+    // RINGS
     // Hag's Ring
     (FileName: 'item.ring.hags_ring.png'; ResType: teItem;)
     //

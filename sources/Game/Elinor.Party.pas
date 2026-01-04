@@ -110,6 +110,7 @@ type
     function GetLeadership: Integer;
   private
     class var IsUnitSelected: Boolean;
+    class function GetLeaderRegenerationValue: Integer; static;
   public
   class var
     LeaderPartyIndex: Byte;
@@ -858,7 +859,8 @@ begin
   Result := TLeaderParty.GetSpellCastingRange(TLeaderParty.Leader.Enum);
   if Abilities.IsAbility(abDoragorPower) then
     Result := Result + 1;
-
+  if Self.LeaderInvisibleValue > 3 then
+    Result := Result + 1;
 end;
 
 class function TLeaderParty.GetSpellsPerDay(const CrEnum
@@ -935,6 +937,8 @@ begin
     Result := Result + 1;
   if Self.Abilities.IsAbility(abFarSight) then
     Result := Result + 1;
+  if Self.LeaderInvisibleValue > 1 then
+    Result := Result + (Self.LeaderInvisibleValue - 1);
 end;
 
 function TLeaderParty.InSightRadius(const AX, AY: Integer): Boolean;
@@ -959,8 +963,15 @@ var
 begin
   LPosition := Leader.GetPosition;
   LHitPoints := Leader.Creature[LPosition].HitPoints.GetMaxValue;
-  Heal(LPosition, Percent(LHitPoints, EnsureRange(LeaderRegenerationValue,
+  Heal(LPosition, Percent(LHitPoints, EnsureRange(GetLeaderRegenerationValue,
     0, 100)));
+end;
+
+class function TLeaderParty.GetLeaderRegenerationValue: Integer;
+begin
+  Result := LeaderRegenerationValue;
+  if LeaderInvisibleValue > 2 then
+    Result := Result + ((LeaderInvisibleValue - 2) * 10);
 end;
 
 class procedure TLeaderParty.ModifyLeaderChanceToParalyze
