@@ -533,27 +533,37 @@ end;
 procedure TScene.SetItemsInformDialog(const AItemEnum: TItemEnum);
 var
   LCount: Integer;
+  LStr: string;
+const
+  CPref = '    - ';
 begin
   case TItemBase.Item(AItemEnum).ItEffect of
     ieInvisible:
       begin
         LCount := TLeaderParty.LeaderInvisibleValue;
         Game.InformSL.Append('');
-        Game.InformSL.Append('Rare Set COVER OF DARKNESS:');
+        Game.InformSL.Append('Set COVER OF DARKNESS:');
         Game.InformSL.Append('Hood of Darkness, ' + 'Shroud of Darkness, ' +
           'Heart of Darkness, ' + 'Boots of Darkness');
+        LStr := '';
+        if LCount = 1 then
+          LStr := ' (Equipped 1 item)'
+        else
+          LStr := ' (Equipped ' + IntToStr(LCount) + ' items)';
         Game.InformSL.Append('');
         if LCount > 0 then
         begin
-          Game.InformSL.Append('Bonuses:');
-          Game.InformSL.Append('Invisibility');
+          Game.InformSL.Append('Set bonus' + LStr + ':');
+          Game.InformSL.Append(CPref + 'Stealth');
         end;
         if LCount > 1 then
-          Game.InformSL.Append('Sight radius: +' + IntToStr(LCount - 1));
+          Game.InformSL.Append(CPref + 'Sight radius: +' +
+            IntToStr(LCount - 1));
         if LCount > 2 then
-          Game.InformSL.Append('Regeneration: +' + IntToStr((LCount - 2) * 10));
+          Game.InformSL.Append(CPref + 'Regeneration: +' +
+            IntToStr((LCount - 2) * 10));
         if LCount > 3 then
-          Game.InformSL.Append('Spell casting range: +1');
+          Game.InformSL.Append(CPref + 'Spell casting range: +1');
       end;
   end;
 end;
