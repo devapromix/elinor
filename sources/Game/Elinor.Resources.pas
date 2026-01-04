@@ -691,11 +691,11 @@ const
     // Stone Tablet
     (FileName: 'item.scenario.stone_tablet.png'; ResType: teItem;),
     // Life Potion
-    (FileName: 'item.potion.life.png'; ResType: teItem;),
+    (FileName: 'item.potion.life_potion.png'; ResType: teItem;),
     // Potion Of Healing
     (FileName: 'item.potion.potion_of_healing.png'; ResType: teItem;),
     // Potion Of Restoration
-    (FileName: 'item.potion.restoration.png'; ResType: teItem;),
+    (FileName: 'item.potion.potion_of_restoration.png'; ResType: teItem;),
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
 
