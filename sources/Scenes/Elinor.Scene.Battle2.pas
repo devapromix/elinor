@@ -1160,11 +1160,13 @@ begin
           iTalismanOfRestoration:
             begin
               Game.MediaPlayer.PlaySound(mmHeal);
-              LeaderParty.Heal(ActivePartyPosition, 30);
+              LeaderParty.Heal(ActivePartyPosition, 100);
+              NextTurn;
+              Exit;
             end;
         end;
-        //TLeaderParty.Leader.Equipment.Clear(6);
-        NextTurn;
+        // TLeaderParty.Leader.Equipment.Clear(6);
+
       end;
     end;
   end;

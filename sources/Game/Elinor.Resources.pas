@@ -131,7 +131,7 @@ type
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
-    irItemGoblinOrb, irItemImpOrb, irZombieOrb,
+    irOrbOfHealing, irOrbOfRestoration, irGoblinOrb, irImpOrb, irZombieOrb,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -737,6 +737,10 @@ const
     (FileName: 'item.artifact.horn_of_incubus.png'; ResType: teItem;),
     // Goblin Orb
     (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
+    // Orb Of Healing
+    (FileName: 'item.orb.orb_of_healing.png'; ResType: teItem;),
+    // Orb Of Restoration
+    (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
     // Zombie Orb

@@ -50,6 +50,7 @@ of their gods.
 * Esc/Enter - Exit (if win/lose)
 * WADX, Arrows, Numeric keypad - Select enemy character
 * Space, LMB on character - Attack enemy character
+* U - Use item (quaff potion, use talisman or orb)
 	
 ### 7. In leader's scene:
 * Esc/Enter - Close scene

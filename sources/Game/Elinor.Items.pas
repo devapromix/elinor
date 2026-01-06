@@ -138,7 +138,7 @@ type
     iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
-    iTalismanOfRestoration, { iTalismanOfLife, iTalismanOfProtection, }
+    iTalismanOfRestoration, iTalismanOfLife, iTalismanOfProtection,
 
     // BANNERS
 
@@ -146,10 +146,8 @@ type
     iTomeOfWar,
 
     // ORBS
-    iOrbOfRestoration, iGoblinOrb, iImpOrb, iZombieOrb,
-    // iVampireOrb,
-    // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
-    // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
+    iGoblinOrb, iOrbOfHealing, iImpOrb, iOrbOfRestoration, iZombieOrb,
+    iOrbOfLife, iLizardmanOrb,
 
     // RINGS
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
@@ -446,15 +444,15 @@ const
     // (1) Talisman of Restoration
     (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 450; Description: 'Heals the leader for 30 hp'),
-    { // (2) Talisman of Life
-      (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
-      ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-      Price: 550; Description: ''),
-      // (3) Talisman of Protection
-      (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
-      ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-      Price: 650; Description: ''), }
+    Price: 450; Description: 'Heals the leader for 100 hp'),
+    // (2) Talisman of Life
+    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 550; Description: ''),
+    // (3) Talisman of Protection
+    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 650; Description: ''),
 
     // TOMES
     // (3) Tome of War
@@ -464,22 +462,33 @@ const
     'more experience in battle'),
 
     // ORBS
-    // (1) Orb Of Restoration
-    (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 200;
-    Description: 'Heals units 30 hp'),
     // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 400;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irGoblinOrb; Price: 200;
     Description: 'Summon a Goblin'),
-    // (2) Imp Orb
-    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 2; ItType: itOrb; ItEffect: ieNone;
-    ItSlot: isLHand; ItRes: irItemImpOrb; Price: 450;
-    Description: 'Summon an Imp'),
-    // (3) Zombie Orb
-    (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 3; ItType: itOrb;
+    // (2) Orb Of Healing
+    (Enum: iOrbOfHealing; Name: 'Orb Of Healing'; Level: 2; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfHealing; Price: 250;
+    Description: 'Heals units 50 hp'),
+    // (3) Imp Orb
+    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 3; ItType: itOrb; ItEffect: ieNone;
+    ItSlot: isLHand; ItRes: irImpOrb; Price: 350; Description: 'Summon an Imp'),
+    // (4) Orb Of Restoration
+    (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 4;
+    ItType: itOrb; ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfRestoration;
+    Price: 500; Description: 'Heals units 100 hp'),
+    // (5) Zombie Orb
+    (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 5; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irZombieOrb; Price: 600;
     Description: 'Summon a Zombie'),
+    // (6) Orb Of Life
+    (Enum: iOrbOfLife; Name: 'Orb of Life'; Level: 6; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfLife; Price: 750;
+    Description: 'Revives dead units'),
+    // (7) Lizardman Orb
+    (Enum: iLizardmanOrb; Name: 'Lizardman Orb'; Level: 7; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 900;
+    Description: 'Summon a Lizardman'),
 
     // RINGS
     // (1) Stone Ring
