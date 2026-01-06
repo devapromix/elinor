@@ -138,7 +138,7 @@ type
     iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
-    iTalismanOfLife, iTalismanOfProtection,
+    iTalismanOfRestoration, {iTalismanOfLife, iTalismanOfProtection,}
 
     // BANNERS
 
@@ -162,8 +162,10 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [{iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
-    iBootsOfDarkness,} iPotionOfHealing, iGoblinOrb, iTalismanOfLife];
+  CUseItems = [iTalismanOfRestoration]; // + CQuaffItems;
+  CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
+    iBootsOfDarkness, } iLifePotion, iPotionOfHealing, iGoblinOrb,
+    iTalismanOfLife];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -441,14 +443,18 @@ const
     Description: 'Leader gains 80% more move points'),
 
     // TALISMANS
-    // (2) Talisman of Life
+    // (1) Talisman of Restoration
+    (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 450; Description: 'Heals the leader for 30 hp'),
+    {// (2) Talisman of Life
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 350; Description: ''),
-    // (4) Talisman of Protection
-    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 4;
+    Price: 550; Description: ''),
+    // (3) Talisman of Protection
+    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 450; Description: ''),
+    Price: 650; Description: ''),}
 
     // TOMES
     // (3) Tome of War
@@ -678,7 +684,7 @@ end;
 
 function TEquipment.LHandSlotItem: TItem;
 begin
-  Result :=  FItem[6];
+  Result := FItem[6];
 end;
 
 procedure TEquipment.Update;

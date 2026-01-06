@@ -26,6 +26,7 @@ type
     IsNewAbility: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
+    FIsFinishBattle: Boolean;
     FEnabled: Boolean;
     FIsShowBattleLog: Boolean;
     DuelLeaderPosition: TPosition;
@@ -317,6 +318,7 @@ begin
   try
     FBattle.BattleLog.Clear;
     Enabled := True;
+    FIsFinishBattle := False;
     I := PartyList.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
     if IsDuel then
     begin
@@ -365,11 +367,13 @@ begin
         DuelLeaderPosition);
     if EnemyParty.IsClear then
     begin
+      FIsFinishBattle := True;
       FBattle.BattleLog.Clear;
       Victory;
     end;
     if LeaderParty.IsClear then
     begin
+      FIsFinishBattle := True;
       FBattle.BattleLog.Clear;
       Defeat;
     end;
@@ -790,8 +794,8 @@ begin
   inherited;
   if not Enabled then
     Exit;
-  // if (X > 10) and (X < 100) and (Y > 90) and
-  // (Y < 190) then UseLHandItem;   ...
+  if LHandSlot.MouseOver(X, Y) then
+    UseLHandItem;
   if (Button <> mbLeft) then
     Exit;
   if CloseButton.MouseDown then
@@ -1121,8 +1125,49 @@ begin
 end;
 
 procedure TSceneBattle2.UseLHandItem;
+var
+  LLeaderPosition: Integer;
+  LItem: TItem;
 begin
-
+  if FIsFinishBattle then
+    Exit;
+  with TLeaderParty.Leader.Equipment.LHandSlotItem do
+  begin
+    if (Enum = iNone) then
+    begin
+      InformDialog(CLeftHandItemRequired);
+      Exit;
+    end;
+    if (ActivePartyPosition >= 0) and (ActivePartyPosition <= 5) then
+    begin
+      LLeaderPosition := TLeaderParty.GetPosition;
+      if LLeaderPosition <> ActivePartyPosition then
+      begin
+        InformDialog(COnlyLeaderCanUseItem);
+        Exit;
+      end;
+      if not LeaderParty.Creature[LLeaderPosition].Alive then
+      begin
+        InformDialog(CNeedResurrection);
+        Exit;
+      end;
+      if Enum in CUseItems then
+      begin
+        FBattle.BattleLog.Log.Add(Format(CYouUsedTheItem,
+          [TItemBase.Item(Enum).Name]));
+        LItem := TLeaderParty.Leader.Equipment.Item(6);
+        case LItem.Enum of
+          iTalismanOfRestoration:
+            begin
+              Game.MediaPlayer.PlaySound(mmHeal);
+              LeaderParty.Heal(ActivePartyPosition, 30);
+            end;
+        end;
+        TLeaderParty.Leader.Equipment.Clear(6);
+        NextTurn;
+      end;
+    end;
+  end;
 end;
 
 end.

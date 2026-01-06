@@ -69,10 +69,13 @@ const
   CRevivalGoldNeededFormat = 'Need %d gold for revival!';
   CRevivalConfirmFormat = 'Revive for %d gold?';
   COnlyLeaderCanEquipItem = 'Only the Leader can equip this item!';
+  COnlyLeaderCanUseItem = 'Only the Leader can use this item!';
   CNotEnoughGold = 'Not enough gold!';
   CAddSpellToSpellbook = 'The spell has been added to the spellbook!';
   CNotEnoughManaToLearn = 'Not enough mana to learn this spell!';
   CNotEnoughManaToCast = 'Not enough mana to cast this spell!';
+  CLeftHandItemRequired = 'An item must be equipped in the left hand!';
+  CYouUsedTheItem = 'You used the %s!';
 
 implementation
 

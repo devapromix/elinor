@@ -102,6 +102,7 @@ type
     constructor Create(const ALeft, ATop: Integer);
     property Left: Integer read FLeft;
     property Top: Integer read FTop;
+    function MouseOver(const AX, AY: Integer): Boolean;
   end;
 
 type
@@ -1490,6 +1491,12 @@ begin
 end;
 
 { TLhandSlot }
+
+function TLHandSlot.MouseOver(const AX, AY: Integer): Boolean;
+begin
+  Result := (AX > Left) and (AX < Left + 120) and (AY > Top) and
+    (AY < Top + 120);
+end;
 
 constructor TLHandSlot.Create(const ALeft, ATop: Integer);
 begin
