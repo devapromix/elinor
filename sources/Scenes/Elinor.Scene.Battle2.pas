@@ -1163,7 +1163,7 @@ begin
               LeaderParty.Heal(ActivePartyPosition, 30);
             end;
         end;
-        TLeaderParty.Leader.Equipment.Clear(6);
+        //TLeaderParty.Leader.Equipment.Clear(6);
         NextTurn;
       end;
     end;

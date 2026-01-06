@@ -138,7 +138,7 @@ type
     iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
-    iTalismanOfRestoration, {iTalismanOfLife, iTalismanOfProtection,}
+    iTalismanOfRestoration, { iTalismanOfLife, iTalismanOfProtection, }
 
     // BANNERS
 
@@ -146,7 +146,7 @@ type
     iTomeOfWar,
 
     // ORBS
-    iGoblinOrb, iImpOrb, iZombieOrb,
+    iOrbOfRestoration, iGoblinOrb, iImpOrb, iZombieOrb,
     // iVampireOrb,
     // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
     // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
@@ -164,8 +164,8 @@ const
     iHealingOintment];
   CUseItems = [iTalismanOfRestoration]; // + CQuaffItems;
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
-    iBootsOfDarkness, } iLifePotion, iPotionOfHealing, iGoblinOrb,
-    iTalismanOfLife];
+    iBootsOfDarkness, } iLifePotion, iPotionOfHealing, iOrbOfRestoration,
+    iTalismanOfRestoration];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -447,14 +447,14 @@ const
     (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
     Price: 450; Description: 'Heals the leader for 30 hp'),
-    {// (2) Talisman of Life
-    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 550; Description: ''),
-    // (3) Talisman of Protection
-    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 650; Description: ''),}
+    { // (2) Talisman of Life
+      (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
+      ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+      Price: 550; Description: ''),
+      // (3) Talisman of Protection
+      (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
+      ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+      Price: 650; Description: ''), }
 
     // TOMES
     // (3) Tome of War
@@ -464,6 +464,10 @@ const
     'more experience in battle'),
 
     // ORBS
+    // (1) Orb Of Restoration
+    (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 1; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 200;
+    Description: 'Heals units 30 hp'),
     // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 400;
