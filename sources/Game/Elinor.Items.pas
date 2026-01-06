@@ -487,7 +487,7 @@ const
     Description: 'Revives dead units'),
     // (7) Lizardman Orb
     (Enum: iLizardmanOrb; Name: 'Lizardman Orb'; Level: 7; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 900;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 850;
     Description: 'Summon a Lizardman'),
 
     // RINGS
