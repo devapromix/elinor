@@ -92,7 +92,9 @@ uses
   Elinor.Scene.Loot2,
   Elinor.Scene.Party2,
   Elinor.Frame,
-  Elinor.Error, Elinor.Common;
+  Elinor.Error,
+  Elinor.Common,
+  Elinor.Items;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -241,8 +243,7 @@ begin
             if AliveAndNeedExp then
             begin
               LeaderParty.UpdateXP(LCharacterExperience, LPosition);
-              FBattle.BattleLog.UpdateExp(Name[0],
-                LCharacterExperience);
+              FBattle.BattleLog.UpdateExp(Name[0], LCharacterExperience);
             end;
       end;
       for LPosition := Low(TPosition) to High(TPosition) do
@@ -861,6 +862,16 @@ var
     end;
   end;
 
+  procedure RenderLHandSlot;
+  begin
+    DrawImage(10, 95, reSmallFrame);
+    with TLeaderParty.Leader.Equipment.LHandSlotItem do
+      if (Enum <> iNone) and (ItRes <> irNone) then
+      begin
+        DrawImage(40, 120, ItemResImage[ItRes]);
+      end;
+  end;
+
   procedure RenderBattle;
   begin
     try
@@ -892,6 +903,7 @@ var
       Self.DrawText(10, 10, DebugString +
         TLeaderParty.PartyGainMoreExpValue.ToString);
       LogButton.Render;
+      RenderLHandSlot;
     except
       on E: Exception do
         Error.Add('TSceneBattle2.RenderBattle', E.Message);

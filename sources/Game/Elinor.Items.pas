@@ -163,7 +163,7 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
   CTestItems = [{iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
-    iBootsOfDarkness,} iPotionOfHealing];
+    iBootsOfDarkness,} iPotionOfHealing, iGoblinOrb, iTalismanOfLife];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -230,6 +230,7 @@ type
     procedure Add(const SlotIndex: Integer;
       const AItemEnum: TItemEnum); overload;
     function ItemSlotName(const I: Integer): string;
+    function LHandSlotItem: TItem;
   end;
 
 type
@@ -673,6 +674,11 @@ end;
 function TEquipment.ItemSlotName(const I: Integer): string;
 begin
   Result := SlotName[DollSlot[I]];
+end;
+
+function TEquipment.LHandSlotItem: TItem;
+begin
+  Result :=  FItem[6];
 end;
 
 procedure TEquipment.Update;
