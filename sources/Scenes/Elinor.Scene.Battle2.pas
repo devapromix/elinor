@@ -53,6 +53,7 @@ type
     procedure AttackCurrentTarget;
     procedure ShowBattleLog;
     procedure HideBattleLog;
+    procedure UseLHandItem;
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -787,7 +788,11 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if not Enabled or (Button <> mbLeft) then
+  if not Enabled then
+    Exit;
+  // if (X > 10) and (X < 100) and (Y > 90) and
+  // (Y < 190) then UseLHandItem;   ...
+  if (Button <> mbLeft) then
     Exit;
   if CloseButton.MouseDown then
     FinishBattle
@@ -860,16 +865,6 @@ var
       on E: Exception do
         Error.Add('TSceneBattle2.RenderBattleLog', E.Message);
     end;
-  end;
-
-  procedure RenderLHandSlot;
-  begin
-    DrawImage(10, 95, reSmallFrame);
-    with TLeaderParty.Leader.Equipment.LHandSlotItem do
-      if (Enum <> iNone) and (ItRes <> irNone) then
-      begin
-        DrawImage(40, 120, ItemResImage[ItRes]);
-      end;
   end;
 
   procedure RenderBattle;
@@ -1120,7 +1115,14 @@ begin
         HideBattleLog
       else
         ShowBattleLog;
+    K_U:
+      UseLHandItem;
   end;
+end;
+
+procedure TSceneBattle2.UseLHandItem;
+begin
+
 end;
 
 end.

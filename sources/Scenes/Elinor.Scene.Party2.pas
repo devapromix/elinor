@@ -191,6 +191,7 @@ begin
     RenderGuardianInfo;
 
   RenderButtons;
+  RenderLHandSlot;
 end;
 
 class procedure TSceneParty2.RenderParty(const PartySide: TPartySide;

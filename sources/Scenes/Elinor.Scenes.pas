@@ -95,10 +95,21 @@ type
   TBGStat = (bsCharacter, bsEnemy, bsParalyze);
 
 type
+  TLHandSlot = class(TObject)
+  private
+    FLeft, FTop: Integer;
+  public
+    constructor Create(const ALeft, ATop: Integer);
+    property Left: Integer read FLeft;
+    property Top: Integer read FTop;
+  end;
+
+type
   TScene = class(TObject)
   private
     FWidth: Integer;
     FScrWidth: Integer;
+    FLHandSlot: TLHandSlot;
     procedure DrawCreatureReach(const AReachEnum: TReachEnum);
     function GetItemDescription(const AItemEnum: TItemEnum): string;
     function AddName(const ACreature: TCreature): string;
@@ -146,6 +157,7 @@ type
     procedure InformDialog(const S: string);
     procedure ItemInformDialog(const AItemEnum: TItemEnum);
     procedure DrawResources;
+    property LHandSlot: TLHandSlot read FLHandSlot;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
     function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
     function GetPartyPosition(const AX, AY: Integer): Integer;
@@ -179,6 +191,7 @@ type
     procedure RenderGuardianInfo;
     procedure DrawItemDescription(const AItemEnum: TItemEnum);
     function GetCurrentIndexPos(const ACurrentIndex: Integer): TPoint;
+    procedure RenderLHandSlot;
   end;
 
 type
@@ -390,6 +403,7 @@ begin
   Width := ScreenWidth;
   ScrWidth := Width div 2;
   ConfirmHandler := nil;
+  FLHandSlot := TLHandSlot.Create(10, 90);
 end;
 
 class function TScene.DefaultButtonTop: Word;
@@ -399,7 +413,7 @@ end;
 
 destructor TScene.Destroy;
 begin
-
+  FreeAndNil(FLHandSlot);
   inherited;
 end;
 
@@ -1048,6 +1062,17 @@ begin
   AddTextLine('Spell casting range', TLeaderParty.Leader.GetSpellCastingRange);
 end;
 
+procedure TScene.RenderLHandSlot;
+begin
+  DrawImage(LHandSlot.Left, LHandSlot.Top, reSmallFrame);
+  with TLeaderParty.Leader.Equipment.LHandSlotItem do
+    if (Enum <> iNone) and (ItRes <> irNone) then
+    begin
+      DrawImage(LHandSlot.Left + 30, LHandSlot.Top + 25, ItemResImage[ItRes]);
+
+    end;
+end;
+
 procedure TScene.DrawResources;
 begin
   DrawImage(10, 10, reSmallFrame);
@@ -1462,6 +1487,14 @@ begin
     FScene[SceneEnum].Update(Key);
     Self.Render;
   end;
+end;
+
+{ TLhandSlot }
+
+constructor TLHandSlot.Create(const ALeft, ATop: Integer);
+begin
+  FLeft := ALeft;
+  FTop := ATop;
 end;
 
 end.

@@ -283,6 +283,7 @@ begin
   RenderInventory;
 
   RenderButtons;
+  RenderLHandSlot;
 end;
 
 procedure TSceneInventory.Timer;
