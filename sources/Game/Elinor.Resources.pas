@@ -131,7 +131,8 @@ type
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // Orbs
-    irOrbOfHealing, irOrbOfRestoration, irGoblinOrb, irImpOrb, irZombieOrb,
+    irOrbOfHealing, irOrbOfRestoration, irOrbOfLife, irGoblinOrb, irImpOrb,
+    irZombieOrb, irLizardmanOrb,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -741,10 +742,15 @@ const
     (FileName: 'item.orb.orb_of_healing.png'; ResType: teItem;),
     // Orb Of Restoration
     (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
+    // Orb Of Life
+    (FileName: 'item.orb.orb_of_life.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
     // Zombie Orb
     (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
+    // Lizardman Orb
+    (FileName: 'item.orbs.lizardman_orb.png'; ResType: teItem;),
+
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
 
