@@ -981,7 +981,7 @@ begin
     atMagic:
       Result := StaffName[ASourceEnum];
     atDrainLife:
-      Result := 'Посох Затмения';
+      Result := 'Cedar Staff';
   end;
 end;
 
