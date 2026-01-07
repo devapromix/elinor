@@ -10,7 +10,8 @@ uses
   Elinor.Scenes,
   Elinor.Scene.Frames,
   Elinor.Party,
-  Elinor.Battle;
+  Elinor.Battle,
+  Elinor.Items;
 
 type
   TTurnType = (ttHeal, ttDamage, ttFear);
@@ -74,6 +75,7 @@ type
     class procedure HideScene;
     class procedure SummonCreature(const APartyIndex: Integer;
       const ACreatureEnum: TCreatureEnum);
+    procedure UseTalisman(const AItemEnum: TItemEnum);
   end;
 
 implementation
@@ -95,8 +97,7 @@ uses
   Elinor.Scene.Party2,
   Elinor.Frame,
   Elinor.Error,
-  Elinor.Common,
-  Elinor.Items;
+  Elinor.Common;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -1128,6 +1129,7 @@ procedure TSceneBattle2.UseLHandItem;
 var
   LLeaderPosition: Integer;
   LItem: TItem;
+  LStr: string;
 begin
   if FIsFinishBattle then
     Exit;
@@ -1153,14 +1155,16 @@ begin
       end;
       if Enum in CUseItems then
       begin
-        FBattle.BattleLog.Log.Add(Format(CYouUsedTheItem,
-          [TItemBase.Item(Enum).Name]));
+        LStr := Format(CYouUsedTheItem, [TItemBase.Item(Enum).Name]);
         LItem := TLeaderParty.Leader.Equipment.Item(6);
         case LItem.Enum of
           iTalismanOfRestoration:
             begin
               Game.MediaPlayer.PlaySound(mmHeal);
-              LeaderParty.Heal(ActivePartyPosition, 100);
+              LeaderParty.Heal(ActivePartyPosition, 75);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The talisman heals the leader.');
+              UseTalisman(iTalismanOfRestoration);
               NextTurn;
               Exit;
             end;
@@ -1169,6 +1173,30 @@ begin
 
       end;
     end;
+  end;
+end;
+
+procedure TSceneBattle2.UseTalisman(const AItemEnum: TItemEnum);
+
+  procedure BreakTalisman;
+  begin
+    TLeaderParty.Leader.Equipment.Clear(6);
+    InformDialog(Format(CTheTalismanIsBroken,
+      [TItemBase.Item(AItemEnum).Name]));
+  end;
+
+begin
+  case RandomRange(0, 100) of
+    0 .. 90:
+      begin
+        TLeaderParty.Leader.Equipment.Clear(6);
+        if TLeaderParty.Leader.Inventory.Count < CMaxInventoryItems then
+          TLeaderParty.Leader.Inventory.Add(AItemEnum)
+        else
+          BreakTalisman;
+      end;
+  else
+    BreakTalisman;
   end;
 end;
 

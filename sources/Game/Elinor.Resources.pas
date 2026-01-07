@@ -130,9 +130,11 @@ type
     irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
+    // TALISMANS
+    irTalismanOfRestoration,
     // Orbs
-    irOrbOfHealing, irOrbOfRestoration, irOrbOfLife, irGoblinOrb, irImpOrb,
-    irZombieOrb, irLizardmanOrb,
+    irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
+    irOrbOfLife, irLizardmanOrb,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -736,21 +738,27 @@ const
     (FileName: 'item.artifact.bethrezens_claw.png'; ResType: teItem;),
     // Horn Of Incubus
     (FileName: 'item.artifact.horn_of_incubus.png'; ResType: teItem;),
+
+    // TALISMANS
+    (FileName: 'item.talisman.talisman_of_restoration.png'; ResType: teItem;),
+
+    // ORBS
     // Goblin Orb
     (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
     // Orb Of Healing
     (FileName: 'item.orb.orb_of_healing.png'; ResType: teItem;),
-    // Orb Of Restoration
-    (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
-    // Orb Of Life
-    (FileName: 'item.orb.orb_of_life.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
+    // Orb Of Restoration
+    (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
     // Zombie Orb
     (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
+    // Orb Of Life
+    (FileName: 'item.orb.orb_of_life.png'; ResType: teItem;),
     // Lizardman Orb
     (FileName: 'item.orbs.lizardman_orb.png'; ResType: teItem;),
 
+    // TOMES
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
 

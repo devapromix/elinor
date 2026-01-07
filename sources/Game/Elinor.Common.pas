@@ -76,6 +76,7 @@ const
   CNotEnoughManaToCast = 'Not enough mana to cast this spell!';
   CLeftHandItemRequired = 'An item must be equipped in the left hand!';
   CYouUsedTheItem = 'You used the %s!';
+  CTheTalismanIsBroken = 'The %s is broken!';
 
 implementation
 

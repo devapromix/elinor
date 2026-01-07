@@ -163,7 +163,7 @@ const
   CUseItems = [iTalismanOfRestoration]; // + CQuaffItems;
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
     iBootsOfDarkness, } iLifePotion, iPotionOfHealing, iOrbOfRestoration,
-    iTalismanOfRestoration];
+    iTalismanOfRestoration, iLizardmanOrb, iOrbOfLife];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -443,8 +443,9 @@ const
     // TALISMANS
     // (1) Talisman of Restoration
     (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 450; Description: 'Heals the leader for 100 hp'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfRestoration; Price: 450;
+    Description: 'Heals the leader for 75 hp'),
     // (2) Talisman of Life
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
