@@ -95,6 +95,8 @@ type
     function GetAllDamageSum: Integer;
     procedure ModifyDamage(const APosition: TPosition; const ADamage: Integer);
     procedure ModifyArmor(const APosition: TPosition; const AArmor: Integer);
+    procedure ModifyInitiative(const APosition: TPosition;
+      const AInitiative: Integer);
   end;
 
 type
@@ -371,6 +373,14 @@ begin
   with FCreature[APosition] do
     if Alive then
       Damage.ModifyTempValue(ADamage);
+end;
+
+procedure TParty.ModifyInitiative(const APosition: TPosition;
+  const AInitiative: Integer);
+begin
+  with FCreature[APosition] do
+    if Alive then
+      Initiative.ModifyTempValue(AInitiative);
 end;
 
 procedure TParty.ModifyPartyChancesToHit(const AValue: Integer);

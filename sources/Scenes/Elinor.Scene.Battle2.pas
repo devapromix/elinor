@@ -1125,7 +1125,7 @@ end;
 
 procedure TSceneBattle2.UseLHandItem;
 var
-  LLeaderPosition, LDamage, LArmor: Integer;
+  LLeaderPosition, LDamage, LArmor, LInitiative: Integer;
   LItem: TItem;
   LStr: string;
 begin
@@ -1188,6 +1188,19 @@ begin
               LeaderParty.ModifyArmor(LLeaderPosition, LArmor);
               FBattle.BattleLog.Log.Add
                 (LStr + ' The Leader feels his armor grow stronger.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfCelerity:
+            begin
+              Game.MediaPlayer.PlaySound(mmUseOrb);
+              LInitiative := LeaderParty.Creature[LLeaderPosition]
+                .Initiative.GetFullValue;
+              LInitiative := EnsureRange(LInitiative div 5, 1, 80);
+              LeaderParty.ModifyInitiative(LLeaderPosition, LInitiative);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Leader feels his reactions grow sharper.');
               UseTalisman(LItem.Enum);
               NextTurn;
               Exit;
