@@ -138,7 +138,7 @@ type
     iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
-    iTalismanOfRestoration, iTalismanOfLife, iTalismanOfProtection,
+    iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
     iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage,
 
     // BANNERS
@@ -446,15 +446,15 @@ const
     (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
     ItRes: irTalismanOfRestoration; Price: 450;
-    Description: 'Heals the leader for 55 hp'),
-    // (2) Talisman of Life
-    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
+    Description: 'Heals the Leader for 55 hp'),
+    // (2) Talisman of Vigor
+    (Enum: iTalismanOfVigor; Name: 'Talisman of Vigor'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 600; Description: 'Revives dead units'),
+    Price: 600; Description: 'Leader inflict 25% more damage'),
     // (3) Talisman of Protection
     (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 750; Description: ''),
+    Price: 750; Description: 'Leader receives 10% less damage from attacks'),
     // (4) Talisman of Nosferat
     (Enum: iTalismanOfNosferat; Name: 'Talisman of Nosferat'; Level: 4;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;

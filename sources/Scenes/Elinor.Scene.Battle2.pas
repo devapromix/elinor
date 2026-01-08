@@ -1161,7 +1161,7 @@ begin
           iTalismanOfRestoration:
             begin
               Game.MediaPlayer.PlaySound(mmHeal);
-              LeaderParty.Heal(ActivePartyPosition, 75);
+              LeaderParty.Heal(ActivePartyPosition, 55);
               FBattle.BattleLog.Log.Add
                 (LStr + ' The talisman heals the leader.');
               UseTalisman(iTalismanOfRestoration);
