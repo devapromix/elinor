@@ -138,7 +138,7 @@ type
     iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
-    iTalismanOfRestoration, iTalismanOfLife, iTalismanOfProtection,
+    iTalismanOfRestoration, iTalismanOfLife, iTalismanOfProtection, iTalismanOfNosferat,
 
     // BANNERS
 
@@ -454,6 +454,14 @@ const
     (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
     Price: 650; Description: ''),
+    // (4) Talisman of Nosferat
+    (Enum: iTalismanOfNosferat; Name: 'Talisman of Nosferat'; Level: 4;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 750; Description: 'Drains 25 hp of life from enemy units'),
+    // (5) Talisman of Fear
+    (Enum: iTalismanOfFear; Name: 'Talisman of Fear'; Level: 5;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 850; Description: 'Paralyzes enemy unit'),
 
     // TOMES
     // (3) Tome of War
