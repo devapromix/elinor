@@ -148,7 +148,7 @@ type
 
     // ORBS
     iGoblinOrb, iOrbOfHealing, iImpOrb, iOrbOfRestoration, iZombieOrb,
-    iOrbOfLife, iLizardmanOrb,
+    iOrbOfLife, iLizardmanOrb, iOrbOfWitches,
 
     // RINGS
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
@@ -503,6 +503,10 @@ const
     (Enum: iLizardmanOrb; Name: 'Lizardman Orb'; Level: 7; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 850;
     Description: 'Summon a Lizardman'),
+    // (8) Orb of Witches
+    (Enum: iOrbOfWitches; Name: 'Orb of Witches'; Level: 8; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 1000;
+    Description: 'Polymorphs an enemy unit'),
 
     // RINGS
     // (1) Stone Ring
