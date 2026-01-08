@@ -166,7 +166,7 @@ const
     iHealingOintment];
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
     iBootsOfDarkness, } iLifePotion, iPotionOfHealing, iOrbOfRestoration,
-    iTalismanOfRestoration, iTalismanOfVigor];
+    iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -456,8 +456,9 @@ const
     Description: 'Leader inflict 25% more damage'),
     // (3) Talisman of Protection
     (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 750; Description: 'Leader receives 10% less damage from attacks'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfProtection; Price: 750;
+    Description: 'Leader receives 10% less damage from attacks'),
     // (4) Talisman of Nosferat
     (Enum: iTalismanOfNosferat; Name: 'Talisman of Nosferat'; Level: 4;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;

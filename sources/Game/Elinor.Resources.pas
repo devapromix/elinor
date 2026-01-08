@@ -131,7 +131,7 @@ type
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // TALISMANS
-    irTalismanOfRestoration, irTalismanOfVigor,
+    irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
     irOrbOfLife, irLizardmanOrb,
@@ -744,6 +744,8 @@ const
     (FileName: 'item.talisman.talisman_of_restoration.png'; ResType: teItem;),
     // Talisman of Vigor
     (FileName: 'item.talisman.talisman_of_vigor.png'; ResType: teItem;),
+    // Talisman of Protection
+    (FileName: 'item.talisman.talisman_of_protection.png'; ResType: teItem;),
 
     // ORBS
     // Goblin Orb
@@ -854,7 +856,8 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink);
+    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
+    mmUseOrb);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -998,7 +1001,9 @@ const
     // Learn
     (FileName: 'learn.wav'; ResType: teSound;),
     // Drink
-    (FileName: 'useelixir.ogg'; ResType: teSound;)
+    (FileName: 'use_elixir.ogg'; ResType: teSound;),
+    // Use Orb or Talisman
+    (FileName: 'use_orb.ogg'; ResType: teSound;)
     //
     );
 

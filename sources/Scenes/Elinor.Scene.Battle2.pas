@@ -1125,7 +1125,7 @@ end;
 
 procedure TSceneBattle2.UseLHandItem;
 var
-  LLeaderPosition, LDamage: Integer;
+  LLeaderPosition, LDamage, LArmor: Integer;
   LItem: TItem;
   LStr: string;
 begin
@@ -1168,13 +1168,26 @@ begin
             end;
           iTalismanOfVigor:
             begin
-              Game.MediaPlayer.PlaySound(mmHeal);
+              Game.MediaPlayer.PlaySound(mmUseOrb);
               LDamage := LeaderParty.Creature[LLeaderPosition]
                 .Damage.GetFullValue;
               LDamage := EnsureRange(LDamage div 4, 1, 75);
               LeaderParty.ModifyDamage(LLeaderPosition, LDamage);
               FBattle.BattleLog.Log.Add
                 (LStr + ' The Leader feels power within himself.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfProtection:
+            begin
+              Game.MediaPlayer.PlaySound(mmUseOrb);
+              LArmor := LeaderParty.Creature[LLeaderPosition]
+                .Armor.GetFullValue;
+              LArmor := EnsureRange(LArmor div 10, 1, 100);
+              LeaderParty.ModifyArmor(LLeaderPosition, LArmor);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Leader feels his armor grow stronger.');
               UseTalisman(LItem.Enum);
               NextTurn;
               Exit;
@@ -1187,7 +1200,7 @@ end;
 
 procedure TSceneBattle2.UseTalisman(const AItemEnum: TItemEnum);
 
-  procedure BreakTalisman;
+  procedure DestroyTalisman;
   begin
     TLeaderParty.Leader.Equipment.Clear(6);
     InformDialog(Format(CTheTalismanIsBroken,
@@ -1202,10 +1215,10 @@ begin
         if TLeaderParty.Leader.Inventory.Count < CMaxInventoryItems then
           TLeaderParty.Leader.Inventory.Add(AItemEnum)
         else
-          BreakTalisman;
+          DestroyTalisman;
       end;
   else
-    BreakTalisman;
+    DestroyTalisman;
   end;
 end;
 
