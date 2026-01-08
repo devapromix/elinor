@@ -17,6 +17,7 @@ of their gods.
 * A - Show list of learned leader abilities
 * T - Show temple scene
 * B - Show barracks scene
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/capital.png)
 
 ### 2. In barracks scene:
 * Esc/Enter - Close scene
