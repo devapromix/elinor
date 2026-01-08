@@ -451,8 +451,9 @@ const
     Description: 'Heals the Leader for 55 hp'),
     // (2) Talisman of Vigor
     (Enum: iTalismanOfVigor; Name: 'Talisman of Vigor'; Level: 2;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 600; Description: 'Leader inflict 25% more damage'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfVigor; Price: 600;
+    Description: 'Leader inflict 25% more damage'),
     // (3) Talisman of Protection
     (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;

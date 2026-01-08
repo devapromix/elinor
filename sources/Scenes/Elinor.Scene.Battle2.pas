@@ -1125,7 +1125,7 @@ end;
 
 procedure TSceneBattle2.UseLHandItem;
 var
-  LLeaderPosition: Integer;
+  LLeaderPosition, LDamage: Integer;
   LItem: TItem;
   LStr: string;
 begin
@@ -1169,8 +1169,10 @@ begin
           iTalismanOfVigor:
             begin
               Game.MediaPlayer.PlaySound(mmHeal);
-              LeaderParty.Creature[LLeaderPosition]
-                .Damage.ModifyTempValue(1000);
+              LDamage := LeaderParty.Creature[LLeaderPosition]
+                .Damage.GetFullValue;
+              LDamage := EnsureRange(LDamage div 4, 1, 75);
+              LeaderParty.ModifyDamage(LLeaderPosition, LDamage);
               FBattle.BattleLog.Log.Add
                 (LStr + ' The Leader feels power within himself.');
               UseTalisman(LItem.Enum);

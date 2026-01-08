@@ -131,8 +131,8 @@ type
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // TALISMANS
-    irTalismanOfRestoration,
-    // Orbs
+    irTalismanOfRestoration, irTalismanOfVigor,
+    // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
     irOrbOfLife, irLizardmanOrb,
     // Tomes
@@ -740,7 +740,10 @@ const
     (FileName: 'item.artifact.horn_of_incubus.png'; ResType: teItem;),
 
     // TALISMANS
+    // Talisman of Restoration
     (FileName: 'item.talisman.talisman_of_restoration.png'; ResType: teItem;),
+    // Talisman of Vigor
+    (FileName: 'item.talisman.talisman_of_vigor.png'; ResType: teItem;),
 
     // ORBS
     // Goblin Orb

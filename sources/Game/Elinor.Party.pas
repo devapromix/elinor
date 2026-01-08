@@ -93,6 +93,7 @@ type
     procedure ModifyPartyDamage(const AValue: Integer);
     function GetAllHitpointsSum: Integer;
     function GetAllDamageSum: Integer;
+    procedure ModifyDamage(const APosition: TPosition; const ADamage: Integer);
   end;
 
 type
@@ -354,6 +355,14 @@ destructor TParty.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TParty.ModifyDamage(const APosition: TPosition;
+  const ADamage: Integer);
+begin
+  with FCreature[APosition] do
+    if Alive then
+      Damage.ModifyTempValue(ADamage);
 end;
 
 procedure TParty.ModifyPartyChancesToHit(const AValue: Integer);
