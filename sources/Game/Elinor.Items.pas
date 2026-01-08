@@ -139,7 +139,7 @@ type
 
     // TALISMANS
     iTalismanOfRestoration, iTalismanOfLife, iTalismanOfProtection,
-    iTalismanOfNosferat, iTalismanOfFear,
+    iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage,
 
     // BANNERS
 
@@ -463,6 +463,10 @@ const
     (Enum: iTalismanOfFear; Name: 'Talisman of Fear'; Level: 5;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
     Price: 1050; Description: 'Paralyzes enemy unit'),
+    // (6) Talisman of Rage
+    (Enum: iTalismanOfRage; Name: 'Talisman of Rage'; Level: 6;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 1200; Description: 'Gives an extra attack'),
 
     // TOMES
     // (3) Tome of War
