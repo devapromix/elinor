@@ -1133,7 +1133,7 @@ var
   LItem: TItem;
   LStr: string;
 begin
-  if FIsFinishBattle then
+  if EnemyParty.IsClear or LeaderParty.IsClear then
     Exit;
   with TLeaderParty.Leader.Equipment.LHandSlotItem do
   begin
@@ -1173,7 +1173,8 @@ begin
           iTalismanOfVigor:
             begin
               Game.MediaPlayer.PlaySound(mmHeal);
-              LeaderParty.Creature[LLeaderPosition].Damage.ModifyTempValue(1000);
+              LeaderParty.Creature[LLeaderPosition]
+                .Damage.ModifyTempValue(1000);
               FBattle.BattleLog.Log.Add
                 (LStr + ' The Leader feels power within himself.');
               UseTalisman(LItem.Enum);
