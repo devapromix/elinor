@@ -37,20 +37,8 @@ uses
 // Petrifies enemy unit
 // Leader inflicts 10% more damage
 // Leader receives 25% less damage from attacks
-
-// Boots:
-// No move penalty when walking in forests
-// No move penalty when sailing on water
-// Leader gains 40% more move points
-
 // Leader is unaffected by thieves
 // 10% lower prices from merchants and mercenaries
-
-// Orbs
-// Orb of Regeneration (Heals units 75 hp)
-// Orb of Healing (Heals a unit 100 hp)
-// Orb of Life (Revives dead units)
-// Orb of Rage (Gives an extra attack)
 
 type
   TItemType = (itSpecial, itValuable,
@@ -142,7 +130,7 @@ type
 
     // TALISMANS
     iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
-    iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage,
+    iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage, iTalismanOfCelerity,
 
     // BANNERS
 
@@ -471,6 +459,10 @@ const
     (Enum: iTalismanOfRage; Name: 'Talisman of Rage'; Level: 6;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
     Price: 1200; Description: 'Gives an extra attack'),
+    // (7) Talisman of Celerity
+    (Enum: iTalismanOfCelerity; Name: 'Talisman of Celerity'; Level: 7;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
+    Price: 1500; Description: 'Adds 20% more initiative'),
 
     // TOMES
     // (3) Tome of War
