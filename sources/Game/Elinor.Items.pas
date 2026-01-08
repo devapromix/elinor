@@ -446,11 +446,11 @@ const
     (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
     ItRes: irTalismanOfRestoration; Price: 450;
-    Description: 'Heals the leader for 75 hp'),
+    Description: 'Heals the leader for 55 hp'),
     // (2) Talisman of Life
     (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 600; Description: ''),
+    Price: 600; Description: 'Revives dead units'),
     // (3) Talisman of Protection
     (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
