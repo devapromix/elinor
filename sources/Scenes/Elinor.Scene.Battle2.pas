@@ -28,7 +28,6 @@ type
     IsNewAbility: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
-    FIsFinishBattle: Boolean;
     FEnabled: Boolean;
     FIsShowBattleLog: Boolean;
     DuelLeaderPosition: TPosition;
@@ -320,7 +319,6 @@ begin
   try
     FBattle.BattleLog.Clear;
     Enabled := True;
-    FIsFinishBattle := False;
     FLeaderBonusAttackDamage := 0;
     I := PartyList.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
     if IsDuel then
@@ -370,13 +368,11 @@ begin
         DuelLeaderPosition);
     if EnemyParty.IsClear then
     begin
-      FIsFinishBattle := True;
       FBattle.BattleLog.Clear;
       Victory;
     end;
     if LeaderParty.IsClear then
     begin
-      FIsFinishBattle := True;
       FBattle.BattleLog.Clear;
       Defeat;
     end;
@@ -1155,7 +1151,7 @@ begin
         InformDialog(CNeedResurrection);
         Exit;
       end;
-      if Enum in CUseItems then
+      if TItemBase.Item(Enum).ItType in CUseItemType then
       begin
         LStr := Format(CYouUsedTheItem, [TItemBase.Item(Enum).Name]);
         LItem := TLeaderParty.Leader.Equipment.Item(6);

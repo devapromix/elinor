@@ -61,6 +61,9 @@ type
     itBoots, itBanner, itTome);
 
 const
+  CUseItemType = [itPotion, itOrb, itTalisman];
+
+const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'elixir',
     'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'sphere',
     'talisman', 'boots', 'banner', 'book');
@@ -161,7 +164,6 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CUseItems = [iTalismanOfRestoration, iTalismanOfVigor]; // + CQuaffItems;
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
     iBootsOfDarkness, } iLifePotion, iPotionOfHealing, iOrbOfRestoration,
     iTalismanOfRestoration, iTalismanOfVigor];
