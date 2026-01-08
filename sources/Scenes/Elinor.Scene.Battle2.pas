@@ -24,6 +24,7 @@ type
     DuelLeaderParty: TParty;
     CurrentPosition: Integer;
     FTimer: Integer;
+    FLeaderBonusAttackDamage: Integer;
     IsNewAbility: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
@@ -320,6 +321,7 @@ begin
     FBattle.BattleLog.Clear;
     Enabled := True;
     FIsFinishBattle := False;
+    FLeaderBonusAttackDamage := 0;
     I := PartyList.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
     if IsDuel then
     begin
@@ -1161,16 +1163,24 @@ begin
           iTalismanOfRestoration:
             begin
               Game.MediaPlayer.PlaySound(mmHeal);
-              LeaderParty.Heal(ActivePartyPosition, 55);
+              LeaderParty.Heal(LLeaderPosition, 55);
               FBattle.BattleLog.Log.Add
-                (LStr + ' The talisman heals the leader.');
-              UseTalisman(iTalismanOfRestoration);
+                (LStr + ' The Talisman heals the Leader.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfVigor:
+            begin
+              Game.MediaPlayer.PlaySound(mmHeal);
+              LeaderParty.Creature[LLeaderPosition].Damage.ModifyTempValue(1000);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Leader feels power within himself.');
+              UseTalisman(LItem.Enum);
               NextTurn;
               Exit;
             end;
         end;
-        // TLeaderParty.Leader.Equipment.Clear(6);
-
       end;
     end;
   end;
