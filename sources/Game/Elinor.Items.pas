@@ -462,8 +462,9 @@ const
     Price: 1200; Description: 'Gives an extra attack'),
     // (7) Talisman of Celerity
     (Enum: iTalismanOfCelerity; Name: 'Talisman of Celerity'; Level: 7;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 1350; Description: 'Grants 20% increased initiative'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfCelerity; Price: 1350;
+    Description: 'Grants 20% increased initiative'),
 
     // TOMES
     // (3) Tome of War

@@ -125,16 +125,19 @@ type
     // Elixirs
     irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
     irItemHealingOintment,
-    // Artifacts
+    // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
+    irHagsRing,
+    // ARTIFACTS
     irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // TALISMANS
     irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
+    irTalismanOfCelerity,
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
-    irOrbOfLife, irLizardmanOrb,  irOrbOfWitches,
+    irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -145,9 +148,9 @@ type
     // ARMORS
     irShroudOfDarkness,
     // AMULETS
-    irItemAmuletOfBloodbind, irHeartOfDarkness,
-    // RINGS
-    irHagsRing);
+    irItemAmuletOfBloodbind, irHeartOfDarkness
+    //
+    );
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -693,6 +696,8 @@ const
     (FileName: 'item.special.mana.png'; ResType: teItem;),
     // Stone Tablet
     (FileName: 'item.scenario.stone_tablet.png'; ResType: teItem;),
+
+    // POTIONS
     // Life Potion
     (FileName: 'item.potion.life_potion.png'; ResType: teItem;),
     // Potion Of Healing
@@ -702,16 +707,21 @@ const
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
 
+    // RINGS
     // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Bronze Ring
     (FileName: 'item.ring.bronze_ring.png'; ResType: teItem;),
+    // Silver Ring
+    (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
     // Gold Ring
     (FileName: 'item.ring.gold_ring.png'; ResType: teItem;),
     // Ring Of Strength
     (FileName: 'item.ring.ring_of_strength.png'; ResType: teItem;),
-    // Silver Ring
-    (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
+    // Hag's Ring
+    (FileName: 'item.ring.hags_ring.png'; ResType: teItem;),
+
+    //
     // Runic Key
     (FileName: 'item.valuable.runic_key.png'; ResType: teItem;),
     // Ice Crystal
@@ -746,6 +756,8 @@ const
     (FileName: 'item.talisman.talisman_of_vigor.png'; ResType: teItem;),
     // Talisman of Protection
     (FileName: 'item.talisman.talisman_of_protection.png'; ResType: teItem;),
+    // Talisman of Celerity
+    (FileName: 'item.talisman.talisman_of_celerity.png'; ResType: teItem;),
 
     // ORBS
     // Goblin Orb
@@ -797,11 +809,8 @@ const
     // Amulet of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Heart of Darkness
-    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;),
+    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;)
 
-    // RINGS
-    // Hag's Ring
-    (FileName: 'item.ring.hags_ring.png'; ResType: teItem;)
     //
     );
 
