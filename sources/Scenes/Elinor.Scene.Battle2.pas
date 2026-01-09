@@ -93,6 +93,7 @@ uses
   Elinor.Battle.AI,
   Elinor.Scene.Defeat,
   Elinor.Scene.NewAbility,
+  Elinor.Scene.SelectUnit,
   Elinor.Scene.Loot2,
   Elinor.Scene.Party2,
   Elinor.Frame,
@@ -737,8 +738,8 @@ begin
     DefaultButtonTop, reTextLog);
   BackButton := TButton.Create(1300 - (ResImage[reButtonDef].Width + SceneLeft),
     DefaultButtonTop, reTextClose);
-  CloseButton.Sellected := True;
-  BackButton.Sellected := True;
+  CloseButton.Selected := True;
+  BackButton.Selected := True;
   DuelEnemyParty := TParty.Create;
   DuelLeaderParty := TParty.Create;
   FBattle := TBattle.Create;
@@ -1120,6 +1121,9 @@ begin
         ShowBattleLog;
     K_U:
       UseLHandItem;
+    K_K:
+      if Game.Wizard then
+        TSceneSelectUnit.ShowScene(EnemyParty);
   end;
 end;
 

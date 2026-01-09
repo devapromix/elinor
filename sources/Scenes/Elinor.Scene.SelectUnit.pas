@@ -1,4 +1,4 @@
-﻿unit Elinor.Scene.Victory;
+﻿unit Elinor.Scene.SelectUnit;
 
 interface
 
@@ -13,13 +13,17 @@ uses
   Elinor.Scenes;
 
 type
-  TSceneVictory = class(TSceneBaseParty)
+  TSceneSelectUnit = class(TSceneBaseParty)
   private type
-    TButtonEnum = (btClose);
+    TButtonEnum = (btSelect, btCancel);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextSelect, reTextCancel);
   private
     Button: array [TButtonEnum] of TButton;
+    ConfirmGold: Integer;
+    ConfirmParty: TParty;
+    ConfirmPartyPosition: TPosition;
+    procedure SelectUnit;
   public
     constructor Create;
     destructor Destroy; override;
@@ -29,7 +33,7 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    class procedure ShowScene;
+    class procedure ShowScene(AParty: TParty);
     class procedure HideScene;
   end;
 
@@ -38,42 +42,43 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Scene.Records,
+  Elinor.Scene.Settlement,
+  Elinor.Scene.Recruit,
   Elinor.Scene.Party2,
   Elinor.Saga,
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Creatures,
-  Elinor.Statistics;
+  Elinor.Statistics,
+  Elinor.Common;
 
-{ TSceneVictory }
+var
+  CurrentParty: TParty;
+  LastActivePartyPosition: Integer = 2;
 
-class procedure TSceneVictory.ShowScene;
+  { TSceneSelectUnit }
+
+class procedure TSceneSelectUnit.ShowScene(AParty: TParty);
 begin
-  ActivePartyPosition := TLeaderParty.GetPosition;
-  Game.Show(scVictory);
-  Game.MediaPlayer.PlayMusic(mmVictory);
+  CurrentParty := AParty;
+  LastActivePartyPosition := ActivePartyPosition;
+  ActivePartyPosition := AParty.GetRandomPosition;
+  Game.Show(scSelectUnit);
 end;
 
-class procedure TSceneVictory.HideScene;
+class procedure TSceneSelectUnit.HideScene;
 begin
+  ActivePartyPosition := LastActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(mmMenu);
-  Game.IsGame := False;
-  Game.LeaderRecordsTable.AddRecord
-    (TCreature.Character(TLeaderParty.Leader.Enum).Name[0],
-    TLeaderParty.Leader.Owner, TLeaderParty.Leader.LeaderClass,
-    Game.Statistics.GetValue(stScores));
-  Game.LeaderRecordsTable.SaveToFile;
-  TSceneRecords.ShowScene;
+  Game.BackToScene(scBattle);
 end;
 
-constructor TSceneVictory.Create;
+constructor TSceneSelectUnit.Create;
 var
   LButtonEnum: TButtonEnum;
   LLeft, LWidth: Integer;
 begin
-  inherited Create(reWallpaperDefeat);
+  inherited Create(reWallpaperScenario);
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
@@ -81,12 +86,12 @@ begin
     Button[LButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
-    if (LButtonEnum = btClose) then
+    if (LButtonEnum = btSelect) then
       Button[LButtonEnum].Selected := True;
   end;
 end;
 
-destructor TSceneVictory.Destroy;
+destructor TSceneSelectUnit.Destroy;
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -95,20 +100,24 @@ begin
   inherited;
 end;
 
-procedure TSceneVictory.MouseDown(AButton: TMouseButton; Shift: TShiftState;
+procedure TSceneSelectUnit.MouseDown(AButton: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
+var
+  LPosition: TPosition;
 begin
   inherited;
   case AButton of
     mbLeft:
       begin
-        if Button[btClose].MouseDown then
+        if Button[btSelect].MouseDown then
+          SelectUnit
+        else if Button[btCancel].MouseDown then
           HideScene;
       end;
   end;
 end;
 
-procedure TSceneVictory.MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TSceneSelectUnit.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
   LButtonEnum: TButtonEnum;
 begin
@@ -117,26 +126,24 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneVictory.Render;
+procedure TSceneSelectUnit.SelectUnit;
+begin
+  ActivePartyPosition := LastActivePartyPosition;
+  Game.MediaPlayer.PlaySound(mmClick);
+  Game.BackToScene(scBattle);
+end;
 
-  procedure RenderParty;
-  var
-    LPosition: TPosition;
-  begin
-    for LPosition := Low(TPosition) to High(TPosition) do
-      DrawUnit(LPosition, TLeaderParty.Leader, TFrame.Col(LPosition, psLeft),
-        TFrame.Row(LPosition), False, True);
-  end;
+procedure TSceneSelectUnit.Render;
 
   procedure RenderCharacterInfo;
   var
     LCreatureEnum: TCreatureEnum;
   begin
-    LCreatureEnum := TLeaderParty.Leader.Creature[ActivePartyPosition].Enum;
+    LCreatureEnum := CurrentParty.Creature[ActivePartyPosition].Enum;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
     if (LCreatureEnum <> crNone) then
-      DrawCreatureInfo(TLeaderParty.Leader.Creature[ActivePartyPosition]);
+      DrawCreatureInfo(CurrentParty.Creature[ActivePartyPosition]);
   end;
 
   procedure RenderButtons;
@@ -150,28 +157,34 @@ procedure TSceneVictory.Render;
 begin
   inherited;
 
-  DrawTitle(reTitleVictory);
+  DrawTitle(reTitleSelectUnit);
 
-  RenderParty;
+  TSceneParty2.RenderParty(psLeft, CurrentParty, CurrentParty.Count <
+    TLeaderParty.Leader.Leadership);
   RenderCharacterInfo;
 
-  RenderLeaderInfo(True);
+  if CurrentParty = TLeaderParty.Leader then
+    RenderLeaderInfo
+  else if CurrentParty = PartyList.Party[TLeaderParty.CapitalPartyIndex] then
+    RenderGuardianInfo;
 
   RenderButtons;
 end;
 
-procedure TSceneVictory.Timer;
+procedure TSceneSelectUnit.Timer;
 begin
   inherited;
 
 end;
 
-procedure TSceneVictory.Update(var Key: Word);
+procedure TSceneSelectUnit.Update(var Key: Word);
 begin
   inherited;
   case Key of
-    K_ESCAPE, K_ENTER:
+    K_ESCAPE:
       HideScene;
+    K_ENTER:
+      SelectUnit;
   end;
 end;
 

@@ -27,7 +27,7 @@ type
   TSceneEnum = (scIntro, scRecruit, scMenu, scMap, scParty, scSettlement,
     scBattle, scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower, scRecords,
-    scVictory, scDefeat, scLoot, scName, scMerchant);
+    scVictory, scDefeat, scLoot, scName, scMerchant, scSelectUnit);
 
 const
   ScreenWidth = 1344;
@@ -214,6 +214,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Show(const ASceneEnum: TSceneEnum); override;
+    procedure BackToScene(const ASceneEnum: TSceneEnum);
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
@@ -281,6 +282,7 @@ uses
   Elinor.Scene.Records,
   Elinor.Scene.Victory,
   Elinor.Scene.Defeat,
+  Elinor.Scene.SelectUnit,
   Elinor.Difficulty,
   Elinor.Loot,
   Elinor.Scene.Loot2,
@@ -1196,6 +1198,12 @@ end;
 
 { TScenes }
 
+procedure TScenes.BackToScene(const ASceneEnum: TSceneEnum);
+begin
+  SetScene(ASceneEnum);
+  Game.Render;
+end;
+
 constructor TScenes.Create;
 var
   LLeft: Integer;
@@ -1226,12 +1234,13 @@ begin
   FScene[scLoot] := TSceneLoot2.Create;
   FScene[scName] := TSceneName.Create;
   FScene[scMerchant] := TSceneMerchant.Create;
+  FScene[scSelectUnit] := TSceneSelectUnit.Create;
   // Inform
   InformMsg := '';
   IsShowInform := idtNone;
   LLeft := ScrWidth - (ResImage[reButtonDef].Width div 2);
   Button := TButton.Create(LLeft, 400, reTextOk);
-  Button.Sellected := True;
+  Button.Selected := True;
   // Confirm
   IsShowConfirm := False;
   LLeft := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
@@ -1241,7 +1250,7 @@ begin
       ButtonsText[LButtonEnum]);
     Inc(LLeft, ResImage[reButtonDef].Width);
     if (LButtonEnum = btOk) then
-      Buttons[LButtonEnum].Sellected := True;
+      Buttons[LButtonEnum].Selected := True;
   end;
   // Item
   InformSL := TStringList.Create;

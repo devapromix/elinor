@@ -130,7 +130,7 @@ begin
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-      Button[LButtonEnum].Sellected := True;
+      Button[LButtonEnum].Selected := True;
   end;
   EquipmentSelItemIndex := 0;
   InventorySelItemIndex := 0;

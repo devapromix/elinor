@@ -67,6 +67,7 @@ type
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
     reTextLearn, reTextFaction, reTextClass, reTextRandom, reTextDarkogStudio,
     reTextPresents, reTextPickup, reTextMerchant, reTextInform, reTextLog,
+    reTextSelect,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -75,7 +76,7 @@ type
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
     reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
     reTitleSpellbook, reTitleJournal, reTitleMageTower, reTitleBarracks,
-    reTitleEnterName, reTitleMerchant,
+    reTitleEnterName, reTitleMerchant, reTitleSelectUnit,
 
     // SCENARIO //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
@@ -526,6 +527,8 @@ const
     (FileName: 'text.inform.png'; ResType: teGUI;),
     // Text "Log"
     (FileName: 'text.log.png'; ResType: teGUI;),
+    // Text "Select"
+    (FileName: 'text.select.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
@@ -595,6 +598,8 @@ const
     (FileName: 'title.enter_name.png'; ResType: teGUI;),
     // Title "Merchant"
     (FileName: 'title.merchant.png'; ResType: teGUI;),
+    // Title "Select Unit"
+    (FileName: 'title.select_unit.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
