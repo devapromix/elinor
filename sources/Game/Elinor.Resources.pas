@@ -134,7 +134,7 @@ type
     irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
-    irOrbOfLife, irLizardmanOrb,
+    irOrbOfLife, irLizardmanOrb,  irOrbOfWitches,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -757,11 +757,13 @@ const
     // Orb Of Restoration
     (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
     // Zombie Orb
-    (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
+    (FileName: 'item.orb.zombie_orb.png'; ResType: teItem;),
     // Orb Of Life
     (FileName: 'item.orb.orb_of_life.png'; ResType: teItem;),
     // Lizardman Orb
-    (FileName: 'item.orbs.lizardman_orb.png'; ResType: teItem;),
+    (FileName: 'item.orb.lizardman_orb.png'; ResType: teItem;),
+    // Orb Of Witches
+    (FileName: 'item.orb.orb_of_witches.png'; ResType: teItem;),
 
     // TOMES
     // Tome Of War
