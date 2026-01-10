@@ -138,6 +138,11 @@ procedure TSceneSelectUnit.SelectUnit;
 var
   LItem: TItem;
 begin
+  if not CurrentParty.Creature[ActivePartyPosition].Alive then
+  begin
+    InformDialog(CSelectLlivingCreature);
+    Exit;
+  end;
   LItem := TLeaderParty.Leader.Equipment.Item(6);
   case LItem.Enum of
     iTalismanOfNosferat:
