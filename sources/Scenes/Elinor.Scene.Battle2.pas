@@ -732,16 +732,15 @@ end;
 
 procedure TSceneBattle2.ContinueBattle;
 begin
-  if PendingTalisman then
+  if (PendingTalismanOrOrbLogString <> '') then
   begin
     with TLeaderParty.Leader.Equipment.LHandSlotItem do
     begin
-      FBattle.BattleLog.Log.Add(Format(CYouUsedTheItem,
-        [TItemBase.Item(Enum).Name]) + ' Drains life from enemy.');
+      FBattle.BattleLog.Log.Add(PendingTalismanOrOrbLogString);
       UseTalisman(Enum);
     end;
     NextTurn;
-    PendingTalisman := False;
+    PendingTalismanOrOrbLogString := '';
   end;
 
 end;
@@ -761,7 +760,7 @@ begin
   DuelLeaderParty := TParty.Create;
   FBattle := TBattle.Create;
   FIsShowBattleLog := False;
-  PendingTalisman := False;
+  PendingTalismanOrOrbLogString := '';
 end;
 
 destructor TSceneBattle2.Destroy;
@@ -1228,6 +1227,12 @@ begin
               Exit;
             end;
           iTalismanOfNosferat:
+            begin
+              Game.MediaPlayer.PlaySound(mmClick);
+              TSceneSelectUnit.ShowScene(EnemyParty);
+              Exit;
+            end;
+          iTalismanOfFear:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(EnemyParty);

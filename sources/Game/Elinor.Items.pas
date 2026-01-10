@@ -155,7 +155,7 @@ const
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
     iBootsOfDarkness,  iLifePotion, iPotionOfHealing,  iOrbOfRestoration,
     iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
-    iTalismanOfCelerity, } iTalismanOfNosferat];
+    iTalismanOfCelerity, } iTalismanOfNosferat, iTalismanOfFear];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);

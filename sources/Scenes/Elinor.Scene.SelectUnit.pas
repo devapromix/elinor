@@ -139,12 +139,22 @@ var
   LItem: TItem;
 begin
   LItem := TLeaderParty.Leader.Equipment.Item(6);
-  if LItem.Enum = iTalismanOfNosferat then
-  begin
-    Game.MediaPlayer.PlaySound(mmUseOrb);
-    CurrentParty.TakeDamage(25, ActivePartyPosition);
-    TLeaderParty.Leader.UpdateHP(25, TLeaderParty.GetPosition);
-    PendingTalisman := True;
+  case LItem.Enum of
+    iTalismanOfNosferat:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        CurrentParty.TakeDamage(25, ActivePartyPosition);
+        TLeaderParty.Leader.UpdateHP(25, TLeaderParty.GetPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Drains life from enemy.';
+      end;
+    iTalismanOfFear:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        CurrentParty.Paralyze(ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Paralyzes the enemy.';
+      end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmClick);

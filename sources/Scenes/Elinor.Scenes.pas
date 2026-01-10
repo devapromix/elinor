@@ -35,6 +35,7 @@ const
 
 var
   TextTop, TextLeft: Integer;
+  PendingTalismanOrOrbLogString: string = '';
 
 const
   K_ESCAPE = 27;
@@ -249,7 +250,6 @@ type
 
 var
   Game: TGame;
-  PendingTalisman: Boolean = False;
 
 implementation
 
