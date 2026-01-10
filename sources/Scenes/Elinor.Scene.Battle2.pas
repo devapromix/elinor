@@ -76,6 +76,7 @@ type
     class procedure SummonCreature(const APartyIndex: Integer;
       const ACreatureEnum: TCreatureEnum);
     procedure UseTalisman(const AItemEnum: TItemEnum);
+    procedure UseOrb(const AItemEnum: TItemEnum);
     procedure ContinueBattle(const AIsNextTurn: Boolean);
   end;
 
@@ -740,11 +741,11 @@ begin
       case TItemBase.Item(Enum).ItType of
         itTalisman:
           UseTalisman(Enum);
+        itOrb:
+          UseOrb(Enum);
       end;
     end;
-    if AIsNextTurn
-
-     then
+    if AIsNextTurn then
       NextTurn;
     PendingTalismanOrOrbLogString := '';
   end;
@@ -1238,7 +1239,7 @@ begin
               TSceneSelectUnit.ShowScene(EnemyParty);
               Exit;
             end;
-          iTalismanOfRage:
+          iTalismanOfRage, iOrbOfHealing:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(LeaderParty);
@@ -1248,6 +1249,11 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TSceneBattle2.UseOrb(const AItemEnum: TItemEnum);
+begin
+  TLeaderParty.Leader.Equipment.Clear(6);
 end;
 
 procedure TSceneBattle2.UseTalisman(const AItemEnum: TItemEnum);

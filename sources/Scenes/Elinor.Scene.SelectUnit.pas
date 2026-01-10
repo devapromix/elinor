@@ -170,6 +170,13 @@ begin
         Game.BackToScene(scBattle);
         Exit;
       end;
+    iOrbOfHealing:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        CurrentParty.UpdateHP(50, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 50 hp.';
+      end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmClick);
