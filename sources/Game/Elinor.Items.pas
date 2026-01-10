@@ -153,9 +153,9 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
-    iBootsOfDarkness,  iLifePotion, iPotionOfHealing, } iOrbOfRestoration,
+    iBootsOfDarkness,  iLifePotion, iPotionOfHealing,  iOrbOfRestoration,
     iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
-    iTalismanOfCelerity];
+    iTalismanOfCelerity, } iTalismanOfNosferat];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);

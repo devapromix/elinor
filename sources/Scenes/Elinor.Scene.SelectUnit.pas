@@ -35,6 +35,7 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure ShowScene(AParty: TParty);
     class procedure HideScene;
+    class function SelectCurrUnit(AParty: TParty):Boolean;
   end;
 
 implementation
@@ -50,7 +51,8 @@ uses
   Elinor.Creature.Types,
   Elinor.Creatures,
   Elinor.Statistics,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Items;
 
 var
   CurrentParty: TParty;
@@ -126,8 +128,31 @@ begin
     Button[LButtonEnum].MouseMove(X, Y);
 end;
 
-procedure TSceneSelectUnit.SelectUnit;
+class function TSceneSelectUnit.SelectCurrUnit(AParty: TParty): Boolean;
 begin
+  Result := False;
+  ShowScene(AParty);
+end;
+
+procedure TSceneSelectUnit.SelectUnit;
+var
+  LItem: TItem;
+  LStr: string;
+begin
+  with TLeaderParty.Leader.Equipment.LHandSlotItem do
+  begin
+    if TItemBase.Item(Enum).ItType in CUseItemType then
+    begin
+      LStr := Format(CYouUsedTheItem, [TItemBase.Item(Enum).Name]);
+      LItem := TLeaderParty.Leader.Equipment.Item(6);
+      case LItem.Enum of
+        iTalismanOfNosferat:
+          begin
+            CurrentParty.TakeDamage(25, ActivePartyPosition);
+          end;
+      end;
+    end;
+  end;
   ActivePartyPosition := LastActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmClick);
   Game.BackToScene(scBattle);

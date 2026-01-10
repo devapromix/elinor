@@ -1209,6 +1209,19 @@ begin
               NextTurn;
               Exit;
             end;
+          iTalismanOfNosferat:
+            begin
+              Game.MediaPlayer.PlaySound(mmClick);
+              TSceneSelectUnit.ShowScene(EnemyParty);
+              // if TSceneSelectUnit.SelectCurrUnit(EnemyParty) then
+              // begin
+              // FBattle.BattleLog.Log.Add
+              // (LStr + ' The Leader feels his reactions grow sharper.');
+              // UseTalisman(LItem.Enum);
+              // NextTurn;
+              Exit;
+              // end;
+            end;
         end;
       end;
     end;
