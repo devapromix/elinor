@@ -76,6 +76,7 @@ type
     class procedure SummonCreature(const APartyIndex: Integer;
       const ACreatureEnum: TCreatureEnum);
     procedure UseTalisman(const AItemEnum: TItemEnum);
+    procedure ContinueBattle();
   end;
 
 implementation
@@ -729,6 +730,22 @@ begin
   end;
 end;
 
+procedure TSceneBattle2.ContinueBattle;
+begin
+  if PendingTalisman then
+  begin
+    with TLeaderParty.Leader.Equipment.LHandSlotItem do
+    begin
+      FBattle.BattleLog.Log.Add(Format(CYouUsedTheItem,
+        [TItemBase.Item(Enum).Name]) + ' Drains life from enemy.');
+      UseTalisman(Enum);
+    end;
+    NextTurn;
+    PendingTalisman := False;
+  end;
+
+end;
+
 constructor TSceneBattle2.Create;
 begin
   inherited Create(reWallpaperScenario, fgLS6, fgRS6);
@@ -744,6 +761,7 @@ begin
   DuelLeaderParty := TParty.Create;
   FBattle := TBattle.Create;
   FIsShowBattleLog := False;
+  PendingTalisman := False;
 end;
 
 destructor TSceneBattle2.Destroy;
@@ -1213,14 +1231,7 @@ begin
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(EnemyParty);
-              // if TSceneSelectUnit.SelectCurrUnit(EnemyParty) then
-              // begin
-              // FBattle.BattleLog.Log.Add
-              // (LStr + ' The Leader feels his reactions grow sharper.');
-              // UseTalisman(LItem.Enum);
-              // NextTurn;
               Exit;
-              // end;
             end;
         end;
       end;

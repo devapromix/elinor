@@ -249,6 +249,7 @@ type
 
 var
   Game: TGame;
+  PendingTalisman: Boolean = False;
 
 implementation
 

@@ -35,7 +35,7 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure ShowScene(AParty: TParty);
     class procedure HideScene;
-    class function SelectCurrUnit(AParty: TParty):Boolean;
+    class function SelectCurrUnit(AParty: TParty): Boolean;
   end;
 
 implementation
@@ -52,7 +52,7 @@ uses
   Elinor.Creatures,
   Elinor.Statistics,
   Elinor.Common,
-  Elinor.Items;
+  Elinor.Items, Elinor.Scene.Battle2;
 
 var
   CurrentParty: TParty;
@@ -137,24 +137,18 @@ end;
 procedure TSceneSelectUnit.SelectUnit;
 var
   LItem: TItem;
-  LStr: string;
 begin
-  with TLeaderParty.Leader.Equipment.LHandSlotItem do
+  LItem := TLeaderParty.Leader.Equipment.Item(6);
+  if LItem.Enum = iTalismanOfNosferat then
   begin
-    if TItemBase.Item(Enum).ItType in CUseItemType then
-    begin
-      LStr := Format(CYouUsedTheItem, [TItemBase.Item(Enum).Name]);
-      LItem := TLeaderParty.Leader.Equipment.Item(6);
-      case LItem.Enum of
-        iTalismanOfNosferat:
-          begin
-            CurrentParty.TakeDamage(25, ActivePartyPosition);
-          end;
-      end;
-    end;
+    Game.MediaPlayer.PlaySound(mmUseOrb);
+    CurrentParty.TakeDamage(25, ActivePartyPosition);
+    TLeaderParty.Leader.UpdateHP(25, TLeaderParty.GetPosition);
+    PendingTalisman := True;
   end;
   ActivePartyPosition := LastActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmClick);
+  TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle;
   Game.BackToScene(scBattle);
 end;
 
