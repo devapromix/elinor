@@ -76,7 +76,7 @@ type
     class procedure SummonCreature(const APartyIndex: Integer;
       const ACreatureEnum: TCreatureEnum);
     procedure UseTalisman(const AItemEnum: TItemEnum);
-    procedure ContinueBattle();
+    procedure ContinueBattle(const AIsNextTurn: Boolean);
   end;
 
 implementation
@@ -730,16 +730,22 @@ begin
   end;
 end;
 
-procedure TSceneBattle2.ContinueBattle;
+procedure TSceneBattle2.ContinueBattle(const AIsNextTurn: Boolean);
 begin
   if (PendingTalismanOrOrbLogString <> '') then
   begin
     with TLeaderParty.Leader.Equipment.LHandSlotItem do
     begin
       FBattle.BattleLog.Log.Add(PendingTalismanOrOrbLogString);
-      UseTalisman(Enum);
+      case TItemBase.Item(Enum).ItType of
+        itTalisman:
+          UseTalisman(Enum);
+      end;
     end;
-    NextTurn;
+    if AIsNextTurn
+
+     then
+      NextTurn;
     PendingTalismanOrOrbLogString := '';
   end;
 
@@ -1226,16 +1232,16 @@ begin
               NextTurn;
               Exit;
             end;
-          iTalismanOfNosferat:
+          iTalismanOfNosferat, iTalismanOfFear:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(EnemyParty);
               Exit;
             end;
-          iTalismanOfFear:
+          iTalismanOfRage:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
-              TSceneSelectUnit.ShowScene(EnemyParty);
+              TSceneSelectUnit.ShowScene(LeaderParty);
               Exit;
             end;
         end;

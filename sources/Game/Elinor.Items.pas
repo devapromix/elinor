@@ -19,6 +19,7 @@ uses
 // Leader can use Orbs
 // Leader can use Talismans
 
+// % chance to find magic item
 // Causes an enemy unit to flee from battle
 // Polymorphs enemy unit
 // Paralyzes enemy unit
@@ -155,7 +156,8 @@ const
   CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
     iBootsOfDarkness,  iLifePotion, iPotionOfHealing,  iOrbOfRestoration,
     iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
-    iTalismanOfCelerity, } iTalismanOfNosferat, iTalismanOfFear];
+    iTalismanOfCelerity, } iTalismanOfNosferat, iTalismanOfFear,
+    iTalismanOfRage];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);

@@ -160,10 +160,20 @@ begin
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Paralyzes the enemy.';
       end;
+    iTalismanOfRage:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Gives an extra attack!';
+        Game.MediaPlayer.PlaySound(mmClick);
+        TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle(False);
+        Game.BackToScene(scBattle);
+        Exit;
+      end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
   Game.MediaPlayer.PlaySound(mmClick);
-  TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle;
+  TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle(True);
   Game.BackToScene(scBattle);
 end;
 
