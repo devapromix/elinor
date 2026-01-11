@@ -879,7 +879,7 @@ type
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
-    mmUseOrb);
+    mmUseOrb, mmImpHit);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1025,7 +1025,9 @@ const
     // Drink
     (FileName: 'use_elixir.ogg'; ResType: teSound;),
     // Use Orb or Talisman
-    (FileName: 'use_orb.ogg'; ResType: teSound;)
+    (FileName: 'use_orb.ogg'; ResType: teSound;),
+    // Imp Hit
+    (FileName: 'hum_hit.wav'; ResType: teSound;)
     //
     );
 

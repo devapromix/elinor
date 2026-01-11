@@ -817,7 +817,7 @@ const
     Size: szSmall; Name: ('Имп', 'Импа'); Description: ('', '', '');
     HitPoints: 55; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 75; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Gold: 75; Sound: (mmImpHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atClaws; AbilityEnum: abNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals

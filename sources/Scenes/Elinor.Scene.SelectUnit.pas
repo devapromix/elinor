@@ -153,11 +153,25 @@ begin
           Exit;
         end;
       end;
-    iGoblinOrb:
+    iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb:
       begin
         if CurrentParty.Creature[ActivePartyPosition].Active then
         begin
           InformDialog(CChooseEmptySlot);
+          Exit;
+        end;
+      end;
+    iOrbOfWitches:
+      with CurrentParty.Creature[ActivePartyPosition] do
+      begin
+        if not Active then
+        begin
+          InformDialog(CChooseNonEmptySlot);
+          Exit;
+        end;
+        if HitPoints.IsMinCurrValue then
+        begin
+          InformDialog(CCannotAlterForm);
           Exit;
         end;
       end;
@@ -222,7 +236,33 @@ begin
         Game.MediaPlayer.PlaySound(mmGoblinHit);
         CurrentParty.AddCreature(crGoblin, ActivePartyPosition);
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
-          [TItemBase.Item(LItem.Enum).Name]) + ' Goblin.';
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' Goblin joins the Leader''s party.';
+      end;
+    iImpOrb:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmImpHit);
+        CurrentParty.AddCreature(crImp, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' Imp joins the Leader''s party.';
+      end;
+    iZombieOrb:
+      begin
+      end;
+    iLizardmanOrb:
+      begin
+      end;
+    iOrbOfWitches:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmImpHit);
+        CurrentParty.Dismiss(ActivePartyPosition);
+        CurrentParty.AddCreature(crImp, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' Enemy polymorphed into Imp.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;

@@ -162,7 +162,7 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [iGoblinOrb];
+  CTestItems = [iGoblinOrb, iOrbOfWitches];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -457,16 +457,17 @@ const
     Description: 'Leader receives 10% less damage from attacks'),
     // (4) Talisman of Nosferat
     (Enum: iTalismanOfNosferat; Name: 'Talisman of Nosferat'; Level: 4;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irTalismanOfNosferat;
-    Price: 900; Description: 'Drains 25 hp of life from enemy units'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfNosferat; Price: 900;
+    Description: 'Drains 25 hp of life from enemy units'),
     // (5) Talisman of Fear
     (Enum: iTalismanOfFear; Name: 'Talisman of Fear'; Level: 5;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irTalismanOfFear;
-    Price: 1050; Description: 'Paralyzes enemy unit'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfFear; Price: 1050; Description: 'Paralyzes enemy unit'),
     // (6) Talisman of Rage
     (Enum: iTalismanOfRage; Name: 'Talisman of Rage'; Level: 6;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irTalismanOfRage;
-    Price: 1200; Description: 'Gives an extra attack'),
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfRage; Price: 1200; Description: 'Gives an extra attack'),
     // (7) Talisman of Celerity
     (Enum: iTalismanOfCelerity; Name: 'Talisman of Celerity'; Level: 7;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;

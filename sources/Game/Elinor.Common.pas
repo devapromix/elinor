@@ -78,6 +78,7 @@ const
   CYouUsedTheItem = 'You used the %s!';
   CTheTalismanIsBroken = 'The %s is broken!';
   CSelectLlivingCreature = 'Select a living creature!';
+  CCannotAlterForm = 'Cannot alter form of lifeless entity!';
 
 implementation
 
