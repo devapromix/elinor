@@ -152,7 +152,15 @@ begin
           InformDialog(CNoRevivalNeeded);
           Exit;
         end;
-      end
+      end;
+    iGoblinOrb:
+      begin
+        if CurrentParty.Creature[ActivePartyPosition].Active then
+        begin
+          InformDialog(CChooseEmptySlot);
+          Exit;
+        end;
+      end;
   else
     if not CurrentParty.Creature[ActivePartyPosition].Alive then
     begin
@@ -207,6 +215,14 @@ begin
         CurrentParty.Revive(ActivePartyPosition);
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Revived.';
+      end;
+    iGoblinOrb:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmGoblinHit);
+        CurrentParty.AddCreature(crGoblin, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Goblin.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
