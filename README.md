@@ -17,6 +17,7 @@ of their gods.
 * A - Show list of learned leader abilities
 * T - Show temple scene
 * B - Show barracks scene
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/capital.png)
 
 ### 2. In barracks scene:
 * Esc/Enter - Close scene
@@ -50,6 +51,7 @@ of their gods.
 * Esc/Enter - Exit (if win/lose)
 * WADX, Arrows, Numeric keypad - Select enemy character
 * Space, LMB on character - Attack enemy character
+* U - Use item (quaff potion, use talisman or orb)
 	
 ### 7. In leader's scene:
 * Esc/Enter - Close scene

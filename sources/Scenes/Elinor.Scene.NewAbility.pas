@@ -64,7 +64,7 @@ begin
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-      FButton[LButtonEnum].Sellected := True;
+      FButton[LButtonEnum].Selected := True;
   end;
 end;
 

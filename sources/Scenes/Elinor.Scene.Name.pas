@@ -80,7 +80,7 @@ begin
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btConfirm) then
-      Button[LButtonEnum].Sellected := True;
+      Button[LButtonEnum].Selected := True;
   end;
 end;
 

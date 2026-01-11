@@ -39,7 +39,7 @@ type
     procedure Render;
     property Top: Integer read FTop write SetTop;
     property Left: Integer read FLeft;
-    property Sellected: Boolean read FSellected write FSellected;
+    property Selected: Boolean read FSellected write FSellected;
     property State: TButtonState read FState write FState;
     property Canvas: TCanvas read FCanvas write FCanvas;
     procedure MouseMove(X, Y: Integer);
@@ -279,7 +279,7 @@ procedure TButton.Refresh;
 begin
   case State of
     bsNone:
-      if Sellected then
+      if Selected then
         Game.Surface.Canvas.Draw(Left, Top, FSurface[bsSell])
       else
         Game.Surface.Canvas.Draw(Left, Top, FSurface[bsNone]);
@@ -294,7 +294,7 @@ procedure TButton.Render;
 begin
   if (State <> bsDown) then
   begin
-    if MouseOver and not Sellected then
+    if MouseOver and not Selected then
       State := bsOver
     else
       State := bsNone;

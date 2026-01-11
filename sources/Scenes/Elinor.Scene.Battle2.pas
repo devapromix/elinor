@@ -10,7 +10,8 @@ uses
   Elinor.Scenes,
   Elinor.Scene.Frames,
   Elinor.Party,
-  Elinor.Battle;
+  Elinor.Battle,
+  Elinor.Items;
 
 type
   TTurnType = (ttHeal, ttDamage, ttFear);
@@ -23,6 +24,7 @@ type
     DuelLeaderParty: TParty;
     CurrentPosition: Integer;
     FTimer: Integer;
+    FLeaderBonusAttackDamage: Integer;
     IsNewAbility: Boolean;
     EnemyParty: TParty;
     LeaderParty: TParty;
@@ -53,6 +55,7 @@ type
     procedure AttackCurrentTarget;
     procedure ShowBattleLog;
     procedure HideBattleLog;
+    procedure UseLHandItem;
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -72,6 +75,9 @@ type
     class procedure HideScene;
     class procedure SummonCreature(const APartyIndex: Integer;
       const ACreatureEnum: TCreatureEnum);
+    procedure UseTalisman(const AItemEnum: TItemEnum);
+    procedure UseOrb(const AItemEnum: TItemEnum);
+    procedure ContinueBattle(const AIsNextTurn: Boolean);
   end;
 
 implementation
@@ -89,10 +95,12 @@ uses
   Elinor.Battle.AI,
   Elinor.Scene.Defeat,
   Elinor.Scene.NewAbility,
+  Elinor.Scene.SelectUnit,
   Elinor.Scene.Loot2,
   Elinor.Scene.Party2,
   Elinor.Frame,
-  Elinor.Error, Elinor.Common;
+  Elinor.Error,
+  Elinor.Common;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -241,8 +249,7 @@ begin
             if AliveAndNeedExp then
             begin
               LeaderParty.UpdateXP(LCharacterExperience, LPosition);
-              FBattle.BattleLog.UpdateExp(Name[0],
-                LCharacterExperience);
+              FBattle.BattleLog.UpdateExp(Name[0], LCharacterExperience);
             end;
       end;
       for LPosition := Low(TPosition) to High(TPosition) do
@@ -315,6 +322,7 @@ begin
   try
     FBattle.BattleLog.Clear;
     Enabled := True;
+    FLeaderBonusAttackDamage := 0;
     I := PartyList.GetPartyIndex(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
     if IsDuel then
     begin
@@ -723,6 +731,27 @@ begin
   end;
 end;
 
+procedure TSceneBattle2.ContinueBattle(const AIsNextTurn: Boolean);
+begin
+  if (PendingTalismanOrOrbLogString <> '') then
+  begin
+    with TLeaderParty.Leader.Equipment.LHandSlotItem do
+    begin
+      FBattle.BattleLog.Log.Add(PendingTalismanOrOrbLogString);
+      case TItemBase.Item(Enum).ItType of
+        itTalisman:
+          UseTalisman(Enum);
+        itOrb:
+          UseOrb(Enum);
+      end;
+    end;
+    if AIsNextTurn then
+      NextTurn;
+    PendingTalismanOrOrbLogString := '';
+  end;
+
+end;
+
 constructor TSceneBattle2.Create;
 begin
   inherited Create(reWallpaperScenario, fgLS6, fgRS6);
@@ -732,12 +761,13 @@ begin
     DefaultButtonTop, reTextLog);
   BackButton := TButton.Create(1300 - (ResImage[reButtonDef].Width + SceneLeft),
     DefaultButtonTop, reTextClose);
-  CloseButton.Sellected := True;
-  BackButton.Sellected := True;
+  CloseButton.Selected := True;
+  BackButton.Selected := True;
   DuelEnemyParty := TParty.Create;
   DuelLeaderParty := TParty.Create;
   FBattle := TBattle.Create;
   FIsShowBattleLog := False;
+  PendingTalismanOrOrbLogString := '';
 end;
 
 destructor TSceneBattle2.Destroy;
@@ -786,7 +816,11 @@ procedure TSceneBattle2.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 begin
   inherited;
-  if not Enabled or (Button <> mbLeft) then
+  if not Enabled then
+    Exit;
+  if LHandSlot.MouseOver(X, Y) then
+    UseLHandItem;
+  if (Button <> mbLeft) then
     Exit;
   if CloseButton.MouseDown then
     FinishBattle
@@ -892,6 +926,7 @@ var
       Self.DrawText(10, 10, DebugString +
         TLeaderParty.PartyGainMoreExpValue.ToString);
       LogButton.Render;
+      RenderLHandSlot;
     except
       on E: Exception do
         Error.Add('TSceneBattle2.RenderBattle', E.Message);
@@ -1108,6 +1143,141 @@ begin
         HideBattleLog
       else
         ShowBattleLog;
+    K_U:
+      UseLHandItem;
+    K_K:
+      if Game.Wizard then
+        TSceneSelectUnit.ShowScene(EnemyParty);
+  end;
+end;
+
+procedure TSceneBattle2.UseLHandItem;
+var
+  LLeaderPosition, LDamage, LArmor, LInitiative: Integer;
+  LItem: TItem;
+  LStr: string;
+begin
+  if EnemyParty.IsClear or LeaderParty.IsClear then
+    Exit;
+  with TLeaderParty.Leader.Equipment.LHandSlotItem do
+  begin
+    if (Enum = iNone) then
+    begin
+      InformDialog(CLeftHandItemRequired);
+      Exit;
+    end;
+    if (ActivePartyPosition >= 0) and (ActivePartyPosition <= 5) then
+    begin
+      LLeaderPosition := TLeaderParty.GetPosition;
+      if LLeaderPosition <> ActivePartyPosition then
+      begin
+        InformDialog(COnlyLeaderCanUseItem);
+        Exit;
+      end;
+      if not LeaderParty.Creature[LLeaderPosition].Alive then
+      begin
+        InformDialog(CNeedResurrection);
+        Exit;
+      end;
+      if TItemBase.Item(Enum).ItType in CUseItemType then
+      begin
+        LStr := Format(CYouUsedTheItem, [TItemBase.Item(Enum).Name]);
+        LItem := TLeaderParty.Leader.Equipment.Item(6);
+        case LItem.Enum of
+          iTalismanOfRestoration:
+            begin
+              Game.MediaPlayer.PlaySound(mmHeal);
+              LeaderParty.Heal(LLeaderPosition, 55);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Talisman heals the Leader.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfVigor:
+            begin
+              Game.MediaPlayer.PlaySound(mmUseOrb);
+              LDamage := LeaderParty.Creature[LLeaderPosition]
+                .Damage.GetFullValue;
+              LDamage := EnsureRange(LDamage div 4, 1, 75);
+              LeaderParty.ModifyDamage(LLeaderPosition, LDamage);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Leader feels power within himself.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfProtection:
+            begin
+              Game.MediaPlayer.PlaySound(mmUseOrb);
+              LArmor := LeaderParty.Creature[LLeaderPosition]
+                .Armor.GetFullValue;
+              LArmor := EnsureRange(LArmor div 10, 1, 100);
+              LeaderParty.ModifyArmor(LLeaderPosition, LArmor);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Leader feels his armor grow stronger.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfCelerity:
+            begin
+              Game.MediaPlayer.PlaySound(mmUseOrb);
+              LInitiative := LeaderParty.Creature[LLeaderPosition]
+                .Initiative.GetFullValue;
+              LInitiative := EnsureRange(LInitiative div 5, 1, 80);
+              LeaderParty.ModifyInitiative(LLeaderPosition, LInitiative);
+              FBattle.BattleLog.Log.Add
+                (LStr + ' The Leader feels his reactions grow sharper.');
+              UseTalisman(LItem.Enum);
+              NextTurn;
+              Exit;
+            end;
+          iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches:
+            begin
+              Game.MediaPlayer.PlaySound(mmClick);
+              TSceneSelectUnit.ShowScene(EnemyParty);
+              Exit;
+            end;
+          iTalismanOfRage, iGoblinOrb, iOrbOfHealing, iImpOrb,
+            iOrbOfRestoration, iZombieOrb, iOrbOfLife, iLizardmanOrb:
+            begin
+              Game.MediaPlayer.PlaySound(mmClick);
+              TSceneSelectUnit.ShowScene(LeaderParty);
+              Exit;
+            end;
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TSceneBattle2.UseOrb(const AItemEnum: TItemEnum);
+begin
+  TLeaderParty.Leader.Equipment.Clear(6);
+end;
+
+procedure TSceneBattle2.UseTalisman(const AItemEnum: TItemEnum);
+
+  procedure DestroyTalisman;
+  begin
+    TLeaderParty.Leader.Equipment.Clear(6);
+    InformDialog(Format(CTheTalismanIsBroken,
+      [TItemBase.Item(AItemEnum).Name]));
+  end;
+
+begin
+  case RandomRange(0, 100) of
+    0 .. 90:
+      begin
+        TLeaderParty.Leader.Equipment.Clear(6);
+        if TLeaderParty.Leader.Inventory.Count < CMaxInventoryItems then
+          TLeaderParty.Leader.Inventory.Add(AItemEnum)
+        else
+          DestroyTalisman;
+      end;
+  else
+    DestroyTalisman;
   end;
 end;
 

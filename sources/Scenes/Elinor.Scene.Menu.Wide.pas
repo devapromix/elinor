@@ -98,7 +98,7 @@ begin
       TwoButtonText[LTwoButtonEnum]);
     Inc(LLeft, LWidth);
     if (LTwoButtonEnum = btContinue) then
-      Button[LTwoButtonEnum].Sellected := True;
+      Button[LTwoButtonEnum].Selected := True;
   end;
 end;
 
