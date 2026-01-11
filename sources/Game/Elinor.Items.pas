@@ -157,7 +157,7 @@ const
     iBootsOfDarkness,  iLifePotion, iPotionOfHealing,  iOrbOfRestoration,
     iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
     iTalismanOfCelerity,  iTalismanOfNosferat, iTalismanOfFear,
-    iTalismanOfRage, }iOrbOfHealing];
+    iTalismanOfRage, } iOrbOfHealing];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -466,7 +466,7 @@ const
     (Enum: iTalismanOfCelerity; Name: 'Talisman of Celerity'; Level: 7;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
     ItRes: irTalismanOfCelerity; Price: 1350;
-    Description: 'Grants 20% increased initiative'),
+    Description: 'Grants the Leader 20% increased initiative'),
 
     // TOMES
     // (3) Tome of War

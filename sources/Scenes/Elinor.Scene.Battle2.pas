@@ -1233,13 +1233,14 @@ begin
               NextTurn;
               Exit;
             end;
-          iTalismanOfNosferat, iTalismanOfFear:
+          iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(EnemyParty);
               Exit;
             end;
-          iTalismanOfRage, iOrbOfHealing:
+          iTalismanOfRage, iGoblinOrb, iOrbOfHealing, iImpOrb,
+            iOrbOfRestoration, iZombieOrb, iOrbOfLife, iLizardmanOrb:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(LeaderParty);

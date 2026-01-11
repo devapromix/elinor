@@ -138,12 +138,28 @@ procedure TSceneSelectUnit.SelectUnit;
 var
   LItem: TItem;
 begin
-  if not CurrentParty.Creature[ActivePartyPosition].Alive then
-  begin
-    InformDialog(CSelectLlivingCreature);
-    Exit;
-  end;
   LItem := TLeaderParty.Leader.Equipment.Item(6);
+  case LItem.Enum of
+    iOrbOfLife:
+      begin
+        if not CurrentParty.Creature[ActivePartyPosition].Active then
+        begin
+          InformDialog(CChooseNonEmptySlot);
+          Exit;
+        end;
+        if CurrentParty.Creature[ActivePartyPosition].Alive then
+        begin
+          InformDialog(CNoRevivalNeeded);
+          Exit;
+        end;
+      end
+  else
+    if not CurrentParty.Creature[ActivePartyPosition].Alive then
+    begin
+      InformDialog(CSelectLlivingCreature);
+      Exit;
+    end;
+  end;
   case LItem.Enum of
     iTalismanOfNosferat:
       begin
@@ -176,6 +192,21 @@ begin
         CurrentParty.UpdateHP(50, ActivePartyPosition);
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 50 hp.';
+      end;
+    iOrbOfRestoration:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        CurrentParty.UpdateHP(100, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 100 hp.';
+      end;
+    iOrbOfLife:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmRevive);
+        CurrentParty.Revive(ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' Revived.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
