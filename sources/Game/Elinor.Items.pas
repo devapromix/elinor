@@ -63,7 +63,7 @@ const
 
 const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'elixir',
-    'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'sphere',
+    'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'orb',
     'talisman', 'boots', 'banner', 'book');
 
 type
@@ -162,11 +162,7 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [ { iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
-    iBootsOfDarkness,  iLifePotion, iPotionOfHealing,  iOrbOfRestoration,
-    iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
-    iTalismanOfCelerity,  iTalismanOfNosferat, iTalismanOfFear,
-    iTalismanOfRage, } iOrbOfHealing];
+  CTestItems = [iGoblinOrb];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
