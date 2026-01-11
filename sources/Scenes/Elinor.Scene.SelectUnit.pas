@@ -228,7 +228,7 @@ begin
         Game.MediaPlayer.PlaySound(mmRevive);
         CurrentParty.Revive(ActivePartyPosition);
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
-          [TItemBase.Item(LItem.Enum).Name]) + ' Revived.';
+          [TItemBase.Item(LItem.Enum).Name]) + ' You resurrected the creature.';
       end;
     iGoblinOrb:
       begin
@@ -261,8 +261,7 @@ begin
         CurrentParty.Dismiss(ActivePartyPosition);
         CurrentParty.AddCreature(crImp, ActivePartyPosition);
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
-          [TItemBase.Item(LItem.Enum).Name]) +
-          ' Enemy polymorphed into Imp.';
+          [TItemBase.Item(LItem.Enum).Name]) + ' Enemy polymorphed into Imp.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
