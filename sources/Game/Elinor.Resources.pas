@@ -135,7 +135,7 @@ type
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // TALISMANS
     irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
-    irTalismanOfCelerity,
+    irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage, irTalismanOfCelerity, 
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
     irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
@@ -761,6 +761,12 @@ const
     (FileName: 'item.talisman.talisman_of_vigor.png'; ResType: teItem;),
     // Talisman of Protection
     (FileName: 'item.talisman.talisman_of_protection.png'; ResType: teItem;),
+    // Talisman of Nosferat
+    (FileName: 'item.talisman.talisman_of_nosferat.png'; ResType: teItem;),
+    // Talisman of Fear
+    (FileName: 'item.talisman.talisman_of_fear.png'; ResType: teItem;),
+    // Talisman of Rage
+    (FileName: 'item.talisman.talisman_of_rage.png'; ResType: teItem;),
     // Talisman of Celerity
     (FileName: 'item.talisman.talisman_of_celerity.png'; ResType: teItem;),
 
