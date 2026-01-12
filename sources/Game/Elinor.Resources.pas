@@ -58,7 +58,7 @@ type
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
     reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
     reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
-    reReaper, reRogue, reTrog,
+    reReaper, reRogue, reTrog, reZombie, reLizardman,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -135,7 +135,8 @@ type
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
     // TALISMANS
     irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
-    irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage, irTalismanOfCelerity, 
+    irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage,
+    irTalismanOfCelerity,
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
     irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
@@ -421,7 +422,7 @@ const
     // Blue Dragon
     (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
     // Goblin
-    (FileName: 'character.goblin.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
     (FileName: 'character.goblin.archer.png'; ResType: teGUI;),
     // Goblin Elder
@@ -458,6 +459,10 @@ const
     (FileName: 'character.neutrals.rogue.png'; ResType: teGUI;),
     // Trog
     (FileName: 'character.neutrals.trog.png'; ResType: teGUI;),
+    // Zombie
+    (FileName: 'character.neutrals.zombie.png'; ResType: teGUI;),
+    // Lizardman
+    (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
 
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
@@ -879,7 +884,8 @@ type
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
-    mmUseOrb, mmImpHit);
+    mmUseOrb, mmImpHit, mmZombieHit, mmZombieDeath, mmZombieAttack,
+    mmLizardmanHit, mmLizardmanDeath);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1027,7 +1033,17 @@ const
     // Use Orb or Talisman
     (FileName: 'use_orb.ogg'; ResType: teSound;),
     // Imp Hit
-    (FileName: 'hum_hit.wav'; ResType: teSound;)
+    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    // Zombie Hit
+    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    // Zombie Death
+    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    // Zombie Attack
+    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    // Lizardman Hit
+    (FileName: 'lizardman_hit.wav'; ResType: teSound;),
+    // Lizardman Death
+    (FileName: 'lizardman_death.wav'; ResType: teSound;)
     //
     );
 

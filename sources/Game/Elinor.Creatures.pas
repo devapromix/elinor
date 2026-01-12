@@ -674,7 +674,7 @@ const
 {$REGION Green Skins}
     // Goblin
     (Ident: 'goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblin; Size: szSmall; Name: ('Гоблин', 'Гоблина');
+    ResEnum: reGoblin; Size: szSmall; Name: ('Goblin', 'Goblin');
     Description: ('Гоблины — это дальние родственники',
     'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -687,7 +687,7 @@ const
     Name: ('Гоблин-наездник', 'Гоблина-наездника');
     Description: ('Некоторые гоблины приручают', 'диких варгов и используют',
     'их в бою как средство передвижения.'); HitPoints: 55; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAdj; Gold: 120;
     Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 30;),
@@ -711,13 +711,13 @@ const
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);
     Gender: cgMale; AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
-    // Goblin
+    // Black Goblin
     (Ident: 'black-goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reBlackGoblin; Size: szSmall;
     Name: ('Black Goblin', 'Black Goblin'); Description: ('', '', '');
     HitPoints: 60; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
-    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
+    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAny;
+    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
     Gender: cgMale; AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
@@ -749,6 +749,16 @@ const
     Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
 {$ENDREGION Green Skins}
+    //
+    // Lizardman
+    (Ident: 'Lizardman'; Faction: faNeutrals; SubRace: reGreenSkin;
+    ResEnum: reLizardman; Size: szBig; Name: ('Lizardman', 'Lizardman');
+    Description: ('', '', ''); HitPoints: 250; Initiative: 40; ChancesToHit: 80;
+    Leadership: 0; Level: 1; Damage: 60; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAny; Gold: 250;
+    Sound: (mmLizardmanHit, mmLizardmanDeath, mmBowAttack); Gender: cgMale;
+    AttackEnum: atBow; AbilityEnum: abNone; Rating: 45;),
+
     // Neutral Humans
 {$REGION Humans}
     // Peasant
@@ -800,6 +810,13 @@ const
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; AbilityEnum: abNone; Rating: 45;),
+    // Zombie
+    (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reZombie;
+    Size: szSmall; Name: ('Zombie', 'Zombie'); Description: ('', '', '');
+    HitPoints: 200; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
+    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 275; Sound: (mmZombieHit, mmZombieDeath, mmZombieAttack);
+    Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Reaper
     (Ident: 'reaper'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reReaper;
     Size: szSmall; Name: ('Жнец', 'Жнеца');

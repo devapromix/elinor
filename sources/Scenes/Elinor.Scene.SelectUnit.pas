@@ -250,9 +250,21 @@ begin
       end;
     iZombieOrb:
       begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmZombieHit);
+        CurrentParty.AddCreature(crZombie, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' Zombie joins the Leader''s party.';
       end;
     iLizardmanOrb:
       begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmLizardmanHit);
+        CurrentParty.AddCreature(crLizardman, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' Lizardman joins the Leader''s party.';
       end;
     iOrbOfWitches:
       begin

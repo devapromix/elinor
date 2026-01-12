@@ -162,7 +162,7 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [iOrbOfLife, iGoblinOrb, iOrbOfWitches];
+  CTestItems = [iOrbOfLife, iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
