@@ -884,7 +884,7 @@ type
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
-    mmUseOrb, mmImpHit, mmZombieHit, mmZombieDeath, mmZombieAttack,
+    mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
     mmLizardmanHit, mmLizardmanDeath);
 
 var
@@ -1033,13 +1033,15 @@ const
     // Use Orb or Talisman
     (FileName: 'use_orb.ogg'; ResType: teSound;),
     // Imp Hit
-    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    (FileName: 'imp_hit.ogg'; ResType: teSound;),
+    // Imp Death
+    (FileName: 'imp_death.wav'; ResType: teSound;),
     // Zombie Hit
-    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    (FileName: 'zombie_hit.ogg'; ResType: teSound;),
     // Zombie Death
-    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    (FileName: 'zombie_death.ogg'; ResType: teSound;),
     // Zombie Attack
-    (FileName: 'hum_hit.wav'; ResType: teSound;),
+    (FileName: 'zombie_attack.ogg'; ResType: teSound;),
     // Lizardman Hit
     (FileName: 'lizardman_hit.wav'; ResType: teSound;),
     // Lizardman Death

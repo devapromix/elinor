@@ -836,11 +836,13 @@ const
 {$REGION Heretics}
     // Imp
     (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
-    Size: szSmall; Name: ('Имп', 'Импа'); Description: ('', '', '');
+    Size: szSmall; Name: ('Imp', 'Imp');
+    Description: ('Imps are small but vicious fighters,',
+    'quick with a short sword,', 'and dangerous in close combat.');
     HitPoints: 55; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 75; Sound: (mmImpHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atClaws; AbilityEnum: abNone; Rating: 35;),
+    Gold: 75; Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals
 {$REGION Animals}
