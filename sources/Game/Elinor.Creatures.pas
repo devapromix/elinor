@@ -837,9 +837,9 @@ const
     // Imp
     (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
     Size: szSmall; Name: ('Imp', 'Imp');
-    Description: ('Imps are small but vicious fighters,',
+    Description: ('Imps are vicious fighters,',
     'quick with a short sword,', 'and dangerous in close combat.');
-    HitPoints: 55; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
+    HitPoints: 60; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 75; Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 35;),
