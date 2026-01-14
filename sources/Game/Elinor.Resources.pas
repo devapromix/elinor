@@ -424,7 +424,7 @@ const
     // Goblin
     (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
-    (FileName: 'character.goblin.archer.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.goblin_archer.png'; ResType: teGUI;),
     // Goblin Elder
     (FileName: 'character.goblin.elder.png'; ResType: teGUI;),
     // Black Goblin
