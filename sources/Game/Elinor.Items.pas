@@ -19,8 +19,17 @@ uses
 // Leader can use Orbs
 // Leader can use Talismans
 
+// 40% Better chance of finding magic items
+// 2% Chance of critical hit
+// Magic damage reduced by 2
+// Damage reduced by 2
+// Attacker takes lightning damage of 4
 // Causes an enemy unit to flee from battle
 // Polymorphs enemy unit
+// 10% Increased chance of blocking (shield)
+// Increase maximum hp 5%
+// Attacker takes damage of 3
+// 3% Life stolen per hit
 // Paralyzes enemy unit
 // Revives dead units
 // Units inflict 25% more damage
@@ -32,25 +41,14 @@ uses
 // Receive 10% less damage from attacks
 // 15% greater chance to hit
 // Inflict 30% more damage
-// Gives an extra attack
+// Prevent monster heal
+// 37% Extra gold from monsters
 // Leader gains a vampiric attack: his attacks heal him
 // Petrifies enemy unit
 // Leader inflicts 10% more damage
 // Leader receives 25% less damage from attacks
-
-// Boots:
-// No move penalty when walking in forests
-// No move penalty when sailing on water
-// Leader gains 40% more move points
-
 // Leader is unaffected by thieves
 // 10% lower prices from merchants and mercenaries
-
-// Orbs
-// Orb of Regeneration (Heals units 75 hp)
-// Orb of Healing (Heals a unit 100 hp)
-// Orb of Life (Revives dead units)
-// Orb of Rage (Gives an extra attack)
 
 type
   TItemType = (itSpecial, itValuable,
@@ -61,8 +59,11 @@ type
     itBoots, itBanner, itTome);
 
 const
+  CUseItemType = [itPotion, itOrb, itTalisman];
+
+const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'elixir',
-    'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'sphere',
+    'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'orb',
     'talisman', 'boots', 'banner', 'book');
 
 type
@@ -138,7 +139,8 @@ type
     iBootsOfTravelling, iBootsOfTheElements, iBootsOfSevenLeagues,
 
     // TALISMANS
-    iTalismanOfLife, iTalismanOfProtection,
+    iTalismanOfRestoration, iTalismanOfVigor, iTalismanOfProtection,
+    iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage, iTalismanOfCelerity,
 
     // BANNERS
 
@@ -146,10 +148,8 @@ type
     iTomeOfWar,
 
     // ORBS
-    iGoblinOrb, iImpOrb, iZombieOrb,
-    // iVampireOrb,
-    // iLichOrb, iOrcOrb, iLizardManOrb, iElfLordOrb,
-    // iOrbOfRestoration, iOrbOfRegeneration, iOrbOfHealing,
+    iGoblinOrb, iOrbOfHealing, iImpOrb, iOrbOfRestoration, iZombieOrb,
+    iOrbOfLife, iLizardmanOrb, iOrbOfWitches,
 
     // RINGS
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
@@ -162,8 +162,7 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [{iHoodOfDarkness, iHeartOfDarkness, iShroudOfDarkness,
-    iBootsOfDarkness,} iPotionOfHealing];
+  CTestItems = [iOrbOfLife, iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -230,6 +229,7 @@ type
     procedure Add(const SlotIndex: Integer;
       const AItemEnum: TItemEnum); overload;
     function ItemSlotName(const I: Integer): string;
+    function LHandSlotItem: TItem;
   end;
 
 type
@@ -440,14 +440,39 @@ const
     Description: 'Leader gains 80% more move points'),
 
     // TALISMANS
-    // (2) Talisman of Life
-    (Enum: iTalismanOfLife; Name: 'Talisman of Life'; Level: 2;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 350; Description: ''),
-    // (4) Talisman of Protection
-    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 4;
-    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand; ItRes: irNone;
-    Price: 450; Description: ''),
+    // (1) Talisman of Restoration
+    (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfRestoration; Price: 450;
+    Description: 'Heals the Leader for 55 hp'),
+    // (2) Talisman of Vigor
+    (Enum: iTalismanOfVigor; Name: 'Talisman of Vigor'; Level: 2;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfVigor; Price: 600;
+    Description: 'Leader inflict 25% more damage'),
+    // (3) Talisman of Protection
+    (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfProtection; Price: 750;
+    Description: 'Leader receives 10% less damage from attacks'),
+    // (4) Talisman of Nosferat
+    (Enum: iTalismanOfNosferat; Name: 'Talisman of Nosferat'; Level: 4;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfNosferat; Price: 900;
+    Description: 'Drains 25 hp of life from enemy units'),
+    // (5) Talisman of Fear
+    (Enum: iTalismanOfFear; Name: 'Talisman of Fear'; Level: 5;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfFear; Price: 1050; Description: 'Paralyzes enemy unit'),
+    // (6) Talisman of Rage
+    (Enum: iTalismanOfRage; Name: 'Talisman of Rage'; Level: 6;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfRage; Price: 1200; Description: 'Gives an extra attack'),
+    // (7) Talisman of Celerity
+    (Enum: iTalismanOfCelerity; Name: 'Talisman of Celerity'; Level: 7;
+    ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
+    ItRes: irTalismanOfCelerity; Price: 1350;
+    Description: 'Grants the Leader 20% increased initiative'),
 
     // TOMES
     // (3) Tome of War
@@ -459,16 +484,35 @@ const
     // ORBS
     // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irItemGoblinOrb; Price: 400;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irGoblinOrb; Price: 200;
     Description: 'Summon a Goblin'),
-    // (2) Imp Orb
-    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 2; ItType: itOrb; ItEffect: ieNone;
-    ItSlot: isLHand; ItRes: irItemImpOrb; Price: 450;
-    Description: 'Summon an Imp'),
-    // (3) Zombie Orb
-    (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 3; ItType: itOrb;
+    // (2) Orb Of Healing
+    (Enum: iOrbOfHealing; Name: 'Orb Of Healing'; Level: 2; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfHealing; Price: 250;
+    Description: 'Heals units 50 hp'),
+    // (3) Imp Orb
+    (Enum: iImpOrb; Name: 'Imp Orb'; Level: 3; ItType: itOrb; ItEffect: ieNone;
+    ItSlot: isLHand; ItRes: irImpOrb; Price: 350; Description: 'Summon an Imp'),
+    // (4) Orb Of Restoration
+    (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 4;
+    ItType: itOrb; ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfRestoration;
+    Price: 500; Description: 'Heals units 100 hp'),
+    // (5) Zombie Orb
+    (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 5; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irZombieOrb; Price: 600;
     Description: 'Summon a Zombie'),
+    // (6) Orb Of Life
+    (Enum: iOrbOfLife; Name: 'Orb of Life'; Level: 6; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfLife; Price: 750;
+    Description: 'Revives dead units'),
+    // (7) Lizardman Orb
+    (Enum: iLizardmanOrb; Name: 'Lizardman Orb'; Level: 7; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 850;
+    Description: 'Summon a Lizardman'),
+    // (8) Orb of Witches
+    (Enum: iOrbOfWitches; Name: 'Orb of Witches'; Level: 8; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfWitches; Price: 1000;
+    Description: 'Polymorphs an enemy unit'),
 
     // RINGS
     // (1) Stone Ring
@@ -673,6 +717,11 @@ end;
 function TEquipment.ItemSlotName(const I: Integer): string;
 begin
   Result := SlotName[DollSlot[I]];
+end;
+
+function TEquipment.LHandSlotItem: TItem;
+begin
+  Result := FItem[6];
 end;
 
 procedure TEquipment.Update;

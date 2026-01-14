@@ -129,7 +129,7 @@ begin
       ButtonText[LButtonEnum]);
     Inc(L, W);
     if (LButtonEnum = btClose) then
-      Button[LButtonEnum].Sellected := True;
+      Button[LButtonEnum].Selected := True;
   end;
 end;
 

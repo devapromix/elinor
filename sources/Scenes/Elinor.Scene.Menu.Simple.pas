@@ -88,7 +88,7 @@ begin
   begin
     OneButton[LOneButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       OneButtonText[LOneButtonEnum]);
-    OneButton[LOneButtonEnum].Sellected := True;
+    OneButton[LOneButtonEnum].Selected := True;
   end;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TTwoButtonEnum)) + 1)) div 2);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
@@ -97,7 +97,7 @@ begin
       TwoButtonText[LTwoButtonEnum]);
     Inc(LLeft, LWidth);
     if (LTwoButtonEnum = btContinue) then
-      TwoButton[LTwoButtonEnum].Sellected := True;
+      TwoButton[LTwoButtonEnum].Selected := True;
   end;
 end;
 

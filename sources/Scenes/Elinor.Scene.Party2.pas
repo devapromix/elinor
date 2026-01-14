@@ -94,7 +94,7 @@ begin
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btClose) then
-      FButton[LButtonEnum].Sellected := True;
+      FButton[LButtonEnum].Selected := True;
   end;
 end;
 
@@ -191,6 +191,7 @@ begin
     RenderGuardianInfo;
 
   RenderButtons;
+  RenderLHandSlot;
 end;
 
 class procedure TSceneParty2.RenderParty(const PartySide: TPartySide;

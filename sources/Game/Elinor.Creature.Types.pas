@@ -74,11 +74,14 @@ type
     // Ogres
     crTrog, crOgre,
 
+    // Lizardman
+    crLizardman,
+
     // Humans
     crPeasant, crManAtArms, crRogue,
 
     // Undeads
-    crGhoul, crDarkElfGast, crReaper,
+    crGhoul, crDarkElfGast, crZombie, crReaper,
 
     // Heretics
     crImp,

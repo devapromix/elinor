@@ -58,7 +58,7 @@ type
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
     reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
     reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
-    reReaper, reRogue, reTrog,
+    reReaper, reRogue, reTrog, reZombie, reLizardman,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -67,6 +67,7 @@ type
     reTextTemple, reTextTower, reTextBarracks, reTextSpellbook, reTextCast,
     reTextLearn, reTextFaction, reTextClass, reTextRandom, reTextDarkogStudio,
     reTextPresents, reTextPickup, reTextMerchant, reTextInform, reTextLog,
+    reTextSelect,
     // Title
     reTitleTemple, reTitleRecruit, reTitleHighScores, reTitleVictory,
     reTitleDefeat, reTitleLogo, reTitleRace, reTitleScenario, reTitleLeader,
@@ -75,7 +76,7 @@ type
     reTitleKront, reTitleHimor, reTitleSodek, reTitleSard, reTitleDifficulty,
     reTitleThief, reTitleWarrior, reTitleAbilities, reTitleInventory,
     reTitleSpellbook, reTitleJournal, reTitleMageTower, reTitleBarracks,
-    reTitleEnterName, reTitleMerchant,
+    reTitleEnterName, reTitleMerchant, reTitleSelectUnit,
 
     // SCENARIO //
     reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge,
@@ -125,13 +126,20 @@ type
     // Elixirs
     irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
     irItemHealingOintment,
-    // Artifacts
+    // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
+    irHagsRing,
+    // ARTIFACTS
     irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
     irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
     irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
-    // Orbs
-    irItemGoblinOrb, irItemImpOrb, irZombieOrb,
+    // TALISMANS
+    irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
+    irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage,
+    irTalismanOfCelerity,
+    // ORBS
+    irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
+    irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -142,9 +150,9 @@ type
     // ARMORS
     irShroudOfDarkness,
     // AMULETS
-    irItemAmuletOfBloodbind, irHeartOfDarkness,
-    // RINGS
-    irHagsRing);
+    irItemAmuletOfBloodbind, irHeartOfDarkness
+    //
+    );
 
 const
   Capitals = [reTheEmpireCapital, reUndeadHordesCapital,
@@ -414,7 +422,7 @@ const
     // Blue Dragon
     (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
     // Goblin
-    (FileName: 'character.goblin.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
     (FileName: 'character.goblin.archer.png'; ResType: teGUI;),
     // Goblin Elder
@@ -451,6 +459,10 @@ const
     (FileName: 'character.neutrals.rogue.png'; ResType: teGUI;),
     // Trog
     (FileName: 'character.neutrals.trog.png'; ResType: teGUI;),
+    // Zombie
+    (FileName: 'character.neutrals.zombie.png'; ResType: teGUI;),
+    // Lizardman
+    (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
 
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
@@ -520,6 +532,8 @@ const
     (FileName: 'text.inform.png'; ResType: teGUI;),
     // Text "Log"
     (FileName: 'text.log.png'; ResType: teGUI;),
+    // Text "Select"
+    (FileName: 'text.select.png'; ResType: teGUI;),
 
     // Title "Temple"
     (FileName: 'title.temple.png'; ResType: teGUI;),
@@ -589,6 +603,8 @@ const
     (FileName: 'title.enter_name.png'; ResType: teGUI;),
     // Title "Merchant"
     (FileName: 'title.merchant.png'; ResType: teGUI;),
+    // Title "Select Unit"
+    (FileName: 'title.select_unit.png'; ResType: teGUI;),
 
     // Scenario "Dark Tower"
     (FileName: 'logo.scenario.darktower.png'; ResType: teGUI;),
@@ -690,6 +706,8 @@ const
     (FileName: 'item.special.mana.png'; ResType: teItem;),
     // Stone Tablet
     (FileName: 'item.scenario.stone_tablet.png'; ResType: teItem;),
+
+    // POTIONS
     // Life Potion
     (FileName: 'item.potion.life_potion.png'; ResType: teItem;),
     // Potion Of Healing
@@ -699,16 +717,21 @@ const
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
 
+    // RINGS
     // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
     // Bronze Ring
     (FileName: 'item.ring.bronze_ring.png'; ResType: teItem;),
+    // Silver Ring
+    (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
     // Gold Ring
     (FileName: 'item.ring.gold_ring.png'; ResType: teItem;),
     // Ring Of Strength
     (FileName: 'item.ring.ring_of_strength.png'; ResType: teItem;),
-    // Silver Ring
-    (FileName: 'item.ring.silver_ring.png'; ResType: teItem;),
+    // Hag's Ring
+    (FileName: 'item.ring.hags_ring.png'; ResType: teItem;),
+
+    //
     // Runic Key
     (FileName: 'item.valuable.runic_key.png'; ResType: teItem;),
     // Ice Crystal
@@ -735,12 +758,42 @@ const
     (FileName: 'item.artifact.bethrezens_claw.png'; ResType: teItem;),
     // Horn Of Incubus
     (FileName: 'item.artifact.horn_of_incubus.png'; ResType: teItem;),
+
+    // TALISMANS
+    // Talisman of Restoration
+    (FileName: 'item.talisman.talisman_of_restoration.png'; ResType: teItem;),
+    // Talisman of Vigor
+    (FileName: 'item.talisman.talisman_of_vigor.png'; ResType: teItem;),
+    // Talisman of Protection
+    (FileName: 'item.talisman.talisman_of_protection.png'; ResType: teItem;),
+    // Talisman of Nosferat
+    (FileName: 'item.talisman.talisman_of_nosferat.png'; ResType: teItem;),
+    // Talisman of Fear
+    (FileName: 'item.talisman.talisman_of_fear.png'; ResType: teItem;),
+    // Talisman of Rage
+    (FileName: 'item.talisman.talisman_of_rage.png'; ResType: teItem;),
+    // Talisman of Celerity
+    (FileName: 'item.talisman.talisman_of_celerity.png'; ResType: teItem;),
+
+    // ORBS
     // Goblin Orb
     (FileName: 'item.orb.goblin_orb.png'; ResType: teItem;),
+    // Orb Of Healing
+    (FileName: 'item.orb.orb_of_healing.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
+    // Orb Of Restoration
+    (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
     // Zombie Orb
-    (FileName: 'item.orbs.zombie_orb.png'; ResType: teItem;),
+    (FileName: 'item.orb.zombie_orb.png'; ResType: teItem;),
+    // Orb Of Life
+    (FileName: 'item.orb.orb_of_life.png'; ResType: teItem;),
+    // Lizardman Orb
+    (FileName: 'item.orb.lizardman_orb.png'; ResType: teItem;),
+    // Orb Of Witches
+    (FileName: 'item.orb.orb_of_witches.png'; ResType: teItem;),
+
+    // TOMES
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
 
@@ -772,11 +825,8 @@ const
     // Amulet of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Heart of Darkness
-    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;),
+    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;)
 
-    // RINGS
-    // Hag's Ring
-    (FileName: 'item.ring.hags_ring.png'; ResType: teItem;)
     //
     );
 
@@ -833,7 +883,9 @@ type
     mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
     mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink);
+    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
+    mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
+    mmLizardmanHit, mmLizardmanDeath);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -977,7 +1029,23 @@ const
     // Learn
     (FileName: 'learn.wav'; ResType: teSound;),
     // Drink
-    (FileName: 'useelixir.ogg'; ResType: teSound;)
+    (FileName: 'use_elixir.ogg'; ResType: teSound;),
+    // Use Orb or Talisman
+    (FileName: 'use_orb.ogg'; ResType: teSound;),
+    // Imp Hit
+    (FileName: 'imp_hit.ogg'; ResType: teSound;),
+    // Imp Death
+    (FileName: 'imp_death.wav'; ResType: teSound;),
+    // Zombie Hit
+    (FileName: 'zombie_hit.ogg'; ResType: teSound;),
+    // Zombie Death
+    (FileName: 'zombie_death.ogg'; ResType: teSound;),
+    // Zombie Attack
+    (FileName: 'zombie_attack.ogg'; ResType: teSound;),
+    // Lizardman Hit
+    (FileName: 'lizardman_hit.wav'; ResType: teSound;),
+    // Lizardman Death
+    (FileName: 'lizardman_death.wav'; ResType: teSound;)
     //
     );
 

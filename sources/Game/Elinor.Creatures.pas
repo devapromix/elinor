@@ -674,7 +674,7 @@ const
 {$REGION Green Skins}
     // Goblin
     (Ident: 'goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblin; Size: szSmall; Name: ('Гоблин', 'Гоблина');
+    ResEnum: reGoblin; Size: szSmall; Name: ('Goblin', 'Goblin');
     Description: ('Гоблины — это дальние родственники',
     'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -687,7 +687,7 @@ const
     Name: ('Гоблин-наездник', 'Гоблина-наездника');
     Description: ('Некоторые гоблины приручают', 'диких варгов и используют',
     'их в бою как средство передвижения.'); HitPoints: 55; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAdj; Gold: 120;
     Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 30;),
@@ -704,20 +704,22 @@ const
     // Goblin Elder
     (Ident: 'goblin-elder'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinElder; Size: szSmall;
-    Name: ('Гоблин-старейшина', 'Гоблина-старейшину');
-    Description: ('Немногие гоблины настолько умны,',
-    'чтобы практиковать искусство магии,', 'но иногда появляются старейшины.');
+    Name: ('Goblin Elder', 'Goblin Elder');
+    Description: ('Few goblins are intelligent enough',
+    'to practice the art of magic,', 'but from time to time elders do emerge.');
     HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
     Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);
     Gender: cgMale; AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
-    // Goblin
+    // Black Goblin
     (Ident: 'black-goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reBlackGoblin; Size: szSmall;
-    Name: ('Black Goblin', 'Black Goblin'); Description: ('', '', '');
+    Name: ('Black Goblin', 'Black Goblin');
+    Description: ('Few goblins are silent enough',
+    'to master the art of killing,', 'but those who do become assassins.');
     HitPoints: 60; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
-    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
+    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAny;
+    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
     Gender: cgMale; AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
@@ -749,6 +751,17 @@ const
     Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
 {$ENDREGION Green Skins}
+    //
+    // Lizardman
+    (Ident: 'lizardman'; Faction: faNeutrals; SubRace: reGreenSkin;
+    ResEnum: reLizardman; Size: szBig; Name: ('Lizardman', 'Lizardman');
+    Description: ('Lizardmen are skilled reptilian archers,',
+    'silent and deadly, striking', 'from the swamps and marshes');
+    HitPoints: 250; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 60; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
+    Gold: 250; Sound: (mmLizardmanHit, mmLizardmanDeath, mmBowAttack);
+    Gender: cgMale; AttackEnum: atBow; AbilityEnum: abNone; Rating: 45;),
+
     // Neutral Humans
 {$REGION Humans}
     // Peasant
@@ -783,9 +796,9 @@ const
 {$REGION Undeads}
     // Ghoul
     (Ident: 'ghoul'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reGhoul;
-    Size: szSmall; Name: ('Упырь', 'Упыря');
-    Description: ('Упыри - опасные создания-нежить,',
-    'способные воздействовать на разум', 'своей жертвы.'); HitPoints: 150;
+    Size: szSmall; Name: ('Ghoul', 'Ghoul');
+    Description: ('Ghouls are dangerous undead creatures,',
+    'capable of affecting the mind', 'of their victims.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
     Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
@@ -800,25 +813,36 @@ const
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
     Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; AbilityEnum: abNone; Rating: 45;),
+    // Zombie
+    (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reZombie;
+    Size: szSmall; Name: ('Zombie', 'Zombie');
+    Description: ('Few zombies are capable of ',
+    'acting consciously, but each of ', 'them remains a deadly threat.');
+    HitPoints: 200; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
+    Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 275; Sound: (mmZombieHit, mmZombieDeath, mmZombieAttack);
+    Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Reaper
     (Ident: 'reaper'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reReaper;
-    Size: szSmall; Name: ('Жнец', 'Жнеца');
-    Description: ('Жнецы являются воплощением', 'абсолютной Пустоты и способны',
-    'воздействовать на разум.'); HitPoints: 250; Initiative: 55;
-    ChancesToHit: 80; Leadership: 0; Level: 4; Damage: 75; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 325;
-    Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Reaper', 'Reaper');
+    Description: ('Reapers are the embodiment',
+    'of absolute Void and are capable', 'of affecting the mind.');
+    HitPoints: 250; Initiative: 55; ChancesToHit: 80; Leadership: 0; Level: 4;
+    Damage: 75; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 325; Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
     AttackEnum: atScythe; AbilityEnum: abNone; Rating: 70;),
 {$ENDREGION Undeads}
     // Neutral Heretics
 {$REGION Heretics}
     // Imp
     (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
-    Size: szSmall; Name: ('Имп', 'Импа'); Description: ('', '', '');
-    HitPoints: 55; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
+    Size: szSmall; Name: ('Imp', 'Imp');
+    Description: ('Imps are vicious fighters,',
+    'quick with a short sword,', 'and dangerous in close combat.');
+    HitPoints: 60; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 75; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atClaws; AbilityEnum: abNone; Rating: 35;),
+    Gold: 75; Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals
 {$REGION Animals}
@@ -981,7 +1005,7 @@ begin
     atMagic:
       Result := StaffName[ASourceEnum];
     atDrainLife:
-      Result := 'Посох Затмения';
+      Result := 'Cedar Staff';
   end;
 end;
 

@@ -27,7 +27,7 @@ type
   TSceneEnum = (scIntro, scRecruit, scMenu, scMap, scParty, scSettlement,
     scBattle, scSpellbook, scDifficulty, scScenario, scRace, scLeader, scTemple,
     scBarracks, scInventory, scAbilities, scNewAbility, scMageTower, scRecords,
-    scVictory, scDefeat, scLoot, scName, scMerchant);
+    scVictory, scDefeat, scLoot, scName, scMerchant, scSelectUnit);
 
 const
   ScreenWidth = 1344;
@@ -35,6 +35,7 @@ const
 
 var
   TextTop, TextLeft: Integer;
+  PendingTalismanOrOrbLogString: string = '';
 
 const
   K_ESCAPE = 27;
@@ -95,10 +96,22 @@ type
   TBGStat = (bsCharacter, bsEnemy, bsParalyze);
 
 type
+  TLHandSlot = class(TObject)
+  private
+    FLeft, FTop: Integer;
+  public
+    constructor Create(const ALeft, ATop: Integer);
+    property Left: Integer read FLeft;
+    property Top: Integer read FTop;
+    function MouseOver(const AX, AY: Integer): Boolean;
+  end;
+
+type
   TScene = class(TObject)
   private
     FWidth: Integer;
     FScrWidth: Integer;
+    FLHandSlot: TLHandSlot;
     procedure DrawCreatureReach(const AReachEnum: TReachEnum);
     function GetItemDescription(const AItemEnum: TItemEnum): string;
     function AddName(const ACreature: TCreature): string;
@@ -146,6 +159,7 @@ type
     procedure InformDialog(const S: string);
     procedure ItemInformDialog(const AItemEnum: TItemEnum);
     procedure DrawResources;
+    property LHandSlot: TLHandSlot read FLHandSlot;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
     function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
     function GetPartyPosition(const AX, AY: Integer): Integer;
@@ -179,6 +193,7 @@ type
     procedure RenderGuardianInfo;
     procedure DrawItemDescription(const AItemEnum: TItemEnum);
     function GetCurrentIndexPos(const ACurrentIndex: Integer): TPoint;
+    procedure RenderLHandSlot;
   end;
 
 type
@@ -200,6 +215,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Show(const ASceneEnum: TSceneEnum); override;
+    procedure BackToScene(const ASceneEnum: TSceneEnum);
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
@@ -267,6 +283,7 @@ uses
   Elinor.Scene.Records,
   Elinor.Scene.Victory,
   Elinor.Scene.Defeat,
+  Elinor.Scene.SelectUnit,
   Elinor.Difficulty,
   Elinor.Loot,
   Elinor.Scene.Loot2,
@@ -390,6 +407,7 @@ begin
   Width := ScreenWidth;
   ScrWidth := Width div 2;
   ConfirmHandler := nil;
+  FLHandSlot := TLHandSlot.Create(10, 90);
 end;
 
 class function TScene.DefaultButtonTop: Word;
@@ -399,7 +417,7 @@ end;
 
 destructor TScene.Destroy;
 begin
-
+  FreeAndNil(FLHandSlot);
   inherited;
 end;
 
@@ -1048,6 +1066,17 @@ begin
   AddTextLine('Spell casting range', TLeaderParty.Leader.GetSpellCastingRange);
 end;
 
+procedure TScene.RenderLHandSlot;
+begin
+  DrawImage(LHandSlot.Left, LHandSlot.Top, reSmallFrame);
+  with TLeaderParty.Leader.Equipment.LHandSlotItem do
+    if (Enum <> iNone) and (ItRes <> irNone) then
+    begin
+      DrawImage(LHandSlot.Left + 30, LHandSlot.Top + 25, ItemResImage[ItRes]);
+
+    end;
+end;
+
 procedure TScene.DrawResources;
 begin
   DrawImage(10, 10, reSmallFrame);
@@ -1170,6 +1199,12 @@ end;
 
 { TScenes }
 
+procedure TScenes.BackToScene(const ASceneEnum: TSceneEnum);
+begin
+  SetScene(ASceneEnum);
+  Game.Render;
+end;
+
 constructor TScenes.Create;
 var
   LLeft: Integer;
@@ -1200,12 +1235,13 @@ begin
   FScene[scLoot] := TSceneLoot2.Create;
   FScene[scName] := TSceneName.Create;
   FScene[scMerchant] := TSceneMerchant.Create;
+  FScene[scSelectUnit] := TSceneSelectUnit.Create;
   // Inform
   InformMsg := '';
   IsShowInform := idtNone;
   LLeft := ScrWidth - (ResImage[reButtonDef].Width div 2);
   Button := TButton.Create(LLeft, 400, reTextOk);
-  Button.Sellected := True;
+  Button.Selected := True;
   // Confirm
   IsShowConfirm := False;
   LLeft := ScrWidth - ((ResImage[reButtonDef].Width * 2) div 2);
@@ -1215,7 +1251,7 @@ begin
       ButtonsText[LButtonEnum]);
     Inc(LLeft, ResImage[reButtonDef].Width);
     if (LButtonEnum = btOk) then
-      Buttons[LButtonEnum].Sellected := True;
+      Buttons[LButtonEnum].Selected := True;
   end;
   // Item
   InformSL := TStringList.Create;
@@ -1462,6 +1498,20 @@ begin
     FScene[SceneEnum].Update(Key);
     Self.Render;
   end;
+end;
+
+{ TLhandSlot }
+
+function TLHandSlot.MouseOver(const AX, AY: Integer): Boolean;
+begin
+  Result := (AX > Left) and (AX < Left + 120) and (AY > Top) and
+    (AY < Top + 120);
+end;
+
+constructor TLHandSlot.Create(const ALeft, ATop: Integer);
+begin
+  FLeft := ALeft;
+  FTop := ATop;
 end;
 
 end.

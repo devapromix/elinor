@@ -149,7 +149,7 @@ begin
       ButtonText[LButtonEnum]);
     Inc(LLeft, LWidth);
     if (LButtonEnum = btContinue) then
-      Button[LButtonEnum].Sellected := True;
+      Button[LButtonEnum].Selected := True;
   end;
 end;
 

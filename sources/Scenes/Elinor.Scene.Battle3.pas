@@ -53,7 +53,7 @@ begin
   inherited;
   Button := TButton.Create(1100 - (ResImage[reButtonDef].Width + SceneLeft),
     DefaultButtonTop, reTextClose);
-  Button.Sellected := True;
+  Button.Selected := True;
 end;
 
 destructor TSceneBattle3.Destroy;

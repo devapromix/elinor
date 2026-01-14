@@ -93,6 +93,10 @@ type
     procedure ModifyPartyDamage(const AValue: Integer);
     function GetAllHitpointsSum: Integer;
     function GetAllDamageSum: Integer;
+    procedure ModifyDamage(const APosition: TPosition; const ADamage: Integer);
+    procedure ModifyArmor(const APosition: TPosition; const AArmor: Integer);
+    procedure ModifyInitiative(const APosition: TPosition;
+      const AInitiative: Integer);
   end;
 
 type
@@ -354,6 +358,29 @@ destructor TParty.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TParty.ModifyArmor(const APosition: TPosition; const AArmor: Integer);
+begin
+  with FCreature[APosition] do
+    if Alive then
+      Armor.ModifyTempValue(AArmor);
+end;
+
+procedure TParty.ModifyDamage(const APosition: TPosition;
+  const ADamage: Integer);
+begin
+  with FCreature[APosition] do
+    if Alive then
+      Damage.ModifyTempValue(ADamage);
+end;
+
+procedure TParty.ModifyInitiative(const APosition: TPosition;
+  const AInitiative: Integer);
+begin
+  with FCreature[APosition] do
+    if Alive then
+      Initiative.ModifyTempValue(AInitiative);
 end;
 
 procedure TParty.ModifyPartyChancesToHit(const AValue: Integer);
