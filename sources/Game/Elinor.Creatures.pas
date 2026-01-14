@@ -741,7 +741,7 @@ const
     Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
 
     // Ogre
-    (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
+    (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOgre;
     Size: szBig; Name: ('Ogre', 'Ogre');
     Description: ('Ogres attack anyone passing', 'by, paying no attention to',
     'tactics or strategy.'); HitPoints: 300; Initiative: 20; ChancesToHit: 80;
