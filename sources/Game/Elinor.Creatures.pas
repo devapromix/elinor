@@ -685,11 +685,11 @@ const
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinRider; Size: szSmall;
     Name: ('Goblin Rider', 'Goblin Rider');
-    Description: ('Some goblins tame wild wargs','and use them in battle','as a means of transportation.'); HitPoints: 75; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    Description: ('Some black goblins tame wild','wargs and use them in battle','as a means of transportation.'); HitPoints: 75; Initiative: 35;
+    ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAdj; Gold: 150;
-    Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
-    AttackEnum: atSpear; AbilityEnum: abNone; Rating: 35;),
+    Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atDagger; AbilityEnum: abNone; Rating: 35;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;
@@ -716,10 +716,10 @@ const
     Name: ('Black Goblin', 'Black Goblin');
     Description: ('Few goblins are silent enough',
     'to master the art of killing,', 'but those who do become assassins.');
-    HitPoints: 60; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    HitPoints: 60; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAny;
-    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
-    Gender: cgMale; AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 30;),
+    Gold: 65; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
+    Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
     (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
