@@ -735,20 +735,27 @@ const
     (Ident: 'trog'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTrog;
     Size: szBig; Name: ('Trog', 'Trog');
     Description: ('Trogs are savage creatures,', ' driven only by brute ',
-    'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 80; Leadership: 0;
+    'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 70; Leadership: 0;
     Level: 1; Damage: 110; Armor: 0; Heal: 0; SourceEnum: seWeapon;
     ReachEnum: reAdj; Gold: 270; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack);
     Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
-
+    // Troll
+    (Ident: 'troll'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTroll;
+    Size: szBig; Name: ('Troll', 'Troll');
+    Description: ('Trolls are massive and brutal creatures,','slow but incredibly strong,','thriving in caves and ruins.'); HitPoints: 300; Initiative: 25; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 120; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
+    Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
+    AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
     // Ogre
     (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOgre;
     Size: szBig; Name: ('Ogre', 'Ogre');
     Description: ('Ogres attack anyone passing', 'by, paying no attention to',
-    'tactics or strategy.'); HitPoints: 300; Initiative: 20; ChancesToHit: 80;
+    'tactics or strategy.'); HitPoints: 350; Initiative: 20; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 130; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 350;
     Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
-    AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
+    AttackEnum: atClub; AbilityEnum: abNone; Rating: 70;),
 {$ENDREGION Green Skins}
     //
     // Lizardman

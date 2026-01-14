@@ -58,7 +58,7 @@ type
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
     reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
     reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
-    reReaper, reRogue, reTrog, reZombie, reLizardman, rePeasant, reOgre,
+    reReaper, reRogue, reTrog, reZombie, reLizardman, rePeasant, reOgre, reTroll,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -469,6 +469,8 @@ const
     (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
     // Ogre
     (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
+    // Troll
+    (FileName: 'character.neutrals.troll.png'; ResType: teGUI;),
 
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),

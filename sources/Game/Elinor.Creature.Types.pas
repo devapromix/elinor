@@ -72,9 +72,9 @@ type
     // Orcs
     crOrc,
     // Ogres
-    crTrog, crOgre,
+    crTrog, crTroll, crOgre,
 
-    // Lizardman
+    // Lizardmans
     crLizardman,
 
     // Humans
