@@ -36,7 +36,8 @@ type
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     class procedure ShowScene(AParty: TParty; const ACloseScene: TSceneEnum);
     class procedure RenderParty(const PartySide: TPartySide;
-      const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True);
+      const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True;
+      const IsMirrorHorizontally: Boolean = False);
     class procedure Show(Party: TParty; CloseScene: TSceneEnum);
     class procedure HideScene;
   end;
@@ -195,7 +196,8 @@ begin
 end;
 
 class procedure TSceneParty2.RenderParty(const PartySide: TPartySide;
-  const Party: TParty; CanHire, ShowExp: Boolean);
+      const Party: TParty; CanHire: Boolean = False; ShowExp: Boolean = True;
+      const IsMirrorHorizontally: Boolean = False);
 var
   LPosition: TPosition;
 begin
@@ -206,7 +208,7 @@ begin
     if (Party <> nil) then
       TSceneParty2(Game.GetScene(scParty)).DrawUnit(LPosition, Party,
         TFrame.Col(LPosition, PartySide), TFrame.Row(LPosition),
-        CanHire, ShowExp);
+        CanHire, ShowExp, IsMirrorHorizontally);
   end;
 end;
 
