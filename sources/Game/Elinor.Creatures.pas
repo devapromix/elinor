@@ -675,8 +675,8 @@ const
     // Goblin
     (Ident: 'goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblin; Size: szSmall; Name: ('Goblin', 'Goblin');
-    Description: ('Гоблины — это дальние родственники',
-    'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
+    Description: ('Goblins are distant relatives of orcs.',
+    'They are not as strong,', 'but they are cunning and agile.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
@@ -684,7 +684,7 @@ const
     // Goblin Rider
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblin; Size: szSmall;
-    Name: ('Гоблин-наездник', 'Гоблина-наездника');
+    Name: ('Goblin Rider', 'Goblin Rider');
     Description: ('Некоторые гоблины приручают', 'диких варгов и используют',
     'их в бою как средство передвижения.'); HitPoints: 55; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
@@ -694,12 +694,12 @@ const
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;
-    Name: ('Гоблин-лучник', 'Гоблина-лучника');
-    Description: ('Гоблины-лучники сопровождают своих',
-    'собратьев в засадах и нападениях,', 'используя грубые стрелы.');
-    HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
+    Name: ('Goblin Archer', 'Goblin Archer');
+    Description: ('Goblin archers accompany their kin',
+    'in ambushes and raids,', 'using crude arrows.'); HitPoints: 40;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 75;
+    Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 20;),
     // Goblin Elder
     (Ident: 'goblin-elder'; Faction: faNeutrals; SubRace: reGreenSkin;
