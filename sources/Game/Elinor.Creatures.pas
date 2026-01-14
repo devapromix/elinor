@@ -765,11 +765,11 @@ const
     // Neutral Humans
 {$REGION Humans}
     // Peasant
-    (Ident: 'peasant'; Faction: faNeutrals; SubRace: reHuman; ResEnum: reGoblin;
-    Size: szSmall; Name: ('Крестьянин', 'Крестьянина');
-    Description: ('Крестьяне защищают тот', 'маленький кусочек земли, который',
-    'они называют своим домом.'); HitPoints: 40; Initiative: 30;
-    ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
+    (Ident: 'peasant'; Faction: faNeutrals; SubRace: reHuman;
+    ResEnum: rePeasant; Size: szSmall; Name: ('Peasant', 'Peasant');
+    Description: ('Peasants defend the', 'small piece of land that ',
+    'they call their home.'); HitPoints: 40; Initiative: 30; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
     Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
