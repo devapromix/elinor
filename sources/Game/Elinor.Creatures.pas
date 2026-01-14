@@ -675,31 +675,30 @@ const
     // Goblin
     (Ident: 'goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblin; Size: szSmall; Name: ('Goblin', 'Goblin');
-    Description: ('Гоблины — это дальние родственники',
-    'орков. Они не такие сильные', 'создания, но зато хитрые и ловкие.');
+    Description: ('Goblins are distant relatives of orcs.',
+    'They are not as strong,', 'but they are cunning and agile.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
     Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
     Gender: cgMale; AttackEnum: atSpear; AbilityEnum: abNone; Rating: 25;),
     // Goblin Rider
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblin; Size: szSmall;
-    Name: ('Гоблин-наездник', 'Гоблина-наездника');
-    Description: ('Некоторые гоблины приручают', 'диких варгов и используют',
-    'их в бою как средство передвижения.'); HitPoints: 55; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAdj; Gold: 120;
-    Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
-    AttackEnum: atSpear; AbilityEnum: abNone; Rating: 30;),
+    ResEnum: reGoblinRider; Size: szSmall;
+    Name: ('Goblin Rider', 'Goblin Rider');
+    Description: ('Some black goblins tame wild','wargs and use them in battle','as a means of transportation.'); HitPoints: 75; Initiative: 35;
+    ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seLife; ReachEnum: reAdj; Gold: 150;
+    Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack); Gender: cgMale;
+    AttackEnum: atDagger; AbilityEnum: abNone; Rating: 35;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;
-    Name: ('Гоблин-лучник', 'Гоблина-лучника');
-    Description: ('Гоблины-лучники сопровождают своих',
-    'собратьев в засадах и нападениях,', 'используя грубые стрелы.');
-    HitPoints: 40; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
-    Damage: 15; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 75; Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
+    Name: ('Goblin Archer', 'Goblin Archer');
+    Description: ('Goblin archers accompany their kin',
+    'in ambushes and raids,', 'using crude arrows.'); HitPoints: 40;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 75;
+    Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 20;),
     // Goblin Elder
     (Ident: 'goblin-elder'; Faction: faNeutrals; SubRace: reGreenSkin;
@@ -717,10 +716,10 @@ const
     Name: ('Black Goblin', 'Black Goblin');
     Description: ('Few goblins are silent enough',
     'to master the art of killing,', 'but those who do become assassins.');
-    HitPoints: 60; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    HitPoints: 60; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAny;
-    Gold: 55; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
-    Gender: cgMale; AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 30;),
+    Gold: 65; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
+    Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
     (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
@@ -736,20 +735,27 @@ const
     (Ident: 'trog'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTrog;
     Size: szBig; Name: ('Trog', 'Trog');
     Description: ('Trogs are savage creatures,', ' driven only by brute ',
-    'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 80; Leadership: 0;
+    'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 70; Leadership: 0;
     Level: 1; Damage: 110; Armor: 0; Heal: 0; SourceEnum: seWeapon;
     ReachEnum: reAdj; Gold: 270; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack);
     Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
-
-    // Ogre
-    (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
-    Size: szBig; Name: ('Ogre', 'Ogre');
-    Description: ('Ogres attack anyone passing', 'by, paying no attention to',
-    'tactics or strategy.'); HitPoints: 300; Initiative: 20; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 130; Armor: 0; Heal: 0;
+    // Troll
+    (Ident: 'troll'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTroll;
+    Size: szBig; Name: ('Troll', 'Troll');
+    Description: ('Trolls are massive and brutal creatures,','slow but incredibly strong,','thriving in caves and ruins.'); HitPoints: 300; Initiative: 25; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 120; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
     Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
+    // Ogre
+    (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOgre;
+    Size: szBig; Name: ('Ogre', 'Ogre');
+    Description: ('Ogres attack anyone passing', 'by, paying no attention to',
+    'tactics or strategy.'); HitPoints: 350; Initiative: 20; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 130; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 350;
+    Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
+    AttackEnum: atClub; AbilityEnum: abNone; Rating: 70;),
 {$ENDREGION Green Skins}
     //
     // Lizardman
@@ -775,9 +781,8 @@ const
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
-    ResEnum: reGoblin; Size: szSmall; Name: ('Пехотинец', 'Пехотинца');
-    Description: ('Наёмники, предоставляющие свои',
-    'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
+    ResEnum: reGoblin; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
+    Description: ('Mercenaries offer their combat','services to anyone who pays','a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
@@ -837,11 +842,11 @@ const
     // Imp
     (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
     Size: szSmall; Name: ('Imp', 'Imp');
-    Description: ('Imps are vicious fighters,',
-    'quick with a short sword,', 'and dangerous in close combat.');
-    HitPoints: 60; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
-    Damage: 20; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 75; Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
+    Description: ('Imps are vicious fighters,', 'quick with a short sword,',
+    'and dangerous in close combat.'); HitPoints: 60; Initiative: 45;
+    ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 75;
+    Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals

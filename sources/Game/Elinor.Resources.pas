@@ -56,9 +56,9 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
+    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
     reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
-    reReaper, reRogue, reTrog, reZombie, reLizardman, rePeasant,
+    reReaper, reRogue, reTrog, reZombie, reLizardman, rePeasant, reOgre, reTroll,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -424,11 +424,13 @@ const
     // Goblin
     (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
-    (FileName: 'character.goblin.archer.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.goblin_archer.png'; ResType: teGUI;),
     // Goblin Elder
-    (FileName: 'character.goblin.elder.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.goblin_elder.png'; ResType: teGUI;),
     // Black Goblin
     (FileName: 'character.neutrals.black_goblin.png'; ResType: teGUI;),
+    // Goblin Rider
+    (FileName: 'character.neutrals.goblin_rider.png'; ResType: teGUI;),
     // Giant Spider
     (FileName: 'character.giant_spider.png'; ResType: teGUI;),
     // Wolf
@@ -463,8 +465,12 @@ const
     (FileName: 'character.neutrals.zombie.png'; ResType: teGUI;),
     // Lizardman
     (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
-    // Lizardman
+    // Peasant
     (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
+    // Ogre
+    (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
+    // Troll
+    (FileName: 'character.neutrals.troll.png'; ResType: teGUI;),
 
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
