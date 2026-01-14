@@ -683,14 +683,13 @@ const
     Gender: cgMale; AttackEnum: atSpear; AbilityEnum: abNone; Rating: 25;),
     // Goblin Rider
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblin; Size: szSmall;
+    ResEnum: reGoblinRider; Size: szSmall;
     Name: ('Goblin Rider', 'Goblin Rider');
-    Description: ('Некоторые гоблины приручают', 'диких варгов и используют',
-    'их в бою как средство передвижения.'); HitPoints: 55; Initiative: 35;
-    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAdj; Gold: 120;
+    Description: ('Some goblins tame wild wargs','and use them in battle','as a means of transportation.'); HitPoints: 75; Initiative: 35;
+    ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
+    SourceEnum: seLife; ReachEnum: reAdj; Gold: 150;
     Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack); Gender: cgMale;
-    AttackEnum: atSpear; AbilityEnum: abNone; Rating: 30;),
+    AttackEnum: atSpear; AbilityEnum: abNone; Rating: 35;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;
@@ -775,9 +774,8 @@ const
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
-    ResEnum: reGoblin; Size: szSmall; Name: ('Пехотинец', 'Пехотинца');
-    Description: ('Наёмники, предоставляющие свои',
-    'боевые услуги каждому, кто', 'заплатит золотую монету.'); HitPoints: 95;
+    ResEnum: reGoblin; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
+    Description: ('Mercenaries offer their combat','services to anyone who pays','a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
