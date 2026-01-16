@@ -131,21 +131,21 @@ type
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); virtual;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); virtual;
-    procedure DrawTitle(Res: TResEnum);
-    procedure DrawImage(X, Y: Integer; Image: TPNGImage); overload;
-    procedure DrawImage(Res: TResEnum); overload;
-    procedure DrawImage(X, Y: Integer; Res: TResEnum); overload;
-    procedure DrawImage(X, Y: Integer; Res: TItemResEnum); overload;
+    procedure DrawTitle(ARes: TResEnum);
+    procedure DrawImage(AX, AY: Integer; AImage: TPNGImage); overload;
+    procedure DrawImage(ARes: TResEnum); overload;
+    procedure DrawImage(AX, AY: Integer; ARes: TResEnum); overload;
+    procedure DrawImage(AX, AY: Integer; ARes: TItemResEnum); overload;
     procedure RenderFrame(const APartySide: TPartySide;
       const APartyPosition, AX, AY: Integer; const F: Boolean = False);
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       ABGStat: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-      ABGStat: TBGStat; HP, MaxHP: Integer;
-      IsMirrorHorizontally: Boolean = False); overload;
+      ABGStat: TBGStat; AHP, AMaxHP: Integer;
+      AIsMirrorHorizontally: Boolean = False); overload;
     procedure DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
       ACanHire: Boolean = False; AShowExp: Boolean = True;
-      IsMirrorHorizontally: Boolean = False); overload;
+      AIsMirrorHorizontally: Boolean = False); overload;
     procedure DrawCreatureInfo(AName: string; AX, AY, ALevel, AExperience,
       AHitPoints, AMaxHitPoints, ADamage, AHeal, AArmor, AInitiative,
       AChanceToHit: Integer; AIsShowExp: Boolean); overload;
@@ -157,8 +157,9 @@ type
       AX, AY: Integer; AIsShowExp: Boolean = True); overload;
     procedure DrawUnitInfo(AX, AY: Integer; ACreature: TCreatureEnum;
       AIsAdv: Boolean = True); overload;
-    procedure ConfirmDialog(const S: string; OnYes: TConfirmMethod = nil);
-    procedure InformDialog(const S: string);
+    procedure ConfirmDialog(const AMessage: string;
+      OnYes: TConfirmMethod = nil);
+    procedure InformDialog(const AMessage: string);
     procedure ItemInformDialog(const AItemEnum: TItemEnum);
     procedure DrawResources;
     property LHandSlot: TLHandSlot read FLHandSlot;
@@ -180,14 +181,15 @@ type
     procedure AddTextLine(const S: string; const F: Boolean); overload;
     procedure AddTextLine(const S, V: string); overload;
     procedure AddTextLine(const S: string; const V: Integer); overload;
-    procedure AddTextLine(const S: string; const V, M: Integer); overload;
+    procedure AddTextLine(const AMessage: string; const V, M: Integer);
+      overload;
     procedure AddTableLine(const N, A, B, C: string);
     procedure DrawCreatureInfo(const ACreature: TCreatureBase); overload;
     procedure DrawCreatureInfo(const ACreature: TCreature); overload;
-    procedure DrawSpell(X, Y: Integer; Res: TSpellResEnum); overload;
+    procedure DrawSpell(AX, AY: Integer; ARes: TSpellResEnum); overload;
     procedure DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
-      IsDrawTransparent: Boolean = False); overload;
-    procedure DrawAbility(X, Y: Integer; Res: TAbilityResEnum); overload;
+      AIsDrawTransparent: Boolean = False); overload;
+    procedure DrawAbility(AX, AY: Integer; ARes: TAbilityResEnum); overload;
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer); overload;
     procedure DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
@@ -469,9 +471,9 @@ begin
 
 end;
 
-procedure TScene.DrawTitle(Res: TResEnum);
+procedure TScene.DrawTitle(ARes: TResEnum);
 begin
-  DrawImage(ScrWidth - (ResImage[Res].Width div 2), 10, Res);
+  DrawImage(ScrWidth - (ResImage[ARes].Width div 2), 10, ARes);
 end;
 
 procedure TScene.AddTextLine;
@@ -509,23 +511,23 @@ begin
   Inc(TextTop, TextLineHeight);
 end;
 
-procedure TScene.AddTextLine(const S: string; const V, M: Integer);
+procedure TScene.AddTextLine(const AMessage: string; const V, M: Integer);
 begin
-  AddTextLine(Format('%s: %d/%d', [S, V, M]));
+  AddTextLine(Format('%s: %d/%d', [AMessage, V, M]));
 end;
 
-procedure TScene.ConfirmDialog(const S: string; OnYes: TConfirmMethod);
+procedure TScene.ConfirmDialog(const AMessage: string; OnYes: TConfirmMethod);
 begin
   Game.MediaPlayer.PlaySound(mmExit);
-  Game.InformMsg := S;
+  Game.InformMsg := AMessage;
   Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
 end;
 
-procedure TScene.InformDialog(const S: string);
+procedure TScene.InformDialog(const AMessage: string);
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.InformMsg := S;
+  Game.InformMsg := AMessage;
   Game.IsShowInform := idtMessage;
 end;
 
@@ -622,28 +624,28 @@ begin
   end;
 end;
 
-procedure TScene.DrawImage(X, Y: Integer; Image: TPNGImage);
+procedure TScene.DrawImage(AX, AY: Integer; AImage: TPNGImage);
 begin
-  Game.Surface.Canvas.Draw(X, Y, Image);
+  Game.Surface.Canvas.Draw(AX, AY, AImage);
 end;
 
-procedure TScene.DrawImage(Res: TResEnum);
+procedure TScene.DrawImage(ARes: TResEnum);
 begin
   Game.Surface.Canvas.StretchDraw(Rect(0, 0, Game.Surface.Width,
-    Game.Surface.Height), ResImage[Res]);
+    Game.Surface.Height), ResImage[ARes]);
 end;
 
-procedure TScene.DrawSpell(X, Y: Integer; Res: TSpellResEnum);
+procedure TScene.DrawSpell(AX, AY: Integer; ARes: TSpellResEnum);
 begin
-  DrawImage(X, Y, SpellResImage[Res]);
+  DrawImage(AX, AY, SpellResImage[ARes]);
 end;
 
 procedure TScene.DrawSpell(const ASpellEnum: TSpellEnum; const AX, AY: Integer;
-  IsDrawTransparent: Boolean = False);
+  AIsDrawTransparent: Boolean = False);
 begin
   DrawSpell(AX + 7, AY + 29, TSpells.Spell(ASpellEnum).ResEnum);
   DrawImage(AX + 7, AY + 7, Spellbook.SpellBackground(ASpellEnum));
-  if IsDrawTransparent then
+  if AIsDrawTransparent then
     DrawImage(AX + 7, AY + 7, reBGTransparent);
 end;
 
@@ -719,40 +721,39 @@ begin
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-  ABGStat: TBGStat; HP, MaxHP: Integer; IsMirrorHorizontally: Boolean);
+  ABGStat: TBGStat; AHP, AMaxHP: Integer; AIsMirrorHorizontally: Boolean);
 const
   CMaxHeight = 104;
 var
   LImage: TPNGImage;
   LTempImage: TPNGImage;
-  LBitmap: Vcl.Graphics.TBitmap;
   LHeight: Integer;
 
-  function BarHeight(CY, MY: Integer): Integer;
+  function BarHeight(ACurrentHeight, AMaxHeight: Integer): Integer;
   var
     I: Integer;
   begin
-    if (CY < 0) then
-      CY := 0;
-    if (CY = MY) and (CY = 0) then
+    if (ACurrentHeight < 0) then
+      ACurrentHeight := 0;
+    if (ACurrentHeight = AMaxHeight) and (ACurrentHeight = 0) then
     begin
       Result := 0;
       Exit;
     end;
-    if (MY <= 0) then
-      MY := 1;
-    I := (CY * CMaxHeight) div MY;
+    if (AMaxHeight <= 0) then
+      AMaxHeight := 1;
+    I := (ACurrentHeight * CMaxHeight) div AMaxHeight;
     if I <= 0 then
       I := 0;
-    if (CY >= MY) then
+    if (ACurrentHeight >= AMaxHeight) then
       I := CMaxHeight;
     Result := I;
   end;
 
 begin
-  if HP <> MaxHP then
+  if AHP <> AMaxHP then
     DrawImage(AX + 7, AY + 7, reBGParalyze);
-  LHeight := BarHeight(HP, MaxHP);
+  LHeight := BarHeight(AHP, AMaxHP);
   LImage := TPNGImage.Create;
   try
     case ABGStat of
@@ -769,7 +770,7 @@ begin
       DrawImage(AX + 7, AY + 7 + (CMaxHeight - LHeight), LImage);
     end;
 
-    if IsMirrorHorizontally then
+    if AIsMirrorHorizontally then
     begin
       try
         LTempImage := TPNGImage.Create;
@@ -866,9 +867,9 @@ begin
   end;
 end;
 
-procedure TScene.DrawAbility(X, Y: Integer; Res: TAbilityResEnum);
+procedure TScene.DrawAbility(AX, AY: Integer; ARes: TAbilityResEnum);
 begin
-  DrawImage(X, Y, AbilityResImage[Res]);
+  DrawImage(AX, AY, AbilityResImage[ARes]);
 end;
 
 function TScene.AddName(const ACreature: TCreature): string;
@@ -926,9 +927,9 @@ begin
   end;
 end;
 
-procedure TScene.DrawImage(X, Y: Integer; Res: TResEnum);
+procedure TScene.DrawImage(AX, AY: Integer; ARes: TResEnum);
 begin
-  DrawImage(X, Y, ResImage[Res]);
+  DrawImage(AX, AY, ResImage[ARes]);
 end;
 
 procedure TScene.DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
@@ -1226,7 +1227,7 @@ end;
 
 procedure TScene.DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
   ACanHire: Boolean = False; AShowExp: Boolean = True;
-  IsMirrorHorizontally: Boolean = False);
+  AIsMirrorHorizontally: Boolean = False);
 var
   F: Boolean;
   LBGStat: TBGStat;
@@ -1247,7 +1248,7 @@ begin
           DrawUnit(reDead, AX, AY, LBGStat, 0, HitPoints.GetMaxValue)
         else
           DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints.GetCurrValue,
-            HitPoints.GetMaxValue, IsMirrorHorizontally);
+            HitPoints.GetMaxValue, AIsMirrorHorizontally);
         DrawCreatureInfo(APosition, AParty, AX, AY, AShowExp);
       end
     else if ACanHire then
@@ -1260,9 +1261,9 @@ begin
   end;
 end;
 
-procedure TScene.DrawImage(X, Y: Integer; Res: TItemResEnum);
+procedure TScene.DrawImage(AX, AY: Integer; ARes: TItemResEnum);
 begin
-  DrawImage(X, Y, ItemResImage[Res]);
+  DrawImage(AX, AY, ItemResImage[ARes]);
 end;
 
 { TScenes }
@@ -1568,7 +1569,7 @@ begin
   end;
 end;
 
-{ TLhandSlot }
+{ TLHandSlot }
 
 function TLHandSlot.MouseOver(const AX, AY: Integer): Boolean;
 begin
