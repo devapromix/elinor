@@ -668,15 +668,54 @@ begin
   DrawImage(AX + 7, AY + 7, AResEnum);
 end;
 
-procedure Flip(B: TPNGImage);
+// https://stackoverflow.com/questions/9975915/stretchdraw-on-tpngimage
+procedure FlipPNG(aSource, aDest: TPngImage);
 var
-  hd: HBITMAP;
-  wd, hg: Integer;
+  X, Y: Integer;
+  AlphaPtr: Vcl.Imaging.pngimage.PByteArray;
+  RGBLine: pRGBLine;
+  PalleteLine: Vcl.Imaging.pngimage.PByteArray;
+  AlphaPtrDest: Vcl.Imaging.pngimage.PByteArray;
+  RGBLineDest: pRGBLine;
+  PalleteLineDest: Vcl.Imaging.pngimage.PByteArray;
 begin
-  hd := B.Canvas.Handle;
-  wd := B.Width;
-  hg := B.Height;
-  StretchBlt(hd, 0, hg - 1, hg, -hg, hd, 0, 0, wd, hg, SRCCOPY);
+  aDest.Assign(aSource);
+
+  if (aSource.Header.ColorType = COLOR_PALETTE) or
+     (aSource.Header.ColorType = COLOR_GRAYSCALEALPHA) or
+     (aSource.Header.ColorType = COLOR_GRAYSCALE) then
+  begin
+    for y := 0 to aSource.Height - 1 do
+    begin
+      AlphaPtr := aSource.AlphaScanline[y];
+      PalleteLine := aSource.Scanline[y];
+      AlphaPtrDest := aDest.AlphaScanline[y];
+      PalleteLineDest := aDest.Scanline[y];
+      for x := 0 to aSource.Width - 1 do
+      begin
+        PalleteLineDest^[aSource.Width - x -1] := PalleteLine^[x];
+        if Assigned(AlphaPtr) then
+          AlphaPtrDest^[aSource.Width - x -1] := AlphaPtr^[x];
+      end;
+    end;
+  end else
+  if (aSource.Header.ColorType = COLOR_RGBALPHA) or
+     (aSource.Header.ColorType = COLOR_RGB) then
+  begin
+    for y := 0 to aSource.Height - 1 do
+    begin
+      AlphaPtr := aSource.AlphaScanline[y];
+      RGBLine := aSource.Scanline[y];
+      AlphaPtrDest := aDest.AlphaScanline[y];
+      RGBLineDest := aDest.Scanline[y];
+      for x := 0 to aSource.Width - 1 do
+      begin
+        RGBLineDest^[aSource.Width - x -1] := RGBLine^[x];
+        if Assigned(AlphaPtr) then
+          AlphaPtrDest^[aSource.Width - x -1] := AlphaPtr^[x];
+      end;
+    end;
+  end;
 end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
@@ -733,9 +772,9 @@ begin
     if IsMirrorHorizontally then
     begin
       try
-        LTempImage := TPNGImage.Create;
-        LTempImage.Assign(ResImage[AResEnum]);
-        Flip(LTempImage);
+        LTempImage := TPNGImage.CreateBlank(COLOR_RGBALPHA, 8,
+          ResImage[AResEnum].Width, ResImage[AResEnum].Height);
+        FlipPNG(ResImage[AResEnum], LTempImage);
         DrawImage(AX + 7, AY + 7, LTempImage);
       finally
         FreeAndNil(LTempImage);
