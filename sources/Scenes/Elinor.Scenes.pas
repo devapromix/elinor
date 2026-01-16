@@ -754,37 +754,38 @@ begin
   if AHP <> AMaxHP then
     DrawImage(AX + 7, AY + 7, reBGParalyze);
   LHeight := BarHeight(AHP, AMaxHP);
-  LImage := TPNGImage.Create;
-  try
-    case ABGStat of
-      bsCharacter:
-        LImage.Assign(ResImage[reBGCharacter]);
-      bsEnemy:
-        LImage.Assign(ResImage[reBGEnemy]);
-      bsParalyze:
-        LImage.Assign(ResImage[reBGParalyze]);
-    end;
-    if (LHeight > 0) then
-    begin
-      LImage.SetSize(64, EnsureRange(LHeight, 0, CMaxHeight));
-      DrawImage(AX + 7, AY + 7 + (CMaxHeight - LHeight), LImage);
-    end;
-
-    if AIsMirrorHorizontally then
-    begin
-      try
-        LTempImage := TPNGImage.Create;
-        FlipPNG(ResImage[AResEnum], LTempImage);
-        DrawImage(AX + 7, AY + 7, LTempImage);
-      finally
-        FreeAndNil(LTempImage);
+  if LHeight > 0 then
+  begin
+    LImage := TPNGImage.Create;
+    try
+      case ABGStat of
+        bsCharacter:
+          LImage.Assign(ResImage[reBGCharacter]);
+        bsEnemy:
+          LImage.Assign(ResImage[reBGEnemy]);
+        bsParalyze:
+          LImage.Assign(ResImage[reBGParalyze]);
       end;
-    end
-    else
-      DrawImage(AX + 7, AY + 7, ResImage[AResEnum]);
-  finally
-    FreeAndNil(LImage);
+
+      LHeight := EnsureRange(LHeight, 0, CMaxHeight);
+      LImage.SetSize(64, LHeight);
+      DrawImage(AX + 7, AY + 7 + (CMaxHeight - LHeight), LImage);
+    finally
+      FreeAndNil(LImage);
+    end;
   end;
+  if AIsMirrorHorizontally then
+  begin
+    LTempImage := TPNGImage.Create;
+    try
+      FlipPNG(ResImage[AResEnum], LTempImage);
+      DrawImage(AX + 7, AY + 7, LTempImage);
+    finally
+      FreeAndNil(LTempImage);
+    end;
+  end
+  else
+    DrawImage(AX + 7, AY + 7, ResImage[AResEnum]);
 end;
 
 procedure TScene.DrawCreatureInfo(APosition: TPosition; AParty: TParty;
