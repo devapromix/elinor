@@ -668,8 +668,16 @@ begin
   DrawImage(AX + 7, AY + 7, AResEnum);
 end;
 
-
-
+procedure Flip(B: TPNGImage);
+var
+  hd: HBITMAP;
+  wd, hg: Integer;
+begin
+  hd := B.Canvas.Handle;
+  wd := B.Width;
+  hg := B.Height;
+  StretchBlt(hd, 0, hg - 1, hg, -hg, hd, 0, 0, wd, hg, SRCCOPY);
+end;
 
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
   ABGStat: TBGStat; HP, MaxHP: Integer; IsMirrorHorizontally: Boolean);
@@ -677,11 +685,9 @@ const
   MaxHeight = 104;
 var
   LImage: TPNGImage;
-  LUnitImage: TPNGImage;
   LTempImage: TPNGImage;
   LBitmap: Vcl.Graphics.TBitmap;
   LHeight: Integer;
-  x, y: Integer;
 
   function BarHeight(CY, MY: Integer): Integer;
   var
@@ -705,11 +711,11 @@ var
   end;
 
 begin
-  DrawImage(AX + 7, AY + 7, reBGParalyze);
+  if HP <> MaxHP then
+    DrawImage(AX + 7, AY + 7, reBGParalyze);
   LHeight := BarHeight(HP, MaxHP);
   LImage := TPNGImage.Create;
   try
-    // Малюємо полосу HP
     case ABGStat of
       bsCharacter:
         LImage.Assign(ResImage[reBGCharacter]);
@@ -724,32 +730,15 @@ begin
       DrawImage(AX + 7, AY + 7 + (MaxHeight - LHeight), LImage);
     end;
 
-    // Малюємо юніта
     if IsMirrorHorizontally then
     begin
-      LUnitImage := TPNGImage.Create;
-      LTempImage := TPNGImage.Create;
-      LBitmap := Vcl.Graphics.TBitmap.Create;
       try
+        LTempImage := TPNGImage.Create;
         LTempImage.Assign(ResImage[AResEnum]);
-
-        // Створюємо порожній bitmap
-        LBitmap.PixelFormat := pf32bit;
-        LBitmap.SetSize(LTempImage.Width, LTempImage.Height);
-
-        // Відзеркалюємо попіксельно на bitmap
-        for y := 0 to LTempImage.Height - 1 do
-          for x := 0 to LTempImage.Width - 1 do
-            LBitmap.Canvas.Pixels[LTempImage.Width - 1 - x, y] :=
-              LTempImage.Canvas.Pixels[x, y];
-
-        // Конвертуємо bitmap в PNG
-        LUnitImage.Assign(LBitmap);
-        DrawImage(AX + 7, AY + 7, LUnitImage);
+        Flip(LTempImage);
+        DrawImage(AX + 7, AY + 7, LTempImage);
       finally
-        FreeAndNil(LBitmap);
         FreeAndNil(LTempImage);
-        FreeAndNil(LUnitImage);
       end;
     end
     else
@@ -758,8 +747,6 @@ begin
     FreeAndNil(LImage);
   end;
 end;
-
-
 
 procedure TScene.DrawCreatureInfo(APosition: TPosition; AParty: TParty;
   AX, AY: Integer; AIsShowExp: Boolean);
