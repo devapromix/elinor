@@ -453,7 +453,7 @@ const
     (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
     // Ghoul
     (FileName: 'character.neutrals.ghoul.png'; ResType: teGUI;),
-    // Stone Gargoyle
+    // Gargoyle
     (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
     // Reaper
     (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
