@@ -141,9 +141,11 @@ type
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       ABGStat: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-      ABGStat: TBGStat; HP, MaxHP: Integer); overload;
+      ABGStat: TBGStat; HP, MaxHP: Integer;
+      IsMirrorHorizontally: Boolean = False); overload;
     procedure DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
-      ACanHire: Boolean = False; AShowExp: Boolean = True); overload;
+      ACanHire: Boolean = False; AShowExp: Boolean = True;
+      IsMirrorHorizontally: Boolean = False); overload;
     procedure DrawCreatureInfo(AName: string; AX, AY, ALevel, AExperience,
       AHitPoints, AMaxHitPoints, ADamage, AHeal, AArmor, AInitiative,
       AChanceToHit: Integer; AIsShowExp: Boolean); overload;
@@ -666,12 +668,64 @@ begin
   DrawImage(AX + 7, AY + 7, AResEnum);
 end;
 
+// https://stackoverflow.com/questions/9975915/stretchdraw-on-tpngimage
+procedure FlipPNG(aSource, aDest: TPngImage);
+var
+  X, Y: Integer;
+  AlphaPtr: Vcl.Imaging.pngimage.PByteArray;
+  RGBLine: pRGBLine;
+  PalleteLine: Vcl.Imaging.pngimage.PByteArray;
+  AlphaPtrDest: Vcl.Imaging.pngimage.PByteArray;
+  RGBLineDest: pRGBLine;
+  PalleteLineDest: Vcl.Imaging.pngimage.PByteArray;
+begin
+  aDest.Assign(aSource);
+
+  if (aSource.Header.ColorType = COLOR_PALETTE) or
+     (aSource.Header.ColorType = COLOR_GRAYSCALEALPHA) or
+     (aSource.Header.ColorType = COLOR_GRAYSCALE) then
+  begin
+    for y := 0 to aSource.Height - 1 do
+    begin
+      AlphaPtr := aSource.AlphaScanline[y];
+      PalleteLine := aSource.Scanline[y];
+      AlphaPtrDest := aDest.AlphaScanline[y];
+      PalleteLineDest := aDest.Scanline[y];
+      for x := 0 to aSource.Width - 1 do
+      begin
+        PalleteLineDest^[aSource.Width - x -1] := PalleteLine^[x];
+        if Assigned(AlphaPtr) then
+          AlphaPtrDest^[aSource.Width - x -1] := AlphaPtr^[x];
+      end;
+    end;
+  end else
+  if (aSource.Header.ColorType = COLOR_RGBALPHA) or
+     (aSource.Header.ColorType = COLOR_RGB) then
+  begin
+    for y := 0 to aSource.Height - 1 do
+    begin
+      AlphaPtr := aSource.AlphaScanline[y];
+      RGBLine := aSource.Scanline[y];
+      AlphaPtrDest := aDest.AlphaScanline[y];
+      RGBLineDest := aDest.Scanline[y];
+      for x := 0 to aSource.Width - 1 do
+      begin
+        RGBLineDest^[aSource.Width - x -1] := RGBLine^[x];
+        if Assigned(AlphaPtr) then
+          AlphaPtrDest^[aSource.Width - x -1] := AlphaPtr^[x];
+      end;
+    end;
+  end;
+end;
+
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-  ABGStat: TBGStat; HP, MaxHP: Integer);
+  ABGStat: TBGStat; HP, MaxHP: Integer; IsMirrorHorizontally: Boolean);
 const
   MaxHeight = 104;
 var
   LImage: TPNGImage;
+  LTempImage: TPNGImage;
+  LBitmap: Vcl.Graphics.TBitmap;
   LHeight: Integer;
 
   function BarHeight(CY, MY: Integer): Integer;
@@ -696,7 +750,8 @@ var
   end;
 
 begin
-  DrawImage(AX + 7, AY + 7, reBGParalyze);
+  if HP <> MaxHP then
+    DrawImage(AX + 7, AY + 7, reBGParalyze);
   LHeight := BarHeight(HP, MaxHP);
   LImage := TPNGImage.Create;
   try
@@ -713,7 +768,20 @@ begin
       LImage.SetSize(64, EnsureRange(LHeight, 0, 104));
       DrawImage(AX + 7, AY + 7 + (MaxHeight - LHeight), LImage);
     end;
-    DrawImage(AX + 7, AY + 7, AResEnum);
+
+    if IsMirrorHorizontally then
+    begin
+      try
+        LTempImage := TPNGImage.CreateBlank(COLOR_RGBALPHA, 8,
+          ResImage[AResEnum].Width, ResImage[AResEnum].Height);
+        FlipPNG(ResImage[AResEnum], LTempImage);
+        DrawImage(AX + 7, AY + 7, LTempImage);
+      finally
+        FreeAndNil(LTempImage);
+      end;
+    end
+    else
+      DrawImage(AX + 7, AY + 7, ResImage[AResEnum]);
   finally
     FreeAndNil(LImage);
   end;
@@ -1158,7 +1226,8 @@ begin
 end;
 
 procedure TScene.DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
-  ACanHire, AShowExp: Boolean);
+  ACanHire: Boolean = False; AShowExp: Boolean = True;
+  IsMirrorHorizontally: Boolean = False);
 var
   F: Boolean;
   LBGStat: TBGStat;
@@ -1179,7 +1248,7 @@ begin
           DrawUnit(reDead, AX, AY, LBGStat, 0, HitPoints.GetMaxValue)
         else
           DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints.GetCurrValue,
-            HitPoints.GetMaxValue);
+            HitPoints.GetMaxValue, IsMirrorHorizontally);
         DrawCreatureInfo(APosition, AParty, AX, AY, AShowExp);
       end
     else if ACanHire then

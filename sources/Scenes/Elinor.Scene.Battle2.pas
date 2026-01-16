@@ -900,7 +900,7 @@ var
     try
       inherited;
       TSceneParty2.RenderParty(psLeft, LeaderParty);
-      TSceneParty2.RenderParty(psRight, EnemyParty, False, False);
+      TSceneParty2.RenderParty(psRight, EnemyParty, False, False, True);
       DrawTargetFrames;
       // if not Enabled then
       // RenderWait;
