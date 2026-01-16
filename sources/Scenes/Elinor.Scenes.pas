@@ -724,6 +724,8 @@ procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
   ABGStat: TBGStat; AHP, AMaxHP: Integer; AIsMirrorHorizontally: Boolean);
 const
   CMaxHeight = 104;
+  CResImage: array [TBGStat] of TResEnum = (reBGCharacter, reBGEnemy,
+    reBGParalyze);
 var
   LImage: TPNGImage;
   LTempImage: TPNGImage;
@@ -758,15 +760,7 @@ begin
   begin
     LImage := TPNGImage.Create;
     try
-      case ABGStat of
-        bsCharacter:
-          LImage.Assign(ResImage[reBGCharacter]);
-        bsEnemy:
-          LImage.Assign(ResImage[reBGEnemy]);
-        bsParalyze:
-          LImage.Assign(ResImage[reBGParalyze]);
-      end;
-
+      LImage.Assign(ResImage[CResImage[ABGStat]]);
       LHeight := EnsureRange(LHeight, 0, CMaxHeight);
       LImage.SetSize(64, LHeight);
       DrawImage(AX + 7, AY + 7 + (CMaxHeight - LHeight), LImage);
