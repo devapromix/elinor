@@ -810,7 +810,7 @@ const
     AttackEnum: atClaws; AbilityEnum: abNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: faNeutrals; SubRace: reDarkElf;
-    ResEnum: reSquire; Size: szSmall;
+    ResEnum: reDarkElfGast; Size: szSmall;
     Name: ('Тёмный эльф-гаст', 'Тёмного эльфа-гаста');
     Description: ('Когда-то гасты были благородными',
     'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
