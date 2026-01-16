@@ -669,50 +669,50 @@ begin
 end;
 
 // https://stackoverflow.com/questions/9975915/stretchdraw-on-tpngimage
-procedure FlipPNG(aSource, aDest: TPngImage);
+procedure FlipPNG(ASource, ADest: TPNGImage);
 var
   X, Y: Integer;
-  AlphaPtr: Vcl.Imaging.pngimage.PByteArray;
+  AlphaPtr: Vcl.Imaging.PNGImage.PByteArray;
   RGBLine: pRGBLine;
-  PalleteLine: Vcl.Imaging.pngimage.PByteArray;
-  AlphaPtrDest: Vcl.Imaging.pngimage.PByteArray;
+  PalleteLine: Vcl.Imaging.PNGImage.PByteArray;
+  AlphaPtrDest: Vcl.Imaging.PNGImage.PByteArray;
   RGBLineDest: pRGBLine;
-  PalleteLineDest: Vcl.Imaging.pngimage.PByteArray;
+  PalleteLineDest: Vcl.Imaging.PNGImage.PByteArray;
 begin
-  aDest.Assign(aSource);
+  ADest.Assign(ASource);
 
-  if (aSource.Header.ColorType = COLOR_PALETTE) or
-     (aSource.Header.ColorType = COLOR_GRAYSCALEALPHA) or
-     (aSource.Header.ColorType = COLOR_GRAYSCALE) then
+  if (ASource.Header.ColorType = COLOR_PALETTE) or
+    (ASource.Header.ColorType = COLOR_GRAYSCALEALPHA) or
+    (ASource.Header.ColorType = COLOR_GRAYSCALE) then
   begin
-    for y := 0 to aSource.Height - 1 do
+    for Y := 0 to ASource.Height - 1 do
     begin
-      AlphaPtr := aSource.AlphaScanline[y];
-      PalleteLine := aSource.Scanline[y];
-      AlphaPtrDest := aDest.AlphaScanline[y];
-      PalleteLineDest := aDest.Scanline[y];
-      for x := 0 to aSource.Width - 1 do
+      AlphaPtr := ASource.AlphaScanline[Y];
+      PalleteLine := ASource.Scanline[Y];
+      AlphaPtrDest := ADest.AlphaScanline[Y];
+      PalleteLineDest := ADest.Scanline[Y];
+      for X := 0 to ASource.Width - 1 do
       begin
-        PalleteLineDest^[aSource.Width - x -1] := PalleteLine^[x];
+        PalleteLineDest^[ASource.Width - X - 1] := PalleteLine^[X];
         if Assigned(AlphaPtr) then
-          AlphaPtrDest^[aSource.Width - x -1] := AlphaPtr^[x];
+          AlphaPtrDest^[ASource.Width - X - 1] := AlphaPtr^[X];
       end;
     end;
-  end else
-  if (aSource.Header.ColorType = COLOR_RGBALPHA) or
-     (aSource.Header.ColorType = COLOR_RGB) then
+  end
+  else if (ASource.Header.ColorType = COLOR_RGBALPHA) or
+    (ASource.Header.ColorType = COLOR_RGB) then
   begin
-    for y := 0 to aSource.Height - 1 do
+    for Y := 0 to ASource.Height - 1 do
     begin
-      AlphaPtr := aSource.AlphaScanline[y];
-      RGBLine := aSource.Scanline[y];
-      AlphaPtrDest := aDest.AlphaScanline[y];
-      RGBLineDest := aDest.Scanline[y];
-      for x := 0 to aSource.Width - 1 do
+      AlphaPtr := ASource.AlphaScanline[Y];
+      RGBLine := ASource.Scanline[Y];
+      AlphaPtrDest := ADest.AlphaScanline[Y];
+      RGBLineDest := ADest.Scanline[Y];
+      for X := 0 to ASource.Width - 1 do
       begin
-        RGBLineDest^[aSource.Width - x -1] := RGBLine^[x];
+        RGBLineDest^[ASource.Width - X - 1] := RGBLine^[X];
         if Assigned(AlphaPtr) then
-          AlphaPtrDest^[aSource.Width - x -1] := AlphaPtr^[x];
+          AlphaPtrDest^[ASource.Width - X - 1] := AlphaPtr^[X];
       end;
     end;
   end;
@@ -721,7 +721,7 @@ end;
 procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
   ABGStat: TBGStat; HP, MaxHP: Integer; IsMirrorHorizontally: Boolean);
 const
-  MaxHeight = 104;
+  CMaxHeight = 104;
 var
   LImage: TPNGImage;
   LTempImage: TPNGImage;
@@ -741,11 +741,11 @@ var
     end;
     if (MY <= 0) then
       MY := 1;
-    I := (CY * MaxHeight) div MY;
+    I := (CY * CMaxHeight) div MY;
     if I <= 0 then
       I := 0;
     if (CY >= MY) then
-      I := MaxHeight;
+      I := CMaxHeight;
     Result := I;
   end;
 
@@ -765,15 +765,14 @@ begin
     end;
     if (LHeight > 0) then
     begin
-      LImage.SetSize(64, EnsureRange(LHeight, 0, 104));
-      DrawImage(AX + 7, AY + 7 + (MaxHeight - LHeight), LImage);
+      LImage.SetSize(64, EnsureRange(LHeight, 0, CMaxHeight));
+      DrawImage(AX + 7, AY + 7 + (CMaxHeight - LHeight), LImage);
     end;
 
     if IsMirrorHorizontally then
     begin
       try
-        LTempImage := TPNGImage.CreateBlank(COLOR_RGBALPHA, 8,
-          ResImage[AResEnum].Width, ResImage[AResEnum].Height);
+        LTempImage := TPNGImage.Create;
         FlipPNG(ResImage[AResEnum], LTempImage);
         DrawImage(AX + 7, AY + 7, LTempImage);
       finally
