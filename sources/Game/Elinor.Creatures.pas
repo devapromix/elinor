@@ -829,8 +829,8 @@ const
     'warriors raised by dark forces', 'to fight without fear.'); HitPoints: 100;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 95;
-    Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
-    AttackEnum: atClaws; AbilityEnum: abNone; Rating: 30;),
+    Sound: (mmSkeletonHit, mmSkeletonDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atSlayerSword; AbilityEnum: abNone; Rating: 30;),
     // Zombie
     (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reZombie;
     Size: szSmall; Name: ('Zombie', 'Zombie');
