@@ -81,7 +81,11 @@ type
     crPeasant, crManAtArms, crRogue,
 
     // Undeads
-    crGhoul, crDarkElfGast, crZombie, crReaper,
+    crGhoul, crDarkElfGast,
+    { Dark Elf Butcher, Dark Elf Lyf}
+    crSkeletonWarrior, {crSkeletonChampion, }
+    { Phantom Warrior }
+    crZombie, crReaper,
 
     // Heretics
     crImp,

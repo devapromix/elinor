@@ -23,6 +23,11 @@
 		{
 			"level": 1,
 			"faction": "undead-hordes",
+			"characters":"none,none,skeleton-warrior,none,none,none"
+		},
+		{
+			"level": 1,
+			"faction": "undead-hordes",
 			"characters":"none,none,fighter,ghost,none,none"
 		},
 		{
