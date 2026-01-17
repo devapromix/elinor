@@ -56,9 +56,10 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
-    reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
-    reReaper, reRogue, reTrog, reZombie, reLizardman, rePeasant, reOgre, reTroll, reDarkElfGast,
+    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf,
+    reSpiritWolf, rePolarBear, reBrownBear, reBlackBear, reOrc, reGhost, reImp,
+    reGhoul, reStoneGargoyle, reReaper, reRogue, reTrog, reZombie, reLizardman,
+    rePeasant, reOgre, reTroll, reDarkElfGast, reSkeletonWarrior,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -473,6 +474,8 @@ const
     (FileName: 'character.neutrals.troll.png'; ResType: teGUI;),
     // Dark Elf
     (FileName: 'character.neutrals.dark_elf.png'; ResType: teGUI;),
+    // Skeleton Warrior
+    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;),
 
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),

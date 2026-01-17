@@ -18,6 +18,11 @@
 		{
 			"level": 2,
 			"faction": "undead-hordes",
+			"characters":"skeleton-warrior,none,none,none,skeleton-warrior,none"
+		},
+		{
+			"level": 2,
+			"faction": "undead-hordes",
 			"characters":"none,none,fighter,ghost,none,none"
 		},
 		{
