@@ -111,9 +111,9 @@ type
     // The Empire
     srTrueHealing, srSpeed, srBless, srLivingArmor, srEagleEye, srStrength,
     // Undead Hordes
-    srPlague, srConcealment, srChainsOfDread,
+    srPlague, srCurse, srSkeletion,
     // Legions of the Damned
-    srCurse, srWeaken);
+    srConcealment, srChainsOfDread, srWeaken);
 
 type
   TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore);
@@ -847,6 +847,8 @@ const
   SpellResBase: array [TSpellResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teSpell;),
+
+    // THE EMPIRE
     // TrueHealing
     (FileName: 'spell.true_healing.png'; ResType: teSpell;),
     // Speed
@@ -859,14 +861,20 @@ const
     (FileName: 'spell.eagle_eye.png'; ResType: teSpell;),
     // Strength
     (FileName: 'spell.strength.png'; ResType: teSpell;),
+
+    // UNDEAD HORDES
     // Plague
     (FileName: 'spell.plague.png'; ResType: teSpell;),
+    // Curse
+    (FileName: 'spell.curse.png'; ResType: teSpell;),
+    // Skeletion
+    (FileName: 'spell.skeletion.png'; ResType: teSpell;),
+
+    // LEGIONS OF THE DAMNED
     // Concealment
     (FileName: 'spell.concealment.png'; ResType: teSpell;),
     // ChainsOfDread
     (FileName: 'spell.chains_of_dread.png'; ResType: teSpell;),
-    // Curse
-    (FileName: 'spell.curse.png'; ResType: teSpell;),
     // Weaken
     (FileName: 'spell.weaken.png'; ResType: teSpell;)
     //
