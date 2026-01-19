@@ -148,8 +148,8 @@ type
     iTomeOfWar,
 
     // ORBS
-    iGoblinOrb, iOrbOfHealing, iImpOrb, iOrbOfRestoration, iZombieOrb,
-    iOrbOfLife, iLizardmanOrb, iOrbOfWitches,
+    iGoblinOrb, iOrbOfHealing, iImpOrb, iSkeletonOrb, iOrbOfRestoration,
+    iZombieOrb, iOrbOfLife, iLizardmanOrb, iOrbOfWitches,
 
     // RINGS
     iStoneRing, iBronzeRing, iSilverRing, iGoldRing, iRingOfStrength,
@@ -493,6 +493,10 @@ const
     // (3) Imp Orb
     (Enum: iImpOrb; Name: 'Imp Orb'; Level: 3; ItType: itOrb; ItEffect: ieNone;
     ItSlot: isLHand; ItRes: irImpOrb; Price: 350; Description: 'Summon an Imp'),
+    // (4) Skeleton Orb
+    (Enum: iSkeletonOrb; Name: 'Skeleton Orb'; Level: 4; ItType: itOrb;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irSkeletonOrb; Price: 400;
+    Description: 'Summon a Skeleton Warrior'),
     // (4) Orb Of Restoration
     (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 4;
     ItType: itOrb; ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfRestoration;

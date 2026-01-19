@@ -836,7 +836,7 @@ const
     Size: szSmall; Name: ('Zombie', 'Zombie');
     Description: ('Few zombies are capable of ',
     'acting consciously, but each of ', 'them remains a deadly threat.');
-    HitPoints: 200; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
+    HitPoints: 200; Initiative: 45; ChancesToHit: 65; Leadership: 0; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 275; Sound: (mmZombieHit, mmZombieDeath, mmZombieAttack);
     Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
@@ -856,7 +856,7 @@ const
     (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
     Size: szSmall; Name: ('Imp', 'Imp');
     Description: ('Imps are vicious fighters,', 'quick with a short sword,',
-    'and dangerous in close combat.'); HitPoints: 60; Initiative: 45;
+    'and dangerous in close combat.'); HitPoints: 75; Initiative: 45;
     ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 75;
     Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;

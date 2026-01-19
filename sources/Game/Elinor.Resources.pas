@@ -139,8 +139,8 @@ type
     irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage,
     irTalismanOfCelerity,
     // ORBS
-    irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
-    irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
+    irGoblinOrb, irOrbOfHealing, irImpOrb, irSkeletonOrb, irOrbOfRestoration,
+    irZombieOrb, irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -795,6 +795,8 @@ const
     (FileName: 'item.orb.orb_of_healing.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
+    // Skeleton Orb
+    (FileName: 'item.orb.skeleton_orb.png'; ResType: teItem;),
     // Orb Of Restoration
     (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
     // Zombie Orb
