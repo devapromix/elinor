@@ -153,7 +153,7 @@ begin
           Exit;
         end;
       end;
-    iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb:
+    iGoblinOrb, iImpOrb, iSkeletonOrb, iZombieOrb, iLizardmanOrb:
       begin
         if CurrentParty.Creature[ActivePartyPosition].Active then
         begin
@@ -247,6 +247,15 @@ begin
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' Imp joins the Leader''s party.';
+      end;
+    iSkeletonOrb:
+      begin
+        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound(mmRaiseDead);
+        CurrentParty.AddCreature(crSkeletonWarrior, ActivePartyPosition);
+        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' Skeleton Warrior joins the Leader''s party.';
       end;
     iZombieOrb:
       begin

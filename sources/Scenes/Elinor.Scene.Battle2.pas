@@ -1239,7 +1239,7 @@ begin
               TSceneSelectUnit.ShowScene(EnemyParty);
               Exit;
             end;
-          iTalismanOfRage, iGoblinOrb, iOrbOfHealing, iImpOrb,
+          iTalismanOfRage, iGoblinOrb, iOrbOfHealing, iImpOrb, iSkeletonOrb,
             iOrbOfRestoration, iZombieOrb, iOrbOfLife, iLizardmanOrb:
             begin
               Game.MediaPlayer.PlaySound(mmClick);

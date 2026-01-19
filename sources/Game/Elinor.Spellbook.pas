@@ -19,7 +19,7 @@ const
     // The Empire Spellbook
     (spTrueHealing, spBless, spSpeed, spLivingArmor, spEagleEye, spStrength),
     // Undead Hordes Spellbook
-    (spPlague, spCurse, spNone, spNone, spNone, spNone),
+    (spPlague, spCurse, spNone, spSkeletion, spNone, spNone),
     // Legions Of The Damned Spellbook
     (spConcealment, spChainsOfDread, spWeaken, spNone, spNone, spNone),
     // MountainClans Spellbook

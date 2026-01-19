@@ -56,9 +56,10 @@ type
     reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
     rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
     reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf, reSpiritWolf, rePolarBear,
-    reBrownBear, reBlackBear, reOrc, reGhost, reImp, reGhoul, reStoneGargoyle,
-    reReaper, reRogue, reTrog, reZombie, reLizardman, rePeasant, reOgre, reTroll,
+    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf,
+    reSpiritWolf, rePolarBear, reBrownBear, reBlackBear, reOrc, reGhost, reImp,
+    reGhoul, reStoneGargoyle, reReaper, reRogue, reTrog, reZombie, reLizardman,
+    rePeasant, reOgre, reTroll, reDarkElfGast, reSkeletonWarrior,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -110,9 +111,9 @@ type
     // The Empire
     srTrueHealing, srSpeed, srBless, srLivingArmor, srEagleEye, srStrength,
     // Undead Hordes
-    srPlague, srConcealment, srChainsOfDread,
+    srPlague, srCurse, srSkeletion,
     // Legions of the Damned
-    srCurse, srWeaken);
+    srConcealment, srChainsOfDread, srWeaken);
 
 type
   TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore);
@@ -138,8 +139,8 @@ type
     irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage,
     irTalismanOfCelerity,
     // ORBS
-    irGoblinOrb, irOrbOfHealing, irImpOrb, irOrbOfRestoration, irZombieOrb,
-    irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
+    irGoblinOrb, irOrbOfHealing, irImpOrb, irSkeletonOrb, irOrbOfRestoration,
+    irZombieOrb, irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
     // Tomes
     irItemTomeOfWar,
     // Boots
@@ -453,7 +454,7 @@ const
     (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
     // Ghoul
     (FileName: 'character.neutrals.ghoul.png'; ResType: teGUI;),
-    // Stone Gargoyle
+    // Gargoyle
     (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
     // Reaper
     (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
@@ -471,6 +472,10 @@ const
     (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
     // Troll
     (FileName: 'character.neutrals.troll.png'; ResType: teGUI;),
+    // Dark Elf
+    (FileName: 'character.neutrals.dark_elf.png'; ResType: teGUI;),
+    // Skeleton Warrior
+    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;),
 
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
@@ -790,6 +795,8 @@ const
     (FileName: 'item.orb.orb_of_healing.png'; ResType: teItem;),
     // Imp Orb
     (FileName: 'item.orb.imp_orb.png'; ResType: teItem;),
+    // Skeleton Orb
+    (FileName: 'item.orb.skeleton_orb.png'; ResType: teItem;),
     // Orb Of Restoration
     (FileName: 'item.orb.orb_of_restoration.png'; ResType: teItem;),
     // Zombie Orb
@@ -842,6 +849,8 @@ const
   SpellResBase: array [TSpellResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teSpell;),
+
+    // THE EMPIRE
     // TrueHealing
     (FileName: 'spell.true_healing.png'; ResType: teSpell;),
     // Speed
@@ -854,14 +863,20 @@ const
     (FileName: 'spell.eagle_eye.png'; ResType: teSpell;),
     // Strength
     (FileName: 'spell.strength.png'; ResType: teSpell;),
+
+    // UNDEAD HORDES
     // Plague
     (FileName: 'spell.plague.png'; ResType: teSpell;),
+    // Curse
+    (FileName: 'spell.curse.png'; ResType: teSpell;),
+    // Skeletion
+    (FileName: 'spell.skeletion.png'; ResType: teSpell;),
+
+    // LEGIONS OF THE DAMNED
     // Concealment
     (FileName: 'spell.concealment.png'; ResType: teSpell;),
     // ChainsOfDread
     (FileName: 'spell.chains_of_dread.png'; ResType: teSpell;),
-    // Curse
-    (FileName: 'spell.curse.png'; ResType: teSpell;),
     // Weaken
     (FileName: 'spell.weaken.png'; ResType: teSpell;)
     //
@@ -893,7 +908,7 @@ type
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
     mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
-    mmLizardmanHit, mmLizardmanDeath);
+    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1053,7 +1068,9 @@ const
     // Lizardman Hit
     (FileName: 'lizardman_hit.wav'; ResType: teSound;),
     // Lizardman Death
-    (FileName: 'lizardman_death.wav'; ResType: teSound;)
+    (FileName: 'lizardman_death.wav'; ResType: teSound;),
+    // Raise Dead
+    (FileName: 'raise_dead.wav'; ResType: teSound;)
     //
     );
 

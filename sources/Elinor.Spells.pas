@@ -12,7 +12,7 @@ type
     // The Empire Spellbook
     spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye, spStrength,
     // Undead Hordes Spellbook
-    spPlague, spCurse,
+    spPlague, spCurse, spSkeletion,
     // Legions of the Damned Spellbook
     spConcealment, spChainsOfDread, spWeaken
     //
@@ -117,6 +117,14 @@ type
   end;
 
 type
+  TSkeletionSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
   TBlessSpell = class(TSpell)
   public
     constructor Create;
@@ -199,10 +207,10 @@ const
     // Bless
     (Name: 'Bless'; Level: 1; Mana: 5; SoundEnum: mmHeal; ResEnum: srBless;
     Faction: faTheEmpire; SpellTarget: stLeader; Description: '';),
-    // Living Armor
-    (Name: 'Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
+    // Summon: Living Armor
+    (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
     ResEnum: srLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;
-    Description: '';),
+    Description: 'Summons a Living Armor';),
     // Eagle Eye
     (Name: 'Eagle Eye'; Level: 1; Mana: 5; SoundEnum: mmHeal;
     ResEnum: srEagleEye; Faction: faTheEmpire; SpellTarget: stLeader;
@@ -214,11 +222,15 @@ const
 
     // Undead Hordes
     // Plague
-    (Name: 'Plague'; Level: 1; Mana: 25; SoundEnum: mmPlague; ResEnum: srPlague;
+    (Name: 'Plague'; Level: 1; Mana: 20; SoundEnum: mmPlague; ResEnum: srPlague;
     Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
     // Curse
     (Name: 'Curse'; Level: 1; Mana: 5; SoundEnum: mmPlague; ResEnum: srCurse;
     Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
+    // Summon: Skeleton Warrior
+    (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25;
+    SoundEnum: mmRaiseDead; ResEnum: srSkeletion; Faction: faUndeadHordes;
+    SpellTarget: stEnemy; Description: 'Summons a Skeleton';),
 
     // Legions of the Damned
     // Concealment
@@ -375,6 +387,7 @@ begin
   FSpell[spLivingArmor] := TLivingArmorSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spCurse] := TCurseSpell.Create;
+  FSpell[spSkeletion] := TSkeletionSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
   FSpell[spWeaken] := TWeakenSpell.Create;
@@ -512,6 +525,18 @@ end;
 constructor TStrengthSpell.Create;
 begin
   inherited Create(spStrength);
+end;
+
+{ TSkeletionSpell }
+
+procedure TSkeletionSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crSkeletonWarrior);
+end;
+
+constructor TSkeletionSpell.Create;
+begin
+  inherited Create(spSkeletion);
 end;
 
 initialization

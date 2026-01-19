@@ -685,11 +685,12 @@ const
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinRider; Size: szSmall;
     Name: ('Goblin Rider', 'Goblin Rider');
-    Description: ('Some black goblins tame wild','wargs and use them in battle','as a means of transportation.'); HitPoints: 75; Initiative: 35;
-    ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seLife; ReachEnum: reAdj; Gold: 150;
-    Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack); Gender: cgMale;
-    AttackEnum: atDagger; AbilityEnum: abNone; Rating: 35;),
+    Description: ('Some black goblins tame wild',
+    'wargs and use them in battle', 'as a means of transportation.');
+    HitPoints: 75; Initiative: 35; ChancesToHit: 70; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
+    Gold: 150; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
+    Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 35;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
     ResEnum: reGoblinArcher; Size: szSmall;
@@ -740,12 +741,13 @@ const
     ReachEnum: reAdj; Gold: 270; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack);
     Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
     // Troll
-    (Ident: 'troll'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTroll;
-    Size: szBig; Name: ('Troll', 'Troll');
-    Description: ('Trolls are massive and brutal creatures,','slow but incredibly strong,','thriving in caves and ruins.'); HitPoints: 300; Initiative: 25; ChancesToHit: 70;
-    Leadership: 0; Level: 1; Damage: 120; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 300;
-    Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
+    (Ident: 'troll'; Faction: faNeutrals; SubRace: reGreenSkin;
+    ResEnum: reTroll; Size: szBig; Name: ('Troll', 'Troll');
+    Description: ('Trolls are massive and brutal creatures,',
+    'slow but incredibly strong,', 'thriving in caves and ruins.');
+    HitPoints: 300; Initiative: 25; ChancesToHit: 70; Leadership: 0; Level: 1;
+    Damage: 120; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 300; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
     // Ogre
     (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOgre;
@@ -782,19 +784,20 @@ const
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
     ResEnum: reGoblin; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
-    Description: ('Mercenaries offer their combat','services to anyone who pays','a gold coin.'); HitPoints: 95;
+    Description: ('Mercenaries offer their combat',
+    'services to anyone who pays', 'a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Rogue
     (Ident: 'rogue'; Faction: faNeutrals; SubRace: reHuman; ResEnum: reRogue;
-    Size: szSmall; Name: ('Разбойник', 'Разбойника');
-    Description: ('Разбойники собираются в банды', 'и нападают на беззащитных',
-    'путников.'); HitPoints: 75; Initiative: 65; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 80;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Size: szSmall; Name: ('Rogue', 'Rogue');
+    Description: ('Bandits gather in organized gangs',
+    'and attack defenseless travelers', 'along roads and forest paths.');
+    HitPoints: 75; Initiative: 65; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 80; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDagger; AbilityEnum: abNone; Rating: 20;),
 {$ENDREGION Humans}
     // Neutral Undeads
@@ -810,20 +813,30 @@ const
     AttackEnum: atClaws; AbilityEnum: abNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: faNeutrals; SubRace: reDarkElf;
-    ResEnum: reSquire; Size: szSmall;
-    Name: ('Тёмный эльф-гаст', 'Тёмного эльфа-гаста');
-    Description: ('Когда-то гасты были благородными',
-    'эльфами, пострадавшими от чумы.', 'Смерть передала их в руки Мортис.');
-    HitPoints: 110; Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1;
-    Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 125; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    ResEnum: reDarkElfGast; Size: szSmall;
+    Name: ('Dark Elf Gast', 'Dark Elf Gast');
+    Description: ('Once, gasts were noble elves', 'who suffered from a plague.',
+    'Death twisted them into undead abominations.'); HitPoints: 110;
+    Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 40;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 125;
+    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; AbilityEnum: abNone; Rating: 45;),
+    // Skeleton Warrior
+    (Ident: 'skeleton-warrior'; Faction: faNeutrals; SubRace: reUndead;
+    ResEnum: reSkeletonWarrior; Size: szSmall;
+    Name: ('Skeleton Warrior', 'Skeleton Warrior');
+    Description: ('Skeletons are mindless undead',
+    'warriors raised by dark forces', 'to fight without fear.'); HitPoints: 100;
+    Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
+    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 95;
+    Sound: (mmSkeletonHit, mmSkeletonDeath, mmSwordAttack); Gender: cgMale;
+    AttackEnum: atSlayerSword; AbilityEnum: abNone; Rating: 30;),
     // Zombie
     (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reZombie;
     Size: szSmall; Name: ('Zombie', 'Zombie');
     Description: ('Few zombies are capable of ',
     'acting consciously, but each of ', 'them remains a deadly threat.');
-    HitPoints: 200; Initiative: 45; ChancesToHit: 75; Leadership: 0; Level: 1;
+    HitPoints: 200; Initiative: 45; ChancesToHit: 65; Leadership: 0; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
     Gold: 275; Sound: (mmZombieHit, mmZombieDeath, mmZombieAttack);
     Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
@@ -843,7 +856,7 @@ const
     (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
     Size: szSmall; Name: ('Imp', 'Imp');
     Description: ('Imps are vicious fighters,', 'quick with a short sword,',
-    'and dangerous in close combat.'); HitPoints: 60; Initiative: 45;
+    'and dangerous in close combat.'); HitPoints: 75; Initiative: 45;
     ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 75;
     Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
