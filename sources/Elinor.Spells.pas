@@ -227,10 +227,10 @@ const
     // Curse
     (Name: 'Curse'; Level: 1; Mana: 5; SoundEnum: mmPlague; ResEnum: srCurse;
     Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
-    // Summon: Skeletion
-    (Name: 'Summon: Skeleton'; Level: 1; Mana: 25; SoundEnum: mmAttack;
-    ResEnum: srSkeletion; Faction: faUndeadHordes; SpellTarget: stEnemy;
-    Description: 'Summons a Skeleton';),
+    // Summon: Skeleton Warrior
+    (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25;
+    SoundEnum: mmRaiseDead; ResEnum: srSkeletion; Faction: faUndeadHordes;
+    SpellTarget: stEnemy; Description: 'Summons a Skeleton';),
 
     // Legions of the Damned
     // Concealment

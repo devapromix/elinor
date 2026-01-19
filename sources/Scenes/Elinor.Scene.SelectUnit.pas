@@ -251,7 +251,7 @@ begin
     iSkeletonOrb:
       begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmSkeletonHit);
+        Game.MediaPlayer.PlaySound(mmRaiseDead);
         CurrentParty.AddCreature(crSkeletonWarrior, ActivePartyPosition);
         PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
