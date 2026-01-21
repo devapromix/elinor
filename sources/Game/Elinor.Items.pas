@@ -53,7 +53,7 @@ uses
 type
   TItemType = (itSpecial, itValuable,
     // Potions and Scrolls
-    itPotion, itScroll,
+    itPotion, itElixir, itEssance, itFlask, itScroll,
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome);
@@ -116,6 +116,14 @@ type
 
     // POTIONS
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
+
+    // ELIXIRS
+
+
+    // ESSENCES
+
+
+    // FLASK
 
     // ARTIFACTS
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
@@ -344,6 +352,12 @@ const
     ItRes: irItemHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
     ' healing wounds and restoring strength.'),
+
+    // ELIXIRS
+
+    // ESSENCES
+
+    // FLASKS
 
     // ARTIFACTS
     // (1) Dwarven Bracer
