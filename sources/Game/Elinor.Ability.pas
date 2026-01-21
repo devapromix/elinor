@@ -13,7 +13,8 @@ type
     abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
     abDealmaker, abHaggler, abNaturalArmor, abArcanePower, abWeaponMaster,
     abArcaneKnowledge, abArcaneLore, abSorcery, abTemplar, abMountaineering,
-    abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics);
+    abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics,
+    abGolemMastery);
 
 type
   TAbility = record
