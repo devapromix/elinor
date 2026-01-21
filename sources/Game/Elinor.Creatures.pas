@@ -68,7 +68,7 @@ type
     atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
     atPoisonousBreath, atDaggerOfShadows, atFlameDagger, atClub, atFireHammer,
-    atPhoenixSword, atScythe, atShortSword, atFireBreath);
+    atPhoenixSword, atScythe, atShortSword, atFireBreath, atIceBreath);
 
 type
   TCreatureSize = (szSmall, szBig);
@@ -79,7 +79,7 @@ const
     'Drain Life', 'Healing', 'Paralysis', 'Poison', 'Magic', 'Claws', 'Bite',
     'Spear', 'Stones', 'Poisonous Breath', 'Dagger of Shadows', 'Flame Dagger',
     'Club', 'Fire Hammer', 'Phoenix Sword', 'Scythe', 'Short Sword',
-    'Fire Breath');
+    'Fire Breath', 'Ice Breath');
 
 const
   AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
@@ -87,7 +87,7 @@ const
     'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
     'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'flame_dagger',
     'club', 'fire_hammer', 'phoenix_sword', 'scythe', 'short_sword',
-    'fire_breath');
+    'fire_breath', 'ice_breath');
 
 const
   Characters: array [faTheEmpire .. faLegionsOfTheDamned] of array
@@ -945,7 +945,15 @@ const
     Leadership: 0; Level: 1; Damage: 125; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAll; Gold: 2000;
     Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atFireBreath; AbilityEnum: abNone; Rating: 350;)
+    AttackEnum: atFireBreath; AbilityEnum: abNone; Rating: 350;),
+    // White Dragon
+    (Ident: 'white-dragon'; Faction: faNeutrals; SubRace: reDragon;
+    ResEnum: reWhiteDragon; Size: szBig; Name: ('White Dragon', 'White Dragon');
+    Description: ('', '', ''); HitPoints: 900; Initiative: 40; ChancesToHit: 80;
+    Leadership: 0; Level: 1; Damage: 120; Armor: 10; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAll; Gold: 2500;
+    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
+    AttackEnum: atIceBreath; AbilityEnum: abNone; Rating: 400;)
 {$ENDREGION Dragons}
     //
     );
