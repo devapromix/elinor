@@ -175,10 +175,19 @@ begin
           Exit;
         end;
       end;
+    iAcidFlask:
+      with CurrentParty.Creature[ActivePartyPosition] do
+      begin
+        if not Active then
+        begin
+          InformDialog(CChooseNonEmptySlot);
+          Exit;
+        end;
+      end;
   else
     if not CurrentParty.Creature[ActivePartyPosition].Alive then
     begin
-      InformDialog(CSelectLlivingCreature);
+      InformDialog(CSelectLivingCreature);
       Exit;
     end;
   end;
@@ -188,20 +197,20 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         CurrentParty.TakeDamage(25, ActivePartyPosition);
         TLeaderParty.Leader.UpdateHP(25, TLeaderParty.GetPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Drains life from enemy.';
       end;
     iTalismanOfFear:
       begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         CurrentParty.Paralyze(ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Paralyzes the enemy.';
       end;
     iTalismanOfRage:
       begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Gives an extra attack!';
         Game.MediaPlayer.PlaySound(mmClick);
         TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle(False);
@@ -212,14 +221,14 @@ begin
       begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         CurrentParty.UpdateHP(50, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 50 hp.';
       end;
     iOrbOfRestoration:
       begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         CurrentParty.UpdateHP(100, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 100 hp.';
       end;
     iOrbOfLife:
@@ -227,7 +236,7 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         Game.MediaPlayer.PlaySound(mmRevive);
         CurrentParty.Revive(ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' You resurrected the creature.';
       end;
     iGoblinOrb:
@@ -235,7 +244,7 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         Game.MediaPlayer.PlaySound(mmGoblinHit);
         CurrentParty.AddCreature(crGoblin, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' Goblin joins the Leader''s party.';
       end;
@@ -244,7 +253,7 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         Game.MediaPlayer.PlaySound(mmImpHit);
         CurrentParty.AddCreature(crImp, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' Imp joins the Leader''s party.';
       end;
@@ -253,7 +262,7 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         Game.MediaPlayer.PlaySound(mmRaiseDead);
         CurrentParty.AddCreature(crSkeletonWarrior, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' Skeleton Warrior joins the Leader''s party.';
       end;
@@ -262,7 +271,7 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         Game.MediaPlayer.PlaySound(mmZombieHit);
         CurrentParty.AddCreature(crZombie, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' Zombie joins the Leader''s party.';
       end;
@@ -271,7 +280,7 @@ begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         Game.MediaPlayer.PlaySound(mmLizardmanHit);
         CurrentParty.AddCreature(crLizardman, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' Lizardman joins the Leader''s party.';
       end;
@@ -281,8 +290,17 @@ begin
         Game.MediaPlayer.PlaySound(mmImpHit);
         CurrentParty.Dismiss(ActivePartyPosition);
         CurrentParty.AddCreature(crImp, ActivePartyPosition);
-        PendingTalismanOrOrbLogString := Format(CYouUsedTheItem,
+        PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Enemy polymorphed into Imp.';
+      end;
+    iAcidFlask:
+      begin
+        // Game.MediaPlayer.PlaySound(mmUseFlask);
+        // Game.MediaPlayer.PlaySound(mmImpHit);
+        // CurrentParty.Dismiss(ActivePartyPosition);
+        // CurrentParty.AddCreature(crImp, ActivePartyPosition);
+        // PendingItemLogString := Format(CYouUsedTheItem,
+        // [TItemBase.Item(LItem.Enum).Name]) + ' Enemy polymorphed into Imp.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;

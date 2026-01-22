@@ -52,14 +52,14 @@ uses
 
 type
   TItemType = (itSpecial, itValuable,
-    // Potions and Scrolls
-    itPotion, itElixir, itEssance, itFlask, itScroll,
+    // Consumable
+    itPotion, itElixir, itEssence, itFlask, itScroll,
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome);
 
 const
-  CUseItemType = [itPotion, itOrb, itTalisman];
+  CUseItemType = [itPotion, itOrb, itFlask, itTalisman];
 
 const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'potion',
@@ -122,8 +122,8 @@ type
 
     // ESSENCES
 
-
     // FLASK
+    iAcidFlask,
 
     // ARTIFACTS
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
@@ -170,7 +170,7 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [iOrbOfLife, iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb];
+  CTestItems = [iAcidFlask];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -358,6 +358,10 @@ const
     // ESSENCES
 
     // FLASKS
+    // (4) Acid Flask
+    (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
+    Description: ''),
 
     // ARTIFACTS
     // (1) Dwarven Bracer

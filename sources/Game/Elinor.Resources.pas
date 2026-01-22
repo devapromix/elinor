@@ -120,13 +120,17 @@ type
 
 type
   TItemResEnum = (irNone,
-    // Special
+    // SPECIAL
     irItemGold, irItemMana,
-    // Scenario
+    // SCENARIO
     irItemStoneTablet,
-    // Elixirs
+    // POTIONS
     irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
     irItemHealingOintment,
+    // ELIXIRS
+    // ESSENCES
+    // FLASKS
+    irAcidFlask,
     // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irHagsRing,
@@ -141,9 +145,9 @@ type
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irSkeletonOrb, irOrbOfRestoration,
     irZombieOrb, irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
-    // Tomes
+    // TOMES
     irItemTomeOfWar,
-    // Boots
+    // BOOTS
     irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfDarkness,
     irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
     // HELMS
@@ -729,6 +733,10 @@ const
     (FileName: 'item.potion.potion_of_restoration.png'; ResType: teItem;),
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
+
+    // FLASKS
+    // Acid Flask
+    (FileName: 'item.flask.acid_flask.png'; ResType: teItem;),
 
     // RINGS
     // Stone Ring

@@ -35,7 +35,7 @@ const
 
 var
   TextTop, TextLeft: Integer;
-  PendingTalismanOrOrbLogString: string = '';
+  PendingItemLogString: string = '';
 
 const
   K_ESCAPE = 27;

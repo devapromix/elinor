@@ -77,7 +77,7 @@ const
   CLeftHandItemRequired = 'An item must be equipped in the left hand!';
   CYouUsedTheItem = 'You used the %s!';
   CTheTalismanIsBroken = 'The %s is broken!';
-  CSelectLlivingCreature = 'Select a living creature!';
+  CSelectLivingCreature = 'Select a living creature!';
   CCannotAlterForm = 'Cannot alter form of lifeless entity!';
 
 implementation
