@@ -916,7 +916,7 @@ type
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
     mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
-    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead);
+    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1078,7 +1078,9 @@ const
     // Lizardman Death
     (FileName: 'lizardman_death.wav'; ResType: teSound;),
     // Raise Dead
-    (FileName: 'raise_dead.wav'; ResType: teSound;)
+    (FileName: 'raise_dead.wav'; ResType: teSound;),
+    // Rust
+    (FileName: 'rust.wav'; ResType: teSound;)
     //
     );
 
