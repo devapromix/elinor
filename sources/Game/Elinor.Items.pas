@@ -360,11 +360,11 @@ const
     // FLASKS
     // (2) Flask of Oil
     (Enum: iFlaskOfOil; Name: 'Flask of Oil'; Level: 2; ItType: itFlask;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 150;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 150;
     Description: 'Explodes on impact, dealing 25 damage.'),
     // (4) Acid Flask
     (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 250;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
     Description: 'Reduces the target’s armor ' + 'by 50% after a direct hit'),
 
     // ARTIFACTS
