@@ -916,7 +916,8 @@ type
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
     mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
-    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust);
+    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust, mmFlaskShatter,
+    mmExplosion);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1080,7 +1081,11 @@ const
     // Raise Dead
     (FileName: 'raise_dead.wav'; ResType: teSound;),
     // Rust
-    (FileName: 'rust.wav'; ResType: teSound;)
+    (FileName: 'rust.wav'; ResType: teSound;),
+    // Flask Shatter
+    (FileName: 'flask_shatter.wav'; ResType: teSound;),
+    // Explosion
+    (FileName: 'explosion.wav'; ResType: teSound;)
     //
     );
 

@@ -68,6 +68,7 @@ type
       const APosition: TPosition): Boolean;
     function Dismiss(const APosition: TPosition): Boolean;
     procedure ReduceArmor(const APercent: Integer; const APosition: TPosition);
+    procedure Explosion(const ADamage: Integer; const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
@@ -412,6 +413,15 @@ begin
     Exit;
   TCreature.Clear(FCreature[APosition]);
   Result := True;
+end;
+
+procedure TParty.Explosion(const ADamage: Integer; const APosition: TPosition);
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      HitPoints.ModifyCurrValue(-ADamage);
+    end;
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;

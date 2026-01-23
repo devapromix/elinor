@@ -79,6 +79,7 @@ type
     procedure UseOrb(const AItemEnum: TItemEnum);
     procedure UseFlask(const AItemEnum: TItemEnum);
     procedure ContinueBattle(const AIsNextTurn: Boolean);
+    procedure ChCond;
   end;
 
 implementation
@@ -224,6 +225,23 @@ begin
   except
     on E: Exception do
       Error.Add('TSceneBattle2.AttackCurrentTarget', E.Message);
+  end;
+end;
+
+procedure TSceneBattle2.ChCond;
+begin
+  if EnemyParty.IsClear then
+  begin
+    FBattle.BattleLog.WinInBattle;
+    ChExperience;
+    Game.MediaPlayer.PlaySound(mmWin);
+    Game.MediaPlayer.PlayMusic(mmWinBattle);
+  end;
+  if LeaderParty.IsClear then
+  begin
+    FBattle.BattleLog.LoseInBattle;
+    Game.MediaPlayer.PlayMusic(mmDefeat);
+    Enabled := True;
   end;
 end;
 
@@ -427,19 +445,7 @@ begin
         end;
       end;
     end;
-    if EnemyParty.IsClear then
-    begin
-      FBattle.BattleLog.WinInBattle;
-      ChExperience;
-      Game.MediaPlayer.PlaySound(mmWin);
-      Game.MediaPlayer.PlayMusic(mmWinBattle);
-    end;
-    if LeaderParty.IsClear then
-    begin
-      FBattle.BattleLog.LoseInBattle;
-      Game.MediaPlayer.PlayMusic(mmDefeat);
-      Enabled := True;
-    end;
+    ChCond;
   except
     on E: Exception do
       Error.Add('TSceneBattle2.Turn', E.Message);
@@ -748,11 +754,13 @@ begin
           UseFlask(Enum);
       end;
     end;
-    if AIsNextTurn then
-      NextTurn;
     PendingItemLogString := '';
+    if AIsNextTurn then
+    begin
+      NextTurn;
+      ChCond;
+    end;
   end;
-
 end;
 
 constructor TSceneBattle2.Create;
@@ -1236,7 +1244,8 @@ begin
               NextTurn;
               Exit;
             end;
-          iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches, iAcidFlask:
+          iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches, iAcidFlask,
+            iFlaskOfOil:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(EnemyParty);

@@ -123,7 +123,7 @@ type
     // ESSENCES
 
     // FLASK
-    iAcidFlask,
+    iFlaskOfOil, iAcidFlask,
 
     // ARTIFACTS
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
@@ -170,7 +170,7 @@ type
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment];
-  CTestItems = [iAcidFlask];
+  CTestItems = [iAcidFlask, iFlaskOfOil];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -358,6 +358,10 @@ const
     // ESSENCES
 
     // FLASKS
+    // (2) Flask of Oil
+    (Enum: iFlaskOfOil; Name: 'Flask of Oil'; Level: 2; ItType: itFlask;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 150;
+    Description: 'Explodes on impact, dealing 25 damage.'),
     // (4) Acid Flask
     (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;

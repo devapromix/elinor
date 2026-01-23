@@ -134,6 +134,7 @@ end;
 procedure TSceneSelectUnit.SelectUnit;
 var
   LItem: TItem;
+  LLogStr, LName: string;
 begin
   LItem := TLeaderParty.Leader.Equipment.Item(6);
   if (TItemBase.Item(LItem.Enum).ItType = itFlask) then
@@ -299,12 +300,37 @@ begin
       end;
     iAcidFlask:
       begin
-        // Game.MediaPlayer.PlaySound(mmUseFlask);
+        Game.MediaPlayer.PlaySound(mmFlaskShatter);
         Game.MediaPlayer.PlaySound(mmRust);
         CurrentParty.ReduceArmor(50, ActivePartyPosition);
         PendingItemLogString := Format(CYouThrewTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' The enemy’s armor is severely reduced.';
+      end;
+    iFlaskOfOil:
+      begin
+        Game.MediaPlayer.PlaySound(mmFlaskShatter);
+        Game.MediaPlayer.PlaySound(mmExplosion);
+        CurrentParty.Explosion(25, ActivePartyPosition);
+        LLogStr := '';
+        with TCreature.Character(CurrentParty.Creature
+          [ActivePartyPosition].Enum) do
+        begin
+          LName := Name[0];
+          if CurrentParty.Creature[ActivePartyPosition].HitPoints.IsMinCurrValue
+          then
+          begin
+            Game.MediaPlayer.PlaySound(Sound[csDeath]);
+            LLogStr := Format('The %s dies.', [LName]);
+          end
+          else
+          begin
+            Game.MediaPlayer.PlaySound(Sound[csHit]);
+            LLogStr := Format('The %s takes %d damage.', [LName, 50]);
+          end;
+        end;
+        PendingItemLogString := Format(CYouThrewTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) + ' ' + LLogStr + '.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
