@@ -284,8 +284,8 @@ begin
   with FCreature[APosition] do
     if Alive then
     begin
-      LDamage := Damage.GetCurrValue div 5;
-      Damage.ModifyTempValue(Damage.GetCurrValue + LDamage);
+      LDamage := EnsureRange(Damage.GetCurrValue div 5, 1, 60);
+      Damage.ModifyTempValue(LDamage);
     end;
 end;
 
