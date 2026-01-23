@@ -130,7 +130,7 @@ type
     // ELIXIRS
     irElixirOfStrength,
     // ESSENCES
-    irHighfathersEssence,
+    irHighfathersEssence, irEssenceOfFortune,
     // FLASKS
     irAcidFlask, irFireFlask,
     // RINGS
@@ -743,6 +743,8 @@ const
     // ESSENCES
     // Highfather's Essence
     (FileName: 'item.essence.highfathers_essence.png'; ResType: teItem;),
+    // Essence of Fortune
+    (FileName: 'item.essence.essence_of_fortune.png'; ResType: teItem;),
 
     // FLASKS
     // Acid Flask

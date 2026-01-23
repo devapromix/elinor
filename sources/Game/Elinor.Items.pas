@@ -121,7 +121,7 @@ type
     iElixirOfStrength,
 
     // ESSENCES
-    iHighfathersEssence,
+    iEssenceOfFortune, iHighfathersEssence,
 
     // FLASK
     iFlaskOfOil, iAcidFlask,
@@ -170,9 +170,10 @@ type
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    iHealingOintment, iElixirOfStrength, iHighfathersEssence];
-  CTestItems = [iAcidFlask, iFlaskOfOil, iHighfathersEssence,
-    iElixirOfStrength];
+    iHealingOintment, iElixirOfStrength, iHighfathersEssence,
+    iEssenceOfFortune];
+  CTestItems = [iAcidFlask, iFlaskOfOil, iHighfathersEssence, iElixirOfStrength,
+    iEssenceOfFortune];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -363,6 +364,11 @@ const
     Description: 'Inflict 20% more damage'),
 
     // ESSENCES
+    // (6) Essence of Fortune
+    (Enum: iEssenceOfFortune; Name: 'Essence of Fortune'; Level: 6;
+    ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irEssenceOfFortune; Price: 1600;
+    Description: 'Adds 10% greater chance to hit permanently'),
     // (8) Highfather's Essence
     (Enum: iHighfathersEssence; Name: 'Highfather`s Essence'; Level: 8;
     ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;

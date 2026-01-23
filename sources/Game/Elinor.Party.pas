@@ -72,6 +72,7 @@ type
     procedure IncreaseDamageTemp(const APercent: Integer;
       const APosition: TPosition);
     procedure IncreaseHitPointsPermanently(const APosition: TPosition);
+    procedure IncreaseChancesToHitPermanently(const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
@@ -274,6 +275,18 @@ begin
       end;
   end;
   CurPosition := ActPosition;
+end;
+
+procedure TParty.IncreaseChancesToHitPermanently(const APosition: TPosition);
+var
+  LBoostChancesToHit: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LBoostChancesToHit := EnsureRange(ChancesToHit.GetCurrValue div 10, 1, 10);
+      ChancesToHit.ModifyCurrValue(LBoostChancesToHit, 50, 100);
+    end;
 end;
 
 procedure TParty.IncreaseDamageTemp(const APercent: Integer;
@@ -872,6 +885,14 @@ var
     Inventory.Clear(AItemIndex);
   end;
 
+  procedure IncreaseChanceToHitPermanently;
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseChancesToHitPermanently(APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
 begin
   LItemEnum := Inventory.ItemEnum(AItemIndex);
   if (LItemEnum = iNone) or not(LItemEnum in CQuaffItems) then
@@ -898,6 +919,9 @@ begin
     iHighfathersEssence:
       if CanUseHealingItem then
         IncreaseHitPointsPermanently;
+    iEssenceOfFortune:
+      if CanUseHealingItem then
+        IncreaseChanceToHitPermanently;
   end;
 end;
 
