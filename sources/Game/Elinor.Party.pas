@@ -67,6 +67,7 @@ type
     function Hire(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition): Boolean;
     function Dismiss(const APosition: TPosition): Boolean;
+    procedure ReduceArmor(const APercent: Integer; const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
@@ -566,6 +567,19 @@ begin
     AddCreature(ACreatureEnum, APosition);
     Game.Gold.Modify(-LCreature.Gold);
   end;
+end;
+
+procedure TParty.ReduceArmor(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LArmor: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LArmor := Percent(Armor.GetCurrValue, APercent);
+      Armor.SetCurrValue(LArmor);
+    end;
 end;
 
 procedure TParty.Revive(const APosition: TPosition);

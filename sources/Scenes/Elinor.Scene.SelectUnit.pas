@@ -297,9 +297,8 @@ begin
       begin
         // Game.MediaPlayer.PlaySound(mmUseFlask);
         Game.MediaPlayer.PlaySound(mmRust);
-        // CurrentParty.Dismiss(ActivePartyPosition);
-        // CurrentParty.AddCreature(crImp, ActivePartyPosition);
-        PendingItemLogString := Format(CYouUsedTheItem,
+        CurrentParty.ReduceArmor(50, ActivePartyPosition);
+        PendingItemLogString := Format(CYouThrewTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
           ' The enemy’s armor is severely reduced.';
       end;
