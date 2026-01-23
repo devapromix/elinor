@@ -118,9 +118,11 @@ type
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
 
     // ELIXIRS
+    iElixirOfStrength,
 
     // ESSENCES
     iHighfathersEssence,
+
     // FLASK
     iFlaskOfOil, iAcidFlask,
 
@@ -168,8 +170,9 @@ type
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    iHealingOintment, iHighfathersEssence];
-  CTestItems = [iAcidFlask, iFlaskOfOil, iHighfathersEssence];
+    iHealingOintment, iElixirOfStrength, iHighfathersEssence];
+  CTestItems = [iAcidFlask, iFlaskOfOil, iHighfathersEssence,
+    iElixirOfStrength];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -353,6 +356,11 @@ const
     ' healing wounds and restoring strength'),
 
     // ELIXIRS
+    // (2) Elixir of Strength
+    (Enum: iElixirOfStrength; Name: 'Elixir of Strength'; Level: 2;
+    ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irElixirOfStrength; Price: 550;
+    Description: 'Inflict 20% more damage'),
 
     // ESSENCES
     // (8) Highfather's Essence
@@ -365,7 +373,7 @@ const
     // (2) Flask of Oil
     (Enum: iFlaskOfOil; Name: 'Flask of Oil'; Level: 2; ItType: itFlask;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 150;
-    Description: 'Explodes on impact, dealing 25 damage.'),
+    Description: 'Explodes on impact, dealing 25 damage'),
     // (4) Acid Flask
     (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;

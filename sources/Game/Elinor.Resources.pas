@@ -128,6 +128,7 @@ type
     irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
     irItemHealingOintment,
     // ELIXIRS
+    irElixirOfStrength,
     // ESSENCES
     irHighfathersEssence,
     // FLASKS
@@ -734,6 +735,10 @@ const
     (FileName: 'item.potion.potion_of_restoration.png'; ResType: teItem;),
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
+
+    // ELIXIRS
+    // Elixir of Strength
+    (FileName: 'item.elixir.elixir_of_strength.png'; ResType: teItem;),
 
     // ESSENCES
     // Highfather's Essence

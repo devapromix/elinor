@@ -69,6 +69,8 @@ type
     function Dismiss(const APosition: TPosition): Boolean;
     procedure ReduceArmor(const APercent: Integer; const APosition: TPosition);
     procedure Explosion(const ADamage: Integer; const APosition: TPosition);
+    procedure IncreaseDamageTemp(const APercent: Integer;
+      const APosition: TPosition);
     procedure IncreaseHitPointsPermanently(const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
@@ -272,6 +274,19 @@ begin
       end;
   end;
   CurPosition := ActPosition;
+end;
+
+procedure TParty.IncreaseDamageTemp(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LDamage: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LDamage := Damage.GetCurrValue div 5;
+      Damage.ModifyTempValue(Damage.GetCurrValue + LDamage);
+    end;
 end;
 
 procedure TParty.IncreaseHitPointsPermanently(const APosition: TPosition);
@@ -841,6 +856,14 @@ var
     Inventory.Clear(AItemIndex);
   end;
 
+  procedure IncreaseDamageTemp(const APercent: Integer);
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseDamageTemp(APercent, APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
   procedure IncreaseHitPointsPermanently;
   begin
     Game.MediaPlayer.PlaySound(mmDrink);
@@ -869,6 +892,9 @@ begin
     iHealingOintment:
       if CanUseHealingItem and NeedsHealing then
         HealCreature(200);
+    iElixirOfStrength:
+      if CanUseHealingItem then
+        IncreaseDamageTemp(20);
     iHighfathersEssence:
       if CanUseHealingItem then
         IncreaseHitPointsPermanently;
