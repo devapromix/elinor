@@ -885,7 +885,7 @@ var
     Inventory.Clear(AItemIndex);
   end;
 
-  procedure IncreaseChanceToHitPermanently;
+  procedure IncreaseChancesToHitPermanently;
   begin
     Game.MediaPlayer.PlaySound(mmDrink);
     Game.MediaPlayer.PlaySound(mmBoost);
@@ -921,7 +921,7 @@ begin
         IncreaseHitPointsPermanently;
     iEssenceOfFortune:
       if CanUseHealingItem then
-        IncreaseChanceToHitPermanently;
+        IncreaseChancesToHitPermanently;
   end;
 end;
 

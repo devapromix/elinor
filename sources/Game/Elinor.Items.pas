@@ -118,7 +118,7 @@ type
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
 
     // ELIXIRS
-    iElixirOfStrength,
+    iElixirOfStrength, iElixirOfAccuracy,
 
     // ESSENCES
     iEssenceOfFortune, iHighfathersEssence,
@@ -360,8 +360,13 @@ const
     // (2) Elixir of Strength
     (Enum: iElixirOfStrength; Name: 'Elixir of Strength'; Level: 2;
     ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irElixirOfStrength; Price: 550;
+    ItRes: irElixirOfStrength; Price: 250;
     Description: 'Inflict 20% more damage for 1 day'),
+    // (4) Elixir Of Accuracy
+    (Enum: iElixirOfAccuracy; Name: 'Elixir Of Accuracy'; Level: 4;
+    ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irElixirOfAccuracy; Price: 300;
+    Description: 'Inflict 20% more chance to hit for 1 day'),
 
     // ESSENCES
     // (6) Essence of Fortune
