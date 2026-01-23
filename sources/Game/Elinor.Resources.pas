@@ -130,7 +130,7 @@ type
     // ELIXIRS
     // ESSENCES
     // FLASKS
-    irAcidFlask,
+    irAcidFlask, irFireFlask,
     // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irHagsRing,
@@ -737,6 +737,8 @@ const
     // FLASKS
     // Acid Flask
     (FileName: 'item.flask.acid_flask.png'; ResType: teItem;),
+    // Flask of Oil
+    (FileName: 'item.flask.flask_of_oil.png'; ResType: teItem;),
 
     // RINGS
     // Stone Ring

@@ -364,7 +364,7 @@ const
     Description: 'Explodes on impact, dealing 25 damage.'),
     // (4) Acid Flask
     (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 250;
     Description: 'Reduces the target’s armor ' + 'by 50% after a direct hit'),
 
     // ARTIFACTS
