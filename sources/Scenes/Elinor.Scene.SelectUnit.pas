@@ -296,11 +296,12 @@ begin
     iAcidFlask:
       begin
         // Game.MediaPlayer.PlaySound(mmUseFlask);
-        // Game.MediaPlayer.PlaySound(mmImpHit);
+        Game.MediaPlayer.PlaySound(mmRust);
         // CurrentParty.Dismiss(ActivePartyPosition);
         // CurrentParty.AddCreature(crImp, ActivePartyPosition);
-        // PendingItemLogString := Format(CYouUsedTheItem,
-        // [TItemBase.Item(LItem.Enum).Name]) + ' Enemy polymorphed into Imp.';
+        PendingItemLogString := Format(CYouUsedTheItem,
+          [TItemBase.Item(LItem.Enum).Name]) +
+          ' The enemy’s armor is severely reduced.';
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;

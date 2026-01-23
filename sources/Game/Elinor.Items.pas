@@ -351,7 +351,7 @@ const
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
     ItRes: irItemHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
-    ' healing wounds and restoring strength.'),
+    ' healing wounds and restoring strength'),
 
     // ELIXIRS
 
@@ -361,7 +361,7 @@ const
     // (4) Acid Flask
     (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
-    Description: ''),
+    Description: 'Reduces the target’s armor ' + 'by 50% after a direct hit'),
 
     // ARTIFACTS
     // (1) Dwarven Bracer
