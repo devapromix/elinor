@@ -334,25 +334,25 @@ const
     // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemLifePotion; Price: 250;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irLifePotion; Price: 250;
     Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
     // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemPotionOfHealing; Price: 100;
+    ItRes: irPotionOfHealing; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
     // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemPotionOfRestoration; Price: 200;
+    ItRes: irPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
     // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemHealingOintment; Price: 400;
+    ItRes: irHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
     ' healing wounds and restoring strength'),
 
@@ -361,7 +361,7 @@ const
     (Enum: iElixirOfStrength; Name: 'Elixir of Strength'; Level: 2;
     ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
     ItRes: irElixirOfStrength; Price: 550;
-    Description: 'Inflict 20% more damage'),
+    Description: 'Inflict 20% more damage for 1 day'),
 
     // ESSENCES
     // (6) Essence of Fortune

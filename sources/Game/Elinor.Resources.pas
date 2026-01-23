@@ -125,8 +125,8 @@ type
     // SCENARIO
     irItemStoneTablet,
     // POTIONS
-    irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
-    irItemHealingOintment,
+    irLifePotion, irPotionOfHealing, irPotionOfRestoration,
+    irHealingOintment,
     // ELIXIRS
     irElixirOfStrength,
     // ESSENCES
