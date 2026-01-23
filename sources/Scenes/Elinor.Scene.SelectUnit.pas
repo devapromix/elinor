@@ -20,9 +20,6 @@ type
     ButtonText: array [TButtonEnum] of TResEnum = (reTextSelect, reTextCancel);
   private
     Button: array [TButtonEnum] of TButton;
-    ConfirmGold: Integer;
-    ConfirmParty: TParty;
-    ConfirmPartyPosition: TPosition;
     procedure SelectUnit;
   public
     constructor Create;
@@ -139,6 +136,22 @@ var
   LItem: TItem;
 begin
   LItem := TLeaderParty.Leader.Equipment.Item(6);
+  if (TItemBase.Item(LItem.Enum).ItType = itFlask) then
+  begin
+    with CurrentParty.Creature[ActivePartyPosition] do
+    begin
+      if not Active then
+      begin
+        InformDialog(CChooseNonEmptySlot);
+        Exit;
+      end;
+      if HitPoints.IsMinCurrValue then
+      begin
+        InformDialog(CSelectLivingCreature);
+        Exit;
+      end;
+    end;
+  end;
   case LItem.Enum of
     iOrbOfLife:
       begin
@@ -172,15 +185,6 @@ begin
         if HitPoints.IsMinCurrValue then
         begin
           InformDialog(CCannotAlterForm);
-          Exit;
-        end;
-      end;
-    iAcidFlask:
-      with CurrentParty.Creature[ActivePartyPosition] do
-      begin
-        if not Active then
-        begin
-          InformDialog(CChooseNonEmptySlot);
           Exit;
         end;
       end;
