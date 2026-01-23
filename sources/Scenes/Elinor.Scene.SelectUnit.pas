@@ -134,8 +134,10 @@ end;
 procedure TSceneSelectUnit.SelectUnit;
 var
   LItem: TItem;
-  LLogStr, LName: string;
+  LLogStr, LActCreatureName: string;
 begin
+  LActCreatureName := TCreature.Character
+    (CurrentParty.Creature[ActivePartyPosition].Enum).Name[0];
   LItem := TLeaderParty.Leader.Equipment.Item(6);
   if (TItemBase.Item(LItem.Enum).ItType = itFlask) then
   begin
@@ -203,14 +205,16 @@ begin
         CurrentParty.TakeDamage(25, ActivePartyPosition);
         TLeaderParty.Leader.UpdateHP(25, TLeaderParty.GetPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
-          [TItemBase.Item(LItem.Enum).Name]) + ' Drains life from enemy.';
+          [TItemBase.Item(LItem.Enum).Name]) + Format(' Drains life from %s.',
+          [LActCreatureName]);
       end;
     iTalismanOfFear:
       begin
         Game.MediaPlayer.PlaySound(mmUseOrb);
         CurrentParty.Paralyze(ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
-          [TItemBase.Item(LItem.Enum).Name]) + ' Paralyzes the enemy.';
+          [TItemBase.Item(LItem.Enum).Name]) + Format(' Paralyzes the %s.',
+          [LActCreatureName]);
       end;
     iTalismanOfRage:
       begin
@@ -296,7 +300,8 @@ begin
         CurrentParty.Dismiss(ActivePartyPosition);
         CurrentParty.AddCreature(crImp, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
-          [TItemBase.Item(LItem.Enum).Name]) + ' Enemy polymorphed into Imp.';
+          [TItemBase.Item(LItem.Enum).Name]) +
+          Format(' %s polymorphed into Imp.', [LActCreatureName]);
       end;
     iAcidFlask:
       begin
@@ -305,7 +310,7 @@ begin
         CurrentParty.ReduceArmor(50, ActivePartyPosition);
         PendingItemLogString := Format(CYouThrewTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
-          ' The enemy’s armor is severely reduced.';
+          Format(' The armor of %s is severely reduced.', [LActCreatureName]);
       end;
     iFlaskOfOil:
       begin
@@ -316,17 +321,17 @@ begin
         with TCreature.Character(CurrentParty.Creature
           [ActivePartyPosition].Enum) do
         begin
-          LName := Name[0];
           if CurrentParty.Creature[ActivePartyPosition].HitPoints.IsMinCurrValue
           then
           begin
             Game.MediaPlayer.PlaySound(Sound[csDeath]);
-            LLogStr := Format('The %s dies.', [LName]);
+            LLogStr := Format('The %s dies.', [LActCreatureName]);
           end
           else
           begin
             Game.MediaPlayer.PlaySound(Sound[csHit]);
-            LLogStr := Format('The %s takes %d damage.', [LName, 50]);
+            LLogStr := Format('The %s takes %d damage.',
+              [LActCreatureName, 50]);
           end;
         end;
         PendingItemLogString := Format(CYouThrewTheItem,
