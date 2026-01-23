@@ -129,6 +129,7 @@ type
     irItemHealingOintment,
     // ELIXIRS
     // ESSENCES
+    irHighfathersEssence,
     // FLASKS
     irAcidFlask, irFireFlask,
     // RINGS
@@ -734,6 +735,10 @@ const
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
 
+    // ESSENCES
+    // Highfather's Essence
+    (FileName: 'item.essence.highfathers_essence.png'; ResType: teItem;),
+
     // FLASKS
     // Acid Flask
     (FileName: 'item.flask.acid_flask.png'; ResType: teItem;),
@@ -919,7 +924,7 @@ type
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
     mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
     mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust, mmFlaskShatter,
-    mmExplosion);
+    mmExplosion, mmBoost);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1087,7 +1092,9 @@ const
     // Flask Shatter
     (FileName: 'flask_shatter.wav'; ResType: teSound;),
     // Explosion
-    (FileName: 'explosion.wav'; ResType: teSound;)
+    (FileName: 'explosion.wav'; ResType: teSound;),
+    // Boost
+    (FileName: 'boost.wav'; ResType: teSound;)
     //
     );
 

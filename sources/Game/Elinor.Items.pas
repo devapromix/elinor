@@ -119,9 +119,8 @@ type
 
     // ELIXIRS
 
-
     // ESSENCES
-
+    iHighfathersEssence,
     // FLASK
     iFlaskOfOil, iAcidFlask,
 
@@ -169,8 +168,8 @@ type
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    iHealingOintment];
-  CTestItems = [iAcidFlask, iFlaskOfOil];
+    iHealingOintment, iHighfathersEssence];
+  CTestItems = [iAcidFlask, iFlaskOfOil, iHighfathersEssence];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -356,6 +355,11 @@ const
     // ELIXIRS
 
     // ESSENCES
+    // (8) Highfather's Essence
+    (Enum: iHighfathersEssence; Name: 'Highfather`s Essence'; Level: 8;
+    ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irHighfathersEssence; Price: 2000;
+    Description: 'Adds 20% hit points permanently'),
 
     // FLASKS
     // (2) Flask of Oil
