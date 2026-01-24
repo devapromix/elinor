@@ -128,7 +128,7 @@ type
     irLifePotion, irPotionOfHealing, irPotionOfRestoration,
     irHealingOintment,
     // ELIXIRS
-    irElixirOfStrength,
+    irElixirOfStrength, irElixirOfAccuracy,
     // ESSENCES
     irHighfathersEssence, irEssenceOfFortune,
     // FLASKS
@@ -739,6 +739,8 @@ const
     // ELIXIRS
     // Elixir of Strength
     (FileName: 'item.elixir.elixir_of_strength.png'; ResType: teItem;),
+    // Elixir Of Accuracy
+    (FileName: 'item.elixir.elixir_of_accuracy.png'; ResType: teItem;),
 
     // ESSENCES
     // Highfather's Essence

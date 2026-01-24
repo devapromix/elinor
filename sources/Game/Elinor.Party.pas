@@ -71,6 +71,8 @@ type
     procedure Explosion(const ADamage: Integer; const APosition: TPosition);
     procedure IncreaseDamageTemp(const APercent: Integer;
       const APosition: TPosition);
+    procedure IncreaseChancesToHitTemp(const APercent: Integer;
+      const APosition: TPosition);
     procedure IncreaseHitPointsPermanently(const APosition: TPosition);
     procedure IncreaseChancesToHitPermanently(const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
@@ -286,6 +288,19 @@ begin
     begin
       LBoostChancesToHit := EnsureRange(ChancesToHit.GetCurrValue div 10, 1, 10);
       ChancesToHit.ModifyCurrValue(LBoostChancesToHit, 50, 100);
+    end;
+end;
+
+procedure TParty.IncreaseChancesToHitTemp(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LChancesToHit: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LChancesToHit := EnsureRange(ChancesToHit.GetCurrValue div 5, 1, 60);
+      ChancesToHit.ModifyTempValue(LChancesToHit);
     end;
 end;
 
@@ -877,6 +892,14 @@ var
     Inventory.Clear(AItemIndex);
   end;
 
+  procedure IncreaseChancesToHitTemp(const APercent: Integer);
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseChancesToHitTemp(APercent, APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
   procedure IncreaseHitPointsPermanently;
   begin
     Game.MediaPlayer.PlaySound(mmDrink);
@@ -916,6 +939,9 @@ begin
     iElixirOfStrength:
       if CanUseHealingItem then
         IncreaseDamageTemp(20);
+    iElixirOfAccuracy:
+      if CanUseHealingItem then
+        IncreaseChancesToHitTemp(20);
     iHighfathersEssence:
       if CanUseHealingItem then
         IncreaseHitPointsPermanently;

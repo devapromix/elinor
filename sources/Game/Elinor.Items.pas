@@ -170,10 +170,9 @@ type
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    iHealingOintment, iElixirOfStrength, iHighfathersEssence,
+    iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iAcidFlask, iFlaskOfOil, iHighfathersEssence, iElixirOfStrength,
-    iEssenceOfFortune];
+  CTestItems = [iElixirOfAccuracy];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
