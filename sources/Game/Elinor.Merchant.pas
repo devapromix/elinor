@@ -117,9 +117,13 @@ end;
 procedure TPotionMerchant.GenNewItems;
 begin
   FInventory.Clear;
+  // #1
   AddRandomItems(iLifePotion, 1, 2);
   AddRandomItems(iPotionOfHealing, 2, 4);
+  // #2
   AddRandomItems(iPotionOfRestoration, 1, 2);
+  AddRandomItems(iElixirOfStrength, 1, 2);
+  // #3
   AddRandomItems(iHealingOintment, 1, 1);
 end;
 

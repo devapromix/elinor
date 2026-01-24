@@ -67,6 +67,14 @@ type
     function Hire(const ACreatureEnum: TCreatureEnum;
       const APosition: TPosition): Boolean;
     function Dismiss(const APosition: TPosition): Boolean;
+    procedure ReduceArmor(const APercent: Integer; const APosition: TPosition);
+    procedure Explosion(const ADamage: Integer; const APosition: TPosition);
+    procedure IncreaseDamageTemp(const APercent: Integer;
+      const APosition: TPosition);
+    procedure IncreaseChancesToHitTemp(const APercent: Integer;
+      const APosition: TPosition);
+    procedure IncreaseHitPointsPermanently(const APosition: TPosition);
+    procedure IncreaseChancesToHitPermanently(const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
@@ -271,6 +279,57 @@ begin
   CurPosition := ActPosition;
 end;
 
+procedure TParty.IncreaseChancesToHitPermanently(const APosition: TPosition);
+var
+  LBoostChancesToHit: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LBoostChancesToHit := EnsureRange(ChancesToHit.GetCurrValue div 10, 1, 10);
+      ChancesToHit.ModifyCurrValue(LBoostChancesToHit, 50, 100);
+    end;
+end;
+
+procedure TParty.IncreaseChancesToHitTemp(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LChancesToHit: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LChancesToHit := EnsureRange(ChancesToHit.GetCurrValue div 5, 1, 60);
+      ChancesToHit.ModifyTempValue(LChancesToHit);
+    end;
+end;
+
+procedure TParty.IncreaseDamageTemp(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LDamage: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LDamage := EnsureRange(Damage.GetCurrValue div 5, 1, 60);
+      Damage.ModifyTempValue(LDamage);
+    end;
+end;
+
+procedure TParty.IncreaseHitPointsPermanently(const APosition: TPosition);
+var
+  LBoostHitPoints: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LBoostHitPoints := EnsureRange(HitPoints.GetMaxValue div 5, 1, 255);
+      HitPoints.ModifyMaxValue(LBoostHitPoints);
+      HitPoints.SetToMaxValue;
+    end;
+end;
+
 function TParty.IsClear: Boolean;
 var
   Position: TPosition;
@@ -411,6 +470,15 @@ begin
     Exit;
   TCreature.Clear(FCreature[APosition]);
   Result := True;
+end;
+
+procedure TParty.Explosion(const ADamage: Integer; const APosition: TPosition);
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      HitPoints.ModifyCurrValue(-ADamage);
+    end;
 end;
 
 function TParty.GetCreature(APosition: TPosition): TCreature;
@@ -566,6 +634,19 @@ begin
     AddCreature(ACreatureEnum, APosition);
     Game.Gold.Modify(-LCreature.Gold);
   end;
+end;
+
+procedure TParty.ReduceArmor(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LArmor: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LArmor := Percent(Armor.GetCurrValue, APercent);
+      Armor.SetCurrValue(LArmor);
+    end;
 end;
 
 procedure TParty.Revive(const APosition: TPosition);
@@ -803,6 +884,38 @@ var
     Inventory.Clear(AItemIndex);
   end;
 
+  procedure IncreaseDamageTemp(const APercent: Integer);
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseDamageTemp(APercent, APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
+  procedure IncreaseChancesToHitTemp(const APercent: Integer);
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseChancesToHitTemp(APercent, APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
+  procedure IncreaseHitPointsPermanently;
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseHitPointsPermanently(APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
+  procedure IncreaseChancesToHitPermanently;
+  begin
+    Game.MediaPlayer.PlaySound(mmDrink);
+    Game.MediaPlayer.PlaySound(mmBoost);
+    TLeaderParty.Leader.IncreaseChancesToHitPermanently(APosition);
+    Inventory.Clear(AItemIndex);
+  end;
+
 begin
   LItemEnum := Inventory.ItemEnum(AItemIndex);
   if (LItemEnum = iNone) or not(LItemEnum in CQuaffItems) then
@@ -823,6 +936,18 @@ begin
     iHealingOintment:
       if CanUseHealingItem and NeedsHealing then
         HealCreature(200);
+    iElixirOfStrength:
+      if CanUseHealingItem then
+        IncreaseDamageTemp(20);
+    iElixirOfAccuracy:
+      if CanUseHealingItem then
+        IncreaseChancesToHitTemp(20);
+    iHighfathersEssence:
+      if CanUseHealingItem then
+        IncreaseHitPointsPermanently;
+    iEssenceOfFortune:
+      if CanUseHealingItem then
+        IncreaseChancesToHitPermanently;
   end;
 end;
 

@@ -120,13 +120,19 @@ type
 
 type
   TItemResEnum = (irNone,
-    // Special
+    // SPECIAL
     irItemGold, irItemMana,
-    // Scenario
+    // SCENARIO
     irItemStoneTablet,
-    // Elixirs
-    irItemLifePotion, irItemPotionOfHealing, irItemPotionOfRestoration,
-    irItemHealingOintment,
+    // POTIONS
+    irLifePotion, irPotionOfHealing, irPotionOfRestoration,
+    irHealingOintment,
+    // ELIXIRS
+    irElixirOfStrength, irElixirOfAccuracy,
+    // ESSENCES
+    irHighfathersEssence, irEssenceOfFortune,
+    // FLASKS
+    irAcidFlask, irFireFlask,
     // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irHagsRing,
@@ -141,9 +147,9 @@ type
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irSkeletonOrb, irOrbOfRestoration,
     irZombieOrb, irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
-    // Tomes
+    // TOMES
     irItemTomeOfWar,
-    // Boots
+    // BOOTS
     irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfDarkness,
     irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
     // HELMS
@@ -730,6 +736,24 @@ const
     // Healing Ointment
     (FileName: 'item.potion.healing_oinment.png'; ResType: teItem;),
 
+    // ELIXIRS
+    // Elixir of Strength
+    (FileName: 'item.elixir.elixir_of_strength.png'; ResType: teItem;),
+    // Elixir Of Accuracy
+    (FileName: 'item.elixir.elixir_of_accuracy.png'; ResType: teItem;),
+
+    // ESSENCES
+    // Highfather's Essence
+    (FileName: 'item.essence.highfathers_essence.png'; ResType: teItem;),
+    // Essence of Fortune
+    (FileName: 'item.essence.essence_of_fortune.png'; ResType: teItem;),
+
+    // FLASKS
+    // Acid Flask
+    (FileName: 'item.flask.acid_flask.png'; ResType: teItem;),
+    // Flask of Oil
+    (FileName: 'item.flask.flask_of_oil.png'; ResType: teItem;),
+
     // RINGS
     // Stone Ring
     (FileName: 'item.ring.stone_ring.png'; ResType: teItem;),
@@ -908,7 +932,8 @@ type
     mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
     mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
-    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead);
+    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust, mmFlaskShatter,
+    mmExplosion, mmBoost);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1070,7 +1095,15 @@ const
     // Lizardman Death
     (FileName: 'lizardman_death.wav'; ResType: teSound;),
     // Raise Dead
-    (FileName: 'raise_dead.wav'; ResType: teSound;)
+    (FileName: 'raise_dead.wav'; ResType: teSound;),
+    // Rust
+    (FileName: 'rust.wav'; ResType: teSound;),
+    // Flask Shatter
+    (FileName: 'flask_shatter.wav'; ResType: teSound;),
+    // Explosion
+    (FileName: 'explosion.wav'; ResType: teSound;),
+    // Boost
+    (FileName: 'boost.wav'; ResType: teSound;)
     //
     );
 

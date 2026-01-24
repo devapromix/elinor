@@ -28,6 +28,7 @@ type
     procedure SetToMaxValue;
     procedure SetCurrValue(const AValue: Integer);
     procedure ModifyCurrValue(const AValue: Integer);
+    procedure ModifyMaxValue(const AValue: Integer);
     function IsMinCurrValue: Boolean;
     function IsMaxCurrValue: Boolean;
   end;
@@ -105,6 +106,11 @@ end;
 procedure TCurrMaxAttribute.ModifyCurrValue(const AValue: Integer);
 begin
   FCurr := EnsureRange(FCurr + AValue, 0, GetMaxValue);
+end;
+
+procedure TCurrMaxAttribute.ModifyMaxValue(const AValue: Integer);
+begin
+  FMax := FMax + AValue
 end;
 
 procedure TCurrMaxAttribute.SetCurrValue(const AValue: Integer);

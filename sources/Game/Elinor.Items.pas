@@ -52,14 +52,14 @@ uses
 
 type
   TItemType = (itSpecial, itValuable,
-    // Potions and Scrolls
-    itPotion, itElixir, itEssance, itFlask, itScroll,
+    // Consumable
+    itPotion, itElixir, itEssence, itFlask, itScroll,
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome);
 
 const
-  CUseItemType = [itPotion, itOrb, itTalisman];
+  CUseItemType = [itPotion, itOrb, itFlask, itTalisman];
 
 const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'potion',
@@ -118,12 +118,13 @@ type
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
 
     // ELIXIRS
-
+    iElixirOfStrength, iElixirOfAccuracy,
 
     // ESSENCES
-
+    iEssenceOfFortune, iHighfathersEssence,
 
     // FLASK
+    iFlaskOfOil, iAcidFlask,
 
     // ARTIFACTS
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
@@ -169,8 +170,9 @@ type
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    iHealingOintment];
-  CTestItems = [iOrbOfLife, iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb];
+    iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
+    iEssenceOfFortune];
+  CTestItems = [iElixirOfAccuracy];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -331,33 +333,61 @@ const
     // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemLifePotion; Price: 250;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irLifePotion; Price: 250;
     Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
     // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemPotionOfHealing; Price: 100;
+    ItRes: irPotionOfHealing; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
     // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemPotionOfRestoration; Price: 200;
+    ItRes: irPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
     // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemHealingOintment; Price: 400;
+    ItRes: irHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
-    ' healing wounds and restoring strength.'),
+    ' healing wounds and restoring strength'),
 
     // ELIXIRS
+    // (2) Elixir of Strength
+    (Enum: iElixirOfStrength; Name: 'Elixir of Strength'; Level: 2;
+    ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irElixirOfStrength; Price: 250;
+    Description: 'Inflict 20% more damage for 1 day'),
+    // (4) Elixir Of Accuracy
+    (Enum: iElixirOfAccuracy; Name: 'Elixir Of Accuracy'; Level: 4;
+    ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irElixirOfAccuracy; Price: 300;
+    Description: 'Inflict 20% more chance to hit for 1 day'),
 
     // ESSENCES
+    // (6) Essence of Fortune
+    (Enum: iEssenceOfFortune; Name: 'Essence of Fortune'; Level: 6;
+    ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irEssenceOfFortune; Price: 1600;
+    Description: 'Adds 10% greater chance to hit permanently'),
+    // (8) Highfather's Essence
+    (Enum: iHighfathersEssence; Name: 'Highfather`s Essence'; Level: 8;
+    ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irHighfathersEssence; Price: 2000;
+    Description: 'Adds 20% hit points permanently'),
 
     // FLASKS
+    // (2) Flask of Oil
+    (Enum: iFlaskOfOil; Name: 'Flask of Oil'; Level: 2; ItType: itFlask;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 150;
+    Description: 'Explodes on impact, dealing 25 damage'),
+    // (4) Acid Flask
+    (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
+    Description: 'Reduces the target’s armor ' + 'by 50% after a direct hit'),
 
     // ARTIFACTS
     // (1) Dwarven Bracer

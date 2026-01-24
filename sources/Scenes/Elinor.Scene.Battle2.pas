@@ -77,7 +77,9 @@ type
       const ACreatureEnum: TCreatureEnum);
     procedure UseTalisman(const AItemEnum: TItemEnum);
     procedure UseOrb(const AItemEnum: TItemEnum);
+    procedure UseFlask(const AItemEnum: TItemEnum);
     procedure ContinueBattle(const AIsNextTurn: Boolean);
+    procedure ChCond;
   end;
 
 implementation
@@ -223,6 +225,23 @@ begin
   except
     on E: Exception do
       Error.Add('TSceneBattle2.AttackCurrentTarget', E.Message);
+  end;
+end;
+
+procedure TSceneBattle2.ChCond;
+begin
+  if EnemyParty.IsClear then
+  begin
+    FBattle.BattleLog.WinInBattle;
+    ChExperience;
+    Game.MediaPlayer.PlaySound(mmWin);
+    Game.MediaPlayer.PlayMusic(mmWinBattle);
+  end;
+  if LeaderParty.IsClear then
+  begin
+    FBattle.BattleLog.LoseInBattle;
+    Game.MediaPlayer.PlayMusic(mmDefeat);
+    Enabled := True;
   end;
 end;
 
@@ -426,19 +445,7 @@ begin
         end;
       end;
     end;
-    if EnemyParty.IsClear then
-    begin
-      FBattle.BattleLog.WinInBattle;
-      ChExperience;
-      Game.MediaPlayer.PlaySound(mmWin);
-      Game.MediaPlayer.PlayMusic(mmWinBattle);
-    end;
-    if LeaderParty.IsClear then
-    begin
-      FBattle.BattleLog.LoseInBattle;
-      Game.MediaPlayer.PlayMusic(mmDefeat);
-      Enabled := True;
-    end;
+    ChCond;
   except
     on E: Exception do
       Error.Add('TSceneBattle2.Turn', E.Message);
@@ -733,23 +740,27 @@ end;
 
 procedure TSceneBattle2.ContinueBattle(const AIsNextTurn: Boolean);
 begin
-  if (PendingTalismanOrOrbLogString <> '') then
+  if (PendingItemLogString <> '') then
   begin
     with TLeaderParty.Leader.Equipment.LHandSlotItem do
     begin
-      FBattle.BattleLog.Log.Add(PendingTalismanOrOrbLogString);
+      FBattle.BattleLog.Log.Add(PendingItemLogString);
       case TItemBase.Item(Enum).ItType of
         itTalisman:
           UseTalisman(Enum);
         itOrb:
           UseOrb(Enum);
+        itFlask:
+          UseFlask(Enum);
       end;
     end;
+    PendingItemLogString := '';
     if AIsNextTurn then
+    begin
       NextTurn;
-    PendingTalismanOrOrbLogString := '';
+      ChCond;
+    end;
   end;
-
 end;
 
 constructor TSceneBattle2.Create;
@@ -767,7 +778,7 @@ begin
   DuelLeaderParty := TParty.Create;
   FBattle := TBattle.Create;
   FIsShowBattleLog := False;
-  PendingTalismanOrOrbLogString := '';
+  PendingItemLogString := '';
 end;
 
 destructor TSceneBattle2.Destroy;
@@ -1233,7 +1244,8 @@ begin
               NextTurn;
               Exit;
             end;
-          iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches:
+          iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches, iAcidFlask,
+            iFlaskOfOil:
             begin
               Game.MediaPlayer.PlaySound(mmClick);
               TSceneSelectUnit.ShowScene(EnemyParty);
@@ -1253,6 +1265,11 @@ begin
 end;
 
 procedure TSceneBattle2.UseOrb(const AItemEnum: TItemEnum);
+begin
+  TLeaderParty.Leader.Equipment.Clear(6);
+end;
+
+procedure TSceneBattle2.UseFlask(const AItemEnum: TItemEnum);
 begin
   TLeaderParty.Leader.Equipment.Clear(6);
 end;
