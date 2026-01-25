@@ -131,7 +131,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Spellbook.pas"/>
         <DCCReference Include="Game\Elinor.MediaPlayer.pas"/>
         <DCCReference Include="Elinor.PathFind.pas"/>
-        <DCCReference Include="Elinor.Spells.pas"/>
+        <DCCReference Include="Game\Elinor.Spells.pas"/>
         <DCCReference Include="Elinor.Treasure.pas"/>
         <DCCReference Include="Game\Elinor.Statistics.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Frames.pas"/>
