@@ -25,11 +25,13 @@ of their gods.
 * R - Open recruit scene
 * D - Dismiss the warrior (if it is not the party leader or capital guardian)
 * P - Open party/statistics screen
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/barracks.png)
 
 ### 3. In recruit scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select character's slot
 * R, Enter - Recruit a new warrior to the party (if you have enough gold coins)
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/recruit.png)
 
 ### 4. In temple scene:
 * Esc/Enter - Close scene
@@ -37,6 +39,7 @@ of their gods.
 * H - Heal a creature (if you have enough gold coins)
 * R - Revive a creature (if you have enough gold coins)
 * P - Open party/statistics screen
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/temple.png)
 	
 ### 5. On the map:
 * Esc - Exit to main menu
@@ -46,33 +49,43 @@ of their gods.
 * I - Open leader's equipment/inventory
 * S - Open spellbook (show list of learned leader spells)
 * A - Show list of learned leader abilities
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/map.png)
 	
 ### 6. In battle scene:
 * Esc/Enter - Exit (if win/lose)
 * WADX, Arrows, Numeric keypad - Select enemy character
 * Space, LMB on character - Attack enemy character
 * U - Use item (quaff potion, use talisman or orb)
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/battle.png)
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/victory.png)
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/log.png)
 	
-### 7. In leader's scene:
+### 7. In loot scene:
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/loot.png)
+
+### 8. In leader's scene:
 * Esc/Enter - Close scene
 * I - Open leader's equipment/inventory
 * S - Open spellbook (show list of learned leader spells)
 * A - Show list of learned leader abilities
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/party.png)
 
-### 8. In inventory scene:
+### 9. In inventory scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select character's slot (if active character's group)
 * Space - Change active group
 * Enter - use item (read scroll/drink potion)
 * I, RBM - information about item
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/inventory.png)
 
-### 9. In high scores scene:
+### 10. In high scores scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select faction/class
 * F - Filter by fraction
 * C - Filter by class
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/highscores.png)
 
-### 10. In merchant scene:
+### 11. In merchant scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select an item
 * Space - Change active group
