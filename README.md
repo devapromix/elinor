@@ -61,6 +61,9 @@ of their gods.
 ![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/log.png)
 	
 ### 7. In loot scene:
+* Esc - Close scene
+* ENTER - Pickup loot/Close scene (if no loot)
+* Arrows, Numeric keypad - Select item's slot
 ![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/loot.png)
 
 ### 8. In leader's scene:
@@ -90,6 +93,7 @@ of their gods.
 * Arrows, Numeric keypad - Select an item
 * Space - Change active group
 * Enter - buy/sell item
+![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/merchant.png)
 
 ## II. Current State
 * The game is currently playable and even winnable, but is still in active development with a great deal more content planned.
