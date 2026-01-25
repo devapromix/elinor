@@ -75,20 +75,23 @@ of their gods.
 
 ### 9. In inventory scene:
 * Esc - Close scene
+
+### 10. In inventory scene:
+* Esc - Close scene
 * Arrows, Numeric keypad - Select character's slot (if active character's group)
 * Space - Change active group
 * Enter - use item (read scroll/drink potion)
 * I, RBM - information about item
 ![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/inventory.png)
 
-### 10. In high scores scene:
+### 11. In high scores scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select faction/class
 * F - Filter by fraction
 * C - Filter by class
 ![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/highscores.png)
 
-### 11. In merchant scene:
+### 12. In merchant scene:
 * Esc - Close scene
 * Arrows, Numeric keypad - Select an item
 * Space - Change active group

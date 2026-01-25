@@ -295,7 +295,7 @@ const
     ' Unlocks hidden paths and sealed doors'),
     // (2) Arcane Scroll
     (Enum: iArcaneScroll; Name: 'Arcane Scroll'; Level: 2; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemArcaneScroll; Price: 200;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irArcaneScroll; Price: 200;
     Description: 'A used magical scroll, its words faded,' +
     ' yet a trace of its power still lingers'),
     // (3) Ember Salts
@@ -326,7 +326,7 @@ const
     ' Rare, unyielding, and incredibly valuable'),
     // (8) Ancient Relic
     (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irNone; Price: 1000;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAncientRelic; Price: 1000;
     Description: 'An old and weathered object from a bygone age,' +
     ' holding secrets of the past'),
 
@@ -409,16 +409,16 @@ const
     Price: 650; Description: ''),
     // (5) Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone; Price: 750;
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: irSkullBracers; Price: 750;
     Description: ''),
     // (6) Lute Of Charming
     (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
-    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone;
-    Price: 1000; Description: ''),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
+    ItRes: irLuteOfCharming; Price: 1000; Description: ''),
     // (7) Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
     ItType: itArtifact; ItEffect: ieChanceToParalyze15; ItSlot: isArtifact;
-    ItRes: irNone; Price: 1250; Description: ''),
+    ItRes: irSkullOfThanatos; Price: 1250; Description: ''),
     // (8) Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;

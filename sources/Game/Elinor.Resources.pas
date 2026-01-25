@@ -125,8 +125,7 @@ type
     // SCENARIO
     irItemStoneTablet,
     // POTIONS
-    irLifePotion, irPotionOfHealing, irPotionOfRestoration,
-    irHealingOintment,
+    irLifePotion, irPotionOfHealing, irPotionOfRestoration, irHealingOintment,
     // ELIXIRS
     irElixirOfStrength, irElixirOfAccuracy,
     // ESSENCES
@@ -136,10 +135,13 @@ type
     // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irHagsRing,
+    // VALUABLES
+    irRunicKey, irArcaneScroll, irEmberSalts, irEmerald, irRuby, irSaphire,
+    irDiamond, irAncientRelic,
     // ARTIFACTS
-    irRunicKey, reItemIceCrystal, irItemArcaneScroll, irEmberSalts,
-    irDwarvenBracer, irRunestone, irEmerald, irRuby, irSaphire, irDiamond,
-    irHornOfAwareness, irBethrezensClaw, irHornOfIncubus,
+    irDwarvenBracer, irRunestone, irHornOfAwareness, reItemIceCrystal,
+    irSkullBracers, irLuteOfCharming, irSkullOfThanatos, irBethrezensClaw,
+    irHornOfIncubus,
     // TALISMANS
     irTalismanOfRestoration, irTalismanOfVigor, irTalismanOfProtection,
     irTalismanOfNosferat, irTalismanOfFear, irTalismanOfRage,
@@ -768,19 +770,13 @@ const
     // Hag's Ring
     (FileName: 'item.ring.hags_ring.png'; ResType: teItem;),
 
-    //
+    // VALUABLES
     // Runic Key
     (FileName: 'item.valuable.runic_key.png'; ResType: teItem;),
-    // Ice Crystal
-    (FileName: 'item.artifact.ice_crystal.png'; ResType: teItem;),
     // Arcane Scroll
     (FileName: 'item.valuable.arcane_scroll.png'; ResType: teItem;),
     // Ember Salts
     (FileName: 'item.valuable.ember_salts.png'; ResType: teItem;),
-    // Dwarven Bracer
-    (FileName: 'item.artifact.dwarven_bracer.png'; ResType: teItem;),
-    // Runestone
-    (FileName: 'item.artifact.runestone.png'; ResType: teItem;),
     // Emerald
     (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
     // Ruby
@@ -789,8 +785,24 @@ const
     (FileName: 'item.valuable.saphire.png'; ResType: teItem;),
     // Diamond
     (FileName: 'item.valuable.diamond.png'; ResType: teItem;),
+    // Ancient Relic
+    (FileName: 'item.valuable.ancient_relic.png'; ResType: teItem;),
+
+    // ARTIFACTS
+    // Dwarven Bracer
+    (FileName: 'item.artifact.dwarven_bracer.png'; ResType: teItem;),
+    // Runestone
+    (FileName: 'item.artifact.runestone.png'; ResType: teItem;),
     // Horn Of Awareness
     (FileName: 'item.artifact.horn_of_awareness.png'; ResType: teItem;),
+    // Ice Crystal
+    (FileName: 'item.artifact.ice_crystal.png'; ResType: teItem;),
+    // Skull Bracers
+    (FileName: 'item.artifact.skull_bracers.png'; ResType: teItem;),
+    // Lute Of Charming
+    (FileName: 'item.artifact.lute_of_charming.png'; ResType: teItem;),
+    // Skull Of Thanatos
+    (FileName: 'item.artifact.skull_of_thanatos.png'; ResType: teItem;),
     // Bethrezen's Claw
     (FileName: 'item.artifact.bethrezens_claw.png'; ResType: teItem;),
     // Horn Of Incubus
