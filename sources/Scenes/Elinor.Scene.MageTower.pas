@@ -89,6 +89,7 @@ var
   LLeft, LWidth: Integer;
 begin
   inherited Create(reWallpaperSettlement);
+  ShowButtons := False;
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
