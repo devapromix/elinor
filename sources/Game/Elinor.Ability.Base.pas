@@ -160,7 +160,11 @@ const
     (Enum: abLogistics; Name: 'Logistics';
     Description: ('The leader''s party can travel',
     'a greater distance in a day'); Level: 5; Leaders: LordLeaders;
-    ResEnum: arNone;)
+    ResEnum: arNone;),
+    // Golem Mastery
+    (Enum: abGolemMastery; Name: 'Golem Mastery';
+    Description: ('The leader can summon', 'golems'); Level: 5;
+    Leaders: MageLeaders; ResEnum: arNone;)
     //
     );
 

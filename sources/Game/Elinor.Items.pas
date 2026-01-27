@@ -62,9 +62,9 @@ const
   CUseItemType = [itPotion, itOrb, itTalisman];
 
 const
-  ItemTypeName: array [TItemType] of string = ('', 'valuable', 'potion','elixir','essence', 'flask',
-    'scroll', 'ring', 'armor', 'artifact', 'amulet', 'helm', 'staff', 'orb',
-    'talisman', 'boots', 'banner', 'book');
+  ItemTypeName: array [TItemType] of string = ('', 'valuable', 'potion',
+    'elixir', 'essence', 'flask', 'scroll', 'ring', 'armor', 'artifact',
+    'amulet', 'helm', 'staff', 'orb', 'talisman', 'boots', 'banner', 'book');
 
 type
   TItemSlot = (isNone, isHelm, isAmulet, isBanner, isTome, isArmor, isRHand,
