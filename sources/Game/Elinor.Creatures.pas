@@ -867,12 +867,12 @@ const
     // Spider
     (Ident: 'spider'; Faction: faNeutrals; SubRace: reAnimal;
     ResEnum: reGiantSpider; Size: szBig; Name: ('Giant Spider', 'Giant Spider');
-    Description: ('Сильный яд гигантского паука',
-    'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
-    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400;
-    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
+    Description: ('The potent venom of a giant',
+    'spider completely paralyzes the', 'victim, preventing escape.');
+    HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 130; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 400; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
 
     // Wolf
     (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: reWolf;
@@ -941,19 +941,22 @@ const
     // Black Dragon
     (Ident: 'black-dragon'; Faction: faNeutrals; SubRace: reDragon;
     ResEnum: reBlackDragon; Size: szBig; Name: ('Black Dragon', 'Black Dragon');
-    Description: ('', '', ''); HitPoints: 800; Initiative: 40; ChancesToHit: 75;
-    Leadership: 0; Level: 1; Damage: 125; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAll; Gold: 2000;
-    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atFireBreath; AbilityEnum: abNone; Rating: 350;),
+    Description: ('The corrosive breath of a black',
+    'dragon melts flesh and armor,', 'making escape impossible.');
+    HitPoints: 800; Initiative: 40; ChancesToHit: 75; Leadership: 0; Level: 1;
+    Damage: 125; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAll;
+    Gold: 2000; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gender: cgMale; AttackEnum: atFireBreath; AbilityEnum: abNone;
+    Rating: 350;),
     // White Dragon
     (Ident: 'white-dragon'; Faction: faNeutrals; SubRace: reDragon;
     ResEnum: reWhiteDragon; Size: szBig; Name: ('White Dragon', 'White Dragon');
-    Description: ('', '', ''); HitPoints: 900; Initiative: 40; ChancesToHit: 80;
-    Leadership: 0; Level: 1; Damage: 120; Armor: 10; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAll; Gold: 2500;
-    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atIceBreath; AbilityEnum: abNone; Rating: 400;)
+    Description: ('The freezing breath of a white',
+    'dragon locks the victim in ice,', 'leaving no chance to flee.');
+    HitPoints: 900; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 120; Armor: 10; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAll;
+    Gold: 2500; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gender: cgMale; AttackEnum: atIceBreath; AbilityEnum: abNone; Rating: 400;)
 {$ENDREGION Dragons}
     //
     );
