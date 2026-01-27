@@ -588,7 +588,7 @@ const
     Description: 'A massive ring pulses ' + 'with hidden energy'),
     // (6) Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irNone; Price: 1000;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfTheAges; Price: 1000;
     Description: ''),
     // (7) Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
@@ -596,7 +596,7 @@ const
     Description: ''),
     // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
-    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irNone; Price: 1500;
+    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing; Price: 1500;
     Description: ''),
 
     // HELMS

@@ -134,7 +134,7 @@ type
     irAcidFlask, irFireFlask,
     // RINGS
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
-    irHagsRing,
+    irRingOfTheAges, irHagsRing, irThanatosRing,
     // VALUABLES
     irRunicKey, irArcaneScroll, irEmberSalts, irEmerald, irRuby, irSaphire,
     irDiamond, irAncientRelic,
@@ -767,8 +767,12 @@ const
     (FileName: 'item.ring.gold_ring.png'; ResType: teItem;),
     // Ring Of Strength
     (FileName: 'item.ring.ring_of_strength.png'; ResType: teItem;),
+    // Ring Of The Ages
+    (FileName: 'item.ring.ring_of_the_ages.png'; ResType: teItem;),
     // Hag's Ring
     (FileName: 'item.ring.hags_ring.png'; ResType: teItem;),
+    // Thanatos Ring
+    (FileName: 'item.ring.thanatos_ring.png'; ResType: teItem;),
 
     // VALUABLES
     // Runic Key
