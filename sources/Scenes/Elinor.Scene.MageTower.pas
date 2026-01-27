@@ -16,13 +16,15 @@ uses
 type
   TSceneMageTower = class(TSceneWideMenu)
   private type
-    TButtonEnum = (btLearn, btClose);
+    TButtonEnum = (btLearn, btClose, btSpellbook);
   private const
-    ButtonText: array [TButtonEnum] of TResEnum = (reTextLearn, reTextClose);
+    ButtonText: array [TButtonEnum] of TResEnum = (reTextLearn, reTextClose,
+      reTextSpellbook);
   private
     class var Button: array [TButtonEnum] of TButton;
   private
     procedure LearnSpell;
+    procedure ShowSpellbookScene;
   public
     constructor Create;
     destructor Destroy; override;
@@ -47,7 +49,8 @@ uses
   Elinor.Frame,
   Elinor.Spells.Types,
   Elinor.Spellbook,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Scene.Spellbook;
 
 { TSceneMageTower }
 
@@ -86,6 +89,7 @@ var
   LLeft, LWidth: Integer;
 begin
   inherited Create(reWallpaperSettlement);
+  ShowButtons := False;
   LWidth := ResImage[reButtonDef].Width + 4;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TButtonEnum)) + 1)) div 2);
   for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
@@ -116,6 +120,8 @@ begin
       begin
         if Button[btLearn].MouseDown then
           LearnSpell
+        else if Button[btSpellbook].MouseDown then
+          ShowSpellbookScene
         else if Button[btClose].MouseDown then
           HideScene;
       end;
@@ -180,7 +186,7 @@ procedure TSceneMageTower.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Statistics', True);
+    AddTextLine('Mana', True);
     AddTextLine;
     AddTextLine('Available mana', Game.Mana.Value);
   end;
@@ -210,6 +216,11 @@ begin
   Game.Show(scMageTower);
 end;
 
+procedure TSceneMageTower.ShowSpellbookScene;
+begin
+  TSceneSpellbook.ShowScene(scMageTower);
+end;
+
 procedure TSceneMageTower.Timer;
 begin
   inherited;
@@ -224,6 +235,8 @@ begin
       HideScene;
     K_L, K_ENTER:
       LearnSpell;
+    K_S:
+      ShowSpellbookScene;
   end;
 end;
 

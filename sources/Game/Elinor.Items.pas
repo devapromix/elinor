@@ -52,14 +52,14 @@ uses
 
 type
   TItemType = (itSpecial, itValuable,
-    // Potions and Scrolls
-    itPotion, itElixir, itEssance, itFlask, itScroll,
+    // Consumable
+    itPotion, itElixir, itEssence, itFlask, itScroll,
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome);
 
 const
-  CUseItemType = [itPotion, itOrb, itTalisman];
+  CUseItemType = [itPotion, itOrb, itFlask, itTalisman];
 
 const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'potion',
@@ -118,12 +118,13 @@ type
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
 
     // ELIXIRS
-
+    iElixirOfStrength, iElixirOfAccuracy,
 
     // ESSENCES
-
+    iEssenceOfFortune, iHighfathersEssence,
 
     // FLASK
+    iFlaskOfOil, iAcidFlask,
 
     // ARTIFACTS
     iDwarvenBracer, iRunestone, iHornOfAwareness, iIceCrystal, iSkullBracers,
@@ -169,8 +170,9 @@ type
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
-    iHealingOintment];
-  CTestItems = [iOrbOfLife, iGoblinOrb, iImpOrb, iZombieOrb, iLizardmanOrb];
+    iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
+    iEssenceOfFortune];
+  CTestItems = [iElixirOfAccuracy];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -293,7 +295,7 @@ const
     ' Unlocks hidden paths and sealed doors'),
     // (2) Arcane Scroll
     (Enum: iArcaneScroll; Name: 'Arcane Scroll'; Level: 2; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemArcaneScroll; Price: 200;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irArcaneScroll; Price: 200;
     Description: 'A used magical scroll, its words faded,' +
     ' yet a trace of its power still lingers'),
     // (3) Ember Salts
@@ -324,40 +326,68 @@ const
     ' Rare, unyielding, and incredibly valuable'),
     // (8) Ancient Relic
     (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irNone; Price: 1000;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAncientRelic; Price: 1000;
     Description: 'An old and weathered object from a bygone age,' +
     ' holding secrets of the past'),
 
     // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemLifePotion; Price: 250;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irLifePotion; Price: 250;
     Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
     // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemPotionOfHealing; Price: 100;
+    ItRes: irPotionOfHealing; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
     // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemPotionOfRestoration; Price: 200;
+    ItRes: irPotionOfRestoration; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
     // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irItemHealingOintment; Price: 400;
+    ItRes: irHealingOintment; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
-    ' healing wounds and restoring strength.'),
+    ' healing wounds and restoring strength'),
 
     // ELIXIRS
+    // (2) Elixir of Strength
+    (Enum: iElixirOfStrength; Name: 'Elixir of Strength'; Level: 2;
+    ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irElixirOfStrength; Price: 250;
+    Description: 'Inflict 20% more damage for 1 day'),
+    // (4) Elixir Of Accuracy
+    (Enum: iElixirOfAccuracy; Name: 'Elixir Of Accuracy'; Level: 4;
+    ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irElixirOfAccuracy; Price: 300;
+    Description: 'Inflict 20% more chance to hit for 1 day'),
 
     // ESSENCES
+    // (6) Essence of Fortune
+    (Enum: iEssenceOfFortune; Name: 'Essence of Fortune'; Level: 6;
+    ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irEssenceOfFortune; Price: 1600;
+    Description: 'Adds 10% greater chance to hit permanently'),
+    // (8) Highfather's Essence
+    (Enum: iHighfathersEssence; Name: 'Highfather`s Essence'; Level: 8;
+    ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
+    ItRes: irHighfathersEssence; Price: 2000;
+    Description: 'Adds 20% hit points permanently'),
 
     // FLASKS
+    // (2) Flask of Oil
+    (Enum: iFlaskOfOil; Name: 'Flask of Oil'; Level: 2; ItType: itFlask;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 150;
+    Description: 'Explodes on impact, dealing 25 damage'),
+    // (4) Acid Flask
+    (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
+    Description: 'Reduces the target’s armor ' + 'by 50% after a direct hit'),
 
     // ARTIFACTS
     // (1) Dwarven Bracer
@@ -379,16 +409,16 @@ const
     Price: 650; Description: ''),
     // (5) Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone; Price: 750;
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: irSkullBracers; Price: 750;
     Description: ''),
     // (6) Lute Of Charming
     (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
-    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact; ItRes: irNone;
-    Price: 1000; Description: ''),
+    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
+    ItRes: irLuteOfCharming; Price: 1000; Description: ''),
     // (7) Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
     ItType: itArtifact; ItEffect: ieChanceToParalyze15; ItSlot: isArtifact;
-    ItRes: irNone; Price: 1250; Description: ''),
+    ItRes: irSkullOfThanatos; Price: 1250; Description: ''),
     // (8) Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
@@ -558,7 +588,7 @@ const
     Description: 'A massive ring pulses ' + 'with hidden energy'),
     // (6) Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irNone; Price: 1000;
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfTheAges; Price: 1000;
     Description: ''),
     // (7) Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
@@ -566,7 +596,7 @@ const
     Description: ''),
     // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
-    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irNone; Price: 1500;
+    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing; Price: 1500;
     Description: ''),
 
     // HELMS
