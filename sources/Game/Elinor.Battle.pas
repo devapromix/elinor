@@ -29,6 +29,7 @@ type
     function GetHitPoints(const APosition: Integer;
       const ALeaderParty, AEnemyParty: TParty): Integer;
     property BattleLog: TBattleLog read FBattleLog;
+    procedure Kill(const ADefCrEnum: TCreatureEnum);
   end;
 
 implementation
@@ -112,6 +113,11 @@ begin
       if AEnemyParty.Creature[APosition - 6].Active then
         Result := AEnemyParty.GetHitPoints(APosition - 6);
   end;
+end;
+
+procedure TBattle.Kill(const ADefCrEnum: TCreatureEnum);
+begin
+
 end;
 
 procedure TBattle.SetInitiative(const ALeaderParty, AEnemyParty: TParty);
