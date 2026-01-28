@@ -783,7 +783,7 @@ const
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
-    ResEnum: reGoblin; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
+    ResEnum: reManAtArms; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
     Description: ('Mercenaries offer their combat',
     'services to anyone who pays', 'a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
