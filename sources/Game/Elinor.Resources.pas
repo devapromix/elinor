@@ -53,13 +53,13 @@ type
     reMyzrael, rePaladin, reRanger, reArchmage, reSquire, reArcher, reThief,
     reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen,
     reThug, reDominator, reFighter, reInitiate, reWyvern, reDeathKnight,
-    reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
-    rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
-    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf,
-    reSpiritWolf, rePolarBear, reBrownBear, reBlackBear, reOrc, reGhost, reImp,
-    reGhoul, reStoneGargoyle, reReaper, reRogue, reTrog, reZombie, reLizardman,
-    rePeasant, reOgre, reTroll, reDarkElfGast, reSkeletonWarrior,
+    reGhost, reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
+    rePossessed, reCultist, reDevil, reStoneGargoyle, reBlackDragon,
+    reWhiteDragon, reRedDragon, reGreenDragon, reBlueDragon, reGoblin,
+    reGoblinArcher, reGoblinElder, reBlackGoblin, reGoblinRider, reGiantSpider,
+    reWolf, reDireWolf, reSpiritWolf, rePolarBear, reBrownBear, reBlackBear,
+    reOrc, reImp, reGhoul, reReaper, reRogue, reTrog, reZombie, reLizardman,
+    rePeasant, reManAtArms, reOgre, reTroll, reDarkElfGast, reSkeletonWarrior,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -360,6 +360,8 @@ const
     (FileName: 'corpse.png'; ResType: teGUI;),
 
     // CHARACTERS //
+
+    // THE EMPIRE
     // Myzrael
     (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
     // Paladin
@@ -380,6 +382,8 @@ const
     (FileName: 'character.the_empire.apprentice.png'; ResType: teGUI;),
     // Acolyte
     (FileName: 'character.the_empire.acolyte.png'; ResType: teGUI;),
+
+    // UNDEAD HORDES
     // Ashgan
     (FileName: 'character.undead_hordes.ashgan.png'; ResType: teGUI;),
     // Nosferat
@@ -398,6 +402,10 @@ const
     (FileName: 'character.undead_hordes.wyvern.png'; ResType: teGUI;),
     // Death Knight
     (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
+    // Ghost
+    (FileName: 'character.undead_hordes.ghost.png'; ResType: teGUI;),
+
+    // LEGIONS OF THE DAMNED
     // Ashkael
     (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
     // Duke
@@ -420,16 +428,20 @@ const
     (FileName: 'character.legions_of_the_damned.cultist.png'; ResType: teGUI;),
     // Devil
     (FileName: 'character.legions_of_the_damned.devil.png'; ResType: teGUI;),
+    // Gargoyle
+    (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
+
+    // NEUTRALS
     // Black Dragon
     (FileName: 'character.neutrals.black_dragon.png'; ResType: teGUI;),
     // White Dragon
-    (FileName: 'character.white_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.white_dragon.png'; ResType: teGUI;),
     // Red Dragon
-    (FileName: 'character.red_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.red_dragon.png'; ResType: teGUI;),
     // Green Dragon
     (FileName: 'character.neutrals.green_dragon.png'; ResType: teGUI;),
     // Blue Dragon
-    (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.blue_dragon.png'; ResType: teGUI;),
     // Goblin
     (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
@@ -441,7 +453,7 @@ const
     // Goblin Rider
     (FileName: 'character.neutrals.goblin_rider.png'; ResType: teGUI;),
     // Giant Spider
-    (FileName: 'character.giant_spider.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.giant_spider.png'; ResType: teGUI;),
     // Wolf
     (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
     // Dire Wolf
@@ -456,14 +468,10 @@ const
     (FileName: 'character.neutrals.black_bear.png'; ResType: teGUI;),
     // Orc
     (FileName: 'character.neutrals.orc.png'; ResType: teGUI;),
-    // Ghost
-    (FileName: 'character.undead_hordes.ghost.png'; ResType: teGUI;),
     // Imp
     (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
     // Ghoul
     (FileName: 'character.neutrals.ghoul.png'; ResType: teGUI;),
-    // Gargoyle
-    (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
     // Reaper
     (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
     // Rogue
@@ -476,6 +484,8 @@ const
     (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
     // Peasant
     (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
+    // Man At Arms
+    (FileName: 'character.neutrals.man_at_arms.png'; ResType: teGUI;),
     // Ogre
     (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
     // Troll
