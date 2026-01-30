@@ -38,6 +38,7 @@ type
     ScenarioObjective: array [TScenarioEnum] of string =
       ('Destroy the Dark Tower', 'Capture all cities',
       'Find all stone tablets');
+    ScenarioDayLimit = 50;
   private
     FFaction: TFactionEnum;
   public
@@ -106,8 +107,8 @@ end;
 
 function TScenario.ScenarioOverlordState: string;
 begin
-  Result := Format('Cities captured: %d of %d',
-    [TMapPlace.GetCityCount, ScenarioCitiesMax]);
+  Result := Format('Cities captured: %d of %d', [TMapPlace.GetCityCount,
+    ScenarioCitiesMax]);
 end;
 
 end.

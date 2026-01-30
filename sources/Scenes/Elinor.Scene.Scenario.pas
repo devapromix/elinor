@@ -97,6 +97,7 @@ begin
       for I := 0 to 9 do
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
       AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
+      AddTextLine('Days: ' + Game.Scenario.ScenarioDayLimit.ToString);
       if Game.IsGame then
       begin
         CurrentIndex := Ord(Game.Scenario.CurrentScenario);

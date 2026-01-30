@@ -237,7 +237,7 @@ begin
       RenderParty(psLeft, nil);
     RenderParty(psRight, SettlementParty, True);
   end;
-  DrawResources;
+  DrawInfoPanel;
   RenderButtons;
 end;
 
