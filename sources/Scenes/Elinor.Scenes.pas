@@ -161,7 +161,7 @@ type
       OnYes: TConfirmMethod = nil);
     procedure InformDialog(const AMessage: string);
     procedure ItemInformDialog(const AItemEnum: TItemEnum);
-    procedure DrawResources;
+    procedure DrawInfoPanel;
     property LHandSlot: TLHandSlot read FLHandSlot;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
     function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
@@ -1140,15 +1140,14 @@ begin
     end;
 end;
 
-procedure TScene.DrawResources;
+procedure TScene.DrawInfoPanel;
 begin
   DrawImage(10, 10, reSmallFrame);
   DrawImage(15, 10, reGold);
   DrawText(45, 24, Game.Gold.Value);
   DrawImage(15, 40, reMana);
   DrawText(45, 54, Game.Mana.Value);
-
-  DrawText(45, 84, Game.Day);
+  DrawText(45, 84, Format('%d/%d', [Game.Day, TScenario.ScenarioDayLimit]));
 end;
 
 function TScene.MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean;
