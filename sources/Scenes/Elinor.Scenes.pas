@@ -399,6 +399,12 @@ begin
       Merchants.Clear;
     MediaPlayer.PlaySound(mmDay);
     IsNewDay := False;
+    if (Game.Day > Game.Scenario.ScenarioDayLimit) then
+    begin
+      InformDialog(CYouDidNotCompleteTheScenario);
+      TSceneDefeat.ShowScene;
+    end;
+
   end;
 
 end;
