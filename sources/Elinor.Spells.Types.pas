@@ -14,6 +14,7 @@ type
     Name: string;
     Level: Integer;
     Mana: Byte;
+    Gold: Integer;
     SoundEnum: TMusicEnum;
     ResEnum: TSpellResEnum;
     Faction: TFactionEnum;
