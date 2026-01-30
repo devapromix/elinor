@@ -57,12 +57,19 @@ uses
 procedure TSceneMageTower.LearnSpell;
 var
   LSpellEnum: TSpellEnum;
-  LMana: Byte;
+  LGold, LMana: Integer;
 begin
   LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
   if (LSpellEnum <> spNone) and not Spells.IsLearned(LSpellEnum) then
   begin
+    LGold := Spells.Spell(LSpellEnum).Mana * 2;
     LMana := Spells.Spell(LSpellEnum).Mana * 2;
+    if LGold > Game.Gold.Value then
+    begin
+      Game.MediaPlayer.PlaySound(mmSpellbook);
+      InformDialog(CNotEnoughGoldToLearn);
+      Exit;
+    end;
     if LMana > Game.Mana.Value then
     begin
       Game.MediaPlayer.PlaySound(mmSpellbook);
@@ -70,6 +77,7 @@ begin
       Exit;
     end;
     Game.MediaPlayer.PlaySound(mmLearn);
+    Game.Gold.Modify(-LGold);
     Game.Mana.Modify(-LMana);
     Spells.Learn(LSpellEnum);
     InformDialog(CAddSpellToSpellbook);
@@ -173,7 +181,10 @@ procedure TSceneMageTower.Render;
       AddTextLine;
       AddTextLine('Level', TSpells.Spell(LSpellEnum).Level);
       AddTextLine;
-      AddTextLine(Format('Research cost %d mana',
+      AddTextLine('Research cost:');
+      AddTextLine(Format('Mana %d',
+        [TSpells.Spell(LSpellEnum).Mana * 2]));
+      AddTextLine(Format('Gold %d',
         [TSpells.Spell(LSpellEnum).Mana * 2]));
       AddTextLine;
       AddTextLine(Format('Casting cost %d mana',

@@ -198,51 +198,55 @@ const
 
     // The Empire
     // True Healing
-    (Name: 'True Healing'; Level: 1; Mana: 15; SoundEnum: mmHeal;
+    (Name: 'True Healing'; Level: 1; Mana: 15; Gold: 100; SoundEnum: mmHeal;
     ResEnum: srTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;
     Description: 'Replenishes lost HP';),
     // Speed
-    (Name: 'Speed'; Level: 1; Mana: 25; SoundEnum: mmHeal; ResEnum: srSpeed;
-    Faction: faTheEmpire; SpellTarget: stLeader; Description: '';),
+    (Name: 'Speed'; Level: 1; Mana: 25; Gold: 100; SoundEnum: mmHeal;
+    ResEnum: srSpeed; Faction: faTheEmpire; SpellTarget: stLeader;
+    Description: '';),
     // Bless
-    (Name: 'Bless'; Level: 1; Mana: 5; SoundEnum: mmHeal; ResEnum: srBless;
-    Faction: faTheEmpire; SpellTarget: stLeader; Description: '';),
+    (Name: 'Bless'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmHeal;
+    ResEnum: srBless; Faction: faTheEmpire; SpellTarget: stLeader;
+    Description: '';),
     // Summon: Living Armor
-    (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; SoundEnum: mmAttack;
-    ResEnum: srLivingArmor; Faction: faTheEmpire; SpellTarget: stEnemy;
-    Description: 'Summons a Living Armor';),
+    (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; Gold: 100;
+    SoundEnum: mmAttack; ResEnum: srLivingArmor; Faction: faTheEmpire;
+    SpellTarget: stEnemy; Description: 'Summons a Living Armor';),
     // Eagle Eye
-    (Name: 'Eagle Eye'; Level: 1; Mana: 5; SoundEnum: mmHeal;
+    (Name: 'Eagle Eye'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmHeal;
     ResEnum: srEagleEye; Faction: faTheEmpire; SpellTarget: stLeader;
     Description: 'Allows the leader to see further';),
     // Strength
-    (Name: 'Strength'; Level: 1; Mana: 5; SoundEnum: mmHeal;
+    (Name: 'Strength'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmHeal;
     ResEnum: srStrength; Faction: faTheEmpire; SpellTarget: stLeader;
     Description: 'Increases damage by 20%';),
 
     // Undead Hordes
     // Plague
-    (Name: 'Plague'; Level: 1; Mana: 20; SoundEnum: mmPlague; ResEnum: srPlague;
-    Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
+    (Name: 'Plague'; Level: 1; Mana: 20; Gold: 100; SoundEnum: mmPlague;
+    ResEnum: srPlague; Faction: faUndeadHordes; SpellTarget: stEnemy;
+    Description: '';),
     // Curse
-    (Name: 'Curse'; Level: 1; Mana: 5; SoundEnum: mmPlague; ResEnum: srCurse;
-    Faction: faUndeadHordes; SpellTarget: stEnemy; Description: '';),
+    (Name: 'Curse'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmPlague;
+    ResEnum: srCurse; Faction: faUndeadHordes; SpellTarget: stEnemy;
+    Description: '';),
     // Summon: Skeleton Warrior
-    (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25;
+    (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25; Gold: 100;
     SoundEnum: mmRaiseDead; ResEnum: srSkeletion; Faction: faUndeadHordes;
     SpellTarget: stEnemy; Description: 'Summons a Skeleton';),
 
     // Legions of the Damned
     // Concealment
-    (Name: 'Concealment'; Level: 1; Mana: 20; SoundEnum: mmInvisibility;
-    ResEnum: srConcealment; Faction: faLegionsOfTheDamned;
-    SpellTarget: stLeader; Description: '';),
+    (Name: 'Concealment'; Level: 1; Mana: 20; Gold: 100;
+    SoundEnum: mmInvisibility; ResEnum: srConcealment;
+    Faction: faLegionsOfTheDamned; SpellTarget: stLeader; Description: '';),
     // Chains Of Dread
-    (Name: 'Chains Of Dread'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
-    ResEnum: srChainsOfDread; Faction: faLegionsOfTheDamned;
-    SpellTarget: stEnemy; Description: '';),
+    (Name: 'Chains Of Dread'; Level: 1; Mana: 2; Gold: 100;
+    SoundEnum: mmInvisibility; ResEnum: srChainsOfDread;
+    Faction: faLegionsOfTheDamned; SpellTarget: stEnemy; Description: '';),
     // Weaken
-    (Name: 'Weaken'; Level: 1; Mana: 2; SoundEnum: mmInvisibility;
+    (Name: 'Weaken'; Level: 1; Mana: 2; Gold: 100; SoundEnum: mmInvisibility;
     ResEnum: srWeaken; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;
     Description: '';)
     //
