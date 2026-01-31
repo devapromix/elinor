@@ -67,8 +67,8 @@ var
   I: Integer;
   LScenarioEnum: TScenarioEnum;
 const
-  LScenarioImage: array [TScenarioEnum] of TResEnum =
-    (reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
+  LScenarioImage: array [TScenarioEnum] of TResEnum = (reScenarioDarkTower,
+    reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
   IsOneButton := Game.IsGame;
@@ -77,8 +77,7 @@ begin
     DrawTitle(reTitleJournal)
   else
     DrawTitle(reTitleScenario);
-  for LScenarioEnum := Low(TScenarioEnum)
-    to High(TScenarioEnum) do
+  for LScenarioEnum := Low(TScenarioEnum) to High(TScenarioEnum) do
   begin
     DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LScenarioEnum)) + 7,
       LScenarioImage[LScenarioEnum]);
@@ -97,7 +96,10 @@ begin
       for I := 0 to 9 do
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
       AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
-      AddTextLine('Days: ' + Game.Scenario.ScenarioDayLimit.ToString);
+      if Game.IsGame then
+        AddTextLine('Day: ' + Game.GetDayInfo)
+      else
+        AddTextLine('Days: ' + Game.Scenario.ScenarioDayLimit.ToString);
       if Game.IsGame then
       begin
         CurrentIndex := Ord(Game.Scenario.CurrentScenario);
