@@ -408,6 +408,7 @@ begin
     IsNewDay := False;
     if (Game.Day > Game.Scenario.ScenarioDayLimit) then
     begin
+      Dec(Game.Day);
       InformDialog(CYouDidNotCompleteTheScenario);
       TSceneDefeat.ShowScene;
     end;
