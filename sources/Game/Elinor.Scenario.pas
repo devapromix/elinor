@@ -38,7 +38,7 @@ type
     ScenarioObjective: array [TScenarioEnum] of string =
       ('Destroy the Dark Tower', 'Capture all cities',
       'Find all stone tablets');
-    ScenarioDayLimit = 50;
+    ScenarioDayLimit = 5;
   private
     FFaction: TFactionEnum;
   public
