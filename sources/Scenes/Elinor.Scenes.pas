@@ -359,7 +359,8 @@ end;
 
 function TGame.GetDayInfo: string;
 begin
-  Result := Format('%d/%d', [Day, TScenario.ScenarioDayLimit])
+  Result := Format('%d/%d',
+    [Day, TScenario.GetDayLimit(Difficulty.Level, True)])
 end;
 
 procedure TGame.Clear;
@@ -406,7 +407,7 @@ begin
       Merchants.Clear;
     MediaPlayer.PlaySound(mmDay);
     IsNewDay := False;
-    if (Game.Day > Game.Scenario.ScenarioDayLimit) then
+    if (Game.Day > TScenario.GetDayLimit(Difficulty.Level, True)) then
     begin
       Dec(Game.Day);
       InformDialog(CYouDidNotCompleteTheScenario);

@@ -4,7 +4,8 @@ interface
 
 uses
   System.Types,
-  Elinor.Faction;
+  Elinor.Faction,
+  Elinor.Difficulty;
 
 {
   Сценарии:
@@ -54,6 +55,8 @@ type
     function ScenarioAncientKnowledgeState: string;
     class function GetDescription(const AScenarioEnum: TScenarioEnum;
       const AIndex: Integer): string;
+    class function GetDayLimit(const ADifficultyEnum: TDifficultyEnum;
+      AFlag: Boolean): Integer;
   end;
 
 implementation
@@ -77,6 +80,18 @@ procedure TScenario.Clear;
 begin
   StoneCounter := 0;
   StoneTab := 0;
+end;
+
+class function TScenario.GetDayLimit(const ADifficultyEnum: TDifficultyEnum;
+  AFlag: Boolean): Integer;
+begin
+  Result := IfThen(AFlag, TScenario.ScenarioDayLimit, 0);
+  case ADifficultyEnum of
+    dfEasy:
+      Result := Result + 25;
+    dfNormal:
+      Result := Result + 10;
+  end;
 end;
 
 class function TScenario.GetDescription(const AScenarioEnum: TScenarioEnum;

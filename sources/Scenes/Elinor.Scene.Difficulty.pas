@@ -35,7 +35,8 @@ uses
   Elinor.Scene.Frames,
   Elinor.Scene.Faction,
   Elinor.Scene.Scenario,
-  Elinor.Difficulty;
+  Elinor.Difficulty,
+  Elinor.Scenario;
 
 procedure TSceneDifficulty.Cancel;
 begin
@@ -74,7 +75,17 @@ const
     TextLeft := TFrame.Col(3) + 12;
     AddTextLine('Bonuses', True);
     AddTextLine;
-    AddTextLine('Days: ' + Game.Scenario.ScenarioDayLimit.ToString);
+    if LDifficultyEnum = dfHard then
+    begin
+      AddTextLine('None');
+      Exit;
+    end;
+    AddTextLine('Days: +' + TScenario.GetDayLimit(LDifficultyEnum, False).ToString);
+    if LDifficultyEnum = dfEasy then
+    begin
+      AddTextLine('Regeneration: +5');
+    end;
+
   end;
 
 begin
