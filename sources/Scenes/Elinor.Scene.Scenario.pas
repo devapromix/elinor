@@ -76,8 +76,8 @@ const
     reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
-  // IsOneButton := Game.IsGame;
-  // IsBlockFrames := Game.IsGame;
+  IsOneButton := Game.IsGame;
+  IsBlockFrames := Game.IsGame;
   if Game.IsGame then
     DrawTitle(reTitleJournal)
   else
@@ -102,8 +102,9 @@ begin
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(3) + 12;
-      AddTextLine('Objective: ' + TScenario.GetScenario(LScenarioEnum)
-        .Objective);
+      AddTextLine('Objective', True);
+      AddTextLine;
+      AddTextLine(TScenario.GetScenario(LScenarioEnum).Objective);
       if Game.IsGame then
         AddTextLine('Day: ' + Game.GetDayInfo)
       else
