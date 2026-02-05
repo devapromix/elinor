@@ -29,6 +29,7 @@ type
     Ident: string;
     Name: string;
     Objective: string;
+    DayLimit: Integer;
   end;
 
 type
@@ -37,7 +38,6 @@ type
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
-    ScenarioDayLimit = 5;
   private
     FFaction: TFactionEnum;
   public
@@ -54,7 +54,7 @@ type
     class function GetDescription(const AScenarioEnum: TScenarioEnum;
       const AIndex: Integer): string;
     class function GetDayLimit(const ADifficultyEnum: TDifficultyEnum;
-      AFlag: Boolean): Integer;
+      const AScenarioEnum: TScenarioEnum; AFlag: Boolean): Integer;
     class function GetScenario(const AScenarioEnum: TScenarioEnum)
       : TScenarioRec;
   end;
@@ -71,12 +71,13 @@ const
   ScenarioBase: array [TScenarioEnum] of TScenarioRec = (
     // The Dark Tower
     (Ident: 'the-dark-tower'; Name: 'The Dark Tower';
-    Objective: 'Destroy the Dark Tower'),
+    Objective: 'Destroy the Dark Tower'; DayLimit: 25;),
     // Overlord
-    (Ident: 'overlord'; Name: 'Overlord'; Objective: 'Capture all cities'),
+    (Ident: 'overlord'; Name: 'Overlord'; Objective: 'Capture all cities';
+    DayLimit: 35;),
     //
     (Ident: 'ancient-knowledge'; Name: 'Ancient Knowledge';
-    Objective: 'Find all stone tablets')
+    Objective: 'Find all stone tablets'; DayLimit: 45;)
     //
     );
 
@@ -97,11 +98,10 @@ begin
   StoneTab := 0;
 end;
 
-class function TScenario.GetDayLimit(
-
-  const ADifficultyEnum: TDifficultyEnum; AFlag: Boolean): Integer;
+class function TScenario.GetDayLimit(const ADifficultyEnum: TDifficultyEnum;
+  const AScenarioEnum: TScenarioEnum; AFlag: Boolean): Integer;
 begin
-  Result := IfThen(AFlag, TScenario.ScenarioDayLimit, 0);
+  Result := IfThen(AFlag, TScenario.GetScenario(AScenarioEnum).DayLimit, 0);
   case ADifficultyEnum of
     dfEasy:
       Result := Result + 25;
@@ -110,10 +110,7 @@ begin
   end;
 end;
 
-class function TScenario.GetDescription(
-
-  const AScenarioEnum: TScenarioEnum;
-
+class function TScenario.GetDescription(const AScenarioEnum: TScenarioEnum;
   const AIndex: Integer): string;
 begin
   Result := TResources.IndexValue('scenario.description',

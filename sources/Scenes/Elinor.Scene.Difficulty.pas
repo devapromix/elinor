@@ -80,7 +80,8 @@ const
       AddTextLine('None');
       Exit;
     end;
-    AddTextLine('Days: +' + TScenario.GetDayLimit(LDifficultyEnum, False).ToString);
+    AddTextLine('Days: +' + TScenario.GetDayLimit(LDifficultyEnum,
+      Game.Scenario.CurrentScenario, False).ToString);
     if LDifficultyEnum = dfEasy then
     begin
       AddTextLine('Regeneration: +5');

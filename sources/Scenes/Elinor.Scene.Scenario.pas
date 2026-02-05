@@ -100,7 +100,8 @@ begin
       if Game.IsGame then
         AddTextLine('Day: ' + Game.GetDayInfo)
       else
-        AddTextLine('Days: ' + Game.Scenario.ScenarioDayLimit.ToString);
+        AddTextLine('Days: ' + TScenario.GetScenario(LScenarioEnum)
+          .DayLimit.ToString);
       if Game.IsGame then
       begin
         CurrentIndex := Ord(Game.Scenario.CurrentScenario);
