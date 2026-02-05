@@ -359,7 +359,7 @@ end;
 
 function TGame.GetDayInfo: string;
 begin
-  Result := Format('%d/%d', [Day, TScenario.GetDayLimit(Difficulty.Level,
+  Result := Format('%d of %d', [Day, TScenario.GetDayLimit(Difficulty.Level,
     Game.Scenario.CurrentScenario, True)])
 end;
 
