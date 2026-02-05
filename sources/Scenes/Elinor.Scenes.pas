@@ -161,7 +161,7 @@ type
       OnYes: TConfirmMethod = nil);
     procedure InformDialog(const AMessage: string);
     procedure ItemInformDialog(const AItemEnum: TItemEnum);
-    procedure DrawResources;
+    procedure DrawInfoPanel;
     property LHandSlot: TLHandSlot read FLHandSlot;
     function MouseOver(AX, AY, MX, MY: Integer): Boolean; overload;
     function MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean; overload;
@@ -193,7 +193,8 @@ type
     procedure DrawAbility(const AAbilityEnum: TAbilityEnum;
       const AX, AY: Integer); overload;
     procedure DrawItem(const AItemEnum: TItemEnum; const AX, AY: Integer);
-    procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
+    procedure RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False;
+      const AIsShowFinalInfo: Boolean = False);
     procedure RenderGuardianInfo;
     procedure DrawItemDescription(const AItemEnum: TItemEnum);
     function GetCurrentIndexPos(const ACurrentIndex: Integer): TPoint;
@@ -250,6 +251,7 @@ type
     destructor Destroy; override;
     procedure Clear;
     procedure NewDay;
+    function GetDayInfo: string;
   end;
 
 var
@@ -355,6 +357,12 @@ begin
   inherited;
 end;
 
+function TGame.GetDayInfo: string;
+begin
+  Result := Format('%d of %d', [Day, TScenario.GetDayLimit(Difficulty.Level,
+    Game.Scenario.CurrentScenario, True)])
+end;
+
 procedure TGame.Clear;
 begin
   IsGame := True;
@@ -399,6 +407,14 @@ begin
       Merchants.Clear;
     MediaPlayer.PlaySound(mmDay);
     IsNewDay := False;
+    if (Game.Day > TScenario.GetDayLimit(Difficulty.Level,
+      Game.Scenario.CurrentScenario, True)) then
+    begin
+      Dec(Game.Day);
+      InformDialog(CYouDidNotCompleteTheScenario);
+      TSceneDefeat.ShowScene;
+    end;
+
   end;
 
 end;
@@ -1089,7 +1105,7 @@ begin
   AddTextLine('Information', True);
   AddTextLine;
   AddTextLine('Game Difficulty', DifficultyName[Difficulty.Level]);
-  AddTextLine('Day', Game.Day);
+  AddTextLine('Day', Game.GetDayInfo);
   AddTextLine;
   AddTextLine('Statistics', True);
   AddTextLine;
@@ -1103,7 +1119,8 @@ begin
   AddTextLine('Leadership 5');
 end;
 
-procedure TScene.RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False);
+procedure TScene.RenderLeaderInfo(const AIsOnlyStatistics: Boolean = False;
+  const AIsShowFinalInfo: Boolean = False);
 begin
   TextTop := TFrame.Row(0) + 6;
   TextLeft := TFrame.Col(3) + 12;
@@ -1115,6 +1132,10 @@ begin
   AddTextLine('Chests Found', Game.Statistics.GetValue(stChestsFound));
   AddTextLine('Items Found', Game.Statistics.GetValue(stItemsFound));
   AddTextLine('Scores', Game.Statistics.GetValue(stScores));
+  if AIsShowFinalInfo then
+  begin
+    AddTextLine('Day', Game.GetDayInfo);
+  end;
   if AIsOnlyStatistics then
     Exit;
   AddTextLine('Parameters', True);
@@ -1140,15 +1161,14 @@ begin
     end;
 end;
 
-procedure TScene.DrawResources;
+procedure TScene.DrawInfoPanel;
 begin
   DrawImage(10, 10, reSmallFrame);
   DrawImage(15, 10, reGold);
   DrawText(45, 24, Game.Gold.Value);
   DrawImage(15, 40, reMana);
   DrawText(45, 54, Game.Mana.Value);
-
-  DrawText(45, 84, Game.Day);
+  DrawText(45, 84, Game.GetDayInfo);
 end;
 
 function TScene.MouseOver(MX, MY, X1, Y1, X2, Y2: Integer): Boolean;

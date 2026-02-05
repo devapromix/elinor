@@ -155,7 +155,7 @@ type
     irBootsOfSpeed, irElvenBoots, irBootsOfHaste, irBootsOfDarkness,
     irBootsOfTravelling, irBootsOfTheElements, irBootsOfSevenLeagues,
     // HELMS
-    irHoodOfDarkness,
+    irHoodOfDarkness, irTiaraOfPurity,
     // ARMORS
     irShroudOfDarkness,
     // AMULETS
@@ -871,6 +871,8 @@ const
     // HELMS
     // Hood Of Darkness
     (FileName: 'item.helm.hood_of_darkness.png'; ResType: teItem;),
+    // Tiara Of Purity
+    (FileName: 'item.helm.tiara_of_purity.png'; ResType: teItem;),
 
     // ARMORS
     // Shroud of Darkness

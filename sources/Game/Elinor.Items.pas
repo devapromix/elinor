@@ -596,8 +596,8 @@ const
     Description: ''),
     // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
-    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing; Price: 1500;
-    Description: ''),
+    ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing;
+    Price: 1500; Description: ''),
 
     // HELMS
     // (4) Hood Of Darkness
@@ -607,7 +607,7 @@ const
     'invisible to enemies'),
     // (5) Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
-    ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1000;
+    ItEffect: ieNone; ItSlot: isHelm; ItRes: irTiaraOfPurity; Price: 1000;
     Description: ''),
     // (6) Mjolnir's Crown
     (Enum: iMjolnirsCrown; Name: 'Mjolnir''s Crown'; Level: 6; ItType: itHelm;

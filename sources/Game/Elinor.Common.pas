@@ -80,6 +80,8 @@ const
   CSelectLivingCreature = 'Select a living creature!';
   CCannotAlterForm = 'Cannot alter form of lifeless entity!';
   CYouThrewTheItem = 'You threw the %s!';
+  CYouDidNotCompleteTheScenario =
+    'You did not complete the scenario within the allotted days.';
 
 implementation
 

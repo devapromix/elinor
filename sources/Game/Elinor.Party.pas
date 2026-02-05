@@ -245,7 +245,8 @@ uses
   Elinor.Scene.MageTower,
   Elinor.Scene.Party2,
   Elinor.Scene.Merchant,
-  Elinor.Merchant;
+  Elinor.Merchant,
+  Elinor.Difficulty;
 
 { TParty }
 
@@ -286,7 +287,8 @@ begin
   with FCreature[APosition] do
     if Alive then
     begin
-      LBoostChancesToHit := EnsureRange(ChancesToHit.GetCurrValue div 10, 1, 10);
+      LBoostChancesToHit :=
+        EnsureRange(ChancesToHit.GetCurrValue div 10, 1, 10);
       ChancesToHit.ModifyCurrValue(LBoostChancesToHit, 50, 100);
     end;
 end;
@@ -798,7 +800,7 @@ begin
   SetMaxSpellsPerDay;
   Self.UpdateSightRadius;
   IsUnitSelected := False;
-  LeaderRegenerationValue := 0;
+  LeaderRegenerationValue := IfThen(Difficulty.Level = dfEasy, 5, 0);
   LeaderChanceToParalyzeValue := 0;
   LeaderVampiricAttackValue := 0;
   PartyGainMoreExpValue := 0;
