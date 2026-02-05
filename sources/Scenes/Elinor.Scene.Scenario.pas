@@ -91,11 +91,12 @@ begin
           reFrameSlotActive);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
-      AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);
+      AddTextLine(TScenario.GetScenario(LScenarioEnum).Name, True);
       AddTextLine;
       for I := 0 to 9 do
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
-      AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
+      AddTextLine('Objective: ' + TScenario.GetScenario(LScenarioEnum)
+        .Objective);
       if Game.IsGame then
         AddTextLine('Day: ' + Game.GetDayInfo)
       else

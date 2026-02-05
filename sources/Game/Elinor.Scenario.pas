@@ -24,9 +24,12 @@ type
   TScenarioEnum = (sgDarkTower, sgOverlord,
     sgAncientKnowledge { , sgDragonhunter } );
 
-const
-  ScenarioIdent: array [TScenarioEnum] of string = ('the-dark-tower',
-    'overlord', 'ancient-knowledge');
+type
+  TScenarioRec = record
+    Ident: string;
+    Name: string;
+    Objective: string;
+  end;
 
 type
   TScenario = class(TObject)
@@ -34,11 +37,6 @@ type
     ScenarioStoneTabMax = 9;
     ScenarioCitiesMax = 7;
     ScenarioTowerIndex = ScenarioCitiesMax + 1;
-    ScenarioName: array [TScenarioEnum] of string = ('The Dark Tower',
-      'Overlord', 'Ancient Knowledge');
-    ScenarioObjective: array [TScenarioEnum] of string =
-      ('Destroy the Dark Tower', 'Capture all cities',
-      'Find all stone tablets');
     ScenarioDayLimit = 5;
   private
     FFaction: TFactionEnum;
@@ -57,6 +55,8 @@ type
       const AIndex: Integer): string;
     class function GetDayLimit(const ADifficultyEnum: TDifficultyEnum;
       AFlag: Boolean): Integer;
+    class function GetScenario(const AScenarioEnum: TScenarioEnum)
+      : TScenarioRec;
   end;
 
 implementation
@@ -67,9 +67,24 @@ uses
   Elinor.Resources,
   Elinor.Map;
 
-{ TScenario }
+const
+  ScenarioBase: array [TScenarioEnum] of TScenarioRec = (
+    // The Dark Tower
+    (Ident: 'the-dark-tower'; Name: 'The Dark Tower';
+    Objective: 'Destroy the Dark Tower'),
+    // Overlord
+    (Ident: 'overlord'; Name: 'Overlord'; Objective: 'Capture all cities'),
+    //
+    (Ident: 'ancient-knowledge'; Name: 'Ancient Knowledge';
+    Objective: 'Find all stone tablets')
+    //
+    );
 
-procedure TScenario.AddStoneTab(const X, Y: Integer);
+  { TScenario }
+
+procedure TScenario.AddStoneTab(
+
+  const X, Y: Integer);
 begin
   Inc(StoneCounter);
   FStoneTab[StoneCounter].X := X;
@@ -82,8 +97,9 @@ begin
   StoneTab := 0;
 end;
 
-class function TScenario.GetDayLimit(const ADifficultyEnum: TDifficultyEnum;
-  AFlag: Boolean): Integer;
+class function TScenario.GetDayLimit(
+
+  const ADifficultyEnum: TDifficultyEnum; AFlag: Boolean): Integer;
 begin
   Result := IfThen(AFlag, TScenario.ScenarioDayLimit, 0);
   case ADifficultyEnum of
@@ -94,14 +110,25 @@ begin
   end;
 end;
 
-class function TScenario.GetDescription(const AScenarioEnum: TScenarioEnum;
+class function TScenario.GetDescription(
+
+  const AScenarioEnum: TScenarioEnum;
+
   const AIndex: Integer): string;
 begin
   Result := TResources.IndexValue('scenario.description',
-    ScenarioIdent[AScenarioEnum], AIndex);
+    TScenario.GetScenario(AScenarioEnum).Ident, AIndex);
 end;
 
-function TScenario.IsStoneTab(const X, Y: Integer): Boolean;
+class function TScenario.GetScenario(const AScenarioEnum: TScenarioEnum)
+  : TScenarioRec;
+begin
+  Result := ScenarioBase[AScenarioEnum];
+end;
+
+function TScenario.IsStoneTab(
+
+  const X, Y: Integer): Boolean;
 var
   I: Integer;
 begin
