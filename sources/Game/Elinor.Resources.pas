@@ -103,11 +103,11 @@ type
     mrThug, mrDominator, mrFighter, mrInitiate, mrWyvern, mrDeathKnight,
     mrAshkael, mrDuke, mrCounselor, mrArchdevil, mrRipper, mrChieftain,
     mrPossessed, mrCultist, mrDevil, mrBlackDragon, mrWhiteDragon, mrRedDragon,
-    mrGmrenDragon, mrBlueDragon, mrGoblin, mrGoblinArcher, mrGoblinElder,
+    mrGreenDragon, mrBlueDragon, mrGoblin, mrGoblinArcher, mrGoblinElder,
     mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
-    mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
+    mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
 
 type
   TSpellResEnum = (srNone,
@@ -662,13 +662,13 @@ const
     // Black Dragon
     (FileName: 'character.neutrals.black_dragon.png'; ResType: teGUI;),
     // White Dragon
-    (FileName: 'character.white_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.white_dragon.png'; ResType: teGUI;),
     // Red Dragon
-    (FileName: 'character.red_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.red_dragon.png'; ResType: teGUI;),
     // Green Dragon
     (FileName: 'character.neutrals.green_dragon.png'; ResType: teGUI;),
     // Blue Dragon
-    (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.blue_dragon.png'; ResType: teGUI;),
     // Goblin
     (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
@@ -680,7 +680,7 @@ const
     // Goblin Rider
     (FileName: 'character.neutrals.goblin_rider.png'; ResType: teGUI;),
     // Giant Spider
-    (FileName: 'character.giant_spider.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.giant_spider.png'; ResType: teGUI;),
     // Wolf
     (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
     // Dire Wolf
@@ -715,6 +715,8 @@ const
     (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
     // Peasant
     (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
+    // Man at Arms
+    (FileName: 'character.neutrals.man_at_arms.png'; ResType: teGUI;),
     // Ogre
     (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
     // Troll

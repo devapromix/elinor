@@ -783,7 +783,7 @@ const
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
-    ResEnum: reManAtArms; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
+    ResEnum: mrManAtArms; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
     Description: ('Mercenaries offer their combat',
     'services to anyone who pays', 'a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
@@ -866,7 +866,7 @@ const
 {$REGION Animals}
     // Spider
     (Ident: 'spider'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reGiantSpider; Size: szBig; Name: ('Giant Spider', 'Giant Spider');
+    ResEnum: mrGiantSpider; Size: szBig; Name: ('Giant Spider', 'Giant Spider');
     Description: ('The potent venom of a giant',
     'spider completely paralyzes the', 'victim, preventing escape.');
     HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -940,7 +940,7 @@ const
 {$REGION Dragons}
     // Black Dragon
     (Ident: 'black-dragon'; Faction: faNeutrals; SubRace: reDragon;
-    ResEnum: reBlackDragon; Size: szBig; Name: ('Black Dragon', 'Black Dragon');
+    ResEnum: mrBlackDragon; Size: szBig; Name: ('Black Dragon', 'Black Dragon');
     Description: ('The corrosive breath of a black',
     'dragon melts flesh and armor,', 'making escape impossible.');
     HitPoints: 800; Initiative: 40; ChancesToHit: 75; Leadership: 0; Level: 1;
@@ -950,7 +950,7 @@ const
     Rating: 350;),
     // White Dragon
     (Ident: 'white-dragon'; Faction: faNeutrals; SubRace: reDragon;
-    ResEnum: reWhiteDragon; Size: szBig; Name: ('White Dragon', 'White Dragon');
+    ResEnum: mrWhiteDragon; Size: szBig; Name: ('White Dragon', 'White Dragon');
     Description: ('The freezing breath of a white',
     'dragon locks the victim in ice,', 'leaving no chance to flee.');
     HitPoints: 900; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
