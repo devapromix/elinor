@@ -98,16 +98,16 @@ type
 type
   TCreatureResEnum = (mrNone,
     // Creatures
-    mrMyzrael, mrPaladin, mrRanger, mrArchmage, mrSquimr, mrArcher, mrThief,
-    mrWarlord, mrAppmrntice, mrAcolyte, mrAshgan, mrNosferat, mrLichQueen,
+    mrMyzrael, mrPaladin, mrRanger, mrArchmage, mrSquire, mrArcher, mrThief,
+    mrWarlord, mrApprentice, mrAcolyte, mrAshgan, mrNosferat, mrLichQueen,
     mrThug, mrDominator, mrFighter, mrInitiate, mrWyvern, mrDeathKnight,
     mrAshkael, mrDuke, mrCounselor, mrArchdevil, mrRipper, mrChieftain,
     mrPossessed, mrCultist, mrDevil, mrBlackDragon, mrWhiteDragon, mrRedDragon,
     mrGmrenDragon, mrBlueDragon, mrGoblin, mrGoblinArcher, mrGoblinElder,
-    mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDimrWolf,
+    mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
-    mrPeasant, mrOgmr, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
+    mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
 
 type
   TSpellResEnum = (srNone,
