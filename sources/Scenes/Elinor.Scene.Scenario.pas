@@ -3,7 +3,7 @@ unit Elinor.Scene.Scenario;
 interface
 
 uses
-  Elinor.Scene.Menu.Simple,
+  Elinor.Scene.Menu.Wide,
   Vcl.Controls,
   System.Classes,
   Elinor.Button,
@@ -12,7 +12,7 @@ uses
   Elinor.Scenes;
 
 type
-  TSceneScenario = class(TSceneSimpleMenu)
+  TSceneScenario = class(TSceneWideMenu)
   private
   public
     constructor Create;
@@ -52,8 +52,13 @@ begin
     Game.Show(scMap)
   else
   begin
-    Game.Scenario.CurrentScenario := TScenarioEnum(CurrentIndex);
-    TSceneDifficulty.Show;
+    case CurrentIndex of
+      0 .. 2:
+        begin
+          Game.Scenario.CurrentScenario := TScenarioEnum(CurrentIndex);
+          TSceneDifficulty.Show;
+        end;
+    end;
   end;
 end;
 
@@ -67,8 +72,8 @@ var
   I: Integer;
   LScenarioEnum: TScenarioEnum;
 const
-  LScenarioImage: array [TScenarioEnum] of TResEnum =
-    (reScenarioDarkTower, reScenarioOverlord, reScenarioAncientKnowledge);
+  LScenarioImage: array [TScenarioEnum] of TResEnum = (reScenarioDarkTower,
+    reScenarioOverlord, reScenarioAncientKnowledge);
 begin
   inherited;
   IsOneButton := Game.IsGame;
@@ -77,26 +82,34 @@ begin
     DrawTitle(reTitleJournal)
   else
     DrawTitle(reTitleScenario);
-  for LScenarioEnum := Low(TScenarioEnum)
-    to High(TScenarioEnum) do
+  for LScenarioEnum := Low(TScenarioEnum) to High(TScenarioEnum) do
   begin
-    DrawImage(TFrame.Col(1) + 7, TFrame.Row(Ord(LScenarioEnum)) + 7,
+    DrawImage(TFrame.Col(0) + 7, TFrame.Row(Ord(LScenarioEnum)) + 7,
       LScenarioImage[LScenarioEnum]);
     if Ord(LScenarioEnum) = CurrentIndex then
     begin
       if Game.IsGame then
-        DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
+        DrawImage(TFrame.Col(0), SceneTop + (Ord(LScenarioEnum) * 120),
           reFrameSlotPassive)
       else
-        DrawImage(TFrame.Col(1), SceneTop + (Ord(LScenarioEnum) * 120),
+        DrawImage(TFrame.Col(0), SceneTop + (Ord(LScenarioEnum) * 120),
           reFrameSlotActive);
       TextTop := TFrame.Row(0) + 6;
       TextLeft := TFrame.Col(2) + 12;
-      AddTextLine(TScenario.ScenarioName[LScenarioEnum], True);
+      AddTextLine(TScenario.GetScenario(LScenarioEnum).Name, True);
       AddTextLine;
       for I := 0 to 9 do
         AddTextLine(TScenario.GetDescription(LScenarioEnum, I));
-      AddTextLine('Objective: ' + TScenario.ScenarioObjective[LScenarioEnum]);
+      TextTop := TFrame.Row(0) + 6;
+      TextLeft := TFrame.Col(3) + 12;
+      AddTextLine('Objective', True);
+      AddTextLine;
+      AddTextLine(TScenario.GetScenario(LScenarioEnum).Objective);
+      if Game.IsGame then
+        AddTextLine('Day: ' + Game.GetDayInfo)
+      else
+        AddTextLine('Days: ' + TScenario.GetScenario(LScenarioEnum)
+          .DayLimit.ToString);
       if Game.IsGame then
       begin
         CurrentIndex := Ord(Game.Scenario.CurrentScenario);
@@ -125,7 +138,6 @@ begin
     Exit;
   end;
   inherited;
-  UpdateEnum<TScenarioEnum>(Key);
 end;
 
 end.

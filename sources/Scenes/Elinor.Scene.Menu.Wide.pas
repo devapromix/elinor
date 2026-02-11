@@ -13,12 +13,17 @@ uses
 type
   TSceneWideMenu = class(TSceneFrames)
   private type
+    TOneButtonEnum = (btClose);
     TTwoButtonEnum = (btCancel, btContinue);
   private const
+    OneButtonText: array [TOneButtonEnum] of TResEnum = (reTextClose);
     TwoButtonText: array [TTwoButtonEnum] of TResEnum = (reTextCancel,
       reTextContinue);
   private
-    Button: array [TTwoButtonEnum] of TButton;
+    FIsOneButton: Boolean;
+    FIsBlockFrames: Boolean;
+    OneButton: array [TOneButtonEnum] of TButton;
+    TwoButton: array [TTwoButtonEnum] of TButton;
     FCurrentIndex: Integer;
     FShowButtons: Boolean;
   public
@@ -38,6 +43,8 @@ type
     procedure Basic(AKey: Word);
     procedure RenderButtons;
     property ShowButtons: Boolean read FShowButtons write FShowButtons;
+    property IsOneButton: Boolean read FIsOneButton write FIsOneButton;
+    property IsBlockFrames: Boolean read FIsBlockFrames write FIsBlockFrames;
   end;
 
 implementation
@@ -84,30 +91,43 @@ constructor TSceneWideMenu.Create(const AResEnum: TResEnum;
   const AShowButtons: Boolean = True;
   const ARightFrameGrid: TFrameGrid = fgRM2);
 var
+  LOneButtonEnum: TOneButtonEnum;
   LTwoButtonEnum: TTwoButtonEnum;
   LLeft, LWidth: Integer;
 begin
   inherited Create(AResEnum, fgLS6, ARightFrameGrid);
   FShowButtons := AShowButtons;
   CurrentIndex := 0;
+  IsOneButton := False;
+  IsBlockFrames := False;
   LWidth := ResImage[reButtonDef].Width + 4;
+  LLeft := ScrWidth - (ResImage[reButtonDef].Width div 2);
+  for LOneButtonEnum := Low(TOneButtonEnum) to High(TOneButtonEnum) do
+  begin
+    OneButton[LOneButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+      OneButtonText[LOneButtonEnum]);
+    OneButton[LOneButtonEnum].Selected := True;
+  end;
   LLeft := ScrWidth - ((LWidth * (Ord(High(TTwoButtonEnum)) + 1)) div 2);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
   begin
-    Button[LTwoButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
+    TwoButton[LTwoButtonEnum] := TButton.Create(LLeft, DefaultButtonTop,
       TwoButtonText[LTwoButtonEnum]);
     Inc(LLeft, LWidth);
     if (LTwoButtonEnum = btContinue) then
-      Button[LTwoButtonEnum].Selected := True;
+      TwoButton[LTwoButtonEnum].Selected := True;
   end;
 end;
 
 destructor TSceneWideMenu.Destroy;
 var
+  LOneButtonEnum: TOneButtonEnum;
   LTwoButtonEnum: TTwoButtonEnum;
 begin
+  for LOneButtonEnum := Low(TOneButtonEnum) to High(TOneButtonEnum) do
+    FreeAndNil(OneButton[LOneButtonEnum]);
   for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-    FreeAndNil(Button[LTwoButtonEnum]);
+    FreeAndNil(TwoButton[LTwoButtonEnum]);
   inherited;
 end;
 
@@ -123,6 +143,7 @@ begin
         LPartyPosition := GetFramePosition(X, Y);
         case LPartyPosition of
           0 .. 5:
+            if not IsBlockFrames then
             begin
               CurrentIndex := LPartyPosition;
               Game.MediaPlayer.PlaySound(mmClick);
@@ -131,10 +152,18 @@ begin
         end;
         if FShowButtons then
         begin
-          if Button[btCancel].MouseDown then
-            Cancel;
-          if Button[btContinue].MouseDown then
-            Continue;
+          if IsOneButton then
+          begin
+            if OneButton[btClose].MouseDown then
+              Cancel;
+          end
+          else
+          begin
+            if TwoButton[btCancel].MouseDown then
+              Cancel;
+            if TwoButton[btContinue].MouseDown then
+              Continue;
+          end;
         end;
       end;
   end;
@@ -142,12 +171,19 @@ end;
 
 procedure TSceneWideMenu.MouseMove(Shift: TShiftState; X, Y: Integer);
 var
+  LOneButtonEnum: TOneButtonEnum;
   LTwoButtonEnum: TTwoButtonEnum;
 begin
   inherited;
   if FShowButtons then
-    for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-      Button[LTwoButtonEnum].MouseMove(X, Y);
+  begin
+    if IsOneButton then
+      for LOneButtonEnum := Low(TOneButtonEnum) to High(TOneButtonEnum) do
+        OneButton[LOneButtonEnum].MouseMove(X, Y)
+    else
+      for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
+        TwoButton[LTwoButtonEnum].MouseMove(X, Y);
+  end;
 end;
 
 procedure TSceneWideMenu.Render;
@@ -164,11 +200,16 @@ end;
 
 procedure TSceneWideMenu.RenderButtons;
 var
+  LOneButtonEnum: TOneButtonEnum;
   LTwoButtonEnum: TTwoButtonEnum;
 begin
   if FShowButtons then
-    for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
-      Button[LTwoButtonEnum].Render;
+    if IsOneButton then
+      for LOneButtonEnum := Low(TOneButtonEnum) to High(TOneButtonEnum) do
+        OneButton[LOneButtonEnum].Render
+    else
+      for LTwoButtonEnum := Low(TTwoButtonEnum) to High(TTwoButtonEnum) do
+        TwoButton[LTwoButtonEnum].Render;
 end;
 
 procedure TSceneWideMenu.Update(var Key: Word);

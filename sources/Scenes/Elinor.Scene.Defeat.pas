@@ -153,7 +153,7 @@ begin
   RenderParty;
   RenderCharacterInfo;
 
-  RenderLeaderInfo(True);
+  RenderLeaderInfo(True, True);
 
   RenderButtons;
 end;

@@ -294,7 +294,7 @@ type
     Ident: string;
     Faction: TFactionEnum;
     SubRace: TSubRaceEnum;
-    ResEnum: TResEnum;
+    ResEnum: TCreatureResEnum;
     Size: TCreatureSize;
     Name: array [0 .. 1] of string;
     Description: array [0 .. 2] of string;
@@ -324,7 +324,7 @@ type
     Active: Boolean;
     Paralyze: Boolean;
     Enum: TCreatureEnum;
-    ResEnum: TResEnum;
+    ResEnum: TCreatureResEnum;
     Name: array [0 .. 1] of string;
     HitPoints: TCurrMaxAttribute;
     Initiative: TCurrTempAttribute;
@@ -373,7 +373,7 @@ uses
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (Ident: 'none'; Faction: faNeutrals; SubRace: reCustom; ResEnum: reNone;
+    (Ident: 'none'; Faction: faNeutrals; SubRace: reCustom; ResEnum: mrNone;
     Size: szSmall; Name: ('', ''); Description: ('', '', ''); HitPoints: 0;
     Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
@@ -382,7 +382,7 @@ const
     // The Empire
 {$REGION The Empire}
     // Myzrael
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reAngel; ResEnum: reMyzrael;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reAngel; ResEnum: mrMyzrael;
     Size: szSmall; Name: ('Myzrael', 'Myzrael');
     Description: ('Mizrael was sent to aid the',
     'Human Empire in their holy mission.',
@@ -392,7 +392,7 @@ const
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
     AbilityEnum: abNone; Rating: 0;),
     // Paladin
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: rePaladin;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrPaladin;
     Size: szSmall; Name: ('Paladin', 'Paladin');
     Description: ('The knight who rides a pegasus is a',
     'noble warrior, whose winged steed',
@@ -402,7 +402,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atPaladinSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Ranger
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reRanger;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrRanger;
     Size: szSmall; Name: ('Ranger', 'Ranger');
     Description: ('Rangers travel swiftly and are well-',
     'versed in the kingdom, so the king of-',
@@ -412,7 +412,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atHunterBow; AbilityEnum: abTravelLore; Rating: 0;),
     // Archmage
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrArchmage;
     Size: szSmall; Name: ('Archmage', 'Archmage');
     Description: ('A master of magic, the Archmage is the',
     'only commander in the Empire who can', 'use scrolls and staves.');
@@ -421,7 +421,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thief
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reThief;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrThief;
     Size: szSmall; Name: ('Thief', 'Thief');
     Description: ('Experienced tricksters and thieves, they',
     'easily sneak behind enemy lines and',
@@ -431,7 +431,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
     AttackEnum: atDagger; AbilityEnum: abStealth; Rating: 0;),
     // Warlord
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reWarlord;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrWarlord;
     Size: szSmall; Name: ('Warlord', 'Warlord');
     Description: ('The king’s field commander serves the',
     'Empire with loyalty and ruthlessly', 'deals with its enemies.');
@@ -440,7 +440,7 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Squire
-    (Ident: 'squire'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reSquire;
+    (Ident: 'squire'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrSquire;
     Size: szSmall; Name: ('Squire', 'Squire');
     Description: ('The squire bravely defends in battle',
     'his weaker compatriots, keeping', 'foes at sword’s length.');
@@ -449,7 +449,7 @@ const
     Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 25;),
     // Archer
-    (Ident: 'archer'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArcher;
+    (Ident: 'archer'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrArcher;
     Size: szSmall; Name: ('Archer', 'Archer');
     Description: ('The archer’s arrows successfully hit',
     'enemies hiding behind the backs', 'of their stronger comrades.');
@@ -459,7 +459,7 @@ const
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 10;),
     // Apprentice
     (Ident: 'apprentice'; Faction: faTheEmpire; SubRace: reHuman;
-    ResEnum: reApprentice; Size: szSmall; Name: ('Apprentice', 'Apprentice');
+    ResEnum: mrApprentice; Size: szSmall; Name: ('Apprentice', 'Apprentice');
     Description: ('The mage’s apprentice attacks foes',
     'from afar, unleashing lightning', 'upon them.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
@@ -468,7 +468,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 5;),
     // Acolyte
     (Ident: 'acolyte'; Faction: faTheEmpire; SubRace: reHuman;
-    ResEnum: reAcolyte; Size: szSmall; Name: ('Acolyte', 'Acolyte');
+    ResEnum: mrAcolyte; Size: szSmall; Name: ('Acolyte', 'Acolyte');
     Description: ('Trained in the art of healing, the Acolyte',
     'can tend to wounded allies, treating', 'their injuries one by one.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
@@ -480,7 +480,7 @@ const
 {$REGION Undead Hordes}
     // Ashgan
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reAshgan; Size: szSmall; Name: ('Ashgan', 'Ashgan');
+    ResEnum: mrAshgan; Size: szSmall; Name: ('Ashgan', 'Ashgan');
     Description: ('Ashgan, the Plaguebearer, was once',
     'the high priest of Alkmaar.', 'He never leaves the capital unguarded.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
@@ -489,7 +489,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 0;),
     // Death Knight
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reDeathKnight; Size: szSmall;
+    ResEnum: mrDeathKnight; Size: szSmall;
     Name: ('Death Knight', 'Death Knight');
     Description: ('The strongest and noblest warriors',
     'of the kingdom of Alkmaar were brought back',
@@ -500,7 +500,7 @@ const
     AttackEnum: atSlayerSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Nosferat
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reVampire;
-    ResEnum: reNosferat; Size: szSmall; Name: ('Nosferat', 'Nosferat');
+    ResEnum: mrNosferat; Size: szSmall; Name: ('Nosferat', 'Nosferat');
     Description: ('The first vampires of Alkmaar, who renounced',
     'the All-Father and swore loyalty to',
     'Mortis in exchange for power over death.'); HitPoints: 90; Initiative: 50;
@@ -510,7 +510,7 @@ const
     AttackEnum: atDrainLife; AbilityEnum: abVampirism; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reLichQueen; Size: szSmall; Name: ('Lich Queen', 'Lich Queen');
+    ResEnum: mrLichQueen; Size: szSmall; Name: ('Lich Queen', 'Lich Queen');
     Description: ('Priestesses of the death cult that once thrived in',
     'Alkmaar, returned by the will of Mortis', 'as merciless Lich Queens.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -518,7 +518,7 @@ const
     Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thug
-    (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead; ResEnum: reThug;
+    (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead; ResEnum: mrThug;
     Size: szSmall; Name: ('Thug', 'Thug');
     Description: ('Mortis brought back the best of the best to',
     'the world of the living, to act with cun-',
@@ -529,7 +529,7 @@ const
     AttackEnum: atDaggerOfShadows; AbilityEnum: abStealth; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reDominator; Size: szSmall; Name: ('Dominator', 'Dominator');
+    ResEnum: mrDominator; Size: szSmall; Name: ('Dominator', 'Dominator');
     Description: ('Fallen generals of the Empire were re-',
     'turned to life by Mortis to sow death', 'and destruction all around.');
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -538,7 +538,7 @@ const
     AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reFighter; Size: szSmall; Name: ('Fighter', 'Fighter');
+    ResEnum: mrFighter; Size: szSmall; Name: ('Fighter', 'Fighter');
     Description: ('Hearing Mortis’s call, the dead warriors',
     'rise without question to join the ranks.',
     'They know neither fear nor mercy.'); HitPoints: 120; Initiative: 50;
@@ -548,7 +548,7 @@ const
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Ghost
     (Ident: 'ghost'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reGhost; Size: szSmall; Name: ('Ghost', 'Ghost');
+    ResEnum: mrGhost; Size: szSmall; Name: ('Ghost', 'Ghost');
     Description: ('Ghosts are dark souls,', 'whose evil has forever bound them',
     'to the world of the living.'); HitPoints: 45; Initiative: 20;
     ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 0;
@@ -557,7 +557,7 @@ const
     AttackEnum: atParalyze; AbilityEnum: abNone; Rating: 10;),
     // Initiate
     (Ident: 'initiate'; Faction: faUndeadHordes; SubRace: reUndead;
-    ResEnum: reInitiate; Size: szSmall; Name: ('Initiate', 'Initiate');
+    ResEnum: mrInitiate; Size: szSmall; Name: ('Initiate', 'Initiate');
     Description: ('Initiates are trained to bring plague and',
     'death to the armies of the living in the name',
     'of their goddess Mortis.'); HitPoints: 45; Initiative: 40;
@@ -567,7 +567,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
     // Wyvern
     (Ident: 'wyvern'; Faction: faUndeadHordes; SubRace: reUndeadDragon;
-    ResEnum: reWyvern; Size: szBig; Name: ('Wyvern', 'Wyvern');
+    ResEnum: mrWyvern; Size: szBig; Name: ('Wyvern', 'Wyvern');
     Description: ('Sorcerers resurrect dead dragons,',
     'thus creating wyverns that fight', 'in the ranks of the undead army.');
     HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -579,7 +579,7 @@ const
 {$REGION Legions Of The Damned}
     // Ashkael
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reAshkael; Size: szSmall; Name: ('Ashkael', 'Ashkael');
+    ResEnum: mrAshkael; Size: szSmall; Name: ('Ashkael', 'Ashkael');
     Description: ('Commander of the 80 Infernal Cohorts, Ashkael was',
     'chosen by Bethrezen to defend the Legion capital,',
     'never leaving it undefended.'); HitPoints: 900; Initiative: 90;
@@ -589,7 +589,7 @@ const
     AbilityEnum: abNone; Rating: 0;),
     // Duke
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reDuke; Size: szSmall; Name: ('Duke', 'Duke');
+    ResEnum: mrDuke; Size: szSmall; Name: ('Duke', 'Duke');
     Description: ('Воинственный герцог ведет демонов',
     'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
@@ -598,7 +598,7 @@ const
     AttackEnum: atPhoenixSword; AbilityEnum: abFlying; Rating: 0;),
     // Counselor
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reCounselor; Size: szSmall; Name: ('Counselor', 'Counselor');
+    ResEnum: mrCounselor; Size: szSmall; Name: ('Counselor', 'Counselor');
     Description: ('Советник ведёт авангард сил Легионов.',
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
@@ -607,7 +607,7 @@ const
     AttackEnum: atCrossbow; AbilityEnum: abTravelLore; Rating: 0;),
     // Arch-Devil
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reArchdevil; Size: szSmall; Name: ('Arch-Devil', 'Arch-Devil');
+    ResEnum: mrArchdevil; Size: szSmall; Name: ('Arch-Devil', 'Arch-Devil');
     Description: ('Архидьявол является владыкой магии;',
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
@@ -616,7 +616,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Ripper
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reRipper; Size: szSmall; Name: ('Ripper', 'Ripper');
+    ResEnum: mrRipper; Size: szSmall; Name: ('Ripper', 'Ripper');
     Description: ('Талант потрошителя заключается в',
     'медленном и мастерском извлечении', 'правды из его жертв.'); HitPoints: 90;
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
@@ -625,7 +625,7 @@ const
     AttackEnum: atFlameDagger; AbilityEnum: abStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reChieftain; Size: szSmall; Name: ('Chieftain', 'Chieftain');
+    ResEnum: mrChieftain; Size: szSmall; Name: ('Chieftain', 'Chieftain');
     Description: ('Яростные Атаманы всегда идут впереди',
     'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
@@ -634,7 +634,7 @@ const
     AttackEnum: atFireHammer; AbilityEnum: abTemplar; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: rePossessed; Size: szSmall; Name: ('Possessed', 'Possessed');
+    ResEnum: mrPossessed; Size: szSmall; Name: ('Possessed', 'Possessed');
     Description: ('Повелитель демонов поработил этих',
     'сильных телом крестьян для того, что-',
     'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
@@ -644,7 +644,7 @@ const
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Gargoyle
     (Ident: 'gargoyle'; Faction: faLegionsOfTheDamned; SubRace: reGargoyle;
-    ResEnum: reStoneGargoyle; Size: szBig; Name: ('Gargoyle', 'Gargoyle');
+    ResEnum: mrStoneGargoyle; Size: szBig; Name: ('Gargoyle', 'Gargoyle');
     Description: ('Каменная кожа гаргулий поглощает',
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 75; Initiative: 60; ChancesToHit: 70; Leadership: 0; Level: 1;
@@ -653,7 +653,7 @@ const
     AttackEnum: atStones; AbilityEnum: abNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reCultist; Size: szSmall; Name: ('Cultist', 'Cultist');
+    ResEnum: mrCultist; Size: szSmall; Name: ('Cultist', 'Cultist');
     Description: ('Еретики Империи, они взывают к',
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -662,7 +662,7 @@ const
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 20;),
     // Devil
     (Ident: 'devil'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
-    ResEnum: reDevil; Size: szBig; Name: ('Devil', 'Devil');
+    ResEnum: mrDevil; Size: szBig; Name: ('Devil', 'Devil');
     Description: ('Это нечестивое создание', 'держит земли в страхе во имя его',
     'Тёмного Повелителя Бетрезена.'); HitPoints: 120; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
@@ -674,7 +674,7 @@ const
 {$REGION Green Skins}
     // Goblin
     (Ident: 'goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblin; Size: szSmall; Name: ('Goblin', 'Goblin');
+    ResEnum: mrGoblin; Size: szSmall; Name: ('Goblin', 'Goblin');
     Description: ('Goblins are distant relatives of orcs.',
     'They are not as strong,', 'but they are cunning and agile.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -683,7 +683,7 @@ const
     Gender: cgMale; AttackEnum: atSpear; AbilityEnum: abNone; Rating: 25;),
     // Goblin Rider
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblinRider; Size: szSmall;
+    ResEnum: mrGoblinRider; Size: szSmall;
     Name: ('Goblin Rider', 'Goblin Rider');
     Description: ('Some black goblins tame wild',
     'wargs and use them in battle', 'as a means of transportation.');
@@ -693,7 +693,7 @@ const
     Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 35;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblinArcher; Size: szSmall;
+    ResEnum: mrGoblinArcher; Size: szSmall;
     Name: ('Goblin Archer', 'Goblin Archer');
     Description: ('Goblin archers accompany their kin',
     'in ambushes and raids,', 'using crude arrows.'); HitPoints: 40;
@@ -703,7 +703,7 @@ const
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 20;),
     // Goblin Elder
     (Ident: 'goblin-elder'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reGoblinElder; Size: szSmall;
+    ResEnum: mrGoblinElder; Size: szSmall;
     Name: ('Goblin Elder', 'Goblin Elder');
     Description: ('Few goblins are intelligent enough',
     'to practice the art of magic,', 'but from time to time elders do emerge.');
@@ -713,7 +713,7 @@ const
     Gender: cgMale; AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
     // Black Goblin
     (Ident: 'black-goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reBlackGoblin; Size: szSmall;
+    ResEnum: mrBlackGoblin; Size: szSmall;
     Name: ('Black Goblin', 'Black Goblin');
     Description: ('Few goblins are silent enough',
     'to master the art of killing,', 'but those who do become assassins.');
@@ -723,7 +723,7 @@ const
     Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
-    (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOrc;
+    (Ident: 'orc'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: mrOrc;
     Size: szSmall; Name: ('Orc', 'Orc');
     Description: ('Orcs are always in the',
     'front lines in battles, because they', 'have a sturdy build.');
@@ -733,7 +733,7 @@ const
     AttackEnum: atBattleAxe; AbilityEnum: abNone; Rating: 40;),
 
     // Trog
-    (Ident: 'trog'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reTrog;
+    (Ident: 'trog'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: mrTrog;
     Size: szBig; Name: ('Trog', 'Trog');
     Description: ('Trogs are savage creatures,', ' driven only by brute ',
     'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 70; Leadership: 0;
@@ -742,7 +742,7 @@ const
     Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
     // Troll
     (Ident: 'troll'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reTroll; Size: szBig; Name: ('Troll', 'Troll');
+    ResEnum: mrTroll; Size: szBig; Name: ('Troll', 'Troll');
     Description: ('Trolls are massive and brutal creatures,',
     'slow but incredibly strong,', 'thriving in caves and ruins.');
     HitPoints: 300; Initiative: 25; ChancesToHit: 70; Leadership: 0; Level: 1;
@@ -750,7 +750,7 @@ const
     Gold: 300; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
     // Ogre
-    (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: reOgre;
+    (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: mrOgre;
     Size: szBig; Name: ('Ogre', 'Ogre');
     Description: ('Ogres attack anyone passing', 'by, paying no attention to',
     'tactics or strategy.'); HitPoints: 350; Initiative: 20; ChancesToHit: 70;
@@ -762,7 +762,7 @@ const
     //
     // Lizardman
     (Ident: 'lizardman'; Faction: faNeutrals; SubRace: reGreenSkin;
-    ResEnum: reLizardman; Size: szBig; Name: ('Lizardman', 'Lizardman');
+    ResEnum: mrLizardman; Size: szBig; Name: ('Lizardman', 'Lizardman');
     Description: ('Lizardmen are skilled reptilian archers,',
     'silent and deadly, striking', 'from the swamps and marshes');
     HitPoints: 250; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
@@ -774,7 +774,7 @@ const
 {$REGION Humans}
     // Peasant
     (Ident: 'peasant'; Faction: faNeutrals; SubRace: reHuman;
-    ResEnum: rePeasant; Size: szSmall; Name: ('Peasant', 'Peasant');
+    ResEnum: mrPeasant; Size: szSmall; Name: ('Peasant', 'Peasant');
     Description: ('Peasants defend the', 'small piece of land that ',
     'they call their home.'); HitPoints: 40; Initiative: 30; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
@@ -791,7 +791,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Rogue
-    (Ident: 'rogue'; Faction: faNeutrals; SubRace: reHuman; ResEnum: reRogue;
+    (Ident: 'rogue'; Faction: faNeutrals; SubRace: reHuman; ResEnum: mrRogue;
     Size: szSmall; Name: ('Rogue', 'Rogue');
     Description: ('Bandits gather in organized gangs',
     'and attack defenseless travelers', 'along roads and forest paths.');
@@ -803,7 +803,7 @@ const
     // Neutral Undeads
 {$REGION Undeads}
     // Ghoul
-    (Ident: 'ghoul'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reGhoul;
+    (Ident: 'ghoul'; Faction: faNeutrals; SubRace: reUndead; ResEnum: mrGhoul;
     Size: szSmall; Name: ('Ghoul', 'Ghoul');
     Description: ('Ghouls are dangerous undead creatures,',
     'capable of affecting the mind', 'of their victims.'); HitPoints: 150;
@@ -813,7 +813,7 @@ const
     AttackEnum: atClaws; AbilityEnum: abNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: faNeutrals; SubRace: reDarkElf;
-    ResEnum: reDarkElfGast; Size: szSmall;
+    ResEnum: mrDarkElfGast; Size: szSmall;
     Name: ('Dark Elf Gast', 'Dark Elf Gast');
     Description: ('Once, gasts were noble elves', 'who suffered from a plague.',
     'Death twisted them into undead abominations.'); HitPoints: 110;
@@ -823,7 +823,7 @@ const
     AttackEnum: atDaggerOfShadows; AbilityEnum: abNone; Rating: 45;),
     // Skeleton Warrior
     (Ident: 'skeleton-warrior'; Faction: faNeutrals; SubRace: reUndead;
-    ResEnum: reSkeletonWarrior; Size: szSmall;
+    ResEnum: mrSkeletonWarrior; Size: szSmall;
     Name: ('Skeleton Warrior', 'Skeleton Warrior');
     Description: ('Skeletons are mindless undead',
     'warriors raised by dark forces', 'to fight without fear.'); HitPoints: 100;
@@ -832,7 +832,7 @@ const
     Sound: (mmSkeletonHit, mmSkeletonDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atSlayerSword; AbilityEnum: abNone; Rating: 30;),
     // Zombie
-    (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reZombie;
+    (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: mrZombie;
     Size: szSmall; Name: ('Zombie', 'Zombie');
     Description: ('Few zombies are capable of ',
     'acting consciously, but each of ', 'them remains a deadly threat.');
@@ -841,7 +841,7 @@ const
     Gold: 275; Sound: (mmZombieHit, mmZombieDeath, mmZombieAttack);
     Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Reaper
-    (Ident: 'reaper'; Faction: faNeutrals; SubRace: reUndead; ResEnum: reReaper;
+    (Ident: 'reaper'; Faction: faNeutrals; SubRace: reUndead; ResEnum: mrReaper;
     Size: szSmall; Name: ('Reaper', 'Reaper');
     Description: ('Reapers are the embodiment',
     'of absolute Void and are capable', 'of affecting the mind.');
@@ -853,7 +853,7 @@ const
     // Neutral Heretics
 {$REGION Heretics}
     // Imp
-    (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: reImp;
+    (Ident: 'imp'; Faction: faNeutrals; SubRace: reHeretic; ResEnum: mrImp;
     Size: szSmall; Name: ('Imp', 'Imp');
     Description: ('Imps are vicious fighters,', 'quick with a short sword,',
     'and dangerous in close combat.'); HitPoints: 75; Initiative: 45;
@@ -875,7 +875,7 @@ const
     Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
 
     // Wolf
-    (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: reWolf;
+    (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: mrWolf;
     Size: szSmall; Name: ('Wolf', 'Wolf');
     Description: ('Wolves have roamed these lands since ancient times,',
     'always in search of prey. Death awaits',
@@ -886,7 +886,7 @@ const
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 70;),
     // Dire Wolf
     (Ident: 'dire-wolf'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reDireWolf; Size: szSmall; Name: ('Dire Wolf', 'Dire Wolf');
+    ResEnum: mrDireWolf; Size: szSmall; Name: ('Dire Wolf', 'Dire Wolf');
     Description: ('Dire wolves are larger and fiercer than common',
     'wolves. They hunt in silence and strike swiftly.',
     'Few survive an encounter with one.'); HitPoints: 200; Initiative: 50;
@@ -896,7 +896,7 @@ const
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
     // Spirit Wolf
     (Ident: 'spirit-wolf'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reSpiritWolf; Size: szSmall; Name: ('Spirit Wolf', 'Spirit Wolf');
+    ResEnum: mrSpiritWolf; Size: szSmall; Name: ('Spirit Wolf', 'Spirit Wolf');
     Description: ('Dire wolves are larger and fiercer than common',
     'wolves. They hunt in silence and strike swiftly.',
     'Few survive an encounter with one.'); HitPoints: 250; Initiative: 50;
@@ -907,7 +907,7 @@ const
 
     // Polar Bear
     (Ident: 'polar-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: rePolarBear; Size: szBig; Name: ('Polar Bear', 'Polar Bear');
+    ResEnum: mrPolarBear; Size: szBig; Name: ('Polar Bear', 'Polar Bear');
     Description: ('Polar bears are deadly beasts of the north.',
     'Thick fur and huge claws protect them.',
     'They strike without warning when threatened.'); HitPoints: 320;
@@ -917,7 +917,7 @@ const
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Brown Bear
     (Ident: 'brown-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBrownBear; Size: szBig; Name: ('Brown Bear', 'Brown Bear');
+    ResEnum: mrBrownBear; Size: szBig; Name: ('Brown Bear', 'Brown Bear');
     Description: ('Brown bears are strong and territorial creatures.',
     'They roam forests and mountains in search of food.',
     'Disturbing one is often fatal.'); HitPoints: 300; Initiative: 70;
@@ -927,7 +927,7 @@ const
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 55;),
     // Black Bear
     (Ident: 'black-bear'; Faction: faNeutrals; SubRace: reAnimal;
-    ResEnum: reBlackBear; Size: szBig; Name: ('Black Bear', 'Black Bear');
+    ResEnum: mrBlackBear; Size: szBig; Name: ('Black Bear', 'Black Bear');
     Description: ('Black bears are smaller but unpredictable.',
     'They can climb trees and move quickly.',
     'A cornered black bear is a fierce opponent.'); HitPoints: 280;
@@ -1007,7 +1007,7 @@ begin
     Active := False;
     Paralyze := False;
     Enum := crNone;
-    ResEnum := reNone;
+    ResEnum := mrNone;
     for J := 0 to 1 do
       Name[J] := '';
     HitPoints.Clear;
