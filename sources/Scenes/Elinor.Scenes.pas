@@ -736,8 +736,9 @@ begin
   end;
 end;
 
-procedure TScene.DrawUnit(ACreatureResEnum: TCreatureResEnum; const AX, AY: Integer;
-  ABGStat: TBGStat; AHP, AMaxHP: Integer; AIsMirrorHorizontally: Boolean);
+procedure TScene.DrawUnit(ACreatureResEnum: TCreatureResEnum;
+  const AX, AY: Integer; ABGStat: TBGStat; AHP, AMaxHP: Integer;
+  AIsMirrorHorizontally: Boolean);
 const
   CMaxHeight = 104;
   CResImage: array [TBGStat] of TResEnum = (reBGCharacter, reBGEnemy,
@@ -795,7 +796,7 @@ begin
     end;
   end
   else
-    DrawImage(AX + 7, AY + 7, ResImage[AResEnum]);
+    DrawImage(AX + 7, AY + 7, CreatureResImage[ACreatureResEnum]);
 end;
 
 procedure TScene.DrawCreatureInfo(APosition: TPosition; AParty: TParty;
@@ -1260,7 +1261,8 @@ begin
         if Paralyze then
           LBGStat := bsParalyze;
         if HitPoints.IsMinCurrValue then
-          DrawUnit(reDead, AX, AY, LBGStat, 0, HitPoints.GetMaxValue)
+          DrawImage(AX, AY, reDead)
+          // DrawUnit(reDead, AX, AY, LBGStat, 0, HitPoints.GetMaxValue)
         else
           DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints.GetCurrValue,
             HitPoints.GetMaxValue, AIsMirrorHorizontally);
