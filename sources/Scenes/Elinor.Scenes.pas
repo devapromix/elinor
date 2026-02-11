@@ -138,10 +138,10 @@ type
     procedure DrawImage(AX, AY: Integer; ARes: TItemResEnum); overload;
     procedure RenderFrame(const APartySide: TPartySide;
       const APartyPosition, AX, AY: Integer; const F: Boolean = False);
-    procedure DrawUnit(ACreatureResEnum: TCreatureResEnum; const AX, AY: Integer;
-      ABGStat: TBGStat); overload;
-    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
-      ABGStat: TBGStat; AHP, AMaxHP: Integer;
+    procedure DrawUnit(ACreatureResEnum: TCreatureResEnum;
+      const AX, AY: Integer; ABGStat: TBGStat); overload;
+    procedure DrawUnit(ACreatureResEnum: TCreatureResEnum;
+      const AX, AY: Integer; ABGStat: TBGStat; AHP, AMaxHP: Integer;
       AIsMirrorHorizontally: Boolean = False); overload;
     procedure DrawUnit(APosition: TPosition; AParty: TParty; AX, AY: Integer;
       ACanHire: Boolean = False; AShowExp: Boolean = True;
@@ -672,8 +672,8 @@ begin
   DrawImage(AX + 7, AY + 7, reBGAbility);
 end;
 
-procedure TScene.DrawUnit(ACreatureResEnum: TCreatureResEnum; const AX, AY: Integer;
-  ABGStat: TBGStat);
+procedure TScene.DrawUnit(ACreatureResEnum: TCreatureResEnum;
+  const AX, AY: Integer; ABGStat: TBGStat);
 begin
   case ABGStat of
     bsCharacter:
@@ -736,7 +736,7 @@ begin
   end;
 end;
 
-procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+procedure TScene.DrawUnit(ACreatureResEnum: TCreatureResEnum; const AX, AY: Integer;
   ABGStat: TBGStat; AHP, AMaxHP: Integer; AIsMirrorHorizontally: Boolean);
 const
   CMaxHeight = 104;
@@ -788,7 +788,7 @@ begin
   begin
     LTempImage := TPNGImage.Create;
     try
-      FlipPNG(ResImage[AResEnum], LTempImage);
+      FlipPNG(CreatureResImage[ACreatureResEnum], LTempImage);
       DrawImage(AX + 7, AY + 7, LTempImage);
     finally
       FreeAndNil(LTempImage);
