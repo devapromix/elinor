@@ -49,17 +49,6 @@ type
     reLegionsOfTheDamnedTree,
     //
     reButtonDef, reButtonAct, reCorpse,
-    // Creatures
-    reMyzrael, rePaladin, reRanger, reArchmage, reSquire, reArcher, reThief,
-    reWarlord, reApprentice, reAcolyte, reAshgan, reNosferat, reLichQueen,
-    reThug, reDominator, reFighter, reInitiate, reWyvern, reDeathKnight,
-    reAshkael, reDuke, reCounselor, reArchdevil, reRipper, reChieftain,
-    rePossessed, reCultist, reDevil, reBlackDragon, reWhiteDragon, reRedDragon,
-    reGreenDragon, reBlueDragon, reGoblin, reGoblinArcher, reGoblinElder,
-    reBlackGoblin, reGoblinRider, reGiantSpider, reWolf, reDireWolf,
-    reSpiritWolf, rePolarBear, reBrownBear, reBlackBear, reOrc, reGhost, reImp,
-    reGhoul, reStoneGargoyle, reReaper, reRogue, reTrog, reZombie, reLizardman,
-    rePeasant, reOgre, reTroll, reDarkElfGast, reSkeletonWarrior,
     // Text
     reTextHighScores, reTextCapitalDef, reTextCityDef, reTextPlay,
     reTextVictory, reTextDefeat, reTextQuit, reTextContinue, reTextDismiss,
@@ -105,6 +94,20 @@ type
     // Panel buttons
     reButtonMenu, reButtonParty, reButtonCancel, reButtonSpellbook, reButtonInv,
     reButtonAbility, reButtonScenario);
+
+type
+  TCreatureResEnum = (mrNone,
+    // Creatures
+    mrMyzrael, mrPaladin, mrRanger, mrArchmage, mrSquire, mrArcher, mrThief,
+    mrWarlord, mrApprentice, mrAcolyte, mrAshgan, mrNosferat, mrLichQueen,
+    mrThug, mrDominator, mrFighter, mrInitiate, mrWyvern, mrDeathKnight,
+    mrAshkael, mrDuke, mrCounselor, mrArchdevil, mrRipper, mrChieftain,
+    mrPossessed, mrCultist, mrDevil, mrBlackDragon, mrWhiteDragon, mrRedDragon,
+    mrGmrenDragon, mrBlueDragon, mrGoblin, mrGoblinArcher, mrGoblinElder,
+    mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
+    mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
+    mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
+    mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
 
 type
   TSpellResEnum = (srNone,
@@ -359,132 +362,6 @@ const
     // Corpse
     (FileName: 'corpse.png'; ResType: teGUI;),
 
-    // CHARACTERS //
-    // Myzrael
-    (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
-    // Paladin
-    (FileName: 'character.the_empire.paladin.png'; ResType: teGUI;),
-    // Ranger
-    (FileName: 'character.the_empire.ranger.png'; ResType: teGUI;),
-    // Archmage
-    (FileName: 'character.the_empire.archmage.png'; ResType: teGUI;),
-    // Squire
-    (FileName: 'character.the_empire.squire.png'; ResType: teGUI;),
-    // Archer
-    (FileName: 'character.the_empire.archer.png'; ResType: teGUI;),
-    // Thief
-    (FileName: 'character.the_empire.thief.png'; ResType: teGUI;),
-    // Warlord
-    (FileName: 'character.the_empire.warlord.png'; ResType: teGUI;),
-    // Apprentice
-    (FileName: 'character.the_empire.apprentice.png'; ResType: teGUI;),
-    // Acolyte
-    (FileName: 'character.the_empire.acolyte.png'; ResType: teGUI;),
-    // Ashgan
-    (FileName: 'character.undead_hordes.ashgan.png'; ResType: teGUI;),
-    // Nosferat
-    (FileName: 'character.undead_hordes.nosferat.png'; ResType: teGUI;),
-    // Lich Queen
-    (FileName: 'character.undead_hordes.lich_queen.png'; ResType: teGUI;),
-    // Thug
-    (FileName: 'character.undead_hordes.thug.png'; ResType: teGUI;),
-    // Dominator
-    (FileName: 'character.undead_hordes.dominator.png'; ResType: teGUI;),
-    // Fighter
-    (FileName: 'character.undead_hordes.fighter.png'; ResType: teGUI;),
-    // Initiate
-    (FileName: 'character.undead_hordes.initiate.png'; ResType: teGUI;),
-    // Wyvern
-    (FileName: 'character.undead_hordes.wyvern.png'; ResType: teGUI;),
-    // Death Knight
-    (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
-    // Ashkael
-    (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
-    // Duke
-    (FileName: 'character.legions_of_the_damned.duke.png'; ResType: teGUI;),
-    // Counselor
-    (FileName: 'character.legions_of_the_damned.counselor.png';
-    ResType: teGUI;),
-    // Archdevil
-    (FileName: 'character.legions_of_the_damned.archdevil.png';
-    ResType: teGUI;),
-    // Ripper
-    (FileName: 'character.legions_of_the_damned.ripper.png'; ResType: teGUI;),
-    // Chieftain
-    (FileName: 'character.legions_of_the_damned.chieftain.png';
-    ResType: teGUI;),
-    // Possessed
-    (FileName: 'character.legions_of_the_damned.possessed.png';
-    ResType: teGUI;),
-    // Cultist
-    (FileName: 'character.legions_of_the_damned.cultist.png'; ResType: teGUI;),
-    // Devil
-    (FileName: 'character.legions_of_the_damned.devil.png'; ResType: teGUI;),
-    // Black Dragon
-    (FileName: 'character.neutrals.black_dragon.png'; ResType: teGUI;),
-    // White Dragon
-    (FileName: 'character.white_dragon.png'; ResType: teGUI;),
-    // Red Dragon
-    (FileName: 'character.red_dragon.png'; ResType: teGUI;),
-    // Green Dragon
-    (FileName: 'character.neutrals.green_dragon.png'; ResType: teGUI;),
-    // Blue Dragon
-    (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
-    // Goblin
-    (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
-    // Goblin Archer
-    (FileName: 'character.neutrals.goblin_archer.png'; ResType: teGUI;),
-    // Goblin Elder
-    (FileName: 'character.neutrals.goblin_elder.png'; ResType: teGUI;),
-    // Black Goblin
-    (FileName: 'character.neutrals.black_goblin.png'; ResType: teGUI;),
-    // Goblin Rider
-    (FileName: 'character.neutrals.goblin_rider.png'; ResType: teGUI;),
-    // Giant Spider
-    (FileName: 'character.giant_spider.png'; ResType: teGUI;),
-    // Wolf
-    (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
-    // Dire Wolf
-    (FileName: 'character.neutrals.dire_wolf.png'; ResType: teGUI;),
-    // Spirit Wolf
-    (FileName: 'character.neutrals.spirit_wolf.png'; ResType: teGUI;),
-    // Polar Bear
-    (FileName: 'character.neutrals.polar_bear.png'; ResType: teGUI;),
-    // Brown Bear
-    (FileName: 'character.neutrals.brown_bear.png'; ResType: teGUI;),
-    // Black Bear
-    (FileName: 'character.neutrals.black_bear.png'; ResType: teGUI;),
-    // Orc
-    (FileName: 'character.neutrals.orc.png'; ResType: teGUI;),
-    // Ghost
-    (FileName: 'character.undead_hordes.ghost.png'; ResType: teGUI;),
-    // Imp
-    (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
-    // Ghoul
-    (FileName: 'character.neutrals.ghoul.png'; ResType: teGUI;),
-    // Gargoyle
-    (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
-    // Reaper
-    (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
-    // Rogue
-    (FileName: 'character.neutrals.rogue.png'; ResType: teGUI;),
-    // Trog
-    (FileName: 'character.neutrals.trog.png'; ResType: teGUI;),
-    // Zombie
-    (FileName: 'character.neutrals.zombie.png'; ResType: teGUI;),
-    // Lizardman
-    (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
-    // Peasant
-    (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
-    // Ogre
-    (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
-    // Troll
-    (FileName: 'character.neutrals.troll.png'; ResType: teGUI;),
-    // Dark Elf
-    (FileName: 'character.neutrals.dark_elf.png'; ResType: teGUI;),
-    // Skeleton Warrior
-    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;),
-
     // Text "High Scores"
     (FileName: 'text.high_scores.png'; ResType: teGUI;),
     // Text "Capital defenses"
@@ -714,6 +591,139 @@ const
     (FileName: 'panel.button.abilities.png'; ResType: teGUI;),
     // Button Scenarion (Journal)
     (FileName: 'panel.button.scenario.png'; ResType: teGUI;)
+    //
+    );
+
+const
+  CreatureResBase: array [TCreatureResEnum] of TResBase = (
+    // None
+    (FileName: ''; ResType: teGUI;),
+    // CHARACTERS //
+    // Myzrael
+    (FileName: 'character.the_empire.myzrael.png'; ResType: teGUI;),
+    // Paladin
+    (FileName: 'character.the_empire.paladin.png'; ResType: teGUI;),
+    // Ranger
+    (FileName: 'character.the_empire.ranger.png'; ResType: teGUI;),
+    // Archmage
+    (FileName: 'character.the_empire.archmage.png'; ResType: teGUI;),
+    // Squire
+    (FileName: 'character.the_empire.squire.png'; ResType: teGUI;),
+    // Archer
+    (FileName: 'character.the_empire.archer.png'; ResType: teGUI;),
+    // Thief
+    (FileName: 'character.the_empire.thief.png'; ResType: teGUI;),
+    // Warlord
+    (FileName: 'character.the_empire.warlord.png'; ResType: teGUI;),
+    // Apprentice
+    (FileName: 'character.the_empire.apprentice.png'; ResType: teGUI;),
+    // Acolyte
+    (FileName: 'character.the_empire.acolyte.png'; ResType: teGUI;),
+    // Ashgan
+    (FileName: 'character.undead_hordes.ashgan.png'; ResType: teGUI;),
+    // Nosferat
+    (FileName: 'character.undead_hordes.nosferat.png'; ResType: teGUI;),
+    // Lich Queen
+    (FileName: 'character.undead_hordes.lich_queen.png'; ResType: teGUI;),
+    // Thug
+    (FileName: 'character.undead_hordes.thug.png'; ResType: teGUI;),
+    // Dominator
+    (FileName: 'character.undead_hordes.dominator.png'; ResType: teGUI;),
+    // Fighter
+    (FileName: 'character.undead_hordes.fighter.png'; ResType: teGUI;),
+    // Initiate
+    (FileName: 'character.undead_hordes.initiate.png'; ResType: teGUI;),
+    // Wyvern
+    (FileName: 'character.undead_hordes.wyvern.png'; ResType: teGUI;),
+    // Death Knight
+    (FileName: 'character.undead_hordes.death_knight.png'; ResType: teGUI;),
+    // Ashkael
+    (FileName: 'character.legions_of_the_damned.ashkael.png'; ResType: teGUI;),
+    // Duke
+    (FileName: 'character.legions_of_the_damned.duke.png'; ResType: teGUI;),
+    // Counselor
+    (FileName: 'character.legions_of_the_damned.counselor.png';
+    ResType: teGUI;),
+    // Archdevil
+    (FileName: 'character.legions_of_the_damned.archdevil.png';
+    ResType: teGUI;),
+    // Ripper
+    (FileName: 'character.legions_of_the_damned.ripper.png'; ResType: teGUI;),
+    // Chieftain
+    (FileName: 'character.legions_of_the_damned.chieftain.png';
+    ResType: teGUI;),
+    // Possessed
+    (FileName: 'character.legions_of_the_damned.possessed.png';
+    ResType: teGUI;),
+    // Cultist
+    (FileName: 'character.legions_of_the_damned.cultist.png'; ResType: teGUI;),
+    // Devil
+    (FileName: 'character.legions_of_the_damned.devil.png'; ResType: teGUI;),
+    // Black Dragon
+    (FileName: 'character.neutrals.black_dragon.png'; ResType: teGUI;),
+    // White Dragon
+    (FileName: 'character.white_dragon.png'; ResType: teGUI;),
+    // Red Dragon
+    (FileName: 'character.red_dragon.png'; ResType: teGUI;),
+    // Green Dragon
+    (FileName: 'character.neutrals.green_dragon.png'; ResType: teGUI;),
+    // Blue Dragon
+    (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
+    // Goblin
+    (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
+    // Goblin Archer
+    (FileName: 'character.neutrals.goblin_archer.png'; ResType: teGUI;),
+    // Goblin Elder
+    (FileName: 'character.neutrals.goblin_elder.png'; ResType: teGUI;),
+    // Black Goblin
+    (FileName: 'character.neutrals.black_goblin.png'; ResType: teGUI;),
+    // Goblin Rider
+    (FileName: 'character.neutrals.goblin_rider.png'; ResType: teGUI;),
+    // Giant Spider
+    (FileName: 'character.giant_spider.png'; ResType: teGUI;),
+    // Wolf
+    (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
+    // Dire Wolf
+    (FileName: 'character.neutrals.dire_wolf.png'; ResType: teGUI;),
+    // Spirit Wolf
+    (FileName: 'character.neutrals.spirit_wolf.png'; ResType: teGUI;),
+    // Polar Bear
+    (FileName: 'character.neutrals.polar_bear.png'; ResType: teGUI;),
+    // Brown Bear
+    (FileName: 'character.neutrals.brown_bear.png'; ResType: teGUI;),
+    // Black Bear
+    (FileName: 'character.neutrals.black_bear.png'; ResType: teGUI;),
+    // Orc
+    (FileName: 'character.neutrals.orc.png'; ResType: teGUI;),
+    // Ghost
+    (FileName: 'character.undead_hordes.ghost.png'; ResType: teGUI;),
+    // Imp
+    (FileName: 'character.neutrals.imp.png'; ResType: teGUI;),
+    // Ghoul
+    (FileName: 'character.neutrals.ghoul.png'; ResType: teGUI;),
+    // Gargoyle
+    (FileName: 'character.legions_of_the_damned.gargoyle.png'; ResType: teGUI;),
+    // Reaper
+    (FileName: 'character.neutrals.reaper.png'; ResType: teGUI;),
+    // Rogue
+    (FileName: 'character.neutrals.rogue.png'; ResType: teGUI;),
+    // Trog
+    (FileName: 'character.neutrals.trog.png'; ResType: teGUI;),
+    // Zombie
+    (FileName: 'character.neutrals.zombie.png'; ResType: teGUI;),
+    // Lizardman
+    (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
+    // Peasant
+    (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
+    // Ogre
+    (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
+    // Troll
+    (FileName: 'character.neutrals.troll.png'; ResType: teGUI;),
+    // Dark Elf
+    (FileName: 'character.neutrals.dark_elf.png'; ResType: teGUI;),
+    // Skeleton Warrior
+    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;)
+
     //
     );
 
@@ -955,6 +965,7 @@ type
 
 var
   ResImage: array [TResEnum] of TPNGImage;
+  CreatureResImage: array [TCreatureResEnum] of TPNGImage;
   SpellResImage: array [TSpellResEnum] of TPNGImage;
   ItemResImage: array [TItemResEnum] of TPNGImage;
   AbilityResImage: array [TAbilityResEnum] of TPNGImage;
@@ -1354,6 +1365,7 @@ var
   LResEnum: TResEnum;
   LMusicEnum: TMusicEnum;
   LPartyLevel: Integer;
+  LCreatureResEnum: TCreatureResEnum;
   LItemResEnum: TItemResEnum;
   LSpellResEnum: TSpellResEnum;
   LAbilityResEnum: TAbilityResEnum;
@@ -1385,6 +1397,14 @@ begin
       SpellResImage[LSpellResEnum].LoadFromFile(TResources.GetPath('resources')
         + SpellResBase[LSpellResEnum].FileName);
   end;
+  for LCreatureResEnum := Low(TCreatureResEnum) to High(TCreatureResEnum) do
+  begin
+    CreatureResImage[LCreatureResEnum] := TPNGImage.Create;
+    if (CreatureResBase[LCreatureResEnum].FileName <> '') then
+      CreatureResImage[LCreatureResEnum].LoadFromFile
+        (TResources.GetPath('resources') + CreatureResBase[LCreatureResEnum]
+        .FileName);
+  end;
   for LItemResEnum := Low(TItemResEnum) to High(TItemResEnum) do
   begin
     ItemResImage[LItemResEnum] := TPNGImage.Create;
@@ -1405,12 +1425,15 @@ end;
 procedure Free;
 var
   LResEnum: TResEnum;
+  LCreatureResEnum: TCreatureResEnum;
   LItemResEnum: TItemResEnum;
   LSpellResEnum: TSpellResEnum;
   LAbilityResEnum: TAbilityResEnum;
 begin
   for LResEnum := Low(TResEnum) to High(TResEnum) do
     FreeAndNil(ResImage[LResEnum]);
+  for LCreatureResEnum := Low(TCreatureResEnum) to High(TCreatureResEnum) do
+    FreeAndNil(CreatureResImage[LCreatureResEnum]);
   for LItemResEnum := Low(TItemResEnum) to High(TItemResEnum) do
     FreeAndNil(ItemResImage[LItemResEnum]);
   for LSpellResEnum := Low(TSpellResEnum) to High(TSpellResEnum) do
