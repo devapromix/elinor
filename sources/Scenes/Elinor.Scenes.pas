@@ -1261,8 +1261,7 @@ begin
         if Paralyze then
           LBGStat := bsParalyze;
         if HitPoints.IsMinCurrValue then
-          DrawImage(AX, AY, reDead)
-          // DrawUnit(reDead, AX, AY, LBGStat, 0, HitPoints.GetMaxValue)
+          DrawImage(AX + 7, AY + 7, reDead)
         else
           DrawUnit(ResEnum, AX, AY, LBGStat, HitPoints.GetCurrValue,
             HitPoints.GetMaxValue, AIsMirrorHorizontally);
