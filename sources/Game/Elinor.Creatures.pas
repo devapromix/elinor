@@ -294,7 +294,7 @@ type
     Ident: string;
     Faction: TFactionEnum;
     SubRace: TSubRaceEnum;
-    ResEnum: TResEnum;
+    ResEnum: TCreatureResEnum;
     Size: TCreatureSize;
     Name: array [0 .. 1] of string;
     Description: array [0 .. 2] of string;
@@ -373,7 +373,7 @@ uses
 const
   CreatureBase: array [TCreatureEnum] of TCreatureBase = (
     // None
-    (Ident: 'none'; Faction: faNeutrals; SubRace: reCustom; ResEnum: reNone;
+    (Ident: 'none'; Faction: faNeutrals; SubRace: reCustom; ResEnum: mrNone;
     Size: szSmall; Name: ('', ''); Description: ('', '', ''); HitPoints: 0;
     Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
@@ -382,7 +382,7 @@ const
     // The Empire
 {$REGION The Empire}
     // Myzrael
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reAngel; ResEnum: reMyzrael;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reAngel; ResEnum: mrMyzrael;
     Size: szSmall; Name: ('Myzrael', 'Myzrael');
     Description: ('Mizrael was sent to aid the',
     'Human Empire in their holy mission.',
@@ -392,7 +392,7 @@ const
     Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
     AbilityEnum: abNone; Rating: 0;),
     // Paladin
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: rePaladin;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrPaladin;
     Size: szSmall; Name: ('Paladin', 'Paladin');
     Description: ('The knight who rides a pegasus is a',
     'noble warrior, whose winged steed',
@@ -402,7 +402,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
     AttackEnum: atPaladinSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Ranger
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reRanger;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrRanger;
     Size: szSmall; Name: ('Ranger', 'Ranger');
     Description: ('Rangers travel swiftly and are well-',
     'versed in the kingdom, so the king of-',
@@ -412,7 +412,7 @@ const
     Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
     AttackEnum: atHunterBow; AbilityEnum: abTravelLore; Rating: 0;),
     // Archmage
-    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: reArchmage;
+    (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrArchmage;
     Size: szSmall; Name: ('Archmage', 'Archmage');
     Description: ('A master of magic, the Archmage is the',
     'only commander in the Empire who can', 'use scrolls and staves.');

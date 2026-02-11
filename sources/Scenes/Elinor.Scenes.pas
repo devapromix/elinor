@@ -138,7 +138,7 @@ type
     procedure DrawImage(AX, AY: Integer; ARes: TItemResEnum); overload;
     procedure RenderFrame(const APartySide: TPartySide;
       const APartyPosition, AX, AY: Integer; const F: Boolean = False);
-    procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+    procedure DrawUnit(ACreatureResEnum: TCreatureResEnum; const AX, AY: Integer;
       ABGStat: TBGStat); overload;
     procedure DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
       ABGStat: TBGStat; AHP, AMaxHP: Integer;
@@ -672,7 +672,7 @@ begin
   DrawImage(AX + 7, AY + 7, reBGAbility);
 end;
 
-procedure TScene.DrawUnit(AResEnum: TResEnum; const AX, AY: Integer;
+procedure TScene.DrawUnit(ACreatureResEnum: TCreatureResEnum; const AX, AY: Integer;
   ABGStat: TBGStat);
 begin
   case ABGStat of
@@ -683,7 +683,7 @@ begin
     bsParalyze:
       DrawImage(AX + 7, AY + 7, reBGParalyze);
   end;
-  DrawImage(AX + 7, AY + 7, AResEnum);
+  DrawImage(AX + 7, AY + 7, CreatureResImage[ACreatureResEnum]);
 end;
 
 // https://stackoverflow.com/questions/9975915/stretchdraw-on-tpngimage
