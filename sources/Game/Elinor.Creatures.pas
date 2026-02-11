@@ -996,7 +996,7 @@ begin
     Active := False;
     Paralyze := False;
     Enum := crNone;
-    ResEnum := reNone;
+    ResEnum := mrNone;
     for J := 0 to 1 do
       Name[J] := '';
     HitPoints.Clear;
