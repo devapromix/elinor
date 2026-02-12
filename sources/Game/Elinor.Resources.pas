@@ -798,21 +798,21 @@ const
 
     // GEMSTONES
     // Agate
-    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.agate.png'; ResType: teItem;),
     // Topaz
-    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.topaz.png'; ResType: teItem;),
     // Garnet
-    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.garnet.png'; ResType: teItem;),
     // Amethyst
-    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.amethyst.png'; ResType: teItem;),
     // Emerald
-    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.emerald.png'; ResType: teItem;),
     // Ruby
-    (FileName: 'item.valuable.ruby.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.ruby.png'; ResType: teItem;),
     // Saphire
-    (FileName: 'item.valuable.saphire.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.saphire.png'; ResType: teItem;),
     // Diamond
-    (FileName: 'item.valuable.diamond.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.diamond.png'; ResType: teItem;),
 
     // ARTIFACTS
     // Dwarven Bracer
