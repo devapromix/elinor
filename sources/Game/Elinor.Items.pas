@@ -111,8 +111,10 @@ type
     iStoneTab,
 
     // VALUABLES
-    iRunicKey, iArcaneScroll, iEmberSalts, iEmerald, iRuby, iSapphire, iDiamond,
-    iAncientRelic,
+    iRunicKey, iArcaneScroll, iEmberSalts, iAncientRelic,
+
+    // GEMSTONES
+    iTopaz, iGarnet, iAmethyst, iSapphire, iRuby, iEmerald, iDiamond,
 
     // POTIONS
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
@@ -303,32 +305,47 @@ const
     ItEffect: ieNone; ItSlot: isNone; ItRes: irEmberSalts; Price: 300;
     Description: 'Glowing embers crystallized into fine salts.' +
     ' Used in powerful alchemical rituals'),
-    // (4) Emerald
-    (Enum: iEmerald; Name: 'Emerald'; Level: 4; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; Price: 400;
-    Description: 'A vibrant green gem, expertly cut' +
-    ' and highly prized for its rich color'),
-    // (5) Ruby
-    (Enum: iRuby; Name: 'Ruby'; Level: 5; ItType: itValuable; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: irRuby; Price: 550;
-    Description: 'A fiery red gemstone that blazes with inner light.' +
-    ' Symbolizes passion and power in many cultures'),
-    // (6) Sapphire
-    (Enum: iSapphire; Name: 'Sapphire'; Level: 6; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irSaphire; Price: 750;
-    Description: 'Deep blue stone embodying the sea and sky,' +
-    ' prized for its royal beauty and mystique'),
-    // (7) Diamond
-    (Enum: iDiamond; Name: 'Diamond'; Level: 7; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; Price: 850;
-    Description
-    : 'The most precious of stones, a crystalline marvel of pure light.' +
-    ' Rare, unyielding, and incredibly valuable'),
-    // (8) Ancient Relic
-    (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 8; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irAncientRelic; Price: 1000;
+    // (4) Ancient Relic
+    (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 4; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAncientRelic; Price: 400;
     Description: 'An old and weathered object from a bygone age,' +
     ' holding secrets of the past'),
+
+    // GEMSTONES
+    // (2) Topaz
+    (Enum: iTopaz; Name: 'Topaz'; Level: 2; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irTopaz; Price: 200;
+    Description: 'Common yellow gemstone used ' +
+    'in simple jewelry and trade'),
+    // (3) Garnet
+    (Enum: iGarnet; Name: 'Garnet'; Level: 3; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irGarnet; Price: 350;
+    Description: 'Dark red stone valued for ' + 'durability and steady demand'),
+    // (4) Amethyst
+    (Enum: iAmethyst; Name: 'Amethyst'; Level: 4; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAmethyst; Price: 500;
+    Description: 'Purple crystal favored by ' + 'mages and collectors'),
+    // (5) Sapphire
+    (Enum: iSapphire; Name: 'Sapphire'; Level: 5; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irSapphire; Price: 650;
+    Description: 'Deep blue stone embodying the sea and sky,' +
+    ' prized for its royal beauty and mystique'),
+    // (6) Ruby
+    (Enum: iRuby; Name: 'Ruby'; Level: 6; ItType: itValuable; ItEffect: ieNone;
+    ItSlot: isNone; ItRes: irRuby; Price: 800;
+    Description: 'A fiery red gemstone that blazes with inner light.' +
+    ' Symbolizes passion and power in many cultures'),
+    // (7) Emerald
+    (Enum: iEmerald; Name: 'Emerald'; Level: 7; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; Price: 1000;
+    Description: 'A vibrant green gem, expertly cut' +
+    ' and highly prized for its rich color'),
+    // (8) Diamond
+    (Enum: iDiamond; Name: 'Diamond'; Level: 8; ItType: itValuable;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; Price: 1200;
+    Description: 'The most precious of stones, a ' +
+    'crystalline marvel of pure light.' +
+    ' Rare, unyielding, and incredibly valuable'),
 
     // POTIONS
     // (1) Life Potion
