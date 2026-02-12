@@ -51,7 +51,7 @@ uses
 // 10% lower prices from merchants and mercenaries
 
 type
-  TItemType = (itSpecial, itValuable,
+  TItemType = (itSpecial, itValuable, itGemstone,
     // Consumable
     itPotion, itElixir, itEssence, itFlask, itScroll,
     // Equipable
@@ -62,7 +62,7 @@ const
   CUseItemType = [itPotion, itOrb, itFlask, itTalisman];
 
 const
-  ItemTypeName: array [TItemType] of string = ('', 'valuable', 'potion',
+  ItemTypeName: array [TItemType] of string = ('', 'valuable', 'gem', 'potion',
     'elixir', 'essence', 'flask', 'scroll', 'ring', 'armor', 'artifact',
     'amulet', 'helm', 'staff', 'orb', 'talisman', 'boots', 'banner', 'book');
 
@@ -313,35 +313,35 @@ const
 
     // GEMSTONES
     // (2) Topaz
-    (Enum: iTopaz; Name: 'Topaz'; Level: 2; ItType: itValuable;
+    (Enum: iTopaz; Name: 'Topaz'; Level: 2; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irTopaz; Price: 200;
     Description: 'Common yellow gemstone used ' +
     'in simple jewelry and trade'),
     // (3) Garnet
-    (Enum: iGarnet; Name: 'Garnet'; Level: 3; ItType: itValuable;
+    (Enum: iGarnet; Name: 'Garnet'; Level: 3; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irGarnet; Price: 350;
     Description: 'Dark red stone valued for ' + 'durability and steady demand'),
     // (4) Amethyst
-    (Enum: iAmethyst; Name: 'Amethyst'; Level: 4; ItType: itValuable;
+    (Enum: iAmethyst; Name: 'Amethyst'; Level: 4; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irAmethyst; Price: 500;
     Description: 'Purple crystal favored by ' + 'mages and collectors'),
     // (5) Sapphire
-    (Enum: iSapphire; Name: 'Sapphire'; Level: 5; ItType: itValuable;
+    (Enum: iSapphire; Name: 'Sapphire'; Level: 5; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irSapphire; Price: 650;
     Description: 'Deep blue stone embodying the sea and sky,' +
     ' prized for its royal beauty and mystique'),
     // (6) Ruby
-    (Enum: iRuby; Name: 'Ruby'; Level: 6; ItType: itValuable; ItEffect: ieNone;
+    (Enum: iRuby; Name: 'Ruby'; Level: 6; ItType: itGemstone; ItEffect: ieNone;
     ItSlot: isNone; ItRes: irRuby; Price: 800;
     Description: 'A fiery red gemstone that blazes with inner light.' +
     ' Symbolizes passion and power in many cultures'),
     // (7) Emerald
-    (Enum: iEmerald; Name: 'Emerald'; Level: 7; ItType: itValuable;
+    (Enum: iEmerald; Name: 'Emerald'; Level: 7; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; Price: 1000;
     Description: 'A vibrant green gem, expertly cut' +
     ' and highly prized for its rich color'),
     // (8) Diamond
-    (Enum: iDiamond; Name: 'Diamond'; Level: 8; ItType: itValuable;
+    (Enum: iDiamond; Name: 'Diamond'; Level: 8; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; Price: 1200;
     Description: 'The most precious of stones, a ' +
     'crystalline marvel of pure light.' +
