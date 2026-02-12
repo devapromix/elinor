@@ -164,7 +164,12 @@ const
     // Golem Mastery
     (Enum: abGolemMastery; Name: 'Golem Mastery';
     Description: ('The leader can summon', 'golems'); Level: 5;
-    Leaders: MageLeaders; ResEnum: arNone;)
+    Leaders: MageLeaders; ResEnum: arNone;),
+    // Gemology
+    (Enum: abGolemMastery; Name: 'Gemology';
+    Description: ('Improves the leader’s ability to identify',
+    ' gemstones and increases their discovery rate'); Level: 2;
+    Leaders: ThiefLeaders; ResEnum: arGemology;)
     //
     );
 
