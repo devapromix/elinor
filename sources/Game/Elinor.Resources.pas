@@ -142,7 +142,7 @@ type
     // VALUABLES
     irRunicKey, irArcaneScroll, irEmberSalts, irAncientRelic,
     // GEMSTONES
-    irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire, irDiamond,
+    irAgate, irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire, irDiamond,
     // ARTIFACTS
     irDwarvenBracer, irRunestone, irHornOfAwareness, reItemIceCrystal,
     irSkullBracers, irLuteOfCharming, irSkullOfThanatos, irBethrezensClaw,
@@ -797,6 +797,8 @@ const
     (FileName: 'item.valuable.ancient_relic.png'; ResType: teItem;),
 
     // GEMSTONES
+    // Agate
+    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
     // Topaz
     (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
     // Garnet

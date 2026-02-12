@@ -114,7 +114,7 @@ type
     iRunicKey, iArcaneScroll, iEmberSalts, iAncientRelic,
 
     // GEMSTONES
-    iTopaz, iGarnet, iAmethyst, iSapphire, iRuby, iEmerald, iDiamond,
+    iAgate, iTopaz, iGarnet, iAmethyst, iSapphire, iRuby, iEmerald, iDiamond,
 
     // POTIONS
     iLifePotion, iPotionOfHealing, iPotionOfRestoration, iHealingOintment,
@@ -312,6 +312,10 @@ const
     ' holding secrets of the past'),
 
     // GEMSTONES
+    // (1) Agate
+    (Enum: iAgate; Name: 'Agate'; Level: 1; ItType: itGemstone;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAgate; Price: 100;
+    Description: 'Striped colorful gemstone, ' + 'popular in cheap jewelry'),
     // (2) Topaz
     (Enum: iTopaz; Name: 'Topaz'; Level: 2; ItType: itGemstone;
     ItEffect: ieNone; ItSlot: isNone; ItRes: irTopaz; Price: 200;
