@@ -129,7 +129,7 @@
         <DCCReference Include="Game\Elinor.Button.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Spellbook.pas"/>
         <DCCReference Include="Game\Elinor.MediaPlayer.pas"/>
-        <DCCReference Include="Elinor.PathFind.pas"/>
+        <DCCReference Include="Game\Elinor.PathFind.pas"/>
         <DCCReference Include="Game\Elinor.Spells.pas"/>
         <DCCReference Include="Game\Elinor.Treasure.pas"/>
         <DCCReference Include="Game\Elinor.Statistics.pas"/>
@@ -149,7 +149,7 @@
         <DCCReference Include="Scenes\Elinor.Scene.Base.Party.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Recruit.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Barracks.pas"/>
-        <DCCReference Include="Elinor.Spells.Types.pas"/>
+        <DCCReference Include="Game\Elinor.Spells.Types.pas"/>
         <DCCReference Include="Game\Elinor.Faction.pas"/>
         <DCCReference Include="Game\Elinor.Spellbook.pas"/>
         <DCCReference Include="Scenes\Elinor.Scene.Skills.pas"/>
