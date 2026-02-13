@@ -20,6 +20,11 @@
 			"faction": "neutrals",
 			"characters":"none,none,black-dragon,none,none,none"
 		},
+		{
+			"level": 9,
+			"faction": "neutrals",
+			"characters":"none,none,white-dragon,none,none,none"
+		},
 		
 		{
 			"level": 10,

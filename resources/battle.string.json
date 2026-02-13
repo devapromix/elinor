@@ -156,7 +156,13 @@
     "The paralysis has worn off."
   ],
   "": [
+	"%s attacks %s, dealing %d damage."
+  ],
+  "fire_breath": [
 	"%s attacks %s with fire breath, dealing %d damage."
+  ],
+  "ice_breath": [
+	"%s attacks %s with ice breath, dealing %d damage."
   ],
   "default_attack": [
     "%s attacks %s and deals %d damage."
