@@ -30,7 +30,7 @@ uses
   Elinor.MediaPlayer in 'Game\Elinor.MediaPlayer.pas',
   Elinor.PathFind in 'Elinor.PathFind.pas',
   Elinor.Spells in 'Game\Elinor.Spells.pas',
-  Elinor.Treasure in 'Elinor.Treasure.pas',
+  Elinor.Treasure in 'Game\Elinor.Treasure.pas',
   Elinor.Statistics in 'Game\Elinor.Statistics.pas',
   Elinor.Scene.Frames in 'Scenes\Elinor.Scene.Frames.pas',
   Elinor.MapObject in 'Game\Elinor.MapObject.pas',
