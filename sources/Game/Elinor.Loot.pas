@@ -46,7 +46,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Scenes,
   Elinor.Map,
   Elinor.Party,

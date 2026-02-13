@@ -38,7 +38,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Scenes,
   Elinor.Creature.Types,
   Elinor.Creatures,

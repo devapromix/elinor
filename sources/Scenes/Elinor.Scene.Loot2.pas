@@ -47,7 +47,6 @@ uses
   System.Math,
   System.Types,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Map,
   Elinor.Creatures,
   Elinor.Frame,

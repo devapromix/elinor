@@ -45,7 +45,6 @@ uses
   Elinor.Panel,
   Elinor.Resources,
   Elinor.Direction,
-  Elinor.Saga,
   Elinor.Scenario,
   DisciplesRL.Scene.Hire,
   Elinor.Party,

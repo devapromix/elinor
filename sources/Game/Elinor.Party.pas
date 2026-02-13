@@ -233,7 +233,6 @@ uses
   System.Math, dialogs,
   System.Classes,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Resources,
   Elinor.Scenes,
   Elinor.Scene.Settlement,

@@ -36,7 +36,6 @@ uses
   System.SysUtils,
   Elinor.Scene.Faction,
   DisciplesRL.Scene.Hire,
-  Elinor.Saga,
   Elinor.Creature.Types,
   Elinor.Ability,
   Elinor.Frame,

@@ -56,7 +56,6 @@ uses
   Vcl.Graphics,
   System.Math,
   Elinor.Frame,
-  Elinor.Saga,
   Elinor.Statistics,
   Elinor.Scene.Settlement;
 

@@ -179,8 +179,7 @@ var
 implementation
 
 uses
-  System.SysUtils, Dialogs,
-  Elinor.Saga,
+  System.SysUtils,  Dialogs,
   Elinor.Party,
   Elinor.Creature.Types,
   Elinor.Creatures,

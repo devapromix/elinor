@@ -28,9 +28,8 @@ implementation
 { TSceneDifficulty }
 
 uses
-  Math,
-  SysUtils,
-  Elinor.Saga,
+  System.Math,
+  System.SysUtils,
   Elinor.Frame,
   Elinor.Scene.Frames,
   Elinor.Scene.Faction,

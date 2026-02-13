@@ -57,7 +57,6 @@ implementation
 
 uses
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Scenario,
   Elinor.Map,
   Elinor.Creatures,

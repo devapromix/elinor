@@ -9,7 +9,6 @@ interface
 uses
   Vcl.Controls,
   System.Classes,
-  Elinor.Saga,
   Elinor.Scenario,
   Elinor.Creature.Types,
   Elinor.Creatures,
@@ -336,10 +335,10 @@ begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reFrameSlotActive].Width + 12;
   S := TLeaderThiefSpyVar(CurrentIndex);
-  AddTextLine(TSaga.SpyName[S], True);
+  // AddTextLine(TSaga.SpyName[S], True);
   AddTextLine;
-  for J := 0 to 4 do
-    AddTextLine(TSaga.SpyDescription[S][J]);
+  // for J := 0 to 4 do
+  // AddTextLine(TSaga.SpyDescription[S][J]);
   AddTextLine;
   AddTextLine;
   AddTextLine;
@@ -361,10 +360,10 @@ begin
   TextTop := SceneTop + 6;
   TextLeft := Lf + ResImage[reFrameSlotActive].Width + 12;
   S := TLeaderWarriorActVar(CurrentIndex);
-  AddTextLine(TSaga.WarName[S], True);
+  // AddTextLine(TSaga.WarName[S], True);
   AddTextLine;
-  for J := 0 to 4 do
-    AddTextLine(TSaga.WarDescription[S][J]);
+  // for J := 0 to 4 do
+  // AddTextLine(TSaga.WarDescription[S][J]);
   AddTextLine;
   AddTextLine;
   AddTextLine;
@@ -377,7 +376,6 @@ end;
 procedure TSceneHire.RenderButtons;
 begin
 end;
-
 
 { TSceneHire }
 

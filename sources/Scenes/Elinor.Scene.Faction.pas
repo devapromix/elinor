@@ -31,7 +31,6 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Faction,
-  Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
   Elinor.Scene.Leader,

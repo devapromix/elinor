@@ -25,7 +25,6 @@ uses
   DisciplesRL.Scene.Hire in 'Scenes\DisciplesRL.Scene.Hire.pas',
   Elinor.Scene.Battle2 in 'Scenes\Elinor.Scene.Battle2.pas',
   Elinor.Scene.Battle3 in 'Scenes\Elinor.Scene.Battle3.pas',
-  Elinor.Saga in 'Elinor.Saga.pas',
   Elinor.Button in 'Game\Elinor.Button.pas',
   Elinor.Scene.Spellbook in 'Scenes\Elinor.Scene.Spellbook.pas',
   Elinor.MediaPlayer in 'Game\Elinor.MediaPlayer.pas',

@@ -49,7 +49,6 @@ uses
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party2,
-  Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
   Elinor.Common;

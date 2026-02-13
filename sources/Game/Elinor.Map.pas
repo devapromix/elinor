@@ -91,7 +91,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Scenario,
   Elinor.Party,
   Elinor.Scenes,

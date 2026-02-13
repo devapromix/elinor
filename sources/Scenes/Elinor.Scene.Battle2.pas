@@ -88,7 +88,6 @@ uses
   System.Math, Dialogs,
   System.SysUtils,
   Elinor.Map,
-  Elinor.Saga,
   Elinor.Scenario,
   Elinor.Statistics,
   Elinor.Resources,
