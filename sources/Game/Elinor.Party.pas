@@ -174,7 +174,7 @@ type
     procedure Equip(const InventoryItemIndex: Integer);
     procedure Quaff(const AItemIndex: Integer; const APosition: TPosition);
     function UnEquip(const EquipmentItemIndex: Integer): Boolean;
-    function GetGold(const AGold: Integer): Integer;
+    function GetGoldCost(const AGold: Integer): Integer;
     property Invisibility: Boolean read FInvisibility write FInvisibility;
     function GetInvisibility: Boolean;
     procedure SetMaxMovementPoints;
@@ -1022,7 +1022,7 @@ begin
   Result := IfThen(CrEnum in MageLeaders, 2, 1);
 end;
 
-function TLeaderParty.GetGold(const AGold: Integer): Integer;
+function TLeaderParty.GetGoldCost(const AGold: Integer): Integer;
 begin
   Result := AGold;
   if Abilities.IsAbility(abTemplar) then
