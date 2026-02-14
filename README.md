@@ -73,7 +73,7 @@ of their gods.
 * A - Show list of learned leader abilities
 ![screenshot](https://github.com/devapromix/elinor/blob/master/screenshots/party.png)
 
-### 9. In inventory scene:
+### 9. In abilities scene:
 * Esc - Close scene
 
 ### 10. In inventory scene:

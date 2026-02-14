@@ -247,7 +247,7 @@ procedure TSceneMerchant.Render;
         + 42, reFrameItem);
     end;
 
-    AddTextLine('Inventory', True);
+    AddTextLine('Goods', True);
     AddTextLine('');
 
     for I := 0 to CMaxInventoryItems - 1 do
@@ -279,15 +279,20 @@ procedure TSceneMerchant.Render;
       AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
   end;
 
+  procedure DrawGold(const AValue: Integer);
+  begin
+    AddTextLine(Format('Gold %d', [AValue]), True);
+  end;
+
   procedure RenderMerchantItemDetails;
   var
     LItemEnum: TItemEnum;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(1) + 12;
-    AddTextLine('Gold', True);
+    DrawGold(Merchants.GetMerchant(CurrentMerchantType).Gold);
     AddTextLine('');
-    AddTextLine(IntToStr(Merchants.GetMerchant(CurrentMerchantType).Gold));
+    AddTextLine('');
     if MerchantSelectedItemPrice > 0 then
     begin
       LItemEnum := Merchants.GetMerchant(CurrentMerchantType)
@@ -315,9 +320,9 @@ procedure TSceneMerchant.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Gold', True);
+    DrawGold(Game.Gold.Value);
     AddTextLine('');
-    AddTextLine(IntToStr(Game.Gold.Value));
+    AddTextLine('');
     if LeaderSelectedItemPrice > 0 then
     begin
       LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum
