@@ -52,7 +52,8 @@ uses
   Elinor.Frame,
   Elinor.Creatures,
   Elinor.Items,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Ability;
 
 type
   TItemSectionEnum = (isParty, isEquipment, isInventory);
@@ -298,10 +299,13 @@ begin
   if (InventorySelItemIndex > -1) then
   begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
-    if LItemEnum = iNone then
+    if (LItemEnum = iNone) then
       Exit;
     if LItemEnum in CQuaffItems then
       ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
+    else if not TLeaderParty.Leader.Abilities.IsAbility(abTravelLore) and
+      (TItemBase.Item(LItemEnum).ItType = itBoots) then
+      InformDialog(CLeaderCannotWearShoes)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)
     else

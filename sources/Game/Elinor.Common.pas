@@ -82,6 +82,8 @@ const
   CYouThrewTheItem = 'You threw the %s!';
   CYouDidNotCompleteTheScenario =
     'You did not complete the scenario within the allotted days.';
+  CLeaderCannotWearShoes =
+    'Leader cannot equip magic shoes: requires Travel Lore ability!';
 
 implementation
 

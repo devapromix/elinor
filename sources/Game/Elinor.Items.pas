@@ -172,7 +172,7 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iElixirOfAccuracy];
+  CTestItems = [iBootsOfSpeed];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
