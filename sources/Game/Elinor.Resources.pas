@@ -119,7 +119,7 @@ type
     srConcealment, srChainsOfDread, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSorcery, arStelth, arSharpEye,
+  TAbilityResEnum = (arNone, arArcaneKnowledge, arSorcery, arStelth, arSharpEye,
     arUseStaffsAndScrolls, arArcaneLore, arHaggler, arDealmaker);
 
 type
@@ -939,6 +939,8 @@ const
   AbilityResBase: array [TAbilityResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teSpell;),
+    // Arcane Knowledge
+    (FileName: 'ability.arcane_knowledge.png'; ResType: teGUI;),
     // Sorcery
     (FileName: 'ability.sorcery.png'; ResType: teGUI;),
     // Stelth

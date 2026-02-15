@@ -305,11 +305,15 @@ begin
       ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
     else if TAbilities.CheckItemAbility(LItemEnum, itBoots, abTravelLore) then
       InformDialog(CLeaderCannotWearShoes)
+    else if TAbilities.CheckItemAbility(LItemEnum, itTome, abArcaneKnowledge) then
+      InformDialog(CLeaderCannotUseTomes)
     else if TAbilities.CheckItemAbility(LItemEnum, itOrb, abArcaneLore) then
       InformDialog(CLeaderCannotUseOrb)
-    else if TAbilities.CheckItemAbility(LItemEnum, itScroll, abUseStaffsAndScrolls) then
+    else if TAbilities.CheckItemAbility(LItemEnum, itScroll,
+      abUseStaffsAndScrolls) then
       InformDialog(CLeaderCannotReadScroll)
-    else if TAbilities.CheckItemAbility(LItemEnum, itWand, abUseStaffsAndScrolls) then
+    else if TAbilities.CheckItemAbility(LItemEnum, itWand, abUseStaffsAndScrolls)
+    then
       InformDialog(CLeaderCannotWearStaves)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)

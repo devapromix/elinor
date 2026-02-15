@@ -90,6 +90,8 @@ const
     'Leader cannot read magical scrolls: requires Use Staffs And Scrolls ability!';
   CLeaderCannotWearStaves =
     'Leader cannot equip magic wands: requires Use Staffs And Scrolls ability!';
+  CLeaderCannotUseTomes =
+    'Leader cannot use tomes: requires Arcane Knowledge ability!';
 
 implementation
 
