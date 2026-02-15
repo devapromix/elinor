@@ -4,7 +4,8 @@ interface
 
 uses
   Elinor.Creature.Types,
-  Elinor.Resources;
+  Elinor.Resources,
+  Elinor.Items;
 
 type
   TAbilityEnum = (abNone, abFlying, abStrength, abMight, abStealth, abSharpEye,
@@ -45,6 +46,8 @@ type
     class function Ability(const A: TAbilityEnum): TAbility; static;
     class function IsAbilityLeadership(const AAbilityEnum: TAbilityEnum)
       : Boolean; static;
+    class function CheckItemAbility(const AItemEnum: TItemEnum;
+      AItemType: TItemType; AAbilityEnum: TAbilityEnum): Boolean;
   end;
 
 implementation
@@ -54,6 +57,13 @@ uses
   System.SysUtils,
   Elinor.Ability.Base,
   Elinor.Party;
+
+class function TAbilities.CheckItemAbility(const AItemEnum: TItemEnum;
+  AItemType: TItemType; AAbilityEnum: TAbilityEnum): Boolean;
+begin
+  Result := not TLeaderParty.Leader.Abilities.IsAbility(AAbilityEnum) and
+    (TItemBase.Item(AItemEnum).ItType = AItemType)
+end;
 
 class function TAbilities.Ability(const A: TAbilityEnum): TAbility;
 begin
