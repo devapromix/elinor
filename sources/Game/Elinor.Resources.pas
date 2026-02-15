@@ -120,7 +120,8 @@ type
 
 type
   TAbilityResEnum = (arNone, arArcaneKnowledge, arSorcery, arStelth, arSharpEye,
-    arUseStaffsAndScrolls, arArcaneLore, arHaggler, arDealmaker);
+    arUseStaffsAndScrolls, arArcaneLore, arHaggler, arDealmaker,
+    arNaturalHealing);
 
 type
   TItemResEnum = (irNone,
@@ -954,7 +955,9 @@ const
     // Haggler
     (FileName: 'ability.haggler.png'; ResType: teGUI;),
     // Dealmaker
-    (FileName: 'ability.dealmaker.png'; ResType: teGUI;)
+    (FileName: 'ability.dealmaker.png'; ResType: teGUI;),
+    // Dealmaker
+    (FileName: 'ability.natural_healing.png'; ResType: teGUI;)
     //
     );
 
