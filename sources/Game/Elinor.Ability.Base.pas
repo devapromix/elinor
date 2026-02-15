@@ -33,7 +33,7 @@ const
     (Enum: abStealth; Name: 'Stealth';
     Description: ('The leader will secretly lead the',
     'detachment to any corner of Nevendaar'); Level: 1; Leaders: ThiefLeaders;
-    ResEnum: arNone;),
+    ResEnum: arStealth;),
     // Sharp Eye
     (Enum: abSharpEye; Name: 'Sharp Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 1;

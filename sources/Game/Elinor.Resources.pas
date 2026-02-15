@@ -120,7 +120,7 @@ type
 
 type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
-    arStelth, arSharpEye, arUseStaffsAndScrolls, arArcaneLore, arHaggler,
+    arStealth, arSharpEye, arUseStaffsAndScrolls, arArcaneLore, arHaggler,
     arDealmaker, arNaturalHealing);
 
 type
@@ -948,8 +948,8 @@ const
     (FileName: 'ability.arcane_knowledge.png'; ResType: teGUI;),
     // Sorcery
     (FileName: 'ability.sorcery.png'; ResType: teGUI;),
-    // Stelth
-    (FileName: 'ability.stelth.png'; ResType: teGUI;),
+    // Stealth
+    (FileName: 'ability.stealth.png'; ResType: teGUI;),
     // Sharp Eye
     (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
     // Use Staffs and Scrolls
