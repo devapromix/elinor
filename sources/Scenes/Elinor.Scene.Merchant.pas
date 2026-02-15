@@ -103,7 +103,7 @@ begin
     .Inventory.ItemEnum(MerchantSelItemIndex);
   if LItem = iNone then
     Exit;
-  LPrice := TItemBase.Item(LItem).Price;
+  LPrice := TMerchant.GetPrice(TItemBase.Item(LItem).Price);
   if Game.Gold.Value < LPrice then
   begin
     InformDialog(CNotEnoughGold);
@@ -353,12 +353,6 @@ procedure TSceneMerchant.Render;
       if ActiveSection = isInventory then
         AddTextLine('Press ENTER or CLICK item to sell');
     end;
-    { with TLeaderParty.Leader.Equipment.LHandSlotItem do
-      if (Enum <> iNone) and (ItRes <> irNone) then
-      begin
-      DrawImage(TextLeft + 30, TextTop + 25, ItemResImage[ItRes]);
-
-      end; }
   end;
 
   procedure RenderButtons;
