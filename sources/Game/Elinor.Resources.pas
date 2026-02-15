@@ -119,7 +119,8 @@ type
     srConcealment, srChainsOfDread, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore);
+  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore,
+    arHaggler, arDealmaker);
 
 type
   TItemResEnum = (irNone,
@@ -943,7 +944,11 @@ const
     // Use Staffs and Scrolls
     (FileName: 'ability.use_staffs_and_scrolls.png'; ResType: teGUI;),
     // Arcane Lore
-    (FileName: 'ability.arcane_lore.png'; ResType: teGUI;)
+    (FileName: 'ability.arcane_lore.png'; ResType: teGUI;),
+    // Haggler
+    (FileName: 'ability.haggler.png'; ResType: teGUI;),
+    // Dealmaker
+    (FileName: 'ability.dealmaker.png'; ResType: teGUI;)
     //
     );
 
