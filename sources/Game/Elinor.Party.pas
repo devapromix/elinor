@@ -737,7 +737,7 @@ begin
   with FCreature[APosition] do
     if Alive then
       if (ADamage > 0) then
-        Damage.ModifyCurrValue(ADamage);
+        Damage.ModifyCurrValue(ADamage, 1, 500);
 end;
 
 procedure TParty.UpdateHP(const AHitPoints: Integer;
