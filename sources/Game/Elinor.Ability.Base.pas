@@ -127,7 +127,7 @@ const
     // Sorcery
     (Enum: abSorcery; Name: 'Sorcery';
     Description: ('Allows the leader to cast spells', 'twice a day'); Level: 1;
-    Leaders: MageLeaders; ResEnum: arNone;),
+    Leaders: MageLeaders; ResEnum: arSorcery;),
     // Templar
     (Enum: abTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
