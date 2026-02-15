@@ -939,6 +939,8 @@ const
   AbilityResBase: array [TAbilityResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teSpell;),
+    // Stelth
+    (FileName: 'ability.stelth.png'; ResType: teGUI;),
     // Sharp Eye
     (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
     // Use Staffs and Scrolls
