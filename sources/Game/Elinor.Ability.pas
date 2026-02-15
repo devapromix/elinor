@@ -56,7 +56,8 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Ability.Base,
-  Elinor.Party;
+  Elinor.Party,
+  Elinor.Common;
 
 class function TAbilities.CheckItemAbility(const AItemEnum: TItemEnum;
   AItemType: TItemType; AAbilityEnum: TAbilityEnum): Boolean;
@@ -79,12 +80,21 @@ end;
 
 procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
 var
-  I: Integer;
+  I, LLeaderPosition, LDamage: Integer;
 begin
   for I := 0 to CMaxAbilities - 1 do
     if (FAbility[I].Enum = abNone) then
     begin
       FAbility[I] := AbilityBase[AAbilityEnum];
+      case AAbilityEnum of
+        abStrength:
+          begin
+            LLeaderPosition := TLeaderParty.GetPosition;
+            LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
+              .Damage.GetFullValue, 10);
+            TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
+          end;
+      end;
       Exit;
     end;
 end;

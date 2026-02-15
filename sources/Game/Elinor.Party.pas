@@ -83,6 +83,7 @@ type
     procedure Revive(const APosition: TPosition);
     procedure ReviveParty;
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
+    procedure UpdateDamage(const ADamage: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
     procedure UpdateLevel(const APosition: TPosition); virtual;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
@@ -728,6 +729,15 @@ var
 begin
   for LPosition := Low(TPosition) to High(TPosition) do
     TakeDamage(ADamage, LPosition);
+end;
+
+procedure TParty.UpdateDamage(const ADamage: Integer;
+  const APosition: TPosition);
+begin
+  with FCreature[APosition] do
+    if Alive then
+      if (ADamage > 0) then
+        Damage.ModifyCurrValue(ADamage);
 end;
 
 procedure TParty.UpdateHP(const AHitPoints: Integer;

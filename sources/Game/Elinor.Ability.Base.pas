@@ -24,7 +24,7 @@ const
     // Strength
     (Enum: abStrength; Name: 'Strength';
     Description: ('Adds 10% damage to the attack', 'of the fighter leader');
-    Level: 4; Leaders: FighterLeaders; ResEnum: arNone;),
+    Level: 4; Leaders: FighterLeaders; ResEnum: arStrength;),
     // Might
     (Enum: abMight; Name: 'Might';
     Description: ('Adds 15% damage to the attack', 'of the fighter leader');
