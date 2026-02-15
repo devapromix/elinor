@@ -86,6 +86,10 @@ const
     'Leader cannot equip magic shoes: requires Travel Lore ability!';
   CLeaderCannotUseOrb =
     'Leader cannot use magic orbs: requires Arcane Lore ability!';
+  CLeaderCannotReadScroll =
+    'Leader cannot read magical scrolls: requires Use Staffs And Scrolls ability!';
+  CLeaderCannotWearStaves =
+    'Leader cannot equip magic wands: requires Use Staffs And Scrolls ability!';
 
 implementation
 

@@ -307,6 +307,10 @@ begin
       InformDialog(CLeaderCannotWearShoes)
     else if TAbilities.CheckItemAbility(LItemEnum, itOrb, abArcaneLore) then
       InformDialog(CLeaderCannotUseOrb)
+    else if TAbilities.CheckItemAbility(LItemEnum, itScroll, abUseStaffsAndScrolls) then
+      InformDialog(CLeaderCannotReadScroll)
+    else if TAbilities.CheckItemAbility(LItemEnum, itWand, abUseStaffsAndScrolls) then
+      InformDialog(CLeaderCannotWearStaves)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)
     else
