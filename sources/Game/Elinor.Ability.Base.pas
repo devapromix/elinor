@@ -28,7 +28,7 @@ const
     // Might
     (Enum: abMight; Name: 'Might';
     Description: ('Adds 15% damage to the attack', 'of the fighter leader');
-    Level: 6; Leaders: FighterLeaders; ResEnum: arNone;),
+    Level: 6; Leaders: FighterLeaders; ResEnum: arMight;),
     // Stealth
     (Enum: abStealth; Name: 'Stealth';
     Description: ('The leader will secretly lead the',

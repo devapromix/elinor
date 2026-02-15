@@ -119,9 +119,9 @@ type
     srConcealment, srChainsOfDread, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arStrength, arArcaneKnowledge, arSorcery, arStelth, arSharpEye,
-    arUseStaffsAndScrolls, arArcaneLore, arHaggler, arDealmaker,
-    arNaturalHealing);
+  TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
+    arStelth, arSharpEye, arUseStaffsAndScrolls, arArcaneLore, arHaggler,
+    arDealmaker, arNaturalHealing);
 
 type
   TItemResEnum = (irNone,
@@ -942,6 +942,8 @@ const
     (FileName: ''; ResType: teSpell;),
     // Strength
     (FileName: 'ability.strength.png'; ResType: teGUI;),
+    // Might
+    (FileName: 'ability.might.png'; ResType: teGUI;),
     // Arcane Knowledge
     (FileName: 'ability.arcane_knowledge.png'; ResType: teGUI;),
     // Sorcery

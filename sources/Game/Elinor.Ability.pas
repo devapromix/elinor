@@ -94,6 +94,13 @@ begin
               .Damage.GetFullValue, 10);
             TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
           end;
+        abMight:
+          begin
+            LLeaderPosition := TLeaderParty.GetPosition;
+            LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
+              .Damage.GetFullValue, 15);
+            TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
+          end;
       end;
       Exit;
     end;
