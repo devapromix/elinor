@@ -84,6 +84,8 @@ const
     'You did not complete the scenario within the allotted days.';
   CLeaderCannotWearShoes =
     'Leader cannot equip magic shoes: requires Travel Lore ability!';
+  CLeaderCannotUseOrb =
+    'Leader cannot use magic orbs: requires Arcane Lore ability!';
 
 implementation
 

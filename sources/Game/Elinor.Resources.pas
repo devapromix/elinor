@@ -119,8 +119,8 @@ type
     srConcealment, srChainsOfDread, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore,
-    arHaggler, arDealmaker);
+  TAbilityResEnum = (arNone, arStelth, arSharpEye, arUseStaffsAndScrolls,
+    arArcaneLore, arHaggler, arDealmaker);
 
 type
   TItemResEnum = (irNone,

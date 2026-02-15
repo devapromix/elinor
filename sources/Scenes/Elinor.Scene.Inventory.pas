@@ -306,6 +306,9 @@ begin
     else if not TLeaderParty.Leader.Abilities.IsAbility(abTravelLore) and
       (TItemBase.Item(LItemEnum).ItType = itBoots) then
       InformDialog(CLeaderCannotWearShoes)
+    else if not TLeaderParty.Leader.Abilities.IsAbility(abArcaneLore) and
+      (TItemBase.Item(LItemEnum).ItType = itOrb) then
+      InformDialog(CLeaderCannotUseOrb)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)
     else
