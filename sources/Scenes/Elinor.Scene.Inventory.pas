@@ -305,7 +305,11 @@ begin
       ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
     else if TAbilities.CheckItemAbility(LItemEnum, itBoots, abTravelLore) then
       InformDialog(CLeaderCannotWearShoes)
-    else if TAbilities.CheckItemAbility(LItemEnum, itTome, abArcaneKnowledge) then
+    else if TAbilities.CheckItemAbility(LItemEnum, itArtifact, abArtifactLore)
+    then
+      InformDialog(CLeaderCannotUseArtifacts)
+    else if TAbilities.CheckItemAbility(LItemEnum, itTome, abArcaneKnowledge)
+    then
       InformDialog(CLeaderCannotUseTomes)
     else if TAbilities.CheckItemAbility(LItemEnum, itOrb, abArcaneLore) then
       InformDialog(CLeaderCannotUseOrb)

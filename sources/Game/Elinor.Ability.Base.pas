@@ -49,7 +49,7 @@ const
     // Artifact Lore
     (Enum: abArtifactLore; Name: 'Artifact Lore';
     Description: ('Allows the leader to wear rare', 'magical artifacts');
-    Level: 1; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 1; Leaders: AllLeaders; ResEnum: arArtifactLore;),
     // Banner Bearer
     (Enum: abBannerBearer; Name: 'Banner Bearer';
     Description: ('Allows the leader to carry', 'battle flags'); Level: 1;
