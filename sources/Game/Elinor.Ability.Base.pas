@@ -45,7 +45,7 @@ const
     // Far Sight
     (Enum: abFarSight; Name: 'Far Sight';
     Description: ('Allows the leader to see ', 'further'); Level: 5;
-    Leaders: AllLeaders; ResEnum: arNone;),
+    Leaders: AllLeaders; ResEnum: arFarSight;),
     // Artifact Lore
     (Enum: abArtifactLore; Name: 'Artifact Lore';
     Description: ('Allows the leader to wear rare', 'magical artifacts');
