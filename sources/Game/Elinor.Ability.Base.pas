@@ -41,7 +41,7 @@ const
     // Hawk Eye
     (Enum: abHawkEye; Name: 'Hawk Eye';
     Description: ('Allows the leader to see ', 'further'); Level: 3;
-    Leaders: ScoutingLeaders; ResEnum: arNone;),
+    Leaders: ScoutingLeaders; ResEnum: arHawkEye;),
     // Far Sight
     (Enum: abFarSight; Name: 'Far Sight';
     Description: ('Allows the leader to see ', 'further'); Level: 5;
@@ -118,7 +118,7 @@ const
     // Arcane Knowledge
     (Enum: abArcaneKnowledge; Name: 'Arcane Knowledge';
     Description: ('Allows the leader to read', 'magic books'); Level: 1;
-    Leaders: AllLeaders; ResEnum: arNone;),
+    Leaders: AllLeaders; ResEnum: arArcaneKnowledge;),
     // Arcane Lore
     (Enum: abArcaneLore; Name: 'Arcane Lore';
     Description: ('Allows the leader to take in hand',

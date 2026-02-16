@@ -120,7 +120,7 @@ type
 
 type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
-    arStealth, arSharpEye, arUseStaffsAndScrolls, arArcaneLore, arHaggler,
+    arStealth, arSharpEye, arHawkEye,arUseStaffsAndScrolls, arArcaneLore, arHaggler,
     arDealmaker, arNaturalHealing);
 
 type
@@ -952,6 +952,8 @@ const
     (FileName: 'ability.stealth.png'; ResType: teGUI;),
     // Sharp Eye
     (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
+    // Hawk Eye
+    (FileName: 'ability.hawk_eye.png'; ResType: teGUI;),
     // Use Staffs and Scrolls
     (FileName: 'ability.use_staffs_and_scrolls.png'; ResType: teGUI;),
     // Arcane Lore
@@ -960,7 +962,7 @@ const
     (FileName: 'ability.haggler.png'; ResType: teGUI;),
     // Dealmaker
     (FileName: 'ability.dealmaker.png'; ResType: teGUI;),
-    // Dealmaker
+    // Natural Healing
     (FileName: 'ability.natural_healing.png'; ResType: teGUI;)
     //
     );
