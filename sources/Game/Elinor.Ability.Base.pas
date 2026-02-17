@@ -20,7 +20,7 @@ const
     (Enum: abFlying; Name: 'Flying';
     Description: ('The skill allows the leader and',
     'his party to fly above the ground'); Level: 1; Leaders: FlyLeaders;
-    ResEnum: arNone;),
+    ResEnum: arFlying;),
     // Strength
     (Enum: abStrength; Name: 'Strength';
     Description: ('Adds 10% damage to the attack', 'of the fighter leader');
