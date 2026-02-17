@@ -122,7 +122,7 @@ type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
     arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
     arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
-    arBannerBearer, arFlying);
+    arBannerBearer, arFlying, arGemology);
 
 type
   TItemResEnum = (irNone,
@@ -972,7 +972,9 @@ const
     // Banner Bearer
     (FileName: 'ability.banner_bearer.png'; ResType: teGUI;),
     // Flying
-    (FileName: 'ability.flying.png'; ResType: teGUI;)
+    (FileName: 'ability.flying.png'; ResType: teGUI;),
+    // Gemology
+    (FileName: 'ability.gemology.png'; ResType: teGUI;)
     //
     );
 
