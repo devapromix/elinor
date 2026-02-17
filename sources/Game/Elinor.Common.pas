@@ -86,6 +86,8 @@ const
     'Leader cannot equip magic shoes: requires Travel Lore ability!';
   CLeaderCannotUseOrb =
     'Leader cannot use magic orbs: requires Arcane Lore ability!';
+  CLeaderCannotCarryBanner =
+    'Leader cannot carry battle flags: requires Banner Bearer ability!';
   CLeaderCannotReadScroll =
     'Leader cannot read magical scrolls: requires Use Staffs And Scrolls ability!';
   CLeaderCannotWearStaves =

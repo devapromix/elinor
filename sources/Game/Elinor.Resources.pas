@@ -121,7 +121,7 @@ type
 type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
     arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
-    arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight);
+    arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight, arBannerBearer);
 
 type
   TItemResEnum = (irNone,
@@ -967,7 +967,9 @@ const
     // Artifact Lore
     (FileName: 'ability.artifact_lore.png'; ResType: teGUI;),
     // Far Sight
-    (FileName: 'ability.far_sight.png'; ResType: teGUI;)
+    (FileName: 'ability.far_sight.png'; ResType: teGUI;),
+    // Banner Bearer
+    (FileName: 'ability.banner_bearer.png'; ResType: teGUI;)
     //
     );
 

@@ -53,7 +53,7 @@ const
     // Banner Bearer
     (Enum: abBannerBearer; Name: 'Banner Bearer';
     Description: ('Allows the leader to carry', 'battle flags'); Level: 1;
-    Leaders: AllLeaders; ResEnum: arNone;),
+    Leaders: AllLeaders; ResEnum: arBannerBearer;),
     // Travel Lore
     (Enum: abTravelLore; Name: 'Travel Lore';
     Description: ('Allows the leader to wear magic', 'shoes'); Level: 1;

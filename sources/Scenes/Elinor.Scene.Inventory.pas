@@ -313,6 +313,8 @@ begin
       InformDialog(CLeaderCannotUseTomes)
     else if TAbilities.CheckItemAbility(LItemEnum, itOrb, abArcaneLore) then
       InformDialog(CLeaderCannotUseOrb)
+    else if TAbilities.CheckItemAbility(LItemEnum, itBanner, abBannerBearer) then
+      InformDialog(CLeaderCannotCarryBanner)
     else if TAbilities.CheckItemAbility(LItemEnum, itScroll,
       abUseStaffsAndScrolls) then
       InformDialog(CLeaderCannotReadScroll)
