@@ -109,7 +109,8 @@ const
     // Arcane Power
     (Enum: abArcanePower; Name: 'Arcane Power';
     Description: ('Allows the leader to put on talismans',
-    'and use them in battle'); Level: 1; Leaders: AllLeaders; ResEnum: arNone;),
+    'and use them in battle'); Level: 1; Leaders: AllLeaders;
+    ResEnum: arArcanePower;),
     // Weapon Master
     (Enum: abWeaponMaster; Name: 'Weapon Master';
     Description: ('All the warriors in the party of the leader',

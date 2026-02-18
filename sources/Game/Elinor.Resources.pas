@@ -122,7 +122,8 @@ type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
     arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
     arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
-    arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership);
+    arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
+    arArcanePower);
 
 type
   TItemResEnum = (irNone,
@@ -990,7 +991,9 @@ const
     // Travel Lore
     (FileName: 'ability.travel_lore.png'; ResType: teGUI;),
     // Leadership
-    (FileName: 'ability.leadership.png'; ResType: teGUI;)
+    (FileName: 'ability.leadership.png'; ResType: teGUI;),
+    // Arcane Power
+    (FileName: 'ability.arcane_power.png'; ResType: teGUI;)
     //
     );
 
