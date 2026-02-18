@@ -57,7 +57,7 @@ const
     // Travel Lore
     (Enum: abTravelLore; Name: 'Travel Lore';
     Description: ('Allows the leader to wear magic', 'shoes'); Level: 1;
-    Leaders: AllLeaders; ResEnum: arNone;),
+    Leaders: AllLeaders; ResEnum: arTravelLore;),
     // Leadership #1
     (Enum: abLeadership1; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
