@@ -11,7 +11,6 @@ uses
   Elinor.Creature.Types,
   Elinor.Creatures,
   Elinor.Ability,
-  Elinor.Saga,
   Elinor.Spells,
   Elinor.Map,
   Elinor.Items,

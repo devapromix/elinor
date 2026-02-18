@@ -56,7 +56,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Frame,
   Elinor.Scene.Records;
 

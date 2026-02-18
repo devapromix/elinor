@@ -49,7 +49,6 @@ uses
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party2,
-  Elinor.Saga,
   Elinor.Frame,
   Elinor.Creatures,
   Elinor.Common;
@@ -104,7 +103,7 @@ begin
     .Inventory.ItemEnum(MerchantSelItemIndex);
   if LItem = iNone then
     Exit;
-  LPrice := TItemBase.Item(LItem).Price;
+  LPrice := TMerchant.GetPrice(TItemBase.Item(LItem).Price);
   if Game.Gold.Value < LPrice then
   begin
     InformDialog(CNotEnoughGold);
@@ -238,6 +237,8 @@ procedure TSceneMerchant.Render;
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(0) + 12;
 
+    DrawImage(TFrame.Col(1) + 190, TextTop + 6, reSmallFrame);
+
     case ActiveSection of
       isMerchant:
         DrawImage(TextLeft - 4,
@@ -248,7 +249,7 @@ procedure TSceneMerchant.Render;
         + 42, reFrameItem);
     end;
 
-    AddTextLine('Inventory', True);
+    AddTextLine('Goods', True);
     AddTextLine('');
 
     for I := 0 to CMaxInventoryItems - 1 do
@@ -262,6 +263,8 @@ procedure TSceneMerchant.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(2) + 12;
+
+    DrawImage(TFrame.Col(3) + 190, TextTop + 6, reSmallFrame);
 
     case ActiveSection of
       isInventory:
@@ -280,19 +283,35 @@ procedure TSceneMerchant.Render;
       AddTextLine(TLeaderParty.Leader.Inventory.ItemName(I));
   end;
 
+  procedure DrawGold(const AValue: Integer);
+  begin
+    AddTextLine(Format('Gold %d', [AValue]), True);
+  end;
+
+  procedure DrawItem(const ALeft, ATop: Integer; const AItemEnum: TItemEnum);
+  begin
+    with TItemBase.Item(AItemEnum) do
+      if (Enum <> iNone) and (ItRes <> irNone) then
+        DrawImage(ALeft + 15, ATop - 120, ItemResImage[ItRes]);
+  end;
+
   procedure RenderMerchantItemDetails;
   var
     LItemEnum: TItemEnum;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(1) + 12;
-    AddTextLine('Gold', True);
+    DrawGold(Merchants.GetMerchant(CurrentMerchantType).Gold);
     AddTextLine('');
-    AddTextLine(IntToStr(Merchants.GetMerchant(CurrentMerchantType).Gold));
+    AddTextLine('');
+    AddTextLine('');
+    AddTextLine('');
+    AddTextLine('');
     if MerchantSelectedItemPrice > 0 then
     begin
       LItemEnum := Merchants.GetMerchant(CurrentMerchantType)
         .Inventory.ItemEnum(MerchantSelItemIndex);
+      DrawItem(TextLeft + 190, TextTop + 6, LItemEnum);
       AddTextLine(TItemBase.Item(LItemEnum).Name, True);
       AddTextLine('');
       AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
@@ -301,10 +320,6 @@ procedure TSceneMerchant.Render;
       DrawText(TextLeft, TextTop, 300, TItemBase.Item(LItemEnum).Description);
       AddTextLine('');
       AddTextLine('');
-      AddTextLine('');
-      AddTextLine('');
-      AddTextLine('');
-
       if ActiveSection = isMerchant then
         AddTextLine('Press ENTER or CLICK item to buy');
     end;
@@ -316,22 +331,23 @@ procedure TSceneMerchant.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Gold', True);
+    DrawGold(Game.Gold.Value);
     AddTextLine('');
-    AddTextLine(IntToStr(Game.Gold.Value));
+    AddTextLine('');
+    AddTextLine('');
+    AddTextLine('');
+    AddTextLine('');
     if LeaderSelectedItemPrice > 0 then
     begin
       LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum
         (InventorySelItemIndex);
+      DrawItem(TextLeft + 190, TextTop + 6, LItemEnum);
       AddTextLine(TItemBase.Item(LItemEnum).Name, True);
       AddTextLine('');
       AddTextLine('Level', TItemBase.Item(LItemEnum).Level);
       AddTextLine('Price: ' + IntToStr(LeaderSelectedItemPrice));
       DrawItemDescription(LItemEnum);
       DrawText(TextLeft, TextTop, 300, TItemBase.Item(LItemEnum).Description);
-      AddTextLine('');
-      AddTextLine('');
-      AddTextLine('');
       AddTextLine('');
       AddTextLine('');
       if ActiveSection = isInventory then

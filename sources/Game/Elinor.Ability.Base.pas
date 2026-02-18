@@ -96,12 +96,12 @@ const
     (Enum: abDealmaker; Name: 'Dealmaker';
     Description: ('The owner of this ability',
     'receives a 10% discount from the merchant'); Level: 4; Leaders: AllLeaders;
-    ResEnum: arNone;),
+    ResEnum: arDealmaker;),
     // Haggler
     (Enum: abHaggler; Name: 'Haggler';
     Description: ('The owner of this ability',
     'receives a 15% discount from the merchant'); Level: 5;
-    Leaders: LordLeaders; ResEnum: arNone;),
+    Leaders: LordLeaders; ResEnum: arHaggler;),
     // Natural Armor
     (Enum: abNaturalArmor; Name: 'Natural Armor';
     Description: ('The leader will absorb 10% of ', 'damage dealt to him');

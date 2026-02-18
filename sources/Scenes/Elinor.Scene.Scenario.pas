@@ -30,7 +30,6 @@ implementation
 uses
   Math,
   SysUtils,
-  Elinor.Saga,
   Elinor.Scenario,
   Elinor.Frame,
   Elinor.Scene.Frames,

@@ -43,7 +43,6 @@ implementation
 uses
   System.Math,
   System.SysUtils,
-  Elinor.Saga,
   Elinor.Map,
   Elinor.Creatures,
   Elinor.Frame,

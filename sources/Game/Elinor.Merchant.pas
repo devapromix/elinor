@@ -27,6 +27,7 @@ type
     procedure ModifyGold(AAmount: Integer);
     procedure AddRandomItems(const AItemEnum: TItemEnum;
       const AMin, AMax: Integer);
+    class function GetPrice(const AValue: Integer): Integer;
   end;
 
   TPotionMerchant = class(TMerchant)
@@ -62,7 +63,10 @@ implementation
 
 uses
   System.Math,
-  System.SysUtils;
+  System.SysUtils,
+  Elinor.Party,
+  Elinor.Ability,
+  Elinor.Common;
 
 { TMerchant }
 
@@ -77,6 +81,16 @@ destructor TMerchant.Destroy;
 begin
   FreeAndNil(FInventory);
   inherited;
+end;
+
+class function TMerchant.GetPrice(const AValue: Integer): Integer;
+begin
+  if TLeaderParty.Leader.Abilities.IsAbility(abDealmaker) then
+    Result := AValue - Percent(AValue, 10)
+  else if TLeaderParty.Leader.Abilities.IsAbility(abHaggler) then
+    Result := AValue - Percent(AValue, 15)
+  else
+    Result := AValue;
 end;
 
 procedure TMerchant.AddRandomItems(const AItemEnum: TItemEnum;

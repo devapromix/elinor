@@ -367,7 +367,6 @@ uses
   System.SysUtils,
   Elinor.Ability.Base,
   Elinor.Party,
-  Elinor.Saga,
   Elinor.Scenes;
 
 const

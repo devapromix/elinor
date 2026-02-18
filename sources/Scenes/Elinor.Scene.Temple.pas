@@ -49,7 +49,6 @@ uses
   System.SysUtils,
   Elinor.Scene.Settlement,
   Elinor.Scene.Party2,
-  Elinor.Saga,
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Creatures,
@@ -131,7 +130,7 @@ procedure TSceneTemple.Heal;
         InformDialog(CNoHealingNeeded);
         Exit;
       end;
-      ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue -
+      ConfirmGold := TLeaderParty.Leader.GetGoldCost(HitPoints.GetMaxValue -
         HitPoints.GetCurrValue);
       if (ConfirmGold > Game.Gold.Value) then
       begin
@@ -250,7 +249,7 @@ procedure TSceneTemple.Revive;
       end
       else
       begin
-        ConfirmGold := TLeaderParty.Leader.GetGold(HitPoints.GetMaxValue +
+        ConfirmGold := TLeaderParty.Leader.GetGoldCost(HitPoints.GetMaxValue +
           (Level * ((Ord(Difficulty.Level) + 1) * CGoldForRevivePerLevel)));
         if (Game.Gold.Value < ConfirmGold) then
         begin

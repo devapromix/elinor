@@ -1182,7 +1182,6 @@ uses
 {$ENDIF}
   Math,
   SysUtils,
-  Elinor.Saga,
   Elinor.Creatures,
   Elinor.Party;
 
