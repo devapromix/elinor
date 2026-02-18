@@ -133,7 +133,7 @@ const
     (Enum: abTemplar; Name: 'Templar';
     Description: ('Allows the leader to heal and resurrect',
     'troops at half the cost'); Level: 1; Leaders: LordLeaders;
-    ResEnum: arNone;),
+    ResEnum: arTemplar;),
     // Mountaineering
     (Enum: abMountaineering; Name: 'Mountaineering';
     Description: ('The ability allows the leader to pave',

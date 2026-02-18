@@ -123,7 +123,7 @@ type
     arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
     arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
     arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
-    arArcanePower);
+    arArcanePower, arTemplar);
 
 type
   TItemResEnum = (irNone,
@@ -993,7 +993,9 @@ const
     // Leadership
     (FileName: 'ability.leadership.png'; ResType: teGUI;),
     // Arcane Power
-    (FileName: 'ability.arcane_power.png'; ResType: teGUI;)
+    (FileName: 'ability.arcane_power.png'; ResType: teGUI;),
+    // Templar
+    (FileName: 'ability.templar.png'; ResType: teGUI;)
     //
     );
 
