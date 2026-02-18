@@ -31,6 +31,7 @@ type
     procedure AddManaAt(const AX, AY: Integer);
     procedure AddItemAt(const AX, AY: Integer);
     procedure AddStoneTabAt(const AX, AY: Integer);
+    procedure AddGemAt(const AX, AY: Integer);
     function GetItemIndex(const AX, AY: Integer): Integer; overload;
     function GetItemIndex(const AX, AY, AIndex: Integer): Integer; overload;
     function GetLootItem(const AItemIndex: Integer): TLootItem; overload;
@@ -55,6 +56,28 @@ uses
 
 const
   CMaxLevel = 8;
+
+procedure TLoot.AddGemAt(const AX, AY: Integer);
+var
+  LLevel, LItemIndex: Integer;
+begin
+  if not Game.Map.InMap(AX, AY) then
+    Exit;
+  LLevel := EnsureRange(TMap.GetTileLevel(AX, AY), 1, CMaxLevel);
+  SetLength(FLootItem, Count() + 1);
+  with FLootItem[Count - 1] do
+  begin
+    X := AX;
+    Y := AY;
+    repeat
+      LItemIndex := RandomRange(1, TItemBase.Count);
+    until (TItemBase.Item(LItemIndex).Level <= LLevel) and
+      (TItemBase.Item(LItemIndex).ItType = itGemstone);
+    ItemEnum := TItemBase.Item(LItemIndex).Enum;
+    LootType := ltItem;
+    Amount := 1;
+  end;
+end;
 
 procedure TLoot.AddGoldAt(const AX, AY: Integer);
 var

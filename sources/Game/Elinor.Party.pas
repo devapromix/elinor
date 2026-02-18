@@ -1482,8 +1482,12 @@ begin
     Party[LPartyIndex].CanAttack := False;
     Loot.AddItemAt(AX, AY);
     Loot.AddItemAt(AX, AY);
+    Loot.AddGemAt(AX, AY);
   end;
   Loot.AddItemAt(AX, AY);
+  if (RandomRange(0, 2) = 0) and TLeaderParty.Leader.Abilities.IsAbility
+    (abGemology) then
+    Loot.AddGemAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddGoldAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
