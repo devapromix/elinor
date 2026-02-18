@@ -61,19 +61,19 @@ const
     // Leadership #1
     (Enum: abLeadership1; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 1; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 1; Leaders: AllLeaders; ResEnum: arLeadership;),
     // Leadership #2
     (Enum: abLeadership2; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 2; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 2; Leaders: AllLeaders; ResEnum: arLeadership;),
     // Leadership #3
     (Enum: abLeadership3; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 3; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 3; Leaders: AllLeaders; ResEnum: arLeadership;),
     // Leadership #4
     (Enum: abLeadership4; Name: 'Leadership';
     Description: ('Allows the leader to take a warrior', 'into the party');
-    Level: 4; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 4; Leaders: AllLeaders; ResEnum: arLeadership;),
     // Use Staffs And Scrolls
     (Enum: abUseStaffsAndScrolls; Name: 'Use Staffs And Scrolls';
     Description: ('Allows the leader to use ', 'magic staffs and scrolls');
@@ -168,8 +168,8 @@ const
     // Gemology
     (Enum: abGemology; Name: 'Gemology';
     Description: ('Improves the leader’s ability to identify',
-    ' gemstones and increases discovery rate'); Level: 2;
-    Leaders: ThiefLeaders; ResEnum: arGemology;)
+    ' gemstones and increases discovery rate'); Level: 2; Leaders: ThiefLeaders;
+    ResEnum: arGemology;)
     //
     );
 

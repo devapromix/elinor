@@ -122,7 +122,7 @@ type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
     arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
     arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
-    arBannerBearer, arFlying, arGemology, arTravelLore);
+    arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership);
 
 type
   TItemResEnum = (irNone,
@@ -144,7 +144,8 @@ type
     // VALUABLES
     irRunicKey, irArcaneScroll, irEmberSalts, irAncientRelic,
     // GEMSTONES
-    irAgate, irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire, irDiamond,
+    irAgate, irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire,
+    irDiamond,
     // ARTIFACTS
     irDwarvenBracer, irRunestone, irHornOfAwareness, reItemIceCrystal,
     irSkullBracers, irLuteOfCharming, irSkullOfThanatos, irBethrezensClaw,
@@ -985,9 +986,11 @@ const
     // Flying
     (FileName: 'ability.flying.png'; ResType: teGUI;),
     // Gemology
-    (FileName: 'ability.gemology.png'; ResType: teGUI;) ,
+    (FileName: 'ability.gemology.png'; ResType: teGUI;),
     // Travel Lore
-    (FileName: 'ability.travel_lore.png'; ResType: teGUI;)
+    (FileName: 'ability.travel_lore.png'; ResType: teGUI;),
+    // Leadership
+    (FileName: 'ability.leadership.png'; ResType: teGUI;)
     //
     );
 
