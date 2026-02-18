@@ -81,7 +81,7 @@ const
     // Accuracy
     (Enum: abAccuracy; Name: 'Accuracy';
     Description: ('Increases the leader''s chance to', 'hit the enemy');
-    Level: 6; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 6; Leaders: AllLeaders; ResEnum: arAccuracy;),
     // Pathfinding
     (Enum: abPathfinding; Name: 'Pathfinding';
     Description: ('Increases the distance that the',
