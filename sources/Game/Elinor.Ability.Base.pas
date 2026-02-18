@@ -91,7 +91,7 @@ const
     (Enum: abAdvancedPathfinding; Name: 'Advanced Pathfinding';
     Description: ('Increases the distance that the',
     'leader''s party can travel'); Level: 4; Leaders: ScoutingLeaders;
-    ResEnum: arNone;),
+    ResEnum: arAdvancedPathfinding;),
     // Dealmaker
     (Enum: abDealmaker; Name: 'Dealmaker';
     Description: ('The owner of this ability',
