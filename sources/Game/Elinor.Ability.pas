@@ -15,7 +15,7 @@ type
     abDealmaker, abHaggler, abNaturalArmor, abArcanePower, abWeaponMaster,
     abArcaneKnowledge, abArcaneLore, abSorcery, abTemplar, abMountaineering,
     abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics,
-    abGolemMastery);
+    abGolemMastery, abGemology);
 
 type
   TAbility = record

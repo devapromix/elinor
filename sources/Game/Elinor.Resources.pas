@@ -142,8 +142,9 @@ type
     irStoneRing, irBronzeRing, irSilverRing, irGoldRing, irRingOfStrength,
     irRingOfTheAges, irHagsRing, irThanatosRing,
     // VALUABLES
-    irRunicKey, irArcaneScroll, irEmberSalts, irEmerald, irRuby, irSaphire,
-    irDiamond, irAncientRelic,
+    irRunicKey, irArcaneScroll, irEmberSalts, irAncientRelic,
+    // GEMSTONES
+    irAgate, irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire, irDiamond,
     // ARTIFACTS
     irDwarvenBracer, irRunestone, irHornOfAwareness, reItemIceCrystal,
     irSkullBracers, irLuteOfCharming, irSkullOfThanatos, irBethrezensClaw,
@@ -794,16 +795,26 @@ const
     (FileName: 'item.valuable.arcane_scroll.png'; ResType: teItem;),
     // Ember Salts
     (FileName: 'item.valuable.ember_salts.png'; ResType: teItem;),
-    // Emerald
-    (FileName: 'item.valuable.emerald.png'; ResType: teItem;),
-    // Ruby
-    (FileName: 'item.valuable.ruby.png'; ResType: teItem;),
-    // Saphire
-    (FileName: 'item.valuable.saphire.png'; ResType: teItem;),
-    // Diamond
-    (FileName: 'item.valuable.diamond.png'; ResType: teItem;),
     // Ancient Relic
     (FileName: 'item.valuable.ancient_relic.png'; ResType: teItem;),
+
+    // GEMSTONES
+    // Agate
+    (FileName: 'item.gemstone.agate.png'; ResType: teItem;),
+    // Topaz
+    (FileName: 'item.gemstone.topaz.png'; ResType: teItem;),
+    // Garnet
+    (FileName: 'item.gemstone.garnet.png'; ResType: teItem;),
+    // Amethyst
+    (FileName: 'item.gemstone.amethyst.png'; ResType: teItem;),
+    // Emerald
+    (FileName: 'item.gemstone.emerald.png'; ResType: teItem;),
+    // Ruby
+    (FileName: 'item.gemstone.ruby.png'; ResType: teItem;),
+    // Saphire
+    (FileName: 'item.gemstone.saphire.png'; ResType: teItem;),
+    // Diamond
+    (FileName: 'item.gemstone.diamond.png'; ResType: teItem;),
 
     // ARTIFACTS
     // Dwarven Bracer
