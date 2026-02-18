@@ -86,7 +86,7 @@ const
     (Enum: abPathfinding; Name: 'Pathfinding';
     Description: ('Increases the distance that the',
     'leader''s party can travel'); Level: 1; Leaders: AllLeaders;
-    ResEnum: arNone;),
+    ResEnum: arPathfinding;),
     // Advanced Pathfinding
     (Enum: abAdvancedPathfinding; Name: 'Advanced Pathfinding';
     Description: ('Increases the distance that the',
