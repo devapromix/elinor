@@ -125,7 +125,7 @@ type
     arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
     arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy,
     arNaturalArmor, arWeaponMaster, arMountaineering, arForestry,
-    arGolemMastery);
+    arGolemMastery, arDoragorPower);
 
 type
   TItemResEnum = (irNone,
@@ -1013,7 +1013,9 @@ const
     // Forestry
     (FileName: 'ability.forestry.png'; ResType: teGUI;),
     // Golem Mastery
-    (FileName: 'ability.golem_mastery.png'; ResType: teGUI;)
+    (FileName: 'ability.golem_mastery.png'; ResType: teGUI;),
+    // Doragor Power
+    (FileName: 'ability.doragor_power.png'; ResType: teGUI;)
     //
     );
 

@@ -147,7 +147,7 @@ const
     // Doragor Power
     (Enum: abDoragorPower; Name: 'Doragor Power';
     Description: ('Allows the leader to cast spells', 'at a greater range');
-    Level: 4; Leaders: MageLeaders; ResEnum: arNone;),
+    Level: 4; Leaders: MageLeaders; ResEnum: arDoragorPower;),
     // Vampirism
     (Enum: abVampirism; Name: 'Vampirism';
     Description: ('The leader sucks out the life force', 'of his enemies');
