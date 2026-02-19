@@ -143,7 +143,7 @@ const
     (Enum: abForestry; Name: 'Forestry';
     Description: ('The party does not receive penalty when',
     'moving through forested areas'); Level: 2; Leaders: AllLeaders;
-    ResEnum: arNone;),
+    ResEnum: arForestry;),
     // Doragor Power
     (Enum: abDoragorPower; Name: 'Doragor Power';
     Description: ('Allows the leader to cast spells', 'at a greater range');
