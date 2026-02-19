@@ -123,7 +123,8 @@ type
     arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
     arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
     arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
-    arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy);
+    arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy,
+    arNaturalArmor);
 
 type
   TItemResEnum = (irNone,
@@ -1001,7 +1002,9 @@ const
     // Advanced Pathfinding
     (FileName: 'ability.advanced_pathfinding.png'; ResType: teGUI;),
     // Accuracy
-    (FileName: 'ability.accuracy.png'; ResType: teGUI;)
+    (FileName: 'ability.accuracy.png'; ResType: teGUI;),
+    // Natural Armor
+    (FileName: 'ability.natural_armor.png'; ResType: teGUI;)
     //
     );
 

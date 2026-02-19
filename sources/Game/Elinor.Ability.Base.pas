@@ -105,7 +105,7 @@ const
     // Natural Armor
     (Enum: abNaturalArmor; Name: 'Natural Armor';
     Description: ('The leader will absorb 10% of ', 'damage dealt to him');
-    Level: 6; Leaders: AllLeaders; ResEnum: arNone;),
+    Level: 6; Leaders: AllLeaders; ResEnum: arNaturalArmor;),
     // Arcane Power
     (Enum: abArcanePower; Name: 'Arcane Power';
     Description: ('Allows the leader to put on talismans',
