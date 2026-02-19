@@ -124,7 +124,7 @@ type
     arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
     arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
     arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy,
-    arNaturalArmor, arWeaponMaster);
+    arNaturalArmor, arWeaponMaster, arMountaineering);
 
 type
   TItemResEnum = (irNone,
@@ -1006,7 +1006,9 @@ const
     // Natural Armor
     (FileName: 'ability.natural_armor.png'; ResType: teGUI;),
     // Weapon Master
-    (FileName: 'ability.weapon_master.png'; ResType: teGUI;)
+    (FileName: 'ability.weapon_master.png'; ResType: teGUI;),
+    // Mountaineering
+    (FileName: 'ability.mountaineering.png'; ResType: teGUI;)
     //
     );
 

@@ -138,7 +138,7 @@ const
     (Enum: abMountaineering; Name: 'Mountaineering';
     Description: ('The ability allows the leader to pave',
     'the way through the mountains'); Level: 3; Leaders: AllLeaders;
-    ResEnum: arNone;),
+    ResEnum: arMountaineering;),
     // Forestry
     (Enum: abForestry; Name: 'Forestry';
     Description: ('The party does not receive penalty when',
