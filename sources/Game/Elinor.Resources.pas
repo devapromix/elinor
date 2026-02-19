@@ -125,7 +125,7 @@ type
     arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
     arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy,
     arNaturalArmor, arWeaponMaster, arMountaineering, arForestry,
-    arGolemMastery, arDoragorPower, arVampirism);
+    arGolemMastery, arDoragorPower, arVampirism, arLogistics);
 
 type
   TItemResEnum = (irNone,
@@ -1017,7 +1017,9 @@ const
     // Doragor Power
     (FileName: 'ability.doragor_power.png'; ResType: teGUI;),
     // Vampirism
-    (FileName: 'ability.vampirism.png'; ResType: teGUI;)
+    (FileName: 'ability.vampirism.png'; ResType: teGUI;),
+    // Logistics
+    (FileName: 'ability.logistics.png'; ResType: teGUI;)
     //
     );
 
