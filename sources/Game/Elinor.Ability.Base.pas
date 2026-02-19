@@ -115,7 +115,7 @@ const
     (Enum: abWeaponMaster; Name: 'Weapon Master';
     Description: ('All the warriors in the party of the leader',
     'will gain more experience'); Level: 4; Leaders: AllLeaders;
-    ResEnum: arNone;),
+    ResEnum: arWeaponMaster;),
     // Arcane Knowledge
     (Enum: abArcaneKnowledge; Name: 'Arcane Knowledge';
     Description: ('Allows the leader to read', 'magic books'); Level: 1;
