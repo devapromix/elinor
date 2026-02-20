@@ -68,13 +68,15 @@ type
       const APosition: TPosition): Boolean;
     function Dismiss(const APosition: TPosition): Boolean;
     procedure ReduceArmor(const APercent: Integer; const APosition: TPosition);
+    procedure IncreaseArmorPermanently(const APercent: Integer;
+      const APosition: TPosition);
     procedure Explosion(const ADamage: Integer; const APosition: TPosition);
     procedure IncreaseDamageTemp(const APercent: Integer;
       const APosition: TPosition);
     procedure IncreaseChancesToHitTemp(const APercent: Integer;
       const APosition: TPosition);
-    procedure IncreaseHitPointsPermanently(const APosition: TPosition);
     procedure IncreaseChancesToHitPermanently(const APosition: TPosition);
+    procedure IncreaseHitPointsPermanently(const APosition: TPosition);
     procedure Heal(const APosition: TPosition); overload;
     procedure Heal(const APosition: TPosition;
       const AHitPoints: Integer); overload;
@@ -278,6 +280,19 @@ begin
       end;
   end;
   CurPosition := ActPosition;
+end;
+
+procedure TParty.IncreaseArmorPermanently(const APercent: Integer;
+  const APosition: TPosition);
+var
+  LArmor: Integer;
+begin
+  with FCreature[APosition] do
+    if Alive then
+    begin
+      LArmor := Percent(Armor.GetCurrValue, APercent);
+      Armor.ModifyCurrValue(LArmor, 0, 250);
+    end;
 end;
 
 procedure TParty.IncreaseChancesToHitPermanently(const APosition: TPosition);
@@ -992,6 +1007,8 @@ begin
     Result := Result + 5;
   if Abilities.IsAbility(abAdvancedPathfinding) then
     Result := Result + 7;
+  if Abilities.IsAbility(abLogistics) then
+    Result := Result + 9;
   if LeaderGainsMoreMovePointsValue > 0 then
   begin
     LBonusMovePoints := (Result * LeaderGainsMoreMovePointsValue) div 10;
@@ -1009,8 +1026,6 @@ begin
     Result := CLeaderLordMaxSpeed
   else
     Result := CLeaderDefaultMaxSpeed;
-  if Abilities.IsAbility(abLogistics) then
-    Result := Result + 7;
 end;
 
 class function TLeaderParty.GetSpellCastingRange(const CrEnum

@@ -102,6 +102,8 @@ begin
           end;
         abAccuracy:
           TLeaderParty.Leader.IncreaseChancesToHitPermanently(LLeaderPosition);
+        abNaturalArmor:
+          TLeaderParty.Leader.IncreaseArmorPermanently(10, LLeaderPosition);
       end;
       Exit;
     end;
