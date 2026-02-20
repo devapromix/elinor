@@ -1009,6 +1009,8 @@ begin
     Result := CLeaderLordMaxSpeed
   else
     Result := CLeaderDefaultMaxSpeed;
+  if Abilities.IsAbility(abLogistics) then
+    Result := Result + 7;
 end;
 
 class function TLeaderParty.GetSpellCastingRange(const CrEnum
