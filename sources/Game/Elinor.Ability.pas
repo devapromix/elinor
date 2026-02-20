@@ -125,6 +125,8 @@ begin
 end;
 
 procedure TAbilities.GenRandomList;
+const
+  CRandomAbilityCount = 6;
 var
   I: Integer;
   LAbilityEnum: TAbilityEnum;
@@ -133,7 +135,7 @@ var
   var
     I: Integer;
   begin
-    for I := 0 to 5 do
+    for I := 0 to CRandomAbilityCount - 1 do
       RandomAbilityEnum[I] := abNone;
   end;
 
@@ -145,31 +147,33 @@ var
 
   function CheckAbilityLevel(const AAbilityEnum: TAbilityEnum): Boolean;
   begin
-    Result := (AbilityBase[AAbilityEnum].Level <= TLeaderParty.Leader.Level);
+    Result := AbilityBase[AAbilityEnum].Level <= TLeaderParty.Leader.Level;
   end;
 
   function IsRandomAbility(const AAbilityEnum: TAbilityEnum): Boolean;
   var
     I: Integer;
   begin
-    Result := False;
-    for I := 0 to 5 do
+    for I := 0 to CRandomAbilityCount - 1 do
       if AAbilityEnum = RandomAbilityEnum[I] then
-      begin
-        Result := True;
-        Exit;
-      end;
+        Exit(True);
+    Result := False;
+  end;
+
+  function IsValidAbility(const AAbilityEnum: TAbilityEnum): Boolean;
+  begin
+    Result := not IsAbility(AAbilityEnum) and not IsRandomAbility(AAbilityEnum)
+      and CheckAbilityLevel(AAbilityEnum) and
+      (TLeaderParty.Leader.Enum in AbilityBase[AAbilityEnum].Leaders);
   end;
 
 begin
   ClearRandomAbilities;
-  for I := 0 to 5 do
+  for I := 0 to CRandomAbilityCount - 1 do
   begin
     repeat
       LAbilityEnum := GetRandomAbility;
-    until not IsAbility(LAbilityEnum) and not IsRandomAbility(LAbilityEnum) and
-      CheckAbilityLevel(LAbilityEnum) and
-      (TLeaderParty.Leader.Enum in AbilityBase[LAbilityEnum].Leaders);
+    until IsValidAbility(LAbilityEnum);
     RandomAbilityEnum[I] := LAbilityEnum;
   end;
 end;
