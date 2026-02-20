@@ -86,21 +86,22 @@ begin
     if (FAbility[I].Enum = abNone) then
     begin
       FAbility[I] := AbilityBase[AAbilityEnum];
+      LLeaderPosition := TLeaderParty.GetPosition;
       case AAbilityEnum of
         abStrength:
           begin
-            LLeaderPosition := TLeaderParty.GetPosition;
             LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
               .Damage.GetFullValue, 10);
             TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
           end;
         abMight:
           begin
-            LLeaderPosition := TLeaderParty.GetPosition;
             LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
               .Damage.GetFullValue, 15);
             TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
           end;
+        abAccuracy:
+          TLeaderParty.Leader.IncreaseChancesToHitPermanently(LLeaderPosition);
       end;
       Exit;
     end;
