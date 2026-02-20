@@ -85,7 +85,7 @@ type
     procedure Revive(const APosition: TPosition);
     procedure ReviveParty;
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
-    procedure UpdateDamage(const ADamage: Integer; const APosition: TPosition);
+    procedure IncreaseDamagePermanently(const ADamage: Integer; const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
     procedure UpdateLevel(const APosition: TPosition); virtual;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
@@ -746,7 +746,7 @@ begin
     TakeDamage(ADamage, LPosition);
 end;
 
-procedure TParty.UpdateDamage(const ADamage: Integer;
+procedure TParty.IncreaseDamagePermanently(const ADamage: Integer;
   const APosition: TPosition);
 begin
   with FCreature[APosition] do

@@ -80,7 +80,7 @@ end;
 
 procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
 var
-  I, LLeaderPosition, LDamage: Integer;
+  I, LLeaderPosition, LDamage, LDamagePercent: Integer;
 begin
   for I := 0 to CMaxAbilities - 1 do
     if (FAbility[I].Enum = abNone) then
@@ -88,17 +88,13 @@ begin
       FAbility[I] := AbilityBase[AAbilityEnum];
       LLeaderPosition := TLeaderParty.GetPosition;
       case AAbilityEnum of
-        abStrength:
+        abStrength, abMight:
           begin
+            LDamagePercent := IfThen(AAbilityEnum = abStrength, 10, 15);
             LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
-              .Damage.GetFullValue, 10);
-            TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
-          end;
-        abMight:
-          begin
-            LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
-              .Damage.GetFullValue, 15);
-            TLeaderParty.Leader.UpdateDamage(LDamage, LLeaderPosition);
+              .Damage.GetFullValue, LDamagePercent);
+            TLeaderParty.Leader.IncreaseDamagePermanently(LDamage,
+              LLeaderPosition);
           end;
         abAccuracy:
           TLeaderParty.Leader.IncreaseChancesToHitPermanently(LLeaderPosition);
