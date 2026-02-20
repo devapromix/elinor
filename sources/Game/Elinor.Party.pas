@@ -1145,6 +1145,8 @@ begin
   LHitPoints := Leader.Creature[LPosition].HitPoints.GetMaxValue;
   Heal(LPosition, Percent(LHitPoints, EnsureRange(GetLeaderRegenerationValue,
     0, 100)));
+  if Abilities.IsAbility(abNaturalHealing) then
+    Heal(LPosition, Percent(LHitPoints, 10));
 end;
 
 class function TLeaderParty.GetLeaderRegenerationValue: Integer;
