@@ -179,7 +179,8 @@ var
 implementation
 
 uses
-  System.SysUtils,  Dialogs,
+  System.SysUtils, Dialogs,
+  Elinor.Ability,
   Elinor.Party,
   Elinor.Creature.Types,
   Elinor.Creatures,
@@ -192,8 +193,9 @@ type
 const
   SpellBase: TSpellBaseArray = (
     // None
-    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: srNone;
-    Faction: faNeutrals; SpellTarget: stNone; Description: '';),
+    (Name: ''; Level: 0; Mana: 0; RequireAbility: abNone; SoundEnum: mmBlock;
+    ResEnum: srNone; Faction: faNeutrals; SpellTarget: stNone;
+    Description: '';),
 
     // The Empire
     // True Healing

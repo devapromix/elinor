@@ -4,6 +4,7 @@ interface
 
 uses
   Elinor.Faction,
+  Elinor.Ability,
   Elinor.Resources;
 
 type
@@ -14,6 +15,7 @@ type
     Name: string;
     Level: Integer;
     Mana: Byte;
+    RequireAbility: TAbilityEnum;
     SoundEnum: TMusicEnum;
     ResEnum: TSpellResEnum;
     Faction: TFactionEnum;
