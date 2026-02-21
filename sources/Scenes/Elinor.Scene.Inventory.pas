@@ -303,9 +303,28 @@ begin
       Exit;
     if LItemEnum in CQuaffItems then
       ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
-    else if not TLeaderParty.Leader.Abilities.IsAbility(abTravelLore) and
-      (TItemBase.Item(LItemEnum).ItType = itBoots) then
+    else if TAbilities.CheckItemAbility(LItemEnum, itBoots, abTravelLore) then
       InformDialog(CLeaderCannotWearShoes)
+    else if TAbilities.CheckItemAbility(LItemEnum, itArtifact, abArtifactLore)
+    then
+      InformDialog(CLeaderCannotUseArtifacts)
+    else if TAbilities.CheckItemAbility(LItemEnum, itTome, abArcaneKnowledge)
+    then
+      InformDialog(CLeaderCannotUseTomes)
+    else if TAbilities.CheckItemAbility(LItemEnum, itOrb, abArcaneLore) then
+      InformDialog(CLeaderCannotUseOrb)
+    else if TAbilities.CheckItemAbility(LItemEnum, itTalisman, abArcanePower)
+    then
+      InformDialog(CLeaderCannotUseTalisman)
+    else if TAbilities.CheckItemAbility(LItemEnum, itBanner, abBannerBearer)
+    then
+      InformDialog(CLeaderCannotCarryBanner)
+    else if TAbilities.CheckItemAbility(LItemEnum, itScroll,
+      abUseStaffsAndScrolls) then
+      InformDialog(CLeaderCannotReadScroll)
+    else if TAbilities.CheckItemAbility(LItemEnum, itWand, abUseStaffsAndScrolls)
+    then
+      InformDialog(CLeaderCannotWearStaves)
     else if ActivePartyPosition = TLeaderParty.GetPosition then
       TLeaderParty.Leader.Equip(InventorySelItemIndex)
     else

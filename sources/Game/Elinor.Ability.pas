@@ -4,17 +4,18 @@ interface
 
 uses
   Elinor.Creature.Types,
-  Elinor.Resources;
+  Elinor.Resources,
+  Elinor.Items;
 
 type
-  TAbilityEnum = (abNone, abFlying, abStrength, abMight, abStealth, abSharpEye,
-    abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
-    abLeadership1, abLeadership2, abLeadership3, abLeadership4,
-    abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
-    abDealmaker, abHaggler, abNaturalArmor, abArcanePower, abWeaponMaster,
-    abArcaneKnowledge, abArcaneLore, abSorcery, abTemplar, abMountaineering,
-    abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics,
-    abGolemMastery, abGemology);
+  TAbilityEnum = (abNone, abFlying, abCombatTraining, abStrength, abMight,
+    abStealth, abSharpEye, abHawkEye, abFarSight, abArtifactLore,
+    abBannerBearer, abTravelLore, abLeadership1, abLeadership2, abLeadership3,
+    abLeadership4, abUseStaffsAndScrolls, abAccuracy, abPathfinding,
+    abAdvancedPathfinding, abDealmaker, abHaggler, abNaturalArmor,
+    abArcanePower, abWeaponMaster, abArcaneKnowledge, abArcaneLore, abSorcery,
+    abTemplar, abMountaineering, abForestry, abDoragorPower, abVampirism,
+    abNaturalHealing, abLogistics, abGolemMastery, abGemology);
 
 type
   TAbility = record
@@ -45,6 +46,8 @@ type
     class function Ability(const A: TAbilityEnum): TAbility; static;
     class function IsAbilityLeadership(const AAbilityEnum: TAbilityEnum)
       : Boolean; static;
+    class function CheckItemAbility(const AItemEnum: TItemEnum;
+      AItemType: TItemType; AAbilityEnum: TAbilityEnum): Boolean;
   end;
 
 implementation
@@ -53,7 +56,15 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Ability.Base,
-  Elinor.Party;
+  Elinor.Party,
+  Elinor.Common;
+
+class function TAbilities.CheckItemAbility(const AItemEnum: TItemEnum;
+  AItemType: TItemType; AAbilityEnum: TAbilityEnum): Boolean;
+begin
+  Result := not TLeaderParty.Leader.Abilities.IsAbility(AAbilityEnum) and
+    (TItemBase.Item(AItemEnum).ItType = AItemType)
+end;
 
 class function TAbilities.Ability(const A: TAbilityEnum): TAbility;
 begin
@@ -69,12 +80,28 @@ end;
 
 procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
 var
-  I: Integer;
+  I, LLeaderPosition, LDamage: Integer;
+const
+  CDamagePercent: array [abCombatTraining .. abMight] of Byte = (10, 15, 20);
 begin
   for I := 0 to CMaxAbilities - 1 do
     if (FAbility[I].Enum = abNone) then
     begin
       FAbility[I] := AbilityBase[AAbilityEnum];
+      LLeaderPosition := TLeaderParty.GetPosition;
+      case AAbilityEnum of
+        abCombatTraining, abStrength, abMight:
+          begin
+            LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
+              .Damage.GetFullValue, CDamagePercent[AAbilityEnum]);
+            TLeaderParty.Leader.IncreaseDamagePermanently(LDamage,
+              LLeaderPosition);
+          end;
+        abAccuracy:
+          TLeaderParty.Leader.IncreaseChancesToHitPermanently(LLeaderPosition);
+        abNaturalArmor:
+          TLeaderParty.Leader.IncreaseArmorPermanently(10, LLeaderPosition);
+      end;
       Exit;
     end;
 end;
@@ -99,6 +126,8 @@ begin
 end;
 
 procedure TAbilities.GenRandomList;
+const
+  CRandomAbilityCount = 6;
 var
   I: Integer;
   LAbilityEnum: TAbilityEnum;
@@ -107,7 +136,7 @@ var
   var
     I: Integer;
   begin
-    for I := 0 to 5 do
+    for I := 0 to CRandomAbilityCount - 1 do
       RandomAbilityEnum[I] := abNone;
   end;
 
@@ -119,31 +148,33 @@ var
 
   function CheckAbilityLevel(const AAbilityEnum: TAbilityEnum): Boolean;
   begin
-    Result := (AbilityBase[AAbilityEnum].Level <= TLeaderParty.Leader.Level);
+    Result := AbilityBase[AAbilityEnum].Level <= TLeaderParty.Leader.Level;
   end;
 
   function IsRandomAbility(const AAbilityEnum: TAbilityEnum): Boolean;
   var
     I: Integer;
   begin
-    Result := False;
-    for I := 0 to 5 do
+    for I := 0 to CRandomAbilityCount - 1 do
       if AAbilityEnum = RandomAbilityEnum[I] then
-      begin
-        Result := True;
-        Exit;
-      end;
+        Exit(True);
+    Result := False;
+  end;
+
+  function IsValidAbility(const AAbilityEnum: TAbilityEnum): Boolean;
+  begin
+    Result := not IsAbility(AAbilityEnum) and not IsRandomAbility(AAbilityEnum)
+      and CheckAbilityLevel(AAbilityEnum) and
+      (TLeaderParty.Leader.Enum in AbilityBase[AAbilityEnum].Leaders);
   end;
 
 begin
   ClearRandomAbilities;
-  for I := 0 to 5 do
+  for I := 0 to CRandomAbilityCount - 1 do
   begin
     repeat
       LAbilityEnum := GetRandomAbility;
-    until not IsAbility(LAbilityEnum) and not IsRandomAbility(LAbilityEnum) and
-      CheckAbilityLevel(LAbilityEnum) and
-      (TLeaderParty.Leader.Enum in AbilityBase[LAbilityEnum].Leaders);
+    until IsValidAbility(LAbilityEnum);
     RandomAbilityEnum[I] := LAbilityEnum;
   end;
 end;
