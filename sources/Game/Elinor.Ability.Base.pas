@@ -21,13 +21,18 @@ const
     Description: ('The skill allows the leader and',
     'his party to fly above the ground'); Level: 1; Leaders: FlyLeaders;
     ResEnum: arFlying;),
+    // Combat Training
+    (Enum: abCombatTraining; Name: 'Combat Training';
+    Description: ('Basic combat training that',
+    'improves overall damage by 10%'); Level: 3; Leaders: AllLeaders;
+    ResEnum: arCombatTraining;),
     // Strength
     (Enum: abStrength; Name: 'Strength';
-    Description: ('Adds 10% damage to the attack', 'of the fighter leader');
+    Description: ('Adds 15% damage to the attack', 'of the fighter leader');
     Level: 4; Leaders: FighterLeaders; ResEnum: arStrength;),
     // Might
     (Enum: abMight; Name: 'Might';
-    Description: ('Adds 15% damage to the attack', 'of the fighter leader');
+    Description: ('Adds 20% damage to the attack', 'of the fighter leader');
     Level: 6; Leaders: FighterLeaders; ResEnum: arMight;),
     // Stealth
     (Enum: abStealth; Name: 'Stealth';

@@ -8,14 +8,14 @@ uses
   Elinor.Items;
 
 type
-  TAbilityEnum = (abNone, abFlying, abStrength, abMight, abStealth, abSharpEye,
-    abHawkEye, abFarSight, abArtifactLore, abBannerBearer, abTravelLore,
-    abLeadership1, abLeadership2, abLeadership3, abLeadership4,
-    abUseStaffsAndScrolls, abAccuracy, abPathfinding, abAdvancedPathfinding,
-    abDealmaker, abHaggler, abNaturalArmor, abArcanePower, abWeaponMaster,
-    abArcaneKnowledge, abArcaneLore, abSorcery, abTemplar, abMountaineering,
-    abForestry, abDoragorPower, abVampirism, abNaturalHealing, abLogistics,
-    abGolemMastery, abGemology);
+  TAbilityEnum = (abNone, abFlying, abCombatTraining, abStrength, abMight,
+    abStealth, abSharpEye, abHawkEye, abFarSight, abArtifactLore,
+    abBannerBearer, abTravelLore, abLeadership1, abLeadership2, abLeadership3,
+    abLeadership4, abUseStaffsAndScrolls, abAccuracy, abPathfinding,
+    abAdvancedPathfinding, abDealmaker, abHaggler, abNaturalArmor,
+    abArcanePower, abWeaponMaster, abArcaneKnowledge, abArcaneLore, abSorcery,
+    abTemplar, abMountaineering, abForestry, abDoragorPower, abVampirism,
+    abNaturalHealing, abLogistics, abGolemMastery, abGemology);
 
 type
   TAbility = record
@@ -80,7 +80,9 @@ end;
 
 procedure TAbilities.Add(const AAbilityEnum: TAbilityEnum);
 var
-  I, LLeaderPosition, LDamage, LDamagePercent: Integer;
+  I, LLeaderPosition, LDamage: Integer;
+const
+  CDamagePercent: array [abCombatTraining .. abMight] of Byte = (10, 15, 20);
 begin
   for I := 0 to CMaxAbilities - 1 do
     if (FAbility[I].Enum = abNone) then
@@ -88,11 +90,10 @@ begin
       FAbility[I] := AbilityBase[AAbilityEnum];
       LLeaderPosition := TLeaderParty.GetPosition;
       case AAbilityEnum of
-        abStrength, abMight:
+        abCombatTraining, abStrength, abMight:
           begin
-            LDamagePercent := IfThen(AAbilityEnum = abStrength, 10, 15);
             LDamage := Percent(TLeaderParty.Leader.Creature[LLeaderPosition]
-              .Damage.GetFullValue, LDamagePercent);
+              .Damage.GetFullValue, CDamagePercent[AAbilityEnum]);
             TLeaderParty.Leader.IncreaseDamagePermanently(LDamage,
               LLeaderPosition);
           end;

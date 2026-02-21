@@ -125,7 +125,7 @@ type
     arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
     arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy,
     arNaturalArmor, arWeaponMaster, arMountaineering, arForestry,
-    arGolemMastery, arDoragorPower, arVampirism, arLogistics);
+    arGolemMastery, arDoragorPower, arVampirism, arLogistics, arCombatTraining);
 
 type
   TItemResEnum = (irNone,
@@ -1019,7 +1019,9 @@ const
     // Vampirism
     (FileName: 'ability.vampirism.png'; ResType: teGUI;),
     // Logistics
-    (FileName: 'ability.logistics.png'; ResType: teGUI;)
+    (FileName: 'ability.logistics.png'; ResType: teGUI;),
+    // Combat Training
+    (FileName: 'ability.combat_training.png'; ResType: teGUI;)
     //
     );
 
