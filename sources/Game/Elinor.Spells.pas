@@ -10,11 +10,12 @@ uses
 type
   TSpellEnum = (spNone,
     // The Empire Spellbook
-    spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye, spStrength,
+    spTrueHealing, spSpeed, spBless, spLivingArmor, spStoneGolem, spEagleEye,
+    spStrength,
     // Undead Hordes Spellbook
-    spPlague, spCurse, spSkeletion,
+    spPlague, spCurse, spSkeletion, spBoneGolem,
     // Legions of the Damned Spellbook
-    spConcealment, spChainsOfDread, spWeaken
+    spConcealment, spChainsOfDread, spWeaken, spFireGolem
     //
     );
   // enum class SpellType
@@ -101,6 +102,14 @@ type
   end;
 
 type
+  TStoneGolemSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
   TPlagueSpell = class(TSpell)
   public
     constructor Create;
@@ -118,6 +127,14 @@ type
 
 type
   TSkeletionSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
+  TBoneGolemSpell = class(TSpell)
   public
     constructor Create;
   protected
@@ -165,8 +182,15 @@ type
   end;
 
 type
-
   TStrengthSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
+  TFireGolemSpell = class(TSpell)
   public
     constructor Create;
   protected
@@ -179,7 +203,8 @@ var
 implementation
 
 uses
-  System.SysUtils,  Dialogs,
+  System.SysUtils, Dialogs,
+  Elinor.Ability,
   Elinor.Party,
   Elinor.Creature.Types,
   Elinor.Creatures,
@@ -192,62 +217,79 @@ type
 const
   SpellBase: TSpellBaseArray = (
     // None
-    (Name: ''; Level: 0; Mana: 0; SoundEnum: mmBlock; ResEnum: srNone;
-    Faction: faNeutrals; SpellTarget: stNone; Description: '';),
+    (Name: ''; Level: 0; Mana: 0; RequireAbility: abNone; SoundEnum: mmBlock;
+    ResEnum: srNone; Faction: faNeutrals; SpellTarget: stNone;
+    Description: '';),
 
     // The Empire
     // True Healing
-    (Name: 'True Healing'; Level: 1; Mana: 15; Gold: 100; SoundEnum: mmHeal;
-    ResEnum: srTrueHealing; Faction: faTheEmpire; SpellTarget: stLeader;
-    Description: 'Replenishes lost HP';),
+    (Name: 'True Healing'; Level: 1; Mana: 15; RequireAbility: abNone;
+    SoundEnum: mmHeal; ResEnum: srTrueHealing; Faction: faTheEmpire;
+    SpellTarget: stLeader; Description: 'Replenishes lost HP';),
     // Speed
-    (Name: 'Speed'; Level: 1; Mana: 25; Gold: 100; SoundEnum: mmHeal;
-    ResEnum: srSpeed; Faction: faTheEmpire; SpellTarget: stLeader;
-    Description: '';),
+    (Name: 'Speed'; Level: 1; Mana: 25; RequireAbility: abNone;
+    SoundEnum: mmHeal; ResEnum: srSpeed; Faction: faTheEmpire;
+    SpellTarget: stLeader; Description: '';),
     // Bless
-    (Name: 'Bless'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmHeal;
-    ResEnum: srBless; Faction: faTheEmpire; SpellTarget: stLeader;
-    Description: '';),
+    (Name: 'Bless'; Level: 1; Mana: 5; RequireAbility: abNone;
+    SoundEnum: mmHeal; ResEnum: srBless; Faction: faTheEmpire;
+    SpellTarget: stLeader; Description: '';),
     // Summon: Living Armor
-    (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; Gold: 100;
+    (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; RequireAbility: abNone;
     SoundEnum: mmAttack; ResEnum: srLivingArmor; Faction: faTheEmpire;
     SpellTarget: stEnemy; Description: 'Summons a Living Armor';),
+    // Summon: Stone Golem
+    (Name: 'Summon: Stone Golem'; Level: 1; Mana: 40;
+    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    ResEnum: srStoneGolem; Faction: faTheEmpire; SpellTarget: stEnemy;
+    Description: 'Summons a Stone Golem';),
     // Eagle Eye
-    (Name: 'Eagle Eye'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmHeal;
-    ResEnum: srEagleEye; Faction: faTheEmpire; SpellTarget: stLeader;
-    Description: 'Allows the leader to see further';),
+    (Name: 'Eagle Eye'; Level: 1; Mana: 5; RequireAbility: abNone;
+    SoundEnum: mmHeal; ResEnum: srEagleEye; Faction: faTheEmpire;
+    SpellTarget: stLeader; Description: 'Allows the leader to see further';),
     // Strength
-    (Name: 'Strength'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmHeal;
-    ResEnum: srStrength; Faction: faTheEmpire; SpellTarget: stLeader;
-    Description: 'Increases damage by 20%';),
+    (Name: 'Strength'; Level: 1; Mana: 5; RequireAbility: abNone;
+    SoundEnum: mmHeal; ResEnum: srStrength; Faction: faTheEmpire;
+    SpellTarget: stLeader; Description: 'Increases damage by 20%';),
 
     // Undead Hordes
     // Plague
-    (Name: 'Plague'; Level: 1; Mana: 20; Gold: 100; SoundEnum: mmPlague;
-    ResEnum: srPlague; Faction: faUndeadHordes; SpellTarget: stEnemy;
-    Description: '';),
+    (Name: 'Plague'; Level: 1; Mana: 20; RequireAbility: abNone;
+    SoundEnum: mmPlague; ResEnum: srPlague; Faction: faUndeadHordes;
+    SpellTarget: stEnemy; Description: '';),
     // Curse
-    (Name: 'Curse'; Level: 1; Mana: 5; Gold: 100; SoundEnum: mmPlague;
-    ResEnum: srCurse; Faction: faUndeadHordes; SpellTarget: stEnemy;
-    Description: '';),
+    (Name: 'Curse'; Level: 1; Mana: 5; RequireAbility: abNone;
+    SoundEnum: mmPlague; ResEnum: srCurse; Faction: faUndeadHordes;
+    SpellTarget: stEnemy; Description: '';),
     // Summon: Skeleton Warrior
-    (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25; Gold: 100;
-    SoundEnum: mmRaiseDead; ResEnum: srSkeletion; Faction: faUndeadHordes;
-    SpellTarget: stEnemy; Description: 'Summons a Skeleton';),
+    (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25;
+    RequireAbility: abNone; SoundEnum: mmRaiseDead; ResEnum: srSkeletion;
+    Faction: faUndeadHordes; SpellTarget: stEnemy;
+    Description: 'Summons a Skeleton';),
+    // Summon: Bone Golem
+    (Name: 'Summon: Bone Golem'; Level: 1; Mana: 45;
+    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    ResEnum: srBoneGolem; Faction: faUndeadHordes; SpellTarget: stEnemy;
+    Description: 'Summons a Bone Golem';),
 
     // Legions of the Damned
     // Concealment
-    (Name: 'Concealment'; Level: 1; Mana: 20; Gold: 100;
+    (Name: 'Concealment'; Level: 1; Mana: 20; RequireAbility: abNone;
     SoundEnum: mmInvisibility; ResEnum: srConcealment;
     Faction: faLegionsOfTheDamned; SpellTarget: stLeader; Description: '';),
     // Chains Of Dread
-    (Name: 'Chains Of Dread'; Level: 1; Mana: 2; Gold: 100;
+    (Name: 'Chains Of Dread'; Level: 1; Mana: 2; RequireAbility: abNone;
     SoundEnum: mmInvisibility; ResEnum: srChainsOfDread;
     Faction: faLegionsOfTheDamned; SpellTarget: stEnemy; Description: '';),
     // Weaken
-    (Name: 'Weaken'; Level: 1; Mana: 2; Gold: 100; SoundEnum: mmInvisibility;
-    ResEnum: srWeaken; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;
-    Description: '';)
+    (Name: 'Weaken'; Level: 1; Mana: 2; RequireAbility: abNone;
+    SoundEnum: mmInvisibility; ResEnum: srWeaken; Faction: faLegionsOfTheDamned;
+    SpellTarget: stEnemy; Description: '';),
+    // Summon: Fire Golem
+    (Name: 'Summon: Fire Golem'; Level: 1; Mana: 42;
+    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    ResEnum: srFireGolem; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;
+    Description: 'Summons a Fire Golem';)
     //
     );
 
@@ -388,14 +430,17 @@ begin
   FSpell[spSpeed] := TSpeedSpell.Create;
   FSpell[spBless] := TBlessSpell.Create;
   FSpell[spLivingArmor] := TLivingArmorSpell.Create;
+  FSpell[spStoneGolem] := TStoneGolemSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spCurse] := TCurseSpell.Create;
   FSpell[spSkeletion] := TSkeletionSpell.Create;
+  FSpell[spBoneGolem] := TBoneGolemSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
   FSpell[spWeaken] := TWeakenSpell.Create;
   FSpell[spEagleEye] := TEagleEyeSpell.Create;
   FSpell[spStrength] := TStrengthSpell.Create;
+  FSpell[spFireGolem] := TFireGolemSpell.Create;
 end;
 
 { TTrueHealingSpell }
@@ -540,6 +585,42 @@ end;
 constructor TSkeletionSpell.Create;
 begin
   inherited Create(spSkeletion);
+end;
+
+{ TBoneGolemSpell }
+
+procedure TBoneGolemSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crBoneGolem);
+end;
+
+constructor TBoneGolemSpell.Create;
+begin
+  inherited Create(spBoneGolem);
+end;
+
+{ TStoneGolemSpell }
+
+procedure TStoneGolemSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crStoneGolem);
+end;
+
+constructor TStoneGolemSpell.Create;
+begin
+  inherited Create(spStoneGolem);
+end;
+
+{ TFireGolemSpell }
+
+procedure TFireGolemSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crFireGolem);
+end;
+
+constructor TFireGolemSpell.Create;
+begin
+  inherited Create(spFireGolem);
 end;
 
 initialization

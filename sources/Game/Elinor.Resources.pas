@@ -107,16 +107,18 @@ type
     mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
-    mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
+    mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior,
+    mrBoneGolem, mrStoneGolem, mrFireGolem);
 
 type
   TSpellResEnum = (srNone,
     // The Empire
-    srTrueHealing, srSpeed, srBless, srLivingArmor, srEagleEye, srStrength,
+    srTrueHealing, srSpeed, srBless, srLivingArmor, srStoneGolem, srEagleEye,
+    srStrength,
     // Undead Hordes
-    srPlague, srCurse, srSkeletion,
+    srPlague, srCurse, srSkeletion, srBoneGolem,
     // Legions of the Damned
-    srConcealment, srChainsOfDread, srWeaken);
+    srConcealment, srChainsOfDread, srWeaken, srFireGolem);
 
 type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
@@ -732,7 +734,13 @@ const
     // Dark Elf
     (FileName: 'character.neutrals.dark_elf.png'; ResType: teGUI;),
     // Skeleton Warrior
-    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;)
+    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;),
+    // Bone Golem
+    (FileName: 'character.neutrals.bone_golem.png'; ResType: teGUI;),
+    // Stone Golem
+    (FileName: 'character.neutrals.stone_golem.png'; ResType: teGUI;),
+    // Fire Golem
+    (FileName: 'character.neutrals.fire_golem.png'; ResType: teGUI;)
 
     //
     );
@@ -923,14 +931,16 @@ const
     (FileName: ''; ResType: teSpell;),
 
     // THE EMPIRE
-    // TrueHealing
+    // True Healing
     (FileName: 'spell.true_healing.png'; ResType: teSpell;),
     // Speed
     (FileName: 'spell.speed.png'; ResType: teSpell;),
     // Bless
     (FileName: 'spell.bless.png'; ResType: teSpell;),
-    // LivingArmor
+    // Living Armor
     (FileName: 'spell.living_armor.png'; ResType: teSpell;),
+    // Stone Golem
+    (FileName: 'spell.stone_golem.png'; ResType: teSpell;),
     // EagleEye
     (FileName: 'spell.eagle_eye.png'; ResType: teSpell;),
     // Strength
@@ -943,14 +953,18 @@ const
     (FileName: 'spell.curse.png'; ResType: teSpell;),
     // Skeletion
     (FileName: 'spell.skeletion.png'; ResType: teSpell;),
+    // Bone Golem
+    (FileName: 'spell.bone_golem.png'; ResType: teSpell;),
 
     // LEGIONS OF THE DAMNED
     // Concealment
     (FileName: 'spell.concealment.png'; ResType: teSpell;),
-    // ChainsOfDread
+    // Chains Of Dread
     (FileName: 'spell.chains_of_dread.png'; ResType: teSpell;),
     // Weaken
-    (FileName: 'spell.weaken.png'; ResType: teSpell;)
+    (FileName: 'spell.weaken.png'; ResType: teSpell;),
+    // Fire Golem
+    (FileName: 'spell.fire_golem.png'; ResType: teSpell;)
     //
     );
 

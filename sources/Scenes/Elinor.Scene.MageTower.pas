@@ -23,7 +23,7 @@ type
   private
     class var Button: array [TButtonEnum] of TButton;
   private
-    procedure LearnSpell;
+    procedure TryLearnSpell;
     procedure ShowSpellbookScene;
   public
     constructor Create;
@@ -43,6 +43,7 @@ implementation
 uses
   System.Math,
   System.SysUtils,
+  Elinor.Ability,
   Elinor.Map,
   Elinor.Creatures,
   Elinor.Frame,
@@ -53,16 +54,26 @@ uses
 
 { TSceneMageTower }
 
-procedure TSceneMageTower.LearnSpell;
+procedure TSceneMageTower.TryLearnSpell;
 var
   LSpellEnum: TSpellEnum;
-  LGold, LMana: Integer;
+  LMana, LGold: Integer;
+const
+  CRequireAbilityToLearnSpell = 'You need the %s ability to learn this spell.';
 begin
   LSpellEnum := FactionSpellbookSpells[TLeaderParty.Leader.Owner][CurrentIndex];
   if (LSpellEnum <> spNone) and not Spells.IsLearned(LSpellEnum) then
   begin
-    LGold := Spells.Spell(LSpellEnum).Mana * 2;
+    if (Spells.Spell(LSpellEnum).RequireAbility <> abNone) and
+      not TLeaderParty.Leader.Abilities.IsAbility(Spells.Spell(LSpellEnum)
+      .RequireAbility) then
+    begin
+      InformDialog(Format(CRequireAbilityToLearnSpell,
+        [Spells.Spell(LSpellEnum).Name]));
+      Exit;
+    end;
     LMana := Spells.Spell(LSpellEnum).Mana * 2;
+    LGold := 0;
     if LGold > Game.Gold.Value then
     begin
       Game.MediaPlayer.PlaySound(mmSpellbook);
@@ -126,7 +137,7 @@ begin
     mbLeft:
       begin
         if Button[btLearn].MouseDown then
-          LearnSpell
+          TryLearnSpell
         else if Button[btSpellbook].MouseDown then
           ShowSpellbookScene
         else if Button[btClose].MouseDown then
@@ -181,10 +192,8 @@ procedure TSceneMageTower.Render;
       AddTextLine('Level', TSpells.Spell(LSpellEnum).Level);
       AddTextLine;
       AddTextLine('Research cost:');
-      AddTextLine(Format('Mana %d',
-        [TSpells.Spell(LSpellEnum).Mana * 2]));
-      AddTextLine(Format('Gold %d',
-        [TSpells.Spell(LSpellEnum).Mana * 2]));
+      AddTextLine(Format('Mana %d', [TSpells.Spell(LSpellEnum).Mana * 2]));
+      AddTextLine(Format('Gold %d', [TSpells.Spell(LSpellEnum).Mana * 2]));
       AddTextLine;
       AddTextLine(Format('Casting cost %d mana',
         [TSpells.Spell(LSpellEnum).Mana]));
@@ -244,7 +253,7 @@ begin
     K_ESCAPE:
       HideScene;
     K_L, K_ENTER:
-      LearnSpell;
+      TryLearnSpell;
     K_S:
       ShowSpellbookScene;
   end;

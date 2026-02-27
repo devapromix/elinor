@@ -19,7 +19,7 @@ uses
 type
   TSubRaceEnum = (reCustom, reAngel, reHuman, reUndead, reHeretic, reDwarf,
     reElf, reGreenSkin, reDarkElf, reVampire, reGargoyle, reAnimal, reBarbarian,
-    reDragon, reUndeadDragon, reMarsh, reWater);
+    reDragon, reUndeadDragon, reMarsh, reWater, reGolem);
 
 type
   TReachEnum = (reAny, reAdj, reAll);
@@ -936,6 +936,33 @@ const
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;),
 {$ENDREGION Animals}
+    // Golems
+{$REGION Golems}
+    // Bone Golem
+    (Ident: 'bone-golem'; Faction: faNeutrals; SubRace: reGolem;
+    ResEnum: mrBoneGolem; Size: szBig; Name: ('Bone Golem', 'Bone Golem');
+    Description: ('', '', ''); HitPoints: 240; Initiative: 40; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 50; Armor: 5; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
+    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;),
+    // Stone Golem
+    (Ident: 'stone-golem'; Faction: faNeutrals; SubRace: reGolem;
+    ResEnum: mrStoneGolem; Size: szBig; Name: ('Stone Golem', 'Stone Golem');
+    Description: ('', '', ''); HitPoints: 210; Initiative: 40; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 55; Armor: 5; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 650;
+    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 45;),
+    // Fire Golem
+    (Ident: 'fire-golem'; Faction: faNeutrals; SubRace: reGolem;
+    ResEnum: mrFireGolem; Size: szBig; Name: ('Fire Golem', 'Fire Golem');
+    Description: ('', '', ''); HitPoints: 220; Initiative: 40; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 55; Armor: 5; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 675;
+    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 45;),
+{$ENDREGION Golems}
     // Dragons
 {$REGION Dragons}
     // Black Dragon
