@@ -1518,9 +1518,6 @@ begin
     Loot.AddGemAt(AX, AY);
   end;
   Loot.AddItemAt(AX, AY);
-  if Assigned(TLeaderParty.Leader.Abilities) { and (RandomRange(0, 2) = 0) } and
-    TLeaderParty.Leader.Abilities.IsAbility(abGemology) then
-    Loot.AddGemAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddGoldAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
