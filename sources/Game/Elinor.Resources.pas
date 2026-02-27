@@ -825,7 +825,7 @@ const
     (FileName: 'item.gemstone.emerald.png'; ResType: teItem;),
     // Ruby
     (FileName: 'item.gemstone.ruby.png'; ResType: teItem;),
-    // Saphire
+    // Sapphire
     (FileName: 'item.gemstone.sapphire.png'; ResType: teItem;),
     // Diamond
     (FileName: 'item.gemstone.diamond.png'; ResType: teItem;),

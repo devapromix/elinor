@@ -56,6 +56,7 @@ type
     procedure ShowBattleLog;
     procedure HideBattleLog;
     procedure UseLHandItem;
+    class procedure AddLoot;
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -101,7 +102,9 @@ uses
   Elinor.Scene.Party2,
   Elinor.Frame,
   Elinor.Error,
-  Elinor.Common;
+  Elinor.Common,
+  Elinor.Loot,
+  Elinor.Difficulty;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -119,6 +122,7 @@ begin
   TLeaderParty.Leader.ClearTempValuesAll;
   TLeaderParty.Summoned.UnParalyzeParty;
   TLeaderParty.Summoned.ClearTempValuesAll;
+  AddLoot;
   TSceneLoot2.ShowScene;
 end;
 
@@ -242,6 +246,13 @@ begin
     Game.MediaPlayer.PlayMusic(mmDefeat);
     Enabled := True;
   end;
+end;
+
+class procedure TSceneBattle2.AddLoot;
+begin
+  if (RandomRange(0, Ord(Difficulty.Level) + 2) = 0) then
+    if TLeaderParty.Leader.Abilities.IsAbility(abGemology) then
+      Loot.AddGemAt(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
 end;
 
 procedure TSceneBattle2.ChExperience;
