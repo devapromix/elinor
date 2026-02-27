@@ -938,6 +938,7 @@ const
 {$ENDREGION Animals}
     // Golems
 {$REGION Golems}
+// Bone Golem
     (Ident: 'bone-golem'; Faction: faNeutrals; SubRace: reGolem;
     ResEnum: mrBoneGolem; Size: szBig; Name: ('Bone Golem', 'Bone Golem');
     Description: ('', '', ''); HitPoints: 240; Initiative: 40; ChancesToHit: 70;
@@ -945,6 +946,14 @@ const
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
     Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;),
+    // Stone Golem
+    (Ident: 'stone-golem'; Faction: faNeutrals; SubRace: reGolem;
+    ResEnum: mrStoneGolem; Size: szBig; Name: ('Stone Golem', 'Stone Golem');
+    Description: ('', '', ''); HitPoints: 210; Initiative: 40; ChancesToHit: 70;
+    Leadership: 0; Level: 1; Damage: 55; Armor: 5; Heal: 0;
+    SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 650;
+    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    AttackEnum: atBites; AbilityEnum: abNone; Rating: 45;),
 {$ENDREGION Golems}
     // Dragons
 {$REGION Dragons}
