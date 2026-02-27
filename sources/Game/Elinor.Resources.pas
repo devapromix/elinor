@@ -103,11 +103,15 @@ type
     mrThug, mrDominator, mrFighter, mrInitiate, mrWyvern, mrDeathKnight,
     mrAshkael, mrDuke, mrCounselor, mrArchdevil, mrRipper, mrChieftain,
     mrPossessed, mrCultist, mrDevil, mrBlackDragon, mrWhiteDragon, mrRedDragon,
-    mrGmrenDragon, mrBlueDragon, mrGoblin, mrGoblinArcher, mrGoblinElder,
+    mrGreenDragon, mrBlueDragon, mrGoblin, mrGoblinArcher, mrGoblinElder,
     mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
+<<<<<<< HEAD
     mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior, mrBoneGolem);
+=======
+    mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
+>>>>>>> 8b8348a6b75614c56286d57a336994c48980f592
 
 type
   TSpellResEnum = (srNone,
@@ -119,8 +123,13 @@ type
     srConcealment, srChainsOfDread, srWeaken);
 
 type
-  TAbilityResEnum = (arNone, arSharpEye, arUseStaffsAndScrolls, arArcaneLore,
-    arGemology);
+  TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
+    arStealth, arSharpEye, arHawkEye, arUseStaffsAndScrolls, arArcaneLore,
+    arHaggler, arDealmaker, arNaturalHealing, arArtifactLore, arFarSight,
+    arBannerBearer, arFlying, arGemology, arTravelLore, arLeadership,
+    arArcanePower, arTemplar, arPathfinding, arAdvancedPathfinding, arAccuracy,
+    arNaturalArmor, arWeaponMaster, arMountaineering, arForestry,
+    arGolemMastery, arDoragorPower, arVampirism, arLogistics, arCombatTraining);
 
 type
   TItemResEnum = (irNone,
@@ -142,7 +151,8 @@ type
     // VALUABLES
     irRunicKey, irArcaneScroll, irEmberSalts, irAncientRelic,
     // GEMSTONES
-    irAgate, irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire, irDiamond,
+    irAgate, irTopaz, irGarnet, irAmethyst, irEmerald, irRuby, irSapphire,
+    irDiamond,
     // ARTIFACTS
     irDwarvenBracer, irRunestone, irHornOfAwareness, reItemIceCrystal,
     irSkullBracers, irLuteOfCharming, irSkullOfThanatos, irBethrezensClaw,
@@ -664,13 +674,13 @@ const
     // Black Dragon
     (FileName: 'character.neutrals.black_dragon.png'; ResType: teGUI;),
     // White Dragon
-    (FileName: 'character.white_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.white_dragon.png'; ResType: teGUI;),
     // Red Dragon
-    (FileName: 'character.red_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.red_dragon.png'; ResType: teGUI;),
     // Green Dragon
     (FileName: 'character.neutrals.green_dragon.png'; ResType: teGUI;),
     // Blue Dragon
-    (FileName: 'character.blue_dragon.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.blue_dragon.png'; ResType: teGUI;),
     // Goblin
     (FileName: 'character.neutrals.goblin.png'; ResType: teGUI;),
     // Goblin Archer
@@ -682,7 +692,7 @@ const
     // Goblin Rider
     (FileName: 'character.neutrals.goblin_rider.png'; ResType: teGUI;),
     // Giant Spider
-    (FileName: 'character.giant_spider.png'; ResType: teGUI;),
+    (FileName: 'character.neutrals.giant_spider.png'; ResType: teGUI;),
     // Wolf
     (FileName: 'character.neutrals.wolf.png'; ResType: teGUI;),
     // Dire Wolf
@@ -717,6 +727,8 @@ const
     (FileName: 'character.neutrals.lizardman.png'; ResType: teGUI;),
     // Peasant
     (FileName: 'character.neutrals.peasant.png'; ResType: teGUI;),
+    // Man at Arms
+    (FileName: 'character.neutrals.man_at_arms.png'; ResType: teGUI;),
     // Ogre
     (FileName: 'character.neutrals.ogre.png'; ResType: teGUI;),
     // Troll
@@ -954,14 +966,72 @@ const
   AbilityResBase: array [TAbilityResEnum] of TResBase = (
     // None
     (FileName: ''; ResType: teSpell;),
+    // Strength
+    (FileName: 'ability.strength.png'; ResType: teGUI;),
+    // Might
+    (FileName: 'ability.might.png'; ResType: teGUI;),
+    // Arcane Knowledge
+    (FileName: 'ability.arcane_knowledge.png'; ResType: teGUI;),
+    // Sorcery
+    (FileName: 'ability.sorcery.png'; ResType: teGUI;),
+    // Stealth
+    (FileName: 'ability.stealth.png'; ResType: teGUI;),
     // Sharp Eye
     (FileName: 'ability.sharp_eye.png'; ResType: teGUI;),
+    // Hawk Eye
+    (FileName: 'ability.hawk_eye.png'; ResType: teGUI;),
     // Use Staffs and Scrolls
     (FileName: 'ability.use_staffs_and_scrolls.png'; ResType: teGUI;),
     // Arcane Lore
     (FileName: 'ability.arcane_lore.png'; ResType: teGUI;),
+    // Haggler
+    (FileName: 'ability.haggler.png'; ResType: teGUI;),
+    // Dealmaker
+    (FileName: 'ability.dealmaker.png'; ResType: teGUI;),
+    // Natural Healing
+    (FileName: 'ability.natural_healing.png'; ResType: teGUI;),
+    // Artifact Lore
+    (FileName: 'ability.artifact_lore.png'; ResType: teGUI;),
+    // Far Sight
+    (FileName: 'ability.far_sight.png'; ResType: teGUI;),
+    // Banner Bearer
+    (FileName: 'ability.banner_bearer.png'; ResType: teGUI;),
+    // Flying
+    (FileName: 'ability.flying.png'; ResType: teGUI;),
     // Gemology
-    (FileName: 'ability.gemology.png'; ResType: teGUI;)
+    (FileName: 'ability.gemology.png'; ResType: teGUI;),
+    // Travel Lore
+    (FileName: 'ability.travel_lore.png'; ResType: teGUI;),
+    // Leadership
+    (FileName: 'ability.leadership.png'; ResType: teGUI;),
+    // Arcane Power
+    (FileName: 'ability.arcane_power.png'; ResType: teGUI;),
+    // Templar
+    (FileName: 'ability.templar.png'; ResType: teGUI;),
+    // Pathfinding
+    (FileName: 'ability.pathfinding.png'; ResType: teGUI;),
+    // Advanced Pathfinding
+    (FileName: 'ability.advanced_pathfinding.png'; ResType: teGUI;),
+    // Accuracy
+    (FileName: 'ability.accuracy.png'; ResType: teGUI;),
+    // Natural Armor
+    (FileName: 'ability.natural_armor.png'; ResType: teGUI;),
+    // Weapon Master
+    (FileName: 'ability.weapon_master.png'; ResType: teGUI;),
+    // Mountaineering
+    (FileName: 'ability.mountaineering.png'; ResType: teGUI;),
+    // Forestry
+    (FileName: 'ability.forestry.png'; ResType: teGUI;),
+    // Golem Mastery
+    (FileName: 'ability.golem_mastery.png'; ResType: teGUI;),
+    // Doragor Power
+    (FileName: 'ability.doragor_power.png'; ResType: teGUI;),
+    // Vampirism
+    (FileName: 'ability.vampirism.png'; ResType: teGUI;),
+    // Logistics
+    (FileName: 'ability.logistics.png'; ResType: teGUI;),
+    // Combat Training
+    (FileName: 'ability.combat_training.png'; ResType: teGUI;)
     //
     );
 

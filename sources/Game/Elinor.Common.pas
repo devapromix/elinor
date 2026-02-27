@@ -72,6 +72,7 @@ const
   COnlyLeaderCanUseItem = 'Only the Leader can use this item!';
   CNotEnoughGold = 'Not enough gold!';
   CAddSpellToSpellbook = 'The spell has been added to the spellbook!';
+  CNotEnoughGoldToLearn = 'Not enough gold to learn this spell!';
   CNotEnoughManaToLearn = 'Not enough mana to learn this spell!';
   CNotEnoughManaToCast = 'Not enough mana to cast this spell!';
   CLeftHandItemRequired = 'An item must be equipped in the left hand!';
@@ -84,6 +85,20 @@ const
     'You did not complete the scenario within the allotted days.';
   CLeaderCannotWearShoes =
     'Leader cannot equip magic shoes: requires Travel Lore ability!';
+  CLeaderCannotUseOrb =
+    'Leader cannot use magic orbs: requires Arcane Lore ability!';
+  CLeaderCannotUseTalisman =
+    'Leader cannot use talismans: requires Arcane Power ability!';
+  CLeaderCannotCarryBanner =
+    'Leader cannot carry battle flags: requires Banner Bearer ability!';
+  CLeaderCannotReadScroll =
+    'Leader cannot read magical scrolls: requires Use Staffs And Scrolls ability!';
+  CLeaderCannotWearStaves =
+    'Leader cannot equip magic wands: requires Use Staffs And Scrolls ability!';
+  CLeaderCannotUseTomes =
+    'Leader cannot use tomes: requires Arcane Knowledge ability!';
+  CLeaderCannotUseArtifacts =
+    'Leader cannot use artifacts: requires Artifact Lore ability!';
 
 implementation
 

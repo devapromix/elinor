@@ -68,7 +68,7 @@ type
     atDagger, atBow, atHunterBow, atCrossbow, atDrainLife, atHealing,
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
     atPoisonousBreath, atDaggerOfShadows, atFlameDagger, atClub, atFireHammer,
-    atPhoenixSword, atScythe, atShortSword, atFireBreath);
+    atPhoenixSword, atScythe, atShortSword, atFireBreath, atIceBreath);
 
 type
   TCreatureSize = (szSmall, szBig, szTestBig);
@@ -79,7 +79,7 @@ const
     'Drain Life', 'Healing', 'Paralysis', 'Poison', 'Magic', 'Claws', 'Bite',
     'Spear', 'Stones', 'Poisonous Breath', 'Dagger of Shadows', 'Flame Dagger',
     'Club', 'Fire Hammer', 'Phoenix Sword', 'Scythe', 'Short Sword',
-    'Fire Breath');
+    'Fire Breath', 'Ice Breath');
 
 const
   AtkSecName: array [TAttackEnum] of string = ('slayer_sword', 'long_sword',
@@ -87,7 +87,7 @@ const
     'drain_life', 'healing', 'paralyze', 'poison', 'magic', 'claws', 'bites',
     'spear', 'stones', 'poisonous_breath', 'dagger_of_shadows', 'flame_dagger',
     'club', 'fire_hammer', 'phoenix_sword', 'scythe', 'short_sword',
-    'fire_breath');
+    'fire_breath', 'ice_breath');
 
 const
   Characters: array [faTheEmpire .. faLegionsOfTheDamned] of array
@@ -783,7 +783,7 @@ const
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
-    ResEnum: mrGoblin; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
+    ResEnum: mrManAtArms; Size: szSmall; Name: ('Man at Arms', 'Man at Arms');
     Description: ('Mercenaries offer their combat',
     'services to anyone who pays', 'a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
@@ -867,12 +867,12 @@ const
     // Spider
     (Ident: 'spider'; Faction: faNeutrals; SubRace: reAnimal;
     ResEnum: mrGiantSpider; Size: szBig; Name: ('Giant Spider', 'Giant Spider');
-    Description: ('Сильный яд гигантского паука',
-    'полностью парализует жертву,', 'не давая ей убежать.'); HitPoints: 420;
-    Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 130;
-    Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 400;
-    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
+    Description: ('The potent venom of a giant',
+    'spider completely paralyzes the', 'victim, preventing escape.');
+    HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 130; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
+    Gold: 400; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
 
     // Wolf
     (Ident: 'wolf'; Faction: faNeutrals; SubRace: reAnimal; ResEnum: mrWolf;
@@ -951,11 +951,22 @@ const
     // Black Dragon
     (Ident: 'black-dragon'; Faction: faNeutrals; SubRace: reDragon;
     ResEnum: mrBlackDragon; Size: szBig; Name: ('Black Dragon', 'Black Dragon');
-    Description: ('', '', ''); HitPoints: 800; Initiative: 40; ChancesToHit: 75;
-    Leadership: 0; Level: 1; Damage: 125; Armor: 0; Heal: 0;
-    SourceEnum: seWeapon; ReachEnum: reAll; Gold: 2000;
-    Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack); Gender: cgMale;
-    AttackEnum: atFireBreath; AbilityEnum: abNone; Rating: 350;)
+    Description: ('The corrosive breath of a black',
+    'dragon melts flesh and armor,', 'making escape impossible.');
+    HitPoints: 800; Initiative: 40; ChancesToHit: 75; Leadership: 0; Level: 1;
+    Damage: 125; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAll;
+    Gold: 2000; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gender: cgMale; AttackEnum: atFireBreath; AbilityEnum: abNone;
+    Rating: 350;),
+    // White Dragon
+    (Ident: 'white-dragon'; Faction: faNeutrals; SubRace: reDragon;
+    ResEnum: mrWhiteDragon; Size: szBig; Name: ('White Dragon', 'White Dragon');
+    Description: ('The freezing breath of a white',
+    'dragon locks the victim in ice,', 'leaving no chance to flee.');
+    HitPoints: 900; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
+    Damage: 120; Armor: 10; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAll;
+    Gold: 2500; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gender: cgMale; AttackEnum: atIceBreath; AbilityEnum: abNone; Rating: 400;)
 {$ENDREGION Dragons}
     //
     );
