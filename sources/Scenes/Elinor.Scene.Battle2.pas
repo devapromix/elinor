@@ -46,9 +46,7 @@ type
     procedure StartBattle;
     procedure Victory;
     procedure StartRound;
-    function GetHitPoints(const APosition: Integer): Integer;
     procedure AI;
-    procedure Kill(ADefCrEnum: TCreatureEnum);
     procedure DrawTargetFrames;
     procedure SelectNextTarget;
     procedure SelectPreviousTarget;
@@ -57,6 +55,9 @@ type
     procedure HideBattleLog;
     procedure UseLHandItem;
     class procedure AddLoot;
+    procedure DamageCreature(LAtkCrEnum: TCreatureEnum; AAtkParty: TParty;
+      AAtkPos: TPosition; LDefCrEnum: TCreatureEnum; ADefParty: TParty;
+      ADefPos: TPosition);
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -124,12 +125,6 @@ begin
   TLeaderParty.Summoned.ClearTempValuesAll;
   AddLoot;
   TSceneLoot2.ShowScene;
-end;
-
-procedure TSceneBattle2.Kill(ADefCrEnum: TCreatureEnum);
-begin
-  FBattle.BattleLog.Kill(TCreature.Character(ADefCrEnum).Name[0]);
-  Game.MediaPlayer.PlaySound(TCreature.Character(ADefCrEnum).Sound[csDeath]);
 end;
 
 procedure TSceneBattle2.AI;
@@ -248,6 +243,32 @@ begin
   end;
 end;
 
+procedure TSceneBattle2.DamageCreature(LAtkCrEnum: TCreatureEnum;
+  AAtkParty: TParty; AAtkPos: TPosition; LDefCrEnum: TCreatureEnum;
+  ADefParty: TParty; ADefPos: TPosition);
+var
+  LDamage: Integer;
+begin
+  LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
+  ADefParty.TakeDamage(LDamage, ADefPos);
+  case TCreature.Character(LAtkCrEnum).AttackEnum of
+    atDrainLife:
+      begin
+        Sleep(50);
+        Game.MediaPlayer.PlaySound(mmHeal);
+        AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
+      end;
+  end;
+  FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
+    TCreature.Character(LAtkCrEnum).SourceEnum, AAtkParty.Creature[AAtkPos].Name
+    [0], ADefParty.Creature[ADefPos].Name[1],
+    AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
+  if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0) then
+    Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum).Sound[csHit])
+  else
+    FBattle.Kill(LDefCrEnum);
+end;
+
 class procedure TSceneBattle2.AddLoot;
 begin
   if (RandomRange(0, Ord(Difficulty.Level) + 2) = 0) then
@@ -269,7 +290,7 @@ begin
           EnsureRange(EnemyParty.GetExperience div LeaderParty.
           GetAliveAndNeedExpCreatures, 1, 9999);
         LGainMoreExperience := 0;
-        if (TLeaderParty.PartyGainMoreExpValue > 0) and
+        if (TLeaderParty.LeaderPartyGainMoreExpValue > 0) and
           (LCharacterExperience >= 5) then
           LGainMoreExperience := LCharacterExperience div 5;
         LCharacterExperience := LCharacterExperience + LGainMoreExperience;
@@ -504,25 +525,8 @@ begin
             Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
               .Sound[csAttack]);
             Sleep(200);
-            LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
-            ADefParty.TakeDamage(LDamage, ADefPos);
-            case TCreature.Character(LAtkCrEnum).AttackEnum of
-              atDrainLife:
-                begin
-                  Sleep(50);
-                  Game.MediaPlayer.PlaySound(mmHeal);
-                  AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
-                end;
-            end;
-            FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
-              TCreature.Character(LAtkCrEnum).SourceEnum,
-              AAtkParty.Creature[AAtkPos].Name[0],
-              ADefParty.Creature[ADefPos].Name[1], LDamage);
-            if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0) then
-              Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum)
-                .Sound[csHit])
-            else
-              Kill(LDefCrEnum);
+            DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+              ADefParty, ADefPos);
             B := True;
           end;
         reAdj:
@@ -548,20 +552,8 @@ begin
                       Exit;
                     Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
                       .Sound[csAttack]);
-                    Sleep(200);
-                    ADefParty.TakeDamage(AAtkParty.Creature[AAtkPos]
-                      .Damage.GetFullValue, ADefPos);
-                    FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum)
-                      .AttackEnum, TCreature.Character(LAtkCrEnum).SourceEnum,
-                      AAtkParty.Creature[AAtkPos].Name[0],
-                      ADefParty.Creature[ADefPos].Name[1],
-                      AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
-                    if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0)
-                    then
-                      Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum)
-                        .Sound[csHit])
-                    else
-                      Kill(LDefCrEnum);
+                    DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+                      ADefParty, ADefPos);
                     B := True;
                   end;
                 1, 3, 5:
@@ -574,19 +566,8 @@ begin
                       Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
                         .Sound[csAttack]);
                       Sleep(200);
-                      ADefParty.TakeDamage(AAtkParty.Creature[AAtkPos]
-                        .Damage.GetFullValue, ADefPos);
-                      FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum)
-                        .AttackEnum, TCreature.Character(LAtkCrEnum).SourceEnum,
-                        AAtkParty.Creature[AAtkPos].Name[0],
-                        ADefParty.Creature[ADefPos].Name[1],
-                        AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
-                      if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0)
-                      then
-                        Game.MediaPlayer.PlaySound
-                          (TCreature.Character(LDefCrEnum).Sound[csHit])
-                      else
-                        Kill(LDefCrEnum);
+                      DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+                        ADefParty, ADefPos);
                       B := True;
                     end;
                   end;
@@ -608,25 +589,14 @@ begin
             for LPosition := Low(TPosition) to High(TPosition) do
               if ADefParty.Creature[LPosition].Alive then
               begin
-                ADefParty.TakeDamage(AAtkParty.Creature[AAtkPos]
-                  .Damage.GetFullValue, LPosition);
-                FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum)
-                  .AttackEnum, TCreature.Character(LAtkCrEnum).SourceEnum,
-                  AAtkParty.Creature[AAtkPos].Name[0],
-                  ADefParty.Creature[LPosition].Name[1],
-                  AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
-                if (ADefParty.Creature[LPosition].HitPoints.GetCurrValue > 0)
-                then
-                  Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum)
-                    .Sound[csHit])
-                else
-                  Kill(LDefCrEnum);
+                DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+                  ADefParty, LPosition);
               end;
             B := True;
           end;
       end;
 
-      FBattle.CheckArtifactVampiricAttack(Game, AAtkParty, ADefParty, AAtkPos,
+      FBattle.CheckArtifactVampiricAttack(AAtkParty, ADefParty, AAtkPos,
         ADefPos, LAtkCrEnum, LDefCrEnum);
 
       if B then
@@ -950,7 +920,7 @@ var
       end;
       FBattle.BattleLog.Log.Render;
       Self.DrawText(10, 10, DebugString +
-        TLeaderParty.PartyGainMoreExpValue.ToString);
+        TLeaderParty.LeaderPartyGainMoreExpValue.ToString);
       LogButton.Render;
       RenderLHandSlot;
     except
@@ -1026,7 +996,8 @@ begin
         StartRound;
         Exit;
       end;
-    until (LPosition <> -1) and (GetHitPoints(LPosition) > 0);
+    until (LPosition <> -1) and (FBattle.GetHitPoints(LPosition, LeaderParty,
+      EnemyParty) > 0);
     ActivePartyPosition := LPosition;
     if LPosition > 5 then
       FTimer := CSpeed;
@@ -1035,14 +1006,6 @@ begin
     on E: Exception do
       Error.Add('TSceneBattle2.NextTurn', E.Message);
   end;
-end;
-
-function TSceneBattle2.GetHitPoints(const APosition: Integer): Integer;
-begin
-  Result := 0;
-  if APosition < 0 then
-    Exit;
-  Result := FBattle.GetHitPoints(APosition, LeaderParty, EnemyParty);
 end;
 
 procedure TSceneBattle2.SelectNextTarget;

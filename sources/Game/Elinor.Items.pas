@@ -799,8 +799,9 @@ var
 begin
   TLeaderParty.LeaderRegenerationValue := 0;
   TLeaderParty.LeaderChanceToParalyzeValue := 0;
+  TLeaderParty.LeaderChanceOfLandingCriticalHitsValue := 0;
   TLeaderParty.LeaderVampiricAttackValue := 0;
-  TLeaderParty.PartyGainMoreExpValue := 0;
+  TLeaderParty.LeaderPartyGainMoreExpValue := 0;
   TLeaderParty.LeaderGainsMoreMovePointsValue := 0;
   TLeaderParty.LeaderInvisibleValue := 0;
   for I := 0 to CMaxEquipmentItems - 1 do

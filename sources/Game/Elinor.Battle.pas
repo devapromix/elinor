@@ -23,9 +23,8 @@ type
     function CheckArtifactParalyze(const AAtkParty, ADefParty: TParty;
       AAtkPos, ADefPos: TPosition;
       AAtkCrEnum, ADefCrEnum: TCreatureEnum): Boolean;
-    procedure CheckArtifactVampiricAttack(AGame: TGame;
-      const AAtkParty, ADefParty: TParty; AAtkPos, ADefPos: TPosition;
-      AAtkCrEnum, ADefCrEnum: TCreatureEnum);
+    procedure CheckArtifactVampiricAttack(const AAtkParty, ADefParty: TParty;
+      AAtkPos, ADefPos: TPosition; AAtkCrEnum, ADefCrEnum: TCreatureEnum);
     function GetHitPoints(const APosition: Integer;
       const ALeaderParty, AEnemyParty: TParty): Integer;
     property BattleLog: TBattleLog read FBattleLog;
@@ -64,8 +63,8 @@ begin
     end;
 end;
 
-procedure TBattle.CheckArtifactVampiricAttack(AGame: TGame;
-  const AAtkParty, ADefParty: TParty; AAtkPos, ADefPos: TPosition;
+procedure TBattle.CheckArtifactVampiricAttack(const AAtkParty,
+  ADefParty: TParty; AAtkPos, ADefPos: TPosition;
   AAtkCrEnum, ADefCrEnum: TCreatureEnum);
 var
   LDamage, LValue: Integer;
@@ -79,7 +78,7 @@ begin
     LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
     LValue := Percent(LDamage, TLeaderParty.LeaderVampiricAttackValue);
     Sleep(50);
-    AGame.MediaPlayer.PlaySound(mmHeal);
+    Game.MediaPlayer.PlaySound(mmHeal);
     AAtkParty.Heal(AAtkPos, EnsureRange(LValue, 5, 50));
     LStr := TResources.RandomValue('battle.string', 'drain_life');
     FBattleLog.Log.Add(Format(LStr, [TCreature.Character(AAtkCrEnum).Name[0],
@@ -105,6 +104,7 @@ end;
 function TBattle.GetHitPoints(const APosition: Integer;
   const ALeaderParty, AEnemyParty: TParty): Integer;
 begin
+  Result := 0;
   case APosition of
     0 .. 5:
       if ALeaderParty.Creature[APosition].Active then
@@ -117,7 +117,8 @@ end;
 
 procedure TBattle.Kill(const ADefCrEnum: TCreatureEnum);
 begin
-
+  FBattleLog.Kill(TCreature.Character(ADefCrEnum).Name[0]);
+  Game.MediaPlayer.PlaySound(TCreature.Character(ADefCrEnum).Sound[csDeath]);
 end;
 
 procedure TBattle.SetInitiative(const ALeaderParty, AEnemyParty: TParty);

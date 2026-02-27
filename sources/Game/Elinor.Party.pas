@@ -136,8 +136,9 @@ type
     LeaderName: string;
     LeaderRegenerationValue: Byte;
     LeaderChanceToParalyzeValue: Byte;
+    LeaderChanceOfLandingCriticalHitsValue: Byte;
     LeaderVampiricAttackValue: Byte;
-    PartyGainMoreExpValue: Byte;
+    LeaderPartyGainMoreExpValue: Byte;
     LeaderGainsMoreMovePointsValue: Byte;
     LeaderInvisibleValue: Byte;
   public
@@ -198,6 +199,8 @@ type
     class procedure ModifyPartyGainMoreExp(const AValue: Integer);
     class procedure ModifyLeaderMovePoints(const AValue: Integer);
     class procedure ModifyLeaderInvisible(const AValue: Integer);
+    class procedure ModifyLeaderChanceOfLandingCriticalHits
+      (const AValue: Integer);
   end;
 
 type
@@ -827,8 +830,9 @@ begin
   IsUnitSelected := False;
   LeaderRegenerationValue := IfThen(Difficulty.Level = dfEasy, 5, 0);
   LeaderChanceToParalyzeValue := 0;
+  LeaderChanceOfLandingCriticalHitsValue := 0;
   LeaderVampiricAttackValue := 0;
-  PartyGainMoreExpValue := 0;
+  LeaderPartyGainMoreExpValue := 0;
   LeaderGainsMoreMovePointsValue := 0;
   LeaderInvisibleValue := 0;
 end;
@@ -1160,6 +1164,13 @@ begin
     Result := Result + ((LeaderInvisibleValue - 2) * 10);
 end;
 
+class procedure TLeaderParty.ModifyLeaderChanceOfLandingCriticalHits
+  (const AValue: Integer);
+begin
+  LeaderChanceOfLandingCriticalHitsValue :=
+    LeaderChanceOfLandingCriticalHitsValue + AValue;
+end;
+
 class procedure TLeaderParty.ModifyLeaderChanceToParalyze
   (const AValue: Integer);
 begin
@@ -1188,7 +1199,7 @@ end;
 
 class procedure TLeaderParty.ModifyPartyGainMoreExp(const AValue: Integer);
 begin
-  PartyGainMoreExpValue := AValue;
+  LeaderPartyGainMoreExpValue := AValue;
 end;
 
 class procedure TLeaderParty.Move(Dir: TDirectionEnum);

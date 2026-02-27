@@ -5,11 +5,16 @@
     "You won this battle!",
     "You won this fight!",
     "You won this combat!",
+	"Battle won!",
     "You are victorious!"
   ],
   "lose_in_battle": [
     "You lost!",
     "You lost this fight!",
+	"Defeated!",
+	"You failed!",
+	"Battle lost!",
+	"You were defeated!",
     "Defeat!"
   ],
   "miss1": [
