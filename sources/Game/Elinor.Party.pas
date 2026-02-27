@@ -85,7 +85,8 @@ type
     procedure Revive(const APosition: TPosition);
     procedure ReviveParty;
     procedure UpdateHP(const AHitPoints: Integer; const APosition: TPosition);
-    procedure IncreaseDamagePermanently(const ADamage: Integer; const APosition: TPosition);
+    procedure IncreaseDamagePermanently(const ADamage: Integer;
+      const APosition: TPosition);
     procedure UpdateXP(const AExperience: Integer; const APosition: TPosition);
     procedure UpdateLevel(const APosition: TPosition); virtual;
     procedure TakeDamage(const ADamage: Integer; const APosition: TPosition);
@@ -1517,32 +1518,13 @@ begin
     Loot.AddGemAt(AX, AY);
   end;
   Loot.AddItemAt(AX, AY);
-  if (RandomRange(0, 2) = 0) and TLeaderParty.Leader.Abilities.IsAbility
-    (abGemology) then
+  if Assigned(TLeaderParty.Leader.Abilities) { and (RandomRange(0, 2) = 0) } and
+    TLeaderParty.Leader.Abilities.IsAbility(abGemology) then
     Loot.AddGemAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddGoldAt(AX, AY);
   if (RandomRange(0, 2) = 0) then
     Loot.AddManaAt(AX, AY);
-
-  { if Game.Wizard then
-    begin
-    LStringList := TStringList.Create;
-    try
-    if FileExists('parties.txt') then
-    LStringList.LoadFromFile('parties.txt');
-    LText := Format('Level-%d ', [TSaga.GetTileLevel(Party[LPartyIndex].X,
-    Party[LPartyIndex].Y)]);
-    for LPosition := Low(TPosition) to High(TPosition) do
-    LText := LText + Format('%d-%s ',
-    [LPosition, Party[LPartyIndex].Creature[LPosition].Name[0]]);
-    LStringList.Append(Trim(LText));
-    LStringList.Sort;
-    LStringList.SaveToFile('parties.txt');
-    finally
-    FreeAndNil(LStringList);
-    end;
-    end; }
 end;
 
 procedure TPartyList.Clear;
