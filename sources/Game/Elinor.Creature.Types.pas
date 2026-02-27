@@ -97,7 +97,7 @@ type
     // Bears
     crPolarBear, crBrownBear, crBlackBear,
     // Golems
-    crBoneGolem, crStoneGolem,
+    crBoneGolem, crStoneGolem, crFireGolem,
     // Dragons
     crBlackDragon, crWhiteDragon { , crRedDragon, crGreenDragon, crBlueDragon }
     //

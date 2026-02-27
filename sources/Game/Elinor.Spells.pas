@@ -15,7 +15,7 @@ type
     // Undead Hordes Spellbook
     spPlague, spCurse, spSkeletion, spBoneGolem,
     // Legions of the Damned Spellbook
-    spConcealment, spChainsOfDread, spWeaken
+    spConcealment, spChainsOfDread, spWeaken, spFireGolem
     //
     );
   // enum class SpellType
@@ -182,8 +182,15 @@ type
   end;
 
 type
-
   TStrengthSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
+  TFireGolemSpell = class(TSpell)
   public
     constructor Create;
   protected
@@ -277,7 +284,12 @@ const
     // Weaken
     (Name: 'Weaken'; Level: 1; Mana: 2; RequireAbility: abNone;
     SoundEnum: mmInvisibility; ResEnum: srWeaken; Faction: faLegionsOfTheDamned;
-    SpellTarget: stEnemy; Description: '';)
+    SpellTarget: stEnemy; Description: '';),
+    // Summon: Fire Golem
+    (Name: 'Summon: Fire Golem'; Level: 1; Mana: 42;
+    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    ResEnum: srFireGolem; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;
+    Description: 'Summons a Fire Golem';)
     //
     );
 
@@ -428,6 +440,7 @@ begin
   FSpell[spWeaken] := TWeakenSpell.Create;
   FSpell[spEagleEye] := TEagleEyeSpell.Create;
   FSpell[spStrength] := TStrengthSpell.Create;
+  FSpell[spFireGolem] := TFireGolemSpell.Create;
 end;
 
 { TTrueHealingSpell }
@@ -596,6 +609,18 @@ end;
 constructor TStoneGolemSpell.Create;
 begin
   inherited Create(spStoneGolem);
+end;
+
+{ TFireGolemSpell }
+
+procedure TFireGolemSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crFireGolem);
+end;
+
+constructor TFireGolemSpell.Create;
+begin
+  inherited Create(spFireGolem);
 end;
 
 initialization

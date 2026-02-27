@@ -108,7 +108,7 @@ type
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
     mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior,
-    mrBoneGolem, mrStoneGolem);
+    mrBoneGolem, mrStoneGolem, mrFireGolem);
 
 type
   TSpellResEnum = (srNone,
@@ -118,7 +118,7 @@ type
     // Undead Hordes
     srPlague, srCurse, srSkeletion, srBoneGolem,
     // Legions of the Damned
-    srConcealment, srChainsOfDread, srWeaken);
+    srConcealment, srChainsOfDread, srWeaken, srFireGolem);
 
 type
   TAbilityResEnum = (arNone, arStrength, arMight, arArcaneKnowledge, arSorcery,
@@ -738,7 +738,9 @@ const
     // Bone Golem
     (FileName: 'character.neutrals.bone_golem.png'; ResType: teGUI;),
     // Stone Golem
-    (FileName: 'character.neutrals.stone_golem.png'; ResType: teGUI;)
+    (FileName: 'character.neutrals.stone_golem.png'; ResType: teGUI;),
+    // Fire Golem
+    (FileName: 'character.neutrals.fire_golem.png'; ResType: teGUI;)
 
     //
     );
@@ -960,7 +962,9 @@ const
     // Chains Of Dread
     (FileName: 'spell.chains_of_dread.png'; ResType: teSpell;),
     // Weaken
-    (FileName: 'spell.weaken.png'; ResType: teSpell;)
+    (FileName: 'spell.weaken.png'; ResType: teSpell;),
+    // Fire Golem
+    (FileName: 'spell.fire_golem.png'; ResType: teSpell;)
     //
     );
 
