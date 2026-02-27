@@ -96,6 +96,8 @@ type
     crWolf, crDireWolf, crSpiritWolf,
     // Bears
     crPolarBear, crBrownBear, crBlackBear,
+    // Golems
+    crBoneGolem,
     // Dragons
     crBlackDragon
     //
