@@ -103,7 +103,8 @@ uses
   Elinor.Frame,
   Elinor.Error,
   Elinor.Common,
-  Elinor.Loot;
+  Elinor.Loot,
+  Elinor.Difficulty;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -249,7 +250,7 @@ end;
 
 class procedure TSceneBattle2.AddLoot;
 begin
-  if (RandomRange(0, 2) = 0) then
+  if (RandomRange(0, Ord(Difficulty.Level) + 2) = 0) then
     if TLeaderParty.Leader.Abilities.IsAbility(abGemology) then
       Loot.AddGemAt(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
 end;
