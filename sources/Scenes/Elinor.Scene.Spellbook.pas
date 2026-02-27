@@ -183,7 +183,7 @@ procedure TSceneSpellbook.Render;
   begin
     TextTop := TFrame.Row(0) + 6;
     TextLeft := TFrame.Col(3) + 12;
-    AddTextLine('Statistics', True);
+    AddTextLine('Mana', True);
     AddTextLine;
     AddTextLine('Available mana', Game.Mana.Value);
   end;

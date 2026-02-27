@@ -82,8 +82,8 @@ type
 
     // Undeads
     crGhoul, crDarkElfGast,
-    { Dark Elf Butcher, Dark Elf Lyf}
-    crSkeletonWarrior, {crSkeletonChampion, }
+    { Dark Elf Butcher, Dark Elf Lyf }
+    crSkeletonWarrior, { crSkeletonChampion, }
     { Phantom Warrior }
     crZombie, crReaper,
 
@@ -97,7 +97,7 @@ type
     // Bears
     crPolarBear, crBrownBear, crBlackBear,
     // Dragons
-    crBlackDragon
+    crBlackDragon, crWhiteDragon { , crRedDragon, crGreenDragon, crBlueDragon }
     //
     );
 
