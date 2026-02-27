@@ -84,6 +84,20 @@ const
     'You did not complete the scenario within the allotted days.';
   CLeaderCannotWearShoes =
     'Leader cannot equip magic shoes: requires Travel Lore ability!';
+  CLeaderCannotUseOrb =
+    'Leader cannot use magic orbs: requires Arcane Lore ability!';
+  CLeaderCannotUseTalisman =
+    'Leader cannot use talismans: requires Arcane Power ability!';
+  CLeaderCannotCarryBanner =
+    'Leader cannot carry battle flags: requires Banner Bearer ability!';
+  CLeaderCannotReadScroll =
+    'Leader cannot read magical scrolls: requires Use Staffs And Scrolls ability!';
+  CLeaderCannotWearStaves =
+    'Leader cannot equip magic wands: requires Use Staffs And Scrolls ability!';
+  CLeaderCannotUseTomes =
+    'Leader cannot use tomes: requires Arcane Knowledge ability!';
+  CLeaderCannotUseArtifacts =
+    'Leader cannot use artifacts: requires Artifact Lore ability!';
 
 implementation
 
