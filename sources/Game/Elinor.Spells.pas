@@ -10,7 +10,8 @@ uses
 type
   TSpellEnum = (spNone,
     // The Empire Spellbook
-    spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye, spStrength,
+    spTrueHealing, spSpeed, spBless, spLivingArmor, spStoneGolem, spEagleEye,
+    spStrength,
     // Undead Hordes Spellbook
     spPlague, spCurse, spSkeletion, spBoneGolem,
     // Legions of the Damned Spellbook
@@ -94,6 +95,14 @@ type
 
 type
   TLivingArmorSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
+  TStoneGolemSpell = class(TSpell)
   public
     constructor Create;
   protected
@@ -222,6 +231,11 @@ const
     (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; RequireAbility: abNone;
     SoundEnum: mmAttack; ResEnum: srLivingArmor; Faction: faTheEmpire;
     SpellTarget: stEnemy; Description: 'Summons a Living Armor';),
+    // Summon: Stone Golem
+    (Name: 'Summon: Stone Golem'; Level: 1; Mana: 40;
+    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    ResEnum: srStoneGolem; Faction: faTheEmpire; SpellTarget: stEnemy;
+    Description: 'Summons a Stone Golem';),
     // Eagle Eye
     (Name: 'Eagle Eye'; Level: 1; Mana: 5; RequireAbility: abNone;
     SoundEnum: mmHeal; ResEnum: srEagleEye; Faction: faTheEmpire;
@@ -249,7 +263,7 @@ const
     (Name: 'Summon: Bone Golem'; Level: 1; Mana: 45;
     RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
     ResEnum: srBoneGolem; Faction: faUndeadHordes; SpellTarget: stEnemy;
-    Description: 'Summons a spBone Golem';),
+    Description: 'Summons a Bone Golem';),
 
     // Legions of the Damned
     // Concealment
@@ -404,6 +418,7 @@ begin
   FSpell[spSpeed] := TSpeedSpell.Create;
   FSpell[spBless] := TBlessSpell.Create;
   FSpell[spLivingArmor] := TLivingArmorSpell.Create;
+  FSpell[spStoneGolem] := TStoneGolemSpell.Create;
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spCurse] := TCurseSpell.Create;
   FSpell[spSkeletion] := TSkeletionSpell.Create;
@@ -569,6 +584,18 @@ end;
 constructor TBoneGolemSpell.Create;
 begin
   inherited Create(spBoneGolem);
+end;
+
+{ TStoneGolemSpell }
+
+procedure TStoneGolemSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crStoneGolem);
+end;
+
+constructor TStoneGolemSpell.Create;
+begin
+  inherited Create(spStoneGolem);
 end;
 
 initialization
