@@ -262,6 +262,11 @@ begin
           (LCharacterExperience >= 5) then
           LGainMoreExperience := LCharacterExperience div 5;
         LCharacterExperience := LCharacterExperience + LGainMoreExperience;
+        if TLeaderParty.Leader.Abilities.IsAbility(abWeaponMaster) then
+        begin
+          LGainMoreExperience := (TLeaderParty.Leader.Level * 10);
+          LCharacterExperience := LCharacterExperience + LGainMoreExperience;
+        end;
         for LPosition := Low(TPosition) to High(TPosition) do
           with LeaderParty.Creature[LPosition] do
             if AliveAndNeedExp then
