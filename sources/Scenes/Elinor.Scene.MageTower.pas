@@ -57,7 +57,7 @@ uses
 procedure TSceneMageTower.TryLearnSpell;
 var
   LSpellEnum: TSpellEnum;
-  LMana: Byte;
+  LMana, LGold: Integer;
 const
   CRequireAbilityToLearnSpell = 'You need the %s ability to learn this spell.';
 begin
@@ -73,6 +73,7 @@ begin
       Exit;
     end;
     LMana := Spells.Spell(LSpellEnum).Mana * 2;
+    LGold := 0;
     if LGold > Game.Gold.Value then
     begin
       Game.MediaPlayer.PlaySound(mmSpellbook);
@@ -191,10 +192,8 @@ procedure TSceneMageTower.Render;
       AddTextLine('Level', TSpells.Spell(LSpellEnum).Level);
       AddTextLine;
       AddTextLine('Research cost:');
-      AddTextLine(Format('Mana %d',
-        [TSpells.Spell(LSpellEnum).Mana * 2]));
-      AddTextLine(Format('Gold %d',
-        [TSpells.Spell(LSpellEnum).Mana * 2]));
+      AddTextLine(Format('Mana %d', [TSpells.Spell(LSpellEnum).Mana * 2]));
+      AddTextLine(Format('Gold %d', [TSpells.Spell(LSpellEnum).Mana * 2]));
       AddTextLine;
       AddTextLine(Format('Casting cost %d mana',
         [TSpells.Spell(LSpellEnum).Mana]));

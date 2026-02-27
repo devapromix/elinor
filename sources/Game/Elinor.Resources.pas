@@ -107,11 +107,7 @@ type
     mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
-<<<<<<< HEAD
-    mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior, mrBoneGolem);
-=======
-    mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
->>>>>>> 8b8348a6b75614c56286d57a336994c48980f592
+    mrPeasant, mrManAtArms, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior, mrBoneGolem);
 
 type
   TSpellResEnum = (srNone,
@@ -824,7 +820,7 @@ const
     // Ruby
     (FileName: 'item.gemstone.ruby.png'; ResType: teItem;),
     // Saphire
-    (FileName: 'item.gemstone.saphire.png'; ResType: teItem;),
+    (FileName: 'item.gemstone.sapphire.png'; ResType: teItem;),
     // Diamond
     (FileName: 'item.gemstone.diamond.png'; ResType: teItem;),
 
