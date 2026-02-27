@@ -107,14 +107,14 @@ type
     mrBlackGoblin, mrGoblinRider, mrGiantSpider, mrWolf, mrDireWolf,
     mrSpiritWolf, mrPolarBear, mrBrownBear, mrBlackBear, mrOrc, mrGhost, mrImp,
     mrGhoul, mrStoneGargoyle, mrReaper, mrRogue, mrTrog, mrZombie, mrLizardman,
-    mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior);
+    mrPeasant, mrOgre, mrTroll, mrDarkElfGast, mrSkeletonWarrior, mrBoneGolem);
 
 type
   TSpellResEnum = (srNone,
     // The Empire
     srTrueHealing, srSpeed, srBless, srLivingArmor, srEagleEye, srStrength,
     // Undead Hordes
-    srPlague, srCurse, srSkeletion,
+    srPlague, srCurse, srSkeletion, srBoneGolem,
     // Legions of the Damned
     srConcealment, srChainsOfDread, srWeaken);
 
@@ -724,7 +724,9 @@ const
     // Dark Elf
     (FileName: 'character.neutrals.dark_elf.png'; ResType: teGUI;),
     // Skeleton Warrior
-    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;)
+    (FileName: 'character.neutrals.skeleton_warrior.png'; ResType: teGUI;),
+    // Bone Golem
+    (FileName: 'character.neutrals.bone_golem.png'; ResType: teGUI;)
 
     //
     );
@@ -935,6 +937,8 @@ const
     (FileName: 'spell.curse.png'; ResType: teSpell;),
     // Skeletion
     (FileName: 'spell.skeletion.png'; ResType: teSpell;),
+    // Bone Golem
+    (FileName: 'spell.bone_golem.png'; ResType: teSpell;),
 
     // LEGIONS OF THE DAMNED
     // Concealment

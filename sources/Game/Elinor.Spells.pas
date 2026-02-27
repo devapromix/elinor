@@ -12,7 +12,7 @@ type
     // The Empire Spellbook
     spTrueHealing, spSpeed, spBless, spLivingArmor, spEagleEye, spStrength,
     // Undead Hordes Spellbook
-    spPlague, spCurse, spSkeletion,
+    spPlague, spCurse, spSkeletion, spBoneGolem,
     // Legions of the Damned Spellbook
     spConcealment, spChainsOfDread, spWeaken
     //
@@ -118,6 +118,14 @@ type
 
 type
   TSkeletionSpell = class(TSpell)
+  public
+    constructor Create;
+  protected
+    procedure ApplySpellEffect(const APartyIndex: Integer); override;
+  end;
+
+type
+  TBoneGolemSpell = class(TSpell)
   public
     constructor Create;
   protected
@@ -237,6 +245,11 @@ const
     RequireAbility: abNone; SoundEnum: mmRaiseDead; ResEnum: srSkeletion;
     Faction: faUndeadHordes; SpellTarget: stEnemy;
     Description: 'Summons a Skeleton';),
+    // Summon: Bone Golem
+    (Name: 'Summon: Bone Golem'; Level: 1; Mana: 45;
+    RequireAbility: abNone; SoundEnum: mmRaiseDead; ResEnum: srBoneGolem;
+    Faction: faUndeadHordes; SpellTarget: stEnemy;
+    Description: 'Summons a spBone Golem';),
 
     // Legions of the Damned
     // Concealment
@@ -394,6 +407,7 @@ begin
   FSpell[spPlague] := TPlagueSpell.Create;
   FSpell[spCurse] := TCurseSpell.Create;
   FSpell[spSkeletion] := TSkeletionSpell.Create;
+  FSpell[spBoneGolem] := TBoneGolemSpell.Create;
   FSpell[spConcealment] := TConcealmentSpell.Create;
   FSpell[spChainsOfDread] := TChainsOfDreadSpell.Create;
   FSpell[spWeaken] := TWeakenSpell.Create;
@@ -543,6 +557,18 @@ end;
 constructor TSkeletionSpell.Create;
 begin
   inherited Create(spSkeletion);
+end;
+
+{ TBoneGolemSpell }
+
+procedure TBoneGolemSpell.ApplySpellEffect(const APartyIndex: Integer);
+begin
+  TSceneBattle2.SummonCreature(APartyIndex, crBoneGolem);
+end;
+
+constructor TBoneGolemSpell.Create;
+begin
+  inherited Create(spBoneGolem);
 end;
 
 initialization
