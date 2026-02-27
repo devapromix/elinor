@@ -30,6 +30,7 @@ type
     procedure Attack(const AttackEnum: TAttackEnum;
       const SourceEnum: TSourceEnum; const AAtkCrName, ADefCrName: string;
       const Value: Integer);
+  procedure CriticalAttack;
   end;
 
 implementation
@@ -47,6 +48,11 @@ constructor TBattleLog.Create;
 begin
   inherited;
   FLog := TLog.Create(TScene.SceneLeft, TScene.DefaultButtonTop - 20);
+end;
+
+procedure TBattleLog.CriticalAttack;
+begin
+  Log.Add('Leader dealt critical damage!!!');
 end;
 
 destructor TBattleLog.Destroy;

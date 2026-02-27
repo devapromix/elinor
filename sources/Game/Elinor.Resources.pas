@@ -1055,7 +1055,7 @@ type
     mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
     mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
     mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust, mmFlaskShatter,
-    mmExplosion, mmBoost);
+    mmExplosion, mmBoost, mmCriticalAttack);
 
 var
   ResImage: array [TResEnum] of TPNGImage;
@@ -1226,7 +1226,9 @@ const
     // Explosion
     (FileName: 'explosion.wav'; ResType: teSound;),
     // Boost
-    (FileName: 'boost.wav'; ResType: teSound;)
+    (FileName: 'boost.wav'; ResType: teSound;),
+    // Critical damage
+    (FileName: 'critical_attack.wav'; ResType: teSound;)
     //
     );
 
