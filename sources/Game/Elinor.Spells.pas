@@ -247,8 +247,8 @@ const
     Description: 'Summons a Skeleton';),
     // Summon: Bone Golem
     (Name: 'Summon: Bone Golem'; Level: 1; Mana: 45;
-    RequireAbility: abNone; SoundEnum: mmRaiseDead; ResEnum: srBoneGolem;
-    Faction: faUndeadHordes; SpellTarget: stEnemy;
+    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    ResEnum: srBoneGolem; Faction: faUndeadHordes; SpellTarget: stEnemy;
     Description: 'Summons a spBone Golem';),
 
     // Legions of the Damned
