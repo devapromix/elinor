@@ -178,10 +178,10 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iBannerOfOverlord, iRingOfStrength, iHornOfAwareness];
+  CTestItems = [iBannerOfOverlord, iRingOfTheAges, iHornOfAwareness];
 
 type
-  TSetItemsEnum = (siCoverOfDarkness, siOverlordRig);
+  TSetItemsEnum = (siNone, siCoverOfDarkness, siOverlordRig);
 
 type
   TSetItems = record
@@ -198,6 +198,7 @@ type
     ItEffect: TItemEffect;
     ItSlot: TItemSlot;
     ItRes: TItemResEnum;
+    ItSet: TSetItemsEnum;
     Price: Integer;
     Description: string;
   end;
@@ -257,11 +258,13 @@ type
 
 const
   CSetItems: array [TSetItemsEnum] of TSetItems = (
+    // None
+    (Name: ''; Items: []),
     // Cover Of Darkness
     (Name: 'Cover Of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
     iShroudOfDarkness, iBootsOfDarkness]),
     // Overlord Rig
-    (Name: 'Overlord Rig'; Items: [iBannerOfOverlord, iRingOfStrength,
+    (Name: 'Overlord Rig'; Items: [iBannerOfOverlord, iRingOfTheAges,
     iHornOfAwareness])
     //
     );
@@ -276,110 +279,113 @@ const
   ItemBase: array [TItemEnum] of TItem = (
     // None
     (Enum: iNone; Name: ''; Level: 0; ItType: itSpecial; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: irNone; Price: 0; Description: ''),
+    ItSlot: isNone; ItRes: irNone; ItSet: siNone; Price: 0; Description: ''),
 
     // SPECIAL
     // Gold
     (Enum: iGold; Name: 'Gold'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: irItemGold; Price: 0;
+    ItSlot: isNone; ItRes: irItemGold; ItSet: siNone; Price: 0;
     Description: 'A shiny gold coin, valued' +
     ' by merchants and traders across the land'),
     // Mana
     (Enum: iMana; Name: 'Mana'; Level: 1; ItType: itSpecial; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: irItemMana; Price: 0;
+    ItSlot: isNone; ItRes: irItemMana; ItSet: siNone; Price: 0;
     Description: 'A shimmering crystal pulsating with magical energy'),
 
     // SCENARIO
     // Stone Tablet
     (Enum: iStoneTab; Name: 'Stone Tablet'; Level: 1; ItType: itSpecial;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemStoneTablet; Price: 0;
-    Description: 'An ancient stone tablet etched with forgotten knowledge.' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irItemStoneTablet; ItSet: siNone;
+    Price: 0; Description
+    : 'An ancient stone tablet etched with forgotten knowledge.' +
     ' Its inscriptions hold the wisdom of past civilizations'),
 
     // VALUABLES
     // (1) Runic Key
     (Enum: iRunicKey; Name: 'Runic Key'; Level: 1; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irRunicKey; Price: 100;
-    Description: 'An ancient key engraved with glowing runes.' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irRunicKey; ItSet: siNone;
+    Price: 100; Description: 'An ancient key engraved with glowing runes.' +
     ' Unlocks hidden paths and sealed doors'),
     // (2) Arcane Scroll
     (Enum: iArcaneScroll; Name: 'Arcane Scroll'; Level: 2; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irArcaneScroll; Price: 200;
-    Description: 'A used magical scroll, its words faded,' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irArcaneScroll; ItSet: siNone;
+    Price: 200; Description: 'A used magical scroll, its words faded,' +
     ' yet a trace of its power still lingers'),
     // (3) Ember Salts
     (Enum: iEmberSalts; Name: 'Ember Salts'; Level: 3; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmberSalts; Price: 300;
-    Description: 'Glowing embers crystallized into fine salts.' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmberSalts; ItSet: siNone;
+    Price: 300; Description: 'Glowing embers crystallized into fine salts.' +
     ' Used in powerful alchemical rituals'),
     // (4) Ancient Relic
     (Enum: iAncientRelic; Name: 'Ancient Relic'; Level: 4; ItType: itValuable;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irAncientRelic; Price: 400;
-    Description: 'An old and weathered object from a bygone age,' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAncientRelic; ItSet: siNone;
+    Price: 400; Description: 'An old and weathered object from a bygone age,' +
     ' holding secrets of the past'),
 
     // GEMSTONES
     // (1) Agate
     (Enum: iAgate; Name: 'Agate'; Level: 1; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irAgate; Price: 100;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAgate; ItSet: siNone; Price: 100;
     Description: 'Striped colorful gemstone, ' + 'popular in cheap jewelry'),
     // (2) Topaz
     (Enum: iTopaz; Name: 'Topaz'; Level: 2; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irTopaz; Price: 200;
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irTopaz; ItSet: siNone; Price: 200;
     Description: 'Common yellow gemstone used ' +
     'in simple jewelry and trade'),
     // (3) Garnet
     (Enum: iGarnet; Name: 'Garnet'; Level: 3; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irGarnet; Price: 350;
-    Description: 'Dark red stone valued for ' + 'durability and steady demand'),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irGarnet; ItSet: siNone;
+    Price: 350; Description: 'Dark red stone valued for ' +
+    'durability and steady demand'),
     // (4) Amethyst
     (Enum: iAmethyst; Name: 'Amethyst'; Level: 4; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irAmethyst; Price: 500;
-    Description: 'Purple crystal favored by ' + 'mages and collectors'),
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irAmethyst; ItSet: siNone;
+    Price: 500; Description: 'Purple crystal favored by ' +
+    'mages and collectors'),
     // (5) Sapphire
     (Enum: iSapphire; Name: 'Sapphire'; Level: 5; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irSapphire; Price: 650;
-    Description: 'Deep blue stone embodying the sea and sky,' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irSapphire; ItSet: siNone;
+    Price: 650; Description: 'Deep blue stone embodying the sea and sky,' +
     ' prized for its royal beauty and mystique'),
     // (6) Ruby
     (Enum: iRuby; Name: 'Ruby'; Level: 6; ItType: itGemstone; ItEffect: ieNone;
-    ItSlot: isNone; ItRes: irRuby; Price: 800;
+    ItSlot: isNone; ItRes: irRuby; ItSet: siNone; Price: 800;
     Description: 'A fiery red gemstone that blazes with inner light.' +
     ' Symbolizes passion and power in many cultures'),
     // (7) Emerald
     (Enum: iEmerald; Name: 'Emerald'; Level: 7; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; Price: 1000;
-    Description: 'A vibrant green gem, expertly cut' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irEmerald; ItSet: siNone;
+    Price: 1000; Description: 'A vibrant green gem, expertly cut' +
     ' and highly prized for its rich color'),
     // (8) Diamond
     (Enum: iDiamond; Name: 'Diamond'; Level: 8; ItType: itGemstone;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; Price: 1200;
-    Description: 'The most precious of stones, a ' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irDiamond; ItSet: siNone;
+    Price: 1200; Description: 'The most precious of stones, a ' +
     'crystalline marvel of pure light.' +
     ' Rare, unyielding, and incredibly valuable'),
 
     // POTIONS
     // (1) Life Potion
     (Enum: iLifePotion; Name: 'Life Potion'; Level: 1; ItType: itPotion;
-    ItEffect: ieNone; ItSlot: isNone; ItRes: irLifePotion; Price: 250;
-    Description: 'A powerful elixir that restores life,' +
+    ItEffect: ieNone; ItSlot: isNone; ItRes: irLifePotion; ItSet: siNone;
+    Price: 250; Description: 'A powerful elixir that restores life,' +
     ' bringing the dead back to the world of the living'),
     // (1) Potion of Healing
     (Enum: iPotionOfHealing; Name: 'Potion of Healing'; Level: 1;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irPotionOfHealing; Price: 100;
+    ItRes: irPotionOfHealing; ItSet: siNone; Price: 100;
     Description: 'A soothing potion that restores' +
     ' health and heals wounds'),
     // (2) Potion of Restoration
     (Enum: iPotionOfRestoration; Name: 'Potion of Restoration'; Level: 2;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irPotionOfRestoration; Price: 200;
+    ItRes: irPotionOfRestoration; ItSet: siNone; Price: 200;
     Description: 'A potent potion that' +
     ' greatly restores health and accelerates healing'),
     // (3) Healing Ointment
     (Enum: iHealingOintment; Name: 'Healing Ointment'; Level: 3;
     ItType: itPotion; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irHealingOintment; Price: 400;
+    ItRes: irHealingOintment; ItSet: siNone; Price: 400;
     Description: 'A crimson nectar that fills the body with energy,' +
     ' healing wounds and restoring strength'),
 
@@ -387,170 +393,177 @@ const
     // (2) Elixir of Strength
     (Enum: iElixirOfStrength; Name: 'Elixir of Strength'; Level: 2;
     ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irElixirOfStrength; Price: 250;
+    ItRes: irElixirOfStrength; ItSet: siNone; Price: 250;
     Description: 'Inflict 20% more damage for 1 day'),
     // (4) Elixir Of Accuracy
     (Enum: iElixirOfAccuracy; Name: 'Elixir Of Accuracy'; Level: 4;
     ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irElixirOfAccuracy; Price: 300;
+    ItRes: irElixirOfAccuracy; ItSet: siNone; Price: 300;
     Description: 'Inflict 20% more chance to hit for 1 day'),
 
     // ESSENCES
     // (6) Essence of Fortune
     (Enum: iEssenceOfFortune; Name: 'Essence of Fortune'; Level: 6;
     ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irEssenceOfFortune; Price: 1600;
+    ItRes: irEssenceOfFortune; ItSet: siNone; Price: 1600;
     Description: 'Adds 10% greater chance to hit permanently'),
     // (8) Highfather's Essence
     (Enum: iHighfathersEssence; Name: 'Highfather`s Essence'; Level: 8;
     ItType: itEssence; ItEffect: ieNone; ItSlot: isNone;
-    ItRes: irHighfathersEssence; Price: 2000;
+    ItRes: irHighfathersEssence; ItSet: siNone; Price: 2000;
     Description: 'Adds 20% hit points permanently'),
 
     // FLASKS
     // (2) Flask of Oil
     (Enum: iFlaskOfOil; Name: 'Flask of Oil'; Level: 2; ItType: itFlask;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; Price: 150;
-    Description: 'Explodes on impact, dealing 25 damage'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irFireFlask; ItSet: siNone;
+    Price: 150; Description: 'Explodes on impact, dealing 25 damage'),
     // (4) Acid Flask
     (Enum: iAcidFlask; Name: 'Acid Flask'; Level: 4; ItType: itFlask;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; Price: 250;
-    Description: 'Reduces the target’s armor ' + 'by 50% after a direct hit'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irAcidFlask; ItSet: siNone;
+    Price: 250; Description: 'Reduces the target’s armor ' +
+    'by 50% after a direct hit'),
 
     // ARTIFACTS
     // (1) Dwarven Bracer
     (Enum: iDwarvenBracer; Name: 'Dwarven Bracer'; Level: 1; ItType: itArtifact;
-    ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: irDwarvenBracer; Price: 250;
-    Description: ''),
+    ItEffect: ieRegen5; ItSlot: isArtifact; ItRes: irDwarvenBracer;
+    ItSet: siNone; Price: 250; Description: ''),
     // (2) Runestone
     (Enum: iRunestone; Name: 'Runestone'; Level: 2; ItType: itArtifact;
-    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: irRunestone; Price: 400;
-    Description: 'A mystical runestone that enhances' +
+    ItEffect: ieRegen20; ItSlot: isArtifact; ItRes: irRunestone; ItSet: siNone;
+    Price: 400; Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // (3) Horn Of Awareness
     (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
-    ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
-    ItRes: irHornOfAwareness; Price: 500; Description: ''),
+    ItType: itArtifact; ItEffect: ieGainChanceOfCritHit; ItSlot: isArtifact;
+    ItRes: irHornOfAwareness; ItSet: siOverlordRig; Price: 500;
+    Description: 'Blowing this horn grants all party ' +
+    'units a 1% chance to deal a critical hit'),
     // (4) Ice Crystal
     (Enum: iIceCrystal; Name: 'Ice Crystal'; Level: 4; ItType: itArtifact;
     ItEffect: ieChanceToParalyze10; ItSlot: isArtifact; ItRes: reItemIceCrystal;
-    Price: 650; Description: ''),
+    ItSet: siNone; Price: 650; Description: ''),
     // (5) Skull Bracers
     (Enum: iSkullBracers; Name: 'Skull Bracers'; Level: 5; ItType: itArtifact;
-    ItEffect: ieNone; ItSlot: isArtifact; ItRes: irSkullBracers; Price: 750;
-    Description: ''),
+    ItEffect: ieNone; ItSlot: isArtifact; ItRes: irSkullBracers; ItSet: siNone;
+    Price: 750; Description: ''),
     // (6) Lute Of Charming
     (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
-    ItRes: irLuteOfCharming; Price: 1000; Description: ''),
+    ItRes: irLuteOfCharming; ItSet: siNone; Price: 1000; Description: ''),
     // (7) Skull Of Thanatos
     (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
     ItType: itArtifact; ItEffect: ieChanceToParalyze15; ItSlot: isArtifact;
-    ItRes: irSkullOfThanatos; Price: 1250; Description: ''),
+    ItRes: irSkullOfThanatos; ItSet: siNone; Price: 1250; Description: ''),
     // (8) Bethrezen's Claw
     (Enum: iBethrezensClaw; Name: 'Bethrezen''s Claw'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
-    ItRes: irBethrezensClaw; Price: 1500; Description: ''),
+    ItRes: irBethrezensClaw; ItSet: siNone; Price: 1500; Description: ''),
     // (8) Horn Of Incubus
     (Enum: iHornOfIncubus; Name: 'Horn Of Incubus'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
-    ItRes: irHornOfIncubus; Price: 1700; Description: ''),
+    ItRes: irHornOfIncubus; ItSet: siNone; Price: 1700; Description: ''),
 
     // AMULETS
     // (3) Necklace of Bloodbind
     (Enum: iNecklaceOfBloodbind; Name: 'Necklace of Bloodbind'; Level: 3;
     ItType: itAmulet; ItEffect: ieVampiricAttack10; ItSlot: isAmulet;
-    ItRes: irItemAmuletOfBloodbind; Price: 900;
+    ItRes: irItemAmuletOfBloodbind; ItSet: siNone; Price: 900;
     Description: 'This amulet grants its' + ' wearer the power ' +
     'to drink the life of ' + 'their enemies'),
     // (4) Heart of Darkness
     (Enum: iHeartOfDarkness; Name: 'Heart of Darkness'; Level: 4;
     ItType: itAmulet; ItEffect: ieInvisible; ItSlot: isAmulet;
-    ItRes: irHeartOfDarkness; Price: 1200;
+    ItRes: irHeartOfDarkness; ItSet: siCoverOfDarkness; Price: 1200;
     Description: 'A beating heart of endless darkness'),
 
     // ARMORS
     // (4) Shroud of Darkness
     (Enum: iShroudOfDarkness; Name: 'Shroud of Darkness'; Level: 4;
     ItType: itArmor; ItEffect: ieInvisible; ItSlot: isArmor;
-    ItRes: irShroudOfDarkness; Price: 800;
+    ItRes: irShroudOfDarkness; ItSet: siCoverOfDarkness; Price: 800;
     Description: 'A living shadow wrapped' + ' around its bearer'),
 
     // BOOTS
     // (1) Boots of Speed
     (Enum: iBootsOfSpeed; Name: 'Boots of Speed'; Level: 1; ItType: itBoots;
     ItEffect: ieGains20MoreMovePoints; ItSlot: isBoots; ItRes: irBootsOfSpeed;
-    Price: 400; Description: 'Leader gains 20% more move points'),
+    ItSet: siNone; Price: 400;
+    Description: 'Leader gains 20% more move points'),
     // (2) Elven Boots
     (Enum: iElvenBoots; Name: 'Elven Boots'; Level: 2; ItType: itBoots;
-    ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; Price: 500;
-    Description: 'No move penalty when ' + 'walking in forests'),
+    ItEffect: ieNone; ItSlot: isBoots; ItRes: irElvenBoots; ItSet: siNone;
+    Price: 500; Description: 'No move penalty when ' + 'walking in forests'),
     // (3) Boots Of Haste
     (Enum: iBootsOfHaste; Name: 'Boots of Haste'; Level: 3; ItType: itBoots;
     ItEffect: ieGains40MoreMovePoints; ItSlot: isBoots; ItRes: irBootsOfHaste;
-    Price: 600; Description: 'Leader gains 40% more move points'),
+    ItSet: siNone; Price: 600;
+    Description: 'Leader gains 40% more move points'),
     // (4) Boots Of Darkness
     (Enum: iBootsOfDarkness; Name: 'Boots of Darkness'; Level: 4;
     ItType: itBoots; ItEffect: ieInvisible; ItSlot: isBoots;
-    ItRes: irBootsOfDarkness; Price: 700;
+    ItRes: irBootsOfDarkness; ItSet: siCoverOfDarkness; Price: 700;
     Description: 'The leader who wears ' + 'these shoes becomes ' +
     'invisible to enemies'),
     // (5) Boots Of Travelling
     (Enum: iBootsOfTravelling; Name: 'Boots of Travelling'; Level: 5;
     ItType: itBoots; ItEffect: ieGains60MoreMovePoints; ItSlot: isBoots;
-    ItRes: irBootsOfTravelling; Price: 800;
+    ItRes: irBootsOfTravelling; ItSet: siNone; Price: 800;
     Description: 'Leader gains 60% more move points'),
     // (6) Boots Of The Elements
     (Enum: iBootsOfTheElements; Name: 'Boots of the Elements'; Level: 6;
     ItType: itBoots; ItEffect: ieNone; ItSlot: isBoots;
-    ItRes: irBootsOfTheElements; Price: 900;
+    ItRes: irBootsOfTheElements; ItSet: siNone; Price: 900;
     Description: 'No move penalty when sailing on water'),
     // (7) Boots Of Seven Leagues
     (Enum: iBootsOfSevenLeagues; Name: 'Boots of Seven Leagues'; Level: 7;
     ItType: itBoots; ItEffect: ieGains80MoreMovePoints; ItSlot: isBoots;
-    ItRes: irBootsOfSevenLeagues; Price: 1000;
+    ItRes: irBootsOfSevenLeagues; ItSet: siNone; Price: 1000;
     Description: 'Leader gains 80% more move points'),
 
     // TALISMANS
     // (1) Talisman of Restoration
     (Enum: iTalismanOfRestoration; Name: 'Talisman of Restoration'; Level: 1;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfRestoration; Price: 450;
+    ItRes: irTalismanOfRestoration; ItSet: siNone; Price: 450;
     Description: 'Heals the Leader for 55 hp'),
     // (2) Talisman of Vigor
     (Enum: iTalismanOfVigor; Name: 'Talisman of Vigor'; Level: 2;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfVigor; Price: 600;
+    ItRes: irTalismanOfVigor; ItSet: siNone; Price: 600;
     Description: 'Leader inflict 25% more damage'),
     // (3) Talisman of Protection
     (Enum: iTalismanOfProtection; Name: 'Talisman of Protection'; Level: 3;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfProtection; Price: 750;
+    ItRes: irTalismanOfProtection; ItSet: siNone; Price: 750;
     Description: 'Leader receives 10% less damage from attacks'),
     // (4) Talisman of Nosferat
     (Enum: iTalismanOfNosferat; Name: 'Talisman of Nosferat'; Level: 4;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfNosferat; Price: 900;
+    ItRes: irTalismanOfNosferat; ItSet: siNone; Price: 900;
     Description: 'Drains 25 hp of life from enemy units'),
     // (5) Talisman of Fear
     (Enum: iTalismanOfFear; Name: 'Talisman of Fear'; Level: 5;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfFear; Price: 1050; Description: 'Paralyzes enemy unit'),
+    ItRes: irTalismanOfFear; ItSet: siNone; Price: 1050;
+    Description: 'Paralyzes enemy unit'),
     // (6) Talisman of Rage
     (Enum: iTalismanOfRage; Name: 'Talisman of Rage'; Level: 6;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfRage; Price: 1200; Description: 'Gives an extra attack'),
+    ItRes: irTalismanOfRage; ItSet: siNone; Price: 1200;
+    Description: 'Gives an extra attack'),
     // (7) Talisman of Celerity
     (Enum: iTalismanOfCelerity; Name: 'Talisman of Celerity'; Level: 7;
     ItType: itTalisman; ItEffect: ieNone; ItSlot: isLHand;
-    ItRes: irTalismanOfCelerity; Price: 1350;
+    ItRes: irTalismanOfCelerity; ItSet: siNone; Price: 1350;
     Description: 'Grants the Leader 20% increased initiative'),
 
     // BANNERS
     // (4)
     (Enum: iBannerOfOverlord; Name: 'Banner of Overlord'; Level: 4;
     ItType: itBanner; ItEffect: ieGainChanceOfCritHit; ItSlot: isBanner;
-    ItRes: irBannerOfOverlord; Price: 3000;
+    ItRes: irBannerOfOverlord; ItSet: siOverlordRig; Price: 3000;
     Description: 'All the units in the party gain ' +
     'a 1% chance to deal a critical hit'),
 
@@ -558,105 +571,113 @@ const
     // (3) Tome of War
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
     ItEffect: ieGain20MoreExp; ItSlot: isTome; ItRes: irItemTomeOfWar;
-    Price: 2500; Description: 'All the units in the party gain 20% ' +
+    ItSet: siNone; Price: 2500;
+    Description: 'All the units in the party gain 20% ' +
     'more experience in battle'),
 
     // ORBS
     // (1) Goblin Orb
     (Enum: iGoblinOrb; Name: 'Goblin Orb'; Level: 1; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irGoblinOrb; Price: 200;
-    Description: 'Summon a Goblin'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irGoblinOrb; ItSet: siNone;
+    Price: 200; Description: 'Summon a Goblin'),
     // (2) Orb Of Healing
     (Enum: iOrbOfHealing; Name: 'Orb Of Healing'; Level: 2; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfHealing; Price: 250;
-    Description: 'Heals units 50 hp'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfHealing; ItSet: siNone;
+    Price: 250; Description: 'Heals units 50 hp'),
     // (3) Imp Orb
     (Enum: iImpOrb; Name: 'Imp Orb'; Level: 3; ItType: itOrb; ItEffect: ieNone;
-    ItSlot: isLHand; ItRes: irImpOrb; Price: 350; Description: 'Summon an Imp'),
+    ItSlot: isLHand; ItRes: irImpOrb; ItSet: siNone; Price: 350;
+    Description: 'Summon an Imp'),
     // (4) Skeleton Orb
     (Enum: iSkeletonOrb; Name: 'Skeleton Orb'; Level: 4; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irSkeletonOrb; Price: 400;
-    Description: 'Summon a Skeleton Warrior'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irSkeletonOrb; ItSet: siNone;
+    Price: 400; Description: 'Summon a Skeleton Warrior'),
     // (4) Orb Of Restoration
     (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 4;
     ItType: itOrb; ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfRestoration;
-    Price: 500; Description: 'Heals units 100 hp'),
+    ItSet: siNone; Price: 500; Description: 'Heals units 100 hp'),
     // (5) Zombie Orb
     (Enum: iZombieOrb; Name: 'Zombie Orb'; Level: 5; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irZombieOrb; Price: 600;
-    Description: 'Summon a Zombie'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irZombieOrb; ItSet: siNone;
+    Price: 600; Description: 'Summon a Zombie'),
     // (6) Orb Of Life
     (Enum: iOrbOfLife; Name: 'Orb of Life'; Level: 6; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfLife; Price: 750;
-    Description: 'Revives dead units'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfLife; ItSet: siNone;
+    Price: 750; Description: 'Revives dead units'),
     // (7) Lizardman Orb
     (Enum: iLizardmanOrb; Name: 'Lizardman Orb'; Level: 7; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; Price: 850;
-    Description: 'Summon a Lizardman'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irLizardmanOrb; ItSet: siNone;
+    Price: 850; Description: 'Summon a Lizardman'),
     // (8) Orb of Witches
     (Enum: iOrbOfWitches; Name: 'Orb of Witches'; Level: 8; ItType: itOrb;
-    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfWitches; Price: 1000;
-    Description: 'Polymorphs an enemy unit'),
+    ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfWitches; ItSet: siNone;
+    Price: 1000; Description: 'Polymorphs an enemy unit'),
 
     // RINGS
     // (1) Stone Ring
     (Enum: iStoneRing; Name: 'Stone Ring'; Level: 1; ItType: itRing;
-    ItEffect: ieRegen5; ItSlot: isRing; ItRes: irStoneRing; Price: 300;
-    Description: 'A stone ring with a faint glow,' +
+    ItEffect: ieRegen5; ItSlot: isRing; ItRes: irStoneRing; ItSet: siNone;
+    Price: 300; Description: 'A stone ring with a faint glow,' +
     ' holding dormant magical energy'),
     // (2) Bronze Ring
     (Enum: iBronzeRing; Name: 'Bronze Ring'; Level: 2; ItType: itRing;
-    ItEffect: ieRegen10; ItSlot: isRing; ItRes: irBronzeRing; Price: 400;
-    Description: 'A simple bronze ring,' + ' sturdy and unassuming'),
+    ItEffect: ieRegen10; ItSlot: isRing; ItRes: irBronzeRing; ItSet: siNone;
+    Price: 400; Description: 'A simple bronze ring,' +
+    ' sturdy and unassuming'),
     // (3) Silver Ring
     (Enum: iSilverRing; Name: 'Silver Ring'; Level: 3; ItType: itRing;
-    ItEffect: ieRegen15; ItSlot: isRing; ItRes: irSilverRing; Price: 500;
-    Description: 'A sleek silver ring,' +
+    ItEffect: ieRegen15; ItSlot: isRing; ItRes: irSilverRing; ItSet: siNone;
+    Price: 500; Description: 'A sleek silver ring,' +
     ' reflecting a subtle, elegant shine'),
     // (4) Gold Ring
     (Enum: iGoldRing; Name: 'Gold Ring'; Level: 4; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irGoldRing; Price: 700;
-    Description: 'A luxurious gold ring,' +
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irGoldRing; ItSet: siNone;
+    Price: 700; Description: 'A luxurious gold ring,' +
     ' gleaming with wealth and prestige'),
     // (5) Ring Of Strength,
     (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfStrength; Price: 900;
-    Description: 'A massive ring pulses ' + 'with hidden energy'),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfStrength; ItSet: siNone;
+    Price: 900; Description: 'A massive ring pulses ' + 'with hidden energy'),
     // (6) Ring Of The Ages,
     (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfTheAges; Price: 1000;
-    Description: ''),
+    ItEffect: ieGainChanceOfCritHit; ItSlot: isRing; ItRes: irRingOfTheAges;
+    ItSet: siOverlordRig; Price: 1000;
+    Description: 'Grants all party units a 1%' +
+    ' chance to deal a critical hit'),
     // (7) Hag's Ring,
     (Enum: iRingOfHag; Name: 'Ring of Hag'; Level: 7; ItType: itRing;
-    ItEffect: ieNone; ItSlot: isRing; ItRes: irHagsRing; Price: 1200;
-    Description: ''),
+    ItEffect: ieNone; ItSlot: isRing; ItRes: irHagsRing; ItSet: siNone;
+    Price: 1200; Description: ''),
     // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
     ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing;
-    Price: 1500; Description: ''),
+    ItSet: siNone; Price: 1500; Description: ''),
 
     // HELMS
     // (4) Hood Of Darkness
     (Enum: iHoodOfDarkness; Name: 'Hood Of Darkness'; Level: 4; ItType: itHelm;
-    ItEffect: ieInvisible; ItSlot: isHelm; ItRes: irHoodOfDarkness; Price: 800;
+    ItEffect: ieInvisible; ItSlot: isHelm; ItRes: irHoodOfDarkness;
+    ItSet: siCoverOfDarkness; Price: 800;
     Description: 'This headgear renders' + ' the leader entirely ' +
     'invisible to enemies'),
     // (5) Tiara Of Purity
     (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
-    ItEffect: ieNone; ItSlot: isHelm; ItRes: irTiaraOfPurity; Price: 1000;
-    Description: ''),
+    ItEffect: ieNone; ItSlot: isHelm; ItRes: irTiaraOfPurity; ItSet: siNone;
+    Price: 1000; Description: ''),
     // (6) Mjolnir's Crown
     (Enum: iMjolnirsCrown; Name: 'Mjolnir''s Crown'; Level: 6; ItType: itHelm;
-    ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; Price: 1500;
+    ItEffect: ieNone; ItSlot: isHelm; ItRes: irNone; ItSet: siNone; Price: 1500;
     Description: ''),
     // (7) Thirstborn Diadem
     (Enum: iMjolnirsCrown; Name: 'Thirstborn Diadem'; Level: 7; ItType: itHelm;
-    ItEffect: ieVampiricAttack25; ItSlot: isHelm; ItRes: irNone; Price: 2000;
-    Description: 'Drains enemy life with ' + 'every blow you strike'),
+    ItEffect: ieVampiricAttack25; ItSlot: isHelm; ItRes: irNone; ItSet: siNone;
+    Price: 2000; Description: 'Drains enemy life with ' +
+    'every blow you strike'),
     // (8) Imperial Crown
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
-    ItEffect: ieRegen25; ItSlot: isHelm; ItRes: irNone; Price: 2500;
-    Description: 'Gradually restores your ' + 'health during every day'));
+    ItEffect: ieRegen25; ItSlot: isHelm; ItRes: irNone; ItSet: siNone;
+    Price: 2500; Description: 'Gradually restores your ' +
+    'health during every day'));
 
   { TInventory }
 

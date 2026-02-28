@@ -1124,6 +1124,8 @@ begin
     Result := Result + 1;
   if Self.LeaderInvisibleValue > 1 then
     Result := Result + (Self.LeaderInvisibleValue - 1);
+  if Self.LeaderChanceOfLandingCriticalHitsValue > 2 then
+    Result := Result + (Self.LeaderChanceOfLandingCriticalHitsValue - 2);
 end;
 
 function TLeaderParty.InSightRadius(const AX, AY: Integer): Boolean;
