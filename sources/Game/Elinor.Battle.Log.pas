@@ -30,7 +30,7 @@ type
     procedure Attack(const AttackEnum: TAttackEnum;
       const SourceEnum: TSourceEnum; const AAtkCrName, ADefCrName: string;
       const Value: Integer);
-  procedure CriticalAttack;
+    procedure CriticalAttack;
   end;
 
 implementation
@@ -52,7 +52,7 @@ end;
 
 procedure TBattleLog.CriticalAttack;
 begin
-  Log.Add('Critical strike!!!');
+  Log.Add(TResources.RandomValue('battle.string', 'critical_attack'));
 end;
 
 destructor TBattleLog.Destroy;
