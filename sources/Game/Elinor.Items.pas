@@ -178,10 +178,10 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iBannerOfOverlord, iBootsOfSpeed];
+  CTestItems = [iBannerOfOverlord, iRingOfStrength, iHornOfAwareness];
 
 type
-  TSetItemsEnum = (siCoverOfDarkness);
+  TSetItemsEnum = (siCoverOfDarkness, siOverlordRig);
 
 type
   TSetItems = record
@@ -259,7 +259,10 @@ const
   CSetItems: array [TSetItemsEnum] of TSetItems = (
     // Cover Of Darkness
     (Name: 'Cover Of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
-    iShroudOfDarkness, iBootsOfDarkness])
+    iShroudOfDarkness, iBootsOfDarkness]),
+    // Overlord Rig
+    (Name: 'Overlord Rig'; Items: [iBannerOfOverlord, iRingOfStrength,
+    iHornOfAwareness])
     //
     );
 
