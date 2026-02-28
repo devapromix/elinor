@@ -668,7 +668,7 @@ begin
             Game.InformSL.Append(CPref + 'Sight radius: +' +
               IntToStr((LCount - 2)));
           if LCount > 3 then
-            Game.InformSL.Append(CPref + '---: +1');
+            Game.InformSL.Append(CPref + 'Better chance of finding items');
         end;
     end;
 end;

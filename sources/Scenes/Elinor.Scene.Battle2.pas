@@ -245,6 +245,13 @@ begin
   if (RandomRange(0, Ord(Difficulty.Level) + 2) = 0) then
     if TLeaderParty.Leader.Abilities.IsAbility(abGemology) then
       Loot.AddGemAt(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+  if TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue > 3 then
+    case RandomRange(0, 5) of
+      0 .. 3:
+        Loot.AddItemAt(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+    else
+      Loot.AddGemAt(TLeaderParty.Leader.X, TLeaderParty.Leader.Y);
+    end;
 end;
 
 procedure TSceneBattle2.ChExperience;
@@ -523,8 +530,8 @@ begin
                       Exit;
                     Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
                       .Sound[csAttack]);
-                    FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
-                      ADefParty, ADefPos);
+                    FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos,
+                      LDefCrEnum, ADefParty, ADefPos);
                     B := True;
                   end;
                 1, 3, 5:
@@ -537,8 +544,8 @@ begin
                       Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
                         .Sound[csAttack]);
                       Sleep(200);
-                      FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
-                        ADefParty, ADefPos);
+                      FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos,
+                        LDefCrEnum, ADefParty, ADefPos);
                       B := True;
                     end;
                   end;
@@ -560,8 +567,8 @@ begin
             for LPosition := Low(TPosition) to High(TPosition) do
               if ADefParty.Creature[LPosition].Alive then
               begin
-                FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
-                  ADefParty, LPosition);
+                FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos,
+                  LDefCrEnum, ADefParty, LPosition);
               end;
             B := True;
           end;

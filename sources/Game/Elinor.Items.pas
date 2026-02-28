@@ -178,7 +178,8 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iHeartOfDarkness, iBannerOfOverlord, iRingOfTheAges, iHornOfAwareness];
+  CTestItems = [iHeartOfDarkness, iBannerOfOverlord, iRingOfTheAges,
+    iHornOfAwareness];
 
 type
   TSetItemsEnum = (siNone, siCoverOfDarkness, siOverlordRig);
