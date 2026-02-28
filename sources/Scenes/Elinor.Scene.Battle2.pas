@@ -55,9 +55,6 @@ type
     procedure HideBattleLog;
     procedure UseLHandItem;
     class procedure AddLoot;
-    procedure DamageCreature(LAtkCrEnum: TCreatureEnum; AAtkParty: TParty;
-      AAtkPos: TPosition; LDefCrEnum: TCreatureEnum; ADefParty: TParty;
-      ADefPos: TPosition);
   public
     class var IsDuel: Boolean;
     class var IsSummon: Boolean;
@@ -241,51 +238,6 @@ begin
     Game.MediaPlayer.PlayMusic(mmDefeat);
     Enabled := True;
   end;
-end;
-
-procedure TSceneBattle2.DamageCreature(LAtkCrEnum: TCreatureEnum;
-  AAtkParty: TParty; AAtkPos: TPosition; LDefCrEnum: TCreatureEnum;
-  ADefParty: TParty; ADefPos: TPosition);
-var
-  LDamage: Integer;
-  LIsCrit: Boolean;
-begin
-  LIsCrit := False;
-  LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
-  if (AAtkParty.Creature[AAtkPos].Leadership > 0) then
-    if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue > 0) then
-      if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue <=
-        RandomRange(0, 100) + 1) then
-      begin
-        LIsCrit := True;
-        LDamage := LDamage * 2;
-      end;
-  ADefParty.TakeDamage(LDamage, ADefPos);
-  if LIsCrit then
-  begin
-    FBattle.BattleLog.CriticalAttack;
-    Game.MediaPlayer.PlaySound(mmCriticalAttack);
-    Sleep(50);
-  end
-  else
-  begin
-    case TCreature.Character(LAtkCrEnum).AttackEnum of
-      atDrainLife:
-        begin
-          Sleep(50);
-          Game.MediaPlayer.PlaySound(mmHeal);
-          AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
-        end;
-    end;
-  end;
-  FBattle.BattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
-    TCreature.Character(LAtkCrEnum).SourceEnum, AAtkParty.Creature[AAtkPos].Name
-    [0], ADefParty.Creature[ADefPos].Name[1],
-    AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
-  if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0) then
-    Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum).Sound[csHit])
-  else
-    FBattle.Kill(LDefCrEnum);
 end;
 
 class procedure TSceneBattle2.AddLoot;
@@ -544,7 +496,7 @@ begin
             Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
               .Sound[csAttack]);
             Sleep(200);
-            DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+            FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
               ADefParty, ADefPos);
             B := True;
           end;
@@ -571,7 +523,7 @@ begin
                       Exit;
                     Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
                       .Sound[csAttack]);
-                    DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+                    FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
                       ADefParty, ADefPos);
                     B := True;
                   end;
@@ -585,7 +537,7 @@ begin
                       Game.MediaPlayer.PlaySound(TCreature.Character(LAtkCrEnum)
                         .Sound[csAttack]);
                       Sleep(200);
-                      DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+                      FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
                         ADefParty, ADefPos);
                       B := True;
                     end;
@@ -608,7 +560,7 @@ begin
             for LPosition := Low(TPosition) to High(TPosition) do
               if ADefParty.Creature[LPosition].Alive then
               begin
-                DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
+                FBattle.DamageCreature(LAtkCrEnum, AAtkParty, AAtkPos, LDefCrEnum,
                   ADefParty, LPosition);
               end;
             B := True;

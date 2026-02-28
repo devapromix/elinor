@@ -29,6 +29,9 @@ type
       const ALeaderParty, AEnemyParty: TParty): Integer;
     property BattleLog: TBattleLog read FBattleLog;
     procedure Kill(const ADefCrEnum: TCreatureEnum);
+    procedure DamageCreature(LAtkCrEnum: TCreatureEnum; AAtkParty: TParty;
+      AAtkPos: TPosition; LDefCrEnum: TCreatureEnum; ADefParty: TParty;
+      ADefPos: TPosition);
   end;
 
 implementation
@@ -146,6 +149,51 @@ begin
     InitiativeList.Exchange(Random(I), Random(I));
   InitiativeList.Sort;
 
+end;
+
+procedure TBattle.DamageCreature(LAtkCrEnum: TCreatureEnum; AAtkParty: TParty;
+  AAtkPos: TPosition; LDefCrEnum: TCreatureEnum; ADefParty: TParty;
+  ADefPos: TPosition);
+var
+  LDamage: Integer;
+  LIsCrit: Boolean;
+begin
+  LIsCrit := False;
+  LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
+  if (AAtkParty.Creature[AAtkPos].Leadership > 0) then
+    if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue > 0) then
+      if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue <=
+        RandomRange(0, 100) + 1) then
+      begin
+        LIsCrit := True;
+        LDamage := LDamage * 2;
+      end;
+  ADefParty.TakeDamage(LDamage, ADefPos);
+  if LIsCrit then
+  begin
+    FBattleLog.CriticalAttack;
+    Game.MediaPlayer.PlaySound(mmCriticalAttack);
+    Sleep(50);
+  end
+  else
+  begin
+    case TCreature.Character(LAtkCrEnum).AttackEnum of
+      atDrainLife:
+        begin
+          Sleep(50);
+          Game.MediaPlayer.PlaySound(mmHeal);
+          AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
+        end;
+    end;
+  end;
+  FBattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
+    TCreature.Character(LAtkCrEnum).SourceEnum, AAtkParty.Creature[AAtkPos].Name
+    [0], ADefParty.Creature[ADefPos].Name[1],
+    AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
+  if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0) then
+    Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum).Sound[csHit])
+  else
+    Kill(LDefCrEnum);
 end;
 
 end.
