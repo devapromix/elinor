@@ -199,8 +199,7 @@ type
     class procedure ModifyPartyGainMoreExp(const AValue: Integer);
     class procedure ModifyLeaderMovePoints(const AValue: Integer);
     class procedure ModifyLeaderInvisible(const AValue: Integer);
-    class procedure ModifyLeaderChanceOfLandingCriticalHits
-      (const AValue: Integer);
+    class procedure ModifyLeaderChanceOfLandingCriticalHits;
   end;
 
 type
@@ -1164,13 +1163,14 @@ begin
   Result := LeaderRegenerationValue;
   if LeaderInvisibleValue > 2 then
     Result := Result + ((LeaderInvisibleValue - 2) * 10);
+  if LeaderChanceOfLandingCriticalHitsValue > 1 then
+    Result := Result + ((LeaderChanceOfLandingCriticalHitsValue - 1) * 10);
 end;
 
-class procedure TLeaderParty.ModifyLeaderChanceOfLandingCriticalHits
-  (const AValue: Integer);
+class procedure TLeaderParty.ModifyLeaderChanceOfLandingCriticalHits;
 begin
   LeaderChanceOfLandingCriticalHitsValue :=
-    LeaderChanceOfLandingCriticalHitsValue + AValue;
+    LeaderChanceOfLandingCriticalHitsValue + 1;
 end;
 
 class procedure TLeaderParty.ModifyLeaderChanceToParalyze

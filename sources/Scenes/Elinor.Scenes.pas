@@ -662,8 +662,8 @@ begin
               '% Chance of critical hit');
           end;
           if LCount > 1 then
-            Game.InformSL.Append(CPref + '---: +' +
-              IntToStr(LCount - 1));
+            Game.InformSL.Append(CPref + 'Regeneration: +' +
+              IntToStr((LCount - 1) * 10));
           if LCount > 2 then
             Game.InformSL.Append(CPref + 'Sight radius: +' +
               IntToStr((LCount - 2)));
@@ -1019,6 +1019,8 @@ begin
       Result := 'Has a 15% chance to paralyze the unit';
     ieInvisible:
       Result := 'Invisibility';
+    ieGainChanceOfCritHit:
+      Result := 'Combat Instinct';
   end;
 
 end;

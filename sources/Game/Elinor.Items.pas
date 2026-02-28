@@ -178,7 +178,7 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iBannerOfOverlord, iRingOfTheAges, iHornOfAwareness];
+  CTestItems = [iHeartOfDarkness, iBannerOfOverlord, iRingOfTheAges, iHornOfAwareness];
 
 type
   TSetItemsEnum = (siNone, siCoverOfDarkness, siOverlordRig);
@@ -876,7 +876,7 @@ begin
       TLeaderParty.ModifyPartyGainMoreExp(20);
     // Chance of critical hit
     if FItem[I].ItEffect = ieGainChanceOfCritHit then
-      TLeaderParty.ModifyLeaderChanceOfLandingCriticalHits(90);
+      TLeaderParty.ModifyLeaderChanceOfLandingCriticalHits;
     // Leader gains more move points
     if FItem[I].ItEffect = ieGains20MoreMovePoints then
       TLeaderParty.ModifyLeaderMovePoints(20);
