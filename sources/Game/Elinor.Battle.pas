@@ -160,9 +160,9 @@ var
 begin
   LIsCrit := False;
   LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
-  if (AAtkParty.Creature[AAtkPos].Leadership > 0) then
+  if (AAtkParty.Owner = TLeaderParty.Leader.Owner) then
     if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue > 0) then
-      if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue <=
+      if (TLeaderParty.Leader.LeaderChanceOfLandingCriticalHitsValue >=
         RandomRange(0, 100) + 1) then
       begin
         LIsCrit := True;

@@ -52,7 +52,7 @@ end;
 
 procedure TBattleLog.CriticalAttack;
 begin
-  Log.Add('Leader dealt critical damage!!!');
+  Log.Add('Critical strike!!!');
 end;
 
 destructor TBattleLog.Destroy;

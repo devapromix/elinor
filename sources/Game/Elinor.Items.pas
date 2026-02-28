@@ -18,6 +18,7 @@ uses
 // All the units in the party gain 25% more experience in battle
 // Leader can use Orbs
 // Leader can use Talismans
+// All the units in the party gain a 5% chance to deal a critical hit.
 
 // 40% Better chance of finding magic items
 // 2% Chance of critical hit
@@ -89,6 +90,8 @@ type
     ieVampiricAttack25,
     // Gain more experience
     ieGain20MoreExp,
+    // Chance of critical hit
+    ieGainChanceOfCritHit,
     // Leader gains more move points
     ieGains20MoreMovePoints, ieGains40MoreMovePoints, ieGains60MoreMovePoints,
     ieGains80MoreMovePoints, ieGains100MoreMovePoints,
@@ -154,6 +157,7 @@ type
     iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage, iTalismanOfCelerity,
 
     // BANNERS
+    iTestBanner,
 
     // TOMES
     iTomeOfWar,
@@ -174,7 +178,7 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iBootsOfSpeed];
+  CTestItems = [iTestBanner, iBootsOfSpeed];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -539,6 +543,13 @@ const
     ItRes: irTalismanOfCelerity; Price: 1350;
     Description: 'Grants the Leader 20% increased initiative'),
 
+    // BANNERS
+    // (4)
+    (Enum: iTestBanner; Name: 'Banner'; Level: 4; ItType: itBanner;
+    ItEffect: ieGainChanceOfCritHit; ItSlot: isBanner; ItRes: irItemTomeOfWar;
+    Price: 3000; Description: 'All the units in the party gain ' +
+    'a 1% chance to deal a critical hit'),
+
     // TOMES
     // (3) Tome of War
     (Enum: iTomeOfWar; Name: 'Tome of War'; Level: 3; ItType: itTome;
@@ -838,6 +849,9 @@ begin
     // Gain more experience
     if FItem[I].ItEffect = ieGain20MoreExp then
       TLeaderParty.ModifyPartyGainMoreExp(20);
+    // Chance of critical hit
+    if FItem[I].ItEffect = ieGainChanceOfCritHit then
+      TLeaderParty.ModifyLeaderChanceOfLandingCriticalHits(90);
     // Leader gains more move points
     if FItem[I].ItEffect = ieGains20MoreMovePoints then
       TLeaderParty.ModifyLeaderMovePoints(20);
