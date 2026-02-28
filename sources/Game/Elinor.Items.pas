@@ -547,7 +547,7 @@ const
     // (4)
     (Enum: iBannerOfOverlord; Name: 'Banner of Overlord'; Level: 4;
     ItType: itBanner; ItEffect: ieGainChanceOfCritHit; ItSlot: isBanner;
-    ItRes: irItemTomeOfWar; Price: 3000;
+    ItRes: irBannerOfOverlord; Price: 3000;
     Description: 'All the units in the party gain ' +
     'a 1% chance to deal a critical hit'),
 
