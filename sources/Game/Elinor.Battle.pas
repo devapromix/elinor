@@ -188,8 +188,7 @@ begin
   end;
   FBattleLog.Attack(TCreature.Character(LAtkCrEnum).AttackEnum,
     TCreature.Character(LAtkCrEnum).SourceEnum, AAtkParty.Creature[AAtkPos].Name
-    [0], ADefParty.Creature[ADefPos].Name[1],
-    AAtkParty.Creature[AAtkPos].Damage.GetFullValue);
+    [0], ADefParty.Creature[ADefPos].Name[1], LDamage);
   if (ADefParty.Creature[ADefPos].HitPoints.GetCurrValue > 0) then
     Game.MediaPlayer.PlaySound(TCreature.Character(LDefCrEnum).Sound[csHit])
   else
