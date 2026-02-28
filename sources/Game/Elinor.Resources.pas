@@ -162,6 +162,8 @@ type
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irSkeletonOrb, irOrbOfRestoration,
     irZombieOrb, irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
+    // BANNERS
+    irBannerOfOverlord,
     // TOMES
     irItemTomeOfWar,
     // BOOTS
@@ -885,6 +887,10 @@ const
     (FileName: 'item.orb.lizardman_orb.png'; ResType: teItem;),
     // Orb Of Witches
     (FileName: 'item.orb.orb_of_witches.png'; ResType: teItem;),
+
+    // BANNERS
+    // Banner Of Overlord
+    (FileName: 'item.banner.banner_of_overlord.png'; ResType: teItem;),
 
     // TOMES
     // Tome Of War
