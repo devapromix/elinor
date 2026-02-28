@@ -157,7 +157,7 @@ type
     iTalismanOfNosferat, iTalismanOfFear, iTalismanOfRage, iTalismanOfCelerity,
 
     // BANNERS
-    iTestBanner,
+    iBannerOfOverlord,
 
     // TOMES
     iTomeOfWar,
@@ -178,7 +178,7 @@ const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iTestBanner, iBootsOfSpeed];
+  CTestItems = [iBannerOfOverlord, iBootsOfSpeed];
 
 type
   TSetItemsEnum = (siCoverOfDarkness);
@@ -545,7 +545,7 @@ const
 
     // BANNERS
     // (4)
-    (Enum: iTestBanner; Name: 'Banner'; Level: 4; ItType: itBanner;
+    (Enum: iBannerOfOverlord; Name: 'Banner'; Level: 4; ItType: itBanner;
     ItEffect: ieGainChanceOfCritHit; ItSlot: isBanner; ItRes: irItemTomeOfWar;
     Price: 3000; Description: 'All the units in the party gain ' +
     'a 1% chance to deal a critical hit'),
