@@ -172,7 +172,7 @@ type
     // HELMS
     irHoodOfDarkness, irTiaraOfPurity,
     // ARMORS
-    irShroudOfDarkness,
+    irShroudOfDarkness, irCuirassOfDominion,
     // AMULETS
     irItemAmuletOfBloodbind, irHeartOfDarkness
     //
@@ -921,6 +921,8 @@ const
     // ARMORS
     // Shroud of Darkness
     (FileName: 'item.armor.shroud_of_darkness.png'; ResType: teItem;),
+    // Cuirass of Dominion
+    (FileName: 'item.armor.cuirass_of_dominion.png'; ResType: teItem;),
 
     // AMULETS
     // Amulet of Bloodbind

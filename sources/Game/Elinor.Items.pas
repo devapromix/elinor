@@ -146,7 +146,7 @@ type
     iNecklaceOfBloodbind, iHeartOfDarkness,
 
     // ARMORS
-    iShroudOfDarkness,
+    iShroudOfDarkness, iCuirassOfDominion,
 
     // BOOTS
     iBootsOfSpeed, iElvenBoots, iBootsOfHaste, iBootsOfDarkness,
@@ -179,7 +179,7 @@ const
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
   CTestItems = [iHeartOfDarkness, iBannerOfOverlord, iRingOfTheAges,
-    iHornOfAwareness];
+    iHornOfAwareness, iCuirassOfDominion];
 
 type
   TSetItemsEnum = (siNone, siCoverOfDarkness, siOverlordRig);
@@ -265,8 +265,8 @@ const
     (Name: 'Cover Of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
     iShroudOfDarkness, iBootsOfDarkness]),
     // Overlord Rig
-    (Name: 'Overlord Rig'; Items: [iBannerOfOverlord, iRingOfTheAges,
-    iHornOfAwareness])
+    (Name: 'Overlord Rig'; Items: [iBannerOfOverlord, iCuirassOfDominion,
+    iRingOfTheAges, iHornOfAwareness])
     //
     );
 
@@ -485,6 +485,11 @@ const
     ItType: itArmor; ItEffect: ieInvisible; ItSlot: isArmor;
     ItRes: irShroudOfDarkness; ItSet: siCoverOfDarkness; Price: 800;
     Description: 'A living shadow wrapped' + ' around its bearer'),
+    // (5) Cuirass of Dominion
+    (Enum: iCuirassOfDominion; Name: 'Cuirass of Dominion'; Level: 5;
+    ItType: itArmor; ItEffect: ieGainChanceOfCritHit; ItSlot: isArmor;
+    ItRes: irCuirassOfDominion; ItSet: siOverlordRig; Price: 900;
+    Description: 'Symbol of supreme authority' + ' and unmatched resilience'),
 
     // BOOTS
     // (1) Boots of Speed
