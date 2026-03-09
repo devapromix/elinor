@@ -399,8 +399,7 @@ const
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
     Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
-    AttackEnum: atPaladinSword; AbilityEnum: abGemology;
-    { abBannerBearer; } Rating: 0;),
+    AttackEnum: atPaladinSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Ranger
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrRanger;
     Size: szSmall; Name: ('Ranger', 'Ranger');

@@ -162,6 +162,8 @@ type
     // ORBS
     irGoblinOrb, irOrbOfHealing, irImpOrb, irSkeletonOrb, irOrbOfRestoration,
     irZombieOrb, irOrbOfLife, irLizardmanOrb, irOrbOfWitches,
+    // BANNERS
+    irBannerOfOverlord,
     // TOMES
     irItemTomeOfWar,
     // BOOTS
@@ -170,7 +172,7 @@ type
     // HELMS
     irHoodOfDarkness, irTiaraOfPurity,
     // ARMORS
-    irShroudOfDarkness,
+    irShroudOfDarkness, irCuirassOfDominion,
     // AMULETS
     irItemAmuletOfBloodbind, irHeartOfDarkness
     //
@@ -886,6 +888,10 @@ const
     // Orb Of Witches
     (FileName: 'item.orb.orb_of_witches.png'; ResType: teItem;),
 
+    // BANNERS
+    // Banner Of Overlord
+    (FileName: 'item.banner.banner_of_overlord.png'; ResType: teItem;),
+
     // TOMES
     // Tome Of War
     (FileName: 'item.tome.tome_of_war.png'; ResType: teItem;),
@@ -915,6 +921,8 @@ const
     // ARMORS
     // Shroud of Darkness
     (FileName: 'item.armor.shroud_of_darkness.png'; ResType: teItem;),
+    // Cuirass of Dominion
+    (FileName: 'item.armor.cuirass_of_dominion.png'; ResType: teItem;),
 
     // AMULETS
     // Amulet of Bloodbind

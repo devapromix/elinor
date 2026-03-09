@@ -73,6 +73,15 @@
     "%s siphons life from %s and restores %d health.",
     "%s drains %d health from %s."
   ],
+  "critical_attack": [
+    "Weak spot exposed!!!",
+    "Critical strike!!!",
+    "Fatal opening!!!",
+    "The attack finds its mark!!!",
+    "A critical hit is imminent!!!",
+	"A devastating blow!!!",
+	"Deadly precision!!!"
+  ],
   "slayer_sword_attack": [
     "%s strikes with the Slayer's Sword at %s, dealing %d damage."
   ],
