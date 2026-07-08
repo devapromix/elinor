@@ -174,7 +174,9 @@ type
     // ARMORS
     irShroudOfDarkness, irCuirassOfDominion,
     // AMULETS
-    irItemAmuletOfBloodbind, irHeartOfDarkness
+    irItemAmuletOfBloodbind, irHeartOfDarkness,
+    // WEAPONS
+    irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword
     //
     );
 
@@ -928,8 +930,19 @@ const
     // Amulet of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Heart of Darkness
-    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;)
+    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;),
 
+    // WEAPONS
+    // Battle Axe
+    (FileName: 'item.weapon.battle_axe.png'; ResType: teItem;),
+    // Hunter Bow
+    (FileName: 'item.weapon.hunter_bow.png'; ResType: teItem;),
+    // Slayer Sword
+    (FileName: 'item.weapon.slayer_sword.png'; ResType: teItem;),
+    // Dagger
+    (FileName: 'item.weapon.dagger.png'; ResType: teItem;),
+    // Paladin Sword
+    (FileName: 'item.weapon.paladin_sword.png'; ResType: teItem;)
     //
     );
 

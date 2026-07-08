@@ -10,6 +10,7 @@ interface
 {$ENDIF}
 
 uses
+  Elinor.Items,
   Elinor.Faction,
   Elinor.Ability,
   Elinor.Creature.Types,
@@ -45,6 +46,9 @@ const
   StaffName: array [TSourceEnum] of string = ('Battle Staff', 'Ruby Staff',
     'Mithril Staff', 'Staff of Power', 'Staff of Lightning', 'Elven Staff',
     'Wizard Staff', 'Staff of Ice');
+  LeaderStaffEnum: array [TSourceEnum] of TItemEnum = (iBattleStaff, iRubyStaff,
+    iMithrilStaff, iStaffOfPower, iStaffOfLightning, iElvenStaff, iWizardStaff,
+    iStaffOfIce);
 
 type
   TRaceCharGroup = (cgGuardian, cgLeaders, cgCharacters);
@@ -69,6 +73,13 @@ type
     atParalyze, atPoison, atMagic, atClaws, atBites, atSpear, atStones,
     atPoisonousBreath, atDaggerOfShadows, atFlameDagger, atClub, atFireHammer,
     atPhoenixSword, atScythe, atShortSword, atFireBreath, atIceBreath);
+
+const
+  LeaderWeaponEnum: array [TAttackEnum] of TItemEnum = (iSlayerSword, iNone,
+    iPaladinSword, iBattleAxe, iDagger, iNone, iHunterBow, iCrossbow, iNone,
+    iNone, iNone, iNone, iNone, iNone, iNone, iNone, iNone, iNone,
+    iDaggerOfShadows, iFlameDagger, iNone, iFireHammer, iPhoenixSword, iNone,
+    iNone, iNone, iNone);
 
 type
   TCreatureSize = (szSmall, szBig, szTestBig);
@@ -352,6 +363,8 @@ type
       : TCreatureEnum; static;
     class function EquippedWeapon(const AttackEnum: TAttackEnum;
       const ASourceEnum: TSourceEnum): string; static;
+    class function EquippedWeaponEnum(const AttackEnum: TAttackEnum;
+      const ASourceEnum: TSourceEnum): TItemEnum; static;
     class function StrToCharEnum(const ChName: string): TCreatureEnum; static;
     class function StrToFactionEnum(const AFactionIdent: string)
       : TFactionEnum; static;
@@ -1061,6 +1074,18 @@ begin
       Result := StaffName[ASourceEnum];
     atDrainLife:
       Result := 'Cedar Staff';
+  end;
+end;
+
+class function TCreature.EquippedWeaponEnum(const AttackEnum: TAttackEnum;
+  const ASourceEnum: TSourceEnum): TItemEnum;
+begin
+  Result := LeaderWeaponEnum[AttackEnum];
+  case AttackEnum of
+    atMagic:
+      Result := LeaderStaffEnum[ASourceEnum];
+    atDrainLife:
+      Result := iCedarStaff;
   end;
 end;
 

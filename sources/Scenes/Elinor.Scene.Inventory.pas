@@ -44,7 +44,7 @@ type
 
 implementation
 
-uses
+uses dialogs,
   System.Math,
   System.SysUtils,
   Elinor.Scene.Settlement,
@@ -54,6 +54,9 @@ uses
   Elinor.Items,
   Elinor.Common,
   Elinor.Ability;
+
+const
+  CWeaponSlotIndex = 5;
 
 type
   TItemSectionEnum = (isParty, isEquipment, isInventory);
@@ -81,6 +84,10 @@ begin
       begin
         LItemEnum := TLeaderParty.Leader.Equipment.Item
           (EquipmentSelItemIndex).Enum;
+        if EquipmentSelItemIndex = CWeaponSlotIndex then
+          LItemEnum := TCreature.EquippedWeaponEnum
+            (TCreature.Character(TLeaderParty.Leader.Enum).AttackEnum,
+            TCreature.Character(TLeaderParty.Leader.Enum).SourceEnum);
         if (LItemEnum <> iNone) then
           Game.ItemInformDialog(LItemEnum);
       end;
@@ -235,7 +242,7 @@ procedure TSceneInventory.Render;
     AddTextLine;
     for I := 0 to CMaxEquipmentItems - 1 do
       case I of
-        5:
+        CWeaponSlotIndex:
           AddTextLine(TLeaderParty.Leader.Equipment.ItemName(I,
             TCreature.EquippedWeapon(TCreature.Character
             (TLeaderParty.Leader.Enum).AttackEnum,
