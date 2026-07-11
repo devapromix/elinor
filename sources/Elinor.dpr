@@ -79,7 +79,8 @@ uses
   Elinor.Error in 'Game\Elinor.Error.pas',
   Elinor.Log in 'Game\Elinor.Log.pas',
   Elinor.Panel in 'Game\Elinor.Panel.pas',
-  Elinor.Scene.SelectUnit in 'Scenes\Elinor.Scene.SelectUnit.pas';
+  Elinor.Scene.SelectUnit in 'Scenes\Elinor.Scene.SelectUnit.pas',
+  Elinor.NewResources in 'Game\Elinor.NewResources.pas';
 
 {$R *.res}
 
