@@ -1,6 +1,5 @@
 *.dcu
-sources/__history/
-sources/DisciplesRL.dproj.local
+*.local
 *.ppu
 *.o
 *.a
@@ -10,13 +9,12 @@ sources/lib/
 /*.exe
 sources/Forms/backup/
 sources/Scenes/backup/
-sources/Scenes/__history/
-/sources/Forms/__history
-/sources/Game/__history
+__history
+__recovery
+Win32
 /*.txt
 /sources/*.dres
 /temp
-/sources/Game/__recovery
 /sources/*.local
 /sources/*.identcache
 /resources/highscores.json
