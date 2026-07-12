@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{561A710B-4D34-4885-B4B8-3EADBC33B1DD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Elinor.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Tests\Elinor.Tests.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Elinor">
+        <MSBuild Projects="Elinor.dproj"/>
+    </Target>
+    <Target Name="Elinor:Clean">
+        <MSBuild Projects="Elinor.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Elinor:Make">
+        <MSBuild Projects="Elinor.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Elinor_Tests">
+        <MSBuild Projects="Tests\Elinor.Tests.dproj"/>
+    </Target>
+    <Target Name="Elinor_Tests:Clean">
+        <MSBuild Projects="Tests\Elinor.Tests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Elinor_Tests:Make">
+        <MSBuild Projects="Tests\Elinor.Tests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Elinor;Elinor_Tests"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Elinor:Clean;Elinor_Tests:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Elinor:Make;Elinor_Tests:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
