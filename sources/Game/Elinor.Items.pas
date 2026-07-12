@@ -765,8 +765,9 @@ const
     Price: 7800; Description: '' + ''),
     // (1) Staff Of Lightning
     (Enum: iStaffOfLightning; Name: 'Staff Of Lightning'; Level: 1;
-    ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone;
-    ItSet: siNone; Price: 6900; Description: '' + ''),
+    ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand;
+    ItRes: irStaffOfLightning; ItSet: siNone; Price: 6900;
+    Description: 'A staff crackling with ' + 'the power of lightning'),
     // (1) Elven Staff
     (Enum: iElvenStaff; Name: 'Elven Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
