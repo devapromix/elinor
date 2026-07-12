@@ -732,8 +732,9 @@ const
     ItSet: siNone; Price: 3600; Description: '' + ''),
     // (1) Flame Dagger
     (Enum: iFlameDagger; Name: 'Flame Dagger'; Level: 1; ItType: itWeapon;
-    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 3800; Description: '' + ''),
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irFlameDagger; ItSet: siNone;
+    Price: 3800; Description: 'A razor-sharp dagger imbued with ' +
+    'the power of fire'),
     // (1) Fire Hammer
     (Enum: iFireHammer; Name: 'Fire Hammer'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
