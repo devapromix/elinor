@@ -779,8 +779,8 @@ const
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
     Price: 6400; Description: '' + ''),
     // (1) Cedar Staff
-    (Enum: iBattleStaff; Name: 'Cedar Staff'; Level: 1; ItType: itWeapon;
-    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    (Enum: iCedarStaff; Name: 'Cedar Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irCedarStaff; ItSet: siNone;
     Price: 5500; Description: '' + '')
 
     //

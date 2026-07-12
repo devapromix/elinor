@@ -177,7 +177,9 @@ type
     irItemAmuletOfBloodbind, irHeartOfDarkness,
     // WEAPONS
     irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword,
-    irFlameDagger, irDaggerOfShadows
+    irFlameDagger, irDaggerOfShadows,
+    // STAVES
+    irCedarStaff
     //
     );
 
@@ -947,7 +949,11 @@ const
     // FlameDagger
     (FileName: 'item.weapon.flame_dagger.png'; ResType: teItem;),
     // Dagger Of Shadows
-    (FileName: 'item.weapon.dagger_of_shadows.png'; ResType: teItem;)
+    (FileName: 'item.weapon.dagger_of_shadows.png'; ResType: teItem;) ,
+
+    // STAVES
+    // Cedar Staff
+    (FileName: 'item.weapon.cedar_staff.png'; ResType: teItem;)
     //
     );
 
