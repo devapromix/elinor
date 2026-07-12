@@ -176,7 +176,8 @@ type
     // AMULETS
     irItemAmuletOfBloodbind, irHeartOfDarkness,
     // WEAPONS
-    irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword, irFlameDagger
+    irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword,
+    irFlameDagger, irDaggerOfShadows
     //
     );
 
@@ -944,7 +945,9 @@ const
     // Paladin Sword
     (FileName: 'item.weapon.paladin_sword.png'; ResType: teItem;),
     // FlameDagger
-    (FileName: 'item.weapon.flame_dagger.png'; ResType: teItem;)
+    (FileName: 'item.weapon.flame_dagger.png'; ResType: teItem;),
+    // Dagger Of Shadows
+    (FileName: 'item.weapon.dagger_of_shadows.png'; ResType: teItem;)
     //
     );
 

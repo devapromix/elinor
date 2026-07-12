@@ -728,8 +728,9 @@ const
     Price: 2200; Description: '' + ''),
     // (1) Dagger Of Shadows
     (Enum: iDaggerOfShadows; Name: 'Dagger Of Shadows'; Level: 1;
-    ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone;
-    ItSet: siNone; Price: 3600; Description: '' + ''),
+    ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand;
+    ItRes: irDaggerOfShadows; ItSet: siNone; Price: 3600;
+    Description: 'A dagger that feeds on the ' + 'power of shadows'),
     // (1) Flame Dagger
     (Enum: iFlameDagger; Name: 'Flame Dagger'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irFlameDagger; ItSet: siNone;
