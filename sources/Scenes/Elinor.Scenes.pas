@@ -296,7 +296,8 @@ uses
   Elinor.Scene.Name,
   Elinor.Scene.Intro,
   Elinor.Scene.Merchant,
-  Elinor.Merchant;
+  Elinor.Merchant,
+  Elinor.NewResources;
 
 type
   TButtonEnum = (btOk, btCancel);
@@ -339,7 +340,7 @@ begin
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
-  MediaPlayer.PlayMusic(mmMenu);
+  MediaPlayer.PlayMusic(CMusicMenu);
   SceneEnum := scIntro;
 end;
 

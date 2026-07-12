@@ -93,7 +93,18 @@ type
     property Spell: IResourceLoader<TPNGImage> read FSpell;
   end;
 
-var R: TResourceSchema;
+const
+  CMusicGame = 'soliloquy';
+  CMusicMagic = 'wasteland-theme';
+  CMusicBattle = 'wasteland-showdown';
+  CMusicVictory = 'warsong';
+  CMusicDefeat = 'defeat';
+  CMusicBattleWin = 'ubermensch';
+  CMusicMap = 'prologue';
+  CMusicMenu = 'stellardrone';
+
+var
+  R: TResourceSchema;
 
 implementation
 
@@ -164,8 +175,9 @@ function TPrefixedResourceLoader<T>.GetKeys(const prefix: string = ''): TArray<s
 var
   LSearchRec: TSearchRec;
   LFileName: string;
+  LFiles: TList<string>;
 begin
-  var LFiles := TList<string>.Create();
+  LFiles := TList<string>.Create();
   try
     if FindFirst(FPrefix + prefix + '*.*', faAnyFile, LSearchRec) = 0 then
     begin
@@ -196,8 +208,9 @@ function TPNGImageLoader.GetKeys(const prefix: string = ''): TArray<string>;
 var
   LSearchRec: TSearchRec;
   LFileName: string;
+  LFiles: TList<string>;
 begin
-  var LFiles := TList<string>.Create();
+  LFiles := TList<string>.Create();
   try
     if FindFirst(prefix + '*.*', faAnyFile, LSearchRec) = 0 then
     begin

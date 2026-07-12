@@ -43,7 +43,8 @@ uses
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Creatures,
-  Elinor.Statistics;
+  Elinor.Statistics,
+  Elinor.NewResources;
 
 { TSceneVictory }
 
@@ -51,13 +52,13 @@ class procedure TSceneVictory.ShowScene;
 begin
   ActivePartyPosition := TLeaderParty.GetPosition;
   Game.Show(scVictory);
-  Game.MediaPlayer.PlayMusic(mmVictory);
+  Game.MediaPlayer.PlayMusic(CMusicVictory);
 end;
 
 class procedure TSceneVictory.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(mmMenu);
+  Game.MediaPlayer.PlayMusic(CMusicMenu);
   Game.IsGame := False;
   Game.LeaderRecordsTable.AddRecord
     (TCreature.Character(TLeaderParty.Leader.Enum).Name[0],

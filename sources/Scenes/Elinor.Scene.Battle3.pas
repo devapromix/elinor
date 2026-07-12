@@ -34,7 +34,8 @@ implementation
 
 uses
   SysUtils,
-  Elinor.Resources;
+  Elinor.Resources,
+  Elinor.NewResources;
 
 { TSceneBattle3 }
 
@@ -91,7 +92,7 @@ procedure TSceneBattle3.Show(const S: TSceneEnum);
 begin
   inherited;
   Start;
-  Game.MediaPlayer.PlayMusic(mmBattle);
+  Game.MediaPlayer.PlayMusic(CMusicBattle);
 end;
 
 procedure TSceneBattle3.Timer;

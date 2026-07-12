@@ -251,7 +251,8 @@ uses
   Elinor.Scene.Party2,
   Elinor.Scene.Merchant,
   Elinor.Merchant,
-  Elinor.Difficulty;
+  Elinor.Difficulty,
+  Elinor.NewResources;
 
 { TParty }
 
@@ -1312,7 +1313,7 @@ begin
         end;
       reMageTower:
         begin
-          Game.MediaPlayer.PlayMusic(mmMagic);
+          Game.MediaPlayer.PlayMusic(CMusicMagic);
           Game.MediaPlayer.PlaySound(mmSettlement);
           TSceneMageTower.ShowScene;
           F := False;
@@ -1341,14 +1342,14 @@ begin
   end;
   if Game.Map.LeaderTile in Capitals then
   begin
-    Game.MediaPlayer.PlayMusic(mmGame);
+    Game.MediaPlayer.PlayMusic(CMusicGame);
     Game.MediaPlayer.PlaySound(mmSettlement);
     TSceneSettlement.ShowScene(stCapital);
     F := False;
   end;
   if Game.Map.LeaderTile in Cities then
   begin
-    Game.MediaPlayer.PlayMusic(mmGame);
+    Game.MediaPlayer.PlayMusic(CMusicGame);
     Game.MediaPlayer.PlaySound(mmSettlement);
     TSceneSettlement.ShowScene(stCity);
     F := False;

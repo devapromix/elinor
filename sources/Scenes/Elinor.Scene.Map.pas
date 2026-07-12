@@ -62,7 +62,8 @@ uses
   Elinor.Scene.Victory,
   Elinor.Scene.Menu3,
   Elinor.Scene.Merchant,
-  Elinor.Merchant;
+  Elinor.Merchant,
+  Elinor.NewResources;
 
 { TSceneMap }
 
@@ -73,7 +74,7 @@ begin
     Spells.ActiveSpell.Clear();
     Exit;
   end;
-  Game.MediaPlayer.PlayMusic(mmMenu);
+  Game.MediaPlayer.PlayMusic(CMusicMenu);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
   TSceneMenu3(Game.GetScene(scMenu)).CurrentIndex := 1;

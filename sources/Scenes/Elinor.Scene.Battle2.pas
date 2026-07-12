@@ -102,7 +102,8 @@ uses
   Elinor.Error,
   Elinor.Common,
   Elinor.Loot,
-  Elinor.Difficulty;
+  Elinor.Difficulty,
+  Elinor.NewResources;
 
 var
   CloseButton, BackButton, LogButton: TButton;
@@ -229,13 +230,13 @@ begin
   begin
     FBattle.BattleLog.WinInBattle;
     ChExperience;
-    Game.MediaPlayer.PlaySound(mmWin);
-    Game.MediaPlayer.PlayMusic(mmWinBattle);
+    Game.MediaPlayer.PlaySound(mmWinBattle);
+    Game.MediaPlayer.PlayMusic(CMusicBattleWin);
   end;
   if LeaderParty.IsClear then
   begin
     FBattle.BattleLog.LoseInBattle;
-    Game.MediaPlayer.PlayMusic(mmDefeat);
+    Game.MediaPlayer.PlayMusic(CMusicDefeat);
     Enabled := True;
   end;
 end;
@@ -313,7 +314,7 @@ begin
       InformDialog
         ('Вы победили на дуэли и воины вражеского отряда разбежались!');
     end;
-    Game.MediaPlayer.PlayMusic(mmMap);
+    Game.MediaPlayer.PlayMusic(CMusicMap);
     PartyList.Party[PartyList.GetPartyIndex(TLeaderParty.Leader.X,
       TLeaderParty.Leader.Y)].Clear;
     if IsNewAbility then
@@ -336,7 +337,7 @@ begin
     if IsSummon then
     begin
       IsSummon := False;
-      Game.MediaPlayer.PlayMusic(mmMap);
+      Game.MediaPlayer.PlayMusic(CMusicMap);
       Game.Show(scMap);
       Exit;
     end;
@@ -1037,7 +1038,7 @@ begin
   IsNewAbility := False;
   FIsShowBattleLog := False;
   StartBattle;
-  Game.MediaPlayer.PlayMusic(mmBattle);
+  Game.MediaPlayer.PlayMusic(CMusicBattle);
 end;
 
 procedure TSceneBattle2.ShowBattleLog;

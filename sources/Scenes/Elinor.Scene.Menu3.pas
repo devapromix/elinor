@@ -57,7 +57,7 @@ uses
   System.Math,
   System.SysUtils,
   Elinor.Frame,
-  Elinor.Scene.Records;
+  Elinor.Scene.Records, Elinor.NewResources;
 
 { TSceneMenu3 }
 
@@ -81,7 +81,7 @@ begin
   AddTextLine('Design and programming:');
   AddTextLine('Apromix');
   AddTextLine('Programming, testing and ideas:');
-  AddTextLine('Phomm');
+  AddTextLine('Phomm, Carnivora007');
 
 end;
 
@@ -124,7 +124,7 @@ procedure TSceneMenu3.ContinueGame;
 begin
   if Game.IsGame then
   begin
-    Game.MediaPlayer.PlayMusic(mmMap);
+    Game.MediaPlayer.PlayMusic(CMusicMap);
     Game.Show(scMap);
   end;
 end;

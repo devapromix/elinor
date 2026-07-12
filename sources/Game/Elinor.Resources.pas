@@ -1050,8 +1050,8 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmStep, mmMagic, mmBattle, mmVictory, mmDefeat, mmWin,
-    mmWinBattle, mmGame, mmMap, mmMenu, mmDay, mmSettlement, mmLoot, mmLevel,
+  TMusicEnum = (mmClick, mmStep,
+    mmWinBattle, mmDay, mmSettlement, mmLoot, mmLevel,
     mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
     mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
     mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
@@ -1079,24 +1079,8 @@ const
     (FileName: 'click.wav'; ResType: teSound;),
     // Step
     (FileName: 'step.wav'; ResType: teSound;),
-    // Magic
-    (FileName: 'wasteland-theme.mp3'; ResType: teMusic;),
-    // Battle
-    (FileName: 'wasteland-showdown.mp3'; ResType: teMusic;),
-    // Victory
-    (FileName: 'warsong.mp3'; ResType: teMusic;),
-    // Defeat
-    (FileName: 'defeat.mp3'; ResType: teMusic;),
     // Win in battle
     (FileName: 'himwar.wav'; ResType: teSound;),
-    // Win in battle
-    (FileName: 'ubermensch.mp3'; ResType: teMusic;),
-    // Game
-    (FileName: 'soliloquy.mp3'; ResType: teMusic;),
-    // Map
-    (FileName: 'prologue.mp3'; ResType: teMusic;),
-    // Menu
-    (FileName: 'stellardrone.mp3'; ResType: teMusic;),
     // New Day
     (FileName: 'day.ogg'; ResType: teSound;),
     // Settlement

@@ -57,7 +57,8 @@ uses
   System.Math,
   Elinor.Frame,
   Elinor.Statistics,
-  Elinor.Scene.Settlement;
+  Elinor.Scene.Settlement,
+  Elinor.NewResources;
 
 { TSceneName }
 
@@ -250,7 +251,7 @@ end;
 class procedure TSceneName.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(mmGame);
+  Game.MediaPlayer.PlayMusic(CMusicGame);
   Game.MediaPlayer.PlaySound(mmExit);
   TSceneSettlement.ShowScene(stCapital);
 end;

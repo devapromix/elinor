@@ -1,0 +1,15 @@
+{
+  "sounds": {
+    "click": "click.wav"
+  },
+  "music": {
+    "game": "soliloquy.mp3",
+    "magic": "wasteland-theme.mp3",
+    "battle": "wasteland-showdown.mp3",
+    "victory": "warsong.mp3",
+    "defeat": "defeat.mp3",
+    "battle_win": "ubermensch.mp3",
+    "map": "prologue.mp3",
+    "menu": "stellardrone.mp3"
+  }
+}

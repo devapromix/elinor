@@ -46,6 +46,9 @@ type
 
 implementation
 
+uses
+  Elinor.NewResources;
+
 const
   MusicChannel = 0;
   SoundChannel = 1;
@@ -93,14 +96,14 @@ function TMediaPlayer.PlayMusic(const FileName: string; F: Boolean): Boolean;
 begin
   StopMusic;
   CurrentChannel := MusicChannel;
-  Play(FileName, F, mtMusic);
+  Play(R.Music[FileName + '.mp3'], F, mtMusic);
   CurrentChannel := SoundChannel;
 end;
 
 function TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum;
   F: Boolean): Boolean;
 begin
-  PlayMusic(ResMusicPath[MusicEnum], F);
+  // PlayMusic(ResMusicPath[MusicEnum], F);
 end;
 
 function TMediaPlayer.PlaySound(const MusicEnum: TMusicEnum;

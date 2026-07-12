@@ -50,7 +50,8 @@ uses
   Elinor.Spells.Types,
   Elinor.Spellbook,
   Elinor.Common,
-  Elinor.Scene.Spellbook;
+  Elinor.Scene.Spellbook,
+  Elinor.NewResources;
 
 { TSceneMageTower }
 
@@ -96,7 +97,7 @@ end;
 
 class procedure TSceneMageTower.HideScene;
 begin
-  Game.MediaPlayer.PlayMusic(mmMap);
+  Game.MediaPlayer.PlayMusic(CMusicMap);
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
 end;

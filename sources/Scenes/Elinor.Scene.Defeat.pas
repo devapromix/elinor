@@ -43,7 +43,8 @@ uses
   Elinor.Frame,
   Elinor.Creature.Types,
   Elinor.Creatures,
-  Elinor.Statistics;
+  Elinor.Statistics,
+  Elinor.NewResources;
 
 { TSceneDefeat }
 
@@ -56,7 +57,7 @@ end;
 class procedure TSceneDefeat.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(mmMenu);
+  Game.MediaPlayer.PlayMusic(CMusicMenu);
   Game.IsGame := False;
   Game.LeaderRecordsTable.AddRecord(TCreature.GetName,
     TLeaderParty.Leader.Owner, TLeaderParty.Leader.LeaderClass,

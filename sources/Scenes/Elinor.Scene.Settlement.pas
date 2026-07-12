@@ -64,7 +64,9 @@ uses
   Elinor.Scene.Temple,
   Elinor.Scene.Party2,
   Elinor.Scene.Recruit,
-  Elinor.Scene.Barracks, Elinor.Scene.Victory;
+  Elinor.Scene.Barracks,
+  Elinor.Scene.Victory,
+  Elinor.NewResources;
 
 const
   PositionTransitions: array [TArrowKeyDirectionEnum, 0 .. 11] of Integer = (
@@ -106,7 +108,7 @@ begin
       Exit;
     end;
   end;
-  Game.MediaPlayer.PlayMusic(mmMap);
+  Game.MediaPlayer.PlayMusic(CMusicMap);
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.NewDay;
