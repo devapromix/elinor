@@ -96,7 +96,7 @@ function TMediaPlayer.PlayMusic(const FileName: string; F: Boolean): Boolean;
 begin
   StopMusic;
   CurrentChannel := MusicChannel;
-  Play(R.Music[FileName + '.mp3'], F, mtMusic);
+  Play(R.Musics[FileName + '.mp3'], F, mtMusic);
   CurrentChannel := SoundChannel;
 end;
 

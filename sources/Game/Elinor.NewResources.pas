@@ -76,21 +76,21 @@ type
 
   TResourceSchema = class
   private
-    FMusic, FSound: IResourceLoader<string>;
+    FMusics, FSounds: IResourceLoader<string>;
 
-    FCharacter, FItem, FSpell: IResourceLoader<TPNGImage>;
+    FCharacters, FItems, FSpells: IResourceLoader<TPNGImage>;
 
-    FCharacterCache, FItemCache, FSpellCache: IResourceCache;
+    FCharactersCache, FItemsCache, FSpellsCache: IResourceCache;
 
   public
     constructor Create();
     procedure LoadAll();
 
-    property Music: IResourceLoader<string> read FMusic;
-    property Sound: IResourceLoader<string> read FSound;
-    property Character: IResourceLoader<TPNGImage> read FCharacter;
-    property Item: IResourceLoader<TPNGImage> read FItem;
-    property Spell: IResourceLoader<TPNGImage> read FSpell;
+    property Musics: IResourceLoader<string> read FMusics;
+    property Sounds: IResourceLoader<string> read FSounds;
+    property Characters: IResourceLoader<TPNGImage> read FCharacters;
+    property Items: IResourceLoader<TPNGImage> read FItems;
+    property Spells: IResourceLoader<TPNGImage> read FSpells;
   end;
 
 const
@@ -239,34 +239,34 @@ begin
   basePath := ExtractFilePath(ParamStr(0)) + 'resources/';
 
   echo := TEchoResourceLoader.Create();
-  FMusic := TPrefixedResourceLoader<string>.Create(echo, basePath + 'music/');
-  FSound := TPrefixedResourceLoader<string>.Create(echo, basePath + 'sound/');
+  FMusics := TPrefixedResourceLoader<string>.Create(echo, basePath + 'music/');
+  FSounds := TPrefixedResourceLoader<string>.Create(echo, basePath + 'sounds/');
 
   png := TPNGImageLoader.Create();
   cache := TCachedResourceLoader<TPNGImage>.Create(
     TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'character/')
   );
-  FCharacter := cache;
-  FCharacterCache := cache;
+  FCharacters := cache;
+  FCharactersCache := cache;
 
   cache := TCachedResourceLoader<TPNGImage>.Create(
     TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'item/')
   );
-  FItem := cache;
-  FItemCache := cache;
+  FItems := cache;
+  FItemsCache := cache;
 
   cache := TCachedResourceLoader<TPNGImage>.Create(
     TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'spell/')
   );
-  FSpell := cache;
-  FSpellCache := cache;
+  FSpells := cache;
+  FSpellsCache := cache;
 end;
 
 procedure TResourceSchema.LoadAll();
 begin
-  FCharacterCache.LoadAll();
-  FItemCache.LoadAll();
-  FSpellCache.LoadAll();
+  FCharactersCache.LoadAll();
+  FItemsCache.LoadAll();
+  FSpellsCache.LoadAll();
 end;
 
 initialization
