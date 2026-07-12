@@ -1,4 +1,23 @@
 {
+  "spells": {
+	"bless": "bless.png",
+	"bone_golem": "bone_golem.png",
+	"chains_of_dread": "chains_of_dread.png",
+	"concealment": "concealment.png",
+	"curse": "curse.png",
+	"eagle_eye": "eagle_eye.png",
+	"fire_golem": "fire_golem.png",
+	"living_armor": "living_armor.png",
+	"meteor_shower": "meteor_shower.png",
+	"plague": "plague.png",
+	"rust": "rust.png",
+	"skeletion": "skeletion.png",
+	"speed": "speed.png",
+	"stone_golem": "stone_golem.png",
+	"strength": "strength.png",
+	"true_healing": "true_healing.png",
+	"weaken": "weaken.png"
+  }
   "sounds": {
     "click": "click.wav"
   },

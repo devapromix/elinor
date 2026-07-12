@@ -85,7 +85,6 @@ type
   public
     constructor Create();
     procedure LoadAll();
-
     property Musics: IResourceLoader<string> read FMusics;
     property Sounds: IResourceLoader<string> read FSounds;
     property Characters: IResourceLoader<TPNGImage> read FCharacters;
@@ -244,19 +243,19 @@ begin
 
   png := TPNGImageLoader.Create();
   cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'character/')
+    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'characters/')
   );
   FCharacters := cache;
   FCharactersCache := cache;
 
   cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'item/')
+    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'items/')
   );
   FItems := cache;
   FItemsCache := cache;
 
   cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'spell/')
+    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'spells/')
   );
   FSpells := cache;
   FSpellsCache := cache;
