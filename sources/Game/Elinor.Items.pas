@@ -742,8 +742,9 @@ const
     Price: 4500; Description: '' + ''),
     // (1) Phoenix Sword
     (Enum: iPhoenixSword; Name: 'Phoenix Sword'; Level: 1; ItType: itWeapon;
-    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 5000; Description: '' + ''),
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irPhoenixSword; ItSet: siNone;
+    Price: 5000; Description: 'A legendary blade imbued with the ' +
+    'spirit of the phoenix'),
 
     // STAVES
     // (1) Battle Staff
@@ -781,7 +782,8 @@ const
     // (1) Cedar Staff
     (Enum: iCedarStaff; Name: 'Cedar Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irCedarStaff; ItSet: siNone;
-    Price: 5500; Description: '' + '')
+    Price: 5500; Description: 'A sturdy staff carved from ancient ' +
+    'cedar wood')
 
     //
     );

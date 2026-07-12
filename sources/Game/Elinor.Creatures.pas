@@ -1092,9 +1092,7 @@ end;
 function TCreature.GenderEnding(VerbForm: Byte = 0): string;
 const
   GenderEndings: array [0 .. 1, TCreatureGender] of string =
-  // обычные глаголы
     (('', 'а'),
-    // для глаголов типа "нанес"
     ('', 'ла'));
 begin
   Assert(VerbForm < Length(GenderEndings));
