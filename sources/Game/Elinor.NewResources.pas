@@ -299,15 +299,15 @@ begin
     FindClose(LSearchRec);
     Result := LFiles.ToArray;
   finally
-    LFiles.Free;
+    FreeAndNil(LFiles);
   end;
 end;
 
 constructor TResourceSchema.Create;
 var
   basePath, jsonPath, jsonText: string;
-  png: TPNGImageLoader;
-  cache: TCachedResourceLoader<TPNGImage>;
+  LPNG: TPNGImageLoader;
+  LCache: TCachedResourceLoader<TPNGImage>;
 begin
   basePath := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0)) +
     'resources');
@@ -327,22 +327,22 @@ begin
   FSounds := TValuePathResourceLoader.Create
     (TJsonResourceLoader.Create(FJsonRoot, 'sounds'), basePath + 'sounds\');
 
-  png := TPNGImageLoader.Create;
+  LPNG := TPNGImageLoader.Create;
 
-  cache := TCachedResourceLoader<TPNGImage>.Create
-    (TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'characters\'));
-  FCharacters := cache;
-  FCharactersCache := cache;
+  LCache := TCachedResourceLoader<TPNGImage>.Create
+    (TPrefixedResourceLoader<TPNGImage>.Create(LPNG, basePath + 'characters\'));
+  FCharacters := LCache;
+  FCharactersCache := LCache;
 
-  cache := TCachedResourceLoader<TPNGImage>.Create
-    (TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'items\'));
-  FItems := cache;
-  FItemsCache := cache;
+  LCache := TCachedResourceLoader<TPNGImage>.Create
+    (TPrefixedResourceLoader<TPNGImage>.Create(LPNG, basePath + 'items\'));
+  FItems := LCache;
+  FItemsCache := LCache;
 
-  cache := TCachedResourceLoader<TPNGImage>.Create
-    (TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'spells\'));
-  FSpells := cache;
-  FSpellsCache := cache;
+  LCache := TCachedResourceLoader<TPNGImage>.Create
+    (TPrefixedResourceLoader<TPNGImage>.Create(LPNG, basePath + 'spells\'));
+  FSpells := LCache;
+  FSpellsCache := LCache;
 end;
 
 destructor TResourceSchema.Destroy;
@@ -357,7 +357,7 @@ procedure TResourceSchema.LoadAll;
 begin
   FCharactersCache.LoadAll;
   FItemsCache.LoadAll;
-  //FSpellsCache.LoadAll;
+  FSpellsCache.LoadAll;
 end;
 
 initialization
