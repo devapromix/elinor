@@ -728,7 +728,8 @@ const
     // (1) Crossbow
     (Enum: iCrossbow; Name: 'Crossbow'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 2200; Description: '' + ''),
+    Price: 2200; Description: 'A reliable crossbow capable of ' +
+    'piercing heavy armor'),
     // (1) Dagger Of Shadows
     (Enum: iDaggerOfShadows; Name: 'Dagger Of Shadows'; Level: 1;
     ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand;
@@ -742,7 +743,7 @@ const
     // (1) Fire Hammer
     (Enum: iFireHammer; Name: 'Fire Hammer'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 4500; Description: '' + ''),
+    Price: 4500; Description: 'A mighty hammer engulfed in ' + 'blazing flame'),
     // (1) Phoenix Sword
     (Enum: iPhoenixSword; Name: 'Phoenix Sword'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irPhoenixSword; ItSet: siNone;
@@ -753,19 +754,20 @@ const
     // (1) Battle Staff
     (Enum: iBattleStaff; Name: 'Battle Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 6000; Description: '' + ''),
+    Price: 6000; Description: 'A sturdy simle staff built ' + 'for combat'),
     // (1) Ruby Staff
     (Enum: iRubyStaff; Name: 'Ruby Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 8500; Description: '' + ''),
+    Price: 8500; Description: 'A staff crowned with a radiant ' + 'ruby'),
     // (1) Mithril Staff
     (Enum: iMithrilStaff; Name: 'Mithril Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 9200; Description: '' + ''),
+    Price: 9200; Description: 'A finely crafted staff forged ' +
+    'from mithril'),
     // (1) Staff Of Power
     (Enum: iStaffOfPower; Name: 'Staff Of Power'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 7800; Description: '' + ''),
+    Price: 7800; Description: 'A staff imbued with immense magical ' + 'power'),
     // (1) Staff Of Lightning
     (Enum: iStaffOfLightning; Name: 'Staff Of Lightning'; Level: 1;
     ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand;
@@ -774,7 +776,7 @@ const
     // (1) Elven Staff
     (Enum: iElvenStaff; Name: 'Elven Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 5700; Description: '' + ''),
+    Price: 5700; Description: 'An elegant staff crafted by the ' + 'elves'),
     // (1) Wizard Staff
     (Enum: iWizardStaff; Name: 'Wizard Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irWizardStaff; ItSet: siNone;
@@ -783,7 +785,7 @@ const
     // (1) Staff Of Ice
     (Enum: iStaffOfIce; Name: 'Staff Of Ice'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 6400; Description: '' + ''),
+    Price: 6400; Description: 'A staff imbued with the power of ' + 'ice'),
     // (1) Cedar Staff
     (Enum: iCedarStaff; Name: 'Cedar Staff'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irCedarStaff; ItSet: siNone;
