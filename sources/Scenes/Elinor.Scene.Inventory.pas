@@ -308,6 +308,12 @@ begin
     LItemEnum := TLeaderParty.Leader.Inventory.ItemEnum(InventorySelItemIndex);
     if (LItemEnum = iNone) then
       Exit;
+    if TLeaderParty.Leader.Inventory.Item(InventorySelItemIndex).ItType = itWeapon
+    then
+    begin
+      InformDialog(CTheLeadersWeaponCannotBeReplaced);
+      Exit;
+    end;
     if LItemEnum in CQuaffItems then
       ConfirmDialog(CQuaffThisElixir, {$IFDEF MODEOBJFPC}@{$ENDIF}QuaffElixir)
     else if TAbilities.CheckItemAbility(LItemEnum, itBoots, abTravelLore) then
@@ -342,8 +348,15 @@ end;
 procedure TSceneInventory.UnEquip;
 begin
   if (EquipmentSelItemIndex > -1) then
+  begin
+    if EquipmentSelItemIndex = CWeaponSlotIndex then
+    begin
+      InformDialog(CTheLeaderIsBoundToThisWeapon);
+      Exit;
+    end;
     if TLeaderParty.Leader.UnEquip(EquipmentSelItemIndex) then
       InformDialog(CNoFreeSpace);
+  end;
 end;
 
 procedure TSceneInventory.Update(var Key: Word);
