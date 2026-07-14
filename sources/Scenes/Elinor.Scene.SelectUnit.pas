@@ -67,7 +67,7 @@ end;
 class procedure TSceneSelectUnit.HideScene;
 begin
   ActivePartyPosition := LastActivePartyPosition;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.BackToScene(scBattle);
 end;
 
@@ -200,7 +200,7 @@ begin
   case LItem.Enum of
     iTalismanOfNosferat:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound('use_orb');
         CurrentParty.TakeDamage(25, ActivePartyPosition);
         TLeaderParty.Leader.UpdateHP(25, TLeaderParty.GetPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
@@ -209,7 +209,7 @@ begin
       end;
     iTalismanOfFear:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound('use_orb');
         CurrentParty.Paralyze(ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + Format(' Paralyzes the %s.',
@@ -217,40 +217,40 @@ begin
       end;
     iTalismanOfRage:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound('use_orb');
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Gives an extra attack!';
-        Game.MediaPlayer.PlaySound(mmClick);
+        Game.MediaPlayer.PlaySound('click');
         TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle(False);
         Game.BackToScene(scBattle);
         Exit;
       end;
     iOrbOfHealing:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound('use_orb');
         CurrentParty.UpdateHP(50, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 50 hp.';
       end;
     iOrbOfRestoration:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
+        Game.MediaPlayer.PlaySound('use_orb');
         CurrentParty.UpdateHP(100, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' Healed for 100 hp.';
       end;
     iOrbOfLife:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmRevive);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('revive');
         CurrentParty.Revive(ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) + ' You resurrected the creature.';
       end;
     iGoblinOrb:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmGoblinHit);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('goblin_hit');
         CurrentParty.AddCreature(crGoblin, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
@@ -258,8 +258,8 @@ begin
       end;
     iImpOrb:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmImpHit);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('imp_hit');
         CurrentParty.AddCreature(crImp, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
@@ -267,8 +267,8 @@ begin
       end;
     iSkeletonOrb:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmRaiseDead);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('raise_dead');
         CurrentParty.AddCreature(crSkeletonWarrior, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
@@ -276,8 +276,8 @@ begin
       end;
     iZombieOrb:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmZombieHit);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('zombie_hit');
         CurrentParty.AddCreature(crZombie, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
@@ -285,8 +285,8 @@ begin
       end;
     iLizardmanOrb:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmLizardmanHit);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('lizardman_hit');
         CurrentParty.AddCreature(crLizardman, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
@@ -294,8 +294,8 @@ begin
       end;
     iOrbOfWitches:
       begin
-        Game.MediaPlayer.PlaySound(mmUseOrb);
-        Game.MediaPlayer.PlaySound(mmImpHit);
+        Game.MediaPlayer.PlaySound('use_orb');
+        Game.MediaPlayer.PlaySound('imp_hit');
         CurrentParty.Dismiss(ActivePartyPosition);
         CurrentParty.AddCreature(crImp, ActivePartyPosition);
         PendingItemLogString := Format(CYouUsedTheItem,
@@ -304,8 +304,8 @@ begin
       end;
     iAcidFlask:
       begin
-        Game.MediaPlayer.PlaySound(mmFlaskShatter);
-        Game.MediaPlayer.PlaySound(mmRust);
+        Game.MediaPlayer.PlaySound('flask_shatter');
+        Game.MediaPlayer.PlaySound('rust');
         CurrentParty.ReduceArmor(50, ActivePartyPosition);
         PendingItemLogString := Format(CYouThrewTheItem,
           [TItemBase.Item(LItem.Enum).Name]) +
@@ -313,8 +313,8 @@ begin
       end;
     iFlaskOfOil:
       begin
-        Game.MediaPlayer.PlaySound(mmFlaskShatter);
-        Game.MediaPlayer.PlaySound(mmExplosion);
+        Game.MediaPlayer.PlaySound('flask_shatter');
+        Game.MediaPlayer.PlaySound('explosion');
         CurrentParty.Explosion(25, ActivePartyPosition);
         LLogStr := '';
         with TCreature.Character(CurrentParty.Creature
@@ -338,7 +338,7 @@ begin
       end;
   end;
   ActivePartyPosition := LastActivePartyPosition;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   TSceneBattle2(Game.GetScene(scBattle)).ContinueBattle(True);
   Game.BackToScene(scBattle);
 end;

@@ -56,7 +56,7 @@ end;
 
 class procedure TSceneDefeat.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.MediaPlayer.PlayMusic('menu');
   Game.IsGame := False;
   Game.LeaderRecordsTable.AddRecord(TCreature.GetName,

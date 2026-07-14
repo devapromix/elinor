@@ -72,13 +72,13 @@ begin
   else
     ActivePartyPosition := AParty.GetRandomPosition;
   Game.Show(scBarracks);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 class procedure TSceneBarracks.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
   Game.Show(scSettlement);
 end;
 
@@ -140,7 +140,7 @@ procedure TSceneBarracks.ShowRecruitScene;
   end;
 
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   RecruitIt(CurrentParty, ActivePartyPosition);
 end;
 
@@ -178,7 +178,7 @@ end;
 
 procedure TSceneBarracks.ShowPartyScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   TSceneParty2.ShowScene(CurrentParty, scBarracks);
 end;
 
@@ -246,14 +246,14 @@ procedure TSceneBarracks.Dismiss;
   end;
 
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   DismissIt(CurrentParty, ActivePartyPosition);
 end;
 
 procedure TSceneBarracks.DismissCreature;
 begin
   if ConfirmParty.Dismiss(ConfirmPartyPosition) then
-    Game.MediaPlayer.PlaySound(mmDismiss);
+    Game.MediaPlayer.PlaySound('dismiss');
 end;
 
 procedure TSceneBarracks.Timer;

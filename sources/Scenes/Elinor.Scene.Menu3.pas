@@ -174,7 +174,7 @@ begin
           0 .. 5:
             begin
               CurrentIndex := LPartyPosition;
-              Game.MediaPlayer.PlaySound(mmClick);
+              Game.MediaPlayer.PlaySound('click');
               Exit;
             end;
         end;

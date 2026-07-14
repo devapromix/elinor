@@ -81,7 +81,7 @@ begin
     LDamage := AAtkParty.Creature[AAtkPos].Damage.GetFullValue;
     LValue := Percent(LDamage, TLeaderParty.LeaderVampiricAttackValue);
     Sleep(50);
-    Game.MediaPlayer.PlaySound(mmHeal);
+    Game.MediaPlayer.PlaySound('heal');
     AAtkParty.Heal(AAtkPos, EnsureRange(LValue, 5, 50));
     LStr := TResources.RandomValue('battle.string', 'drain_life');
     FBattleLog.Log.Add(Format(LStr, [TCreature.Character(AAtkCrEnum).Name[0],
@@ -172,7 +172,7 @@ begin
   if LIsCrit then
   begin
     FBattleLog.CriticalAttack;
-    Game.MediaPlayer.PlaySound(mmCriticalAttack);
+    Game.MediaPlayer.PlaySound('critical_attack');
     Sleep(50);
   end
   else
@@ -181,7 +181,7 @@ begin
       atDrainLife:
         begin
           Sleep(50);
-          Game.MediaPlayer.PlaySound(mmHeal);
+          Game.MediaPlayer.PlaySound('heal');
           AAtkParty.Heal(AAtkPos, EnsureRange(LDamage div 2, 5, 100));
         end;
     end;

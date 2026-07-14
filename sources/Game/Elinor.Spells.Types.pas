@@ -16,7 +16,7 @@ type
     Level: Integer;
     Mana: Byte;
     RequireAbility: TAbilityEnum;
-    SoundEnum: TMusicEnum;
+    SoundEnum: string;
     ResEnum: TSpellResEnum;
     Faction: TFactionEnum;
     SpellTarget: TSpellTarget;

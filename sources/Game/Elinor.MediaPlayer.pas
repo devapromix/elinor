@@ -32,12 +32,10 @@ type
     property SoundVolume: ShortInt read GetSoundVolume write SetSoundVolume;
     property MusicVolume: ShortInt read GetMusicVolume write SetMusicVolume;
     property CurrentChannel: Integer read FCurrentChannel write FCurrentChannel;
-    function PlaySound(const FileName: string; F: Boolean = False)
+    function PlaySound(const AKey: string; F: Boolean = False)
       : Boolean; overload;
-    function PlaySound(const MusicEnum: TMusicEnum; F: Boolean = False)
-      : Boolean; overload;
-    function PlayMusic(const AKey: string; F: Boolean = True)
-      : Boolean; overload;
+    function PlayMusic(const AKey: string; F: Boolean = True): Boolean;
+      overload;
     procedure StopSound;
     procedure StopMusic;
   end;
@@ -94,19 +92,13 @@ function TMediaPlayer.PlayMusic(const AKey: string; F: Boolean): Boolean;
 begin
   StopMusic;
   CurrentChannel := MusicChannel;
-  Play(R.Musics[AKey + '.mp3'], F, mtMusic);
+  Play(R.Musics[AKey], F, mtMusic);
   CurrentChannel := SoundChannel;
 end;
 
-function TMediaPlayer.PlaySound(const MusicEnum: TMusicEnum;
-  F: Boolean): Boolean;
+function TMediaPlayer.PlaySound(const AKey: string; F: Boolean): Boolean;
 begin
-  PlaySound(ResMusicPath[MusicEnum], F);
-end;
-
-function TMediaPlayer.PlaySound(const FileName: string; F: Boolean): Boolean;
-begin
-  Play(FileName, F, mtSound);
+  Play(R.Sounds[AKey], F, mtSound);
 end;
 
 function TMediaPlayer.Play(const FileName: string; F: Boolean;

@@ -53,7 +53,8 @@ type
     FBasePath: string;
     function Get(const Key: string): string;
   public
-    constructor Create(AParent: IResourceLoader<string>; const ABasePath: string);
+    constructor Create(AParent: IResourceLoader<string>;
+      const ABasePath: string);
     property Items[const Key: string]: string read Get; default;
     function GetKeys(const prefix: string = ''): TArray<string>;
   end;
@@ -63,7 +64,8 @@ type
     procedure LoadAll();
   end;
 
-  TCachedResourceLoader<T> = class(TInterfacedObject, IResourceLoader<T>, IResourceCache)
+  TCachedResourceLoader<T> = class(TInterfacedObject, IResourceLoader<T>,
+    IResourceCache)
   private
     FParent: IResourceLoader<T>;
     FCache: TDictionary<string, T>;
@@ -136,7 +138,8 @@ begin
   FCache := TDictionary<string, T>.Create;
 end;
 
-function TCachedResourceLoader<T>.GetKeys(const prefix: string = ''): TArray<string>;
+function TCachedResourceLoader<T>.GetKeys(const prefix: string = '')
+  : TArray<string>;
 begin
   Result := FParent.GetKeys(prefix);
 end;
@@ -144,20 +147,21 @@ end;
 procedure TCachedResourceLoader<T>.LoadAll;
 var
   keys: TArray<string>;
-  key: string;
+  Key: string;
 begin
   keys := FParent.GetKeys('');
-  for key in keys do
-    FParent[key];
+  for Key in keys do
+    FParent[Key];
 end;
 
 destructor TCachedResourceLoader<T>.Destroy;
 begin
-  FCache.Free;
+  FreeAndNil(FCache);
   inherited;
 end;
 
-constructor TPrefixedResourceLoader<T>.Create(AParent: IResourceLoader<T>; const APrefix: string);
+constructor TPrefixedResourceLoader<T>.Create(AParent: IResourceLoader<T>;
+  const APrefix: string);
 begin
   inherited Create;
   if not Assigned(AParent) then
@@ -172,14 +176,16 @@ begin
   Result := FParent.Get(FPrefix + Key);
 end;
 
-function TPrefixedResourceLoader<T>.GetKeys(const prefix: string = ''): TArray<string>;
+function TPrefixedResourceLoader<T>.GetKeys(const prefix: string = '')
+  : TArray<string>;
 var
   LSearchRec: TSearchRec;
   LFiles: TList<string>;
 begin
   LFiles := TList<string>.Create;
   try
-    if FindFirst(IncludeTrailingPathDelimiter(FPrefix) + prefix + '*.*', faAnyFile, LSearchRec) = 0 then
+    if FindFirst(IncludeTrailingPathDelimiter(FPrefix) + prefix + '*.*',
+      faAnyFile, LSearchRec) = 0 then
     begin
       repeat
         if (LSearchRec.Attr and faDirectory) = 0 then
@@ -193,7 +199,8 @@ begin
   end;
 end;
 
-constructor TJsonResourceLoader.Create(ARoot: TJSONObject; const ASectionName: string);
+constructor TJsonResourceLoader.Create(ARoot: TJSONObject;
+  const ASectionName: string);
 var
   LValue: TJSONValue;
 begin
@@ -202,7 +209,7 @@ begin
     raise Exception.Create('Root JSON object is nil');
 
   LValue := ARoot.GetValue(ASectionName);
-  if not (Assigned(LValue) and (LValue is TJSONObject)) then
+  if not(Assigned(LValue) and (LValue is TJSONObject)) then
     raise Exception.CreateFmt('Section "%s" not found in JSON', [ASectionName]);
 
   FSection := TJSONObject(LValue);
@@ -241,7 +248,8 @@ begin
   end;
 end;
 
-constructor TValuePathResourceLoader.Create(AParent: IResourceLoader<string>; const ABasePath: string);
+constructor TValuePathResourceLoader.Create(AParent: IResourceLoader<string>;
+  const ABasePath: string);
 begin
   inherited Create;
   if not Assigned(AParent) then
@@ -256,7 +264,8 @@ begin
   Result := FBasePath + FParent.Get(Key);
 end;
 
-function TValuePathResourceLoader.GetKeys(const prefix: string = ''): TArray<string>;
+function TValuePathResourceLoader.GetKeys(const prefix: string = '')
+  : TArray<string>;
 begin
   Result := FParent.GetKeys(prefix);
 end;
@@ -279,7 +288,8 @@ var
 begin
   LFiles := TList<string>.Create;
   try
-    if FindFirst(IncludeTrailingPathDelimiter(prefix) + '*.*', faAnyFile, LSearchRec) = 0 then
+    if FindFirst(IncludeTrailingPathDelimiter(prefix) + '*.*', faAnyFile,
+      LSearchRec) = 0 then
     begin
       repeat
         if (LSearchRec.Attr and faDirectory) = 0 then
@@ -299,7 +309,8 @@ var
   png: TPNGImageLoader;
   cache: TCachedResourceLoader<TPNGImage>;
 begin
-  basePath := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0)) + 'resources');
+  basePath := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0)) +
+    'resources');
 
   jsonPath := basePath + 'resources.json';
   if not TFile.Exists(jsonPath) then
@@ -310,26 +321,26 @@ begin
   if not Assigned(FJsonRoot) then
     raise Exception.CreateFmt('Failed to parse JSON: %s', [jsonPath]);
 
-  FMusics := TValuePathResourceLoader.Create(
-    TJsonResourceLoader.Create(FJsonRoot, 'music'), basePath + 'music\');
+  FMusics := TValuePathResourceLoader.Create
+    (TJsonResourceLoader.Create(FJsonRoot, 'music'), basePath + 'music\');
 
-  FSounds := TValuePathResourceLoader.Create(
-    TJsonResourceLoader.Create(FJsonRoot, 'sounds'), basePath + 'sounds\');
+  FSounds := TValuePathResourceLoader.Create
+    (TJsonResourceLoader.Create(FJsonRoot, 'sounds'), basePath + 'sounds\');
 
   png := TPNGImageLoader.Create;
 
-  cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'characters\'));
+  cache := TCachedResourceLoader<TPNGImage>.Create
+    (TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'characters\'));
   FCharacters := cache;
   FCharactersCache := cache;
 
-  cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'items\'));
+  cache := TCachedResourceLoader<TPNGImage>.Create
+    (TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'items\'));
   FItems := cache;
   FItemsCache := cache;
 
-  cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'spells\'));
+  cache := TCachedResourceLoader<TPNGImage>.Create
+    (TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'spells\'));
   FSpells := cache;
   FSpellsCache := cache;
 end;
@@ -338,7 +349,7 @@ destructor TResourceSchema.Destroy;
 begin
   FMusics := nil;
   FSounds := nil;
-  FJsonRoot.Free;
+  FreeAndNil(FJsonRoot);
   inherited;
 end;
 
@@ -350,10 +361,12 @@ begin
 end;
 
 initialization
-  R := TResourceSchema.Create;
-  R.LoadAll;
+
+R := TResourceSchema.Create;
+R.LoadAll;
 
 finalization
-  FreeAndNil(R);
+
+FreeAndNil(R);
 
 end.

@@ -139,7 +139,7 @@ end;
 
 procedure TSceneHire.Back;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   case SubScene of
     stSpy, stWar:
       Game.Show(scMap);
@@ -196,7 +196,7 @@ var
   end;
 
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   case SubScene of
     stSpy:
       begin

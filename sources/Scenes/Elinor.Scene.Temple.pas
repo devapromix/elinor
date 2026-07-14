@@ -72,13 +72,13 @@ begin
   else
     ActivePartyPosition := AParty.GetRandomPosition;
   Game.Show(scTemple);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 class procedure TSceneTemple.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
   Game.Show(scSettlement);
 end;
 
@@ -144,7 +144,7 @@ procedure TSceneTemple.Heal;
   end;
 
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   HealIt(CurrentParty, ActivePartyPosition);
 end;
 
@@ -152,7 +152,7 @@ procedure TSceneTemple.HealCreature;
 begin
   Game.Gold.Modify(-ConfirmGold);
   ConfirmParty.Heal(ConfirmPartyPosition);
-  Game.MediaPlayer.PlaySound(mmHeal);
+  Game.MediaPlayer.PlaySound('heal');
 end;
 
 procedure TSceneTemple.MouseDown(AButton: TMouseButton; Shift: TShiftState;
@@ -189,7 +189,7 @@ end;
 
 procedure TSceneTemple.ShowPartyScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   TSceneParty2.ShowScene(CurrentParty, scTemple);
 end;
 
@@ -265,7 +265,7 @@ procedure TSceneTemple.Revive;
   end;
 
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   ReviveIt(CurrentParty, ActivePartyPosition);
 end;
 
@@ -273,7 +273,7 @@ procedure TSceneTemple.ReviveCreature;
 begin
   Game.Gold.Modify(-ConfirmGold);
   ConfirmParty.Revive(ConfirmPartyPosition);
-  Game.MediaPlayer.PlaySound(mmRevive);
+  Game.MediaPlayer.PlaySound('revive');
 end;
 
 procedure TSceneTemple.Timer;

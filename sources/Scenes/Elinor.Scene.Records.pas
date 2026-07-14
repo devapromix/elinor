@@ -59,7 +59,7 @@ procedure TSceneRecords.MoveCursor(const AArrowKeyDirectionEnum
   : TArrowKeyDirectionEnum);
 begin
   CurrentIndex := PositionTransitions[AArrowKeyDirectionEnum, CurrentIndex];
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Render;
 end;
 
@@ -104,7 +104,7 @@ end;
 
 class procedure TSceneRecords.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scMenu);
 end;
 
@@ -122,7 +122,7 @@ begin
           0 .. 5:
             begin
               CurrentIndex := LPartyPosition;
-              Game.MediaPlayer.PlaySound(mmClick);
+              Game.MediaPlayer.PlaySound('click');
               Exit;
             end;
         end;
@@ -270,7 +270,7 @@ end;
 
 class procedure TSceneRecords.ShowScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scRecords);
 end;
 

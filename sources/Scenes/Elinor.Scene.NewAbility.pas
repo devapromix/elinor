@@ -78,7 +78,7 @@ end;
 
 class procedure TSceneNewAbility.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   TSceneBattle2.AfterVictory;
 end;
 
@@ -193,7 +193,7 @@ end;
 
 class procedure TSceneNewAbility.ShowScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scNewAbility);
 end;
 

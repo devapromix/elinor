@@ -63,7 +63,7 @@ procedure TSceneWideMenu.MoveCursor(const AArrowKeyDirectionEnum
   : TArrowKeyDirectionEnum);
 begin
   CurrentIndex := PositionTransitions[AArrowKeyDirectionEnum, CurrentIndex];
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Render;
 end;
 
@@ -146,7 +146,7 @@ begin
             if not IsBlockFrames then
             begin
               CurrentIndex := LPartyPosition;
-              Game.MediaPlayer.PlaySound(mmClick);
+              Game.MediaPlayer.PlaySound('click');
               Exit;
             end;
         end;

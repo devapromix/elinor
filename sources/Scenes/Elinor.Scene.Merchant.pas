@@ -79,13 +79,13 @@ begin
   ActiveSection := isMerchant;
   GetMerchantItemPrice;
   Game.Show(scMerchant);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 class procedure TSceneMerchant.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
   Game.Show(CloseSceneEnum);
 end;
 
@@ -113,7 +113,7 @@ begin
   TLeaderParty.Leader.Inventory.Add(LItem);
   Merchants.GetMerchant(CurrentMerchantType)
     .Inventory.Clear(MerchantSelItemIndex);
-  Game.MediaPlayer.PlaySound(mmGold);
+  Game.MediaPlayer.PlaySound('gold');
   Render;
 end;
 
@@ -134,7 +134,7 @@ begin
   Game.Gold.Modify(LPrice);
   Merchants.GetMerchant(CurrentMerchantType).ModifyGold(-LPrice);
   TLeaderParty.Leader.Inventory.Clear(InventorySelItemIndex);
-  Game.MediaPlayer.PlaySound(mmGold);
+  Game.MediaPlayer.PlaySound('gold');
   Render;
 end;
 

@@ -125,7 +125,7 @@ end;
 
 class procedure TSceneScenario.Show;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scScenario);
 end;
 

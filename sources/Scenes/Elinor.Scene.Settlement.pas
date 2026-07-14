@@ -86,7 +86,7 @@ procedure TSceneSettlement.MoveCursor(const AArrowKeyDirectionEnum
 begin
   ActivePartyPosition := PositionTransitions[AArrowKeyDirectionEnum,
     ActivePartyPosition];
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Render;
 end;
 
@@ -110,7 +110,7 @@ begin
   end;
   Game.MediaPlayer.PlayMusic('map');
   Game.Show(scMap);
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.NewDay;
 end;
 
@@ -185,7 +185,7 @@ begin
                 ActivePartyPosition := CurrentPartyPosition;
               end;
           end;
-          Game.MediaPlayer.PlaySound(mmClick);
+          Game.MediaPlayer.PlaySound('click');
         end;
       end;
   end;
@@ -269,13 +269,13 @@ begin
     0 .. 5:
       begin
         TSceneTemple.ShowScene(TLeaderParty.Leader);
-        Game.MediaPlayer.PlaySound(mmClick);
+        Game.MediaPlayer.PlaySound('click');
       end
   else
     if not SettlementParty.IsClear then
     begin
       TSceneTemple.ShowScene(SettlementParty);
-      Game.MediaPlayer.PlaySound(mmClick);
+      Game.MediaPlayer.PlaySound('click');
     end;
   end;
 end;
@@ -286,13 +286,13 @@ begin
     0 .. 5:
       begin
         TSceneBarracks.ShowScene(TLeaderParty.Leader);
-        Game.MediaPlayer.PlaySound(mmClick);
+        Game.MediaPlayer.PlaySound('click');
       end
   else
     if not SettlementParty.IsClear then
     begin
       TSceneBarracks.ShowScene(SettlementParty);
-      Game.MediaPlayer.PlaySound(mmClick);
+      Game.MediaPlayer.PlaySound('click');
     end;
   end;
 
@@ -305,13 +305,13 @@ begin
       begin
         TSceneParty2.ShowScene(PartyList.Party[TLeaderParty.LeaderPartyIndex],
           scSettlement);
-        Game.MediaPlayer.PlaySound(mmClick);
+        Game.MediaPlayer.PlaySound('click');
       end
   else
     if not SettlementParty.IsClear then
     begin
       TSceneParty2.ShowScene(SettlementParty, scSettlement);
-      Game.MediaPlayer.PlaySound(mmClick);
+      Game.MediaPlayer.PlaySound('click');
     end;
   end;
 end;

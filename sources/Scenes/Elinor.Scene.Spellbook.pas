@@ -71,8 +71,8 @@ begin
     end;
     Spells.ActiveSpell.SetActiveSpell(LSpellEnum);
     Game.Mana.Modify(-LMana);
-    Game.MediaPlayer.PlaySound(mmSpellbook);
-    Game.MediaPlayer.PlaySound(mmPrepareMagic);
+    Game.MediaPlayer.PlaySound('spellbook');
+    Game.MediaPlayer.PlaySound('prepare_magic');
     Game.Show(scMap);
   end;
 end;
@@ -80,8 +80,8 @@ end;
 class procedure TSceneSpellbook.HideScene;
 begin
   Game.Show(CloseSceneEnum);
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSpellbook);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('spellbook');
 end;
 
 constructor TSceneSpellbook.Create;
@@ -210,7 +210,7 @@ end;
 class procedure TSceneSpellbook.ShowScene(const ACloseSceneEnum: TSceneEnum);
 begin
   CloseSceneEnum := ACloseSceneEnum;
-  Game.MediaPlayer.PlaySound(mmSpellbook);
+  Game.MediaPlayer.PlaySound('spellbook');
   Game.Show(scSpellbook);
 end;
 
