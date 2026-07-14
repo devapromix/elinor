@@ -547,6 +547,10 @@ begin
 end;
 
 procedure TScene.ItemInformDialog(const AItemEnum: TItemEnum);
+var
+  LStr: string;
+const
+  CLeft = '                           ';
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.InformSL.Clear;
@@ -554,7 +558,15 @@ begin
   Game.InformItemImage := TItemBase.Item(AItemEnum).ItRes;
   Game.InformSL.Append(TItemBase.Item(AItemEnum).Name);
   Game.InformSL.Append('');
-  Game.InformSL.Append('Level ' + TItemBase.Item(AItemEnum).Level.ToString);
+  LStr := 'Level ' + TItemBase.Item(AItemEnum).Level.ToString;
+  if (TItemBase.Item(AItemEnum).ItType = itSpecial) then
+    LStr := LStr + CLeft + 'Exclusive';
+  if (TItemBase.Item(AItemEnum).ItType = itWeapon) then
+    LStr := LStr + CLeft + 'Unique';
+  if (TItemBase.Item(AItemEnum).ItSet <> siNone) then
+    LStr := LStr + CLeft + 'Part of the ' + CSetItems
+      [TItemBase.Item(AItemEnum).ItSet].Name + ' set';
+  Game.InformSL.Append(LStr);
   Game.InformSL.Append('Price ' + TItemBase.Item(AItemEnum).Price.ToString);
   Game.InformSL.Append(GetItemDescription(AItemEnum));
   Game.InformSL.Append(TruncateString(TItemBase.Item(AItemEnum)

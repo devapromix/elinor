@@ -671,7 +671,8 @@ const
     // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
     ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing;
-    ItSet: siNone; Price: 1500; Description: ''),
+    ItSet: siNone; Price: 1500; Description: 'Grants attacks a 5% chance ' +
+    'to paralyze the target'),
 
     // HELMS
     // (4) Hood Of Darkness
