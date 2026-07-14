@@ -174,7 +174,12 @@ type
     // ARMORS
     irShroudOfDarkness, irCuirassOfDominion,
     // AMULETS
-    irItemAmuletOfBloodbind, irHeartOfDarkness
+    irItemAmuletOfBloodbind, irHeartOfDarkness,
+    // WEAPONS
+    irBattleAxe, irHunterBow, irCrossbow, irSlayerSword, irDagger, irPaladinSword,
+    irFlameDagger, irDaggerOfShadows, irFireHammer, irPhoenixSword,
+    // STAVES
+    irStaffOfLightning, irWizardStaff, irCedarStaff
     //
     );
 
@@ -928,8 +933,37 @@ const
     // Amulet of Bloodbind
     (FileName: 'item.amulet.necklace_of_bloodbind.png'; ResType: teItem;),
     // Heart of Darkness
-    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;)
+    (FileName: 'item.amulet.heart_of_darkness.png'; ResType: teItem;),
 
+    // WEAPONS
+    // Battle Axe
+    (FileName: 'item.weapon.battle_axe.png'; ResType: teItem;),
+    // Hunter Bow
+    (FileName: 'item.weapon.hunter_bow.png'; ResType: teItem;),
+    // Crossbow
+    (FileName: 'item.weapon.crossbow.png'; ResType: teItem;),
+    // Slayer Sword
+    (FileName: 'item.weapon.slayer_sword.png'; ResType: teItem;),
+    // Dagger
+    (FileName: 'item.weapon.dagger.png'; ResType: teItem;),
+    // Paladin Sword
+    (FileName: 'item.weapon.paladin_sword.png'; ResType: teItem;),
+    // FlameDagger
+    (FileName: 'item.weapon.flame_dagger.png'; ResType: teItem;),
+    // Dagger Of Shadows
+    (FileName: 'item.weapon.dagger_of_shadows.png'; ResType: teItem;),
+    // Fire Hammer
+    (FileName: 'item.weapon.fire_hammer.png'; ResType: teItem;),
+    // Phoenix Sword
+    (FileName: 'item.weapon.phoenix_sword.png'; ResType: teItem;),
+
+    // STAVES
+    // Staff Of Lightning
+    (FileName: 'item.weapon.staff_of_lightning.png'; ResType: teItem;),
+    // Wizard Staff
+    (FileName: 'item.weapon.wizard_staff.png'; ResType: teItem;),
+    // Cedar Staff
+    (FileName: 'item.weapon.cedar_staff.png'; ResType: teItem;)
     //
     );
 

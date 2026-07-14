@@ -548,14 +548,36 @@ begin
 end;
 
 procedure TScene.ItemInformDialog(const AItemEnum: TItemEnum);
+var
+  LStr, LChar: string;
+const
+  CLeft = '                           ';
 begin
   Game.MediaPlayer.PlaySound(mmClick);
   Game.InformSL.Clear;
   Game.InformImage := reNone;
   Game.InformItemImage := TItemBase.Item(AItemEnum).ItRes;
-  Game.InformSL.Append(TItemBase.Item(AItemEnum).Name);
+  LChar := '';
+  LStr := 'Level ' + TItemBase.Item(AItemEnum).Level.ToString;
+  if (TItemBase.Item(AItemEnum).ItType = itSpecial) then
+  begin
+    LChar := '#';
+    LStr := LStr + CLeft + 'Exclusive';
+  end;
+  if (TItemBase.Item(AItemEnum).ItType = itWeapon) then
+  begin
+    LChar := '$';
+    LStr := LStr + CLeft + 'Unique';
+  end;
+  if (TItemBase.Item(AItemEnum).ItSet <> siNone) then
+  begin
+    LChar := '@';
+    LStr := LStr + CLeft + 'Part of the ' + CSetItems
+      [TItemBase.Item(AItemEnum).ItSet].Name + ' set';
+  end;
+  Game.InformSL.Append(LChar + TItemBase.Item(AItemEnum).Name);
   Game.InformSL.Append('');
-  Game.InformSL.Append('Level ' + TItemBase.Item(AItemEnum).Level.ToString);
+  Game.InformSL.Append(LStr);
   Game.InformSL.Append('Price ' + TItemBase.Item(AItemEnum).Price.ToString);
   Game.InformSL.Append(GetItemDescription(AItemEnum));
   Game.InformSL.Append(TruncateString(TItemBase.Item(AItemEnum)
@@ -1053,16 +1075,35 @@ end;
 
 procedure TScene.DrawText(const AX, AY: Integer; AText: string; AFlag: Boolean);
 var
-  LFontSize: Integer;
+  LFontSize, LColor: Integer;
+  LFlag: Boolean;
 begin
+  LFlag := False;
   if AFlag then
   begin
     LFontSize := Game.Surface.Canvas.Font.Size;
     Game.Surface.Canvas.Font.Size := LFontSize * 2;
+    if AText.StartsWith('@') or AText.StartsWith('#') or AText.StartsWith('$')
+    then
+    begin
+      LColor := Game.Surface.Canvas.Font.Color;
+      if AText.StartsWith('@') then
+        Game.Surface.Canvas.Font.Color := $0020A5DA;
+      if AText.StartsWith('#') then
+        Game.Surface.Canvas.Font.Color := $0077FFAA;
+      if AText.StartsWith('$') then
+        Game.Surface.Canvas.Font.Color := $00ED9564;
+      Delete(AText, 1, 1);
+      LFlag := True;
+    end;
   end;
   DrawText(AX, AY, AText);
   if AFlag then
+  begin
     Game.Surface.Canvas.Font.Size := LFontSize;
+    if LFlag then
+      Game.Surface.Canvas.Font.Color := LColor;
+  end;
 end;
 
 procedure TScene.DrawText(const AX, AY, AWidth: Integer; const AText: string);

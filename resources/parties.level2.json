@@ -33,6 +33,11 @@
 		{
 			"level": 2,
 			"faction": "legion-of-the-damned",
+			"characters":"none,none,possessed,gargoyle,none,none"
+		},
+		{
+			"level": 2,
+			"faction": "legion-of-the-damned",
 			"characters":"none,none,devil,gargoyle,none,none"
 		},
 		{
