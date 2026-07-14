@@ -179,7 +179,7 @@ type
     irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword,
     irFlameDagger, irDaggerOfShadows, irPhoenixSword,
     // STAVES
-    irStaffOfLightning, irCedarStaff
+    irStaffOfLightning, irWizardStaff, irCedarStaff
     //
     );
 
@@ -956,6 +956,8 @@ const
     // STAVES
     // Staff Of Lightning
     (FileName: 'item.weapon.staff_of_lightning.png'; ResType: teItem;),
+    // Wizard Staff
+    (FileName: 'item.weapon.wizard_staff.png'; ResType: teItem;),
     // Cedar Staff
     (FileName: 'item.weapon.cedar_staff.png'; ResType: teItem;)
     //

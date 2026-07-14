@@ -58,6 +58,7 @@ type
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome, itWeapon);
+
 const
   CExclusiveItems = [itSpecial, itWeapon];
 
@@ -776,8 +777,9 @@ const
     Price: 5700; Description: '' + ''),
     // (1) Wizard Staff
     (Enum: iWizardStaff; Name: 'Wizard Staff'; Level: 1; ItType: itWeapon;
-    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
-    Price: 8800; Description: '' + ''),
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irWizardStaff; ItSet: siNone;
+    Price: 8800; Description: 'A masterwork staff favored by ' +
+    'powerful wizards'),
     // (1) Staff Of Ice
     (Enum: iStaffOfIce; Name: 'Staff Of Ice'; Level: 1; ItType: itWeapon;
     ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
