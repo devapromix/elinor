@@ -213,7 +213,7 @@ begin
 
   LValue := ARoot.GetValue(ASectionName);
   if not (Assigned(LValue) and (LValue is TJSONObject)) then
-    raise Exception.CreateFmt('Секцію "%s" не знайдено в JSON', [ASectionName]);
+    raise Exception.CreateFmt('Section "%s" not found in JSON', [ASectionName]);
 
   FSection := TJSONObject(LValue);
 end;
@@ -229,7 +229,7 @@ begin
     LValue := FSection.GetValue(Key);
 
   if not Assigned(LValue) then
-    raise Exception.CreateFmt('Ключ "%s" не знайдено в JSON', [Key]);
+    raise Exception.CreateFmt('Key "%s" not found in JSON', [Key]);
 
   Result := LValue.Value;
 end;
@@ -313,28 +313,28 @@ begin
 
   jsonPath := basePath + 'resources.json';
   if not TFile.Exists(jsonPath) then
-    raise Exception.CreateFmt('Файл ресурсів не знайдено: %s', [jsonPath]);
+    raise Exception.CreateFmt('Resource file not found: %s', [jsonPath]);
 
   jsonText := TFile.ReadAllText(jsonPath, TEncoding.UTF8);
   FJsonRoot := TJSONObject.ParseJSONValue(jsonText) as TJSONObject;
   if not Assigned(FJsonRoot) then
-    raise Exception.CreateFmt('Не вдалося розпарсити JSON: %s', [jsonPath]);
+    raise Exception.CreateFmt('Failed to parse JSON: %s', [jsonPath]);
 
   FMusics := TValuePathResourceLoader.Create(
     TJsonResourceLoader.Create(FJsonRoot, 'music'), basePath + 'music\');
 
   FSounds := TValuePathResourceLoader.Create(
-    TJsonResourceLoader.Create(FJsonRoot, 'sounds'), basePath + 'sounds');
+    TJsonResourceLoader.Create(FJsonRoot, 'sounds'), basePath + 'sounds\');
 
   png := TPNGImageLoader.Create;
 
   cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'characters'));
+    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'characters\'));
   FCharacters := cache;
   FCharactersCache := cache;
 
   cache := TCachedResourceLoader<TPNGImage>.Create(
-    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'items'));
+    TPrefixedResourceLoader<TPNGImage>.Create(png, basePath + 'items\'));
   FItems := cache;
   FItemsCache := cache;
 
