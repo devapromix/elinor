@@ -728,7 +728,7 @@ const
     'its accuracy'),
     // (1) Crossbow
     (Enum: iCrossbow; Name: 'Crossbow'; Level: 1; ItType: itWeapon;
-    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irCrossbow; ItSet: siNone;
     Price: 2200; Description: 'A reliable crossbow capable of ' +
     'piercing heavy armor'),
     // (1) Dagger Of Shadows

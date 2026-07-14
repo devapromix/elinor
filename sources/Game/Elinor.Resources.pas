@@ -176,7 +176,7 @@ type
     // AMULETS
     irItemAmuletOfBloodbind, irHeartOfDarkness,
     // WEAPONS
-    irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword,
+    irBattleAxe, irHunterBow, irCrossbow, irSlayerSword, irDagger, irPaladinSword,
     irFlameDagger, irDaggerOfShadows, irFireHammer, irPhoenixSword,
     // STAVES
     irStaffOfLightning, irWizardStaff, irCedarStaff
@@ -940,6 +940,8 @@ const
     (FileName: 'item.weapon.battle_axe.png'; ResType: teItem;),
     // Hunter Bow
     (FileName: 'item.weapon.hunter_bow.png'; ResType: teItem;),
+    // Crossbow
+    (FileName: 'item.weapon.crossbow.png'; ResType: teItem;),
     // Slayer Sword
     (FileName: 'item.weapon.slayer_sword.png'; ResType: teItem;),
     // Dagger
