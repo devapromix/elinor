@@ -1050,10 +1050,9 @@ const
     );
 
 type
-  TMusicEnum = (mmClick, mmStep,
-    mmWinBattle, mmDay, mmSettlement, mmLoot, mmLevel,
-    mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
-    mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
+  TMusicEnum = (mmClick, mmStep, mmWinBattle, mmDay, mmSettlement, mmLoot,
+    mmLevel, mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack,
+    mmBowAttack, mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
     mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
     mmGoblinDeath, mmSkeletonHit, mmSkeletonDeath, mmOrcHit, mmOrcDeath,
     mmWolfHit, mmWolfDeath, mmWolfAttack, mmBearHit, mmBearDeath, mmBearAttack,

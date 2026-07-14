@@ -97,7 +97,7 @@ end;
 
 class procedure TSceneMageTower.HideScene;
 begin
-  Game.MediaPlayer.PlayMusic(CMusicMap);
+  Game.MediaPlayer.PlayMusic('map');
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
 end;

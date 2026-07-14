@@ -52,13 +52,13 @@ class procedure TSceneVictory.ShowScene;
 begin
   ActivePartyPosition := TLeaderParty.GetPosition;
   Game.Show(scVictory);
-  Game.MediaPlayer.PlayMusic(CMusicVictory);
+  Game.MediaPlayer.PlayMusic('victory');
 end;
 
 class procedure TSceneVictory.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(CMusicMenu);
+  Game.MediaPlayer.PlayMusic('menu');
   Game.IsGame := False;
   Game.LeaderRecordsTable.AddRecord
     (TCreature.Character(TLeaderParty.Leader.Enum).Name[0],

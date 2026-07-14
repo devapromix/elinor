@@ -36,9 +36,7 @@ type
       : Boolean; overload;
     function PlaySound(const MusicEnum: TMusicEnum; F: Boolean = False)
       : Boolean; overload;
-    function PlayMusic(const FileName: string; F: Boolean = True)
-      : Boolean; overload;
-    function PlayMusic(const MusicEnum: TMusicEnum; F: Boolean = True)
+    function PlayMusic(const AKey: string; F: Boolean = True)
       : Boolean; overload;
     procedure StopSound;
     procedure StopMusic;
@@ -92,18 +90,12 @@ begin
   Result := BASS_ChannelIsActive(FChannel[MusicChannel]) = BASS_ACTIVE_PLAYING;
 end;
 
-function TMediaPlayer.PlayMusic(const FileName: string; F: Boolean): Boolean;
+function TMediaPlayer.PlayMusic(const AKey: string; F: Boolean): Boolean;
 begin
   StopMusic;
   CurrentChannel := MusicChannel;
-  Play(R.Musics[FileName + '.mp3'], F, mtMusic);
+  Play(R.Musics[AKey + '.mp3'], F, mtMusic);
   CurrentChannel := SoundChannel;
-end;
-
-function TMediaPlayer.PlayMusic(const MusicEnum: TMusicEnum;
-  F: Boolean): Boolean;
-begin
-  // PlayMusic(ResMusicPath[MusicEnum], F);
 end;
 
 function TMediaPlayer.PlaySound(const MusicEnum: TMusicEnum;

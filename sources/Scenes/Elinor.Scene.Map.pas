@@ -74,7 +74,7 @@ begin
     Spells.ActiveSpell.Clear();
     Exit;
   end;
-  Game.MediaPlayer.PlayMusic(CMusicMenu);
+  Game.MediaPlayer.PlayMusic('menu');
   Game.MediaPlayer.PlaySound(mmClick);
   Game.MediaPlayer.PlaySound(mmSettlement);
   TSceneMenu3(Game.GetScene(scMenu)).CurrentIndex := 1;

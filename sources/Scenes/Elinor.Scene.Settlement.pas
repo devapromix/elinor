@@ -108,7 +108,7 @@ begin
       Exit;
     end;
   end;
-  Game.MediaPlayer.PlayMusic(CMusicMap);
+  Game.MediaPlayer.PlayMusic('map');
   Game.Show(scMap);
   Game.MediaPlayer.PlaySound(mmClick);
   Game.NewDay;

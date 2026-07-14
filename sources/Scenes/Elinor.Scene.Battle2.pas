@@ -231,12 +231,12 @@ begin
     FBattle.BattleLog.WinInBattle;
     ChExperience;
     Game.MediaPlayer.PlaySound(mmWinBattle);
-    Game.MediaPlayer.PlayMusic(CMusicBattleWin);
+    Game.MediaPlayer.PlayMusic('battle_win');
   end;
   if LeaderParty.IsClear then
   begin
     FBattle.BattleLog.LoseInBattle;
-    Game.MediaPlayer.PlayMusic(CMusicDefeat);
+    Game.MediaPlayer.PlayMusic('defeat');
     Enabled := True;
   end;
 end;
@@ -314,7 +314,7 @@ begin
       InformDialog
         ('Вы победили на дуэли и воины вражеского отряда разбежались!');
     end;
-    Game.MediaPlayer.PlayMusic(CMusicMap);
+    Game.MediaPlayer.PlayMusic('map');
     PartyList.Party[PartyList.GetPartyIndex(TLeaderParty.Leader.X,
       TLeaderParty.Leader.Y)].Clear;
     if IsNewAbility then
@@ -337,7 +337,7 @@ begin
     if IsSummon then
     begin
       IsSummon := False;
-      Game.MediaPlayer.PlayMusic(CMusicMap);
+      Game.MediaPlayer.PlayMusic('map');
       Game.Show(scMap);
       Exit;
     end;
@@ -1038,7 +1038,7 @@ begin
   IsNewAbility := False;
   FIsShowBattleLog := False;
   StartBattle;
-  Game.MediaPlayer.PlayMusic(CMusicBattle);
+  Game.MediaPlayer.PlayMusic('battle');
 end;
 
 procedure TSceneBattle2.ShowBattleLog;

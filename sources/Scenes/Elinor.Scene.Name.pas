@@ -251,7 +251,7 @@ end;
 class procedure TSceneName.HideScene;
 begin
   Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(CMusicGame);
+  Game.MediaPlayer.PlayMusic('game');
   Game.MediaPlayer.PlaySound(mmExit);
   TSceneSettlement.ShowScene(stCapital);
 end;

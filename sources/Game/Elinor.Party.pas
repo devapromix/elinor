@@ -1313,7 +1313,7 @@ begin
         end;
       reMageTower:
         begin
-          Game.MediaPlayer.PlayMusic(CMusicMagic);
+          Game.MediaPlayer.PlayMusic('magic');
           Game.MediaPlayer.PlaySound(mmSettlement);
           TSceneMageTower.ShowScene;
           F := False;
@@ -1342,14 +1342,14 @@ begin
   end;
   if Game.Map.LeaderTile in Capitals then
   begin
-    Game.MediaPlayer.PlayMusic(CMusicGame);
+    Game.MediaPlayer.PlayMusic('game');
     Game.MediaPlayer.PlaySound(mmSettlement);
     TSceneSettlement.ShowScene(stCapital);
     F := False;
   end;
   if Game.Map.LeaderTile in Cities then
   begin
-    Game.MediaPlayer.PlayMusic(CMusicGame);
+    Game.MediaPlayer.PlayMusic('game');
     Game.MediaPlayer.PlaySound(mmSettlement);
     TSceneSettlement.ShowScene(stCity);
     F := False;

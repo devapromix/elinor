@@ -124,7 +124,7 @@ procedure TSceneMenu3.ContinueGame;
 begin
   if Game.IsGame then
   begin
-    Game.MediaPlayer.PlayMusic(CMusicMap);
+    Game.MediaPlayer.PlayMusic('map');
     Game.Show(scMap);
   end;
 end;

@@ -102,16 +102,6 @@ type
     property Spells: IResourceLoader<TPNGImage> read FSpells;
   end;
 
-const
-  CMusicGame      = 'game';
-  CMusicMagic     = 'magic';
-  CMusicBattle    = 'battle';
-  CMusicVictory   = 'victory';
-  CMusicDefeat    = 'defeat';
-  CMusicBattleWin = 'battle_win';
-  CMusicMap       = 'map';
-  CMusicMenu      = 'menu';
-
 var
   R: TResourceSchema;
 
@@ -356,7 +346,7 @@ procedure TResourceSchema.LoadAll;
 begin
   FCharactersCache.LoadAll;
   FItemsCache.LoadAll;
-  FSpellsCache.LoadAll;
+  //FSpellsCache.LoadAll;
 end;
 
 initialization

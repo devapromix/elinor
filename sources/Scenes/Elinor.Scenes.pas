@@ -340,7 +340,7 @@ begin
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
-  MediaPlayer.PlayMusic(CMusicMenu);
+  MediaPlayer.PlayMusic('menu');
   SceneEnum := scIntro;
 end;
 
