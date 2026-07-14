@@ -177,7 +177,7 @@ type
     irItemAmuletOfBloodbind, irHeartOfDarkness,
     // WEAPONS
     irBattleAxe, irHunterBow, irSlayerSword, irDagger, irPaladinSword,
-    irFlameDagger, irDaggerOfShadows, irPhoenixSword,
+    irFlameDagger, irDaggerOfShadows, irFireHammer, irPhoenixSword,
     // STAVES
     irStaffOfLightning, irWizardStaff, irCedarStaff
     //
@@ -949,9 +949,11 @@ const
     // FlameDagger
     (FileName: 'item.weapon.flame_dagger.png'; ResType: teItem;),
     // Dagger Of Shadows
-    (FileName: 'item.weapon.dagger_of_shadows.png'; ResType: teItem;) ,
+    (FileName: 'item.weapon.dagger_of_shadows.png'; ResType: teItem;),
+    // Fire Hammer
+    (FileName: 'item.weapon.fire_hammer.png'; ResType: teItem;),
     // Phoenix Sword
-    (FileName: 'item.weapon.phoenix_sword.png'; ResType: teItem;) ,
+    (FileName: 'item.weapon.phoenix_sword.png'; ResType: teItem;),
 
     // STAVES
     // Staff Of Lightning

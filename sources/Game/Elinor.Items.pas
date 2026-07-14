@@ -743,7 +743,7 @@ const
     'the power of fire'),
     // (1) Fire Hammer
     (Enum: iFireHammer; Name: 'Fire Hammer'; Level: 1; ItType: itWeapon;
-    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irFireHammer; ItSet: siNone;
     Price: 4500; Description: 'A mighty hammer engulfed in ' + 'blazing flame'),
     // (1) Phoenix Sword
     (Enum: iPhoenixSword; Name: 'Phoenix Sword'; Level: 1; ItType: itWeapon;
