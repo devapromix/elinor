@@ -58,6 +58,8 @@ type
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
     itBoots, itBanner, itTome, itWeapon);
+const
+  CExclusiveItems = [itSpecial, itWeapon];
 
 const
   CUseItemType = [itPotion, itOrb, itFlask, itTalisman];
