@@ -17,7 +17,7 @@
 	"strength": "strength.png",
 	"true_healing": "true_healing.png",
 	"weaken": "weaken.png"
-  }
+  },
   "sounds": {
     "click": "click.wav"
   },
