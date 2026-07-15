@@ -97,6 +97,9 @@ begin
 end;
 
 procedure TSceneName.Render;
+var
+  LCrEnum: TCreatureEnum;
+  LTop: Integer;
 const
   NameFieldLeft = 600 + 10;
   NameFieldTop = 300 + 6;
@@ -115,9 +118,16 @@ const
   begin
     if not CursorVisible then
       Exit;
-    LCursorLeft := NameFieldLeft +
-      Game.Surface.Canvas.TextWidth(Copy(FNewName, 1, CursorPosition));
+    LCursorLeft := NameFieldLeft + Game.Surface.Canvas.TextWidth
+      (Copy(FNewName, 1, CursorPosition));
     DrawText(LCursorLeft, NameFieldTop, '_');
+  end;
+
+  procedure DrawLine(S, F: string);
+  begin
+    DrawText(550, LTop, S);
+    DrawText(625, LTop, F);
+    Inc(LTop, 30);
   end;
 
 begin
@@ -131,9 +141,12 @@ begin
   DrawImage(600, 300, reFrameItem);
   DrawText(NameFieldLeft, NameFieldTop, FNewName);
   RenderCursor;
-  DrawText(550, 350, 'Faction: ' + FactionName[FLeaderFaction]);
-  DrawText(550, 380, 'Gender: ' + GenderName[FLeaderGender]);
-  DrawText(550, 410, 'Class: ' + FactionLeaderKindName[FLeaderClass]);
+  LCrEnum := Characters[Game.Scenario.Faction][cgLeaders][FLeaderClass];
+  LTop := 350;
+  DrawLine('Faction: ', FactionName[FLeaderFaction]);
+  DrawLine('Class: ', FactionLeaderKindName[FLeaderClass]);
+  DrawLine('Leader: ', TCreature.Character(LCrEnum).Name[0]);
+  DrawLine('Gender: ', GenderName[FLeaderGender]);
 
   RenderButtons;
 end;
