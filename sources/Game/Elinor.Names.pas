@@ -6,6 +6,7 @@ uses
   System.SysUtils,
   System.Classes,
   System.JSON,
+  System.IOUtils,
   System.Generics.Collections,
   Elinor.Creatures,
   Elinor.Faction;
@@ -37,41 +38,24 @@ var
 implementation
 
 function ReadFileToString(const FileName: string): string;
-var
-  LFileStream: TFileStream;
-  LStringStream: TStringStream;
 begin
   Result := '';
-  if not FileExists(FileName) then
-    Exit;
-
-  LFileStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
-  try
-    LStringStream := TStringStream.Create('', TEncoding.UTF8);
-    try
-      LStringStream.CopyFrom(LFileStream, 0);
-      Result := LStringStream.DataString;
-    finally
-      LStringStream.Free;
-    end;
-  finally
-    LFileStream.Free;
-  end;
+  if FileExists(FileName) then
+    Result := TFile.ReadAllText(FileName, TEncoding.UTF8);
 end;
 
 function LoadNamesFromJSON(const AFileName: string): TAllFactionNames;
 var
   LJSONText: string;
-  JsonValue, GenderValue: TJSONValue;
+  JsonValue: TJSONValue;
   JsonObject, FactionObject: TJSONObject;
   JsonArray: TJSONArray;
   LFactionEnum: TFactionEnum;
   LGender: TCreatureGender;
   I, J, LFactionCount: Integer;
 begin
-  LFactionCount := 0;
-  for LFactionEnum := Low(TPlayableFactions) to High(TPlayableFactions) do
-    Inc(LFactionCount);
+  LFactionCount := Ord(High(TPlayableFactions)) -
+    Ord(Low(TPlayableFactions)) + 1;
 
   SetLength(Result, LFactionCount);
 
@@ -152,7 +136,6 @@ function GetRandomNameForFaction(const AllNames: TAllFactionNames;
 var
   LNames: TArray<string>;
   LNameCount: Integer;
-  LRandomIndex: Integer;
   LFactionIndex: Integer;
 begin
   Result := 'Unknown';
@@ -162,11 +145,11 @@ begin
   LNames := AllNames[LFactionIndex].GenderNames[Gender].Names;
   LNameCount := Length(LNames);
   if LNameCount > 0 then
-  begin
-    Randomize;
-    LRandomIndex := Random(LNameCount);
-    Result := LNames[LRandomIndex];
-  end;
+    Result := LNames[Random(LNameCount)];
 end;
+
+initialization
+
+Randomize;
 
 end.
