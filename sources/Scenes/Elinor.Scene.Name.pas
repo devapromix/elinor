@@ -31,6 +31,7 @@ type
     CursorPosition: Integer;
     CursorVisible: Boolean;
     CursorTimer: Integer;
+    FCursorToggled: Boolean;
     FLeaderFaction: TFactionEnum;
     FLeaderGender: TCreatureGender;
     FLeaderClass: TFactionLeaderKind;
@@ -45,6 +46,7 @@ type
     procedure Render; override;
     procedure Update(var Key: Word); override;
     procedure Timer; override;
+    function NeedsRepaint: Boolean; override;
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
@@ -185,19 +187,25 @@ end;
 
 procedure TSceneName.UpdateCursor;
 begin
+  FCursorToggled := False;
   Inc(CursorTimer);
-  if CursorTimer >= 1 then
+  if CursorTimer >= 30 then
   begin
     CursorVisible := not CursorVisible;
     CursorTimer := 0;
+    FCursorToggled := True;
   end;
+end;
+
+function TSceneName.NeedsRepaint: Boolean;
+begin
+  Result := True;
 end;
 
 procedure TSceneName.Timer;
 begin
   inherited;
   UpdateCursor;
-  Render;
 end;
 
 procedure TSceneName.MouseDown(AButton: TMouseButton; Shift: TShiftState;
