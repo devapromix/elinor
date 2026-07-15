@@ -1613,6 +1613,7 @@ begin
   if (FScene[SceneEnum] <> nil) then
   begin
     FScene[SceneEnum].Timer;
+    Self.Render;
   end;
 end;
 
