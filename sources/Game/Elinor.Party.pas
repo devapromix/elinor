@@ -737,7 +737,7 @@ begin
         if (LDamage > 0) then
           HitPoints.ModifyCurrValue(-LDamage)
         else
-          Game.MediaPlayer.PlaySound(mmBlock);
+          Game.MediaPlayer.PlaySound('block');
       end;
     end;
 end;
@@ -780,7 +780,7 @@ begin
     if IsMaxLevel then
       Exit;
     Experience := 0;
-    Game.MediaPlayer.PlaySound(mmLevel);
+    Game.MediaPlayer.PlaySound('level');
 
     LMaxHitPoints := EnsureRange(HitPoints.GetMaxValue +
       (HitPoints.GetMaxValue div 10), 25, 1000);
@@ -901,48 +901,48 @@ var
 
   procedure HealCreature(const Amount: Integer);
   begin
-    Game.MediaPlayer.PlaySound(mmDrink);
-    Game.MediaPlayer.PlaySound(mmHeal);
+    Game.MediaPlayer.PlaySound('drink');
+    Game.MediaPlayer.PlaySound('heal');
     TLeaderParty.Leader.Heal(APosition, Amount);
     Inventory.Clear(AItemIndex);
   end;
 
   procedure ReviveCreature;
   begin
-    Game.MediaPlayer.PlaySound(mmDrink);
-    Game.MediaPlayer.PlaySound(mmRevive);
+    Game.MediaPlayer.PlaySound('drink');
+    Game.MediaPlayer.PlaySound('revive');
     TLeaderParty.Leader.Revive(APosition);
     Inventory.Clear(AItemIndex);
   end;
 
   procedure IncreaseDamageTemp(const APercent: Integer);
   begin
-    Game.MediaPlayer.PlaySound(mmDrink);
-    Game.MediaPlayer.PlaySound(mmBoost);
+    Game.MediaPlayer.PlaySound('drink');
+    Game.MediaPlayer.PlaySound('boost');
     TLeaderParty.Leader.IncreaseDamageTemp(APercent, APosition);
     Inventory.Clear(AItemIndex);
   end;
 
   procedure IncreaseChancesToHitTemp(const APercent: Integer);
   begin
-    Game.MediaPlayer.PlaySound(mmDrink);
-    Game.MediaPlayer.PlaySound(mmBoost);
+    Game.MediaPlayer.PlaySound('drink');
+    Game.MediaPlayer.PlaySound('boost');
     TLeaderParty.Leader.IncreaseChancesToHitTemp(APercent, APosition);
     Inventory.Clear(AItemIndex);
   end;
 
   procedure IncreaseHitPointsPermanently;
   begin
-    Game.MediaPlayer.PlaySound(mmDrink);
-    Game.MediaPlayer.PlaySound(mmBoost);
+    Game.MediaPlayer.PlaySound('drink');
+    Game.MediaPlayer.PlaySound('boost');
     TLeaderParty.Leader.IncreaseHitPointsPermanently(APosition);
     Inventory.Clear(AItemIndex);
   end;
 
   procedure IncreaseChancesToHitPermanently;
   begin
-    Game.MediaPlayer.PlaySound(mmDrink);
-    Game.MediaPlayer.PlaySound(mmBoost);
+    Game.MediaPlayer.PlaySound('drink');
+    Game.MediaPlayer.PlaySound('boost');
     TLeaderParty.Leader.IncreaseChancesToHitPermanently(APosition);
     Inventory.Clear(AItemIndex);
   end;
@@ -1219,7 +1219,7 @@ begin
   begin
     PartyList.Party[TLeaderParty.LeaderPartyIndex].ChPosition(AParty,
       ActivePartyPosition, CurrentPartyPosition);
-    Game.MediaPlayer.PlaySound(mmClick);
+    Game.MediaPlayer.PlaySound('click');
   end;
 end;
 
@@ -1270,7 +1270,7 @@ begin
   begin
     Leader.SetLocation(AX, AY);
     Game.Statistics.IncValue(stTilesMoved);
-    Game.MediaPlayer.PlaySound(mmStep);
+    Game.MediaPlayer.PlaySound('step');
     with TLeaderParty.Leader do
     begin
       SetLocation(AX, AY);
@@ -1307,26 +1307,26 @@ begin
         end;
       reSTower:
         begin
-          Game.MediaPlayer.PlaySound(mmSettlement);
+          Game.MediaPlayer.PlaySound('settlement');
           Game.Map.UpdateRadius(Leader.X, Leader.Y, 3);
           F := False;
         end;
       reMageTower:
         begin
-          Game.MediaPlayer.PlayMusic(CMusicMagic);
-          Game.MediaPlayer.PlaySound(mmSettlement);
+          Game.MediaPlayer.PlayMusic('magic');
+          Game.MediaPlayer.PlaySound('settlement');
           TSceneMageTower.ShowScene;
           F := False;
         end;
       reMerchantPotions:
         begin
-          Game.MediaPlayer.PlaySound(mmSettlement);
+          Game.MediaPlayer.PlaySound('settlement');
           TSceneMerchant.ShowScene(TLeaderParty.Leader, mtPotions, scMap);
           F := False;
         end;
       reMerchantArtifacts:
         begin
-          Game.MediaPlayer.PlaySound(mmSettlement);
+          Game.MediaPlayer.PlaySound('settlement');
           TSceneMerchant.ShowScene(TLeaderParty.Leader, mtArtifacts, scMap);
           F := False;
         end;
@@ -1342,15 +1342,15 @@ begin
   end;
   if Game.Map.LeaderTile in Capitals then
   begin
-    Game.MediaPlayer.PlayMusic(CMusicGame);
-    Game.MediaPlayer.PlaySound(mmSettlement);
+    Game.MediaPlayer.PlayMusic('game');
+    Game.MediaPlayer.PlaySound('settlement');
     TSceneSettlement.ShowScene(stCapital);
     F := False;
   end;
   if Game.Map.LeaderTile in Cities then
   begin
-    Game.MediaPlayer.PlayMusic(CMusicGame);
-    Game.MediaPlayer.PlaySound(mmSettlement);
+    Game.MediaPlayer.PlayMusic('game');
+    Game.MediaPlayer.PlaySound('settlement');
     TSceneSettlement.ShowScene(stCity);
     F := False;
   end;

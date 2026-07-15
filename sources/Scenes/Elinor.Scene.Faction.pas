@@ -91,7 +91,7 @@ end;
 
 class procedure TSceneRace.ShowScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scRace);
 end;
 

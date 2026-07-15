@@ -110,7 +110,7 @@ end;
 
 class procedure TSceneDifficulty.Show;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scDifficulty);
 end;
 

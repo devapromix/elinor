@@ -99,19 +99,19 @@ begin
     case LLootItem.LootType of
       ltGold:
         begin
-          Game.MediaPlayer.PlaySound(mmGold);
+          Game.MediaPlayer.PlaySound('gold');
           Game.Gold.Modify(LLootItem.Amount);
           Loot.Clear(LItemIndex);
         end;
       ltMana:
         begin
-          Game.MediaPlayer.PlaySound(mmMana);
+          Game.MediaPlayer.PlaySound('mana');
           Game.Mana.Modify(LLootItem.Amount);
           Loot.Clear(LItemIndex);
         end;
       ltStoneTab:
         begin
-          Game.MediaPlayer.PlaySound(mmLoot);
+          Game.MediaPlayer.PlaySound('loot');
           Inc(Game.Scenario.StoneTab);
           Loot.Clear(LItemIndex);
           InformDialog(Game.Scenario.ScenarioAncientKnowledgeState);
@@ -123,7 +123,7 @@ begin
             InformDialog(CNoFreeSpace);
             Exit;
           end;
-          Game.MediaPlayer.PlaySound(mmLoot);
+          Game.MediaPlayer.PlaySound('loot');
           TLeaderParty.Leader.Inventory.Add(LLootItem.ItemEnum);
           Game.Statistics.IncValue(stItemsFound);
           Loot.Clear(LItemIndex);
@@ -155,8 +155,8 @@ begin
       Exit;
     end;
   Game.Show(scMap);
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmLoot);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('loot');
 end;
 
 constructor TSceneLoot2.Create;
@@ -333,7 +333,7 @@ end;
 class procedure TSceneLoot2.ShowScene;
 begin
   ActiveSection := lsLoot;
-  Game.MediaPlayer.PlaySound(mmLoot);
+  Game.MediaPlayer.PlaySound('loot');
   Game.Show(scLoot);
 end;
 

@@ -41,7 +41,7 @@ uses
 
 procedure TSceneBattle3.Start;
 begin
-  Game.MediaPlayer.PlaySound(mmWar);
+  Game.MediaPlayer.PlaySound('battle_round');
 end;
 
 procedure TSceneBattle3.Finish;
@@ -92,7 +92,7 @@ procedure TSceneBattle3.Show(const S: TSceneEnum);
 begin
   inherited;
   Start;
-  Game.MediaPlayer.PlayMusic(CMusicBattle);
+  Game.MediaPlayer.PlayMusic('battle');
 end;
 
 procedure TSceneBattle3.Timer;

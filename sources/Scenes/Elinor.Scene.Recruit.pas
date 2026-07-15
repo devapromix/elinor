@@ -79,8 +79,8 @@ end;
 
 class procedure TSceneRecruit.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
   Game.Show(scBarracks);
 end;
 
@@ -94,7 +94,7 @@ begin
     Exit;
   if HireParty.Hire(LCreatureEnum, HirePosition) then
   begin
-    Game.MediaPlayer.PlaySound(mmGold);
+    Game.MediaPlayer.PlaySound('gold');
     Game.Show(scBarracks);
   end
   else

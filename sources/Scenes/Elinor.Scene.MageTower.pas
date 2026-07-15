@@ -77,17 +77,17 @@ begin
     LGold := 0;
     if LGold > Game.Gold.Value then
     begin
-      Game.MediaPlayer.PlaySound(mmSpellbook);
+      Game.MediaPlayer.PlaySound('spellbook');
       InformDialog(CNotEnoughGoldToLearn);
       Exit;
     end;
     if LMana > Game.Mana.Value then
     begin
-      Game.MediaPlayer.PlaySound(mmSpellbook);
+      Game.MediaPlayer.PlaySound('spellbook');
       InformDialog(CNotEnoughManaToLearn);
       Exit;
     end;
-    Game.MediaPlayer.PlaySound(mmLearn);
+    Game.MediaPlayer.PlaySound('learn');
     Game.Gold.Modify(-LGold);
     Game.Mana.Modify(-LMana);
     Spells.Learn(LSpellEnum);
@@ -97,9 +97,9 @@ end;
 
 class procedure TSceneMageTower.HideScene;
 begin
-  Game.MediaPlayer.PlayMusic(CMusicMap);
+  Game.MediaPlayer.PlayMusic('map');
   Game.Show(scMap);
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
 end;
 
 constructor TSceneMageTower.Create;
@@ -232,7 +232,7 @@ end;
 
 class procedure TSceneMageTower.ShowScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scMageTower);
 end;
 

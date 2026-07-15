@@ -320,7 +320,7 @@ type
     SourceEnum: TSourceEnum;
     ReachEnum: TReachEnum;
     Gold: Integer;
-    Sound: array [TCrSoundEnum] of TMusicEnum;
+    Sound: array [TCrSoundEnum] of string;
     Gender: TCreatureGender;
     AttackEnum: TAttackEnum;
     AbilityEnum: TAbilityEnum;
@@ -389,7 +389,7 @@ const
     Size: szSmall; Name: ('', ''); Description: ('', '', ''); HitPoints: 0;
     Initiative: 0; ChancesToHit: 0; Leadership: 0; Level: 0; Damage: 0;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
+    Sound: ('hit', 'death', 'attack'); Gender: cgMale; AttackEnum: atMagic;
     AbilityEnum: abNone; Rating: 0;),
     // The Empire
 {$REGION The Empire}
@@ -401,7 +401,7 @@ const
     'He protects the capital from enemies.'); HitPoints: 900; Initiative: 90;
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
+    Sound: ('hit', 'death', 'attack'); Gender: cgMale; AttackEnum: atMagic;
     AbilityEnum: abNone; Rating: 0;),
     // Paladin
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrPaladin;
@@ -411,7 +411,7 @@ const
     'carries him over fields and forests.'); HitPoints: 150; Initiative: 50;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atPaladinSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Ranger
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrRanger;
@@ -421,7 +421,7 @@ const
     'ten sends them on scouting missions.'); HitPoints: 90; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'bow_attack'); Gender: cgMale;
     AttackEnum: atHunterBow; AbilityEnum: abTravelLore; Rating: 0;),
     // Archmage
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrArchmage;
@@ -430,7 +430,7 @@ const
     'only commander in the Empire who can', 'use scrolls and staves.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'staff_attack'); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Thief
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrThief;
@@ -440,7 +440,7 @@ const
     'serve the Empire by gathering vital intel.'); HitPoints: 100;
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'dagger_attack'); Gender: cgMale;
     AttackEnum: atDagger; AbilityEnum: abStealth; Rating: 0;),
     // Warlord
     (Ident: 'none'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrWarlord;
@@ -449,7 +449,7 @@ const
     'Empire with loyalty and ruthlessly', 'deals with its enemies.');
     HitPoints: 120; Initiative: 55; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmAxeAttack); Gender: cgMale;
+    Gold: 0; Sound: ('hum_hit', 'hum_death', 'axe_attack'); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Squire
     (Ident: 'squire'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrSquire;
@@ -458,7 +458,7 @@ const
     'his weaker compatriots, keeping', 'foes at sword’s length.');
     HitPoints: 100; Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Gold: 50; Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 25;),
     // Archer
     (Ident: 'archer'; Faction: faTheEmpire; SubRace: reHuman; ResEnum: mrArcher;
@@ -467,7 +467,7 @@ const
     'enemies hiding behind the backs', 'of their stronger comrades.');
     HitPoints: 45; Initiative: 60; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 40; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    Gold: 40; Sound: ('hum_hit', 'hum_death', 'bow_attack'); Gender: cgMale;
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 10;),
     // Apprentice
     (Ident: 'apprentice'; Faction: faTheEmpire; SubRace: reHuman;
@@ -476,7 +476,7 @@ const
     'from afar, unleashing lightning', 'upon them.'); HitPoints: 35;
     Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seAir; ReachEnum: reAll; Gold: 60;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'staff_attack'); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 5;),
     // Acolyte
     (Ident: 'acolyte'; Faction: faTheEmpire; SubRace: reHuman;
@@ -485,7 +485,7 @@ const
     'can tend to wounded allies, treating', 'their injuries one by one.');
     HitPoints: 50; Initiative: 10; ChancesToHit: 100; Leadership: 0; Level: 1;
     Damage: 0; Armor: 0; Heal: 20; SourceEnum: seAir; ReachEnum: reAny;
-    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    Gold: 100; Sound: ('hit', 'death', 'attack'); Gender: cgFemale;
     AttackEnum: atHealing; AbilityEnum: abNone; Rating: 5;),
 {$ENDREGION The Empire}
     // Undead Hordes
@@ -497,7 +497,7 @@ const
     'the high priest of Alkmaar.', 'He never leaves the capital unguarded.');
     HitPoints: 900; Initiative: 90; ChancesToHit: 95; Leadership: 5; Level: 1;
     Damage: 250; Armor: 50; Heal: 0; SourceEnum: seLife; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale;
+    Gold: 0; Sound: ('hit', 'death', 'attack'); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 0;),
     // Death Knight
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -508,7 +508,7 @@ const
     'from oblivion by Mortis through the Death Knights.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atSlayerSword; AbilityEnum: abBannerBearer; Rating: 0;),
     // Nosferat
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reVampire;
@@ -518,7 +518,7 @@ const
     'Mortis in exchange for power over death.'); HitPoints: 90; Initiative: 50;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 10; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmNosferatAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'nosferat_attack'); Gender: cgMale;
     AttackEnum: atDrainLife; AbilityEnum: abVampirism; Rating: 0;),
     // Lich Queen
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -527,8 +527,9 @@ const
     'Alkmaar, returned by the will of Mortis', 'as merciless Lich Queens.');
     HitPoints: 65; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 30; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmLichQueenAttack); Gender: cgFemale;
-    AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
+    Gold: 0; Sound: ('hum_hit', 'hum_death', 'lich_queen_attack');
+    Gender: cgFemale; AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls;
+    Rating: 0;),
     // Thug
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead; ResEnum: mrThug;
     Size: szSmall; Name: ('Thug', 'Thug');
@@ -537,7 +538,7 @@ const
     'ning where strength is not enough.'); HitPoints: 100; Initiative: 60;
     ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'dagger_attack'); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; AbilityEnum: abStealth; Rating: 0;),
     // Dominator
     (Ident: 'none'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -546,7 +547,7 @@ const
     'turned to life by Mortis to sow death', 'and destruction all around.');
     HitPoints: 125; Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 35; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Gold: 0; Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abTemplar; Rating: 0;),
     // Fighter
     (Ident: 'fighter'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -556,7 +557,7 @@ const
     'They know neither fear nor mercy.'); HitPoints: 120; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Ghost
     (Ident: 'ghost'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -565,7 +566,7 @@ const
     'to the world of the living.'); HitPoints: 45; Initiative: 20;
     ChancesToHit: 60; Leadership: 0; Level: 1; Damage: 0; Armor: 0; Heal: 0;
     SourceEnum: seMind; ReachEnum: reAny; Gold: 50;
-    Sound: (mmGhostHit, mmGhostDeath, mmGhostAttack); Gender: cgMale;
+    Sound: ('ghost_hit', 'ghost_death', 'ghost_attack'); Gender: cgMale;
     AttackEnum: atParalyze; AbilityEnum: abNone; Rating: 10;),
     // Initiate
     (Ident: 'initiate'; Faction: faUndeadHordes; SubRace: reUndead;
@@ -575,7 +576,7 @@ const
     'of their goddess Mortis.'); HitPoints: 45; Initiative: 40;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seDeath; ReachEnum: reAll; Gold: 60;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'staff_attack'); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
     // Wyvern
     (Ident: 'wyvern'; Faction: faUndeadHordes; SubRace: reUndeadDragon;
@@ -584,7 +585,7 @@ const
     'thus creating wyverns that fight', 'in the ranks of the undead army.');
     HitPoints: 225; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seDeath; ReachEnum: reAll;
-    Gold: 100; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    Gold: 100; Sound: ('hit', 'death', 'attack'); Gender: cgFemale;
     AttackEnum: atPoisonousBreath; AbilityEnum: abNone; Rating: 40;),
 {$ENDREGION UndeadHordes}
     // Legions Of The Damned
@@ -597,7 +598,7 @@ const
     'never leaving it undefended.'); HitPoints: 900; Initiative: 90;
     ChancesToHit: 95; Leadership: 5; Level: 1; Damage: 250; Armor: 50; Heal: 0;
     SourceEnum: seLife; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atMagic;
+    Sound: ('hit', 'death', 'attack'); Gender: cgMale; AttackEnum: atMagic;
     AbilityEnum: abNone; Rating: 0;),
     // Duke
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -606,7 +607,7 @@ const
     'в битву, сжимая меч в окровавленных', 'руках.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 50;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atPhoenixSword; AbilityEnum: abFlying; Rating: 0;),
     // Counselor
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -615,7 +616,7 @@ const
     'Он путешествует по землям Невендаара', 'с высокой скоростью.');
     HitPoints: 90; Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1;
     Damage: 40; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 0; Sound: (mmHumHit, mmHumDeath, mmBowAttack); Gender: cgMale;
+    Gold: 0; Sound: ('hum_hit', 'hum_death', 'bow_attack'); Gender: cgMale;
     AttackEnum: atCrossbow; AbilityEnum: abTravelLore; Rating: 0;),
     // Arch-Devil
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -624,7 +625,7 @@ const
     'он обладает глубокими знаниями', 'о посохах и свитках.'); HitPoints: 65;
     Initiative: 40; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 30;
     Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'staff_attack'); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abUseStaffsAndScrolls; Rating: 0;),
     // Ripper
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -633,7 +634,7 @@ const
     'медленном и мастерском извлечении', 'правды из его жертв.'); HitPoints: 90;
     Initiative: 60; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'dagger_attack'); Gender: cgMale;
     AttackEnum: atFlameDagger; AbilityEnum: abStealth; Rating: 0;),
     // Chieftain
     (Ident: 'none'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -642,7 +643,7 @@ const
     'отрядов демонов и ведут адские', 'когорты в бой.'); HitPoints: 110;
     Initiative: 50; ChancesToHit: 80; Leadership: 1; Level: 1; Damage: 45;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 0;
-    Sound: (mmHumHit, mmHumDeath, mmClubAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'club_attack'); Gender: cgMale;
     AttackEnum: atFireHammer; AbilityEnum: abTemplar; Rating: 0;),
     // Possessed
     (Ident: 'possessed'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -652,7 +653,7 @@ const
     'бы они сражались в адских сражениях.'); HitPoints: 120; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Gargoyle
     (Ident: 'gargoyle'; Faction: faLegionsOfTheDamned; SubRace: reGargoyle;
@@ -661,7 +662,7 @@ const
     'часть получаемого урона, делая', 'из них прекрасных защитных воинов.');
     HitPoints: 75; Initiative: 60; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 25; Armor: 15; Heal: 0; SourceEnum: seEarth; ReachEnum: reAny;
-    Gold: 90; Sound: (mmHit, mmDeath, mmAttack); Gender: cgFemale;
+    Gold: 90; Sound: ('hit', 'death', 'attack'); Gender: cgFemale;
     AttackEnum: atStones; AbilityEnum: abNone; Rating: 30;),
     // Cultist
     (Ident: 'cultist'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -670,7 +671,7 @@ const
     'адским силам, дабы призвать огонь', 'на всех своих врагов в битве.');
     HitPoints: 45; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 60; Sound: (mmHumHit, mmHumDeath, mmStaffAttack); Gender: cgMale;
+    Gold: 60; Sound: ('hum_hit', 'hum_death', 'staff_attack'); Gender: cgMale;
     AttackEnum: atMagic; AbilityEnum: abNone; Rating: 20;),
     // Devil
     (Ident: 'devil'; Faction: faLegionsOfTheDamned; SubRace: reHeretic;
@@ -679,7 +680,7 @@ const
     'Тёмного Повелителя Бетрезена.'); HitPoints: 120; Initiative: 35;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
-    Sound: (mmHit, mmDeath, mmAttack); Gender: cgMale; AttackEnum: atClaws;
+    Sound: ('hit', 'death', 'attack'); Gender: cgMale; AttackEnum: atClaws;
     AbilityEnum: abNone; Rating: 35;),
 {$ENDREGION Legions Of The Damned}
     // Neutral Green Skins
@@ -691,7 +692,7 @@ const
     'They are not as strong,', 'but they are cunning and agile.');
     HitPoints: 50; Initiative: 30; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 15; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
-    Gold: 50; Sound: (mmGoblinHit, mmGoblinDeath, mmSpearAttack);
+    Gold: 50; Sound: ('goblin_hit', 'goblin_death', 'spear_attack');
     Gender: cgMale; AttackEnum: atSpear; AbilityEnum: abNone; Rating: 25;),
     // Goblin Rider
     (Ident: 'goblin-rider'; Faction: faNeutrals; SubRace: reGreenSkin;
@@ -701,7 +702,7 @@ const
     'wargs and use them in battle', 'as a means of transportation.');
     HitPoints: 75; Initiative: 35; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAdj;
-    Gold: 150; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
+    Gold: 150; Sound: ('goblin_hit', 'goblin_death', 'dagger_attack');
     Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 35;),
     // Goblin Archer
     (Ident: 'goblin-archer'; Faction: faNeutrals; SubRace: reGreenSkin;
@@ -711,7 +712,7 @@ const
     'in ambushes and raids,', 'using crude arrows.'); HitPoints: 40;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 15;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 75;
-    Sound: (mmGoblinHit, mmGoblinDeath, mmBowAttack); Gender: cgMale;
+    Sound: ('goblin_hit', 'goblin_death', 'bow_attack'); Gender: cgMale;
     AttackEnum: atBow; AbilityEnum: abNone; Rating: 20;),
     // Goblin Elder
     (Ident: 'goblin-elder'; Faction: faNeutrals; SubRace: reGreenSkin;
@@ -721,7 +722,7 @@ const
     'to practice the art of magic,', 'but from time to time elders do emerge.');
     HitPoints: 35; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 10; Armor: 0; Heal: 0; SourceEnum: seFire; ReachEnum: reAll;
-    Gold: 100; Sound: (mmGoblinHit, mmGoblinDeath, mmStaffAttack);
+    Gold: 100; Sound: ('goblin_hit', 'goblin_death', 'staff_attack');
     Gender: cgMale; AttackEnum: atMagic; AbilityEnum: abNone; Rating: 10;),
     // Black Goblin
     (Ident: 'black-goblin'; Faction: faNeutrals; SubRace: reGreenSkin;
@@ -731,7 +732,7 @@ const
     'to master the art of killing,', 'but those who do become assassins.');
     HitPoints: 60; Initiative: 35; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 20; Armor: 0; Heal: 0; SourceEnum: seLife; ReachEnum: reAny;
-    Gold: 65; Sound: (mmGoblinHit, mmGoblinDeath, mmDaggerAttack);
+    Gold: 65; Sound: ('goblin_hit', 'goblin_death', 'dagger_attack');
     Gender: cgMale; AttackEnum: atDagger; AbilityEnum: abNone; Rating: 30;),
 
     // Orc
@@ -741,7 +742,7 @@ const
     'front lines in battles, because they', 'have a sturdy build.');
     HitPoints: 200; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 55; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 200; Sound: (mmOrcHit, mmOrcDeath, mmAxeAttack); Gender: cgMale;
+    Gold: 200; Sound: ('orc_hit', 'orc_death', 'axe_attack'); Gender: cgMale;
     AttackEnum: atBattleAxe; AbilityEnum: abNone; Rating: 40;),
 
     // Trog
@@ -750,7 +751,7 @@ const
     Description: ('Trogs are savage creatures,', ' driven only by brute ',
     'force.'); HitPoints: 250; Initiative: 30; ChancesToHit: 70; Leadership: 0;
     Level: 1; Damage: 110; Armor: 0; Heal: 0; SourceEnum: seWeapon;
-    ReachEnum: reAdj; Gold: 270; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack);
+    ReachEnum: reAdj; Gold: 270; Sound: ('orc_hit', 'orc_death', 'club_attack');
     Gender: cgMale; AttackEnum: atClaws; AbilityEnum: abNone; Rating: 50;),
     // Troll
     (Ident: 'troll'; Faction: faNeutrals; SubRace: reGreenSkin;
@@ -759,7 +760,7 @@ const
     'slow but incredibly strong,', 'thriving in caves and ruins.');
     HitPoints: 300; Initiative: 25; ChancesToHit: 70; Leadership: 0; Level: 1;
     Damage: 120; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 300; Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
+    Gold: 300; Sound: ('orc_hit', 'orc_death', 'club_attack'); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 60;),
     // Ogre
     (Ident: 'ogre'; Faction: faNeutrals; SubRace: reGreenSkin; ResEnum: mrOgre;
@@ -768,7 +769,7 @@ const
     'tactics or strategy.'); HitPoints: 350; Initiative: 20; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 130; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 350;
-    Sound: (mmOrcHit, mmOrcDeath, mmClubAttack); Gender: cgMale;
+    Sound: ('orc_hit', 'orc_death', 'club_attack'); Gender: cgMale;
     AttackEnum: atClub; AbilityEnum: abNone; Rating: 70;),
 {$ENDREGION Green Skins}
     //
@@ -779,7 +780,7 @@ const
     'silent and deadly, striking', 'from the swamps and marshes');
     HitPoints: 250; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 60; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny;
-    Gold: 250; Sound: (mmLizardmanHit, mmLizardmanDeath, mmBowAttack);
+    Gold: 250; Sound: ('lizardman_hit', 'lizardman_death', 'bow_attack');
     Gender: cgMale; AttackEnum: atBow; AbilityEnum: abNone; Rating: 45;),
 
     // Neutral Humans
@@ -791,7 +792,7 @@ const
     'they call their home.'); HitPoints: 40; Initiative: 30; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 15; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 50;
-    Sound: (mmHumHit, mmHumDeath, mmSpearAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'spear_attack'); Gender: cgMale;
     AttackEnum: atSpear; AbilityEnum: abNone; Rating: 10;),
     // Man at Arms
     (Ident: 'man-at-arms'; Faction: faNeutrals; SubRace: reHuman;
@@ -800,7 +801,7 @@ const
     'services to anyone who pays', 'a gold coin.'); HitPoints: 95;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 100;
-    Sound: (mmHumHit, mmHumDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atLongSword; AbilityEnum: abNone; Rating: 30;),
     // Rogue
     (Ident: 'rogue'; Faction: faNeutrals; SubRace: reHuman; ResEnum: mrRogue;
@@ -809,7 +810,7 @@ const
     'and attack defenseless travelers', 'along roads and forest paths.');
     HitPoints: 75; Initiative: 65; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 25; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 80; Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Gold: 80; Sound: ('hum_hit', 'hum_death', 'dagger_attack'); Gender: cgMale;
     AttackEnum: atDagger; AbilityEnum: abNone; Rating: 20;),
 {$ENDREGION Humans}
     // Neutral Undeads
@@ -821,7 +822,7 @@ const
     'capable of affecting the mind', 'of their victims.'); HitPoints: 150;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 35;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 125;
-    Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
+    Sound: ('ghoul_hit', 'ghoul_death', 'ghoul_attack'); Gender: cgMale;
     AttackEnum: atClaws; AbilityEnum: abNone; Rating: 40;),
     // Dark Elf Gast
     (Ident: 'dark-elf-gast'; Faction: faNeutrals; SubRace: reDarkElf;
@@ -831,7 +832,7 @@ const
     'Death twisted them into undead abominations.'); HitPoints: 110;
     Initiative: 40; ChancesToHit: 70; Leadership: 0; Level: 1; Damage: 40;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAny; Gold: 125;
-    Sound: (mmHumHit, mmHumDeath, mmDaggerAttack); Gender: cgMale;
+    Sound: ('hum_hit', 'hum_death', 'dagger_attack'); Gender: cgMale;
     AttackEnum: atDaggerOfShadows; AbilityEnum: abNone; Rating: 45;),
     // Skeleton Warrior
     (Ident: 'skeleton-warrior'; Faction: faNeutrals; SubRace: reUndead;
@@ -841,7 +842,7 @@ const
     'warriors raised by dark forces', 'to fight without fear.'); HitPoints: 100;
     Initiative: 50; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 25;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 95;
-    Sound: (mmSkeletonHit, mmSkeletonDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('skeleton_hit', 'skeleton_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atSlayerSword; AbilityEnum: abNone; Rating: 30;),
     // Zombie
     (Ident: 'zombie'; Faction: faNeutrals; SubRace: reUndead; ResEnum: mrZombie;
@@ -850,7 +851,7 @@ const
     'acting consciously, but each of ', 'them remains a deadly threat.');
     HitPoints: 200; Initiative: 45; ChancesToHit: 65; Leadership: 0; Level: 1;
     Damage: 50; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 275; Sound: (mmZombieHit, mmZombieDeath, mmZombieAttack);
+    Gold: 275; Sound: ('zombie_hit', 'zombie_death', 'zombie_attack');
     Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Reaper
     (Ident: 'reaper'; Faction: faNeutrals; SubRace: reUndead; ResEnum: mrReaper;
@@ -859,8 +860,8 @@ const
     'of absolute Void and are capable', 'of affecting the mind.');
     HitPoints: 250; Initiative: 55; ChancesToHit: 80; Leadership: 0; Level: 4;
     Damage: 75; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 325; Sound: (mmGhoulHit, mmGhoulDeath, mmGhoulAttack); Gender: cgMale;
-    AttackEnum: atScythe; AbilityEnum: abNone; Rating: 70;),
+    Gold: 325; Sound: ('ghoul_hit', 'ghoul_death', 'ghoul_attack');
+    Gender: cgMale; AttackEnum: atScythe; AbilityEnum: abNone; Rating: 70;),
 {$ENDREGION Undeads}
     // Neutral Heretics
 {$REGION Heretics}
@@ -871,7 +872,7 @@ const
     'and dangerous in close combat.'); HitPoints: 75; Initiative: 45;
     ChancesToHit: 75; Leadership: 0; Level: 1; Damage: 20; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 75;
-    Sound: (mmImpHit, mmImpDeath, mmSwordAttack); Gender: cgMale;
+    Sound: ('imp_hit', 'imp_death', 'sword_attack'); Gender: cgMale;
     AttackEnum: atShortSword; AbilityEnum: abNone; Rating: 35;),
 {$ENDREGION Heretics}
     // Neutral Animals
@@ -883,7 +884,7 @@ const
     'spider completely paralyzes the', 'victim, preventing escape.');
     HitPoints: 420; Initiative: 35; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 130; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj;
-    Gold: 400; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gold: 400; Sound: ('spider_hit', 'spider_death', 'spider_attack');
     Gender: cgMale; AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
 
     // Wolf
@@ -894,7 +895,7 @@ const
     'the warriors who cross their path.'); HitPoints: 180; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 55; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 200;
-    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    Sound: ('wolf_hit', 'wolf_death', 'wolf_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 70;),
     // Dire Wolf
     (Ident: 'dire-wolf'; Faction: faNeutrals; SubRace: reAnimal;
@@ -904,7 +905,7 @@ const
     'Few survive an encounter with one.'); HitPoints: 200; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 60; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 220;
-    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    Sound: ('wolf_hit', 'wolf_death', 'wolf_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 80;),
     // Spirit Wolf
     (Ident: 'spirit-wolf'; Faction: faNeutrals; SubRace: reAnimal;
@@ -914,7 +915,7 @@ const
     'Few survive an encounter with one.'); HitPoints: 250; Initiative: 50;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 65; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 250;
-    Sound: (mmWolfHit, mmWolfDeath, mmWolfAttack); Gender: cgMale;
+    Sound: ('wolf_hit', 'wolf_death', 'wolf_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 90;),
 
     // Polar Bear
@@ -925,7 +926,7 @@ const
     'They strike without warning when threatened.'); HitPoints: 320;
     Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 85;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
-    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    Sound: ('bear_hit', 'bear_death', 'bear_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 60;),
     // Brown Bear
     (Ident: 'brown-bear'; Faction: faNeutrals; SubRace: reAnimal;
@@ -935,7 +936,7 @@ const
     'Disturbing one is often fatal.'); HitPoints: 300; Initiative: 70;
     ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 80; Armor: 0; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 600;
-    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    Sound: ('bear_hit', 'bear_death', 'bear_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 55;),
     // Black Bear
     (Ident: 'black-bear'; Faction: faNeutrals; SubRace: reAnimal;
@@ -945,7 +946,7 @@ const
     'A cornered black bear is a fierce opponent.'); HitPoints: 280;
     Initiative: 70; ChancesToHit: 80; Leadership: 0; Level: 1; Damage: 75;
     Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 500;
-    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    Sound: ('bear_hit', 'bear_death', 'bear_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;),
 {$ENDREGION Animals}
     // Golems
@@ -956,7 +957,7 @@ const
     Description: ('', '', ''); HitPoints: 240; Initiative: 40; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 50; Armor: 5; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 700;
-    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    Sound: ('bear_hit', 'bear_death', 'bear_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 50;),
     // Stone Golem
     (Ident: 'stone-golem'; Faction: faNeutrals; SubRace: reGolem;
@@ -964,7 +965,7 @@ const
     Description: ('', '', ''); HitPoints: 210; Initiative: 40; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 55; Armor: 5; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 650;
-    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    Sound: ('bear_hit', 'bear_death', 'bear_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 45;),
     // Fire Golem
     (Ident: 'fire-golem'; Faction: faNeutrals; SubRace: reGolem;
@@ -972,7 +973,7 @@ const
     Description: ('', '', ''); HitPoints: 220; Initiative: 40; ChancesToHit: 70;
     Leadership: 0; Level: 1; Damage: 55; Armor: 5; Heal: 0;
     SourceEnum: seWeapon; ReachEnum: reAdj; Gold: 675;
-    Sound: (mmBearHit, mmBearDeath, mmBearAttack); Gender: cgMale;
+    Sound: ('bear_hit', 'bear_death', 'bear_attack'); Gender: cgMale;
     AttackEnum: atBites; AbilityEnum: abNone; Rating: 45;),
 {$ENDREGION Golems}
     // Dragons
@@ -984,7 +985,7 @@ const
     'dragon melts flesh and armor,', 'making escape impossible.');
     HitPoints: 800; Initiative: 40; ChancesToHit: 75; Leadership: 0; Level: 1;
     Damage: 125; Armor: 0; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAll;
-    Gold: 2000; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gold: 2000; Sound: ('spider_hit', 'spider_death', 'spider_attack');
     Gender: cgMale; AttackEnum: atFireBreath; AbilityEnum: abNone;
     Rating: 350;),
     // White Dragon
@@ -994,7 +995,7 @@ const
     'dragon locks the victim in ice,', 'leaving no chance to flee.');
     HitPoints: 900; Initiative: 40; ChancesToHit: 80; Leadership: 0; Level: 1;
     Damage: 120; Armor: 10; Heal: 0; SourceEnum: seWeapon; ReachEnum: reAll;
-    Gold: 2500; Sound: (mmSpiderHit, mmSpiderDeath, mmSpiderAttack);
+    Gold: 2500; Sound: ('spider_hit', 'spider_death', 'spider_attack');
     Gender: cgMale; AttackEnum: atIceBreath; AbilityEnum: abNone; Rating: 400;)
 {$ENDREGION Dragons}
     //

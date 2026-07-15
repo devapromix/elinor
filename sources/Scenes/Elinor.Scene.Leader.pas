@@ -55,7 +55,7 @@ begin
   inherited;
   if CurrentIndex > 4 then
     Exit;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   TSceneHire.CurCrAbilityEnum := TCreature.Character(CurCrEnum).AbilityEnum;
   Game.Clear;
   PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner := Game.Scenario.Faction;
@@ -129,7 +129,7 @@ end;
 
 class procedure TSceneLeader.Show;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scLeader);
 end;
 

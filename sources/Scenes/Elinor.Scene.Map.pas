@@ -74,9 +74,9 @@ begin
     Spells.ActiveSpell.Clear();
     Exit;
   end;
-  Game.MediaPlayer.PlayMusic(CMusicMenu);
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlayMusic('menu');
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
   TSceneMenu3(Game.GetScene(scMenu)).CurrentIndex := 1;
   Game.Show(scMenu);
 end;
@@ -311,7 +311,7 @@ end;
 procedure TSceneMap.Show(const S: TSceneEnum);
 begin
   inherited Show(S);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 procedure TSceneMap.Timer;

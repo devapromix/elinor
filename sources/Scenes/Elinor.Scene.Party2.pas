@@ -71,7 +71,7 @@ begin
   BackScene := CloseScene;
   ActivePartyPosition := Party.GetRandomPosition;
   Game.Show(scParty);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 procedure TSceneParty2.ShowAbilitiesScene;
@@ -224,7 +224,7 @@ begin
   else
     ActivePartyPosition := AParty.GetRandomPosition;
   Game.Show(scParty);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 procedure TSceneParty2.ShowSpellbookScene;
@@ -235,8 +235,8 @@ end;
 class procedure TSceneParty2.HideScene;
 begin
   Game.Show(CloseScene);
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 procedure TSceneParty2.Timer;

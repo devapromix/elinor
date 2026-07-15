@@ -228,7 +228,7 @@ begin
   FNewName := GetRandomNameForFaction(AllFactionNames, GetLeaderFaction,
     GetLeaderGender);
   CursorPosition := Length(FNewName);
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
 end;
 
 function TSceneName.GetLeaderFaction: TFactionEnum;
@@ -244,15 +244,15 @@ end;
 class procedure TSceneName.ShowScene;
 begin
   TSceneName(Game.GetScene(scName)).GenerateRandomName;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.Show(scName);
 end;
 
 class procedure TSceneName.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlayMusic(CMusicGame);
-  Game.MediaPlayer.PlaySound(mmExit);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlayMusic('game');
+  Game.MediaPlayer.PlaySound('exit');
   TSceneSettlement.ShowScene(stCapital);
 end;
 

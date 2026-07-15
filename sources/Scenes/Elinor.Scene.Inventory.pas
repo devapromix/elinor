@@ -113,13 +113,13 @@ begin
     ActivePartyPosition := AParty.GetRandomPosition;
   ActiveSection := isParty;
   Game.Show(scInventory);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('settlement');
 end;
 
 class procedure TSceneInventory.HideScene;
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
-  Game.MediaPlayer.PlaySound(mmSettlement);
+  Game.MediaPlayer.PlaySound('click');
+  Game.MediaPlayer.PlaySound('settlement');
   Game.Show(CloseSceneEnum);
 end;
 

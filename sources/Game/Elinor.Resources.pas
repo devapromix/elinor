@@ -1083,180 +1083,12 @@ const
     //
     );
 
-type
-  TMusicEnum = (mmClick, mmStep,
-    mmWinBattle, mmDay, mmSettlement, mmLoot, mmLevel,
-    mmWar, mmExit, mmSwordAttack, mmAxeAttack, mmStaffAttack, mmBowAttack,
-    mmSpearAttack, mmDaggerAttack, mmClubAttack, mmBlock, mmMiss,
-    mmNosferatAttack, mmLichQueenAttack, mmHumHit, mmHumDeath, mmGoblinHit,
-    mmGoblinDeath, mmSkeletonHit, mmSkeletonDeath, mmOrcHit, mmOrcDeath,
-    mmWolfHit, mmWolfDeath, mmWolfAttack, mmBearHit, mmBearDeath, mmBearAttack,
-    mmSpiderHit, mmSpiderDeath, mmSpiderAttack, mmGhostHit, mmGhostDeath,
-    mmGhostAttack, mmGhoulAttack, mmGhoulHit, mmGhoulDeath, mmHit, mmDeath,
-    mmAttack, mmGold, mmSpellbook, mmDismiss, mmPrepareMagic, mmDispell, mmHeal,
-    mmPlague, mmInvisibility, mmRevive, mmMana, mmSpeed, mmLearn, mmDrink,
-    mmUseOrb, mmImpHit, mmImpDeath, mmZombieHit, mmZombieDeath, mmZombieAttack,
-    mmLizardmanHit, mmLizardmanDeath, mmRaiseDead, mmRust, mmFlaskShatter,
-    mmExplosion, mmBoost, mmCriticalAttack);
-
 var
   ResImage: array [TResEnum] of TPNGImage;
   CreatureResImage: array [TCreatureResEnum] of TPNGImage;
   SpellResImage: array [TSpellResEnum] of TPNGImage;
   ItemResImage: array [TItemResEnum] of TPNGImage;
   AbilityResImage: array [TAbilityResEnum] of TPNGImage;
-  ResMusicPath: array [TMusicEnum] of string;
-
-const
-  MusicBase: array [TMusicEnum] of TResBase = (
-    // Click
-    (FileName: 'click.wav'; ResType: teSound;),
-    // Step
-    (FileName: 'step.wav'; ResType: teSound;),
-    // Win in battle
-    (FileName: 'himwar.wav'; ResType: teSound;),
-    // New Day
-    (FileName: 'day.ogg'; ResType: teSound;),
-    // Settlement
-    (FileName: 'settlement.wav'; ResType: teSound;),
-    // Loot
-    (FileName: 'loot.wav'; ResType: teSound;),
-    // New level
-    (FileName: 'level.wav'; ResType: teSound;),
-    // Round in battle
-    (FileName: 'war.wav'; ResType: teSound;),
-    // Exit
-    (FileName: 'exit.wav'; ResType: teSound;),
-    // Sword attack
-    (FileName: 'sword_attack.wav'; ResType: teSound;),
-    // Axe attack
-    (FileName: 'axe_attack.wav'; ResType: teSound;),
-    // Staff attack
-    (FileName: 'staff_attack.wav'; ResType: teSound;),
-    // Bow attack
-    (FileName: 'bow_attack.wav'; ResType: teSound;),
-    // Spear attack
-    (FileName: 'spear_attack.wav'; ResType: teSound;),
-    // Dagger attack
-    (FileName: 'dagger_attack.wav'; ResType: teSound;),
-    // Club attack
-    (FileName: 'club_attack.wav'; ResType: teSound;),
-    // Block
-    (FileName: 'block.wav'; ResType: teSound;),
-    // Miss
-    (FileName: 'miss.ogg'; ResType: teSound;),
-    // Nosferat Attack
-    (FileName: 'nosferat_attack.mp3'; ResType: teSound;),
-    // Lich Queen Attack
-    (FileName: 'lich_queen_attack.mp3'; ResType: teSound;),
-    // Humanoid Hit
-    (FileName: 'hum_hit.wav'; ResType: teSound;),
-    // Humanoid Death
-    (FileName: 'hum_death.ogg'; ResType: teSound;),
-    // Goblin Hit
-    (FileName: 'goblin_hit.wav'; ResType: teSound;),
-    // Goblin Death
-    (FileName: 'goblin_death.wav'; ResType: teSound;),
-    // Skeleton Hit
-    (FileName: 'skeleton_hit.wav'; ResType: teSound;),
-    // Skeleton Death
-    (FileName: 'skeleton_death.wav'; ResType: teSound;),
-    // Orc Hit
-    (FileName: 'orc_hit.ogg'; ResType: teSound;),
-    // Orc Death
-    (FileName: 'orc_death.ogg'; ResType: teSound;),
-    // Wolf Hit
-    (FileName: 'wolf_hit.wav'; ResType: teSound;),
-    // Wolf Death
-    (FileName: 'wolf_death.wav'; ResType: teSound;),
-    // Wolf Attack
-    (FileName: 'wolf_attack.wav'; ResType: teSound;),
-    // Bear Hit
-    (FileName: 'bear_hit.wav'; ResType: teSound;),
-    // Bear Death
-    (FileName: 'bear_death.wav'; ResType: teSound;),
-    // Bear Attack
-    (FileName: 'bear_attack.wav'; ResType: teSound;),
-    // Spider Hit
-    (FileName: 'spider_hit.wav'; ResType: teSound;),
-    // Spider Death
-    (FileName: 'spider_death.wav'; ResType: teSound;),
-    // Spider Attack
-    (FileName: 'spider_attack.wav'; ResType: teSound;),
-    // Ghost Hit
-    (FileName: 'spider_hit.wav'; ResType: teSound;),
-    // Ghost Death
-    (FileName: 'spider_death.wav'; ResType: teSound;),
-    // Ghost Attack
-    (FileName: 'spider_attack.wav'; ResType: teSound;),
-    // Ghoul Attack
-    (FileName: 'ghoul_attack.ogg'; ResType: teSound;),
-    // Ghoul Hit
-    (FileName: 'ghoul_hit.ogg'; ResType: teSound;),
-    // Ghoul Death
-    (FileName: 'ghoul_death.ogg'; ResType: teSound;),
-    // Hit
-    (FileName: 'step.wav'; ResType: teSound;),
-    // Death
-    (FileName: 'step.wav'; ResType: teSound;),
-    // Attack
-    (FileName: 'step.wav'; ResType: teSound;),
-    // Gold Coins
-    (FileName: 'coin.wav'; ResType: teSound;),
-    // Spellbook
-    (FileName: 'spellbook.mp3'; ResType: teSound;),
-    // Dismiss
-    (FileName: 'dismiss.wav'; ResType: teSound;),
-    // Prepare Magic
-    (FileName: 'prepare_magic.wav'; ResType: teSound;),
-    // Dispell
-    (FileName: 'dispell.wav'; ResType: teSound;),
-    // Heal
-    (FileName: 'heal.wav'; ResType: teSound;),
-    // Plague
-    (FileName: 'plague.wav'; ResType: teSound;),
-    // Invisibility
-    (FileName: 'invisibility.wav'; ResType: teSound;),
-    // Revive
-    (FileName: 'revive.wav'; ResType: teSound;),
-    // Mana
-    (FileName: 'mana.wav'; ResType: teSound;),
-    // Speed
-    (FileName: 'speed.wav'; ResType: teSound;),
-    // Learn
-    (FileName: 'learn.wav'; ResType: teSound;),
-    // Drink
-    (FileName: 'use_elixir.ogg'; ResType: teSound;),
-    // Use Orb or Talisman
-    (FileName: 'use_orb.ogg'; ResType: teSound;),
-    // Imp Hit
-    (FileName: 'imp_hit.ogg'; ResType: teSound;),
-    // Imp Death
-    (FileName: 'imp_death.wav'; ResType: teSound;),
-    // Zombie Hit
-    (FileName: 'zombie_hit.ogg'; ResType: teSound;),
-    // Zombie Death
-    (FileName: 'zombie_death.ogg'; ResType: teSound;),
-    // Zombie Attack
-    (FileName: 'zombie_attack.ogg'; ResType: teSound;),
-    // Lizardman Hit
-    (FileName: 'lizardman_hit.wav'; ResType: teSound;),
-    // Lizardman Death
-    (FileName: 'lizardman_death.wav'; ResType: teSound;),
-    // Raise Dead
-    (FileName: 'raise_dead.wav'; ResType: teSound;),
-    // Rust
-    (FileName: 'rust.wav'; ResType: teSound;),
-    // Flask Shatter
-    (FileName: 'flask_shatter.wav'; ResType: teSound;),
-    // Explosion
-    (FileName: 'explosion.wav'; ResType: teSound;),
-    // Boost
-    (FileName: 'boost.wav'; ResType: teSound;),
-    // Critical damage
-    (FileName: 'critical_attack.wav'; ResType: teSound;)
-    //
-    );
 
 type
   TResources = class(TObject)
@@ -1484,7 +1316,6 @@ end;
 procedure Init;
 var
   LResEnum: TResEnum;
-  LMusicEnum: TMusicEnum;
   LPartyLevel: Integer;
   LCreatureResEnum: TCreatureResEnum;
   LItemResEnum: TItemResEnum;
@@ -1497,17 +1328,6 @@ begin
     if (ResBase[LResEnum].FileName <> '') then
       ResImage[LResEnum].LoadFromFile(TResources.GetPath('resources') +
         ResBase[LResEnum].FileName);
-  end;
-  for LMusicEnum := Low(TMusicEnum) to High(TMusicEnum) do
-  begin
-    case MusicBase[LMusicEnum].ResType of
-      teSound:
-        ResMusicPath[LMusicEnum] := TResources.GetPath('resources\sounds') +
-          MusicBase[LMusicEnum].FileName;
-      teMusic:
-        ResMusicPath[LMusicEnum] := TResources.GetPath('resources\music') +
-          MusicBase[LMusicEnum].FileName;
-    end;
   end;
   for LPartyLevel := 1 to 9 do
     TResources.LoadParties(Format('parties.level%d', [LPartyLevel]));

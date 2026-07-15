@@ -230,13 +230,13 @@ begin
   begin
     FBattle.BattleLog.WinInBattle;
     ChExperience;
-    Game.MediaPlayer.PlaySound(mmWinBattle);
-    Game.MediaPlayer.PlayMusic(CMusicBattleWin);
+    Game.MediaPlayer.PlaySound('battle_win');
+    Game.MediaPlayer.PlayMusic('battle_win');
   end;
   if LeaderParty.IsClear then
   begin
     FBattle.BattleLog.LoseInBattle;
-    Game.MediaPlayer.PlayMusic(CMusicDefeat);
+    Game.MediaPlayer.PlayMusic('defeat');
     Enabled := True;
   end;
 end;
@@ -314,7 +314,7 @@ begin
       InformDialog
         ('Вы победили на дуэли и воины вражеского отряда разбежались!');
     end;
-    Game.MediaPlayer.PlayMusic(CMusicMap);
+    Game.MediaPlayer.PlayMusic('map');
     PartyList.Party[PartyList.GetPartyIndex(TLeaderParty.Leader.X,
       TLeaderParty.Leader.Y)].Clear;
     if IsNewAbility then
@@ -337,7 +337,7 @@ begin
     if IsSummon then
     begin
       IsSummon := False;
-      Game.MediaPlayer.PlayMusic(CMusicMap);
+      Game.MediaPlayer.PlayMusic('map');
       Game.Show(scMap);
       Exit;
     end;
@@ -389,7 +389,7 @@ begin
     ActivePartyPosition := PartyList.Party[TLeaderParty.LeaderPartyIndex]
       .GetRandomPosition;
     CurrentPartyPosition := ActivePartyPosition;
-    Game.MediaPlayer.PlaySound(mmWar);
+    Game.MediaPlayer.PlaySound('battle_round');
     StartRound;
   except
     on E: Exception do
@@ -440,7 +440,7 @@ begin
         begin
           FBattle.BattleLog.Miss(AAtkParty.Creature[AAtkPos].Name[0],
             ADefParty.Creature[ADefPos].Name[1]);
-          Game.MediaPlayer.PlaySound(mmMiss);
+          Game.MediaPlayer.PlaySound('miss');
           Sleep(200);
           NextTurn;
           Exit;
@@ -604,7 +604,7 @@ begin
                 if Alive and (HitPoints.GetCurrValue < HitPoints.GetMaxValue)
                 then
                 begin
-                  Game.MediaPlayer.PlaySound(mmHeal);
+                  Game.MediaPlayer.PlaySound('heal');
                   AParty.Heal(LPosition, AParty.Creature[AAtkPos].Heal);
                   FBattle.BattleLog.Heal(AParty.Creature[AAtkPos].Name[0],
                     AParty.Creature[LPosition].Name[1],
@@ -631,7 +631,7 @@ end;
 procedure TSceneBattle2.HideBattleLog;
 begin
   FIsShowBattleLog := False;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
 end;
 
 class procedure TSceneBattle2.HideScene;
@@ -1038,13 +1038,13 @@ begin
   IsNewAbility := False;
   FIsShowBattleLog := False;
   StartBattle;
-  Game.MediaPlayer.PlayMusic(CMusicBattle);
+  Game.MediaPlayer.PlayMusic('battle');
 end;
 
 procedure TSceneBattle2.ShowBattleLog;
 begin
   FIsShowBattleLog := True;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
 end;
 
 class procedure TSceneBattle2.ShowScene;
@@ -1154,7 +1154,7 @@ begin
         case LItem.Enum of
           iTalismanOfRestoration:
             begin
-              Game.MediaPlayer.PlaySound(mmHeal);
+              Game.MediaPlayer.PlaySound('heal');
               LeaderParty.Heal(LLeaderPosition, 55);
               FBattle.BattleLog.Log.Add
                 (LStr + ' The Talisman heals the Leader.');
@@ -1164,7 +1164,7 @@ begin
             end;
           iTalismanOfVigor:
             begin
-              Game.MediaPlayer.PlaySound(mmUseOrb);
+              Game.MediaPlayer.PlaySound('use_orb');
               LDamage := LeaderParty.Creature[LLeaderPosition]
                 .Damage.GetFullValue;
               LDamage := EnsureRange(LDamage div 4, 1, 75);
@@ -1177,7 +1177,7 @@ begin
             end;
           iTalismanOfProtection:
             begin
-              Game.MediaPlayer.PlaySound(mmUseOrb);
+              Game.MediaPlayer.PlaySound('use_orb');
               LArmor := LeaderParty.Creature[LLeaderPosition]
                 .Armor.GetFullValue;
               LArmor := EnsureRange(LArmor div 10, 1, 100);
@@ -1190,7 +1190,7 @@ begin
             end;
           iTalismanOfCelerity:
             begin
-              Game.MediaPlayer.PlaySound(mmUseOrb);
+              Game.MediaPlayer.PlaySound('use_orb');
               LInitiative := LeaderParty.Creature[LLeaderPosition]
                 .Initiative.GetFullValue;
               LInitiative := EnsureRange(LInitiative div 5, 1, 80);
@@ -1204,14 +1204,14 @@ begin
           iTalismanOfNosferat, iTalismanOfFear, iOrbOfWitches, iAcidFlask,
             iFlaskOfOil:
             begin
-              Game.MediaPlayer.PlaySound(mmClick);
+              Game.MediaPlayer.PlaySound('click');
               TSceneSelectUnit.ShowScene(EnemyParty);
               Exit;
             end;
           iTalismanOfRage, iGoblinOrb, iOrbOfHealing, iImpOrb, iSkeletonOrb,
             iOrbOfRestoration, iZombieOrb, iOrbOfLife, iLizardmanOrb:
             begin
-              Game.MediaPlayer.PlaySound(mmClick);
+              Game.MediaPlayer.PlaySound('click');
               TSceneSelectUnit.ShowScene(LeaderParty);
               Exit;
             end;

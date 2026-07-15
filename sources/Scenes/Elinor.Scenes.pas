@@ -340,7 +340,7 @@ begin
   Statistics := TStatistics.Create;
   Scenario := TScenario.Create;
   MediaPlayer := TMediaPlayer.Create;
-  MediaPlayer.PlayMusic(CMusicMenu);
+  MediaPlayer.PlayMusic('menu');
   SceneEnum := scIntro;
 end;
 
@@ -405,7 +405,7 @@ begin
     ShowNewDayMessageTime := 20;
     if (RandomRange(0, 100) <= 5) then
       Merchants.Clear;
-    MediaPlayer.PlaySound(mmDay);
+    MediaPlayer.PlaySound('new_day');
     IsNewDay := False;
     if (Game.Day > TScenario.GetDayLimit(Difficulty.Level,
       Game.Scenario.CurrentScenario, True)) then
@@ -534,7 +534,7 @@ end;
 
 procedure TScene.ConfirmDialog(const AMessage: string; OnYes: TConfirmMethod);
 begin
-  Game.MediaPlayer.PlaySound(mmExit);
+  Game.MediaPlayer.PlaySound('exit');
   Game.InformMsg := AMessage;
   Game.IsShowConfirm := True;
   ConfirmHandler := OnYes;
@@ -542,7 +542,7 @@ end;
 
 procedure TScene.InformDialog(const AMessage: string);
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.InformMsg := AMessage;
   Game.IsShowInform := idtMessage;
 end;
@@ -553,7 +553,7 @@ var
 const
   CLeft = '                           ';
 begin
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   Game.InformSL.Clear;
   Game.InformImage := reNone;
   Game.InformItemImage := TItemBase.Item(AItemEnum).ItRes;

@@ -126,7 +126,7 @@ begin
           if MouseOver(TFrame.Col(1), TFrame.Row(I), X, Y) and not IsBlockFrames
           then
           begin
-            Game.MediaPlayer.PlaySound(mmClick);
+            Game.MediaPlayer.PlaySound('click');
             CurrentIndex := I;
             Break;
           end;
@@ -191,7 +191,7 @@ begin
   Basic(AKey);
   if not(AKey in [K_UP, K_Down]) then
     Exit;
-  Game.MediaPlayer.PlaySound(mmClick);
+  Game.MediaPlayer.PlaySound('click');
   LCycler := TEnumCycler<N>.Create(CurrentIndex);
   CurrentIndex := LCycler.Modify(AKey = K_Down);
 end;

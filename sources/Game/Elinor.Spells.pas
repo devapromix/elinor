@@ -217,77 +217,77 @@ type
 const
   SpellBase: TSpellBaseArray = (
     // None
-    (Name: ''; Level: 0; Mana: 0; RequireAbility: abNone; SoundEnum: mmBlock;
+    (Name: ''; Level: 0; Mana: 0; RequireAbility: abNone; SoundEnum: 'block';
     ResEnum: srNone; Faction: faNeutrals; SpellTarget: stNone;
     Description: '';),
 
     // The Empire
     // True Healing
     (Name: 'True Healing'; Level: 1; Mana: 15; RequireAbility: abNone;
-    SoundEnum: mmHeal; ResEnum: srTrueHealing; Faction: faTheEmpire;
+    SoundEnum: 'heal'; ResEnum: srTrueHealing; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: 'Replenishes lost HP';),
     // Speed
     (Name: 'Speed'; Level: 1; Mana: 25; RequireAbility: abNone;
-    SoundEnum: mmHeal; ResEnum: srSpeed; Faction: faTheEmpire;
+    SoundEnum: 'heal'; ResEnum: srSpeed; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: '';),
     // Bless
     (Name: 'Bless'; Level: 1; Mana: 5; RequireAbility: abNone;
-    SoundEnum: mmHeal; ResEnum: srBless; Faction: faTheEmpire;
+    SoundEnum: 'heal'; ResEnum: srBless; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: '';),
     // Summon: Living Armor
     (Name: 'Summon: Living Armor'; Level: 1; Mana: 25; RequireAbility: abNone;
-    SoundEnum: mmAttack; ResEnum: srLivingArmor; Faction: faTheEmpire;
+    SoundEnum: 'attack'; ResEnum: srLivingArmor; Faction: faTheEmpire;
     SpellTarget: stEnemy; Description: 'Summons a Living Armor';),
     // Summon: Stone Golem
     (Name: 'Summon: Stone Golem'; Level: 1; Mana: 40;
-    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    RequireAbility: abGolemMastery; SoundEnum: 'raise_dead';
     ResEnum: srStoneGolem; Faction: faTheEmpire; SpellTarget: stEnemy;
     Description: 'Summons a Stone Golem';),
     // Eagle Eye
     (Name: 'Eagle Eye'; Level: 1; Mana: 5; RequireAbility: abNone;
-    SoundEnum: mmHeal; ResEnum: srEagleEye; Faction: faTheEmpire;
+    SoundEnum: 'heal'; ResEnum: srEagleEye; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: 'Allows the leader to see further';),
     // Strength
     (Name: 'Strength'; Level: 1; Mana: 5; RequireAbility: abNone;
-    SoundEnum: mmHeal; ResEnum: srStrength; Faction: faTheEmpire;
+    SoundEnum: 'heal'; ResEnum: srStrength; Faction: faTheEmpire;
     SpellTarget: stLeader; Description: 'Increases damage by 20%';),
 
     // Undead Hordes
     // Plague
     (Name: 'Plague'; Level: 1; Mana: 20; RequireAbility: abNone;
-    SoundEnum: mmPlague; ResEnum: srPlague; Faction: faUndeadHordes;
+    SoundEnum: 'plague'; ResEnum: srPlague; Faction: faUndeadHordes;
     SpellTarget: stEnemy; Description: '';),
     // Curse
     (Name: 'Curse'; Level: 1; Mana: 5; RequireAbility: abNone;
-    SoundEnum: mmPlague; ResEnum: srCurse; Faction: faUndeadHordes;
+    SoundEnum: 'plague'; ResEnum: srCurse; Faction: faUndeadHordes;
     SpellTarget: stEnemy; Description: '';),
     // Summon: Skeleton Warrior
     (Name: 'Summon: Skeleton Warrior'; Level: 1; Mana: 25;
-    RequireAbility: abNone; SoundEnum: mmRaiseDead; ResEnum: srSkeletion;
+    RequireAbility: abNone; SoundEnum: 'raise_dead'; ResEnum: srSkeletion;
     Faction: faUndeadHordes; SpellTarget: stEnemy;
     Description: 'Summons a Skeleton';),
     // Summon: Bone Golem
     (Name: 'Summon: Bone Golem'; Level: 1; Mana: 45;
-    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    RequireAbility: abGolemMastery; SoundEnum: 'raise_dead';
     ResEnum: srBoneGolem; Faction: faUndeadHordes; SpellTarget: stEnemy;
     Description: 'Summons a Bone Golem';),
 
     // Legions of the Damned
     // Concealment
     (Name: 'Concealment'; Level: 1; Mana: 20; RequireAbility: abNone;
-    SoundEnum: mmInvisibility; ResEnum: srConcealment;
+    SoundEnum: 'invisibility'; ResEnum: srConcealment;
     Faction: faLegionsOfTheDamned; SpellTarget: stLeader; Description: '';),
     // Chains Of Dread
     (Name: 'Chains of Dread'; Level: 1; Mana: 2; RequireAbility: abNone;
-    SoundEnum: mmInvisibility; ResEnum: srChainsOfDread;
+    SoundEnum: 'invisibility'; ResEnum: srChainsOfDread;
     Faction: faLegionsOfTheDamned; SpellTarget: stEnemy; Description: '';),
     // Weaken
     (Name: 'Weaken'; Level: 1; Mana: 2; RequireAbility: abNone;
-    SoundEnum: mmInvisibility; ResEnum: srWeaken; Faction: faLegionsOfTheDamned;
+    SoundEnum:'invisibility'; ResEnum: srWeaken; Faction: faLegionsOfTheDamned;
     SpellTarget: stEnemy; Description: '';),
     // Summon: Fire Golem
     (Name: 'Summon: Fire Golem'; Level: 1; Mana: 42;
-    RequireAbility: abGolemMastery; SoundEnum: mmRaiseDead;
+    RequireAbility: abGolemMastery; SoundEnum: 'raise_dead';
     ResEnum: srFireGolem; Faction: faLegionsOfTheDamned; SpellTarget: stEnemy;
     Description: 'Summons a Fire Golem';)
     //
@@ -349,7 +349,7 @@ end;
 
 procedure TActiveSpell.Clear;
 begin
-  Game.MediaPlayer.PlaySound(mmDispell);
+  Game.MediaPlayer.PlaySound('dispell');
   FSpellEnum := spNone;
 end;
 
@@ -415,7 +415,7 @@ begin
   if not FLearned[ASpellEnum] then
   begin
     FLearned[ASpellEnum] := True;
-    Game.MediaPlayer.PlaySound(mmDispell);
+    Game.MediaPlayer.PlaySound('dispell');
   end
 end;
 
