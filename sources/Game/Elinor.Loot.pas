@@ -111,8 +111,8 @@ begin
     Y := AY;
     repeat
       LItemIndex := RandomRange(1, TItemBase.Count);
-    until (TItemBase.Item(LItemIndex).Level <= LLevel) and
-      (TItemBase.Item(LItemIndex).ItType <> itSpecial);
+    until (TItemBase.Item(LItemIndex).Level <= LLevel) and not
+      (TItemBase.Item(LItemIndex).ItType in CExclusiveItems);
     ItemEnum := TItemBase.Item(LItemIndex).Enum;
     LootType := ltItem;
     Amount := 1;

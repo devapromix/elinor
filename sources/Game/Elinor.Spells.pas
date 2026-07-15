@@ -278,7 +278,7 @@ const
     SoundEnum: 'invisibility'; ResEnum: srConcealment;
     Faction: faLegionsOfTheDamned; SpellTarget: stLeader; Description: '';),
     // Chains Of Dread
-    (Name: 'Chains Of Dread'; Level: 1; Mana: 2; RequireAbility: abNone;
+    (Name: 'Chains of Dread'; Level: 1; Mana: 2; RequireAbility: abNone;
     SoundEnum: 'invisibility'; ResEnum: srChainsOfDread;
     Faction: faLegionsOfTheDamned; SpellTarget: stEnemy; Description: '';),
     // Weaken

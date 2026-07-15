@@ -57,7 +57,10 @@ type
     itPotion, itElixir, itEssence, itFlask, itScroll,
     // Equipable
     itRing, itArmor, itArtifact, itAmulet, itHelm, itWand, itOrb, itTalisman,
-    itBoots, itBanner, itTome);
+    itBoots, itBanner, itTome, itWeapon);
+
+const
+  CExclusiveItems = [itSpecial, itWeapon];
 
 const
   CUseItemType = [itPotion, itOrb, itFlask, itTalisman];
@@ -65,7 +68,8 @@ const
 const
   ItemTypeName: array [TItemType] of string = ('', 'valuable', 'gem', 'potion',
     'elixir', 'essence', 'flask', 'scroll', 'ring', 'armor', 'artifact',
-    'amulet', 'helm', 'staff', 'orb', 'talisman', 'boots', 'banner', 'book');
+    'amulet', 'helm', 'staff', 'orb', 'talisman', 'boots', 'banner', 'book',
+    'weapon');
 
 type
   TItemSlot = (isNone, isHelm, isAmulet, isBanner, isTome, isArmor, isRHand,
@@ -172,13 +176,23 @@ type
 
     // HELMS
     iHoodOfDarkness, iTiaraOfPurity, iMjolnirsCrown, iThirstbornDiadem,
-    iImperialCrown);
+    iImperialCrown,
+
+    // WEAPONS
+    iBattleAxe, iSlayerSword, iPaladinSword, iDagger, iHunterBow, iCrossbow,
+    iDaggerOfShadows, iFlameDagger, iFireHammer, iPhoenixSword,
+
+    // STAVES
+    iBattleStaff, iRubyStaff, iMithrilStaff, iStaffOfPower, iStaffOfLightning,
+    iElvenStaff, iWizardStaff, iStaffOfIce, iCedarStaff
+
+    );
 
 const
   CQuaffItems = [iLifePotion, iPotionOfHealing, iPotionOfRestoration,
     iHealingOintment, iElixirOfStrength, iElixirOfAccuracy, iHighfathersEssence,
     iEssenceOfFortune];
-  CTestItems = [iHeartOfDarkness, iBannerOfOverlord, iRingOfTheAges,
+  CTestItems = [iStoneTab, iHeartOfDarkness, iBannerOfOverlord, iRingOfTheAges,
     iHornOfAwareness, iCuirassOfDominion];
 
 type
@@ -262,7 +276,7 @@ const
     // None
     (Name: ''; Items: []),
     // Cover Of Darkness
-    (Name: 'Cover Of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
+    (Name: 'Cover of Darkness'; Items: [iHoodOfDarkness, iHeartOfDarkness,
     iShroudOfDarkness, iBootsOfDarkness]),
     // Overlord Rig
     (Name: 'Overlord Rig'; Items: [iBannerOfOverlord, iCuirassOfDominion,
@@ -397,7 +411,7 @@ const
     ItRes: irElixirOfStrength; ItSet: siNone; Price: 250;
     Description: 'Inflict 20% more damage for 1 day'),
     // (4) Elixir Of Accuracy
-    (Enum: iElixirOfAccuracy; Name: 'Elixir Of Accuracy'; Level: 4;
+    (Enum: iElixirOfAccuracy; Name: 'Elixir of Accuracy'; Level: 4;
     ItType: itElixir; ItEffect: ieNone; ItSlot: isNone;
     ItRes: irElixirOfAccuracy; ItSet: siNone; Price: 300;
     Description: 'Inflict 20% more chance to hit for 1 day'),
@@ -436,7 +450,7 @@ const
     Price: 400; Description: 'A mystical runestone that enhances' +
     ' natural health regeneration'),
     // (3) Horn Of Awareness
-    (Enum: iHornOfAwareness; Name: 'Horn Of Awareness'; Level: 3;
+    (Enum: iHornOfAwareness; Name: 'Horn of Awareness'; Level: 3;
     ItType: itArtifact; ItEffect: ieGainChanceOfCritHit; ItSlot: isArtifact;
     ItRes: irHornOfAwareness; ItSet: siOverlordRig; Price: 500;
     Description: 'Blowing this horn grants all party ' +
@@ -450,11 +464,11 @@ const
     ItEffect: ieNone; ItSlot: isArtifact; ItRes: irSkullBracers; ItSet: siNone;
     Price: 750; Description: ''),
     // (6) Lute Of Charming
-    (Enum: iLuteOfCharming; Name: 'Lute Of Charming'; Level: 6;
+    (Enum: iLuteOfCharming; Name: 'Lute of Charming'; Level: 6;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irLuteOfCharming; ItSet: siNone; Price: 1000; Description: ''),
     // (7) Skull Of Thanatos
-    (Enum: iSkullOfThanatos; Name: 'Skull Of Thanatos'; Level: 7;
+    (Enum: iSkullOfThanatos; Name: 'Skull of Thanatos'; Level: 7;
     ItType: itArtifact; ItEffect: ieChanceToParalyze15; ItSlot: isArtifact;
     ItRes: irSkullOfThanatos; ItSet: siNone; Price: 1250; Description: ''),
     // (8) Bethrezen's Claw
@@ -462,7 +476,7 @@ const
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irBethrezensClaw; ItSet: siNone; Price: 1500; Description: ''),
     // (8) Horn Of Incubus
-    (Enum: iHornOfIncubus; Name: 'Horn Of Incubus'; Level: 8;
+    (Enum: iHornOfIncubus; Name: 'Horn of Incubus'; Level: 8;
     ItType: itArtifact; ItEffect: ieNone; ItSlot: isArtifact;
     ItRes: irHornOfIncubus; ItSet: siNone; Price: 1700; Description: ''),
 
@@ -587,7 +601,7 @@ const
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irGoblinOrb; ItSet: siNone;
     Price: 200; Description: 'Summon a Goblin'),
     // (2) Orb Of Healing
-    (Enum: iOrbOfHealing; Name: 'Orb Of Healing'; Level: 2; ItType: itOrb;
+    (Enum: iOrbOfHealing; Name: 'Orb of Healing'; Level: 2; ItType: itOrb;
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfHealing; ItSet: siNone;
     Price: 250; Description: 'Heals units 50 hp'),
     // (3) Imp Orb
@@ -599,7 +613,7 @@ const
     ItEffect: ieNone; ItSlot: isLHand; ItRes: irSkeletonOrb; ItSet: siNone;
     Price: 400; Description: 'Summon a Skeleton Warrior'),
     // (4) Orb Of Restoration
-    (Enum: iOrbOfRestoration; Name: 'Orb Of Restoration'; Level: 4;
+    (Enum: iOrbOfRestoration; Name: 'Orb of Restoration'; Level: 4;
     ItType: itOrb; ItEffect: ieNone; ItSlot: isLHand; ItRes: irOrbOfRestoration;
     ItSet: siNone; Price: 500; Description: 'Heals units 100 hp'),
     // (5) Zombie Orb
@@ -641,11 +655,11 @@ const
     Price: 700; Description: 'A luxurious gold ring,' +
     ' gleaming with wealth and prestige'),
     // (5) Ring Of Strength,
-    (Enum: iRingOfStrength; Name: 'Ring Of Strength'; Level: 5; ItType: itRing;
+    (Enum: iRingOfStrength; Name: 'Ring of Strength'; Level: 5; ItType: itRing;
     ItEffect: ieNone; ItSlot: isRing; ItRes: irRingOfStrength; ItSet: siNone;
     Price: 900; Description: 'A massive ring pulses ' + 'with hidden energy'),
     // (6) Ring Of The Ages,
-    (Enum: iRingOfTheAges; Name: 'Ring Of The Ages'; Level: 6; ItType: itRing;
+    (Enum: iRingOfTheAges; Name: 'Ring of the Ages'; Level: 6; ItType: itRing;
     ItEffect: ieGainChanceOfCritHit; ItSlot: isRing; ItRes: irRingOfTheAges;
     ItSet: siOverlordRig; Price: 1000;
     Description: 'Grants all party units a 1%' +
@@ -657,17 +671,18 @@ const
     // (8) Thanatos Ring
     (Enum: iThanatosRing; Name: 'Thanatos Ring'; Level: 8; ItType: itRing;
     ItEffect: ieChanceToParalyze5; ItSlot: isRing; ItRes: irThanatosRing;
-    ItSet: siNone; Price: 1500; Description: ''),
+    ItSet: siNone; Price: 1500; Description: 'Grants attacks a 5% chance ' +
+    'to paralyze the target'),
 
     // HELMS
     // (4) Hood Of Darkness
-    (Enum: iHoodOfDarkness; Name: 'Hood Of Darkness'; Level: 4; ItType: itHelm;
+    (Enum: iHoodOfDarkness; Name: 'Hood of Darkness'; Level: 4; ItType: itHelm;
     ItEffect: ieInvisible; ItSlot: isHelm; ItRes: irHoodOfDarkness;
     ItSet: siCoverOfDarkness; Price: 800;
     Description: 'This headgear renders' + ' the leader entirely ' +
     'invisible to enemies'),
     // (5) Tiara Of Purity
-    (Enum: iTiaraOfPurity; Name: 'Tiara Of Purity'; Level: 5; ItType: itHelm;
+    (Enum: iTiaraOfPurity; Name: 'Tiara of Purity'; Level: 5; ItType: itHelm;
     ItEffect: ieNone; ItSlot: isHelm; ItRes: irTiaraOfPurity; ItSet: siNone;
     Price: 1000; Description: ''),
     // (6) Mjolnir's Crown
@@ -683,7 +698,103 @@ const
     (Enum: iImperialCrown; Name: 'Imperial Crown'; Level: 8; ItType: itHelm;
     ItEffect: ieRegen25; ItSlot: isHelm; ItRes: irNone; ItSet: siNone;
     Price: 2500; Description: 'Gradually restores your ' +
-    'health during every day'));
+    'health during every day'),
+
+    // WEAPONS
+    // (1) Battle Axe
+    (Enum: iBattleAxe; Name: 'Battle Axe'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irBattleAxe; ItSet: siNone;
+    Price: 2400; Description: 'A heavy axe capable of crushing ' +
+    'even the strongest armor'),
+    // (1) Slayer Sword
+    (Enum: iSlayerSword; Name: 'Slayer Sword'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irSlayerSword; ItSet: siNone;
+    Price: 2800; Description: 'A deadly sword forged to ' +
+    'destroy the strongest foes'),
+    // (1) Paladin Sword
+    (Enum: iPaladinSword; Name: 'Paladin Sword'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irPaladinSword; ItSet: siNone;
+    Price: 3500; Description: 'A blessed sword forged to vanquish ' +
+    'the forces of evil'),
+    // (1) Dagger
+    (Enum: iDagger; Name: 'Dagger'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irDagger; ItSet: siNone;
+    Price: 1200; Description: 'A razor-sharp blade made for swift ' +
+    'and deadly strikes'),
+    // (1) Hunter Bow
+    (Enum: iHunterBow; Name: 'Hunter Bow'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irHunterBow; ItSet: siNone;
+    Price: 1400; Description: 'A well-balanced bow prized for ' +
+    'its accuracy'),
+    // (1) Crossbow
+    (Enum: iCrossbow; Name: 'Crossbow'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irCrossbow; ItSet: siNone;
+    Price: 2200; Description: 'A reliable crossbow capable of ' +
+    'piercing heavy armor'),
+    // (1) Dagger Of Shadows
+    (Enum: iDaggerOfShadows; Name: 'Dagger of Shadows'; Level: 1;
+    ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand;
+    ItRes: irDaggerOfShadows; ItSet: siNone; Price: 3600;
+    Description: 'A dagger that feeds on the ' + 'power of shadows'),
+    // (1) Flame Dagger
+    (Enum: iFlameDagger; Name: 'Flame Dagger'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irFlameDagger; ItSet: siNone;
+    Price: 3800; Description: 'A razor-sharp dagger imbued with ' +
+    'the power of fire'),
+    // (1) Fire Hammer
+    (Enum: iFireHammer; Name: 'Fire Hammer'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irFireHammer; ItSet: siNone;
+    Price: 4500; Description: 'A mighty hammer engulfed in ' + 'blazing flame'),
+    // (1) Phoenix Sword
+    (Enum: iPhoenixSword; Name: 'Phoenix Sword'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irPhoenixSword; ItSet: siNone;
+    Price: 5000; Description: 'A legendary blade imbued with the ' +
+    'spirit of the phoenix'),
+
+    // STAVES
+    // (1) Battle Staff
+    (Enum: iBattleStaff; Name: 'Battle Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    Price: 6000; Description: 'A sturdy simle staff built ' + 'for combat'),
+    // (1) Ruby Staff
+    (Enum: iRubyStaff; Name: 'Ruby Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    Price: 8500; Description: 'A staff crowned with a radiant ' + 'ruby'),
+    // (1) Mithril Staff
+    (Enum: iMithrilStaff; Name: 'Mithril Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    Price: 9200; Description: 'A finely crafted staff forged ' +
+    'from mithril'),
+    // (1) Staff Of Power
+    (Enum: iStaffOfPower; Name: 'Staff of Power'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    Price: 7800; Description: 'A staff imbued with immense magical ' + 'power'),
+    // (1) Staff Of Lightning
+    (Enum: iStaffOfLightning; Name: 'Staff of Lightning'; Level: 1;
+    ItType: itWeapon; ItEffect: ieNone; ItSlot: isRHand;
+    ItRes: irStaffOfLightning; ItSet: siNone; Price: 6900;
+    Description: 'A staff crackling with ' + 'the power of lightning'),
+    // (1) Elven Staff
+    (Enum: iElvenStaff; Name: 'Elven Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    Price: 5700; Description: 'An elegant staff crafted by the ' + 'elves'),
+    // (1) Wizard Staff
+    (Enum: iWizardStaff; Name: 'Wizard Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irWizardStaff; ItSet: siNone;
+    Price: 8800; Description: 'A masterwork staff favored by ' +
+    'powerful wizards'),
+    // (1) Staff Of Ice
+    (Enum: iStaffOfIce; Name: 'Staff of Ice'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irNone; ItSet: siNone;
+    Price: 6400; Description: 'A staff imbued with the power of ' + 'ice'),
+    // (1) Cedar Staff
+    (Enum: iCedarStaff; Name: 'Cedar Staff'; Level: 1; ItType: itWeapon;
+    ItEffect: ieNone; ItSlot: isRHand; ItRes: irCedarStaff; ItSet: siNone;
+    Price: 5500; Description: 'A sturdy staff carved from ancient ' +
+    'cedar wood')
+
+    //
+    );
 
   { TInventory }
 

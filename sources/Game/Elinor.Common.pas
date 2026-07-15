@@ -99,6 +99,9 @@ const
     'Leader cannot use tomes: requires Arcane Knowledge ability!';
   CLeaderCannotUseArtifacts =
     'Leader cannot use artifacts: requires Artifact Lore ability!';
+  CTheLeadersWeaponCannotBeReplaced =
+    'The leader''s weapon cannot be replaced!';
+  CTheLeaderIsBoundToThisWeapon = 'The leader is bound to this weapon!';
 
 implementation
 
