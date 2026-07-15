@@ -62,8 +62,6 @@ uses
   Elinor.Scene.Settlement,
   Elinor.NewResources;
 
-{ TSceneName }
-
 constructor TSceneName.Create;
 var
   LButtonEnum: TButtonEnum;
@@ -117,7 +115,7 @@ const
       Exit;
     LCursorLeft := NameFieldLeft +
       Game.Surface.Canvas.TextWidth(Copy(FNewName, 1, CursorPosition));
-    DrawText(LCursorLeft, NameFieldTop, '|');
+    DrawText(LCursorLeft, NameFieldTop, '_');
   end;
 
 begin
@@ -178,8 +176,11 @@ begin
       end;
     end;
   end;
-  CursorVisible := True;
-  CursorTimer := 0;
+  if Key <> 0 then
+  begin
+    CursorVisible := True;
+    CursorTimer := 0;
+  end;
 end;
 
 procedure TSceneName.UpdateCursor;
