@@ -186,7 +186,7 @@ end;
 procedure TSceneName.UpdateCursor;
 begin
   Inc(CursorTimer);
-  if CursorTimer >= 30 then
+  if CursorTimer >= 1 then
   begin
     CursorVisible := not CursorVisible;
     CursorTimer := 0;
@@ -197,6 +197,7 @@ procedure TSceneName.Timer;
 begin
   inherited;
   UpdateCursor;
+  Render;
 end;
 
 procedure TSceneName.MouseDown(AButton: TMouseButton; Shift: TShiftState;
