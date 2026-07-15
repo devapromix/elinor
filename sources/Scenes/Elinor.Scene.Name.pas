@@ -31,12 +31,14 @@ type
     CursorPosition: Integer;
     CursorVisible: Boolean;
     CursorTimer: Integer;
+    FLeaderFaction: TFactionEnum;
+    FLeaderGender: TCreatureGender;
+    FLeaderClass: TFactionLeaderKind;
     procedure ConfirmName;
     procedure GenerateRandomName;
     procedure ValidateKey(var Key: Word);
     procedure UpdateCursor;
-    function GetLeaderFaction: TFactionEnum;
-    function GetLeaderGender: TCreatureGender;
+    procedure RefreshLeaderInfo;
   public
     constructor Create;
     destructor Destroy; override;
@@ -95,6 +97,9 @@ begin
 end;
 
 procedure TSceneName.Render;
+const
+  NameFieldLeft = 600 + 10;
+  NameFieldTop = 300 + 6;
 
   procedure RenderButtons;
   var
@@ -102,6 +107,17 @@ procedure TSceneName.Render;
   begin
     for LButtonEnum := Low(TButtonEnum) to High(TButtonEnum) do
       Button[LButtonEnum].Render;
+  end;
+
+  procedure RenderCursor;
+  var
+    LCursorLeft: Integer;
+  begin
+    if not CursorVisible then
+      Exit;
+    LCursorLeft := NameFieldLeft +
+      Game.Surface.Canvas.TextWidth(Copy(FNewName, 1, CursorPosition));
+    DrawText(LCursorLeft, NameFieldTop, '|');
   end;
 
 begin
@@ -113,9 +129,11 @@ begin
   DrawImage(340, 220, reBigFrame);
   DrawText(430, 300 + 6, 'Enter Leader''s name');
   DrawImage(600, 300, reFrameItem);
-  DrawText(600 + 10, 300 + 6, FNewName);
-  DrawText(550, 350, 'Faction: ' + FactionName[GetLeaderFaction]);
-  DrawText(550, 380, 'Gender: ' + GenderName[GetLeaderGender]);
+  DrawText(NameFieldLeft, NameFieldTop, FNewName);
+  RenderCursor;
+  DrawText(550, 350, 'Faction: ' + FactionName[FLeaderFaction]);
+  DrawText(550, 380, 'Gender: ' + GenderName[FLeaderGender]);
+  DrawText(550, 410, 'Class: ' + FactionLeaderKindName[FLeaderClass]);
 
   RenderButtons;
 end;
@@ -225,25 +243,26 @@ end;
 
 procedure TSceneName.GenerateRandomName;
 begin
-  FNewName := GetRandomNameForFaction(AllFactionNames, GetLeaderFaction,
-    GetLeaderGender);
+  FNewName := GetRandomNameForFaction(AllFactionNames, FLeaderFaction,
+    FLeaderGender);
   CursorPosition := Length(FNewName);
   Game.MediaPlayer.PlaySound(mmClick);
 end;
 
-function TSceneName.GetLeaderFaction: TFactionEnum;
+procedure TSceneName.RefreshLeaderInfo;
 begin
-  Result := PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner;
-end;
-
-function TSceneName.GetLeaderGender: TCreatureGender;
-begin
-  Result := PartyList.Party[TLeaderParty.LeaderPartyIndex].LeaderGender;
+  FLeaderFaction := PartyList.Party[TLeaderParty.LeaderPartyIndex].Owner;
+  FLeaderGender := PartyList.Party[TLeaderParty.LeaderPartyIndex].LeaderGender;
+  FLeaderClass := PartyList.Party[TLeaderParty.LeaderPartyIndex].LeaderClass;
 end;
 
 class procedure TSceneName.ShowScene;
 begin
-  TSceneName(Game.GetScene(scName)).GenerateRandomName;
+  with TSceneName(Game.GetScene(scName)) do
+  begin
+    RefreshLeaderInfo;
+    GenerateRandomName;
+  end;
   Game.MediaPlayer.PlaySound(mmClick);
   Game.Show(scName);
 end;
