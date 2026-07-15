@@ -21,7 +21,17 @@
       "Engelbert",
       "Hartwig",
       "Niklas",
-      "Alaric"
+      "Alaric",
+      "Sigismund",
+      "Baldwin",
+      "Theodor",
+      "Eberhard",
+      "Ludwig",
+      "Karl",
+      "Franz",
+      "Albrecht",
+      "Hermann",
+      "Gunther"
     ],
     "female": [
       "Alexa",
@@ -47,7 +57,17 @@
       "Brunhilda",
       "Liselotte",
       "Violetta",
-      "Adelheid"
+      "Adelheid",
+      "Beatrice",
+      "Charlotte",
+      "Frederica",
+      "Johanna",
+      "Margareta",
+      "Rosamund",
+      "Theodora",
+      "Wilhelmina",
+      "Amalia",
+      "Constance"
     ]
   },
   "undead-hordes": {
@@ -71,7 +91,17 @@
       "Xalveron",
       "Dekarion",
       "Tharzul",
-      "Noctar"
+      "Noctar",
+      "Vesper",
+      "Grimwald",
+      "Boneus",
+      "Cryptor",
+      "Ghastor",
+      "Ravnos",
+      "Spectral",
+      "Wraithen",
+      "Ebon",
+      "Shadowfax"
     ],
     "female": [
       "Hecate",
@@ -94,7 +124,17 @@
       "Duska",
       "Erelith",
       "Crosera",
-      "Mossa"
+      "Mossa",
+      "Necra",
+      "Shadowa",
+      "Ghoulia",
+      "Vespera",
+      "Mortana",
+      "Lichara",
+      "Sylvara",
+      "Ravenna",
+      "Bansheera",
+      "Ebona"
     ]
   },
   "legions-of-the-damned": {
@@ -119,7 +159,17 @@
       "Zanreth",
       "Ignarok",
       "Kharzun",
-      "Drazh"
+      "Drazh",
+      "Baphomet",
+      "Leviathan",
+      "Amon",
+      "Beelzebub",
+      "Azazel",
+      "Nergal",
+      "Pazuzu",
+      "Malphas",
+      "Vassago",
+      "Andras"
     ],
     "female": [
       "Lilith",
@@ -142,7 +192,17 @@
       "Nyssira",
       "Lazaria",
       "Zena",
-      "Molthia"
+      "Molthia",
+      "Jezebel",
+      "Succuba",
+      "Pandora",
+      "Morgana",
+      "Tiamat",
+      "Echidna",
+      "Sycorax",
+      "Nyxara",
+      "Bellatrix",
+      "Seraphina"
     ]
   }
 }

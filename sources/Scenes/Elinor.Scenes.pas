@@ -127,6 +127,7 @@ type
     procedure Render; virtual;
     procedure Update(var Key: Word); virtual;
     procedure Timer; virtual;
+    function NeedsRepaint: Boolean; virtual;
     procedure MouseDown(AButton: TMouseButton; Shift: TShiftState;
       X, Y: Integer); virtual;
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); virtual;
@@ -480,6 +481,11 @@ end;
 procedure TScene.Timer;
 begin
 
+end;
+
+function TScene.NeedsRepaint: Boolean;
+begin
+  Result := False;
 end;
 
 procedure TScene.Update(var Key: Word);
@@ -1613,6 +1619,8 @@ begin
   if (FScene[SceneEnum] <> nil) then
   begin
     FScene[SceneEnum].Timer;
+    if FScene[SceneEnum].NeedsRepaint then
+      Self.Render;
   end;
 end;
 
