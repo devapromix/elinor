@@ -143,7 +143,7 @@ var
   function GetRandomAbility: TAbilityEnum;
   begin
     Result := TAbilityEnum(RandomRange(Ord(Succ(Low(TAbilityEnum))),
-      Ord(High(TAbilityEnum))));
+      Ord(High(TAbilityEnum)) + 1));
   end;
 
   function CheckAbilityLevel(const AAbilityEnum: TAbilityEnum): Boolean;

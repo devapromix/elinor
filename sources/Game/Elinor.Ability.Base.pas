@@ -173,7 +173,7 @@ const
     Leaders: MageLeaders; ResEnum: arGolemMastery;),
     // Gemology
     (Enum: abGemology; Name: 'Gemology';
-    Description: ('Improves the leader’s ability to identify',
+    Description: ('Improves the leader''s ability to identify',
     ' gemstones and increases discovery rate'); Level: 2; Leaders: ThiefLeaders;
     ResEnum: arGemology;)
     //
